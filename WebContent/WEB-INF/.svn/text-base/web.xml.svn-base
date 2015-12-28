@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.4"
+ xmlns="http://java.sun.com/xml/ns/j2ee"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+ <display-name>AttendanceSite</display-name>
+
+ 
+ 
+
+ <welcome-file-list>
+  <welcome-file>index.html</welcome-file>
+  <welcome-file>index.htm</welcome-file>
+  <welcome-file>index.jsp</welcome-file>
+  <welcome-file>default.html</welcome-file>
+  <welcome-file>default.htm</welcome-file>
+  <welcome-file>default.jsp</welcome-file>
+ </welcome-file-list>
+ 
+ <servlet>
+  <description>1员工表AttEmp</description>
+  <display-name>ATTEMPServlet</display-name>
+  <servlet-name>ATTEMPServlet</servlet-name>
+  <servlet-class>com.clt.atten.servlet.ATTEMPServlet</servlet-class>
+ </servlet>
+ <servlet-mapping>
+  <servlet-name>ATTEMPServlet</servlet-name>
+  <url-pattern>/ATTEMPServlet</url-pattern>
+ </servlet-mapping>
+ <servlet>
+  <description>2用户表AttUSER</description>
+  <display-name>ATTUSERServlet</display-name>
+  <servlet-name>ATTUSERServlet</servlet-name>
+  <servlet-class>com.clt.atten.servlet.ATTUSERServlet</servlet-class>
+ </servlet>
+ <servlet-mapping>
+  <servlet-name>ATTUSERServlet</servlet-name>
+  <url-pattern>/ATTUSERServlet</url-pattern>
+ </servlet-mapping>
+ <servlet>
+  <description>3审批详细信息表AttApprove</description>
+  <display-name>ATTAPPROVEServlet</display-name>
+  <servlet-name>ATTAPPROVEServlet</servlet-name>
+  <servlet-class>com.clt.atten.servlet.ATTUSERServlet</servlet-class>
+ </servlet>
+  <servlet-mapping>
+  <servlet-name>ATTAPPROVEServlet</servlet-name>
+  <url-pattern>/ATTAPPROVEServlet</url-pattern>
+ </servlet-mapping>
+ <servlet>
+  <description>4ATTDATAServlet</description>
+  <display-name>ATTDATAServlet</display-name>
+  <servlet-name>ATTDATAServlet</servlet-name>
+  <servlet-class>com.clt.atten.servlet.ATTDATAServlet</servlet-class>
+ </servlet>
+ <servlet-mapping>
+  <servlet-name>ATTDATAServlet</servlet-name>
+  <url-pattern>/ATTDATAServlet</url-pattern>
+ </servlet-mapping>
+
+ <servlet>
+  <description>5</description>
+  <display-name>ATTDEPTServlet</display-name>
+  <servlet-name>ATTDEPTServlet</servlet-name>
+  <servlet-class>com.clt.atten.servlet.ATTDEPTServlet</servlet-class>
+ </servlet>
+ <servlet-mapping>
+  <servlet-name>ATTDEPTServlet</servlet-name>
+  <url-pattern>/ATTDEPTServlet</url-pattern>
+ </servlet-mapping>
+
+<servlet>
+  <description>6</description>
+  <display-name>ATTDETAILSServlet</display-name>
+  <servlet-name>ATTDETAILSServlet</servlet-name>
+  <servlet-class>com.clt.atten.servlet.ATTDETAILSServlet</servlet-class>
+ </servlet>
+ <servlet-mapping>
+  <servlet-name>ATTDETAILSServlet</servlet-name>
+  <url-pattern>/ATTDETAILSServlet</url-pattern>
+ </servlet-mapping>
+
+<servlet>
+  <description>7</description>
+  <display-name>ATTEMPGROUPServlet</display-name>
+  <servlet-name>ATTEMPGROUPServlet</servlet-name>
+  <servlet-class>com.clt.atten.servlet.ATTEMPGROUPServlet</servlet-class>
+ </servlet>
+ <servlet-mapping>
+  <servlet-name>ATTEMPGROUPServlet</servlet-name>
+  <url-pattern>/ATTEMPGROUPServlet</url-pattern>
+ </servlet-mapping>
+
+<servlet>
+  <description>8</description>
+  <display-name>ATTEMPPROServlet</display-name>
+  <servlet-name>ATTEMPPROServlet</servlet-name>
+  <servlet-class>com.clt.atten.servlet.ATTEMPPROServlet</servlet-class>
+ </servlet>
+ <servlet-mapping>
+  <servlet-name>ATTEMPPROServlet</servlet-name>
+  <url-pattern>/ATTEMPPROServlet</url-pattern>
+ </servlet-mapping>
+
+
+<servlet>
+  <description>9</description>
+  <display-name>AttFlowTypeServlet</display-name>
+  <servlet-name>AttFlowTypeServlet</servlet-name>
+  <servlet-class>com.clt.atten.servlet.AttFlowTypeServlet</servlet-class>
+ </servlet>
+ <servlet-mapping>
+  <servlet-name>AttFlowTypeServlet</servlet-name>
+  <url-pattern>/AttFlowTypeServlet</url-pattern>
+ </servlet-mapping>
+
+
+
+
+
+<servlet>
+  <description>10</description>
+  <display-name>ATTGROUPPRINServlet</display-name>
+  <servlet-name>ATTGROUPPRINServlet</servlet-name>
+  <servlet-class>com.clt.atten.servlet.ATTGROUPPRINServlet</servlet-class>
+ </servlet>
+ <servlet-mapping>
+  <servlet-name>ATTGROUPPRINServlet</servlet-name>
+  <url-pattern>/ATTGROUPPRINServlet</url-pattern>
+ </servlet-mapping>
+
+<servlet>
+  <description>11</description>
+  <display-name>ATTGROUPServlet</display-name>
+  <servlet-name>ATTGROUPServlet</servlet-name>
+  <servlet-class>com.clt.atten.servlet.ATTGROUPServlet</servlet-class>
+ </servlet>
+ <servlet-mapping>
+  <servlet-name>ATTGROUPServlet</servlet-name>
+  <url-pattern>/ATTGROUPServlet</url-pattern>
+ </servlet-mapping>
+
+<servlet>
+  <description>12</description>
+  <display-name>ATTPOSTServlet</display-name>
+  <servlet-name>ATTPOSTServlet</servlet-name>
+  <servlet-class>com.clt.atten.servlet.ATTPOSTServlet</servlet-class>
+ </servlet>
+ <servlet-mapping>
+  <servlet-name>ATTPOSTServlet</servlet-name>
+  <url-pattern>/ATTPOSTServlet</url-pattern>
+ </servlet-mapping>
+
+<servlet>
+  <description>13</description>
+  <display-name>ATTPRINServlet</display-name>
+  <servlet-name>ATTPRINServlet</servlet-name>
+  <servlet-class>com.clt.atten.servlet.ATTPRINServlet</servlet-class>
+ </servlet>
+ <servlet-mapping>
+  <servlet-name>ATTPRINServlet</servlet-name>
+  <url-pattern>/ATTPRINServlet</url-pattern>
+ </servlet-mapping>
+
+<servlet>
+  <description>14</description>
+  <display-name>ATTPROCESSServlet</display-name>
+  <servlet-name>ATTPROCESSServlet</servlet-name>
+  <servlet-class>com.clt.atten.servlet.ATTPROCESSServlet</servlet-class>
+ </servlet>
+ <servlet-mapping>
+  <servlet-name>ATTPROCESSServlet</servlet-name>
+  <url-pattern>/ATTPROCESSServlet</url-pattern>
+ </servlet-mapping>
+
+
+<servlet>
+  <description>15</description>
+  <display-name>ATTPROJECTServlet</display-name>
+  <servlet-name>ATTPROJECTServlet</servlet-name>
+  <servlet-class>com.clt.atten.servlet.ATTPROJECTServlet</servlet-class>
+ </servlet>
+ <servlet-mapping>
+  <servlet-name>ATTPROJECTServlet</servlet-name>
+  <url-pattern>/ATTPROJECTServlet</url-pattern>
+ </servlet-mapping>
+
+<servlet>
+  <description>16</description>
+  <display-name>ATTRECORDServlet</display-name>
+  <servlet-name>ATTRECORDServlet</servlet-name>
+  <servlet-class>com.clt.atten.servlet.ATTRECORDServlet</servlet-class>
+ </servlet>
+ <servlet-mapping>
+  <servlet-name>ATTRECORDServlet</servlet-name>
+  <url-pattern>/ATTRECORDServlet</url-pattern>
+ </servlet-mapping>
+
+
+<servlet>
+  <description>17</description>
+  <display-name>ATTRUNServlet</display-name>
+  <servlet-name>ATTRUNServlet</servlet-name>
+  <servlet-class>com.clt.atten.servlet.ATTRUNServlet</servlet-class>
+ </servlet>
+ <servlet-mapping>
+  <servlet-name>ATTRUNServlet</servlet-name>
+  <url-pattern>/ATTRUNServlet</url-pattern>
+ </servlet-mapping>
+
+<servlet>
+  <description>18</description>
+  <display-name>ATTSORTServlet</display-name>
+  <servlet-name>ATTSORTServlet</servlet-name>
+  <servlet-class>com.clt.atten.servlet.ATTSORTServlet</servlet-class>
+ </servlet>
+ <servlet-mapping>
+  <servlet-name>ATTSORTServlet</servlet-name>
+  <url-pattern>/ATTSORTServlet</url-pattern>
+ </servlet-mapping>
+
+<servlet>
+  <description>19</description>
+  <display-name>ATTTYPEServlet</display-name>
+  <servlet-name>ATTTYPEServlet</servlet-name>
+  <servlet-class>com.clt.atten.servlet.ATTTYPEServlet</servlet-class>
+ </servlet>
+ <servlet-mapping>
+  <servlet-name>ATTTYPEServlet</servlet-name>
+  <url-pattern>/ATTTYPEServlet</url-pattern>
+ </servlet-mapping>
+ <login-config>
+  <auth-method>BASIC</auth-method>
+ </login-config>
+</web-app>

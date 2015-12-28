@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+<display-name>guli</display-name>
+ <welcome-file-list>
+ <welcome-file>login.jsp</welcome-file>
+ </welcome-file-list>
+ <filter>
+     <filter-name>login</filter-name>
+     <filter-class>com.system.tools.LoginFilter</filter-class>
+ </filter>
+ <filter-mapping>
+     <filter-name>login</filter-name>
+     <url-pattern>/pages/*</url-pattern>
+     <url-pattern>/main.jsp</url-pattern>
+     <url-pattern>/login.jsp</url-pattern>
+ </filter-mapping>
+ <servlet>
+  <servlet-name>BaseServlet</servlet-name>
+  <servlet-class>com.system.tools.base.BaseServlet</servlet-class>
+ </servlet>
+  <servlet-mapping>
+	  <servlet-name>BaseServlet</servlet-name>
+	  <url-pattern>*.do</url-pattern>
+ </servlet-mapping>
+ 
+ <servlet>
+  <servlet-name>Oauth2</servlet-name>
+  <servlet-class>com.server.Oauth2</servlet-class>
+ </servlet>
+ <servlet-mapping>
+	  <servlet-name>Oauth2</servlet-name>
+	  <url-pattern>/Oauth2</url-pattern>
+ </servlet-mapping>
+ <login-config>
+  <auth-method>BASIC</auth-method>
+ </login-config>
+</web-app>

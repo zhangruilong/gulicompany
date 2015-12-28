@@ -1,0 +1,17 @@
+<ds-config>
+	<!-- <pool> <type>mysql</type> <name>mysql</name> <driver>com.mysql.jdbc.Driver</driver> 
+		<url>jdbc:mysql://localhost:3306/mysql</url> <username>root</username> <password>WIGDBRD</password> 
+		<maxconn>10</maxconn> </pool> -->
+	<!-- <pool> <type>sql2000</type> <name>books</name> <driver>com.microsoft.sqlserver.driver</driver> 
+		<url>jdbc:sqlserver://localhost:1433/books:databasename=books</url> <username>sa</username> 
+		<password></password> <maxconn>100</maxconn> </pool> -->
+	<pool>
+		<type>oracle</type>
+		<name>oracle</name>
+		<driver>oracle.jdbc.driver.OracleDriver</driver>
+		<url>jdbc:oracle:thin:@127.0.0.1:1521:WIGDBRD</url>
+		<username>guli</username>
+		<password>guli</password>
+		<maxconn>10</maxconn>
+	</pool>
+</ds-config>
