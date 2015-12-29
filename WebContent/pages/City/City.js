@@ -1,4 +1,3 @@
-Ext.onReady(function() {
 	var Cityclassify = "城市和县及街道";
 	var Citytitle = "当前位置:业务管理》" + Cityclassify;
 	var Cityaction = "CityAction.do";
@@ -37,7 +36,7 @@ Ext.onReady(function() {
 			dataIndex : 'cityparent',
 			align : 'center',
 			width : 80,
-			sortable : true
+			hidden : true
 		}
 		, {
 			header : '描述',
@@ -96,11 +95,23 @@ Ext.onReady(function() {
 			columnWidth : 1,
 			layout : 'form',
 			items : [ {
-				xtype : 'textfield',
+				xtype : 'hidden',
 				fieldLabel : '父类',
 				id : 'Citycityparent',
 				name : 'cityparent',
 				maxLength : 100,
+				anchor : '95%'
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'form',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '父节点',
+				id : 'Citycityparentname',
+				name : 'cityparentname',
+				readOnly:true,
 				anchor : '95%'
 			} ]
 		}
@@ -120,11 +131,21 @@ Ext.onReady(function() {
 			columnWidth : 1,
 			layout : 'form',
 			items : [ {
-				xtype : 'textfield',
+				xtype : 'combo',
 				fieldLabel : '状态',
 				id : 'Citycitystatue',
 				name : 'citystatue',
+				emptyText : '请选择',
+				store : statueStore,
+				mode : 'local',
+				displayField : 'name',
+				valueField : 'name',
+				hiddenName : 'hreftarget',
+				triggerAction : 'all',
+				editable : false,
 				maxLength : 100,
+				allowBlank : false,
+				fieldLabel : '状态',
 				anchor : '95%'
 			} ]
 		}
@@ -246,10 +267,3 @@ Ext.onReady(function() {
 				query : Ext.getCmp("query"+Cityaction).getValue()
 		}; 
 	});
-	var win = new Ext.Viewport({//只能有一个viewport
-		resizable : true,
-		layout : 'border',
-		bodyStyle : 'padding:0px;',
-		items : [ Citygrid ]
-	});
-})

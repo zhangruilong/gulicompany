@@ -1,6 +1,7 @@
 package com.server.action;
 
 import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -92,6 +93,18 @@ public class CityAction extends BaseAction {
 		queryinfo.setOrder(CityPoco.ORDER);
 		Pageinfo pageinfo = new Pageinfo(DAO.getTotal(queryinfo), DAO.selQuery(queryinfo));
 		result = CommonConst.GSON.toJson(pageinfo);
+		responsePW(response, result);
+	}
+	//获取权限树
+	public void selTree(HttpServletRequest request, HttpServletResponse response){
+		String node = request.getParameter("node");
+		if(node.equals("root")){
+			String wheresql = " cityparent='root'";
+			result = CommonConst.GSON.toJson(DAO.selTree(wheresql),TYPE);
+		}else{
+			String wheresql = " cityparent='" + node + "'";
+			result = CommonConst.GSON.toJson(DAO.selTree(wheresql),TYPE);		
+		}
 		responsePW(response, result);
 	}
 }
