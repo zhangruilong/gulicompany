@@ -145,7 +145,6 @@
 				editable : false,
 				maxLength : 100,
 				allowBlank : false,
-				fieldLabel : '状态',
 				anchor : '95%'
 			} ]
 		}

@@ -1,4 +1,3 @@
-Ext.onReady(function() {
 	var Goodsclassclassify = "大小类";
 	var Goodsclasstitle = "当前位置:业务管理》" + Goodsclassclassify;
 	var Goodsclassaction = "GoodsclassAction.do";
@@ -37,10 +36,10 @@ Ext.onReady(function() {
 			dataIndex : 'goodsclassparent',
 			align : 'center',
 			width : 80,
-			sortable : true
+			hidden : true
 		}
 		, {
-			header : '描述',
+			header : '城市',
 			dataIndex : 'goodsclassdetail',
 			align : 'center',
 			width : 80,
@@ -96,7 +95,7 @@ Ext.onReady(function() {
 			columnWidth : 1,
 			layout : 'form',
 			items : [ {
-				xtype : 'textfield',
+				xtype : 'hidden',
 				fieldLabel : '父类',
 				id : 'Goodsclassgoodsclassparent',
 				name : 'goodsclassparent',
@@ -109,7 +108,19 @@ Ext.onReady(function() {
 			layout : 'form',
 			items : [ {
 				xtype : 'textfield',
-				fieldLabel : '描述',
+				fieldLabel : '父类',
+				id : 'Goodsclassgoodsclassparentname',
+				name : 'goodsclassparentname',
+				maxLength : 100,
+				anchor : '95%'
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'form',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '城市',
 				id : 'Goodsclassgoodsclassdetail',
 				name : 'goodsclassdetail',
 				maxLength : 100,
@@ -120,7 +131,16 @@ Ext.onReady(function() {
 			columnWidth : 1,
 			layout : 'form',
 			items : [ {
-				xtype : 'textfield',
+				xtype : 'combo',
+				emptyText : '请选择',
+				store : statueStore,
+				mode : 'local',
+				triggerAction : 'all',
+				editable : false,
+				allowBlank : false,
+				displayField : 'name',
+				valueField : 'name',
+				hiddenName : 'goodsclassstatue',
 				fieldLabel : '状态',
 				id : 'Goodsclassgoodsclassstatue',
 				name : 'goodsclassstatue',
@@ -246,10 +266,3 @@ Ext.onReady(function() {
 				query : Ext.getCmp("query"+Goodsclassaction).getValue()
 		}; 
 	});
-	var win = new Ext.Viewport({//只能有一个viewport
-		resizable : true,
-		layout : 'border',
-		bodyStyle : 'padding:0px;',
-		items : [ Goodsclassgrid ]
-	});
-})
