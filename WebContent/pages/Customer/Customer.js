@@ -49,13 +49,13 @@ Ext.onReady(function() {
 			width : 80,
 			sortable : true
 		}
-		, {
-			header : '密码',
-			dataIndex : 'customerpsw',
-			align : 'center',
-			width : 80,
-			sortable : true
-		}
+//		, {
+//			header : '密码',
+//			dataIndex : 'customerpsw',
+//			align : 'center',
+//			width : 80,
+//			sortable : true
+//		}
 		, {
 			header : '店铺',
 			dataIndex : 'customershop',
@@ -176,7 +176,7 @@ Ext.onReady(function() {
 			columnWidth : 1,
 			layout : 'form',
 			items : [ {
-				xtype : 'textfield',
+				xtype : 'numberfield',
 				fieldLabel : '手机',
 				id : 'Customercustomerphone',
 				name : 'customerphone',
@@ -184,18 +184,18 @@ Ext.onReady(function() {
 				anchor : '95%'
 			} ]
 		}
-		, {
-			columnWidth : 1,
-			layout : 'form',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '密码',
-				id : 'Customercustomerpsw',
-				name : 'customerpsw',
-				maxLength : 100,
-				anchor : '95%'
-			} ]
-		}
+//		, {
+//			columnWidth : 1,
+//			layout : 'form',
+//			items : [ {
+//				xtype : 'textfield',
+//				fieldLabel : '密码',
+//				id : 'Customercustomerpsw',
+//				name : 'customerpsw',
+//				maxLength : 100,
+//				anchor : '95%'
+//			} ]
+//		}
 		, {
 			columnWidth : 1,
 			layout : 'form',
@@ -296,34 +296,19 @@ Ext.onReady(function() {
 			columnWidth : 1,
 			layout : 'form',
 			items : [ {
-				xtype : 'textfield',
+				xtype : 'combo',
+				emptyText : '请选择',
+				store : statueStore,
+				mode : 'local',
+				triggerAction : 'all',
+				editable : false,
+				allowBlank : false,
+				displayField : 'name',
+				valueField : 'name',
+				hiddenName : 'customerstatue',
 				fieldLabel : '状态',
 				id : 'Customercustomerstatue',
 				name : 'customerstatue',
-				maxLength : 100,
-				anchor : '95%'
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'form',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '创建时间',
-				id : 'Customercreatetime',
-				name : 'createtime',
-				maxLength : 100,
-				anchor : '95%'
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'form',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '修改时间',
-				id : 'Customerupdtime',
-				name : 'updtime',
 				maxLength : 100,
 				anchor : '95%'
 			} ]
