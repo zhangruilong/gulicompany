@@ -50,4 +50,5 @@
 	<bean id="ScantAction" class="com.server.action.ScantAction" />
 	<bean id="TimegoodsAction" class="com.server.action.TimegoodsAction" />
 	
+	<bean id="CompanyviewAction" class="com.server.action.CompanyviewAction" />
 </beans>

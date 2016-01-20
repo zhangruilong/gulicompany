@@ -1,4 +1,3 @@
-Ext.onReady(function() {
 	var Companyclassify = "经销商";
 	var Companytitle = "当前位置:业务管理》" + Companyclassify;
 	var Companyaction = "CompanyAction.do";
@@ -17,7 +16,7 @@ Ext.onReady(function() {
 	        			    ,'updtime' 
 	        			      ];// 全部字段
 	var Companykeycolumn = [ 'companyid' ];// 主键
-	var Companystore = dataStore(Companyfields, basePath + Companyaction + "?method=selQuery");// 定义Companystore
+	var Companystore = dataStore(Companyfields, basePath + "CompanyviewAction.do" + "?method=selQuery");// 定义Companystore
 	var Companysm = new Ext.grid.CheckboxSelectionModel();// grid复选框模式
 	var Companycm = new Ext.grid.ColumnModel({// 定义columnModel
 		columns : [ new Ext.grid.RowNumberer(), Companysm, {// 改
@@ -58,7 +57,7 @@ Ext.onReady(function() {
 			dataIndex : 'companycity',
 			align : 'center',
 			width : 80,
-			sortable : true
+			hidden : true
 		}
 		, {
 			header : '街道地址',
@@ -84,13 +83,6 @@ Ext.onReady(function() {
 		, {
 			header : '账号',
 			dataIndex : 'loginname',
-			align : 'center',
-			width : 80,
-			sortable : true
-		}
-		, {
-			header : '密码',
-			dataIndex : 'password',
 			align : 'center',
 			width : 80,
 			sortable : true
@@ -176,12 +168,36 @@ Ext.onReady(function() {
 			columnWidth : 1,
 			layout : 'form',
 			items : [ {
-				xtype : 'textfield',
+				xtype : 'hidden',
 				fieldLabel : '城市和县ID',
 				id : 'Companycompanycity',
 				name : 'companycity',
 				maxLength : 100,
 				anchor : '95%'
+			} ]
+		}
+		, {
+			columnWidth : .9,
+			layout : 'form',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '城市',
+				id : 'Companycompanycityname',
+				name : 'companycityname',
+				readOnly:true,
+				anchor : '95%'
+			} ]
+		}
+		, {
+			columnWidth : .1,
+			layout : 'form',
+			items : [ {
+				xtype : 'button',
+				iconCls : 'select',
+				maxLength : 100,
+				handler : selectCity.createCallback(),
+				scope : this,
+				anchor : '25%'
 			} ]
 		}
 		, {
@@ -212,7 +228,16 @@ Ext.onReady(function() {
 			columnWidth : 1,
 			layout : 'form',
 			items : [ {
-				xtype : 'textfield',
+				xtype : 'combo',
+				emptyText : '请选择',
+				store : statueStore,
+				mode : 'local',
+				triggerAction : 'all',
+				editable : false,
+				allowBlank : false,
+				displayField : 'name',
+				valueField : 'name',
+				hiddenName : 'companystatue',
 				fieldLabel : '状态',
 				id : 'Companycompanystatue',
 				name : 'companystatue',
@@ -228,42 +253,6 @@ Ext.onReady(function() {
 				fieldLabel : '账号',
 				id : 'Companyloginname',
 				name : 'loginname',
-				maxLength : 100,
-				anchor : '95%'
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'form',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '密码',
-				id : 'Companypassword',
-				name : 'password',
-				maxLength : 100,
-				anchor : '95%'
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'form',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '创建时间',
-				id : 'Companycreatetime',
-				name : 'createtime',
-				maxLength : 100,
-				anchor : '95%'
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'form',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '修改时间',
-				id : 'Companyupdtime',
-				name : 'updtime',
 				maxLength : 100,
 				anchor : '95%'
 			} ]
@@ -386,10 +375,3 @@ Ext.onReady(function() {
 				query : Ext.getCmp("query"+Companyaction).getValue()
 		}; 
 	});
-	var win = new Ext.Viewport({//只能有一个viewport
-		resizable : true,
-		layout : 'border',
-		bodyStyle : 'padding:0px;',
-		items : [ Companygrid ]
-	});
-})
