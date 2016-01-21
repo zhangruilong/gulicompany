@@ -288,6 +288,18 @@
 		sm : Companysm,
 		bbar : Companybbar,
 		tbar : [{
+				text : "业务员",
+				iconCls : 'select',
+				handler : function() {
+					var selections = Companygrid.getSelectionModel().getSelections();
+					if (selections.length != 1) {
+						Ext.Msg.alert('提示', '请选择一条要修改的记录！', function() {
+						});
+						return;
+					}
+					selectEmp(selections[0].data['companyid']);
+				}
+			},'-',{
 				text : "新增",
 				iconCls : 'add',
 				handler : function() {

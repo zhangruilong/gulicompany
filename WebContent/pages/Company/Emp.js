@@ -1,4 +1,4 @@
-Ext.onReady(function() {
+function selectEmp(companyid) {
 	var Empclassify = "业务员";
 	var Emptitle = "当前位置:业务管理》" + Empclassify;
 	var Empaction = "EmpAction.do";
@@ -26,7 +26,7 @@ Ext.onReady(function() {
 			dataIndex : 'empcompany',
 			align : 'center',
 			width : 80,
-			sortable : true
+			hidden : true
 		}
 		, {
 			header : '编码',
@@ -105,30 +105,6 @@ Ext.onReady(function() {
 			} ]
 		}
 		, {
-			columnWidth : .9,
-			layout : 'form',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '经销商',
-				id : 'Empempcompanyname',
-				name : 'companyname',
-				readOnly:true,
-				anchor : '95%'
-			} ]
-		}
-		, {
-			columnWidth : .1,
-			layout : 'form',
-			items : [ {
-				xtype : 'button',
-				iconCls : 'select',
-				maxLength : 100,
-				handler : selectCompany.createCallback(),
-				scope : this,
-				anchor : '25%'
-			} ]
-		}
-		, {
 			columnWidth : 1,
 			layout : 'form',
 			items : [ {
@@ -180,34 +156,19 @@ Ext.onReady(function() {
 			columnWidth : 1,
 			layout : 'form',
 			items : [ {
-				xtype : 'textfield',
+				xtype : 'combo',
+				emptyText : '请选择',
+				store : statueStore,
+				mode : 'local',
+				triggerAction : 'all',
+				editable : false,
+				allowBlank : false,
+				displayField : 'name',
+				valueField : 'name',
+				hiddenName : 'empstatue',
 				fieldLabel : '状态',
 				id : 'Empempstatue',
 				name : 'empstatue',
-				maxLength : 100,
-				anchor : '95%'
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'form',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '创建时间',
-				id : 'Empcreatetime',
-				name : 'createtime',
-				maxLength : 100,
-				anchor : '95%'
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'form',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '修改时间',
-				id : 'Empupdtime',
-				name : 'updtime',
 				maxLength : 100,
 				anchor : '95%'
 			} ]
@@ -219,7 +180,6 @@ Ext.onReady(function() {
 	var Empgrid = new Ext.grid.GridPanel({
 		height : document.documentElement.clientHeight - 4,
 		width : '100%',
-		title : Emptitle,
 		store : Empstore,
 		stripeRows : true,
 		frame : true,
@@ -235,6 +195,7 @@ Ext.onReady(function() {
 				handler : function() {
 					EmpdataForm.form.reset();
 					createWindow(basePath + Empaction + "?method=insAll", "新增", EmpdataForm, Empstore);
+					EmpdataForm.getForm().setValues({Empempcompany:companyid});
 				}
 			},'-',{
 				text : "修改",
@@ -298,42 +259,32 @@ Ext.onReady(function() {
 					}
 					commonAttach(fid, Empclassify);
 				}
-			},'->',{
-				xtype : 'textfield',
-				id : 'query'+Empaction,
-				name : 'query',
-				emptyText : '模糊匹配',
-				width : 100,
-				enableKeyEvents : true,
-				listeners : {
-					specialkey : function(field, e) {
-						if (e.getKey() == Ext.EventObject.ENTER) {
-							if ("" == Ext.getCmp("query"+Empaction).getValue()) {
-								Empstore.load();
-							} else {
-								Empstore.load({
-									params : {
-										query : Ext.getCmp("query"+Empaction).getValue()
-									}
-								});
-							}
-						}
-					}
-				}
 			}
 		]
 	});
 	Empgrid.region = 'center';
-	Empstore.load();//加载数据
 	Empstore.on("beforeload",function(){ 
 		Empstore.baseParams = {
-				query : Ext.getCmp("query"+Empaction).getValue()
+				query : companyid
 		}; 
 	});
-	var win = new Ext.Viewport({//只能有一个viewport
-		resizable : true,
-		layout : 'border',
-		bodyStyle : 'padding:0px;',
-		items : [ Empgrid ]
+	Empstore.load();//加载数据
+	var selectgridWindow = new Ext.Window({
+		title : Emptitle,
+		layout : 'fit', // 设置窗口布局模式
+		width : 620, // 窗口宽度
+		height : document.body.clientHeight -4, // 窗口高度
+		modal : true,
+		//closeAction: 'hide',
+		closable : true, // 是否可关闭
+		collapsible : true, // 是否可收缩
+		maximizable : true, // 设置是否可以最大化
+		border : false, // 边框线设置
+		constrain : true, // 设置窗口是否可以溢出父容器
+		animateTarget : Ext.getBody(),
+		pageY : 50, // 页面定位Y坐标
+		pageX : document.body.clientWidth / 2 - 620 / 2, // 页面定位X坐标
+		items : Empgrid
 	});
-})
+	selectgridWindow.show();
+}
