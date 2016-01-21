@@ -14,6 +14,12 @@
 	        			    ,'password' 
 	        			    ,'createtime' 
 	        			    ,'updtime' 
+	        			    ,'cityid' 
+	        			    ,'citycode' 
+	        			    ,'cityname' 
+	        			    ,'cityparent' 
+	        			    ,'citydetail' 
+	        			    ,'citystatue' 
 	        			      ];// 全部字段
 	var Companykeycolumn = [ 'companyid' ];// 主键
 	var Companystore = dataStore(Companyfields, basePath + "CompanyviewAction.do" + "?method=selQuery");// 定义Companystore
@@ -23,6 +29,13 @@
 			header : '经销商ID',
 			dataIndex : 'companyid',
 			hidden : true
+		}
+		, {
+			header : '城市',
+			dataIndex : 'cityname',
+			align : 'center',
+			width : 80,
+			sortable : true
 		}
 		, {
 			header : '编码',
@@ -183,7 +196,7 @@
 				xtype : 'textfield',
 				fieldLabel : '城市',
 				id : 'Companycompanycityname',
-				name : 'companycityname',
+				name : 'cityname',
 				readOnly:true,
 				anchor : '95%'
 			} ]
