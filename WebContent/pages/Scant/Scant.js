@@ -3,16 +3,22 @@ Ext.onReady(function() {
 	var Scanttitle = "当前位置:业务管理》" + Scantclassify;
 	var Scantaction = "ScantAction.do";
 	var Scantfields = ['scantid'
-	        			    ,'scantcode' 
-	        			    ,'scantname' 
-	        			    ,'scantdetail' 
-	        			    ,'scantunits' 
-	        			    ,'scantclass' 
-	        			    ,'scantimage' 
-	        			    ,'scantstatue' 
-	        			      ];// 全部字段
+       			    ,'scantcode' 
+    			    ,'scantname' 
+    			    ,'scantdetail' 
+    			    ,'scantunits' 
+    			    ,'scantclass' 
+    			    ,'scantimage' 
+    			    ,'scantstatue' 
+    			    ,'goodsclassid' 
+    			    ,'goodsclasscode' 
+    			    ,'goodsclassname' 
+    			    ,'goodsclassparent' 
+    			    ,'goodsclassdetail' 
+    			    ,'goodsclassstatue' 
+    			      ];// 全部字段
 	var Scantkeycolumn = [ 'scantid' ];// 主键
-	var Scantstore = dataStore(Scantfields, basePath + Scantaction + "?method=selQuery");// 定义Scantstore
+	var Scantstore = dataStore(Scantfields, basePath + "ScantviewAction.do" + "?method=selQuery");// 定义Scantstore
 	var Scantsm = new Ext.grid.CheckboxSelectionModel();// grid复选框模式
 	var Scantcm = new Ext.grid.ColumnModel({// 定义columnModel
 		columns : [ new Ext.grid.RowNumberer(), Scantsm, {// 改
@@ -51,6 +57,13 @@ Ext.onReady(function() {
 		, {
 			header : '小类ID',
 			dataIndex : 'scantclass',
+			align : 'center',
+			width : 80,
+			hidden : true
+		}
+		, {
+			header : '小类',
+			dataIndex : 'goodsclassname',
 			align : 'center',
 			width : 80,
 			sortable : true
@@ -136,12 +149,36 @@ Ext.onReady(function() {
 			columnWidth : 1,
 			layout : 'form',
 			items : [ {
-				xtype : 'textfield',
+				xtype : 'hidden',
 				fieldLabel : '小类ID',
 				id : 'Scantscantclass',
 				name : 'scantclass',
 				maxLength : 100,
 				anchor : '95%'
+			} ]
+		}
+		, {
+			columnWidth : .9,
+			layout : 'form',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '小类',
+				id : 'Scantscantclassname',
+				name : 'goodclassname',
+				readOnly:true,
+				anchor : '95%'
+			} ]
+		}
+		, {
+			columnWidth : .1,
+			layout : 'form',
+			items : [ {
+				xtype : 'button',
+				iconCls : 'select',
+				maxLength : 100,
+				handler : selectGoodsclass.createCallback(),
+				scope : this,
+				anchor : '25%'
 			} ]
 		}
 		, {
@@ -160,7 +197,16 @@ Ext.onReady(function() {
 			columnWidth : 1,
 			layout : 'form',
 			items : [ {
-				xtype : 'textfield',
+				xtype : 'combo',
+				emptyText : '请选择',
+				store : statueStore,
+				mode : 'local',
+				triggerAction : 'all',
+				editable : false,
+				allowBlank : false,
+				displayField : 'name',
+				valueField : 'name',
+				hiddenName : 'scantstatue',
 				fieldLabel : '状态',
 				id : 'Scantscantstatue',
 				name : 'scantstatue',
