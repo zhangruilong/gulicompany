@@ -10,8 +10,7 @@
 		<link rel="stylesheet" href="assets/agile/css/flat/flat.color.css">
 		<link rel="stylesheet" href="assets/agile/css/flat/iconline.css">
 		<link rel="stylesheet" href="assets/app/css/app.css">
-		<link href="css/base.css" type="text/css" rel="stylesheet">
-		<link href="css/layout.css" type="text/css" rel="stylesheet">
+		<link href="css/goods.css" type="text/css" rel="stylesheet">
 	</head>
 	<body>
 		<div id="section_container">
@@ -22,27 +21,27 @@
 				    	<a data-toggle="section" href="#query_section" style="position: absolute;left: 25%;">
 							<input id="query" type="text" placeholder="请输入要查询的内容"/>
 						</a>
-				    	<button class="iconfont iconline-home" style="position: absolute;right: 10%;top: 50%;height: 25px;"></button>
-				    	<button class="iconfont iconline-home" style="position: absolute;right: 0%;top: 50%;height: 25px;"></button>
+				    	<button class="iconfont iconline-shop" style="position: absolute;right: 10%;top: 50%;height: 25px;"></button>
 				    </div>
 				</header>
 				<article data-role="article" id="main_article"  data-scroll="pull" class="active" style="top:44px;bottom:0px;">
 					<div class="scroller">  
 						<ul class="listitem">
 					        <li>
-					        	<img style="height: 154px; opacity: 1;" class="full-width" data-toggle="section" href="topic_section.html?id=2" src="http://www.p9line.cn/data/afficheimg/20151028bgxmup.jpg">
-					        </li>
-					        <li class="sliver">918抢购区</li>
-					        <script id="template918" type="text/html">
-							    <% for (i = 0; i < list.length; i ++) { %>
-							        <li>条目内容 <%= i + 1 %> ：<%= list[i] %></li>
-							    <% } %>
-							</script>
-					        <li>
-					        	<img placeholder="assets/app/img/list/defaultimg.png" data-source="http://www.exmobi.cn/images/common/qq-logo-dark.png" class="img" style="width:42px;"/>
+					        	<img placeholder="assets/app/img/list/defaultimg.png" data-source="images/pic1.jpg" class="img" style="width:90px;"/>
 					        	<div class="text">
-					              	 懒人加载介绍
-					                <small class="nowrap ellipsis">懒人加载即是对图片的延迟加载，目的是节约资源、提高性能</small>
+					              	<h1>冬菇一品鲜 <span>（240ml*12瓶/箱）</span></h1>
+					              	<p>
+					             	 	<img data-source="images/price-rd.png" class="img" style="width:20px;"/>
+						  				<label onclick="alert(1)">单品价:<font color="#eb3c07">￥5.00</font>/瓶</label>
+						  			<br>
+						  			<p>
+						  				<img data-source="images/price-rd-dis.png" class="img" style="width:20px;"/>
+						  				<label>套装价:<font color="#eb3c07">￥50.00</font>/瓶</label>
+					           		</p>
+					           		<p>
+					           			<span class="jian">-</span><span class="shuliang">0</span><span class="jia">+</span>
+					           		</p>
 					            </div>
 					        </li>
 					        <li>
@@ -169,9 +168,6 @@
 						refresh.refresh();
 					});
 				}); */
-			});
-			$('#main_article').on('refreshInit', function(){
-				A.template('#template918').renderReplace('json/template.json');
 			});
 		</script>
 	</body>

@@ -1,0 +1,66 @@
+<%@ page language="java" import="java.util.*"
+	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!doctype html> 
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>谷粒网</title>
+<link href="css/base.css" type="text/css" rel="stylesheet">
+<link href="css/layout.css" type="text/css" rel="stylesheet">
+</head>
+
+<body>
+<div class="gl-box">
+	<div class="wapper-nav">全部订单<a href="query.jsp">筛选</a></div>
+	<div class="add-admin">
+    	<div class="all-order-wrapper">
+        	<h1>天然粮油公司<span>2015-10-10 13:00</span></h1>
+            <a href="#">
+                <span>订单状态：<font class="font-oringe">待付款</font></span><span>订单编号：<font class="font-grey">16563529810</font> </span>
+                <span class="sign"></span>
+            </a>
+            <div class="gopay">
+                <span class="block">品种数量：<font class="font-oringe">6</font> 总价：<font class="font-oringe">700元</font>	</span>	
+                <a href="#">去支付</a>				
+            </div>
+        </div>
+    </div>
+    <div class="add-admin">
+    	<div class="all-order-wrapper">
+        	<h1>天然粮油公司<span>2015-10-10 13:00</span></h1>
+            <a href="#">
+                <span>订单状态：<font class="font-grey">已下单</font></span><span>订单编号：<font class="font-grey">16563529810</font> </span>
+                <span class="sign"></span>
+            </a>
+            <div class="gopay">
+                <span class="block">品种数量：<font class="font-oringe">6</font> 总价：<font class="font-oringe">700元</font>	</span>	
+            </div>
+        </div>
+    </div>
+    <div class="add-admin">
+    	<div class="all-order-wrapper">
+        	<h1>天然粮油公司<span>2015-10-10 13:00</span></h1>
+            <a href="#">
+                <span>订单状态：<font class="font-grey">已下单</font></span><span>订单编号：<font class="font-grey">16563529810</font> </span>
+                <span class="sign"></span>
+            </a>
+            <div class="gopay">
+                <span class="block">品种数量：<font class="font-oringe">6</font> 总价：<font class="font-oringe">700元</font>	</span>	
+            </div>
+        </div>
+    </div>
+</div>
+<div class="personal-center-nav">
+    <ul>
+        	<li><a href="index.jsp"><em class="ion-home"></em>首页</a></li>
+            <li><a href="goods.jsp"><em class="ion-bag"></em>商城</a></li>
+            <li class="active"><a href="order.jsp"><em class="ion-clipboard"></em>订单</a></li>
+            <li><a href="mine.jsp"><em class="ion-android-person"></em>我的</a></li>
+    </ul>
+</div>
+</body>
+</html>
