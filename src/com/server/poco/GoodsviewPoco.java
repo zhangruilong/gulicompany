@@ -1,7 +1,7 @@
 package com.server.poco;
 
 /**
- * 商品 实体类的常量
+ * goodsview 实体类的常量
  *@author ZhangRuiLong
  */
 public class GoodsviewPoco
@@ -9,7 +9,7 @@ public class GoodsviewPoco
    /**
     * 实体中文名
     */
-   public static String NAME = "商品";
+   public static String NAME = "goodsview";
    /**
     * 实体表名
     */
@@ -40,6 +40,11 @@ public class GoodsviewPoco
 	 	"goodsclassparent",
 	 	"goodsclassdetail",
 	 	"goodsclassstatue",
+	 	"companyshop",
+	 	"companycity",
+	 	"companyaddress",
+	 	"companydetail",
+	 	"companystatue",
 	 	"pricesid",
 	 	"pricesclass",
 	 	"priceslevel",
@@ -70,6 +75,11 @@ public class GoodsviewPoco
 	 	"goodsclassparent",
 	 	"goodsclassdetail",
 	 	"goodsclassstatue",
+	 	"companyshop",
+	 	"companycity",
+	 	"companyaddress",
+	 	"companydetail",
+	 	"companystatue",
 	 	"pricesid",
 	 	"pricesclass",
 	 	"priceslevel",
@@ -104,6 +114,11 @@ public class GoodsviewPoco
 	 	"goodsclassparent",
 	 	"goodsclassdetail",
 	 	"goodsclassstatue",
+	 	"companyshop",
+	 	"companycity",
+	 	"companyaddress",
+	 	"companydetail",
+	 	"companystatue",
 	 	"pricesid",
 	 	"pricesclass",
 	 	"priceslevel",

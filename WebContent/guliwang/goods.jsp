@@ -152,14 +152,14 @@ function initDishes(data){
  	                 '<input class="text_box shuliang" name="danpin" type="text" value="'+
  	                 getcurrennumdanpin(item.goodsid)+'"> '+
  	                ' <span class="jia add" onclick="addnum(this,'+item.pricesprice
-					   +',\''+item.goodsname+'\',\''+item.goodsunit+'\',\''+item.goodsunits
+					   +',\''+item.goodsname+'\',\''+item.pricesunit+'\',\''+item.goodsunits
 					   +'\')">+</span>'+
  	               '  <span hidden="ture" class="jian min" onclick="subnum(this,'+item.pricesprice2
 				   +')">-</span>'+
  	                ' <input hidden="ture" class="text_box shuliang" name="taozhuan" type="text" value="'+
  	                getcurrennumtaozhuan(item.goodsid)+'"> '+
  	                ' <span hidden="ture" class="jia add" onclick="addnum(this,'+item.pricesprice2
-					   +',\''+item.goodsname+'\',\''+item.goodsunit+'\',\''+item.goodsunits
+					   +',\''+item.goodsname+'\',\''+item.pricesunit2+'\',\''+item.goodsunits
 					   +'\')">+</span>'+
  	                ' <input type="checkbox" id="'+item.goodsid+'checkbox" class="chk_1">'+
  	            		'<label for="'+item.goodsid+'checkbox"></label>'+
@@ -211,7 +211,7 @@ function getcurrennumtaozhuan(dishesid){
 		return orderdetnum;
 	}
 }
-function addnum(obj,pricesprice,goodsname,goodsunit,goodsunits){
+function addnum(obj,pricesprice,goodsname,pricesunit,goodsunits){
 	//总价
 	var tmoney = parseFloat(window.localStorage.getItem("totalmoney"));
 	var newtmoney = (tmoney+pricesprice).toFixed(2);
@@ -231,7 +231,7 @@ function addnum(obj,pricesprice,goodsname,goodsunit,goodsunits){
 		mdishes.goodsid = $(obj).parent().attr('name');
 		mdishes.goodsdetail = $(obj).prev().attr('name');
 		mdishes.pricesprice = pricesprice;
-		mdishes.goodsunit = goodsunit;
+		mdishes.pricesunit = pricesunit;
 		mdishes.goodsname = goodsname;
 		mdishes.goodsunits = goodsunits;
 		mdishes.orderdetnum = num + 1;
@@ -278,7 +278,7 @@ function subnum(obj,pricesprice){
 			//修改订单
 			$.each(sdishes, function(i, item) {
 				if(item.goodsid==$(obj).parent().attr('name')
-						&&item.goodsdetail==$(obj).prev().attr('name')){
+						&&item.goodsdetail==$(obj).next().attr('name')){
 					item.orderdetnum = item.orderdetnum - 1;
 					return false;
 				}

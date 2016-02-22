@@ -2,7 +2,7 @@ package com.server.pojo;
 
 import java.sql.Date;
 /**
- * 商品 实体类
+ * goodsview 实体类
  *@author ZhangRuiLong
  */
 public class Goodsview
@@ -83,6 +83,26 @@ public class Goodsview
     * goodsclassstatue
     */
    private String goodsclassstatue;   
+   /**
+    * companyshop
+    */
+   private String companyshop;   
+   /**
+    * companycity
+    */
+   private String companycity;   
+   /**
+    * companyaddress
+    */
+   private String companyaddress;   
+   /**
+    * companydetail
+    */
+   private String companydetail;   
+   /**
+    * companystatue
+    */
+   private String companystatue;   
    /**
     * pricesid
     */
@@ -436,6 +456,91 @@ public class Goodsview
 	}	   
 
 	/**
+	 *设置"companyshop"属性
+	 *@param companyshop 实体的Companyshop属性
+	 */
+	public void setCompanyshop(String companyshop)
+	{
+		this.companyshop = companyshop;
+	}
+	
+	/**
+	 *获取"companyshop"属性
+	 */
+	public String getCompanyshop()
+	{
+		return this.companyshop;
+	}	   
+
+	/**
+	 *设置"companycity"属性
+	 *@param companycity 实体的Companycity属性
+	 */
+	public void setCompanycity(String companycity)
+	{
+		this.companycity = companycity;
+	}
+	
+	/**
+	 *获取"companycity"属性
+	 */
+	public String getCompanycity()
+	{
+		return this.companycity;
+	}	   
+
+	/**
+	 *设置"companyaddress"属性
+	 *@param companyaddress 实体的Companyaddress属性
+	 */
+	public void setCompanyaddress(String companyaddress)
+	{
+		this.companyaddress = companyaddress;
+	}
+	
+	/**
+	 *获取"companyaddress"属性
+	 */
+	public String getCompanyaddress()
+	{
+		return this.companyaddress;
+	}	   
+
+	/**
+	 *设置"companydetail"属性
+	 *@param companydetail 实体的Companydetail属性
+	 */
+	public void setCompanydetail(String companydetail)
+	{
+		this.companydetail = companydetail;
+	}
+	
+	/**
+	 *获取"companydetail"属性
+	 */
+	public String getCompanydetail()
+	{
+		return this.companydetail;
+	}	   
+
+	/**
+	 *设置"companystatue"属性
+	 *@param companystatue 实体的Companystatue属性
+	 */
+	public void setCompanystatue(String companystatue)
+	{
+		this.companystatue = companystatue;
+	}
+	
+	/**
+	 *获取"companystatue"属性
+	 */
+	public String getCompanystatue()
+	{
+		return this.companystatue;
+	}	   
+
+	/**
 	 *设置"pricesid"属性
 	 *@param pricesid 实体的Pricesid属性
 	 */
@@ -577,6 +682,11 @@ public class Goodsview
 	 	,String goodsclassparent
 	 	,String goodsclassdetail
 	 	,String goodsclassstatue
+	 	,String companyshop
+	 	,String companycity
+	 	,String companyaddress
+	 	,String companydetail
+	 	,String companystatue
 	 	,String pricesid
 	 	,String pricesclass
 	 	,int priceslevel
@@ -605,6 +715,11 @@ public class Goodsview
 	 	this.goodsclassparent = goodsclassparent;
 	 	this.goodsclassdetail = goodsclassdetail;
 	 	this.goodsclassstatue = goodsclassstatue;
+	 	this.companyshop = companyshop;
+	 	this.companycity = companycity;
+	 	this.companyaddress = companyaddress;
+	 	this.companydetail = companydetail;
+	 	this.companystatue = companystatue;
 	 	this.pricesid = pricesid;
 	 	this.pricesclass = pricesclass;
 	 	this.priceslevel = priceslevel;
