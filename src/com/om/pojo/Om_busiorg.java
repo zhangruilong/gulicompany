@@ -10,7 +10,7 @@ public class Om_busiorg
    /**
     * 业务条线,主键
     */
-   private String busidomain; 		//句话是用来测试git的
+   private String busidomain; 		//句话是用来测试git的啊
    /**
     * 业务机构编号
     */
