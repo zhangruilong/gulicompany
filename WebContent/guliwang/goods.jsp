@@ -1,5 +1,8 @@
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/";
+%>
 <!doctype html> 
 <html>
 <head>
@@ -117,9 +120,53 @@
 <script src="js/jquery-2.1.4.min.js"></script>
 <script src="js/jquery-dropdown.js"></script>
 <script> 
+var basePath = '<%=basePath%>';
 $(function(){ 
-	initDishes(1);
-	$(".regular-radio").change(function(){ 
+	if(!window.localStorage.getItem("totalnum")){
+		window.localStorage.setItem("totalnum",0);
+	}
+	if(!window.localStorage.getItem("totalmoney")){
+		window.localStorage.setItem("totalmoney",0);
+	}
+	getJson(basePath+"GoodsviewAction.do",{method:"mselQuery"},initDishes,null);
+})
+function initDishes(data){
+     $(".home-hot-commodity").html("");
+ 	 $.each(data.root, function(i, item) {
+ 		$(".home-hot-commodity").append('<li>'+
+ 	         	'<span class="fl"><img src="images/pic1.jpg" ></span> '+
+ 	             '<h1>'+item.goodsname+'<span>('+item.goodsunits+')</span></h1>'+
+ 	           '  <div class="block"> '+
+ 	             	'<span>'+
+ 	                 '    <input type="radio" id="'+item.goodsid+'radio1" name="'+item.goodsid+'radio" class="regular-radio" checked />'+
+ 	                 '    <label for="'+item.goodsid+'radio1">单品价:<font class="font-oringe">￥'+item.pricesprice+'</font>/'+item.pricesunit+'</label>'+
+ 	               '  </span>'+
+ 	               '  <span>'+
+ 	                   '  <input type="radio" id="'+item.goodsid+'radio2" name="'+item.goodsid+'radio" class="regular-radio" />'+
+ 	               '      <label for="'+item.goodsid+'radio2">套装价:<font class="font-oringe">￥'+item.pricesprice2+'</font>/'+item.pricesunit2+'</label>'+
+ 	               '  </span>'+
+ 	            ' </div>'+
+ 	           '  <div class="stock-num" name="'+item.goodsid+'">'+
+ 	                ' <span class="jian min" onclick="subnum(this,'+item.pricesprice
+					   +')">-</span>'+
+ 	                 '<input class="text_box shuliang" name="danpin" type="text" value="'+
+ 	                 getcurrennumdanpin(item.goodsid)+'"> '+
+ 	                ' <span class="jia add" onclick="addnum(this,'+item.pricesprice
+					   +',\''+item.goodsname+'\',\''+item.goodsunit+'\',\''+item.goodsunits
+					   +'\')">+</span>'+
+ 	               '  <span hidden="ture" class="jian min" onclick="subnum(this,'+item.pricesprice2
+				   +')">-</span>'+
+ 	                ' <input hidden="ture" class="text_box shuliang" name="taozhuan" type="text" value="'+
+ 	                getcurrennumtaozhuan(item.goodsid)+'"> '+
+ 	                ' <span hidden="ture" class="jia add" onclick="addnum(this,'+item.pricesprice2
+					   +',\''+item.goodsname+'\',\''+item.goodsunit+'\',\''+item.goodsunits
+					   +'\')">+</span>'+
+ 	                ' <input type="checkbox" id="'+item.goodsid+'checkbox" class="chk_1">'+
+ 	            		'<label for="'+item.goodsid+'checkbox"></label>'+
+ 	             '</div>'+
+ 	         '</li>');
+     });
+ 	$(".regular-radio").change(function(){ 
 		var t = $(this).parent().parent().next().find('input[name*=danpin]');
 		t.toggle();
 		t.prev().toggle();
@@ -129,83 +176,151 @@ $(function(){
 		t2.prev().toggle();
 		t2.next().toggle();
 	})
-	$(".add").click(function(){
-		var t=$(this).prev(); 
-		t.val(parseInt(t.val())+1);
-	}) 
-	$(".min").click(function(){ 
-		var t=$(this).next(); 
-		t.val(parseInt(t.val())-1);
-		if(parseInt(t.val())<0){ 
-			t.val(0); 
-		} 
-	}) 
-	function setTotal(){ 
-		var s=0; 
-		$(".cart-wrapper li").each(function(){ 
-		s+=parseInt($(this).find('input[class*=text_box]').val())*parseFloat($(this).find('span[class*=price]').text()); 
-		}); 
-		$("#total").html(s.toFixed(2)); 
-	} 
-}) 
-function initDishes(data){
-     $(".home-hot-commodity").html("");
-     $(".home-hot-commodity").append('<li>'+
-         	'<span class="fl"><img src="images/pic1.jpg" ></span> '+
-             '<h1>冬菇一品鲜 <span>（240ml*12瓶/箱）</span></h1>'+
-           '  <div class="block"> '+
-             	'<span>'+
-                 '    <input type="radio" id="radio-1-7" name="radio-4-set" class="regular-radio" checked />'+
-                 '    <label for="radio-1-7">单品价:<font class="font-oringe">￥5.00</font>/瓶</label>'+
-               '  </span>'+
-               '  <span>'+
-                   '  <input type="radio" id="radio-1-8" name="radio-4-set" class="regular-radio" />'+
-               '      <label for="radio-1-8">套装价:<font class="font-oringe">￥60.00</font>/箱</label>'+
-               '  </span>'+
-            ' </div>'+
-           '  <div class="stock-num">'+
-                ' <span class="jian min">-</span>'+
-                 '<input class="text_box shuliang" name="danpin" type="text" value="0"> '+
-                ' <span class="jia add">+</span>'+
-                 
-               '  <span hidden="ture" class="jian min">-</span>'+
-                ' <input hidden="ture" class="text_box shuliang" name="taozhuan" type="text" value="0"> '+
-                ' <span hidden="ture" class="jia add">+</span>'+
-                 
-                ' <input type="checkbox" id="checkbox_a4" class="chk_1">'+
-            		'<label for="checkbox_a4"></label>'+
-             '</div>'+
-         '</li>');
-     $(".home-hot-commodity").append('<li>'+
-         	'<span class="fl"><img src="images/pic1.jpg" ></span> '+
-             '<h1>冬菇一品鲜 <span>（240ml*12瓶/箱）</span></h1>'+
-           '  <div class="block"> '+
-             	'<span>'+
-                 '    <input type="radio" id="1radio1" name="1radio" class="regular-radio" checked />'+
-                 '    <label for="1radio1">单品价:<font class="font-oringe">￥5.00</font>/瓶</label>'+
-               '  </span>'+
-               '  <span>'+
-                   '  <input type="radio" id="1radio2" name="1radio" class="regular-radio" />'+
-               '      <label for="1radio2">套装价:<font class="font-oringe">￥60.00</font>/箱</label>'+
-               '  </span>'+
-            ' </div>'+
-           '  <div class="stock-num">'+
-                ' <span class="jian min">-</span>'+
-                 '<input class="text_box shuliang" name="danpin" type="text" value="0"> '+
-                ' <span class="jia add">+</span>'+
-                 
-               '  <span hidden="ture" class="jian min">-</span>'+
-                ' <input hidden="ture" class="text_box shuliang" name="taozhuan" type="text" value="0"> '+
-                ' <span hidden="ture" class="jia add">+</span>'+
-                 
-                ' <input type="checkbox" id="1checkbox" class="chk_1">'+
-            		'<label for="1checkbox"></label>'+
-             '</div>'+
-         '</li>');
-/* 	 $.each(data.root, function(i, item) {
-           
-        });
- */}
+}
+function getcurrennumdanpin(dishesid){
+	//订单
+	if(window.localStorage.getItem("sdishes")==null){
+		return 0;
+	}else{
+		var orderdetnum = 0;
+		var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));
+		$.each(sdishes, function(i, item) {
+			if(item.goodsid==dishesid
+					&&item.goodsdetail=="danpin"){
+				orderdetnum = item.orderdetnum;
+				return false;
+			}
+		});
+		return orderdetnum;
+	}
+}
+function getcurrennumtaozhuan(dishesid){
+	//订单
+	if(window.localStorage.getItem("sdishes")==null){
+		return 0;
+	}else{
+		var orderdetnum = 0;
+		var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));
+		$.each(sdishes, function(i, item) {
+			if(item.goodsid==dishesid
+					&&item.goodsdetail=="taozhuan"){
+				orderdetnum = item.orderdetnum;
+				return false;
+			}
+		});
+		return orderdetnum;
+	}
+}
+function addnum(obj,pricesprice,goodsname,goodsunit,goodsunits){
+	//总价
+	var tmoney = parseFloat(window.localStorage.getItem("totalmoney"));
+	var newtmoney = (tmoney+pricesprice).toFixed(2);
+	window.localStorage.setItem("totalmoney",newtmoney);
+	//数量
+	var numt = $(obj).prev(); 
+	var num = parseInt(numt.val());
+	numt.val(num+1);
+	//订单
+	if(window.localStorage.getItem("sdishes")==null){
+		window.localStorage.setItem("sdishes","[]");
+	}
+	var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));
+	if(num == 0){
+		//新增订单
+		var mdishes = new Object();
+		mdishes.goodsid = $(obj).parent().attr('name');
+		mdishes.goodsdetail = $(obj).prev().attr('name');
+		mdishes.pricesprice = pricesprice;
+		mdishes.goodsunit = goodsunit;
+		mdishes.goodsname = goodsname;
+		mdishes.goodsunits = goodsunits;
+		mdishes.orderdetnum = num + 1;
+		sdishes.push(mdishes);
+		//种类数
+		var tnum = parseInt(window.localStorage.getItem("totalnum"));
+		window.localStorage.setItem("totalnum",tnum+1);
+	}else{
+		//修改订单
+		$.each(sdishes, function(i, item) {
+			if(item.goodsid==$(obj).parent().attr('name')
+					&&item.goodsdetail==$(obj).prev().attr('name')){
+				item.orderdetnum = item.orderdetnum + 1;
+				return false;
+			}
+		});
+	}
+	window.localStorage.setItem("sdishes",JSON.stringify(sdishes));
+}
+function subnum(obj,pricesprice){
+	var numt = $(obj).next(); 
+	var num = parseInt(numt.val());
+	if(num > 0){
+		//总价
+		var tmoney = parseFloat(window.localStorage.getItem("totalmoney"));
+		var newtmoney = (tmoney-pricesprice).toFixed(2);
+		window.localStorage.setItem("totalmoney",newtmoney);
+		//数量
+		numt.val(num-1);
+		//订单
+		var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));
+		if(num == 1){
+			//删除订单
+			$.each(sdishes,function(i,item){
+				if(item.goodsid==$(obj).parent().attr('name')){
+					sdishes.splice(i,1);
+					return false;
+				};
+			});
+			//种类数
+			var tnum = parseInt(window.localStorage.getItem("totalnum"));
+			window.localStorage.setItem("totalnum",tnum-1);
+		}else{
+			//修改订单
+			$.each(sdishes, function(i, item) {
+				if(item.goodsid==$(obj).parent().attr('name')
+						&&item.goodsdetail==$(obj).prev().attr('name')){
+					item.orderdetnum = item.orderdetnum - 1;
+					return false;
+				}
+			});
+		}
+		window.localStorage.setItem("sdishes",JSON.stringify(sdishes));
+	}
+}
+function testJsonp(data){
+	//console.log(data);
+}
+
+function callbackparam(data){
+	//console.log(data);
+}
+
+function successCB(r, cb) {
+	cb && cb(r);
+}
+
+function getJson(url, param, sCallback, fCallBack) {
+	try
+	{
+		$.ajax({
+			url: url,
+			data: param,
+			dataType:"json",
+			success: function(r) {
+				successCB(r, sCallback);
+				successCB(r, fCallBack);
+			},
+			error:function(r) {
+				var resp = eval(r); 
+				alert(resp.msg);
+			}
+		});
+	}
+	catch (ex)
+	{
+		alert(ex);
+	}
+}
 </script> 
 </body>
 </html>

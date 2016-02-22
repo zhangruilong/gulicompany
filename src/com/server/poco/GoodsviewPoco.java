@@ -1,0 +1,116 @@
+package com.server.poco;
+
+/**
+ * 商品 实体类的常量
+ *@author ZhangRuiLong
+ */
+public class GoodsviewPoco
+{
+   /**
+    * 实体中文名
+    */
+   public static String NAME = "商品";
+   /**
+    * 实体表名
+    */
+   public static String TABLE = "Goodsview";
+   /**
+    * 实体主键
+    */
+   public static String[] KEYCOLUMN = {"goodsid"};
+   /**
+    * 实体中文字段
+    */
+   public static String[] CHINESENAME = {
+	 	"goodscompany",
+	 	"goodscode",
+	 	"goodsname",
+	 	"goodsdetail",
+	 	"goodsunits",
+	 	"goodsclass",
+	 	"goodsimage",
+	 	"goodsstatue",
+	 	"createtime",
+	 	"updtime",
+	 	"creator",
+	 	"updor",
+	 	"goodsclassid",
+	 	"goodsclasscode",
+	 	"goodsclassname",
+	 	"goodsclassparent",
+	 	"goodsclassdetail",
+	 	"goodsclassstatue",
+	 	"pricesid",
+	 	"pricesclass",
+	 	"priceslevel",
+	 	"pricesprice",
+	 	"pricesunit",
+	 	"pricesprice2",
+	 	"pricesunit2",
+	};
+	/**
+	 * 实体英文字段
+	 */
+   public static final String[] FIELDNAME = {
+	 	"goodscompany",
+	 	"goodscode",
+	 	"goodsname",
+	 	"goodsdetail",
+	 	"goodsunits",
+	 	"goodsclass",
+	 	"goodsimage",
+	 	"goodsstatue",
+	 	"createtime",
+	 	"updtime",
+	 	"creator",
+	 	"updor",
+	 	"goodsclassid",
+	 	"goodsclasscode",
+	 	"goodsclassname",
+	 	"goodsclassparent",
+	 	"goodsclassdetail",
+	 	"goodsclassstatue",
+	 	"pricesid",
+	 	"pricesclass",
+	 	"priceslevel",
+	 	"pricesprice",
+	 	"pricesunit",
+	 	"pricesprice2",
+	 	"pricesunit2",
+   };
+   /**
+    * 实体排序
+    */
+   public static final String ORDER = " goodsid ";
+   /**
+	 * 要模糊查询字段
+	 */
+   public static final String[] QUERYFIELDNAME = {
+	 	"goodscompany",
+	 	"goodscode",
+	 	"goodsname",
+	 	"goodsdetail",
+	 	"goodsunits",
+	 	"goodsclass",
+	 	"goodsimage",
+	 	"goodsstatue",
+	 	"createtime",
+	 	"updtime",
+	 	"creator",
+	 	"updor",
+	 	"goodsclassid",
+	 	"goodsclasscode",
+	 	"goodsclassname",
+	 	"goodsclassparent",
+	 	"goodsclassdetail",
+	 	"goodsclassstatue",
+	 	"pricesid",
+	 	"pricesclass",
+	 	"priceslevel",
+	 	"pricesprice",
+	 	"pricesunit",
+	 	"pricesprice2",
+	 	"pricesunit2",
+   };
+}
+
