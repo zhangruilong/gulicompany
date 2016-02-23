@@ -1,3 +1,8 @@
-/.svn/
-/com/
-/ds.config.xml
+/SqlMapConfig.xml
+/UserMapper.xml
+/applicationContext-dao.xml
+/applicationContext-service.xml
+/applicationContext-transaction.xml
+/db.properties
+/log4j.properties
+/springmvc.xml

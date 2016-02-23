@@ -31,5 +31,38 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/httpmime-4.3.4.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/httpcore-4.3.2.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/httpclient-cache-4.3.4.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/SSMLib/aopalliance-1.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/SSMLib/asm-3.3.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/SSMLib/aspectjweaver-1.6.11.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/SSMLib/cglib-2.2.2.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/SSMLib/commons-dbcp-1.2.2.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/SSMLib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/SSMLib/commons-pool-1.3.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/SSMLib/hibernate-validator-4.3.0.Final.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/SSMLib/javassist-3.17.1-GA.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/SSMLib/jboss-logging-3.1.0.CR2.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/SSMLib/jstl-1.2.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/SSMLib/junit-4.9.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/SSMLib/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/SSMLib/log4j-api-2.0-rc1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/SSMLib/log4j-core-2.0-rc1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/SSMLib/mybatis-3.2.7.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/SSMLib/mybatis-spring-1.2.2.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/SSMLib/slf4j-api-1.7.5.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/SSMLib/slf4j-log4j12-1.7.5.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/SSMLib/spring-aop-3.2.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/SSMLib/spring-aspects-3.2.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/SSMLib/spring-beans-3.2.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/SSMLib/spring-context-3.2.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/SSMLib/spring-context-support-3.2.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/SSMLib/spring-core-3.2.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/SSMLib/spring-expression-3.2.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/SSMLib/spring-jdbc-3.2.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/SSMLib/spring-orm-3.2.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/SSMLib/spring-test-3.2.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/SSMLib/spring-tx-3.2.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/SSMLib/spring-web-3.2.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/SSMLib/spring-webmvc-3.2.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/SSMLib/validation-api-1.0.0.GA.jar"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>
