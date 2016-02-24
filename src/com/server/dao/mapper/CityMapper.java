@@ -1,17 +1,16 @@
 package com.server.dao.mapper;
 
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 import com.server.pojo.City;
 /**
- * 
+ * 城市
  * @author taolichao
  *
  */
 public interface CityMapper {
 	/**
-     * 根据主键查询
+     * 查询全部地区
      */
 	List<City> selectAllCity();
 	/**

@@ -3,7 +3,11 @@ package com.server.dao.mapper;
 import java.util.List;
 
 import com.server.pojo.Address;
-
+/**
+ * 我的收货地址
+ * @author taolichao
+ *
+ */
 public interface AddressMapper {
 	/**
 	 * 根据条件查询
