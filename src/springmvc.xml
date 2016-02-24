@@ -15,7 +15,7 @@
 <!-- 可以扫描controller、service、...
 	这里让扫描controller，指定controller的包
 	 -->
-	<context:component-scan base-package="org.java.controller"></context:component-scan>
+	<context:component-scan base-package="com.server.action.controller"></context:component-scan>
 	
 			
 	<!-- 配置全局的异常处理 不需要配置ID-->
@@ -26,7 +26,7 @@
 	比如json转换解析器就默认加载了，如果使用mvc:annotation-driven不用配置上边的RequestMappingHandlerMapping和RequestMappingHandlerAdapter
 	实际开发时使用mvc:annotation-driven
 	 -->
-	<mvc:annotation-driven></mvc:annotation-driven>
+	<mvc:annotation-driven/>
 	
 
 	<!-- 视图解析器

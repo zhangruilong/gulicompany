@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.server.dao.mapper.AddressMapper" >
+  <resultMap id="BaseResultMap" type="com.server.pojo.Address" >
+    <id column="ADDRESSID" property="addressid" jdbcType="VARCHAR" />
+    <result column="ADDRESSCUSTOMER" property="addresscustomer" jdbcType="VARCHAR" />
+    <result column="ADDRESSCONNECT" property="addressconnect" jdbcType="VARCHAR" />
+    <result column="ADDRESSPHONE" property="addressphone" jdbcType="VARCHAR" />
+    <result column="ADDRESSADDRESS" property="addressaddress" jdbcType="VARCHAR" />
+    <result column="ADDRESSTURE" property="addressture" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ADDRESSID, ADDRESSCUSTOMER, ADDRESSCONNECT, ADDRESSPHONE, ADDRESSADDRESS, ADDRESSTURE
+  </sql>
+  <!-- 根据条件查询 -->
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.server.pojo.Address" >
+    select 
+    <include refid="Base_Column_List" />
+    from ADDRESS
+    <where>
+    	<if test="addresscustomer != null">
+    		and addresscustomer = #{addresscustomer}
+    	</if>
+    </where>
+  </select>
+  <!-- 根据主键查询 -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ADDRESS
+    where ADDRESSID = #{addressid,jdbcType=VARCHAR}
+  </select>
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ADDRESS
+    where ADDRESSID = #{addressid,jdbcType=VARCHAR}
+  </delete>
+  <!-- 选择性添加 -->
+  <insert id="insertSelective" parameterType="com.server.pojo.Address" >
+    insert into ADDRESS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="addressid != null" >
+        ADDRESSID,
+      </if>
+      <if test="addresscustomer != null" >
+        ADDRESSCUSTOMER,
+      </if>
+      <if test="addressconnect != null" >
+        ADDRESSCONNECT,
+      </if>
+      <if test="addressphone != null" >
+        ADDRESSPHONE,
+      </if>
+      <if test="addressaddress != null" >
+        ADDRESSADDRESS,
+      </if>
+      <if test="addressture != null" >
+        ADDRESSTURE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="addressid != null" >
+        #{addressid,jdbcType=VARCHAR},
+      </if>
+      <if test="addresscustomer != null" >
+        #{addresscustomer,jdbcType=VARCHAR},
+      </if>
+      <if test="addressconnect != null" >
+        #{addressconnect,jdbcType=VARCHAR},
+      </if>
+      <if test="addressphone != null" >
+        #{addressphone,jdbcType=VARCHAR},
+      </if>
+      <if test="addressaddress != null" >
+        #{addressaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="addressture != null" >
+        #{addressture,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <!-- 根据主键选择性修改 -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.server.pojo.Address" >
+    update ADDRESS
+    <set >
+      <if test="addresscustomer != null" >
+        ADDRESSCUSTOMER = #{addresscustomer,jdbcType=VARCHAR},
+      </if>
+      <if test="addressconnect != null" >
+        ADDRESSCONNECT = #{addressconnect,jdbcType=VARCHAR},
+      </if>
+      <if test="addressphone != null" >
+        ADDRESSPHONE = #{addressphone,jdbcType=VARCHAR},
+      </if>
+      <if test="addressaddress != null" >
+        ADDRESSADDRESS = #{addressaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="addressture != null" >
+        ADDRESSTURE = #{addressture,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ADDRESSID = #{addressid,jdbcType=VARCHAR}
+  </update>
+</mapper>
