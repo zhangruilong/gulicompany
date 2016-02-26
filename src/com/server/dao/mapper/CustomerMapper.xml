@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.server.dao.mapper.CustomerMapper" >
+  <resultMap id="BaseResultMap" type="com.server.pojo.Customer" >
+    <id column="CUSTOMERID" property="customerid" jdbcType="VARCHAR" />
+    <result column="CUSTOMERCODE" property="customercode" jdbcType="VARCHAR" />
+    <result column="CUSTOMERNAME" property="customername" jdbcType="VARCHAR" />
+    <result column="CUSTOMERPHONE" property="customerphone" jdbcType="VARCHAR" />
+    <result column="CUSTOMERPSW" property="customerpsw" jdbcType="VARCHAR" />
+    <result column="CUSTOMERSHOP" property="customershop" jdbcType="VARCHAR" />
+    <result column="CUSTOMERCITY" property="customercity" jdbcType="VARCHAR" />
+    <result column="CUSTOMERXIAN" property="customerxian" jdbcType="VARCHAR" />
+    <result column="CUSTOMERADDRESS" property="customeraddress" jdbcType="VARCHAR" />
+    <result column="CUSTOMERTYPE" property="customertype" jdbcType="VARCHAR" />
+    <result column="CUSTOMERLEVEL" property="customerlevel" jdbcType="DECIMAL" />
+    <result column="OPENID" property="openid" jdbcType="VARCHAR" />
+    <result column="CUSTOMERDETAIL" property="customerdetail" jdbcType="VARCHAR" />
+    <result column="CUSTOMERSTATUE" property="customerstatue" jdbcType="VARCHAR" />
+    <result column="CREATETIME" property="createtime" jdbcType="VARCHAR" />
+    <result column="UPDTIME" property="updtime" jdbcType="VARCHAR" />
+    <!-- 关联收藏(一对多) -->
+    <collection property="collectList" ofType="com.server.pojo.Collect">
+    	<id column="COLLECTID" property="collectid" jdbcType="VARCHAR" />
+    	<result column="COLLECTGOODS" property="collectgoods" jdbcType="VARCHAR" />
+    	<result column="COLLECTCUSTOMER" property="collectcustomer" jdbcType="VARCHAR" />
+    	<result column="COLLECTDETAIL" property="collectdetail" jdbcType="VARCHAR" />
+    	<result column="CREATETIME" property="createtime" jdbcType="VARCHAR" />
+    	<!-- 关联商品(一对一) -->
+    	<association property="goods" javaType="com.server.pojo.Goods">
+    		<id column="GOODSID" property="goodsid" jdbcType="VARCHAR" />
+		    <result column="GOODSCOMPANY" property="goodscompany" jdbcType="VARCHAR" />
+		    <result column="GOODSCODE" property="goodscode" jdbcType="VARCHAR" />
+		    <result column="GOODSNAME" property="goodsname" jdbcType="VARCHAR" />
+		    <result column="GOODSDETAIL" property="goodsdetail" jdbcType="VARCHAR" />
+		    <result column="GOODSUNITS" property="goodsunits" jdbcType="VARCHAR" />
+		    <result column="GOODSCLASS" property="goodsclass" jdbcType="VARCHAR" />
+		    <result column="GOODSIMAGE" property="goodsimage" jdbcType="VARCHAR" />
+		    <result column="GOODSSTATUE" property="goodsstatue" jdbcType="VARCHAR" />
+		    <result column="CREATETIME" property="createtime" jdbcType="VARCHAR" />
+		    <result column="UPDTIME" property="updtime" jdbcType="VARCHAR" />
+		    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+		    <result column="UPDOR" property="updor" jdbcType="VARCHAR" />
+		    <result column="cclevel" property="cclevel" jdbcType="VARCHAR" />
+		    <!-- 关联价格(一对多) -->
+		    <collection property="pricesList" ofType="com.server.pojo.Prices">
+		    	<id column="PRICESID" property="pricesid" jdbcType="VARCHAR" />
+			    <result column="PRICESGOODS" property="pricesgoods" jdbcType="VARCHAR" />
+			    <result column="PRICESCLASS" property="pricesclass" jdbcType="VARCHAR" />
+			    <result column="PRICESLEVEL" property="priceslevel" jdbcType="DECIMAL" />
+			    <result column="PRICESPRICE" property="pricesprice" jdbcType="FLOAT" />
+			    <result column="PRICESUNIT" property="pricesunit" jdbcType="VARCHAR" />
+			    <result column="PRICESPRICE2" property="pricesprice2" jdbcType="FLOAT" />
+			    <result column="PRICESUNIT2" property="pricesunit2" jdbcType="VARCHAR" />
+			    <result column="CREATETIME" property="createtime" jdbcType="VARCHAR" />
+			    <result column="UPDTIME" property="updtime" jdbcType="VARCHAR" />
+			    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+			    <result column="UPDOR" property="updor" jdbcType="VARCHAR" />
+		    </collection>
+    	</association>
+    </collection>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CUSTOMERID, CUSTOMERCODE, CUSTOMERNAME, CUSTOMERPHONE, CUSTOMERPSW, CUSTOMERSHOP, 
+    CUSTOMERCITY, CUSTOMERXIAN, CUSTOMERADDRESS, CUSTOMERTYPE, CUSTOMERLEVEL, OPENID, 
+    CUSTOMERDETAIL, CUSTOMERSTATUE, CREATETIME, UPDTIME
+  </sql>
+  <!-- 根据客户id查询收藏的商品 -->
+  <select id="selectCollectGoodsById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+		customer.customerid,
+		customer.customerlevel,
+		customer.customertype,
+		collect.collectid,
+		goods.goodsname,
+		goods.goodsunits,
+		goods.goodsimage,
+    	ccustomer.ccustomerdetail as ccLevel,
+		prices.pricesprice,
+		prices.pricesunit,
+		prices.pricesprice2,
+		prices.pricesunit2,
+		prices.pricesclass,
+		prices.priceslevel  
+	from 
+		customer 
+		left outer join collect 
+		on collect.collectcustomer = customer.customerid 
+		left outer join goods 
+		on collect.collectgoods = goods.goodsid 
+    left outer join company 
+    on goods.goodscompany = company.companyid 
+    left outer join ccustomer 
+    on ccustomer.ccustomercompany = company.companyid and ccustomer.ccustomercustomer = customer.customerid 
+		left outer join prices 
+		on prices.pricesgoods = goods.goodsid 
+	where customer.customerid = #{customerid}
+  </select>
+  <!-- 根据主键查询 -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from CUSTOMER
+    where CUSTOMERID = #{customerid,jdbcType=VARCHAR}
+  </select>
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from CUSTOMER
+    where CUSTOMERID = #{customerid,jdbcType=VARCHAR}
+  </delete>
+  <!-- 选择性添加 -->
+  <insert id="insertSelective" parameterType="com.server.pojo.Customer" >
+    insert into CUSTOMER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="customerid != null" >
+        CUSTOMERID,
+      </if>
+      <if test="customercode != null" >
+        CUSTOMERCODE,
+      </if>
+      <if test="customername != null" >
+        CUSTOMERNAME,
+      </if>
+      <if test="customerphone != null" >
+        CUSTOMERPHONE,
+      </if>
+      <if test="customerpsw != null" >
+        CUSTOMERPSW,
+      </if>
+      <if test="customershop != null" >
+        CUSTOMERSHOP,
+      </if>
+      <if test="customercity != null" >
+        CUSTOMERCITY,
+      </if>
+      <if test="customerxian != null" >
+        CUSTOMERXIAN,
+      </if>
+      <if test="customeraddress != null" >
+        CUSTOMERADDRESS,
+      </if>
+      <if test="customertype != null" >
+        CUSTOMERTYPE,
+      </if>
+      <if test="customerlevel != null" >
+        CUSTOMERLEVEL,
+      </if>
+      <if test="openid != null" >
+        OPENID,
+      </if>
+      <if test="customerdetail != null" >
+        CUSTOMERDETAIL,
+      </if>
+      <if test="customerstatue != null" >
+        CUSTOMERSTATUE,
+      </if>
+      <if test="createtime != null" >
+        CREATETIME,
+      </if>
+      <if test="updtime != null" >
+        UPDTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="customerid != null" >
+        #{customerid,jdbcType=VARCHAR},
+      </if>
+      <if test="customercode != null" >
+        #{customercode,jdbcType=VARCHAR},
+      </if>
+      <if test="customername != null" >
+        #{customername,jdbcType=VARCHAR},
+      </if>
+      <if test="customerphone != null" >
+        #{customerphone,jdbcType=VARCHAR},
+      </if>
+      <if test="customerpsw != null" >
+        #{customerpsw,jdbcType=VARCHAR},
+      </if>
+      <if test="customershop != null" >
+        #{customershop,jdbcType=VARCHAR},
+      </if>
+      <if test="customercity != null" >
+        #{customercity,jdbcType=VARCHAR},
+      </if>
+      <if test="customerxian != null" >
+        #{customerxian,jdbcType=VARCHAR},
+      </if>
+      <if test="customeraddress != null" >
+        #{customeraddress,jdbcType=VARCHAR},
+      </if>
+      <if test="customertype != null" >
+        #{customertype,jdbcType=VARCHAR},
+      </if>
+      <if test="customerlevel != null" >
+        #{customerlevel,jdbcType=DECIMAL},
+      </if>
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="customerdetail != null" >
+        #{customerdetail,jdbcType=VARCHAR},
+      </if>
+      <if test="customerstatue != null" >
+        #{customerstatue,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="updtime != null" >
+        #{updtime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <!-- 根据主键选择性修改 -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.server.pojo.Customer" >
+    update CUSTOMER
+    <set >
+      <if test="customercode != null" >
+        CUSTOMERCODE = #{customercode,jdbcType=VARCHAR},
+      </if>
+      <if test="customername != null" >
+        CUSTOMERNAME = #{customername,jdbcType=VARCHAR},
+      </if>
+      <if test="customerphone != null" >
+        CUSTOMERPHONE = #{customerphone,jdbcType=VARCHAR},
+      </if>
+      <if test="customerpsw != null" >
+        CUSTOMERPSW = #{customerpsw,jdbcType=VARCHAR},
+      </if>
+      <if test="customershop != null" >
+        CUSTOMERSHOP = #{customershop,jdbcType=VARCHAR},
+      </if>
+      <if test="customercity != null" >
+        CUSTOMERCITY = #{customercity,jdbcType=VARCHAR},
+      </if>
+      <if test="customerxian != null" >
+        CUSTOMERXIAN = #{customerxian,jdbcType=VARCHAR},
+      </if>
+      <if test="customeraddress != null" >
+        CUSTOMERADDRESS = #{customeraddress,jdbcType=VARCHAR},
+      </if>
+      <if test="customertype != null" >
+        CUSTOMERTYPE = #{customertype,jdbcType=VARCHAR},
+      </if>
+      <if test="customerlevel != null" >
+        CUSTOMERLEVEL = #{customerlevel,jdbcType=DECIMAL},
+      </if>
+      <if test="openid != null" >
+        OPENID = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="customerdetail != null" >
+        CUSTOMERDETAIL = #{customerdetail,jdbcType=VARCHAR},
+      </if>
+      <if test="customerstatue != null" >
+        CUSTOMERSTATUE = #{customerstatue,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        CREATETIME = #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="updtime != null" >
+        UPDTIME = #{updtime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CUSTOMERID = #{customerid,jdbcType=VARCHAR}
+  </update>
+</mapper>

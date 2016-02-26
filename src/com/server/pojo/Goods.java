@@ -1,6 +1,7 @@
 package com.server.pojo;
 
 import java.sql.Date;
+import java.util.List;
 /**
  * 商品 实体类
  *@author ZhangRuiLong
@@ -59,6 +60,14 @@ public class Goods
     * 修改人
     */
    private String updor;   
+   /**
+    * 关联价格
+    */
+   private List<Prices> pricesList;
+   /**
+    * 查询此商品的用户与此商品的经销商的关系等级
+    */
+   private String cclevel;
     //属性方法	    
      /**
 	 *设置主键"商品ID"属性
@@ -279,7 +288,32 @@ public class Goods
 	public String getUpdor()
 	{
 		return this.updor;
-	}	   
+	}	
+	
+	/**
+	 *获取"价格"属性
+	 */
+	public List<Prices> getPricesList() {
+		return pricesList;
+	}
+	/**
+	 *设置"价格"属性
+	 */
+	public void setPricesList(List<Prices> pricesList) {
+		this.pricesList = pricesList;
+	}
+
+	/**
+	 *获取"查询此商品的用户与此商品的经销商的关系等级"属性
+	 */
+	public String getCclevel() {
+		return cclevel;
+	}
+
+	public void setCclevel(String cclevel) {
+		this.cclevel = cclevel;
+	}
+
 	public Goods() {
 		super();
 		// TODO Auto-generated constructor stub

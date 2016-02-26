@@ -20,6 +20,7 @@
     GOODSID, GOODSCOMPANY, GOODSCODE, GOODSNAME, GOODSDETAIL, GOODSUNITS, GOODSCLASS, 
     GOODSIMAGE, GOODSSTATUE, CREATETIME, UPDTIME, CREATOR, UPDOR
   </sql>
+  <!-- 根据条件查询 -->
   <!-- 根据主键查询 -->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -33,7 +34,7 @@
     where GOODSID = #{goodsid,jdbcType=VARCHAR}
   </delete>
   <!-- 选择性添加 -->
-  <insert id="insertSelective" parameterType="org.java.pojo.Goods" >
+  <insert id="insertSelective" parameterType="com.server.pojo.Goods" >
     insert into GOODS
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="goodsid != null" >
@@ -119,7 +120,7 @@
     </trim>
   </insert>
   <!-- 根据主键选择性修改 -->
-  <update id="updateByPrimaryKeySelective" parameterType="org.java.pojo.Goods" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.server.pojo.Goods" >
     update GOODS
     <set >
       <if test="goodscompany != null" >
