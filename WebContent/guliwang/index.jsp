@@ -28,11 +28,6 @@
                 	<c:forEach items="${requestScope.cityList }" var="city">
                 		<li><a href="#">${city.cityname }</a></li>
                 	</c:forEach>
-                	<!-- <li><a href="#">黄浦区</a></li>
-                    <li><a href="#">浦东新区</a></li>
-                    <li><a href="#">长宁区</a></li>
-                    <li><a href="#">嘉定区</a></li>
-                    <li><a href="#">闵行区</a></li> -->
                 </ul>
             </div>
         </div>
@@ -45,7 +40,27 @@
         <ul class="home-hot-commodity">
         	<c:forEach items="${requestScope.companyList }" var="company">
         		<c:forEach items="${company.timegoodsList }" var="timegoods">
-        			<li><a href="cart.jsp"><span class="fl"><img src="images/pic1.jpg" ></span> <h1>${timegoods.timegoodsname } <span>（${timegoods.timegoodsunits }）</span></h1><span> <strong>￥${timegoods.timegoodsorgprice }/${timegoods.timegoodsunit }</strong> <em>￥${timegoods.timegoodsprice }/${timegoods.timegoodsunit }</em> <font>限购${timegoods.timegoodsnum }${timegoods.timegoodsunit }</font></span></a></li>
+        			<li>
+	        			<a onclick="chuancan('${timegoods.timegoodsid }','${timegoods.timegoodsdetail }',
+	        				'${timegoods.timegoodsprice }','${timegoods.timegoodsorgprice }',
+	        				'${timegoods.timegoodsunit }','${timegoods.timegoodsunits }',
+	        				'${timegoods.timegoodsname }','${timegoods.timegoodsnum }'
+	        				);" 
+	        				href="cart.jsp">
+		        			<span class="fl">
+		        				<img src="images/pic1.jpg" >
+		        			</span> 
+		        			<h1 >${timegoods.timegoodsname } 
+		        				<span>（${timegoods.timegoodsunits }）</span>
+		        			</h1>
+		        				<span> 
+		        					<strong>￥${timegoods.timegoodsorgprice }/${timegoods.timegoodsunit }
+		        					</strong> 
+		        					<em>￥${timegoods.timegoodsprice }/${timegoods.timegoodsunit }</em> 
+		        					<font>限购${timegoods.timegoodsnum }${timegoods.timegoodsunit }</font>
+		        				</span>
+	        			</a>
+	        		</li>
         		</c:forEach>
         	</c:forEach>
         	<!-- <li><a href="cart.jsp"><span class="fl"><img src="images/pic1.jpg" ></span> <h1>冬菇一品鲜 <span>（240ml*12瓶/箱）</span></h1><span> <strong>￥110.00/箱</strong> <em>￥110.00/箱</em> <font>限购5箱</font></span></a></li> -->
@@ -66,5 +81,18 @@
 
 <script src="js/jquery-1.8.3.min.js"></script>
 <script src="js/jquery-dropdown.js"></script>
+<script type="text/javascript">
+	function chuancan(timegoodsid,timegoodsdetail,timegoodsprice,timegoodsorgprice,timegoodsunit,timegoodsunits,timegoodsname,timegoodsnum){
+		//将需要的值存入到缓存中
+		window.localStorage.setItem("timegoodsid",timegoodsid);				
+		window.localStorage.setItem("timegoodsdetail",timegoodsdetail);
+		window.localStorage.setItem("timegoodsprice",timegoodsprice);
+		window.localStorage.setItem("timegoodsorgprice",timegoodsorgprice);
+		window.localStorage.setItem("timegoodsunit",timegoodsunit);
+		window.localStorage.setItem("timegoodsunits",timegoodsunits);
+		window.localStorage.setItem("timegoodsname",timegoodsname);
+		window.localStorage.setItem("timegoodsnum",timegoodsnum);
+	}
+</script>
 </body>
 </html>
