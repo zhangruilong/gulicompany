@@ -25,11 +25,14 @@
             </div>
             <div class="menu-tags home-city-drop">
                 <ul>
-                	<li><a href="#">黄浦区</a></li>
+                	<c:forEach items="${requestScope.cityList }" var="city">
+                		<li><a href="#">${city.cityname }</a></li>
+                	</c:forEach>
+                	<!-- <li><a href="#">黄浦区</a></li>
                     <li><a href="#">浦东新区</a></li>
                     <li><a href="#">长宁区</a></li>
                     <li><a href="#">嘉定区</a></li>
-                    <li><a href="#">闵行区</a></li>
+                    <li><a href="#">闵行区</a></li> -->
                 </ul>
             </div>
         </div>
@@ -40,17 +43,19 @@
     	<img src="images/banner.jpg" >
         <div class="home-hot">特惠商品抢购区</div>
         <ul class="home-hot-commodity">
-        	<li><a href="cart.jsp"><span class="fl"><img src="images/pic1.jpg" ></span> <h1>冬菇一品鲜 <span>（240ml*12瓶/箱）</span></h1><span> <strong>￥110.00/箱</strong> <em>￥110.00/箱</em> <font>限购5箱</font></span></a></li>
-            <li><a href="cart.jsp"><span class="fl"><img src="images/pic1.jpg" ></span> <h1>冬菇一品鲜 <span>（240ml*12瓶/箱）</span></h1><span> <strong>￥110.00/箱</strong> <em>￥110.00/箱</em> <font>限购5箱</font></span></a></li>
-            <li><a href="cart.jsp"><span class="fl"><img src="images/pic1.jpg" ></span> <h1>冬菇一品鲜 <span>（240ml*12瓶/箱）</span></h1><span> <strong>￥110.00/箱</strong> <em>￥110.00/箱</em> <font>限购5箱</font></span></a></li>
-            <li><a href="cart.jsp"><span class="fl"><img src="images/pic1.jpg" ></span> <h1>冬菇一品鲜 <span>（240ml*12瓶/箱）</span></h1><span> <strong>￥110.00/箱</strong> <em>￥110.00/箱</em> <font>限购5箱</font></span></a></li>
+        	<c:forEach items="${requestScope.companyList }" var="company">
+        		<c:forEach items="${company.timegoodsList }" var="timegoods">
+        			<li><a href="cart.jsp"><span class="fl"><img src="images/pic1.jpg" ></span> <h1>${timegoods.timegoodsname } <span>（${timegoods.timegoodsunits }）</span></h1><span> <strong>￥${timegoods.timegoodsorgprice }/${timegoods.timegoodsunit }</strong> <em>￥${timegoods.timegoodsprice }/${timegoods.timegoodsunit }</em> <font>限购${timegoods.timegoodsnum }${timegoods.timegoodsunit }</font></span></a></li>
+        		</c:forEach>
+        	</c:forEach>
+        	<!-- <li><a href="cart.jsp"><span class="fl"><img src="images/pic1.jpg" ></span> <h1>冬菇一品鲜 <span>（240ml*12瓶/箱）</span></h1><span> <strong>￥110.00/箱</strong> <em>￥110.00/箱</em> <font>限购5箱</font></span></a></li> -->
         </ul>
     </div>
 
 
 <div class="personal-center-nav">
     <ul>
-        <li class="active"><a href="index.jsp"><em class="ion-home"></em>首页</a></li>
+        <li class="active"><a href="doGuliwangIndex.action?companyCondition.city.cityname=静安区"><em class="ion-home"></em>首页</a></li>
         <li><a href="goods.jsp"><em class="ion-bag"></em>商城</a></li>
         <li><a href="order.jsp"><em class="ion-clipboard"></em>订单</a></li>
         <li><a href="mine.jsp"><em class="ion-android-person"></em>我的</a></li>

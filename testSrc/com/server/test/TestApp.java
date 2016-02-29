@@ -7,8 +7,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.server.dao.mapper.CityMapper;
+import com.server.dao.mapper.CompanyMapper;
 import com.server.dao.mapper.CustomerMapper;
 import com.server.pojo.City;
+import com.server.pojo.Company;
 import com.server.pojo.Customer;
 import com.server.pojo.Goods;
 
@@ -30,5 +32,18 @@ public class TestApp {
 		CustomerMapper mapper = (CustomerMapper) context.getBean("customerMapper");
 		Customer customer = mapper.selectCollectGoodsById("1");
 		System.out.println(customer);
+	}
+	
+	@Test
+	public void testFindByCondition(){
+		ApplicationContext context = 
+				new ClassPathXmlApplicationContext("applicationContext-dao.xml");
+		CompanyMapper mapper = (CompanyMapper) context.getBean("companyMapper");
+		Company company = new Company();
+		City city = new City();
+		city.setCityname("静安区");
+		company.setCity(city);
+		List<Company> list = mapper.selectCompanyByCondition(company);
+		System.out.println(list);
 	}
 }

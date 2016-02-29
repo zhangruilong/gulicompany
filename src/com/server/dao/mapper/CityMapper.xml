@@ -12,16 +12,16 @@
   <sql id="Base_Column_List" >
     CITYID, CITYCODE, CITYNAME, CITYPARENT, CITYDETAIL, CITYSTATUE
   </sql>
-  <!-- 查询所有的地区 -->
+  <!-- 查询所有地区 -->
   <select id="selectAllCity" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
-    <include refid="Base_Column_List"></include>
+    <include refid="Base_Column_List" />
     from CITY
   </select>
   <!-- 根据主键查询 -->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
-    <include refid="Base_Column_List"></include>
+    <include refid="Base_Column_List" />
     from CITY
     where CITYID = #{cityid,jdbcType=VARCHAR}
   </select>

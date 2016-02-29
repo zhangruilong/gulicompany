@@ -68,7 +68,6 @@
   <select id="selectCollectGoodsById" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
 		customer.customerid,
-		customer.customerlevel,
 		customer.customertype,
 		collect.collectid,
 		goods.goodsname,

@@ -22,9 +22,9 @@
     </div>
 	<div class="personal-center">
     	<a href="#">我的账号 <span class="sign"></span></a>
-        <a href="collect.jsp">我的收藏 <span class="sign"></span></a>
+        <a href="doCollect.action?comid=1">我的收藏 <span class="sign"></span></a>
         <a href="#">我的谷币 <span class="sign"></span></a>
-        <a href="address.jsp">收货地址 <span class="sign"></span></a>
+        <a href="doAddressMana.action?comid=1">收货地址 <span class="sign"></span></a>
     </div>
     <div class="personal-center">
     	<a href="#">谷粒客服 <span class="sign"></span></a>
@@ -36,7 +36,7 @@
 </div>
 <div class="personal-center-nav">
     	<ul>
-        	<li><a href="index.jsp"><em class="ion-home"></em>首页</a></li>
+        	<li><a href="doGuliwangIndex.action?companyCondition.city.cityname=静安区"><em class="ion-home"></em>首页</a></li>
             <li><a href="goods.jsp"><em class="ion-bag"></em>商城</a></li>
             <li><a href="order.jsp"><em class="ion-clipboard"></em>订单</a></li>
             <li class="active"><a href="mine.jsp"><em class="ion-android-person"></em>我的</a></li>
