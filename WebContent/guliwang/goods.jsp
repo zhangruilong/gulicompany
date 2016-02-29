@@ -109,7 +109,7 @@
 
 <div class="personal-center-nav">
     <ul>
-        	<li><a href="index.jsp"><em class="ion-home"></em>首页</a></li>
+        	<li><a href="doGuliwangIndex.action?companyCondition.city.cityname=静安区"><em class="ion-home"></em>首页</a></li>
             <li class="active"><a href="goods.jsp"><em class="ion-bag"></em>商城</a></li>
             <li><a href="order.jsp"><em class="ion-clipboard"></em>订单</a></li>
             <li><a href="mine.jsp"><em class="ion-android-person"></em>我的</a></li>
@@ -213,18 +213,18 @@ function getcurrennumtaozhuan(dishesid){
 }
 function addnum(obj,pricesprice,goodsname,pricesunit,goodsunits){
 	//总价
-	var tmoney = parseFloat(window.localStorage.getItem("totalmoney"));
-	var newtmoney = (tmoney+pricesprice).toFixed(2);
-	window.localStorage.setItem("totalmoney",newtmoney);
+	var tmoney = parseFloat(window.localStorage.getItem("totalmoney"));		//从缓存中取出总金额
+	var newtmoney = (tmoney+pricesprice).toFixed(2);						//'总金额' 加上 '单价 得到' '新的总金额' 精确到两位
+	window.localStorage.setItem("totalmoney",newtmoney);					//将 '新的总金额' 放入到缓存中
 	//数量
-	var numt = $(obj).prev(); 
-	var num = parseInt(numt.val());
-	numt.val(num+1);
+	var numt = $(obj).prev(); 				//得到span的前面一个同级节点 (input节点)
+	var num = parseInt(numt.val());			//得到input里面的值(数量)
+	numt.val(num+1);						//设置里面的值+1
 	//订单
-	if(window.localStorage.getItem("sdishes")==null){
-		window.localStorage.setItem("sdishes","[]");
+	if(window.localStorage.getItem("sdishes")==null){		//如果缓存中没有"sdishes"
+		window.localStorage.setItem("sdishes","[]");		//放一个空的"sdishes"到缓存中
 	}
-	var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));
+	var sdishes = JSON.parse(window.localStorage.getItem("sdishes")); 	//将缓存中的sdishes(字符串)转换为json对象
 	if(num == 0){
 		//新增订单
 		var mdishes = new Object();
@@ -235,10 +235,10 @@ function addnum(obj,pricesprice,goodsname,pricesunit,goodsunits){
 		mdishes.goodsname = goodsname;
 		mdishes.goodsunits = goodsunits;
 		mdishes.orderdetnum = num + 1;
-		sdishes.push(mdishes);
+		sdishes.push(mdishes);				//往json对象中添加一个新的元素(订单)
 		//种类数
-		var tnum = parseInt(window.localStorage.getItem("totalnum"));
-		window.localStorage.setItem("totalnum",tnum+1);
+		var tnum = parseInt(window.localStorage.getItem("totalnum"));	//得到缓存中的总数量并转化为整数型
+		window.localStorage.setItem("totalnum",tnum+1);					//设置缓存中的总数量加一
 	}else{
 		//修改订单
 		$.each(sdishes, function(i, item) {

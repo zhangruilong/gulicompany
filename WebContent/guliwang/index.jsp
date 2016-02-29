@@ -32,7 +32,12 @@
             </div>
         </div>
         <input type="text" placeholder="请输入食材名称" />
-        <a href="cart.jsp" class="gwc"><img src="images/gwc.png" ></a>
+        <a  onclick="chuancan('${timegoods.timegoodsid }','${timegoods.timegoodsdetail }',
+	        				'${timegoods.timegoodsprice }','${timegoods.timegoodsorgprice }',
+	        				'${timegoods.timegoodsunit }','${timegoods.timegoodsunits }',
+	        				'${timegoods.timegoodsname }','${timegoods.timegoodsnum }'
+	        				);"
+	        				 href="cart.jsp" class="gwc"><img src="images/gwc.png" ></a>
     </div>
     <div class="home-hot-wrap">
     	<img src="images/banner.jpg" >
@@ -84,14 +89,10 @@
 <script type="text/javascript">
 	function chuancan(timegoodsid,timegoodsdetail,timegoodsprice,timegoodsorgprice,timegoodsunit,timegoodsunits,timegoodsname,timegoodsnum){
 		//将需要的值存入到缓存中
-		window.localStorage.setItem("timegoodsid",timegoodsid);				
-		window.localStorage.setItem("timegoodsdetail",timegoodsdetail);
-		window.localStorage.setItem("timegoodsprice",timegoodsprice);
-		window.localStorage.setItem("timegoodsorgprice",timegoodsorgprice);
-		window.localStorage.setItem("timegoodsunit",timegoodsunit);
-		window.localStorage.setItem("timegoodsunits",timegoodsunits);
-		window.localStorage.setItem("timegoodsname",timegoodsname);
-		window.localStorage.setItem("timegoodsnum",timegoodsnum);
+		if(window.localStorage.getItem("sdishes") == null){
+			window.localStorage.setItem("sdishes","[]");
+		}
+		
 	}
 </script>
 </body>
