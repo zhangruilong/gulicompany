@@ -21,7 +21,7 @@ public class AddressController {
 
 	@Autowired
 	private AddressMapper addressMapper;
-	//到地址管理页面
+	//到地址管理页面fff
 	@RequestMapping("/guliwang/doAddressMana")
 	public String doAddressMana(Model model,Address address){
 		List<Address> addressList = addressMapper.selectByCondition(address);		//根据条件查询地址
