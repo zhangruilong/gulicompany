@@ -41,7 +41,7 @@ public class CcustomerPoco
    /**
     * 实体排序
     */
-   public static final String ORDER = " ccustomerid ";
+   public static final String ORDER = " ccustomerid desc ";
    /**
 	 * 要模糊查询字段
 	 */

@@ -41,7 +41,7 @@ public class PayPoco
    /**
     * 实体排序
     */
-   public static final String ORDER = " payid ";
+   public static final String ORDER = " payid desc ";
    /**
 	 * 要模糊查询字段
 	 */

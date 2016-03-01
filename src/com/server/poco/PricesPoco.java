@@ -53,7 +53,7 @@ public class PricesPoco
    /**
     * 实体排序
     */
-   public static final String ORDER = " pricesid ";
+   public static final String ORDER = " pricesid desc ";
    /**
 	 * 要模糊查询字段
 	 */

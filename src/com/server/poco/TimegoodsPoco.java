@@ -59,7 +59,7 @@ public class TimegoodsPoco
    /**
     * 实体排序
     */
-   public static final String ORDER = " timegoodsid ";
+   public static final String ORDER = " timegoodsid desc ";
    /**
 	 * 要模糊查询字段
 	 */

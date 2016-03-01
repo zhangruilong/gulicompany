@@ -41,7 +41,7 @@ public class CityPoco
    /**
     * 实体排序
     */
-   public static final String ORDER = " cityid ";
+   public static final String ORDER = " cityid desc ";
    /**
 	 * 要模糊查询字段
 	 */

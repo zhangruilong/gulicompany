@@ -1,7 +1,6 @@
 package com.server.pojo;
 
 import java.sql.Date;
-import java.util.List;
 /**
  * 收藏 实体类
  *@author ZhangRuiLong
@@ -27,11 +26,7 @@ public class Collect
    /**
     * 创建时间
     */
-   private String createtime;  
-   /**
-    * 关联商品
-    */
-   private Goods goods;
+   private String createtime;   
     //属性方法	    
      /**
 	 *设置主键"收藏ID"属性
@@ -117,20 +112,6 @@ public class Collect
 	{
 		return this.createtime;
 	}	   
-	
-	/**
-	 *获取"商品"属性
-	 */
-	public Goods getGoods() {
-		return goods;
-	}
-	/**
-	 *设置"商品"属性
-	 */
-	public void setGoods(Goods goods) {
-		this.goods = goods;
-	}
-
 	public Collect() {
 		super();
 		// TODO Auto-generated constructor stub

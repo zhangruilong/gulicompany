@@ -39,7 +39,7 @@ public class CollectPoco
    /**
     * 实体排序
     */
-   public static final String ORDER = " collectid ";
+   public static final String ORDER = " collectid desc ";
    /**
 	 * 要模糊查询字段
 	 */

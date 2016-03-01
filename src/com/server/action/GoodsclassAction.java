@@ -107,4 +107,14 @@ public class GoodsclassAction extends BaseAction {
 		}
 		responsePW(response, result);
 	}
+	//查询所有
+	public void mselAll(HttpServletRequest request, HttpServletResponse response){
+		Queryinfo queryinfo = getQueryinfo(request);
+		queryinfo.setType(Goodsclass.class);
+		queryinfo.setQuery(DAO.getQuerysql(queryinfo.getQuery()));
+		queryinfo.setOrder(GoodsclassPoco.ORDER);
+		Pageinfo pageinfo = new Pageinfo(0, DAO.selAll(queryinfo));
+		result = CommonConst.GSON.toJson(pageinfo);
+		mresponsePW(request, response, result);
+	}
 }

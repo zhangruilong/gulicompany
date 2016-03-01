@@ -1,10 +1,12 @@
 package com.server.action;
 
 import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.server.dao.OrdermDao;
+import com.server.pojo.Orderd;
 import com.server.pojo.Orderm;
 import com.server.poco.OrdermPoco;
 import com.system.tools.CommonConst;
@@ -12,7 +14,9 @@ import com.system.tools.base.BaseAction;
 import com.system.tools.pojo.Fileinfo;
 import com.system.tools.pojo.Queryinfo;
 import com.system.tools.util.CommonUtil;
+import com.system.tools.util.DateUtils;
 import com.system.tools.util.FileUtil;
+import com.system.tools.util.TypeUtil;
 import com.system.tools.pojo.Pageinfo;
 
 /**
@@ -92,6 +96,44 @@ public class OrdermAction extends BaseAction {
 		queryinfo.setOrder(OrdermPoco.ORDER);
 		Pageinfo pageinfo = new Pageinfo(DAO.getTotal(queryinfo), DAO.selQuery(queryinfo));
 		result = CommonConst.GSON.toJson(pageinfo);
+		responsePW(response, result);
+	}
+	//新增
+	public void addOrder(HttpServletRequest request, HttpServletResponse response){
+		String json = request.getParameter("json");
+		System.out.println("json : " + json);
+		if(CommonUtil.isNotEmpty(json)) cuss = CommonConst.GSON.fromJson(json, TYPE);
+		Orderm temp = cuss.get(0);
+		
+		String mOrdermid = CommonUtil.getNewId();
+		temp.setOrdermid(mOrdermid);
+		temp.setOrdermcode(mOrdermid);
+		temp.setOrdermrightmoney(temp.getOrdermmoney());
+//		temp.setOrdermcustomer(getCurrentUserid(request));
+		temp.setOrdermstatue("已下单");
+		temp.setOrdermtime(DateUtils.getDateTime());
+		ArrayList<String> sqls = new ArrayList<String> ();
+		String sqlOrderm = DAO.getInsSingleSql(temp);
+		sqls.add(sqlOrderm);
+		//订单详情
+		String orderdetjson = request.getParameter("orderdetjson");
+		System.out.println("orderdetjson : " + orderdetjson);
+		ArrayList<Orderd> sOrderd;
+		if(CommonUtil.isNotEmpty(orderdetjson)) {
+			java.lang.reflect.Type sOrderdTYPE = new com.google.gson.reflect.TypeToken<ArrayList<Orderd>>() {}.getType();
+			sOrderd = CommonConst.GSON.fromJson(orderdetjson, sOrderdTYPE);
+			for(Orderd mOrderd:sOrderd){
+				mOrderd.setOrderdid(CommonUtil.getNewId());
+				mOrderd.setOrderdorderm(mOrdermid);
+				mOrderd.setOrderdrightmoney(mOrderd.getOrderdmoney());
+				String sqlOrderd = DAO.getInsSingleSql(mOrderd);
+				sqls.add(sqlOrderd);
+			}
+			result = DAO.doAll(sqls);
+		}
+		if(result.equals(CommonConst.FAILURE)){
+			result = "{success:false,msg:'服务器异常,操作失败'}";
+		}
 		responsePW(response, result);
 	}
 }

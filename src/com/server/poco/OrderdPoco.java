@@ -55,7 +55,7 @@ public class OrderdPoco
    /**
     * 实体排序
     */
-   public static final String ORDER = " orderdid ";
+   public static final String ORDER = " orderdid desc ";
    /**
 	 * 要模糊查询字段
 	 */

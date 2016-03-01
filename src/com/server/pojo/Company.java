@@ -1,7 +1,6 @@
 package com.server.pojo;
 
 import java.sql.Date;
-import java.util.List;
 /**
  * 经销商 实体类
  *@author ZhangRuiLong
@@ -60,18 +59,6 @@ public class Company
     * 修改时间
     */
    private String updtime;   
-   /**
-    * 关联城市
-    */
-   private City city;
-   /**
-    * 关联商品
-    */
-   private List<Goods> goodsList;
-   /**
-    * 关联促销品
-    */
-   private List<Timegoods> timegoodsList;
     //属性方法	    
      /**
 	 *设置主键"经销商ID"属性
@@ -293,32 +280,6 @@ public class Company
 	{
 		return this.updtime;
 	}	   
-	
-	
-	public City getCity() {
-		return city;
-	}
-
-	public void setCity(City city) {
-		this.city = city;
-	}
-
-	public List<Goods> getGoodsList() {
-		return goodsList;
-	}
-
-	public void setGoodsList(List<Goods> goodsList) {
-		this.goodsList = goodsList;
-	}
-
-	public List<Timegoods> getTimegoodsList() {
-		return timegoodsList;
-	}
-
-	public void setTimegoodsList(List<Timegoods> timegoodsList) {
-		this.timegoodsList = timegoodsList;
-	}
-
 	public Company() {
 		super();
 		// TODO Auto-generated constructor stub

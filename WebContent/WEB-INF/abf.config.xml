@@ -50,6 +50,7 @@
 	<bean id="ScantAction" class="com.server.action.ScantAction" />
 	<bean id="TimegoodsAction" class="com.server.action.TimegoodsAction" />
 	
+	<bean id="OrdermviewAction" class="com.server.action.OrdermviewAction" />
 	<bean id="CompanyviewAction" class="com.server.action.CompanyviewAction" />
 	<bean id="ScantviewAction" class="com.server.action.ScantviewAction" />
 	<bean id="GoodsviewAction" class="com.server.action.GoodsviewAction" />

@@ -57,7 +57,7 @@ public class ScantviewPoco
    /**
     * 实体排序
     */
-   public static final String ORDER = " scantid ";
+   public static final String ORDER = " scantid desc ";
    /**
 	 * 要模糊查询字段
 	 */

@@ -1,5 +1,8 @@
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/";
+%>
 <!doctype html> 
 <html>
 <head>
@@ -14,8 +17,8 @@
 </head>
 
 <body>
+<div class="wapper-nav">全部订单<a href="query.jsp">筛选</a></div>
 <div class="gl-box">
-	<div class="wapper-nav">全部订单<a href="query.jsp">筛选</a></div>
 	<div class="add-admin">
     	<div class="all-order-wrapper">
         	<h1>天然粮油公司<span>2015-10-10 13:00</span></h1>
@@ -62,5 +65,57 @@
             <li><a href="mine.jsp"><em class="ion-android-person"></em>我的</a></li>
     </ul>
 </div>
+<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+<script> 
+var basePath = '<%=basePath%>';
+$(function(){
+	getJson(basePath+"OrdermviewAction.do",{method:"mselQuery"},initData,null);
+});
+function initData(data){
+    $(".gl-box").html("");
+	 $.each(data.root, function(i, item) {
+		$(".gl-box").append('<div class="add-admin">'+
+		    	'<div class="all-order-wrapper">'+
+	        	'<h1>'+item.companyshop+'<span>'+item.ordermtime+'</span></h1>'+
+	            '<a href="#">'+
+	                '<span>订单状态：<font class="font-oringe">'+item.ordermstatue+'</font></span>'+
+	                '<span>订单编号：<font class="font-grey">'+item.ordermcode+'</font> </span>'+
+	                '<span class="sign"></span>'+
+	            '</a>'+
+	            '<div class="gopay">'+
+	                '<span class="block">品种数量：<font class="font-oringe">'+item.ordermnum+'</font> '+
+	                '总价：<font class="font-oringe">'+item.ordermrightmoney+'元</font>	</span>	'+
+	            '</div>'+
+	        '</div>'+
+	    '</div>');
+    });
+}
+function successCB(r, cb) {
+	cb && cb(r);
+}
+
+function getJson(url, param, sCallback, fCallBack) {
+	try
+	{
+		$.ajax({
+			url: url,
+			data: param,
+			dataType:"json",
+			success: function(r) {
+				successCB(r, sCallback);
+				successCB(r, fCallBack);
+			},
+			error:function(r) {
+				var resp = eval(r); 
+				alert(resp.msg);
+			}
+		});
+	}
+	catch (ex)
+	{
+		alert(ex);
+	}
+}
+</script>
 </body>
 </html>

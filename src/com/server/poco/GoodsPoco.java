@@ -55,7 +55,7 @@ public class GoodsPoco
    /**
     * 实体排序
     */
-   public static final String ORDER = " goodsid ";
+   public static final String ORDER = " goodsid desc ";
    /**
 	 * 要模糊查询字段
 	 */

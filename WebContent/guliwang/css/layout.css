@@ -81,8 +81,8 @@ body, html {
 	font-size: 1.2em
 }
 /*美化*/
-.add-admin a:before, .personal-center a:before, .add-admin .all-order-wrapper:before, .add-admin .all-order-wrapper h1:before, .add-admin .all-order-wrapper .gopay:before, .goods-wrapper .home-hot-commodity li:before, .home-hot-wrap .home-hot-commodity li a:before, .goods-wrapper .home-hot-commodity li a:before, .cart-wrapper li:before, .cart-wrapper h1:before, .jiesuan .jiesuan-info li:before, .jiesuan .jiesuan-info h1:before, .jiesuan .jiesuan-info:before, .footer .jiesuan-foot-info:before {
-	/* position: absolute; */
+.add-admin a:before, .personal-center a:before, .add-admin .all-order-wrapper:before, .add-admin .all-order-wrapper h1:before, .add-admin .all-order-wrapper .gopay:before, .goods-wrapper .home-hot-commodity li:before, .home-hot-wrap .home-hot-commodity li a:before,.home-hot-commodity li:before, .cart-wrapper li:before, .cart-wrapper h1:before, .jiesuan .jiesuan-info li:before, .jiesuan .jiesuan-info h1:before, .jiesuan .jiesuan-info:before, .footer .jiesuan-foot-info:before {
+	position:absolute;
 	content: '';
 	top: -50%;
 	bottom: -50%;
@@ -93,7 +93,7 @@ body, html {
 	border-bottom: solid 1px #ccc;
 	border-top: solid 1px #ccc
 }
-.add-admin a:first-child:before, .add-admin .all-order-wrapper .gopay:before, .home-hot-wrap .home-hot-commodity li a:before, .goods-wrapper .home-hot-commodity li a:before, .goods-wrapper .home-hot-commodity li:before, .home-hot-wrap .home-hot-commodity li:before, .cart-wrapper li:before, .cart-wrapper li:first-child:before, .jiesuan .jiesuan-info li:before, .jiesuan .jiesuan-info:before {
+.add-admin a:first-child:before, .add-admin .all-order-wrapper .gopay:before, .home-hot-commodity li:before, .goods-wrapper .home-hot-commodity li:before,.goods-wrapper .home-hot-commodity li-first-child:before, .home-hot-wrap .home-hot-commodity li:before, .cart-wrapper li:before, .cart-wrapper li:first-child:before, .jiesuan .jiesuan-info li:before, .jiesuan .jiesuan-info:before {
 	border-top: none
 }
 .footer .jiesuan-foot-info:before, .jiesuan .jiesuan-info li:last-child:before {
@@ -191,7 +191,7 @@ body, html {
 .personal-center-nav li .nav-order:hover{background-position:87.3% -10%}
 .personal-center-nav li .nav-i:hover{background-position:102% -5%}*/
 /*首页*/
-.home-hot-wrap, .goods-wrapper {
+.home-hot-wrap {
 	background-color: #fff;
 	overflow: hidden
 }
@@ -246,7 +246,7 @@ body, html {
 	background-position: 4% 6px;
 	border-bottom: solid 1px #ccc
 }
-.home-hot-wrap .home-hot-commodity li, .goods-wrapper .home-hot-commodity li {
+.home-hot-wrap .home-hot-commodity li{
 	overflow: hidden;
 	margin-left: 4%
 }
@@ -598,7 +598,7 @@ body, html {
 	margin: 0
 }
 /*购物车*/
-.cart-wrapper {
+.cart-wrapper, .goods-wrapper {
 	background-color: #fff;
 	margin-bottom: 4%
 }
@@ -620,11 +620,11 @@ body, html {
 	font-size: 1em;
 	font-weight: normal
 }
-.cart-wrapper li {
+.cart-wrapper li,.goods-wrapper .home-hot-commodity li {
 	position: relative;
 	overflow: hidden;
 	margin-left: 4%;
-	padding: 2% 0
+	padding: 2% 0;
 }
 .cart-wrapper li em {
 	float: left;
@@ -644,6 +644,7 @@ body, html {
 	width: 10%
 }
 .cart-wrapper li .jian, .cart-wrapper li .jia, .goods-wrapper .home-hot-commodity li .jia, .goods-wrapper .home-hot-commodity li .jian {
+	position:relative;
 	width: 12px;
 	height: 24px;
 	line-height: 24px;
@@ -661,6 +662,7 @@ body, html {
 	border-radius: 0 5px 5px 0
 }
 .cart-wrapper li .shuliang, .goods-wrapper .home-hot-commodity li .shuliang {
+	position:relative;
 	float: left;
 	width: 30px;
 	height: 22px;
@@ -673,13 +675,11 @@ body, html {
 	padding: 1px 0
 }
 /*商品*/
-.goods-wrapper .home-hot-commodity li {
-	padding: 2% 0
-}
 .goods-wrapper .home-hot-commodity li h1 {
 	margin: 2% 0
 }
 .stock-num {
+	position:relative;
 	margin: 2% 0;
 	float: left;
 	width: 65%
@@ -872,7 +872,11 @@ body, html {
 	color: #fff;
 	text-align: center
 }
- @media screen and (min-width:360px) {
+@media screen and (min-width:320px){
+.footer .jiesuan-foot-info{ font-size:.7em}
+.cart-wrapper .songda{ font-size:.4em}
+}
+@media screen and (min-width:360px) {
 .add-admin a {
 	font-size: .9em
 }

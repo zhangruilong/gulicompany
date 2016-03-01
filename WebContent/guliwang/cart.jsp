@@ -38,7 +38,7 @@
 </form>
 </div>
 <div class="footer">
-	<div class="jiesuan-foot-info"><img src="images/jiesuanbg.png" > 种类数：<span id="totalnum">0</span>总价：<span id="totalmoney">0</span> </div><a href="结算.html" class="jiesuan-button">结算</a>
+	<div class="jiesuan-foot-info"><img src="images/jiesuanbg.png" > 种类数：<span id="totalnum">0</span>总价：<span id="totalmoney">0</span> </div><a href="buy.jsp" class="jiesuan-button">结算</a>
 </div>
 
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
@@ -60,19 +60,51 @@ $(function(){
 	initDishes(sdishes);
 });
 function initDishes(data){
-    $(".cart-wrapper").html("");
-    $(".cart-wrapper").append('<h1>凯源食品有限公司</h1><ul>');
+	var scompany = new Array();
 	$.each(data, function(i, item) {
-          $(".cart-wrapper").append('<li name="'+item.goodsid+'">'+
-                    	'<em><img src="images/pic1.jpg" ></em> '+
-                    	'<h2>'+item.goodsname+'<span class="price">'+item.pricesprice+'元/'+item.pricesunit+'</span></h2>'+
-        				'<span onclick="subnum(this,'+item.pricesprice+')" class="jian min">-</span>'+
-                        '<input class="text_box shuliang" name="'+item.goodsdetail+'" type="text" value="'+
-     	                getcurrennum(item.goodsid,item.goodsdetail)+'"> '+
-                        '<span onclick="addnum(this,'+item.pricesprice+')" class="jia add">+</span>'+
-                    '</li>');
-     });
-	$(".cart-wrapper").append('</ul><div class="songda">送达时间：城区2小时送达，郊区次日送达。</div>');
+		if(scompany.length==0){
+			var mcompany = new Object();
+			mcompany.ordermcompany = item.goodscompany;
+			mcompany.companyshop = item.companyshop;
+			mcompany.companydetail = item.companydetail;
+			mcompany.ordermnum = 1;
+			mcompany.ordermmoney = (item.pricesprice * item.orderdetnum).toFixed(2);
+			scompany.push(mcompany);
+		}else{
+			$.each(scompany, function(y, item2) {
+				if(item2.ordermcompany == item.goodscompany){
+					item2.ordermnum += 1;
+					item2.ordermmoney += (item.pricesprice * item.orderdetnum).toFixed(2);
+					return false;
+				}else if(y==scompany.length-1){
+					var mcompany = new Object();
+					mcompany.ordermcompany = item.goodscompany;
+					mcompany.companyshop = item.companyshop;
+					mcompany.companydetail = item.companydetail;
+					mcompany.ordermnum = 1;
+					mcompany.ordermmoney = (item.pricesprice * item.orderdetnum).toFixed(2);
+					scompany.push(mcompany);
+				}
+			});
+		}
+	});
+	window.localStorage.setItem("scompany",JSON.stringify(scompany));
+    $(".cart-wrapper").html("");
+    $.each(scompany, function(y, mcompany) {
+    	$(".cart-wrapper").append('<h1>'+mcompany.companyshop+'</h1><ul>');
+    	$.each(data, function(i, item) {
+    		if(mcompany.ordermcompany==item.goodscompany)
+            $(".cart-wrapper").append('<li name="'+item.goodsid+'">'+
+                      	'<em><img src="images/pic1.jpg" ></em> '+
+                      	'<h2>'+item.goodsname+'<span class="price">'+item.pricesprice+'元/'+item.pricesunit+'</span></h2>'+
+          				'<span onclick="subnum(this,'+item.pricesprice+')" class="jian min">-</span>'+
+                          '<input class="text_box shuliang" name="'+item.goodsdetail+'" type="text" value="'+
+       	                getcurrennum(item.goodsid,item.goodsdetail)+'"> '+
+                          '<span onclick="addnum(this,'+item.pricesprice+')" class="jia add">+</span>'+
+                      '</li>');
+       });
+       $(".cart-wrapper").append('</ul><div class="songda">'+mcompany.companydetail+'</div>');
+	});
 }
 function getcurrennum(dishesid,goodsdetail){
 	//订单

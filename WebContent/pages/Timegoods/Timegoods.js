@@ -32,13 +32,6 @@ Ext.onReady(function() {
 			dataIndex : 'timegoodscompany',
 			align : 'center',
 			width : 80,
-			hidden : true
-		}
-		, {
-			header : '经销商',
-			dataIndex : 'timegoodscompany',
-			align : 'center',
-			width : 80,
 			sortable : true
 		}
 		, {
