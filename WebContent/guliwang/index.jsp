@@ -31,7 +31,7 @@
                 </ul>
             </div>
         </div>
-        <input type="text" placeholder="请输入食材名称" />
+        <input type="text" placeholder="请输入食材名称" onkeydown="submitSeach(this)"/>
         <a  onclick="chuancan('${timegoods.timegoodsid }','${timegoods.timegoodsdetail }',
 	        				'${timegoods.timegoodsprice }','${timegoods.timegoodsorgprice }',
 	        				'${timegoods.timegoodsunit }','${timegoods.timegoodsunits }',
@@ -87,13 +87,14 @@
 <script src="js/jquery-1.8.3.min.js"></script>
 <script src="js/jquery-dropdown.js"></script>
 <script type="text/javascript">
+	//将商品信息存入缓存 
 	function chuancan(timegoodsid,timegoodsdetail,timegoodsorgprice,timegoodsunit,timegoodsunits,timegoodsname,timegoodsnum){
-		//if(window.localStorage.getItem("totalmoney") != null){
-		//	var tmoney = parseFloat(window.localStorage.getItem("totalmoney"));		//从缓存中取出总金额
-		//	var newtmoney = (tmoney+pricesprice).toFixed(2);						//'总金额' 加上 '单价 得到' '新的总金额' 精确到两位
-		//} else {
+		if(window.localStorage.getItem("totalmoney") == null){
 			window.localStorage.setItem("totalmoney",timegoodsorgprice)
-		//}
+		} else {
+			var tmoney = parseFloat(window.localStorage.getItem("totalmoney"));		//从缓存中取出总金额
+			var newtmoney = (tmoney+pricesprice).toFixed(2);						//'总金额' 加上 '单价 得到' '新的总金额' 精确到两位
+		}
 		//将需要的值存入到缓存中
 		if(window.localStorage.getItem("sdishes") == null){
 			window.localStorage.setItem("sdishes","[]");
@@ -116,6 +117,12 @@
 			window.localStorage.setItem("totalnum",tnum +1);
 		}
 		window.localStorage.setItem("sdishes",JSON.stringify(sdishes));
+	}
+	//提交搜索条件 
+	function submitSeach(obj){
+		var seachVal = obj.val();		//得到搜索条件 
+		alert(seachVal);
+		window.local.href = 'goods.jsp';
 	}
 </script>
 </body>
