@@ -49,6 +49,7 @@
                 </div>
             </div>
         </div>
+        <!-- aaa -->
         <input id="searchdishes" type="text" placeholder="请输入食材名称" onkeydown="entersearch()"/>
         <a href="cart.jsp" class="gwc"><img src="images/gwc.png" ></a>
     </div>
