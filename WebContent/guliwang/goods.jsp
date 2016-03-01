@@ -2,7 +2,10 @@
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/";
+	String searchdishesvalue = request.getParameter("searchdishes");
+	String searchclassesvalue = request.getParameter("searchclasses");
 %>
+<!--  16.03.01-->
 <!doctype html> 
 <html>
 <head>
@@ -19,13 +22,13 @@
 <body>
 <div class="gl-box">
 	<div class="home-search-wrapper">
-        <span class="citydrop">酱油 <em><img src="images/dropbg.png" ></em></span>
+        <span class="citydrop"><span id="curgoodsclass">酱油</span> <em><img src="images/dropbg.png" ></em></span> 
         <div class="menu">
             <div class="menu-tags home-city-drop">
                 <div class="fenlei-tit">食材谱</div>
                 <div class="wrapper">
                 	<div class="fenlei-left">
-                    	<ul>
+                    	<ul id="fenlei-left">
                         	<li><a href="#">食用油</a></li>
                             <li><a href="#">食用油</a></li>
                             <li class="active"><a href="#">食用油</a></li>
@@ -46,7 +49,7 @@
                 </div>
             </div>
         </div>
-        <input type="text" placeholder="请输入食材名称" />
+        <input id="searchdishes" type="text" placeholder="请输入食材名称" onkeydown="entersearch()"/>
         <a href="cart.jsp" class="gwc"><img src="images/gwc.png" ></a>
     </div>
     <div class="goods-wrapper">
@@ -105,22 +108,22 @@
             </li>
         </ul>
     </div>
-
-
+</div>
 <div class="personal-center-nav">
     <ul>
-        	<li><a href="doGuliwangIndex.action?companyCondition.city.cityname=静安区"><em class="ion-home"></em>首页</a></li>
+        	<li><a href="index.jsp"><em class="ion-home"></em>首页</a></li>
             <li class="active"><a href="goods.jsp"><em class="ion-bag"></em>商城</a></li>
             <li><a href="order.jsp"><em class="ion-clipboard"></em>订单</a></li>
             <li><a href="mine.jsp"><em class="ion-android-person"></em>我的</a></li>
     </ul>
-</div>
 </div>
 
 <script src="js/jquery-2.1.4.min.js"></script>
 <script src="js/jquery-dropdown.js"></script>
 <script> 
 var basePath = '<%=basePath%>';
+var searchdishesvalue = '<%=searchdishesvalue%>';
+var searchclassesvalue = '<%=searchclassesvalue%>';
 $(function(){ 
 	if(!window.localStorage.getItem("totalnum")){
 		window.localStorage.setItem("totalnum",0);
@@ -128,8 +131,49 @@ $(function(){
 	if(!window.localStorage.getItem("totalmoney")){
 		window.localStorage.setItem("totalmoney",0);
 	}
-	getJson(basePath+"GoodsviewAction.do",{method:"mselQuery"},initDishes,null);
+	if(searchdishesvalue!="null"&&searchdishesvalue!=""){
+		getJson(basePath+"GoodsviewAction.do",{method:"mselQuery",query:searchdishesvalue},initDishes,null);
+	}else if(searchclassesvalue!="null"&&searchclassesvalue!=""){
+		$("#curgoodsclass").html(searchclassesvalue);
+		getJson(basePath+"GoodsviewAction.do",{method:"mselQuery",wheresql:"goodsclassname='"+searchclassesvalue+"'"},initDishes,null);
+	}else{
+		getJson(basePath+"GoodsviewAction.do",{method:"mselQuery"},initDishes,null);
+	}
 })
+function entersearch(){
+    var event = window.event || arguments.callee.caller.arguments[0];
+    if (event.keyCode == 13)
+    {
+    	searchdishesvalue = $("#searchdishes").val();
+    	getJson(basePath+"GoodsviewAction.do",{method:"mselQuery",query:searchdishesvalue},initDishes,null);
+    }
+}
+$(".citydrop").click(function(){ 
+	getJson(basePath+"GoodsclassAction.do",{method:"mselAll",wheresql:"goodsclassparent='root'"},initGoodsclass,null);
+}) 
+function initGoodsclass(data){
+	 $("#fenlei-left").html("");
+	 $.each(data.root, function(i, item) {
+		if(i==0){
+			$("#fenlei-left").append('<li class="active" name="'+item.goodsclassid+'"><a href="#">'+item.goodsclassname+'</a></li>');
+			getJson(basePath+"GoodsclassAction.do",{method:"mselAll",wheresql:"goodsclassparent = '"+item.goodsclassid+"'"},initGoodsclassright,null);
+		}else{
+			$("#fenlei-left").append('<li name="'+item.goodsclassid+'"><a href="#">'+item.goodsclassname+'</a></li>');
+		}
+    });
+ 	$("#fenlei-left li").each(function(){
+		$(this).click(function(){
+			$(this).addClass('active').siblings().removeClass('active');
+			getJson(basePath+"GoodsclassAction.do",{method:"mselAll",wheresql:"goodsclassparent = '"+$(this).attr('name')+"'"},initGoodsclassright,null);
+		})
+	});
+}
+function initGoodsclassright(data){
+	 $(".fenlei-right").html("");
+	 $.each(data.root, function(i, item) {
+		$(".fenlei-right").append('<a href="goods.jsp?searchclasses='+item.goodsclassname+'">'+item.goodsclassname+'</a>');
+    });
+}
 function initDishes(data){
      $(".home-hot-commodity").html("");
  	 $.each(data.root, function(i, item) {
@@ -153,6 +197,8 @@ function initDishes(data){
  	                 getcurrennumdanpin(item.goodsid)+'"> '+
  	                ' <span class="jia add" onclick="addnum(this,'+item.pricesprice
 					   +',\''+item.goodsname+'\',\''+item.pricesunit+'\',\''+item.goodsunits
+					   +'\',\''+item.goodscode+'\',\''+item.goodsclassname
+					   +'\',\''+item.goodscompany+'\',\''+item.companyshop+'\',\''+item.companydetail
 					   +'\')">+</span>'+
  	               '  <span hidden="ture" class="jian min" onclick="subnum(this,'+item.pricesprice2
 				   +')">-</span>'+
@@ -160,6 +206,8 @@ function initDishes(data){
  	                getcurrennumtaozhuan(item.goodsid)+'"> '+
  	                ' <span hidden="ture" class="jia add" onclick="addnum(this,'+item.pricesprice2
 					   +',\''+item.goodsname+'\',\''+item.pricesunit2+'\',\''+item.goodsunits
+					   +'\',\''+item.goodscode+'\',\''+item.goodsclassname
+					   +'\',\''+item.goodscompany+'\',\''+item.companyshop+'\',\''+item.companydetail
 					   +'\')">+</span>'+
  	                ' <input type="checkbox" id="'+item.goodsid+'checkbox" class="chk_1">'+
  	            		'<label for="'+item.goodsid+'checkbox"></label>'+
@@ -211,34 +259,39 @@ function getcurrennumtaozhuan(dishesid){
 		return orderdetnum;
 	}
 }
-function addnum(obj,pricesprice,goodsname,pricesunit,goodsunits){
+function addnum(obj,pricesprice,goodsname,pricesunit,goodsunits,goodscode,goodsclassname,goodscompany,companyshop,companydetail){
 	//总价
-	var tmoney = parseFloat(window.localStorage.getItem("totalmoney"));		//从缓存中取出总金额
-	var newtmoney = (tmoney+pricesprice).toFixed(2);						//'总金额' 加上 '单价 得到' '新的总金额' 精确到两位
-	window.localStorage.setItem("totalmoney",newtmoney);					//将 '新的总金额' 放入到缓存中
+	var tmoney = parseFloat(window.localStorage.getItem("totalmoney"));
+	var newtmoney = (tmoney+pricesprice).toFixed(2);
+	window.localStorage.setItem("totalmoney",newtmoney);
 	//数量
-	var numt = $(obj).prev(); 				//得到span的前面一个同级节点 (input节点)
-	var num = parseInt(numt.val());			//得到input里面的值(数量)
-	numt.val(num+1);						//设置里面的值+1
+	var numt = $(obj).prev(); 
+	var num = parseInt(numt.val());
+	numt.val(num+1);
 	//订单
-	if(window.localStorage.getItem("sdishes")==null){		//如果缓存中没有"sdishes"
-		window.localStorage.setItem("sdishes","[]");		//放一个空的"sdishes"到缓存中
+	if(window.localStorage.getItem("sdishes")==null){
+		window.localStorage.setItem("sdishes","[]");
 	}
-	var sdishes = JSON.parse(window.localStorage.getItem("sdishes")); 	//将缓存中的sdishes(字符串)转换为json对象
+	var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));
 	if(num == 0){
 		//新增订单
 		var mdishes = new Object();
 		mdishes.goodsid = $(obj).parent().attr('name');
 		mdishes.goodsdetail = $(obj).prev().attr('name');
+		mdishes.goodscompany = goodscompany;
+		mdishes.companyshop = companyshop;
+		mdishes.companydetail = companydetail;
+		mdishes.goodsclassname = goodsclassname;
+		mdishes.goodscode = goodscode;
 		mdishes.pricesprice = pricesprice;
 		mdishes.pricesunit = pricesunit;
 		mdishes.goodsname = goodsname;
 		mdishes.goodsunits = goodsunits;
 		mdishes.orderdetnum = num + 1;
-		sdishes.push(mdishes);				//往json对象中添加一个新的元素(订单)
+		sdishes.push(mdishes);
 		//种类数
-		var tnum = parseInt(window.localStorage.getItem("totalnum"));	//得到缓存中的总数量并转化为整数型
-		window.localStorage.setItem("totalnum",tnum+1);					//设置缓存中的总数量加一
+		var tnum = parseInt(window.localStorage.getItem("totalnum"));
+		window.localStorage.setItem("totalnum",tnum+1);
 	}else{
 		//修改订单
 		$.each(sdishes, function(i, item) {
