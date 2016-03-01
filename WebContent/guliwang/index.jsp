@@ -16,7 +16,7 @@
 
 <body>
 <div class="gl-box">
-<form id="form1" runat="server">
+<form id="form1" runat="server" >
 	<div class="home-search-wrapper">
         <span class="citydrop">静安区 <em><img src="images/dropbg.png" ></em></span>
         <div class="menu">
@@ -47,7 +47,7 @@
         		<c:forEach items="${company.timegoodsList }" var="timegoods">
         			<li>
 	        			<a onclick="chuancan('${timegoods.timegoodsid }','${timegoods.timegoodsdetail }',
-	        				'${timegoods.timegoodsprice }','${timegoods.timegoodsorgprice }',
+	        				'${timegoods.timegoodsorgprice }',
 	        				'${timegoods.timegoodsunit }','${timegoods.timegoodsunits }',
 	        				'${timegoods.timegoodsname }','${timegoods.timegoodsnum }'
 	        				);" 
@@ -87,12 +87,35 @@
 <script src="js/jquery-1.8.3.min.js"></script>
 <script src="js/jquery-dropdown.js"></script>
 <script type="text/javascript">
-	function chuancan(timegoodsid,timegoodsdetail,timegoodsprice,timegoodsorgprice,timegoodsunit,timegoodsunits,timegoodsname,timegoodsnum){
+	function chuancan(timegoodsid,timegoodsdetail,timegoodsorgprice,timegoodsunit,timegoodsunits,timegoodsname,timegoodsnum){
+		//if(window.localStorage.getItem("totalmoney") != null){
+		//	var tmoney = parseFloat(window.localStorage.getItem("totalmoney"));		//从缓存中取出总金额
+		//	var newtmoney = (tmoney+pricesprice).toFixed(2);						//'总金额' 加上 '单价 得到' '新的总金额' 精确到两位
+		//} else {
+			window.localStorage.setItem("totalmoney",timegoodsorgprice)
+		//}
 		//将需要的值存入到缓存中
 		if(window.localStorage.getItem("sdishes") == null){
 			window.localStorage.setItem("sdishes","[]");
 		}
-		
+		var sdishes = JSON.parse(window.localStorage.getItem("sdishes")); 	//将缓存中的sdishes(字符串)转换为json对象
+		//新增订单
+		var mdishes = new Object();	
+		mdishes.goodsid = timegoodsid;
+		mdishes.goodsdetail = timegoodsdetail;
+		mdishes.pricesprice = timegoodsorgprice;
+		mdishes.pricesunit = timegoodsunit;
+		mdishes.goodsname = timegoodsname;
+		mdishes.goodsunits = timegoodsunits;
+		mdishes.orderdetnum = 1;
+		sdishes.push(mdishes);				//往json对象中添加一个新的元素(订单)
+		if(window.localStorage.getItem("totalnum") == null){
+			window.localStorage.setItem("totalnum",1);					//设置缓存中的种类数量等于一 
+		} else {
+			var tnum = parseInt(window.localStorage.getItem("totalnum"));
+			window.localStorage.setItem("totalnum",tnum +1);
+		}
+		window.localStorage.setItem("sdishes",JSON.stringify(sdishes));
 	}
 </script>
 </body>
