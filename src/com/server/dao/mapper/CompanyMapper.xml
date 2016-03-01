@@ -86,6 +86,7 @@
 	  company.companyshop,       <!--  /*经销商店铺*/ -->
 	  company.username,         <!--  /*经销商姓名*/ -->
 	  company.companyphone,     <!--  /*手机*/ -->
+	  company.companydetail,
 	  city.cityname,            <!--  /*区*/ -->
 	  city.cityparent,          <!--  /*城市*/ -->
 	  timegoods.*

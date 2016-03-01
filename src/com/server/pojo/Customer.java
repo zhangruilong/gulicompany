@@ -1,6 +1,7 @@
 package com.server.pojo;
 
 import java.sql.Date;
+import java.util.List;
 /**
  * 客户 实体类
  *@author ZhangRuiLong
@@ -71,6 +72,10 @@ public class Customer
     * 修改时间
     */
    private String updtime;   
+   /**
+    * 关联收藏(一对多)
+    */
+   private List<Collect> collectList;
     //属性方法	    
      /**
 	 *设置主键"客户ID"属性
