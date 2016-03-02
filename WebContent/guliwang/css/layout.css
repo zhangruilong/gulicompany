@@ -82,7 +82,6 @@ body, html {
 }
 /*美化*/
 .add-admin a:before, .personal-center a:before, .add-admin .all-order-wrapper:before, .add-admin .all-order-wrapper h1:before, .add-admin .all-order-wrapper .gopay:before, .goods-wrapper .home-hot-commodity li:before, .home-hot-wrap .home-hot-commodity li a:before,.home-hot-commodity li:before, .cart-wrapper li:before, .cart-wrapper h1:before, .jiesuan .jiesuan-info li:before, .jiesuan .jiesuan-info h1:before, .jiesuan .jiesuan-info:before, .footer .jiesuan-foot-info:before {
-	position:absolute;
 	content: '';
 	top: -50%;
 	bottom: -50%;

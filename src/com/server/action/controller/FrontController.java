@@ -37,4 +37,9 @@ public class FrontController {
 		model.addAttribute("companyList", companyList);
 		return "forward:/guliwang/index.jsp";
 	}
+	
+	@RequestMapping("/guliwang/doCatr")
+	public String doCatr(Model model){
+		return "forward:/guliwang/cart.jsp";
+	}
 }

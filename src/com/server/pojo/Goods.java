@@ -64,6 +64,10 @@ public class Goods
     * 关联价格(一对多)
     */
    private List<Prices> pricesList;
+   /**
+    * 商品的供应商和客户的关系等级
+    */
+   private String cclevel;
     //属性方法	    
      /**
 	 *设置主键"商品ID"属性
@@ -293,6 +297,15 @@ public class Goods
 
 	public void setPricesList(List<Prices> pricesList) {
 		this.pricesList = pricesList;
+	}
+
+
+	public String getCclevel() {
+		return cclevel;
+	}
+
+	public void setCclevel(String cclevel) {
+		this.cclevel = cclevel;
 	}
 
 	public Goods() {

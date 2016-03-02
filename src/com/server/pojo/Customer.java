@@ -347,7 +347,17 @@ public class Customer
 	public String getUpdtime()
 	{
 		return this.updtime;
-	}	   
+	}	  
+	
+	
+	public List<Collect> getCollectList() {
+		return collectList;
+	}
+
+	public void setCollectList(List<Collect> collectList) {
+		this.collectList = collectList;
+	}
+
 	public Customer() {
 		super();
 		// TODO Auto-generated constructor stub
