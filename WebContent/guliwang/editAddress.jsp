@@ -100,7 +100,7 @@
 			<td><span >联系人名:</span><input value="${requestScope.address.addressconnect }" name="addressconnect" type="text" placeholder="请输入联系人名" /></td>
 		</tr>
 		<tr>
-			<td><span >手机号码:</span><input value="${requestScope.address.addressphone }" name="addressphone" type="text" placeholder="请输入手机号" /></td>
+			<td><span >手机号:</span><input value="${requestScope.address.addressphone }" name="addressphone" type="text" placeholder="请输入手机号" /></td>
 		</tr>
 		<tr>
 			<td><span >收货地址:</span><textarea name="addressaddress" placeholder="请输入地址" cols="10" rows="6">${requestScope.address.addressaddress }</textarea></td>
