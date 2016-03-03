@@ -8,7 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.server.dao.mapper.CustomerMapper;
 import com.server.pojo.Customer;
-
+/**
+ * 收藏
+ * @author taolichao
+ *
+ */
 @Controller
 public class CollectController {
 	@Autowired
