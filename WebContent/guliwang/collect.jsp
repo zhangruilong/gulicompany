@@ -14,17 +14,62 @@
 <title>谷粒网</title>
 <link href="css/base.css" type="text/css" rel="stylesheet">
 <link href="css/layout.css" type="text/css" rel="stylesheet">
+<style type="text/css">
+
+input {
+	float: left;
+	
+  -webkit-appearance: none; /* remove default */
+  display: block;
+  margin: 38px 10px 10px 10px;
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  cursor: pointer;
+  vertical-align: middle;
+  box-shadow: hsla(0,0%,100%,.15) 0 1px 1px, inset hsla(0,0%,0%,.5) 0 0 0 1px;
+  background-color: hsla(0,0%,0%,.2);
+  background-image: -webkit-radial-gradient( hsla(200,100%,90%,1) 0%, hsla(200,100%,70%,1) 15%, hsla(200,100%,60%,.3) 28%, hsla(200,100%,30%,0) 70% );
+  background-repeat: no-repeat;
+  -webkit-transition: background-position .15s cubic-bezier(.8, 0, 1, 1),
+    -webkit-transform .25s cubic-bezier(.8, 0, 1, 1);
+}
+input:checked {
+  -webkit-transition: background-position .2s .15s cubic-bezier(0, 0, .2, 1),
+    -webkit-transform .25s cubic-bezier(0, 0, .2, 1);
+}
+input:active {
+  -webkit-transform: scale(1.5);
+  -webkit-transition: -webkit-transform .1s cubic-bezier(0, 0, .2, 1);
+}
+
+
+
+/* The up/down direction logic */
+
+input,
+input:active {
+  background-position: 0 24px;
+}
+input:checked {
+  background-position: 0 0;
+}
+input:checked ~ input,
+input:checked ~ input:active {
+  background-position: 0 -24px;
+}
+</style>
 </head>
 
 <body>
 	<div class="gl-box">
 		<div class="wapper-nav">
-			我的收藏<a href="#">编辑</a>
+			我的收藏<a onclick="editToDel(this)">编辑</a>
 		</div>
 		<div class="shoucang-wrap">
 			<ul>
 				<c:forEach items="${requestScope.customerCollect.collectList }" var="collect">
-					<li><a href="#"><span class="fl"><img
+					<li><a href="#"><span class="fl"><img 
 								src="images/pic1.jpg"></span>
 						<h1>${collect.goods.goodsname }<span>（${collect.goods.goodsunits }）</span>
 							</h1>
@@ -55,6 +100,14 @@
 			</ul>
 		</div>
 	</div>
-
+<script src="js/jquery-1.8.3.min.js"></script>
+<script src="js/jquery-dropdown.js"></script>
+<script type="text/javascript">
+	function editToDel(obj){
+		$(obj).html("删除");
+		$("li").prepend("<input type='checkbox'>");
+	}
+</script>
 </body>
+
 </html>
