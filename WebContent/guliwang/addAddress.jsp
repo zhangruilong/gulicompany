@@ -20,9 +20,7 @@
 	border: none;
 	padding: 0 10% 0 9%;
 	width: 51%;
-	background: url(../images/searchbg.png) #fff no-repeat left;
-	/*background-size: 8%;*/
-	/*background-position: 6px 7px*/
+	background:  #fff no-repeat left;
 }
 .home-search-wrapper textarea {
 	margin-left: 3%;
@@ -32,7 +30,7 @@
 	border: none;
 	padding: 1% 10% 1% 9%;
 	width: 51%;
-	background: url(../images/searchbg.png) #fff no-repeat left;
+	background:  #fff no-repeat left;
 	background-size: 8%;
 	background-position: 6px 7px
 }
@@ -68,10 +66,11 @@
 			<td><span >手机号:</span><input name="addressphone" type="text" placeholder="请输入手机号" /></td>
 		</tr>
 		<tr>
-			<td><span >收货地址:</span><textarea placeholder="请输入地址" cols="10" rows="6"></textarea></td>
+			<td><span >收货地址:</span><textarea name="addressaddress" placeholder="请输入地址" cols="10" rows="6"></textarea></td>
 		</tr>
     </table>
     <input type="hidden" name="addresscustomer" value="1">
+    <input type="hidden" name="customerId" value="1">
     </div>
     <div class="add-address" onclick="javascript:document.forms[0].submit();"><a>  确&nbsp;认&nbsp;添&nbsp;加&nbsp;新&nbsp;地&nbsp;址  </a></div>
 </div>

@@ -13,14 +13,12 @@
     ADDRESSID, ADDRESSCUSTOMER, ADDRESSCONNECT, ADDRESSPHONE, ADDRESSADDRESS, ADDRESSTURE
   </sql>
   <!-- 根据条件查询 -->
-  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.server.pojo.Address" >
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from ADDRESS
     <where>
-    	<if test="addresscustomer != null">
-    		and addresscustomer = #{addresscustomer}
-    	</if>
+    		and addresscustomer = #{customerId}
     </where>
   </select>
   <!-- 根据主键查询 -->

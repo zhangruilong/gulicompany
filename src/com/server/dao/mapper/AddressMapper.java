@@ -10,9 +10,9 @@ import com.server.pojo.Address;
  */
 public interface AddressMapper {
 	/**
-	 * 根据条件查询
+	 * 根据客户id查询
 	 */
-	List<Address> selectByCondition(Address record);
+	List<Address> selectByCondition(String customerId);
 	/**
 	 * 根据主键删除
 	 */
