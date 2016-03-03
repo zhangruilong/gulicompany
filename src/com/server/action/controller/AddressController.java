@@ -30,4 +30,10 @@ public class AddressController {
 		
 		return "forward:/guliwang/address.jsp";
 	}
+	//添加新收货地址
+	@RequestMapping("/guliwang/addAddress")
+	public String addAddress(Address address){
+		addressMapper.insertSelective(address);
+		return "redirect:doAddressMana.action";
+	}
 }
