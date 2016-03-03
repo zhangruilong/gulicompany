@@ -11,6 +11,7 @@ import com.server.dao.mapper.AddressMapper;
 import com.server.dao.mapper.CityMapper;
 import com.server.pojo.Address;
 import com.server.pojo.City;
+import com.system.tools.util.CommonUtil;
 /**
  * 地址管理
  * @author taolichao
@@ -21,7 +22,7 @@ public class AddressController {
 
 	@Autowired
 	private AddressMapper addressMapper;
-	//到地址管理页面fff
+	//到地址管理页面
 	@RequestMapping("/guliwang/doAddressMana")
 	public String doAddressMana(Model model,Address address){
 		List<Address> addressList = addressMapper.selectByCondition(address);		//根据条件查询地址
@@ -29,5 +30,13 @@ public class AddressController {
 		model.addAttribute("addressList", addressList);
 		
 		return "forward:/guliwang/address.jsp";
+	}
+	//添加新收货地址
+	@RequestMapping("/guliwang/addAddress")
+	public String addAddress(Address address){
+		address.setAddressture(0);
+		address.setAddressid(CommonUtil.getNewId());
+		addressMapper.insertSelective(address);
+		return "redirect:doAddressMana.action";
 	}
 }

@@ -7,7 +7,7 @@ import org.apache.commons.lang.StringUtils;
 
 
 public class CommonUtil {
-
+	
 	public static Boolean isNotEmpty(String str) {
 		if(null == str || str.length() <= 0)
 			return false;
