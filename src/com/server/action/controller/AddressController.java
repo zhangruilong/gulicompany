@@ -11,6 +11,7 @@ import com.server.dao.mapper.AddressMapper;
 import com.server.dao.mapper.CityMapper;
 import com.server.pojo.Address;
 import com.server.pojo.City;
+import com.system.tools.util.CommonUtil;
 /**
  * 地址管理
  * @author taolichao
@@ -33,6 +34,8 @@ public class AddressController {
 	//添加新收货地址
 	@RequestMapping("/guliwang/addAddress")
 	public String addAddress(Address address){
+		address.setAddressture(0);
+		address.setAddressid(CommonUtil.getNewId());
 		addressMapper.insertSelective(address);
 		return "redirect:doAddressMana.action";
 	}
