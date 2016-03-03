@@ -17,11 +17,19 @@ import com.server.pojo.Customer;
 public class CollectController {
 	@Autowired
 	private CustomerMapper customerMapper;
-	
+	//到收藏页面
 	@RequestMapping("/guliwang/doCollect")
 	public String doCollect(Model model,String comid){
-		Customer customer = customerMapper.selectCollectGoodsById(comid);
+		Customer customer = customerMapper.selectCollectGoodsById(comid);	//根据客户id查询收藏商品
 		model.addAttribute("customerCollect", customer);
 		return "forward:/guliwang/collect.jsp";
+	}
+	//删除收藏品
+	@RequestMapping("/guliwang/delCollect")
+	public String delCollect(String[] collectids){
+		for (String str : collectids) {
+			System.out.println(str);
+		}
+		return "doCollect.action";
 	}
 }

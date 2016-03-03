@@ -62,14 +62,15 @@ input:checked ~ input:active {
 </head>
 
 <body>
+	<form action="delCollect.action" method="post">
 	<div class="gl-box">
 		<div class="wapper-nav">
-			我的收藏<a onclick="editToDel(this)">编辑</a>
+			我的收藏<a onclick="editToDel()">编辑</a>
 		</div>
 		<div class="shoucang-wrap">
 			<ul>
 				<c:forEach items="${requestScope.customerCollect.collectList }" var="collect">
-					<li><a href="#"><span class="fl"><img 
+					<li name="${collect.collectid }"><a><span class="fl"><img 
 								src="images/pic1.jpg"></span>
 						<h1>${collect.goods.goodsname }<span>（${collect.goods.goodsunits }）</span>
 							</h1>
@@ -100,12 +101,19 @@ input:checked ~ input:active {
 			</ul>
 		</div>
 	</div>
+	</form>
 <script src="js/jquery-1.8.3.min.js"></script>
 <script src="js/jquery-dropdown.js"></script>
 <script type="text/javascript">
-	function editToDel(obj){
-		$(obj).html("删除");
-		$("li").prepend("<input type='checkbox'>");
+	function editToDel(){
+		$(".wapper-nav").html("我的收藏<a onclick='delCollects()'>删除</a>");
+		$.each($("li"),function(i,item){
+			$(item).prepend("<input type='checkbox' value='"+$(item).attr("name")+"' name='collectids'>");
+		})
+	}
+	
+	function delCollects(){
+		document.forms[0].submit();
 	}
 </script>
 </body>
