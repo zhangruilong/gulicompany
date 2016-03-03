@@ -77,7 +77,7 @@ function initData(data){
 		$(".gl-box").append('<div class="add-admin">'+
 		    	'<div class="all-order-wrapper">'+
 	        	'<h1>'+item.companyshop+'<span>'+item.ordermtime+'</span></h1>'+
-	            '<a href="#">'+
+	            '<a onclick="nextpage('+item.ordermid+');">'+
 	                '<span>订单状态：<font class="font-oringe">'+item.ordermstatue+'</font></span>'+
 	                '<span>订单编号：<font class="font-grey">'+item.ordermcode+'</font> </span>'+
 	                '<span class="sign"></span>'+
@@ -89,6 +89,9 @@ function initData(data){
 	        '</div>'+
 	    '</div>');
     });
+}
+function nextpage(ordermid){
+	window.location.href = "orderd.jsp?ordermid="+ordermid;
 }
 function successCB(r, cb) {
 	cb && cb(r);
