@@ -25,8 +25,6 @@ public class FrontController {
 	private CityMapper cityMapper;	
 	@Autowired
 	private CompanyMapper companyMapper;
-	@Autowired
-	private CcustomerMapper ccustomerMapper;
 	
 	@RequestMapping("/guliwang/doGuliwangIndex")
 	public String doGuliwangIndex(Model model,Company companyCondition){
@@ -38,8 +36,4 @@ public class FrontController {
 		return "forward:/guliwang/index.jsp";
 	}
 	
-	@RequestMapping("/guliwang/doCatr")
-	public String doCatr(Model model){
-		return "forward:/guliwang/cart.jsp";
-	}
 }

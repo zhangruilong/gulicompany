@@ -19,7 +19,7 @@
 	<div class="wapper-nav">地址管理</div>
 	<div class="add-admin">
 		<c:forEach items="${requestScope.addressList }" var="address">
-			<a href="#"><span>${address.addressconnect }</span><span>  ${address.addressphone } </span><span class="sign"></span>${address.addressture == 1?'[默认]':'' }收货地址: ${address.addressaddress } </a>
+			<a href="doEditAddress.action?addressid=${address.addressid }"><span>${address.addressconnect }</span><span>  ${address.addressphone } </span><span class="sign"></span>${address.addressture == 1?'[默认]':'' }收货地址: ${address.addressaddress } </a>
 		</c:forEach>
     	
         <!-- <a href="#"><span>王金宝</span><span>  16563529810 </span><span class="sign"></span>收货地址: 嘉兴市沿海向城东路89号706室 </a> -->

@@ -110,7 +110,7 @@
 </div>
 <div class="personal-center-nav">
     <ul>
-        	<li><a href="index.jsp"><em class="ion-home"></em>首页</a></li>
+        	<li><a href="doGuliwangIndex.action?companyCondition.city.cityname=静安区"><em class="ion-home"></em>首页</a></li>
             <li class="active"><a href="goods.jsp"><em class="ion-bag"></em>商城</a></li>
             <li><a href="order.jsp"><em class="ion-clipboard"></em>订单</a></li>
             <li><a href="mine.jsp"><em class="ion-android-person"></em>我的</a></li>
@@ -287,6 +287,7 @@ function addnum(obj,pricesprice,goodsname,pricesunit,goodsunits,goodscode,goodsc
 		mdishes.goodsname = goodsname;
 		mdishes.goodsunits = goodsunits;
 		mdishes.orderdetnum = num + 1;
+		
 		sdishes.push(mdishes);
 		//种类数
 		var tnum = parseInt(window.localStorage.getItem("totalnum"));
