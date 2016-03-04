@@ -32,7 +32,7 @@
 </div>
 </div>
 <div class="order-detail-wrapper">
-  <ul>
+  <ul id="orderd">
     	<li><span class="fl">东古一品香 </span><span class="fl">¥60 /箱</span><span class="fl">x2</span><span class="fr"> 120元</span></li>
         <li><span class="fl">东古一品香 </span><span class="fl">¥60 /箱</span><span class="fl">x2</span><span class="fr"> 120元</span></li>
         <li><span class="fl">东古一品香 </span><span class="fl">¥60 /箱</span><span class="fl">x2</span><span class="fr"> 120元</span></li>
@@ -45,10 +45,11 @@
 </div>
 <div class="footer">
 	<div class="order-detail-foot">
-    	<a href="#">取消订单</a>
+    	<!-- <a href="#">取消订单</a> -->
         <a href="#">重新购买</a>
     </div>
 </div>
+<script src="js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
 var basePath = '<%=basePath%>';
 var ordermid = '<%=ordermid%>';
@@ -66,8 +67,8 @@ function initOrderd(data){
  				item.orderdprice +'/'+item.orderdunit+'</span><span class="fl">x'+
  				item.orderdnum +'</span><span class="fr"> '+item.orderdmoney+'元</span></li>');
      });
- 	 $(".order-detail-wrapper").append('</ul>');
- 	 getJson(basePath+"OrdermviewAction.do",{method:"selAll",wheresql:"ordermid='"+ordermid+"'"},initOrderm,null);
+ 	$(".order-detail-wrapper").append('</ul>');
+ 	getJson(basePath+"OrdermviewAction.do",{method:"selAll",wheresql:"ordermid='"+ordermid+"'"},initOrderm,null);
 }
 function initOrderm(data){
      $(".order-detail-info").html("");
@@ -78,10 +79,10 @@ function initOrderm(data){
  		$(".pdl-b8").append('<p>收货人：'+item.companyshop+item.ordermphone+'</p>'+
  				'<p>收货地址：'+item.ordermaddress+'</p>'+
  				'<p>支付方式：'+item.ordermway+'</p>');
+ 		 $(".order-detail-wrapper").append('<p>订单金额: <span>'+item.ordermmoney+'元</span></p>'+
+ 	 		    '<p>优惠金额: <span>'+(item.ordermmoney-item.ordermrightmoney)+'元</span></p>'+
+ 	 		    '<p>实付金额: <span>'+item.ordermrightmoney+'元</span></p>');
      });
- 	 $(".order-detail-wrapper").append('<p>订单金额: <span>'+item.orderdmoney+'元</span></p>'+
- 		    '<p>优惠金额: <span>'+(item.orderdmoney-item.orderdrightmoney)+'元</span></p>'+
- 		    '<p>实付金额: <span>'+item.orderdrightmoney+'元</span></p>');
 }
 function successCB(r, cb) {
 	cb && cb(r);
