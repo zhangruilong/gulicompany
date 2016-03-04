@@ -67,6 +67,7 @@ input:checked ~ input:active {
 		<div class="wapper-nav">
 			我的收藏<a onclick="editToDel()">编辑</a>
 		</div>
+		<input type="hidden" value="${requestScope.customerCollect.customerid }" name="comid"/>
 		<div class="shoucang-wrap">
 			<ul>
 				<c:forEach items="${requestScope.customerCollect.collectList }" var="collect">

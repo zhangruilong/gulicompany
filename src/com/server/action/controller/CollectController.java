@@ -6,7 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.server.dao.mapper.CollectMapper;
 import com.server.dao.mapper.CustomerMapper;
+import com.server.pojo.Collect;
 import com.server.pojo.Customer;
 /**
  * 收藏
@@ -17,6 +19,8 @@ import com.server.pojo.Customer;
 public class CollectController {
 	@Autowired
 	private CustomerMapper customerMapper;
+	@Autowired
+	private CollectMapper collectMapper;
 	//到收藏页面
 	@RequestMapping("/guliwang/doCollect")
 	public String doCollect(Model model,String comid){
@@ -26,9 +30,9 @@ public class CollectController {
 	}
 	//删除收藏品
 	@RequestMapping("/guliwang/delCollect")
-	public String delCollect(String[] collectids){
+	public String delCollect(String[] collectids,String comid){
 		for (String str : collectids) {
-			System.out.println(str);
+			collectMapper.deleteByPrimaryKey(str);
 		}
 		return "doCollect.action";
 	}
