@@ -6,6 +6,10 @@ import com.server.pojo.City;
 
 public interface CityMapper {
 	/**
+	 * 条件查询
+	 */
+	List<City> selectByCityparent(City city);
+	/**
 	 * 查询所有地区
 	 */
 	List<City> selectAllCity();

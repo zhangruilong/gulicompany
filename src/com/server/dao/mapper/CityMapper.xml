@@ -12,6 +12,17 @@
   <sql id="Base_Column_List" >
     CITYID, CITYCODE, CITYNAME, CITYPARENT, CITYDETAIL, CITYSTATUE
   </sql>
+  <!-- 条件查询 -->
+  <select id="selectByCityparent" resultMap="BaseResultMap" parameterType="com.server.pojo.City" >
+    select 
+    <include refid="Base_Column_List" />
+    from CITY
+    <where>
+    	<if test="cityparent != null and cityparent != '' ">
+    		and cityparent = #{cityparent}
+    	</if>
+    </where>
+  </select>
   <!-- 查询所有地区 -->
   <select id="selectAllCity" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 

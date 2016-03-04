@@ -1,6 +1,8 @@
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+	String cityname = request.getParameter("city.cityname"); %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -19,18 +21,18 @@
 <body>
 	<div class="gl-box">
 		<div class="home-search-wrapper">
-			<span class="citydrop">静安区 <em><img
+			<span class="citydrop"><%=cityname %> <em><img
 					src="images/dropbg.png"></em></span>
 			<div class="menu">
 				<div class="host-city">
 					<p class="quyu">
-						请选择服务区域 <span class="fr">所在城市：上海市</span>
+						请选择服务区域 <span class="fr">所在城市：${requestScope.cityList[0].cityparent }</span>
 					</p>
 				</div>
 				<div class="menu-tags home-city-drop">
 					<ul>
 						<c:forEach items="${requestScope.cityList }" var="city">
-							<li><a href="#">${city.cityname }</a></li>
+							<li><a href="doGuliwangIndex.action?city.cityname=${city.cityname }&cityparent=${city.cityparent }">${city.cityname }</a></li>
 						</c:forEach>
 					</ul>
 				</div>

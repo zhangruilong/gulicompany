@@ -21,8 +21,10 @@ public class TestApp {
 		ApplicationContext context = 
 				new ClassPathXmlApplicationContext("applicationContext-dao.xml");
 		CityMapper mapper = (CityMapper) context.getBean("cityMapper");
-		List<City> city = mapper.selectAllCity();
-		System.out.println(city);
+		City city = new City();
+		city.setCityparent("上海市");
+		List<City> cityList = mapper.selectByCityparent(city);
+		System.out.println(cityList);
 	}
 	
 	@Test

@@ -27,8 +27,11 @@ public class FrontController {
 	private CompanyMapper companyMapper;
 	
 	@RequestMapping("/guliwang/doGuliwangIndex")
-	public String doGuliwangIndex(Model model,Company companyCondition){
-		List<City> cities = cityMapper.selectAllCity();		//查询所有地区
+	public String doGuliwangIndex(Model model,Company companyCondition,City city){
+		System.out.println(city);
+		System.out.println(city.getCityparent());
+		
+		List<City> cities = cityMapper.selectByCityparent(city);
 		model.addAttribute("cityList", cities);
 		//根据 '地区' 查询该地区的 '经销商' 和该经销商的 '促销商品'
 		List<Company> companyList = companyMapper.selectCompanyByCondition(companyCondition);	//条件中包含城市名
