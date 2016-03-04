@@ -74,9 +74,9 @@ function initOrderm(data){
      $(".order-detail-info").html("");
      $(".pdl-b8").html("");
  	 $.each(data.root, function(i, item) {
- 		$(".order-detail-info").append('<p>'+item.ordermconnect+'</p>'+
- 				'<p>'+item.ordermaddress+'</p>');
- 		$(".pdl-b8").append('<p>收货人：'+item.companyshop+item.ordermphone+'</p>'+
+ 		$(".order-detail-info").append('<p>'+item.companyshop+'</p>'+
+ 				'<p>'+item.companydetail+'</p>');
+ 		$(".pdl-b8").append('<p>收货人：'+item.ordermconnect+item.ordermphone+'</p>'+
  				'<p>收货地址：'+item.ordermaddress+'</p>'+
  				'<p>支付方式：'+item.ordermway+'</p>');
  		 $(".order-detail-wrapper").append('<p>订单金额: <span>'+item.ordermmoney+'元</span></p>'+

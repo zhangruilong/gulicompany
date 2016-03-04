@@ -38,7 +38,7 @@
 </form>
 </div>
 <div class="footer">
-	<div class="jiesuan-foot-info"><img src="images/jiesuanbg.png" > 种类数：<span id="totalnum">0</span>总价：<span id="totalmoney">0</span> </div><a href="buy.jsp" class="jiesuan-button">结算</a>
+	<div class="jiesuan-foot-info"><img src="images/jiesuanbg.png" > 种类数：<span id="totalnum">0</span>总价：<span id="totalmoney">0</span> </div><a onclick="nextpage();" class="jiesuan-button">结算</a>
 </div>
 
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
@@ -59,7 +59,12 @@ $(function(){
 	var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));
 	initDishes(sdishes);
 });
-function initDishes(data){
+function nextpage(){
+	setscompany();
+	window.location.href = "buy.jsp";
+}
+function setscompany(){
+	var data = JSON.parse(window.localStorage.getItem("sdishes"));
 	var scompany = new Array();
 	$.each(data, function(i, item) {
 		if(scompany.length==0){
@@ -74,7 +79,7 @@ function initDishes(data){
 			$.each(scompany, function(y, item2) {
 				if(item2.ordermcompany == item.goodscompany){
 					item2.ordermnum += 1;
-					item2.ordermmoney += (item.pricesprice * item.orderdetnum).toFixed(2);
+					item2.ordermmoney = (parseInt(item2.ordermmoney) + item.pricesprice * item.orderdetnum).toFixed(2);
 					return false;
 				}else if(y==scompany.length-1){
 					var mcompany = new Object();
@@ -89,6 +94,10 @@ function initDishes(data){
 		}
 	});
 	window.localStorage.setItem("scompany",JSON.stringify(scompany));
+	return scompany;
+}
+function initDishes(data){
+	var scompany = setscompany();
     $(".cart-wrapper").html("");
     $.each(scompany, function(y, mcompany) {
     	$(".cart-wrapper").append('<h1>'+mcompany.companyshop+'</h1><ul>');
