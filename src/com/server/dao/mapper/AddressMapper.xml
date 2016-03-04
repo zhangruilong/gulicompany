@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.server.dao.mapper.AddressMapper" >
-  <resultMap id="BaseResultMap" type="com.server.pojo.Address" >
+  <resultMap id="BaseResultMap" type="com.server.pojo.entity.Address" >
     <id column="ADDRESSID" property="addressid" jdbcType="VARCHAR" />
     <result column="ADDRESSCUSTOMER" property="addresscustomer" jdbcType="VARCHAR" />
     <result column="ADDRESSCONNECT" property="addressconnect" jdbcType="VARCHAR" />
@@ -34,7 +34,7 @@
     where ADDRESSID = #{addressid,jdbcType=VARCHAR}
   </delete>
   <!-- 选择性添加 -->
-  <insert id="insertSelective" parameterType="com.server.pojo.Address" >
+  <insert id="insertSelective" parameterType="com.server.pojo.entity.Address" >
     insert into ADDRESS
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="addressid != null" >
@@ -78,7 +78,7 @@
     </trim>
   </insert>
   <!-- 根据主键选择性修改 -->
-  <update id="updateByPrimaryKeySelective" parameterType="com.server.pojo.Address" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.server.pojo.entity.Address" >
     update ADDRESS
     <set >
       <if test="addresscustomer != null" >

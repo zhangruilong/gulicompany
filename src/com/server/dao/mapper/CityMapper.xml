@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.server.dao.mapper.CityMapper" >
-  <resultMap id="BaseResultMap" type="com.server.pojo.City" >
+  <resultMap id="BaseResultMap" type="com.server.pojo.entity.City" >
     <id column="CITYID" property="cityid" jdbcType="VARCHAR" />
     <result column="CITYCODE" property="citycode" jdbcType="VARCHAR" />
     <result column="CITYNAME" property="cityname" jdbcType="VARCHAR" />
@@ -13,7 +13,7 @@
     CITYID, CITYCODE, CITYNAME, CITYPARENT, CITYDETAIL, CITYSTATUE
   </sql>
   <!-- 条件查询 -->
-  <select id="selectByCityparent" resultMap="BaseResultMap" parameterType="com.server.pojo.City" >
+  <select id="selectByCityparent" resultMap="BaseResultMap" parameterType="com.server.pojo.entity.City" >
     select 
     <include refid="Base_Column_List" />
     from CITY
@@ -42,7 +42,7 @@
     where CITYID = #{cityid,jdbcType=VARCHAR}
   </delete>
   <!-- 选择性添加 -->
-  <insert id="insertSelective" parameterType="com.server.pojo.City" >
+  <insert id="insertSelective" parameterType="com.server.pojo.entity.City" >
     insert into CITY
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="cityid != null" >
@@ -86,7 +86,7 @@
     </trim>
   </insert>
   <!-- 根据主键选择性修改 -->
-  <update id="updateByPrimaryKeySelective" parameterType="com.server.pojo.City" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.server.pojo.entity.City" >
     update CITY
     <set >
       <if test="citycode != null" >

@@ -1,6 +1,6 @@
 package com.server.dao.mapper;
 
-import com.server.pojo.Customer;
+import com.server.pojo.entity.Customer;
 
 public interface CustomerMapper {
 	/**

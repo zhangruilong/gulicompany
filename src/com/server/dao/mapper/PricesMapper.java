@@ -1,6 +1,6 @@
 package com.server.dao.mapper;
 
-import com.server.pojo.Prices;
+import com.server.pojo.entity.Prices;
 
 public interface PricesMapper {
 	/**

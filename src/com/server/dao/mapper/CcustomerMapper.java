@@ -2,7 +2,7 @@ package com.server.dao.mapper;
 
 import java.util.List;
 
-import com.server.pojo.Ccustomer;
+import com.server.pojo.entity.Ccustomer;
 
 public interface CcustomerMapper {
 	/**

@@ -7,13 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.server.dao.mapper.CcustomerMapper;
 import com.server.dao.mapper.CityMapper;
 import com.server.dao.mapper.CompanyMapper;
-import com.server.pojo.Ccustomer;
-import com.server.pojo.City;
-import com.server.pojo.Company;
-import com.server.pojo.Customer;
+import com.server.pojo.entity.City;
+import com.server.pojo.entity.Company;
 /**
  * 首页
  * @author taolichao

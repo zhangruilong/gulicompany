@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.server.dao.mapper.GoodsMapper" >
-  <resultMap id="BaseResultMap" type="com.server.pojo.Goods" >
+  <resultMap id="BaseResultMap" type="com.server.pojo.entity.Goods" >
     <id column="GOODSID" property="goodsid" jdbcType="VARCHAR" />
     <result column="GOODSCOMPANY" property="goodscompany" jdbcType="VARCHAR" />
     <result column="GOODSCODE" property="goodscode" jdbcType="VARCHAR" />
@@ -34,7 +34,7 @@
     where GOODSID = #{goodsid,jdbcType=VARCHAR}
   </delete>
   <!-- 选择性添加 -->
-  <insert id="insertSelective" parameterType="com.server.pojo.Goods" >
+  <insert id="insertSelective" parameterType="com.server.pojo.entity.Goods" >
     insert into GOODS
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="goodsid != null" >
@@ -120,7 +120,7 @@
     </trim>
   </insert>
   <!-- 根据主键选择性修改 -->
-  <update id="updateByPrimaryKeySelective" parameterType="com.server.pojo.Goods" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.server.pojo.entity.Goods" >
     update GOODS
     <set >
       <if test="goodscompany != null" >

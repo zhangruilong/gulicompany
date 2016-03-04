@@ -8,9 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.server.dao.mapper.AddressMapper;
-import com.server.dao.mapper.CityMapper;
-import com.server.pojo.Address;
-import com.server.pojo.City;
+import com.server.pojo.entity.Address;
 import com.system.tools.util.CommonUtil;
 /**
  * 地址管理

@@ -1,6 +1,6 @@
 package com.server.dao.mapper;
 
-import com.server.pojo.Collect;
+import com.server.pojo.entity.Collect;
 
 public interface CollectMapper {
 	/**

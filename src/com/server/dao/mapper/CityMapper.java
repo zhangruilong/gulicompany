@@ -2,7 +2,7 @@ package com.server.dao.mapper;
 
 import java.util.List;
 
-import com.server.pojo.City;
+import com.server.pojo.entity.City;
 
 public interface CityMapper {
 	/**

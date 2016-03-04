@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.server.dao.mapper.CustomerMapper" >
-  <resultMap id="BaseResultMap" type="com.server.pojo.Customer" >
+  <resultMap id="BaseResultMap" type="com.server.pojo.entity.Customer" >
     <id column="CUSTOMERID" property="customerid" jdbcType="VARCHAR" />
     <result column="CUSTOMERCODE" property="customercode" jdbcType="VARCHAR" />
     <result column="CUSTOMERNAME" property="customername" jdbcType="VARCHAR" />
@@ -19,14 +19,14 @@
     <result column="CREATETIME" property="createtime" jdbcType="VARCHAR" />
     <result column="UPDTIME" property="updtime" jdbcType="VARCHAR" />
     <!-- 关联收藏(一对多) -->
-    <collection property="collectList" ofType="com.server.pojo.Collect">
+    <collection property="collectList" ofType="com.server.pojo.entity.Collect">
     	<id column="COLLECTID" property="collectid" jdbcType="VARCHAR" />
     	<result column="COLLECTGOODS" property="collectgoods" jdbcType="VARCHAR" />
     	<result column="COLLECTCUSTOMER" property="collectcustomer" jdbcType="VARCHAR" />
     	<result column="COLLECTDETAIL" property="collectdetail" jdbcType="VARCHAR" />
     	<result column="CREATETIME" property="createtime" jdbcType="VARCHAR" />
     	<!-- 关联商品(一对一) -->
-    	<association property="goods" javaType="com.server.pojo.Goods">
+    	<association property="goods" javaType="com.server.pojo.entity.Goods">
     		<id column="GOODSID" property="goodsid" jdbcType="VARCHAR" />
 		    <result column="GOODSCOMPANY" property="goodscompany" jdbcType="VARCHAR" />
 		    <result column="GOODSCODE" property="goodscode" jdbcType="VARCHAR" />
@@ -42,7 +42,7 @@
 		    <result column="UPDOR" property="updor" jdbcType="VARCHAR" />
 		    <result column="cclevel" property="cclevel" jdbcType="VARCHAR" />
 		    <!-- 关联价格(一对多) -->
-		    <collection property="pricesList" ofType="com.server.pojo.Prices">
+		    <collection property="pricesList" ofType="com.server.pojo.entity.Prices">
 		    	<id column="PRICESID" property="pricesid" jdbcType="VARCHAR" />
 			    <result column="PRICESGOODS" property="pricesgoods" jdbcType="VARCHAR" />
 			    <result column="PRICESCLASS" property="pricesclass" jdbcType="VARCHAR" />
@@ -107,7 +107,7 @@
     where CUSTOMERID = #{customerid,jdbcType=VARCHAR}
   </delete>
   <!-- 选择性添加 -->
-  <insert id="insertSelective" parameterType="com.server.pojo.Customer" >
+  <insert id="insertSelective" parameterType="com.server.pojo.entity.Customer" >
     insert into CUSTOMER
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="customerid != null" >
@@ -211,7 +211,7 @@
     </trim>
   </insert>
   <!-- 根据主键选择性修改 -->
-  <update id="updateByPrimaryKeySelective" parameterType="com.server.pojo.Customer" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.server.pojo.entity.Customer" >
     update CUSTOMER
     <set >
       <if test="customercode != null" >

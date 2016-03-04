@@ -2,7 +2,7 @@ package com.server.dao.mapper;
 
 import java.util.List;
 
-import com.server.pojo.Timegoods;
+import com.server.pojo.entity.Timegoods;
 
 public interface TimegoodsMapper {
 	/**

@@ -1,6 +1,6 @@
 package com.server.dao.mapper;
 
-import com.server.pojo.Goods;
+import com.server.pojo.entity.Goods;
 /**
  * 商品
  * @author taolichao

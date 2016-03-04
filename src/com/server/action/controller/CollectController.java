@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.server.dao.mapper.CollectMapper;
 import com.server.dao.mapper.CustomerMapper;
-import com.server.pojo.Collect;
-import com.server.pojo.Customer;
+import com.server.pojo.entity.Customer;
 /**
  * 收藏
  * @author taolichao

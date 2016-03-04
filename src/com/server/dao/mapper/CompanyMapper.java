@@ -2,7 +2,7 @@ package com.server.dao.mapper;
 
 import java.util.List;
 
-import com.server.pojo.Company;
+import com.server.pojo.entity.Company;
 
 public interface CompanyMapper {
 	/**
