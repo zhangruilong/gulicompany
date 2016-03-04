@@ -53,7 +53,7 @@
 				<c:forEach items="${requestScope.companyList }" var="company">
 					<c:forEach items="${company.timegoodsList }" var="timegoods">
 						<li><a
-							onclick="chuancan2(
+							onclick="chuancan(
 							'${timegoods.timegoodsid }',
 							'${timegoods.timegoodsdetail }',
 	        				'${timegoods.timegoodscompany }',
@@ -98,7 +98,7 @@
 	<script src="js/jquery-1.8.3.min.js"></script>
 	<script src="js/jquery-dropdown.js"></script>
 	<script type="text/javascript">
-		/* //将商品信息存入缓存 		
+		//将商品信息存入缓存2
 		function chuancan(
 						timegoodsid,
 						timegoodsdetail,
@@ -112,97 +112,10 @@
 						timegoodsname,
 						timegoodsunits
 						) {
-			if (null == window.localStorage.getItem("totalmoney")) {
-				window.localStorage.setItem("totalmoney", timegoodsorgprice);
-			} else {
-				var tmoney = parseFloat(window.localStorage.getItem("totalmoney")); //从缓存中取出总金额
-				var newtmoney =  Number(tmoney + parseFloat(timegoodsorgprice)).toFixed(2); //'总金额' 加上 '单价 得到' '新的总金额' 精确到两位
-				window.localStorage.setItem("totalmoney", newtmoney);
-			}
-			//将需要的值存入到缓存中		
-			if (window.localStorage.getItem("sdishes") == null) {
-				//如果没有sdishes
-				if (window.localStorage.getItem("totalnum") == null) {
-					window.localStorage.setItem("totalnum", 1); //设置缓存中的种类数量等于一 
-				}
-				window.localStorage.setItem("sdishes", "[]");		//创建一个购物车
-				var sdishes = JSON.parse(window.localStorage.getItem("sdishes")); //将缓存中的sdishes(字符串)转换为json对象
-				//新增订单
-				var mdishes = new Object();
-				mdishes.goodsid = timegoodsid;
-				mdishes.goodsdetail = timegoodsdetail;
-				mdishes.goodscompany = timegoodscompany;
-				mdishes.companyshop = companyshop;
-				mdishes.companydetail = companydetail;
-				mdishes.goodsclassname = timegoodsclass;
-				mdishes.goodscode = timegoodscode;
-				mdishes.pricesprice = timegoodsorgprice;
-				mdishes.pricesunit = timegoodsunit;
-				mdishes.goodsname = timegoodsname;
-				
-				mdishes.goodsunits = timegoodsunits;
-				mdishes.orderdetnum = 1;
-				sdishes.push(mdishes); //往json对象中添加一个新的元素(订单)
-			} else {
-				//如果有sdishes
-				var sdishes = JSON.parse(window.localStorage.getItem("sdishes")); //将缓存中的sdishes(字符串)转换为json对象
-				if (window.localStorage.getItem("totalnum") == null) {
-					//如果商品种类数为空
-					window.localStorage.setItem("totalnum", 0); //设置缓存中的种类数量等于0
-				}
-				var tnum = parseInt(window.localStorage.getItem("totalnum"));
-				
-				$.each(sdishes,function(i,item) {				//遍历购物车中的商品
-					//i是增量,item是迭代出来的元素.i从0开始
-					if( item.goodsid == timegoodsid){
-						//如果商品id相同
-						window.location.href = "cart.jsp";
-						return;
-					} else if(i == (tnum-1)){
-						//如果最后一次进入时
-						//新增订单
-						alert(tnum);
-						var mdishes = new Object();
-						mdishes.goodsid = timegoodsid;
-						mdishes.goodsdetail = timegoodsdetail;
-						mdishes.goodscompany = timegoodscompany;
-						mdishes.companyshop = companyshop;
-						mdishes.companydetail = companydetail;
-						mdishes.goodsclassname = timegoodsclass;
-						mdishes.goodscode = timegoodscode;
-						mdishes.pricesprice = timegoodsorgprice;
-						mdishes.pricesunit = timegoodsunit;
-						mdishes.goodsname = timegoodsname;
-						
-						mdishes.goodsunits = timegoodsunits;
-						mdishes.orderdetnum = 1;
-						sdishes.push(mdishes); //往json对象中添加一个新的元素(订单)
-						window.localStorage.setItem("totalnum", tnum + 1);
-					}
-				})
-			}
-			window.localStorage.setItem("sdishes", JSON.stringify(sdishes));
-			window.location.href = "cart.jsp";
-		} */
-		//将商品信息存入缓存2
-		function chuancan2(
-						timegoodsid,
-						timegoodsdetail,
-						timegoodscompany,
-						companyshop,
-						companydetail,
-						timegoodsclass,
-						timegoodscode,
-						timegoodsorgprice,
-						timegoodsunit,
-						timegoodsname,
-						timegoodsunits
-						) {
-			var sdishes;
 			if (window.localStorage.getItem("sdishes") == null) {				//判断有没有购物车
 				//没有购物车
 				window.localStorage.setItem("sdishes", "[]");					//创建一个购物车
-				sdishes = JSON.parse(window.localStorage.getItem("sdishes")); 	//将缓存中的sdishes(字符串)转换为json对象
+				var sdishes = JSON.parse(window.localStorage.getItem("sdishes")); 	//将缓存中的sdishes(字符串)转换为json对象
 				//新增订单
 				var mdishes = new Object();
 				mdishes.goodsid = timegoodsid;
@@ -225,8 +138,10 @@
 				window.localStorage.setItem("totalmoney", timegoodsorgprice);	//总金额等于商品价
 				window.location.href = "cart.jsp";
 			} else {
+				
 				//有购物车
-				sdishes = JSON.parse(window.localStorage.getItem("sdishes"));	//将缓存中的sdishes(字符串)转换为json对象
+				var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));	//将缓存中的sdishes(字符串)转换为json对象
+				var tnum = parseInt(window.localStorage.getItem("totalnum"));		//取出商品的总类数
 				$.each(sdishes,function(i,item) {								//遍历购物车中的商品
 					//i是增量,item是迭代出来的元素.i从0开始
 					if( item.goodsid == timegoodsid){
@@ -250,10 +165,12 @@
 						mdishes.goodsunits = timegoodsunits;
 						mdishes.orderdetnum = 1;
 						sdishes.push(mdishes); 												//往json对象中添加一个新的元素(订单)
-						var tnum = parseInt(window.localStorage.getItem("totalnum"));
+						window.localStorage.setItem("sdishes", JSON.stringify(sdishes));
 						window.localStorage.setItem("totalnum", tnum + 1);					//商品种类数加一
 						var tmoney = parseFloat(window.localStorage.getItem("totalmoney")); //从缓存中取出总金额
-						window.localStorage.getItem("totalmoney",tmoney+timegoodsorgprice);	
+						var newtmoney = (tmoney+parseFloat(timegoodsorgprice)).toFixed(2);
+						window.localStorage.setItem("totalmoney",newtmoney);	
+						window.location.href = "cart.jsp";
 					}	
 				})
 			}
