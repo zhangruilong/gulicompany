@@ -25,8 +25,6 @@ public class FrontController {
 	private CityMapper cityMapper;	
 	@Autowired
 	private CompanyMapper companyMapper;
-	@Autowired
-	private CcustomerMapper ccustomerMapper;
 	
 	@RequestMapping("/guliwang/doGuliwangIndex")
 	public String doGuliwangIndex(Model model,Company companyCondition){
