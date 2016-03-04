@@ -9,10 +9,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.server.dao.mapper.CityMapper;
 import com.server.dao.mapper.CompanyMapper;
 import com.server.dao.mapper.CustomerMapper;
-import com.server.pojo.City;
-import com.server.pojo.Company;
-import com.server.pojo.Customer;
-import com.server.pojo.Goods;
+import com.server.pojo.entity.City;
+import com.server.pojo.entity.Company;
+import com.server.pojo.entity.Customer;
+import com.server.pojo.entity.Goods;
 
 public class TestApp {
 	

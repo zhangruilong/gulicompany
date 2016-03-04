@@ -84,6 +84,14 @@ input:checked ~ input:active {
 										套装价:<font>￥${price.pricesprice2 }</font>/${price.pricesunit2 }
 									</p>
 								</c:if>
+								<c:if test="${collect.goods.cclevel == null && price.priceslevel == 3}">
+									<p>
+										单品价:<font>￥${price.pricesprice } </font>/${price.pricesunit }
+									</p>
+									<p>
+										套装价:<font>￥${price.pricesprice2 }</font>/${price.pricesunit2 }
+									</p>
+								</c:if>
 							</c:forEach>
 						</a>
 					</li>
@@ -114,7 +122,13 @@ input:checked ~ input:active {
 	}
 	
 	function delCollects(){
-		document.forms[0].submit();
+		$.each($("[type='checkbox']"),function(i,item){
+			if($(item).checked){
+				document.forms[0].submit();
+			}else if(i+1 == $("[type='checkbox']").length){
+				window.location.reload();
+			}
+		})
 	}
 </script>
 </body>
