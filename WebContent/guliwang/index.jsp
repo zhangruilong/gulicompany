@@ -16,12 +16,17 @@
 <title>谷粒网</title>
 <link href="css/base.css" type="text/css" rel="stylesheet">
 <link href="css/layout.css" type="text/css" rel="stylesheet">
+<style type="text/css">
+	.home-search-wrapper .citydrop img{
+		margin-top: 10px;
+	}
+</style>
 </head>
 
 <body>
 	<div class="gl-box">
 		<div class="home-search-wrapper">
-			<span class="citydrop"><%=cityname %> <em><img
+			<span class="citydrop"><%=cityname %><em><img
 					src="images/dropbg.png"></em></span>
 			<div class="menu">
 				<div class="host-city">
@@ -48,7 +53,7 @@
 				<c:forEach items="${requestScope.companyList }" var="company">
 					<c:forEach items="${company.timegoodsList }" var="timegoods">
 						<li><a
-							onclick="chuancan(
+							onclick="chuancan2(
 							'${timegoods.timegoodsid }',
 							'${timegoods.timegoodsdetail }',
 	        				'${timegoods.timegoodscompany }',
@@ -148,14 +153,12 @@
 					window.localStorage.setItem("totalnum", 0); //设置缓存中的种类数量等于0
 				}
 				var tnum = parseInt(window.localStorage.getItem("totalnum"));
-				var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));	//取出购物车对象
 				
 				$.each(sdishes,function(i,item) {				//遍历购物车中的商品
 					//i是增量,item是迭代出来的元素.i从0开始
 					if( item.goodsid == timegoodsid){
-						alert("ok");
 						//如果商品id相同
-						item.orderdetnum = parseInt(item.orderdetnum)+1;	//把商品的数量加一
+						window.location.href = "cart.jsp";
 						return;
 					} else if(i == (tnum-1)){
 						//如果最后一次进入时
@@ -183,6 +186,23 @@
 			window.localStorage.setItem("sdishes", JSON.stringify(sdishes));
 			window.location.href = "cart.jsp";
 		}
+		//将商品信息存入缓存2
+		function chuancan2(
+						timegoodsid,
+						timegoodsdetail,
+						timegoodscompany,
+						companyshop,
+						companydetail,
+						timegoodsclass,
+						timegoodscode,
+						timegoodsorgprice,
+						timegoodsunit,
+						timegoodsname,
+						timegoodsunits
+						) {
+			
+		}
+		
 		//提交搜索条件
 		function submitSearch(obj) {
 			var event = window.event || arguments.callee.caller.arguments[0];
