@@ -18,20 +18,20 @@
 	font-size: 1em;
 	border: none;
 	padding: 0 5% 0 5%;
-	width: 51%;
+	width: 57%;
 	background:  #fff no-repeat left;
-	margin: 8% 8% 8% 15%;
+	margin: 8% 8% 8% 11%;
 }
 .home-search-wrapper textarea {
 	border-radius: 5px;
 	font-size: 1.2em;
 	border: none;
 	padding: 0% 5% 0% 5%;
-	width: 51%;
+	width: 57%;
 	background:  #fff no-repeat left;
 	background-size: 8%;
 	background-position: 6px 7px;
-	margin: 8% 8% 8% 15%;
+	margin: 8% 8% 8% 11%;
 }
 .home-search-wrapper span {
 	float:left;
@@ -42,9 +42,9 @@
 	color: white;
 }
 .home-search-wrapper table {
-	text-align: center;
+	padding-left:5%;
 	position: absolute;
-	width: 90%;
+	width: 100%;
 	margin: 20px 0px 20px 0px;
 }
 
@@ -57,30 +57,45 @@
 
 .wapper-nav{
 	margin-left: 0px;
-	width: 80%;
+	width: 100%;
 	float:right;
 }
 
 
 .p-a{
+	
 	float: left;
 	width: 20%;
-	 position: relative; background-color: #2c77e6; height: 30px; line-height: 30px; padding: 10px 0; color: #fff ; text-align: center 
+	 position: relative; 
+	 background-color: #2c77e6; 
+	 height: 30px; 
+	 line-height: 30px; 
+	 color: #fff ; 
+	 text-align: center ;
 }
 .p-a a{
+	height: 50px; 
+	line-height: 20px; 
+	text-align: center ;
 	color: #fff ;
 }
+
+
+.pp{
+	width: 80%;
+}
+
 </style>
 </head>
 <body>
 	<form action="addAddress.action" method="post">
 	<div class="gl-box">
-	<p class="p-a"><a aling="left" href="doAddressMana.action?customerId=${requestScope.customerId }" >&lt;返回</a></p><div class="wapper-nav">
-	地址管理</div>
+	<div class="wapper-nav"><p class="p-a"><a aling="left" href="doAddressMana.action?customerId=1" >&lt;返回</a></p>
+	<p class="pp">地址管理</p></div>
 	<div class="home-search-wrapper">
 	<table cellpadding="2" cellspacing="4">
 		<tr>
-			<td><input size="30" value="${requestScope.address.addressconnect }" name="addressconnect" type="text" placeholder="请输入联系人名" /></td>
+			<td><input value="${requestScope.address.addressconnect }" name="addressconnect" type="text" placeholder="请输入联系人名" /></td>
 		</tr>
 		<tr>
 			<td><input value="${requestScope.address.addressphone }" name="addressphone" type="text" placeholder="请输入手机号" /></td>
