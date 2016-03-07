@@ -86,7 +86,7 @@
 		<div class="personal-center-nav">
 			<ul>
 				<li class="active"><a
-					href="doGuliwangIndex.action?companyCondition.city.cityname=静安区"><em
+					href="doGuliwangIndex.action?city.cityname=静安区&cityparent=上海市"><em
 						class="ion-home"></em>首页</a></li>
 				<li><a href="goods.jsp"><em class="ion-bag"></em>商城</a></li>
 				<li><a href="order.jsp"><em class="ion-clipboard"></em>订单</a></li>

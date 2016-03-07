@@ -4,6 +4,7 @@
 <!doctype html>
 <html>
 <head>
+
 <meta charset="utf-8">
 <meta name="format-detection" content="telephone=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -11,6 +12,9 @@
 	content="black-translucent">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="pragma" content="no-cache">  
+<meta http-equiv="cache-control" content="no-cache">  
+<meta http-equiv="expires" content="0">  
 <title>谷粒网</title>
 <link href="css/base.css" type="text/css" rel="stylesheet">
 <link href="css/layout.css" type="text/css" rel="stylesheet">
@@ -123,8 +127,8 @@ input:checked ~ input:active {
 	
 	function delCollects(){
 		$.each($("[type='checkbox']"),function(i,item){
-			if($(item).checked){
-				document.forms[0].submit();
+			if(item.checked){
+				document.forms[0].submit(); 
 			}else if(i+1 == $("[type='checkbox']").length){
 				window.location.reload();
 			}
