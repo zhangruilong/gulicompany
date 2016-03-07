@@ -33,7 +33,7 @@
 
 
 .pp{
-	width: 80%;
+	width: 80%
 }
 
 </style>
