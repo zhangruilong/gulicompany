@@ -27,10 +27,6 @@ public class Collect
     * 创建时间
     */
    private String createtime;   
-   /**
-    * 关联商品(一对一)
-    */
-   private Goods goods;
     //属性方法	    
      /**
 	 *设置主键"收藏ID"属性
@@ -116,16 +112,6 @@ public class Collect
 	{
 		return this.createtime;
 	}	   
-	
-	
-	public Goods getGoods() {
-		return goods;
-	}
-
-	public void setGoods(Goods goods) {
-		this.goods = goods;
-	}
-
 	public Collect() {
 		super();
 		// TODO Auto-generated constructor stub
