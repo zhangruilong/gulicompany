@@ -3,6 +3,10 @@
 <!doctype html> 
 <html>
 <head>
+<%response.setHeader("Pragma","No-cache");  
+	response.setHeader("Cache-Control","no-cache");  
+	response.setDateHeader("Expires", 0);  
+ %>
 <meta charset="utf-8">
 <meta name="format-detection" content="telephone=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
