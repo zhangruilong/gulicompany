@@ -90,7 +90,7 @@
 <body>
 	<form action="addAddress.action" method="post">
 	<div class="gl-box">
-	<div class="wapper-nav"><p class="p-a"><a aling="left" href="doAddressMana.action?customerId=1" >&lt;返回</a></p>
+	<div class="wapper-nav"><p class="p-a"><a href="doAddressMana.action?customerId=1" >&lt;返回</a></p>
 	<p class="pp">地址管理</p></div>
 	<div class="home-search-wrapper">
 	<table cellpadding="2" cellspacing="4">
