@@ -12,11 +12,37 @@
 <title>谷粒网</title>
 <link href="css/base.css" type="text/css" rel="stylesheet">
 <link href="css/layout.css" type="text/css" rel="stylesheet">
+<style type="text/css">
+.p-a{
+	
+	float: left;
+	width: 20%;
+	 position: relative; 
+	 background-color: #2c77e6; 
+	 height: 30px; 
+	 line-height: 30px; 
+	 color: #fff ; 
+	 text-align: center ;
+}
+.p-a a{
+	height: 50px; 
+	line-height: 20px; 
+	text-align: center ;
+	color: #fff ;
+}
+
+
+.pp{
+	width: 80%;
+}
+
+</style>
 </head>
 
 <body>
 <div class="gl-box">
-	<div class="wapper-nav">地址管理</div>
+	<div class="wapper-nav"><p class="p-a"><a href="mine.jsp" >&lt;返回</a></p>
+	<p class="pp">地址管理</p></div>
 	<div class="add-admin">
 		<c:forEach items="${requestScope.addressList }" var="address">
 			<a href="doEditAddress.action?addressid=${address.addressid }"><span>${address.addressconnect }</span><span>  ${address.addressphone } </span><span class="sign"></span>${address.addressture == 1?'[默认]':'' }收货地址: ${address.addressaddress } </a>
