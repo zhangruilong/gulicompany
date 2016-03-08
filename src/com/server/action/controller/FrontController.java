@@ -25,8 +25,6 @@ public class FrontController {
 	
 	@RequestMapping("/guliwang/doGuliwangIndex")
 	public String doGuliwangIndex(Model model,Company companyCondition,City city){
-		System.out.println(city);
-		System.out.println(city.getCityparent());
 		
 		List<City> cities = cityMapper.selectByCityparent(city);
 		model.addAttribute("cityList", cities);

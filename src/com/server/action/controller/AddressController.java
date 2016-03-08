@@ -2,6 +2,10 @@ package com.server.action.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,11 +35,13 @@ public class AddressController {
 	}
 	//添加新收货地址
 	@RequestMapping("/guliwang/addAddress")
-	public String addAddress(Address address,String customerId){
+	public String addAddress(Model model,Address address,String customerId){
 		address.setAddressture(0);
-		address.setAddressid(CommonUtil.getNewId());
+		address.setAddressid(CommonUtil.getNewId());		//设置新id
 		addressMapper.insertSelective(address);
-		return "doAddressMana.action";
+		model.addAttribute("address", address);
+		model.addAttribute("customerId", customerId);
+		return "forward:/guliwang/addAddress.jsp";
 	}
 	//到修改收货地址页面
 	@RequestMapping("/guliwang/doEditAddress")
@@ -46,14 +52,19 @@ public class AddressController {
 	}
 	//修改收货地址
 	@RequestMapping("/guliwang/editAddress")
-	public String editAddress(Address address,String customerId){
+	public String editAddress(Model model,Address address,String customerId){
+		
 		addressMapper.updateByPrimaryKeySelective(address);
-		return "doAddressMana.action";
+		model.addAttribute("address", address);
+		model.addAttribute("customerId", customerId);
+		return "forward:/guliwang/editAddress.jsp";
 	}
 	//删除收货地址
 		@RequestMapping("/guliwang/delAddress")
-		public String delAddress(String addressid,String customerId){
+		public String delAddress(Model model,String addressid,String customerId){
 			addressMapper.deleteByPrimaryKey(addressid);
-			return "doAddressMana.action";
+			model.addAttribute("addressid", addressid);
+			model.addAttribute("customerId", customerId);
+			return "forward:/guliwang/editAddress.jsp";
 		}
 }

@@ -1,8 +1,14 @@
 package com.server.dao.mapper;
 
+import java.util.List;
+
 import com.server.pojo.entity.Customer;
 
 public interface CustomerMapper {
+	/**
+	 * 根据条件(手机号)查询客户
+	 */
+	Customer selectByPhone(Customer customer);
 	/**
 	 * 根据客户id查询收藏的商品
 	 */

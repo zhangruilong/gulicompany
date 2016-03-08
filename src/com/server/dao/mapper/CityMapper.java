@@ -6,6 +6,10 @@ import com.server.pojo.entity.City;
 
 public interface CityMapper {
 	/**
+	 * 查询所有地区的父类
+	 */
+	List<City> selectAllParent();
+	/**
 	 * 条件查询
 	 */
 	List<City> selectByCityparent(City city);

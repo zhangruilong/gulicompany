@@ -64,6 +64,13 @@
     CUSTOMERCITY, CUSTOMERXIAN, CUSTOMERADDRESS, CUSTOMERTYPE, CUSTOMERLEVEL, OPENID, 
     CUSTOMERDETAIL, CUSTOMERSTATUE, CREATETIME, UPDTIME
   </sql>
+  <!-- 根据条件(手机号和密码)查询客户 -->
+  <select id="selectByPhone" resultMap="BaseResultMap" parameterType="com.server.pojo.entity.Customer" >
+    select 
+    <include refid="Base_Column_List" />
+    from CUSTOMER
+    where customerphone = #{customerphone} and customerpsw = #{customerpsw}
+  </select>
   <!-- 根据客户id查询收藏的商品 -->
   <select id="selectCollectGoodsById" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 

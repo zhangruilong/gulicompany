@@ -12,6 +12,10 @@
   <sql id="Base_Column_List" >
     CITYID, CITYCODE, CITYNAME, CITYPARENT, CITYDETAIL, CITYSTATUE
   </sql>
+  <!-- 查询所有地区的父类 -->
+  <select id="selectAllParent" resultMap="BaseResultMap" >
+    select t.cityparent from city t  group by t.cityparent
+  </select>
   <!-- 条件查询 -->
   <select id="selectByCityparent" resultMap="BaseResultMap" parameterType="com.server.pojo.entity.City" >
     select 
@@ -24,7 +28,7 @@
     </where>
   </select>
   <!-- 查询所有地区 -->
-  <select id="selectAllCity" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectAllCity" resultMap="BaseResultMap" >
     select 
     <include refid="Base_Column_List" />
     from CITY
