@@ -94,7 +94,7 @@
                 </div>
                 <div class="stock-num">
                     <span class="jian min">-</span>
-                    <input class="text_box shuliang" name="danpin" type="text" value="0"> 
+                    <input class="text_box shuliang" name="danpin" type="text" value="0" readonly="readonly"> 
                     <span class="jia add">+</span>
                     
                     <span hidden="ture" class="jian min">-</span>
@@ -192,7 +192,7 @@ function initDishes(data){
  	           '  <div class="stock-num" name="'+item.goodsid+'">'+
  	                ' <span class="jian min" onclick="subnum(this,'+item.pricesprice
 					   +')">-</span>'+
- 	                 '<input class="text_box shuliang" name="danpin" type="text" value="'+
+ 	                 '<input readonly="readonly" class="text_box shuliang" name="danpin" type="text" value="'+
  	                 getcurrennumdanpin(item.goodsid)+'"> '+
  	                ' <span class="jia add" onclick="addnum(this,'+item.pricesprice
 					   +',\''+item.goodsname+'\',\''+item.pricesunit+'\',\''+item.goodsunits
@@ -201,7 +201,7 @@ function initDishes(data){
 					   +'\')">+</span>'+
  	               '  <span hidden="ture" class="jian min" onclick="subnum(this,'+item.pricesprice2
 				   +')">-</span>'+
- 	                ' <input hidden="ture" class="text_box shuliang" name="taozhuan" type="text" value="'+
+ 	                ' <input readonly="readonly" hidden="ture" class="text_box shuliang" name="taozhuan" type="text" value="'+
  	                getcurrennumtaozhuan(item.goodsid)+'"> '+
  	                ' <span hidden="ture" class="jia add" onclick="addnum(this,'+item.pricesprice2
 					   +',\''+item.goodsname+'\',\''+item.pricesunit2+'\',\''+item.goodsunits
