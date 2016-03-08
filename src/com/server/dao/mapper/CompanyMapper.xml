@@ -103,6 +103,13 @@
   		</if>
   	</if>
   </select>
+  <!-- 登录 -->
+  <select id="selectLogin" resultMap="BaseResultMap" parameterType="com.server.pojo.entity.Company" >
+    select 
+    <include refid="Base_Column_List" />
+    from COMPANY
+    where loginname = #{loginname} and password = #{password}
+  </select>
   <!-- 根据主键查询 -->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
