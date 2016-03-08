@@ -119,7 +119,6 @@
 
 <script src="js/jquery-2.1.4.min.js"></script>
 <script src="js/jquery-dropdown.js"></script>
-<script type="text/javascript" src="js/jquery.dialog.js"></script>
 <script> 
 var basePath = '<%=basePath%>';
 var searchdishesvalue = '<%=searchdishesvalue%>';
@@ -137,7 +136,7 @@ $(function(){
 		$("#curgoodsclass").html(searchclassesvalue);
 		getJson(basePath+"GoodsviewAction.do",{method:"mselQuery",wheresql:"goodsclassname='"+searchclassesvalue+"'"},initDishes,null);
 	}else{
-		getJson(basePath+"GoodsviewAction.do",{method:"mselQuery"},initDishes,null);
+		getJson(basePath+"GoodsviewAction.do",{method:"mselQuery",wheresql:"goodsclassname='大米'"},initDishes,null);
 	}
 })
 function entersearch(){
@@ -209,7 +208,7 @@ function initDishes(data){
 					   +'\',\''+item.goodscode+'\',\''+item.goodsclassname
 					   +'\',\''+item.goodscompany+'\',\''+item.companyshop+'\',\''+item.companydetail
 					   +'\')">+</span>'+
- 	                ' <input type="checkbox" id="'+item.goodsid+'checkbox" class="chk_1">'+
+ 	                ' <input type="checkbox" id="'+item.goodsid+'checkbox" class="chk_1" '+item.goodsdetail+'>'+
  	            		'<label for="'+item.goodsid+'checkbox" onclick="checkedgoods(\''+item.goodsid+'\');"></label>'+
  	             '</div>'+
  	         '</li>');
@@ -241,9 +240,9 @@ function checkedgoods(goodsid){
 		success : function(resp) {
 			var respText = eval('('+resp+')'); 
 			if(respText.success == false) 
-				$.dialog.alert("操作提示", respText.msg);
+				alert(respText.msg);
 			else {
-				$.dialog.alert("操作提示", "操作成功！");
+				alert("操作成功！");
 			}
 		},
 		error : function(resp) {

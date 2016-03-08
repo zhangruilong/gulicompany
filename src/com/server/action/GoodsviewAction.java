@@ -1,10 +1,12 @@
 package com.server.action;
 
 import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.server.dao.GoodsviewDao;
+import com.server.pojo.Collect;
 import com.server.pojo.Goodsview;
 import com.server.poco.GoodsviewPoco;
 import com.system.tools.CommonConst;
@@ -60,8 +62,21 @@ public class GoodsviewAction extends BaseAction {
 		queryinfo.setType(Goodsview.class);
 		queryinfo.setQuery(DAO.getQuerysql(queryinfo.getQuery()));
 		queryinfo.setOrder(GoodsviewPoco.ORDER);
-		Pageinfo pageinfo = new Pageinfo(DAO.getTotal(queryinfo), DAO.selQuery(queryinfo));
+		cuss = (ArrayList<Goodsview>) DAO.selQuery(queryinfo);
+		
+		Queryinfo collectqueryinfo = getQueryinfo();
+		collectqueryinfo.setType(Collect.class);
+		ArrayList<Collect> cussCollect = (ArrayList<Collect>) DAO.selQuery(collectqueryinfo);
+		for(Goodsview mGoodsview:cuss){
+			for(Collect mCollect:cussCollect){
+				if(mGoodsview.getGoodsid().equals(mCollect.getCollectgoods())){
+					mGoodsview.setGoodsdetail("checked");
+				}
+			}
+		}
+	
+		Pageinfo pageinfo = new Pageinfo(DAO.getTotal(queryinfo), cuss);
 		result = CommonConst.GSON.toJson(pageinfo);
-		mresponsePW(request, response, result);
+		responsePW(response, result);
 	}
 }
