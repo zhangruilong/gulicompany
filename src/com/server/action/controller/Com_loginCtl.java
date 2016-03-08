@@ -18,7 +18,7 @@ import com.server.pojo.entity.Company;
 public class Com_loginCtl {
 	@Autowired
 	private CompanyMapper companyMapper;
-	//到收藏页面
+	//登录
 	@RequestMapping("/companySys/login")
 	public String login(HttpSession session,Company company){
 			

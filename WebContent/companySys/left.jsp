@@ -1,5 +1,8 @@
+<%@page import="com.server.pojo.entity.Company"%>
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+	
+	<%Company company = (Company)session.getAttribute("company"); %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -39,7 +42,7 @@
     <div class="menu__body">
       <ul class="nav">
         <li class="nav__item">
-          <a href="#" class="nav__item-link">
+          <a href="allOrder.action?ordermcompany=<%=company.getCompanyid() %>" target="main" class="nav__item-link">
             <span class="nav__item-text">全部订单</span>
           </a>   
         </li>
