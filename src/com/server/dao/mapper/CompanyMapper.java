@@ -6,6 +6,10 @@ import com.server.pojo.entity.Company;
 
 public interface CompanyMapper {
 	/**
+     * 登录
+     */
+    Company selectLogin(Company record);
+	/**
 	 * 根据条件查询经销商
 	 */
 	List<Company> selectCompanyByCondition(Company company);
