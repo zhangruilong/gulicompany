@@ -66,4 +66,10 @@ public class LoginController {
 		addressMapper.insertSelective(address);				//添加默认地址
 		return "redirect:login.jsp";
 	}
+	//注销登录
+	@RequestMapping("/guliwang/loginOut")
+	public String loginOut(HttpSession session){
+		session.invalidate();
+		return "redirect:login.jsp";
+	}
 }

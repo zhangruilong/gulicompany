@@ -6,9 +6,9 @@ import com.server.pojo.entity.Orderm;
 
 public interface OrdermMapper {
 	/**
-	 * 根据供应商查询订单
+	 * 根据供应商(和条件)查询订单
 	 */
-	List<Orderm> selectByCompany(String ordermcompany);
+	List<Orderm> selectByCompany(Orderm record);
 	/**
 	 * 根据主键删除
 	 */

@@ -1,8 +1,6 @@
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%
-	String cityname = request.getParameter("city.cityname"); %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -26,12 +24,12 @@
 <body>
 	<div class="gl-box">
 		<div class="home-search-wrapper">
-			<span class="citydrop"><%=cityname %><em><img
+			<span class="citydrop">${sessionScope.customer.customerxian }<em><img
 					src="images/dropbg.png"></em></span>
 			<div class="menu">
 				<div class="host-city">
 					<p class="quyu">
-						请选择服务区域 <span class="fr">所在城市：${requestScope.cityList[0].cityparent }</span>
+						请选择服务区域 <span class="fr">所在城市：${sessionScope.customer.customercity }</span>
 					</p>
 				</div>
 				<div class="menu-tags home-city-drop">
@@ -86,7 +84,7 @@
 		<div class="personal-center-nav">
 			<ul>
 				<li class="active"><a
-					href="doGuliwangIndex.action?city.cityname=静安区&cityparent=上海市"><em
+					href="doGuliwangIndex.action?city.cityname=${sessionScope.customer.customerxian }&cityparent=${sessionScope.customer.customercity }"><em
 						class="ion-home"></em>首页</a></li>
 				<li><a href="goods.jsp"><em class="ion-bag"></em>商城</a></li>
 				<li><a href="order.jsp"><em class="ion-clipboard"></em>订单</a></li>

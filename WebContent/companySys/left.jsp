@@ -47,12 +47,12 @@
           </a>   
         </li>
         <li class="nav__item">
-          <a href="#" class="nav__item-link">
+          <a href="allOrder.action?ordermcompany=<%=company.getCompanyid() %>&ordermway=在线支付" target="main" class="nav__item-link">
             <span class="nav__item-text">在线支付订单</span>
           </a>   
         </li>
          <li class="nav__item">
-          <a href="#" class="nav__item-link">
+          <a href="allOrder.action?ordermcompany=<%=company.getCompanyid() %>&ordermway=货到付款" target="main" class="nav__item-link">
             <span class="nav__item-text">货到付款订单</span>
           </a>   
         </li>

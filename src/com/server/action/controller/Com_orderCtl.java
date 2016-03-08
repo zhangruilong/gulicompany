@@ -21,9 +21,10 @@ public class Com_orderCtl {
 	private OrdermMapper ordermMapper;
 	//全部订单
 	@RequestMapping("/companySys/allOrder")
-	public String allOrder(Model model,String ordermcompany){
-		List<Orderm> ordermList = ordermMapper.selectByCompany(ordermcompany);
+	public String allOrder(Model model,Orderm order){
+		List<Orderm> ordermList = ordermMapper.selectByCompany(order);
 		model.addAttribute("allOrder", ordermList);
+		model.addAttribute("order", order);
 		return "forward:/companySys/orderMana.jsp";
 	}
 }

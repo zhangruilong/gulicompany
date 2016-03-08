@@ -23,6 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
  <pg:pager maxPageItems="10" url="allOrder.action">
  <pg:param name="ordermcompany" value="${sessionScope.company.companyid }"/>
+ <pg:param name="ordermway" value="${request.order.ordermway }"/>
 <div class="page_title">订单管理/全部订单</div>
 <div class="button_bar">
 </div>
@@ -67,10 +68,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</c:forEach>
 	</c:if>
 	<c:if test="${fn:length(requestScope.allOrder)==0 }">
-		<tr><td colspan="12" align="center" style="font-size: 26px;color: red;"> 没有可显示的信息</td></tr>
+		<tr><td colspan="14" align="center" style="font-size: 26px;color: red;"> 没有可显示的信息</td></tr>
 	</c:if>
     	<tr>
-		 <td colspan="12" align="center">	
+		 <td colspan="14" align="center">	
 			 <pg:index>
 			 <pg:first><a href="${pageUrl }">第一页</a></pg:first>
 			 <pg:prev><a href="${pageUrl}">上一页</a></pg:prev>

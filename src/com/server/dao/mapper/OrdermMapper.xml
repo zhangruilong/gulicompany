@@ -25,12 +25,15 @@
     ORDERMWAY, ORDERMSTATUE, ORDERMDETAIL, ORDERMTIME, ORDERMCONNECT, ORDERMPHONE, ORDERMADDRESS, 
     UPDTIME, UPDOR, ORDERMEMP
   </sql>
-  <!-- 根据供应商查询订单 -->
-  <select id="selectByCompany" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <!-- 根据供应商(和条件)查询订单 -->
+  <select id="selectByCompany" resultMap="BaseResultMap" parameterType="com.server.pojo.entity.Orderm" >
     select 
     <include refid="Base_Column_List" />
     from ORDERM
-    where ordermcompany = #{ordermcompany,jdbcType=VARCHAR}
+    where ordermcompany = #{ordermcompany,jdbcType=VARCHAR} 
+    	<if test="ordermway != null and ordermway != ''">
+    		and ORDERMWAY = #{ordermway,jdbcType=VARCHAR} 
+    	</if>
   </select>
   <!-- 根据主键查询 -->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
