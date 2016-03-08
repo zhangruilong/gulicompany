@@ -94,4 +94,12 @@ public class CollectAction extends BaseAction {
 		result = CommonConst.GSON.toJson(pageinfo);
 		responsePW(response, result);
 	}
+	//删除
+	public void delAllByGoodsid(HttpServletRequest request, HttpServletResponse response){
+		json2cuss(request);
+		for(Collect temp:cuss){
+			result = DAO.delSingle(temp);
+		}
+		responsePW(response, result);
+	}
 }

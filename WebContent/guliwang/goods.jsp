@@ -101,7 +101,7 @@
                     <input hidden="ture" class="text_box shuliang" name="taozhuan" type="text" value="0"> 
                     <span hidden="ture" class="jia add">+</span>
                     
-                    <input type="checkbox" id="1checkbox" class="chk_1">
+                    <input type="checkbox" id="1checkbox" class="chk_1" checked="checked">
                		<label for="1checkbox"></label>
                 </div>
             </li>
@@ -119,6 +119,7 @@
 
 <script src="js/jquery-2.1.4.min.js"></script>
 <script src="js/jquery-dropdown.js"></script>
+<script type="text/javascript" src="js/jquery.dialog.js"></script>
 <script> 
 var basePath = '<%=basePath%>';
 var searchdishesvalue = '<%=searchdishesvalue%>';
@@ -209,7 +210,7 @@ function initDishes(data){
 					   +'\',\''+item.goodscompany+'\',\''+item.companyshop+'\',\''+item.companydetail
 					   +'\')">+</span>'+
  	                ' <input type="checkbox" id="'+item.goodsid+'checkbox" class="chk_1">'+
- 	            		'<label for="'+item.goodsid+'checkbox"></label>'+
+ 	            		'<label for="'+item.goodsid+'checkbox" onclick="checkedgoods(\''+item.goodsid+'\');"></label>'+
  	             '</div>'+
  	         '</li>');
      });
@@ -223,6 +224,32 @@ function initDishes(data){
 		t2.prev().toggle();
 		t2.next().toggle();
 	})
+}
+function checkedgoods(goodsid){
+	var url = 'CollectAction.do?method=';
+	if($("#"+goodsid+"checkbox").is(':checked')){
+		url +='delAllByGoodsid';
+	}else{
+		url +='insAll';
+	}
+	var json = '[{"collectgoods":"' + goodsid + '"}]';
+	$.ajax({
+		url : url,
+		data : {
+			json : json
+		},
+		success : function(resp) {
+			var respText = eval('('+resp+')'); 
+			if(respText.success == false) 
+				$.dialog.alert("操作提示", respText.msg);
+			else {
+				$.dialog.alert("操作提示", "操作成功！");
+			}
+		},
+		error : function(resp) {
+			alert('网络出现问题，请稍后再试');
+		}
+	});
 }
 function getcurrennumdanpin(dishesid){
 	//订单
