@@ -1,6 +1,7 @@
 package com.server.action;
 
 import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -60,8 +61,33 @@ public class OrdermviewAction extends BaseAction {
 		queryinfo.setType(Ordermview.class);
 		queryinfo.setQuery(DAO.getQuerysql(queryinfo.getQuery()));
 		queryinfo.setOrder(OrdermviewPoco.ORDER);
+		String begindate = request.getParameter("begindate");
+		String enddate = request.getParameter("enddate");
+		String beginmoney = request.getParameter("beginmoney");
+		String endmoney = request.getParameter("endmoney");
+		String companyname = request.getParameter("companyname");
+		String wheresql = "";
+		if(CommonUtil.isNotNull(begindate)){
+			wheresql += " and ordermtime>'"+begindate+"'";
+		}
+		if(CommonUtil.isNotNull(enddate)){
+			wheresql += " and ordermtime<'"+enddate+"'";
+		}
+		if(CommonUtil.isNotNull(beginmoney)){
+			wheresql += " and ordermmoney>'"+beginmoney+"'";
+		}
+		if(CommonUtil.isNotNull(endmoney)){
+			wheresql += " and ordermmoney<'"+endmoney+"'";
+		}
+		if(CommonUtil.isNotNull(companyname)){
+			wheresql += " and companyshop like '%"+companyname+"%'";
+		}
+		if(CommonUtil.isNotNull(wheresql)){
+			wheresql = wheresql.substring(5,wheresql.length());
+		}
+		queryinfo.setWheresql(wheresql);
 		Pageinfo pageinfo = new Pageinfo(DAO.getTotal(queryinfo), DAO.selQuery(queryinfo));
 		result = CommonConst.GSON.toJson(pageinfo);
-		mresponsePW(request, response, result);
+		responsePW(response, result);
 	}
 }

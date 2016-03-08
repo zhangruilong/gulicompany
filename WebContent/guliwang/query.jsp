@@ -18,16 +18,50 @@
 <div class="filter-wrapper">
 	<div class="wapper-nav">筛选</div>
     <ul>
-    	<li><span>按时间</span> <input name="" type="text" placeholder="2015-10-10"> 至 <input name="" type="text" placeholder="2015-10-10"></li>
-        <li><span>按金额</span> <input name="" type="text" placeholder="2000"> 至 <input name="" type="text" placeholder="3000"></li>
-        <li><span>供应商</span> <input name="" type="text" class="supplier-name" placeholder="请输入供应商名称"></li>
+    	<li><span>按时间</span> <input id="begindate" type="date" placeholder="2015-10-10"> 至 <input id="enddate" type="date" placeholder="2015-10-10"></li>
+        <li><span>按金额</span> <input id="beginmoney" type="number" placeholder="2000"> 至 <input id="endmoney" type="number" placeholder="3000"></li>
+        <li><span>供应商</span> <input id="companyname" type="text" class="supplier-name" placeholder="请输入供应商名称"></li>
     </ul>
 </div>
 </div>
 <div class="footer">
 	<div class="filter-footer">
-        <a href="#">清除</a> <a href="order.jsp">确定</a>
+        <a onclick="clearall();">清除</a> <a onclick="nextpage();">确定</a>
     </div>
 </div>
+<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("#begindate").val(window.localStorage.getItem("begindate"));
+	$("#enddate").val(window.localStorage.getItem("enddate"));
+	$("#beginmoney").val(window.localStorage.getItem("beginmoney"));
+	$("#endmoney").val(window.localStorage.getItem("endmoney"));
+	$("#companyname").val(window.localStorage.getItem("companyname"));
+});
+function clearall(){
+	$("#begindate").val("");
+	$("#enddate").val("");
+	$("#beginmoney").val("");
+	$("#endmoney").val("");
+	$("#companyname").val("");
+	window.localStorage.setItem("begindate", $("#begindate").val());
+	window.localStorage.setItem("enddate", $("#enddate").val());
+	window.localStorage.setItem("beginmoney", $("#beginmoney").val());
+	window.localStorage.setItem("endmoney", $("#endmoney").val());
+	window.localStorage.setItem("companyname", $("#companyname").val());
+}
+function nextpage(){
+	window.localStorage.setItem("begindate", $("#begindate").val());
+	window.localStorage.setItem("enddate", $("#enddate").val());
+	window.localStorage.setItem("beginmoney", $("#beginmoney").val());
+	window.localStorage.setItem("endmoney", $("#endmoney").val());
+	window.localStorage.setItem("companyname", $("#companyname").val());
+	window.location.href = "order.jsp?begindate="+$("#begindate").val()+
+			"&enddate="+$("#enddate").val()+
+			"&beginmoney="+$("#beginmoney").val()+
+			"&endmoney="+$("#endmoney").val()+
+			"&companyname="+$("#companyname").val();
+}
+</script>
 </body>
 </html>

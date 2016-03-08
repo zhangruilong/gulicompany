@@ -14,6 +14,12 @@ public class CommonUtil {
 		return true;
 	}
 	
+	public static Boolean isNotNull(String str) {
+		if(null == str || str.length() <= 0 || "null".equals(str.toLowerCase()))
+			return false;
+		return true;
+	}
+	
 	public static Boolean isNotEmpty(Object obj) {
 		if(obj==null)
 			return false;
@@ -25,7 +31,12 @@ public class CommonUtil {
 			return true;
 		return false;
 	}
-	
+
+	public static Boolean isNull(String str) {
+		if(null == str || str.length() <= 0 || "null".equals(str.toLowerCase()))
+			return true;
+		return false;
+	}
 	public static Boolean isEmpty(Object obj) {
 		if(obj==null)
 			return true;

@@ -69,7 +69,12 @@
 <script> 
 var basePath = '<%=basePath%>';
 $(function(){
-	getJson(basePath+"OrdermviewAction.do",{method:"mselQuery"},initData,null);
+	getJson(basePath+"OrdermviewAction.do",{method:"mselQuery",
+		begindate : "<%=request.getParameter("begindate")%>",
+		enddate : "<%=request.getParameter("enddate")%>",
+		beginmoney : "<%=request.getParameter("beginmoney")%>",
+		endmoney : "<%=request.getParameter("endmoney")%>",
+		companyname : "<%=request.getParameter("companyname")%>"},initData,null);
 });
 function initData(data){
     $(".gl-box").html("");
