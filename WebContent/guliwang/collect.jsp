@@ -62,14 +62,36 @@ input:checked ~ input,
 input:checked ~ input:active {
   background-position: 0 -24px;
 }
+.p-a{
+	
+	float: left;
+	width: 20%;
+	 position: relative; 
+	 background-color: #2c77e6; 
+	 height: 30px; 
+	 line-height: 30px; 
+	 color: #fff ; 
+	 text-align: center ;
+}
+.p-a a{
+	height: 50px; 
+	line-height: 20px; 
+	text-align: center ;
+	color: #fff ;
+}
+
+
+.pp{
+	width: 80%;
+}
 </style>
 </head>
 
 <body>
 	<form action="delCollect.action" method="post">
 	<div class="gl-box">
-		<div class="wapper-nav">
-			我的收藏<a onclick="editToDel()">编辑</a>
+		<div class="wapper-nav"><p class="p-a"><a href="mine.jsp" >&lt;返回</a></p>
+	<p class="pp">我的收藏</p><a onclick="editToDel()">编辑</a></div>
 		</div>
 		<input type="hidden" value="${requestScope.customerCollect.customerid }" name="comid"/>
 		<div class="shoucang-wrap">
@@ -119,7 +141,8 @@ input:checked ~ input:active {
 <script src="js/jquery-dropdown.js"></script>
 <script type="text/javascript">
 	function editToDel(){
-		$(".wapper-nav").html("我的收藏<a onclick='delCollects()'>删除</a>");
+		$(".wapper-nav").html("<p class='p-a'><a href='mine.jsp' >&lt;返回</a></p>"+
+				"<p class='pp'>我的收藏</p><a onclick='delCollects()'>删除</a>");
 		$.each($("li"),function(i,item){
 			$(item).prepend("<input type='checkbox' value='"+$(item).attr("name")+"' name='collectids'>");
 		})
