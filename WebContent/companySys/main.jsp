@@ -10,7 +10,7 @@
 	framespacing="0">
 	<frame src="top.jsp" name="topFrame" scrolling="no" noresize="noresize"
 		id="topFrame" title="topFrame" />
-	<frameset cols="184,*" name="cen" frameborder="no" border="1"
+	<frameset cols="150,*" name="cen" frameborder="no" border="1"
 		framespacing="0">
 		<frame src="left.jsp" name="leftFrame" scrolling="no"
 			noresize="noresize" id="leftFrame" title="leftFrame" />

@@ -17,9 +17,96 @@ String ordermway = request.getParameter("ordermway");
 <script type="text/javascript" src="../sysjs/jquery.min.js"></script>
 <link href="css/style2.css" rel="stylesheet" type="text/css">
 <style type="text/css">
-.data_list_table tr td{
-	text-align: center;
+body {
+    width: 1200px;
+    margin: 40px auto;
+    font-family: 'trebuchet MS', 'Lucida sans', Arial;
+    font-size: 14px;
+    color: #444;
 }
+
+table {
+    *border-collapse: collapse; /* IE7 and lower */
+    border-spacing: 0;
+    width: 100%;    
+}
+
+.bordered {
+    border: solid #ccc 1px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 1px 1px #ccc; 
+    -moz-box-shadow: 0 1px 1px #ccc; 
+    box-shadow: 0 1px 1px #ccc;         
+}
+
+.bordered tr:hover {
+    background: #fbf8e9;
+    -o-transition: all 0.1s ease-in-out;
+    -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    -ms-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;     
+}    
+    
+.bordered td, .bordered th {
+    border-left: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;    
+}
+
+.bordered th {
+    background-color: #dce9f9;
+    background-image: -webkit-linear-gradient(top, #ebf3fc, #dce9f9);
+    background-image:    -moz-linear-gradient(top, #ebf3fc, #dce9f9);
+    background-image:     -ms-linear-gradient(top, #ebf3fc, #dce9f9);
+    background-image:      -o-linear-gradient(top, #ebf3fc, #dce9f9);
+    background-image:         linear-gradient(top, #ebf3fc, #dce9f9);
+    -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset; 
+    -moz-box-shadow:0 1px 0 rgba(255,255,255,.8) inset;  
+    box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;        
+    border-top: none;
+    text-shadow: 0 1px 0 rgba(255,255,255,.5); 
+}
+
+.bordered td:first-child, .bordered th:first-child {
+    border-left: none;
+}
+
+.bordered th:first-child {
+    -moz-border-radius: 6px 0 0 0;
+    -webkit-border-radius: 6px 0 0 0;
+    border-radius: 6px 0 0 0;
+}
+
+.bordered th:last-child {
+    -moz-border-radius: 0 6px 0 0;
+    -webkit-border-radius: 0 6px 0 0;
+    border-radius: 0 6px 0 0;
+}
+
+.bordered th:only-child{
+    -moz-border-radius: 6px 6px 0 0;
+    -webkit-border-radius: 6px 6px 0 0;
+    border-radius: 6px 6px 0 0;
+}
+
+.bordered tr:last-child td:first-child {
+    -moz-border-radius: 0 0 0 6px;
+    -webkit-border-radius: 0 0 0 6px;
+    border-radius: 0 0 0 6px;
+}
+
+.bordered tr:last-child td:last-child {
+    -moz-border-radius: 0 0 6px 0;
+    -webkit-border-radius: 0 0 6px 0;
+    border-radius: 0 0 6px 0;
+}
+
+}
+  
 </style>
 <script type="text/javascript">
 var ordermway = '<%=ordermway %>';
@@ -37,16 +124,18 @@ $(function(){
 </script>
 </head>
 <body>
- <pg:pager maxPageItems="10" url="allOrder.action">
+ <pg:pager maxPageItems="8" url="allOrder.action">
  <pg:param name="ordermcompany" value="${sessionScope.company.companyid }"/>
  <pg:param name="ordermway" value="${request.order.ordermway }"/>
 <div class="page_title">订单管理/全部订单</div>
 <div class="button_bar">
 </div>
 <br />
-<table class="data_list_table">
-	<tr>
-		<th>序号</th>
+<table class="bordered">
+    <thead>
+
+    <tr>
+        <th>序号</th>
 		<th>订单编号</th>
 		<th>支付方式</th>
 		<th>种类数</th>
@@ -60,8 +149,9 @@ $(function(){
 		<th>地址</th>
 		<th>打印</th>
 		<th>详情</th>
-	</tr>
-	<c:if test="${fn:length(requestScope.allOrder) != 0 }">
+    </tr>
+    </thead>
+    <c:if test="${fn:length(requestScope.allOrder) != 0 }">
 	<c:forEach var="order" items="${requestScope.allOrder }" varStatus="orderSta">
 	<pg:item>
 		<tr>
@@ -98,7 +188,7 @@ $(function(){
 			 <pg:last><a href="${pageUrl }">最后一页</a></pg:last>
 			 </pg:index>
 		 </td>
-	 </tr>
+	 </tr>       
 </table>
 </pg:pager>
 </body>

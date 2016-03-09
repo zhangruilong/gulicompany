@@ -1,9 +1,11 @@
+<%@page import="com.server.pojo.entity.Company"%>
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.system.pojo.System_power_quickview"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+Company company = (Company)session.getAttribute("company"); 
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -67,8 +69,25 @@ margin: 0px auto;
 	<script type="text/javascript">
 		function doOrder(){
 			var t = $(window.parent.leftFrame.menu_header_title);
-			var tt = $(t).html();
-			alert(tt);
+			t.text("订单管理");
+			var menu_body = $(window.parent.leftFrame.menu__body);
+			menu_body.html("<ul class='nav'>"
+			        +"<li class='nav__item'>"
+			        +"<a href=allOrder.action?ordermcompany="+'<%=company.getCompanyid() %>'+" target='main' class='nav__item-link'>"
+			        +"<span class='nav__item-text'>全部订单</span>"
+			        +"</a>   "
+			        +"</li>"
+			        +"<li class='nav__item'>"
+			        +"<a href=allOrder.action?ordermcompany="+'<%=company.getCompanyid() %>'+"&ordermway=在线支付  target='main' class='nav__item-link'>"
+			        +"<span class='nav__item-text'>在线支付订单</span>"
+			        +"</a>   "
+			        +"</li>"
+			        +"<li class='nav__item'>"
+			        +"<a href=allOrder.action?ordermcompany="+'<%=company.getCompanyid() %>'+"&ordermway=货到付款  target='main' class='nav__item-link'>"
+			        +"<span class='nav__item-text'>货到付款订单</span>"
+			        +"</a>   "
+			        +"</li>"
+			        +"</ul>");
 		}
 		
 	</script>
