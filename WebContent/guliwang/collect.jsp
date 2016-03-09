@@ -110,7 +110,7 @@ input:checked ~ input:active {
 										套装价:<font>￥${price.pricesprice2 }</font>/${price.pricesunit2 }
 									</p>
 								</c:if>
-								<c:if test="${collect.goods.cclevel == null && price.priceslevel == 3}">
+								<c:if test="${collect.goods.cclevel == null && price.priceslevel == 3 && price.pricesclass == '餐饮客户'}">
 									<p>
 										单品价:<font>￥${price.pricesprice } </font>/${price.pricesunit }
 									</p>
