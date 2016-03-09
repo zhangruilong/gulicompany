@@ -1,5 +1,7 @@
 package com.server.dao.mapper;
 
+import java.util.List;
+
 import com.server.pojo.entity.Goods;
 /**
  * 商品
@@ -7,6 +9,10 @@ import com.server.pojo.entity.Goods;
  *
  */
 public interface GoodsMapper {
+	/**
+     * 根据条件查询
+     */
+    List<Goods> selectByCondition(Goods record);
 	/**
 	 * 根据主键删除
 	 */

@@ -18,13 +18,13 @@
 	<div class="wapper-nav">我的</div>
     <div style="width:100%; padding:5% 0; color:#fff; text-align:center; background:url(images/minebg.jpg)">
     	<img src="images/mendian.jpg" style="border-radius:50px;" width="70" height="70 ">
-        <p>阿萨德超市</p>
+        <p>${sessionScope.customer.customershop }</p>
     </div>
 	<div class="personal-center">
     	<a href="#">我的账号 <span class="sign"></span></a>
-        <a href="doCollect.action?comid=1">我的收藏 <span class="sign"></span></a>
+        <a href="doCollect.action?comid=${sessionScope.customer.customerid }">我的收藏 <span class="sign"></span></a>
         <a href="#">我的谷币 <span class="sign"></span></a>
-        <a href="doAddressMana.action?customerId=1">收货地址 <span class="sign"></span></a>
+        <a href="doAddressMana.action?customerId=${sessionScope.customer.customerid }">收货地址 <span class="sign"></span></a>
     </div>
     <div class="personal-center">
     	<a href="#">谷粒客服 <span class="sign"></span></a>

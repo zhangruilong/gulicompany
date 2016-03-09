@@ -33,12 +33,8 @@ public class LoginController {
 	@RequestMapping("/guliwang/login")
 	public String login(HttpSession session,Customer customer){
 		Customer customer2 = customerMapper.selectByPhone(customer);
-		if(null != customer2){
 			session.setAttribute("customer", customer2);
-			return "forward:doGuliwangIndex.action?city.cityname="+customer2.getCustomerxian()+"&cityparent="+customer2.getCustomercity();
-		} else {
 			return "redirect:login.jsp";
-		}
 	}
 	//注册页面
 	@RequestMapping("/guliwang/doReg")

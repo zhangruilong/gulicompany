@@ -6,7 +6,6 @@
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-String ordermway = request.getParameter("ordermway");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -14,33 +13,18 @@ String ordermway = request.getParameter("ordermway");
 <head>
 <title></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script type="text/javascript" src="../sysjs/jquery.min.js"></script>
 <link href="css/style2.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 .data_list_table tr td{
 	text-align: center;
 }
 </style>
-<script type="text/javascript">
-var ordermway = '<%=ordermway %>';
-$(function(){
-	if(ordermway == null || ordermway == ''){
-		$(".page_title").html("订单管理/全部订单");
-	} else if(ordermway == '在线支付'){
-		$(".page_title").html("订单管理/在线支付订单");
-	} else if(ordermway == '货到付款'){
-		$(".page_title").html("订单管理/货到付款订单");
-	}
-	
-})
-
-</script>
 </head>
 <body>
  <pg:pager maxPageItems="10" url="allOrder.action">
  <pg:param name="ordermcompany" value="${sessionScope.company.companyid }"/>
  <pg:param name="ordermway" value="${request.order.ordermway }"/>
-<div class="page_title">订单管理/全部订单</div>
+<div class="page_title">商品管理/全部商品</div>
 <div class="button_bar">
 </div>
 <br />

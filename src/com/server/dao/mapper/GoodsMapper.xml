@@ -21,11 +21,11 @@
     GOODSIMAGE, GOODSSTATUE, CREATETIME, UPDTIME, CREATOR, UPDOR
   </sql>
   <!-- 根据条件查询 -->
-  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.server.pojo.entity.Goods" >
     select 
     <include refid="Base_Column_List" />
     from GOODS
-    where GOODSID = #{goodsid,jdbcType=VARCHAR}
+    where goodscompany = #{goodscompany}
   </select>
   <!-- 根据主键查询 -->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
