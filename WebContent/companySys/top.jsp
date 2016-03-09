@@ -66,8 +66,8 @@ margin: 0px auto;
 	<script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript">
 		function doOrder(){
-			var t = $(window.parent.leftFrame).find(".menu__header-title");
-			var tt = $(t[0]).text();
+			var t = $(window.parent.leftFrame.menu_header_title);
+			var tt = $(t).html();
 			alert(tt);
 		}
 		
