@@ -21,7 +21,7 @@
         <p>${sessionScope.customer.customershop }</p>
     </div>
 	<div class="personal-center">
-    	<a href="#">我的账号 <span class="sign"></span></a>
+    	<a href="#">我的店铺 <span class="sign"></span></a>
         <a href="doCollect.action?comid=${sessionScope.customer.customerid }">我的收藏 <span class="sign"></span></a>
         <a href="#">我的谷币 <span class="sign"></span></a>
         <a href="doAddressMana.action?customerId=${sessionScope.customer.customerid }">收货地址 <span class="sign"></span></a>
