@@ -60,8 +60,17 @@ margin: 0px auto;
 			<li>合作管理</li>
 			<li>客户管理</li>
 			<li>商品管理</li>
-			<li onclick="">订单管理</li>
+			<li onclick="doOrder()">订单管理</li>
 		</ul>
 	</div>
+	<script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript">
+		function doOrder(){
+			var t = $(window.parent.leftFrame).find(".menu__header-title");
+			var tt = $(t[0]).text();
+			alert(tt);
+		}
+		
+	</script>
 </body>
 </html>

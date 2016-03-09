@@ -6,6 +6,10 @@ import com.server.pojo.entity.Timegoods;
 
 public interface TimegoodsMapper {
 	/**
+     * 根据条件查询
+     */
+    List<Timegoods> selectByCondition(Timegoods record);
+	/**
 	 * 根据主键删除
 	 */
     int deleteByPrimaryKey(String timegoodsid);

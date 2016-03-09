@@ -37,9 +37,9 @@
   <div class="l-main">
   <div class="menu">
     <header class="menu__header">
-      <h1 class="menu__header-title">订单管理</h1>
+      <h1 class="menu__header-title" id="menu__header-title">订单管理</h1>
     </header>
-    <div class="menu__body">
+    <div class="menu__body" id="menu__body">
       <ul class="nav">
         <li class="nav__item">
           <a href="allOrder.action?ordermcompany=<%=company.getCompanyid() %>" target="main" class="nav__item-link">

@@ -23,6 +23,13 @@
     TIMEGOODSUNIT, TIMEGOODSPRICE, TIMEGOODSORGPRICE, TIMEGOODSNUM, TIMEGOODSCLASS, TIMEGOODSIMAGE, 
     TIMEGOODSSTATUE, CREATETIME, CREATOR
   </sql>
+  <!-- 根据条件查询 -->
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.server.pojo.entity.Timegoods" >
+    select 
+    <include refid="Base_Column_List" />
+    from GOODS
+    where timegoodscompany = #{timegoodscompany}
+  </select>
   <!-- 根据主键查询 -->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
