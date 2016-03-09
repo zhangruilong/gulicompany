@@ -26,6 +26,9 @@
     <include refid="Base_Column_List" />
     from GOODS
     where goodscompany = #{goodscompany}
+    <if test="goodsstatue != null and goodsstatue != ''">
+    	and goodsstatue = #{goodsstatue}
+    </if>
   </select>
   <!-- 根据主键查询 -->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >

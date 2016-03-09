@@ -6,7 +6,6 @@
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-String goodsstatue = request.getParameter("goodsstatue");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -108,26 +107,11 @@ table {
 }
   
 </style>
-<script type="text/javascript">
-var goodsstatue = '<%=goodsstatue %>';
-$(function(){
-	if(goodsstatue == null || goodsstatue == ''){
-		$(".page_title").html("商品管理/全部商品");
-	} else if(goodsstatue == '上架'){
-		$(".page_title").html("商品管理/上架商品");
-	} else if(goodsstatue == '下架'){
-		$(".page_title").html("商品管理/下架商品");
-	}
-	
-})
-
-</script>
 </head>
 <body>
- <pg:pager maxPageItems="8" url="allGoods.action">
- <pg:param name="goodscompany" value="${sessionScope.company.companyid }"/>
- <pg:param name="goodsstatue" value="${requestScope.goodsCon.goodsstatue }"/>
-<div class="page_title">商品管理/全部商品</div>
+ <pg:pager maxPageItems="8" url="allTimeGoods.action">
+ <pg:param name="timegoodscompany" value="${sessionScope.company.companyid }"/>
+<div class="page_title">商品管理/促销商品</div>
 <div class="button_bar">
 </div>
 <br />
@@ -140,35 +124,35 @@ $(function(){
 		<th>规格</th>
 		<th>类别</th>
 		<th>描述</th>
+		<th>原价</th>
+		<th>现价</th>
+		<th>限量</th>
 		<th>状态</th>
 		<th>创建时间</th>
 		<th>创建人</th>
-		<th>修改时间</th>
-		<th>修改人</th>
-		<th>价格设置</th>
     </tr>
     </thead>
-    <c:if test="${fn:length(requestScope.goodsList) != 0 }">
-	<c:forEach var="goods" items="${requestScope.goodsList }" varStatus="goodsSta">
+    <c:if test="${fn:length(requestScope.timegoodsList) != 0 }">
+	<c:forEach var="timegoods" items="${requestScope.timegoodsList }" varStatus="timegoodsSta">
 	<pg:item>
 		<tr>
-			<td><c:out value="${goodsSta.count}"></c:out></td>
-			<td>${goods.goodscode}</td>
-			<td>${goods.goodsname}</td>
-			<td>${goods.goodsunits}</td>
-			<td></td>
-			<td>${goods.goodsdetail}</td>
-			<td>${goods.goodsstatue}</td>
-			<td>${goods.createtime}</td>
-			<td>${goods.creator}</td>
-			<td>${goods.updtime}</td>
-			<td>${goods.updor}</td>
-			<td><a href="">价格设置</a></td>
+			<td><c:out value="${timegoodsSta.count}"></c:out></td>
+			<td>${timegoods.timegoodscode}</td>
+			<td>${timegoods.timegoodsname}</td>
+			<td>${timegoods.timegoodsunits}</td>
+			<td>${timegoods.timegoodsclass}</td>
+			<td>${timegoods.timegoodsdetail}</td>
+			<td>${timegoods.timegoodsprice}</td>
+			<td>${timegoods.timegoodsorgprice}</td>
+			<td>${timegoods.timegoodsnum}</td>
+			<td>${timegoods.timegoodsstatue}</td>
+			<td>${timegoods.createtime}</td>
+			<td>${timegoods.creator}</td>
 		</tr>
 	</pg:item>
 	</c:forEach>
 	</c:if>
-	<c:if test="${fn:length(requestScope.goodsList)==0 }">
+	<c:if test="${fn:length(requestScope.timegoodsList)==0 }">
 		<tr><td colspan="14" align="center" style="font-size: 26px;color: red;"> 没有可显示的信息</td></tr>
 	</c:if>
     	<tr>

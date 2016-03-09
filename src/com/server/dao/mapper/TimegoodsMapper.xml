@@ -27,7 +27,7 @@
   <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.server.pojo.entity.Timegoods" >
     select 
     <include refid="Base_Column_List" />
-    from GOODS
+    from timegoods
     where timegoodscompany = #{timegoodscompany}
   </select>
   <!-- 根据主键查询 -->

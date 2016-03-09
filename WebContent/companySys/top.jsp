@@ -61,7 +61,7 @@ margin: 0px auto;
 			<li>系统管理</li>
 			<li>合作管理</li>
 			<li>客户管理</li>
-			<li>商品管理</li>
+			<li onclick="doGoods()">商品管理</li>
 			<li onclick="doOrder()">订单管理</li>
 		</ul>
 	</div>
@@ -89,7 +89,33 @@ margin: 0px auto;
 			        +"</li>"
 			        +"</ul>");
 		}
-		
+		function doGoods(){
+			var t = $(window.parent.leftFrame.menu_header_title);
+			t.text("商品管理");
+			var menu_body = $(window.parent.leftFrame.menu__body);
+			menu_body.html("<ul class='nav'>"
+			        +"<li class='nav__item'>"
+			        +"<a href=allGoods.action?goodscompany="+'<%=company.getCompanyid() %>'+" target='main' class='nav__item-link'>"
+			        +"<span class='nav__item-text'>全部商品</span>"
+			        +"</a>   "
+			        +"</li>"
+			        +"<li class='nav__item'>"
+			        +"<a href=allGoods.action?goodscompany="+'<%=company.getCompanyid() %>'+"&goodsstatue=上架  target='main' class='nav__item-link'>"
+			        +"<span class='nav__item-text'>上架商品</span>"
+			        +"</a>   "
+			        +"</li>"
+			        +"<li class='nav__item'>"
+			        +"<a href=allGoods.action?goodscompany="+'<%=company.getCompanyid() %>'+"&goodsstatue=下架  target='main' class='nav__item-link'>"
+			        +"<span class='nav__item-text'>下架商品</span>"
+			        +"</a>   "
+			        +"</li>"
+			        +"<li class='nav__item'>"
+			        +"<a href=allTimeGoods.action?timegoodscompany="+'<%=company.getCompanyid() %>'+"  target='main' class='nav__item-link'>"
+			        +"<span class='nav__item-text'>促销商品</span>"
+			        +"</a>   "
+			        +"</li>"
+			        +"</ul>");
+		}
 	</script>
 </body>
 </html>
