@@ -26,4 +26,10 @@ public class Com_loginCtl {
 		session.setAttribute("company", company2);
 		return "redirect:/companySys/login.jsp";
 	}
+	//注销
+	@RequestMapping("/companySys/loginOut")
+	public String loginOut(HttpSession session){
+		session.invalidate();
+		return "redirect:/companySys/login.jsp";
+	}
 }
