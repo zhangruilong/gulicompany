@@ -14,19 +14,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <title></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript" src="../sysjs/jquery.min.js"></script>
+<link href="css/style2.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 body {
     width: 1200px;
-    margin: 40px auto;
+    margin: 0px auto;
     font-family: 'trebuchet MS', 'Lucida sans', Arial;
-    font-size: 14px;
     color: #444;
 }
 
 table {
     *border-collapse: collapse; /* IE7 and lower */
     border-spacing: 0;
-    width: 100%;    
 }
 
 .bordered {
@@ -49,10 +48,11 @@ table {
 }    
     
 .bordered td, .bordered th {
+	
     border-left: 1px solid #ccc;
     border-top: 1px solid #ccc;
     padding: 10px;
-    text-align: left;    
+    text-align: center;    
 }
 
 .bordered th {
@@ -67,6 +67,7 @@ table {
     box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;        
     border-top: none;
     text-shadow: 0 1px 0 rgba(255,255,255,.5); 
+    
 }
 
 .bordered td:first-child, .bordered th:first-child {

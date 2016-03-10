@@ -17,6 +17,11 @@ body{
 background: url(../sysimages/top_repeat.gif) repeat;
 margin: 0px auto;
 }
+.top{
+width: 100%;
+height: 100%;
+}
+
 .title{
 	float:left;
 	height: 100px;
@@ -33,7 +38,8 @@ margin: 0px auto;
 	width: 200px;
 }
 .mokuai{
-	float: right;
+	position:absolute;
+	margin-left: 240px;
 	width: 650px;
 }
 
@@ -42,6 +48,7 @@ margin: 0px auto;
 }
 
 .mokuai ul li{
+	cursor:pointer;
 	list-style: none;
 	float: right;
 	height: 60px;
@@ -52,18 +59,20 @@ margin: 0px auto;
 </style>
 </head>
 <body>
+	<div class="top">
 	<div class="title">
 		<div class="guliwang">谷粒网</div>
 		<div class="gong">供应商后台管理系统</div>
 	</div>
 	<div class="mokuai">
 		<ul>
-			<li>系统管理</li>
 			<li>合作管理</li>
+			<li onclick="doSys()">系统管理</li>
 			<li onclick="doCustomer()">客户管理</li>
 			<li onclick="doGoods()">商品管理</li>
 			<li onclick="doOrder()">订单管理</li>
 		</ul>
+	</div>
 	</div>
 	<script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript">
@@ -139,6 +148,28 @@ margin: 0px auto;
 			        +"<li class='nav__item'>"
 			        +"<a href=allCustomer.action?ccustomercompany="+'<%=company.getCompanyid() %>'+"&customer.customertype=组织单位客户  target='main' class='nav__item-link'>"
 			        +"<span class='nav__item-text'>组织单位客户</span>"
+			        +"</a>   "
+			        +"</li>"
+			        +"</ul>");
+		}
+		function doSys(){
+			var t = $(window.parent.leftFrame.menu_header_title);
+			t.text("系统管理");
+			var menu_body = $(window.parent.leftFrame.menu__body);
+			menu_body.html("<ul class='nav'>"
+			        +"<li class='nav__item'>"
+			        +"<a href=allOrder.action?ordermcompany="+'<%=company.getCompanyid() %>'+" target='main' class='nav__item-link'>"
+			        +"<span class='nav__item-text'>用户信息</span>"
+			        +"</a>   "
+			        +"</li>"
+			        +"<li class='nav__item'>"
+			        +"<a href=allOrder.action?ordermcompany="+'<%=company.getCompanyid() %>'+"&ordermway=在线支付  target='main' class='nav__item-link'>"
+			        +"<span class='nav__item-text'>密码修改</span>"
+			        +"</a>   "
+			        +"</li>"
+			        +"<li class='nav__item'>"
+			        +"<a href=allOrder.action?ordermcompany="+'<%=company.getCompanyid() %>'+"&ordermway=货到付款  target='main' class='nav__item-link'>"
+			        +"<span class='nav__item-text'>退出系统</span>"
 			        +"</a>   "
 			        +"</li>"
 			        +"</ul>");

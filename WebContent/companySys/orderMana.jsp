@@ -15,19 +15,18 @@ String ordermway = request.getParameter("ordermway");
 <title></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript" src="../sysjs/jquery.min.js"></script>
+<link href="css/style2.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 body {
     width: 1200px;
-    margin: 40px auto;
+    margin: 0px auto;
     font-family: 'trebuchet MS', 'Lucida sans', Arial;
-    font-size: 14px;
     color: #444;
 }
 
 table {
     *border-collapse: collapse; /* IE7 and lower */
     border-spacing: 0;
-    width: 100%;    
 }
 
 .bordered {
@@ -53,7 +52,7 @@ table {
     border-left: 1px solid #ccc;
     border-top: 1px solid #ccc;
     padding: 10px;
-    text-align: left;    
+    text-align: center;    
 }
 
 .bordered th {
