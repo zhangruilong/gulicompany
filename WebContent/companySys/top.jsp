@@ -158,7 +158,7 @@ height: 100%;
 			var menu_body = $(window.parent.leftFrame.menu__body);
 			menu_body.html("<ul class='nav'>"
 			        +"<li class='nav__item'>"
-			        +"<a href=allOrder.action?ordermcompany="+'<%=company.getCompanyid() %>'+" target='main' class='nav__item-link'>"
+			        +"<a href=cusInfo.jsp?ordermcompany="+'<%=company.getCompanyid() %>'+" target='main' class='nav__item-link'>"
 			        +"<span class='nav__item-text'>用户信息</span>"
 			        +"</a>   "
 			        +"</li>"

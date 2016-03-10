@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
     <style type="text/css">
     body {
-    	margin: 0px auto;
+    	margin: 10px auto;
     	padding: 0px;
     }
     .l-main{
