@@ -14,7 +14,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <title></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript" src="../sysjs/jquery.min.js"></script>
-<link href="css/style2.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 body {
     width: 1200px;
