@@ -108,9 +108,11 @@ table {
 </style>
 </head>
 <body>
- <pg:pager maxPageItems="8" url="allTimeGoods.action">
- <pg:param name="timegoodscompany" value="${sessionScope.company.companyid }"/>
-<div class="page_title">商品管理/促销商品</div>
+ <pg:pager maxPageItems="8" url="orderDetail.action">
+ <pg:param name="ordermcompany" value="${sessionScope.company.companyid }"/>
+ <pg:param name="ordermid" value="${requestScope.order.ordermid }"/>
+<div class="page_title">订单管理/订单详情</div>
+<p>订单编号:${requestScope.orderm.ordermcode }</p>
 <div class="button_bar">
 </div>
 <br />
@@ -118,40 +120,40 @@ table {
     <thead>
     <tr>
         <th>序号</th>
-		<th>商品编号</th>
+		<th>商品编码</th>
 		<th>商品名称</th>
 		<th>规格</th>
-		<th>类别</th>
+		<th>商品类型</th>
+		<th>类型</th>
 		<th>描述</th>
-		<th>原价</th>
-		<th>现价</th>
-		<th>限量</th>
-		<th>状态</th>
-		<th>创建时间</th>
-		<th>创建人</th>
+		<th>价格</th>
+		<th>单位</th>
+		<th>数量</th>
+		<th>下单金额</th>
+		<th>实际金额</th>
     </tr>
     </thead>
-    <c:if test="${fn:length(requestScope.timegoodsList) != 0 }">
-	<c:forEach var="timegoods" items="${requestScope.timegoodsList }" varStatus="timegoodsSta">
+    <c:if test="${fn:length(requestScope.orderm.orderdList) != 0 }">
+	<c:forEach var="orderd" items="${requestScope.orderm.orderdList }" varStatus="orderdSta">
 	<pg:item>
 		<tr>
-			<td><c:out value="${timegoodsSta.count}"></c:out></td>
-			<td>${timegoods.timegoodscode}</td>
-			<td>${timegoods.timegoodsname}</td>
-			<td>${timegoods.timegoodsunits}</td>
-			<td>${timegoods.timegoodsclass}</td>
-			<td>${timegoods.timegoodsdetail}</td>
-			<td>${timegoods.timegoodsprice}</td>
-			<td>${timegoods.timegoodsorgprice}</td>
-			<td>${timegoods.timegoodsnum}</td>
-			<td>${timegoods.timegoodsstatue}</td>
-			<td>${timegoods.createtime}</td>
-			<td>${timegoods.creator}</td>
+			<td><c:out value="${orderdSta.count}"></c:out></td>
+			<td>${orderd.orderdcode}</td>
+			<td>${orderd.orderdname}</td>
+			<td>${orderd.orderdunits}</td>
+			<td>${orderd.orderdtype}</td>
+			<td>${orderd.orderdclass}</td>
+			<td>${orderd.orderddetail}</td>
+			<td>${orderd.orderdprice}</td>
+			<td>${orderd.orderdunit}</td>
+			<td>${orderd.orderdnum}</td>
+			<td>${orderd.orderdmoney}</td>
+			<td>${orderd.orderdrightmoney}</td>
 		</tr>
 	</pg:item>
 	</c:forEach>
 	</c:if>
-	<c:if test="${fn:length(requestScope.timegoodsList)==0 }">
+	<c:if test="${fn:length(requestScope.orderm.orderdList)==0 }">
 		<tr><td colspan="14" align="center" style="font-size: 26px;color: red;"> 没有可显示的信息</td></tr>
 	</c:if>
     	<tr>

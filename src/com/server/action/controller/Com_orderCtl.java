@@ -27,4 +27,11 @@ public class Com_orderCtl {
 		model.addAttribute("order", order);
 		return "forward:/companySys/orderMana.jsp";
 	}
+	//订单详情
+	@RequestMapping("/companySys/orderDetail")
+	public String orderDetail(Model model,Orderm order){
+		Orderm orderm = ordermMapper.selectByPrimaryKey(order.getOrdermid());
+		model.addAttribute("orderm", orderm);
+		return "forward:/companySys/orderDetail.jsp";
+	}
 }

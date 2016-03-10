@@ -19,6 +19,21 @@
     <result column="UPDTIME" property="updtime" jdbcType="VARCHAR" />
     <result column="UPDOR" property="updor" jdbcType="VARCHAR" />
     <result column="ORDERMEMP" property="ordermemp" jdbcType="VARCHAR" />
+    <collection property="orderdList" ofType="com.server.pojo.entity.Orderd">
+    	<id column="ORDERDID" property="orderdid" jdbcType="VARCHAR" />
+	    <result column="ORDERDORDERM" property="orderdorderm" jdbcType="VARCHAR" />
+	    <result column="ORDERDCODE" property="orderdcode" jdbcType="VARCHAR" />
+	    <result column="ORDERDTYPE" property="orderdtype" jdbcType="VARCHAR" />
+	    <result column="ORDERDNAME" property="orderdname" jdbcType="VARCHAR" />
+	    <result column="ORDERDDETAIL" property="orderddetail" jdbcType="VARCHAR" />
+	    <result column="ORDERDUNITS" property="orderdunits" jdbcType="VARCHAR" />
+	    <result column="ORDERDPRICE" property="orderdprice" jdbcType="FLOAT" />
+	    <result column="ORDERDUNIT" property="orderdunit" jdbcType="VARCHAR" />
+	    <result column="ORDERDCLASS" property="orderdclass" jdbcType="VARCHAR" />
+	    <result column="ORDERDNUM" property="orderdnum" jdbcType="DECIMAL" />
+	    <result column="ORDERDMONEY" property="orderdmoney" jdbcType="FLOAT" />
+	    <result column="ORDERDRIGHTMONEY" property="orderdrightmoney" jdbcType="FLOAT" />
+    </collection>
   </resultMap>
   <sql id="Base_Column_List" >
     ORDERMID, ORDERMCUSTOMER, ORDERMCOMPANY, ORDERMCODE, ORDERMNUM, ORDERMMONEY, ORDERMRIGHTMONEY, 
@@ -38,9 +53,11 @@
   <!-- 根据主键查询 -->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
-    <include refid="Base_Column_List" />
-    from ORDERM
-    where ORDERMID = #{ordermid,jdbcType=VARCHAR}
+	orderm.*,orderd.* 
+	from orderm 
+	left outer join orderd 
+	on orderd.orderdorderm = orderm.ordermid
+	where orderm.ordermid = #{ordermid,jdbcType=VARCHAR}
   </select>
   <!-- 根据主键删除 -->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >

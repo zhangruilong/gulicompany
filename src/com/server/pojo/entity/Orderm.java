@@ -1,6 +1,7 @@
 package com.server.pojo.entity;
 
 import java.sql.Date;
+import java.util.List;
 /**
  * 订单 实体类
  *@author ZhangRuiLong
@@ -75,6 +76,10 @@ public class Orderm
     * 业务员ID
     */
    private String ordermemp;   
+   /**
+    * 关联orderd
+    */
+   private List<Orderd> orderdList;
     //属性方法	    
      /**
 	 *设置主键"订单ID"属性
@@ -364,6 +369,15 @@ public class Orderm
 	{
 		return this.ordermemp;
 	}	   
+	
+	public List<Orderd> getOrderdList() {
+		return orderdList;
+	}
+
+	public void setOrderdList(List<Orderd> orderdList) {
+		this.orderdList = orderdList;
+	}
+
 	public Orderm() {
 		super();
 		// TODO Auto-generated constructor stub

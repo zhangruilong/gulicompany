@@ -45,6 +45,7 @@ body {
 
 .nav__item {
   position: relative;
+  padding-left: 0px;
 }
 
 .nav__item-link {
@@ -81,13 +82,6 @@ body {
   border-bottom: none;
 }
 
-.nav__item-icon {
-  color: #D2D5DA;
-  width: 20px;
-  text-align: center;
-  font-size: 18px;
-  margin-right: 10px;
-}
 
 .badge {
   font-size: 12px;

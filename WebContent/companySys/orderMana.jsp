@@ -147,6 +147,7 @@ $(function(){
 		<th>地址</th>
 		<th>打印</th>
 		<th>详情</th>
+		<th>删除</th>
     </tr>
     </thead>
     <c:if test="${fn:length(requestScope.allOrder) != 0 }">
@@ -166,7 +167,8 @@ $(function(){
 			<td>${order.ordermphone}</td>
 			<td>${order.ordermaddress}</td>
 			<td><a href="">打印</a></td>
-			<td><a href="">详情</a></td>
+			<td><a href="orderDetail.action?ordermid=${order.ordermid}&ordermcompany=${sessionScope.company.companyid }">详情</a></td>
+			<td><a href="">删除</a></td>
 		</tr>
 		</pg:item>
 	</c:forEach>

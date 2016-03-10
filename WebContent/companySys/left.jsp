@@ -24,10 +24,13 @@
     	margin-top: 0px;
     }
     .menu__body ul li{
-    	margin-left: 10px;
+    	margin-left: 0px;
     }
     .menu__header-title{
-    margin-left: 10px;
+    margin-left: 15px;
+    }
+    .nav__item-text{
+    	margin-left: 10px;
     }
     </style>
 </head>
