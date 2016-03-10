@@ -30,7 +30,11 @@ public class Ccustomer
    /**
     * 创建人
     */
-   private String creator;   
+   private String creator;
+   /**
+    * 关联客户
+    */
+   private Customer customer;
     //属性方法	    
      /**
 	 *设置主键"经销商和客户ID"属性
@@ -133,6 +137,15 @@ public class Ccustomer
 	{
 		return this.creator;
 	}	   
+	
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
 	public Ccustomer() {
 		super();
 		// TODO Auto-generated constructor stub

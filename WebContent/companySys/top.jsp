@@ -60,7 +60,7 @@ margin: 0px auto;
 		<ul>
 			<li>系统管理</li>
 			<li>合作管理</li>
-			<li>客户管理</li>
+			<li onclick="doCustomer()">客户管理</li>
 			<li onclick="doGoods()">商品管理</li>
 			<li onclick="doOrder()">订单管理</li>
 		</ul>
@@ -112,6 +112,33 @@ margin: 0px auto;
 			        +"<li class='nav__item'>"
 			        +"<a href=allTimeGoods.action?timegoodscompany="+'<%=company.getCompanyid() %>'+"  target='main' class='nav__item-link'>"
 			        +"<span class='nav__item-text'>促销商品</span>"
+			        +"</a>   "
+			        +"</li>"
+			        +"</ul>");
+		}
+		function doCustomer(){
+			var t = $(window.parent.leftFrame.menu_header_title);
+			t.text("客户管理");
+			var menu_body = $(window.parent.leftFrame.menu__body);
+			menu_body.html("<ul class='nav'>"
+			        +"<li class='nav__item'>"
+			        +"<a href=allCustomer.action?ccustomercompany="+'<%=company.getCompanyid() %>'+" target='main' class='nav__item-link'>"
+			        +"<span class='nav__item-text'>全部客户</span>"
+			        +"</a>   "
+			        +"</li>"
+			        +"<li class='nav__item'>"
+			        +"<a href=allCustomer.action?ccustomercompany="+'<%=company.getCompanyid() %>'+"&customer.customertype=餐饮客户  target='main' class='nav__item-link'>"
+			        +"<span class='nav__item-text'>餐饮客户</span>"
+			        +"</a>   "
+			        +"</li>"
+			        +"<li class='nav__item'>"
+			        +"<a href=allCustomer.action?ccustomercompany="+'<%=company.getCompanyid() %>'+"&customer.customertype=高级客户  target='main' class='nav__item-link'>"
+			        +"<span class='nav__item-text'>高级客户</span>"
+			        +"</a>   "
+			        +"</li>"
+			        +"<li class='nav__item'>"
+			        +"<a href=allCustomer.action?ccustomercompany="+'<%=company.getCompanyid() %>'+"&customer.customertype=组织单位客户  target='main' class='nav__item-link'>"
+			        +"<span class='nav__item-text'>组织单位客户</span>"
 			        +"</a>   "
 			        +"</li>"
 			        +"</ul>");

@@ -6,6 +6,10 @@ import com.server.pojo.entity.Ccustomer;
 
 public interface CcustomerMapper {
 	/**
+	 * 根据供应商查询客户关系
+	 */
+	List<Ccustomer> selectCusByCom(Ccustomer record);
+	/**
 	 * 根据客户id查询所有关系系统
 	 */
 	List<Ccustomer> selectByCusId(String cusId);

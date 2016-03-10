@@ -8,10 +8,46 @@
     <result column="CCUSTOMERDETAIL" property="ccustomerdetail" jdbcType="VARCHAR" />
     <result column="CREATETIME" property="createtime" jdbcType="VARCHAR" />
     <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <!-- 关联客户 -->
+    <association property="customer" javaType="com.server.pojo.entity.Customer">
+    	<id column="CUSTOMERID" property="customerid" jdbcType="VARCHAR" />
+	    <result column="CUSTOMERCODE" property="customercode" jdbcType="VARCHAR" />
+	    <result column="CUSTOMERNAME" property="customername" jdbcType="VARCHAR" />
+	    <result column="CUSTOMERPHONE" property="customerphone" jdbcType="VARCHAR" />
+	    <result column="CUSTOMERPSW" property="customerpsw" jdbcType="VARCHAR" />
+	    <result column="CUSTOMERSHOP" property="customershop" jdbcType="VARCHAR" />
+	    <result column="CUSTOMERCITY" property="customercity" jdbcType="VARCHAR" />
+	    <result column="CUSTOMERXIAN" property="customerxian" jdbcType="VARCHAR" />
+	    <result column="CUSTOMERADDRESS" property="customeraddress" jdbcType="VARCHAR" />
+	    <result column="CUSTOMERTYPE" property="customertype" jdbcType="VARCHAR" />
+	    <result column="CUSTOMERLEVEL" property="customerlevel" jdbcType="DECIMAL" />
+	    <result column="OPENID" property="openid" jdbcType="VARCHAR" />
+	    <result column="CUSTOMERDETAIL" property="customerdetail" jdbcType="VARCHAR" />
+	    <result column="CUSTOMERSTATUE" property="customerstatue" jdbcType="VARCHAR" />
+	    <result column="CREATETIME" property="createtime" jdbcType="VARCHAR" />
+	    <result column="UPDTIME" property="updtime" jdbcType="VARCHAR" />
+    </association>
   </resultMap>
   <sql id="Base_Column_List" >
     CCUSTOMERID, CCUSTOMERCOMPANY, CCUSTOMERCUSTOMER, CCUSTOMERDETAIL, CREATETIME, CREATOR
   </sql>
+  <!-- 根据供应商查询客户关系 -->
+  <select id="selectCusByCom" resultMap="BaseResultMap" parameterType="com.server.pojo.entity.Ccustomer" >
+    select 
+		ccustomer.ccustomerid,
+		ccustomer.ccustomerdetail,
+		customer.*
+	from 
+		ccustomer 
+		left outer join customer 
+		on ccustomer.ccustomercustomer = customer.customerid
+		where ccustomer.ccustomercompany = #{ccustomercompany}
+		<if test="customer != null">
+			<if test="customer.customertype != null and customer.customertype != ''">
+				and customer.customertype = #{customer.customertype}
+			</if>
+		</if>
+  </select>
   <!-- 根据客户id查询所有关系系统 -->
   <select id="selectByCusId" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 

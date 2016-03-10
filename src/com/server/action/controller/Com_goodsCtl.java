@@ -13,7 +13,7 @@ import com.server.pojo.entity.Goods;
 import com.server.pojo.entity.Timegoods;
 
 /**
- * 供应商后台管理系统-订单管理
+ * 供应商后台管理系统-商品管理
  * @author tao
  *
  */
