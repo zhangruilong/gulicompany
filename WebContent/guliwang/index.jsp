@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%String cityname = request.getParameter("city.cityname"); %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -24,7 +25,7 @@
 <body>
 	<div class="gl-box">
 		<div class="home-search-wrapper">
-			<span class="citydrop">${sessionScope.customer.customerxian }<em><img
+			<span class="citydrop"><%=cityname %><em><img
 					src="images/dropbg.png"></em></span>
 			<div class="menu">
 				<div class="host-city">
