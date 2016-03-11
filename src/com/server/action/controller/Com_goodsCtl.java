@@ -33,12 +33,19 @@ public class Com_goodsCtl {
 		return "forward:/companySys/goodsMana.jsp";
 	}
 	//全部促销品
-		@RequestMapping("/companySys/allTimeGoods")
-		public String allTimeGoods(Model model,Timegoods timegoodsCon){
-			List<Timegoods> timegoodsList = timegoodsMapper.selectByCondition(timegoodsCon);
-			model.addAttribute("timegoodsList", timegoodsList);
-			return "forward:/companySys/TimegoodsMana.jsp";
-		}
+	@RequestMapping("/companySys/allTimeGoods")
+	public String allTimeGoods(Model model,Timegoods timegoodsCon){
+		List<Timegoods> timegoodsList = timegoodsMapper.selectByCondition(timegoodsCon);
+		model.addAttribute("timegoodsList", timegoodsList);
+		return "forward:/companySys/TimegoodsMana.jsp";
+	}
+	//到商品价格页面
+	@RequestMapping("/companySys/doGoodsPrices")
+	public String doGoodsPrices(Model model,Goods goodsCon){
+		goodsCon = goodsMapper.selectByPrimaryKey(goodsCon.getGoodsid());
+		model.addAttribute("goodsCon", goodsCon);
+		return "forward:/companySys/goodsPrices.jsp";
+	}
 }
 
 

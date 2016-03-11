@@ -72,7 +72,7 @@ $(function(){
 			<td>${goods.creator}</td>
 			<td>${goods.updtime}</td>
 			<td>${goods.updor}</td>
-			<td><a href="">价格设置</a></td>
+			<td><a href="doGoodsPrices.action?goodsid=${goods.goodsid}">价格设置</a></td>
 		</tr>
 	</pg:item>
 	</c:forEach>
