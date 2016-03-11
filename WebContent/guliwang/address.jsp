@@ -56,7 +56,7 @@
 		<a href="addAddress.jsp">+ 新增收货地址</a>
     </c:if>
     <c:if test="${sessionScope.customer.customershop == null }">
-		<a href="" onclick="javascript:alert('请先登录');">+ 新增收货地址</a>
+		<a href="" onclick="">+ 新增收货地址</a>
     </c:if>
 	</div>
 </div>

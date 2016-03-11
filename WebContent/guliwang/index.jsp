@@ -1,10 +1,9 @@
+<%@page import="com.server.pojo.entity.City"%>
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%String cityname = request.getParameter("city.cityname"); 
-if(cityname == null || cityname == ""){
-	response.sendRedirect("doGuliwangIndex.action?city.cityname=海盐县&cityparent=嘉兴市");
-}
+<%City city = (City)request.getAttribute("city"); 
+String cityname = city.getCityname();
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -29,12 +28,12 @@ if(cityname == null || cityname == ""){
 <body>
 	<div class="gl-box">
 		<div class="home-search-wrapper">
-			<span class="citydrop"><%=cityname %><em><img
+			<span class="citydrop">${requestScope.companyCondition.city.cityname }<em><img
 					src="images/dropbg.png"></em></span>
 			<div class="menu">
 				<div class="host-city">
 					<p class="quyu">
-						请选择服务区域 <span class="fr">所在城市：${sessionScope.customer.customercity == null?'嘉兴市':sessionScope.customer.customercity }</span>
+						请选择服务区域 <span class="fr">所在城市：${requestScope.city.cityparent }</span>
 					</p>
 				</div>
 				<div class="menu-tags home-city-drop">

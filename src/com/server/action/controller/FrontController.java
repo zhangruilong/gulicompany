@@ -25,12 +25,18 @@ public class FrontController {
 	
 	@RequestMapping("/guliwang/doGuliwangIndex")
 	public String doGuliwangIndex(Model model,Company companyCondition,City city){
-		
+		if(city.getCityparent() == null || city.getCityparent().equals("")){
+			city.setCityparent("嘉兴市");
+			city.setCityname("海盐县");
+			companyCondition.setCity(city);
+		}
 		List<City> cities = cityMapper.selectByCityparent(city);
 		model.addAttribute("cityList", cities);
 		//根据 '地区' 查询该地区的 '经销商' 和该经销商的 '促销商品'
 		List<Company> companyList = companyMapper.selectCompanyByCondition(companyCondition);	//条件中包含城市名
 		model.addAttribute("companyList", companyList);
+		model.addAttribute("companyCondition", companyCondition);
+		model.addAttribute("city", city);
 		return "forward:/guliwang/index.jsp";
 	}
 	

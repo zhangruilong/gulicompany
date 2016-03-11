@@ -5,6 +5,8 @@
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+String ordermid = request.getParameter("ordermid");
+String ordermcompany = request.getParameter("ordermcompany");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -17,7 +19,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="../sysjs/jquery.min.js"></script>
 <script type="text/javascript" src="js/common.js"></script>
 <link href="css/style2.css" rel="stylesheet" type="text/css">
-
+<script type="text/javascript">
+var ordermid = '<%=ordermid%>';
+var ordermcompany = '<%=ordermcompany%>';
+function updateStatue(){
+	var statue = $("#ordermstatue").val();
+	alert(statue);
+	if(confirm("是否修改")){
+		window.parent.main.location.href = 
+			"deliveryGoods.action?ordermid="
+					+ordermid
+					+"&ordermcompany="
+					+ordermcompany
+					+"&ordermstatue="
+					+statue;
+	}
+}
+</script>
 </head>
 <body>
 <form action="deleOrderd.action" method="post">
@@ -35,7 +53,7 @@ onclick="del('editOrder.action?ordermid=${requestScope.orderm.ordermid }&ordermc
 <input type="submit" value="删除商品">
 <input type="button" value="订单状态" 
 onclick="del('deliveryGoods.action?ordermid=${requestScope.orderm.ordermid }&ordermcompany=${sessionScope.company.companyid }','发货')">
-<select name="ordermstatue">
+<select name="ordermstatue" id="ordermstatue">
 	<option>已下单</option>
 	<option>已确认</option>
 	<option>已发货</option>
