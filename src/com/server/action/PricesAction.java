@@ -1,6 +1,7 @@
 package com.server.action;
 
 import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,6 +13,7 @@ import com.system.tools.base.BaseAction;
 import com.system.tools.pojo.Fileinfo;
 import com.system.tools.pojo.Queryinfo;
 import com.system.tools.util.CommonUtil;
+import com.system.tools.util.DateUtils;
 import com.system.tools.util.FileUtil;
 import com.system.tools.pojo.Pageinfo;
 
@@ -35,6 +37,8 @@ public class PricesAction extends BaseAction {
 	public void insAll(HttpServletRequest request, HttpServletResponse response){
 		json2cuss(request);
 		for(Prices temp:cuss){
+			temp.setCreator(getCurrentUsername(request));
+			temp.setCreatetime(DateUtils.getDateTime());
 			temp.setPricesid(CommonUtil.getNewId());
 			result = DAO.insSingle(temp);
 		}
@@ -51,6 +55,8 @@ public class PricesAction extends BaseAction {
 	//修改
 	public void updAll(HttpServletRequest request, HttpServletResponse response){
 		json2cuss(request);
+		cuss.get(0).setUpdor(getCurrentUsername(request));
+		cuss.get(0).setUpdtime(DateUtils.getDateTime());
 		result = DAO.updSingle(cuss.get(0),PricesPoco.KEYCOLUMN);
 		responsePW(response, result);
 	}
