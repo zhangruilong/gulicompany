@@ -32,9 +32,11 @@ public class LoginController {
 	//登录
 	@RequestMapping("/guliwang/login")
 	public String login(HttpSession session,Customer customer){
+		customer.setCustomerphone("15645566879");
+		customer.setCustomerpsw("1");
 		Customer customer2 = customerMapper.selectByPhone(customer);
-			session.setAttribute("customer", customer2);
-			return "redirect:login.jsp";
+		session.setAttribute("customer", customer2);
+		return "redirect:login.jsp";
 	}
 	//注册页面
 	@RequestMapping("/guliwang/doReg")
