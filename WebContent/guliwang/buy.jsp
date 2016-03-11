@@ -11,6 +11,14 @@
 <title>谷粒网</title>
 <link href="css/base.css" type="text/css" rel="stylesheet">
 <link href="css/layout.css" type="text/css" rel="stylesheet">
+<link href="css/dig.css" type="text/css" rel="stylesheet">
+<style type="text/css">
+.cd-popup-container{ background-color:#fff; text-align:center}
+.cd-popup-container h1{ border-bottom:solid 1px #ddd; font-size:1em; font-weight:normal; padding:4% 0; background-color:#eee}
+.cd-popup-container a{ display:inline-block; width:49.8%; background-color:#eee; padding:4% 0; border-top:solid 1px #ddd}
+.cd-popup-container .cd-popup-close{ border-right:solid 1px #ddd}
+.cd-popup-container p{ padding:10% 0}
+</style>
 </head>
 
 <body>
@@ -43,11 +51,37 @@
     </div>
 </div>
 <div class="footer">
-	<div class="jiesuan-foot-info">合计金额: <span id="totalmoney">0</span>元 </div><a class="jiesuan-button">提交</a>
+	<div class="jiesuan-foot-info">合计金额: <span id="totalmoney">0</span>元 </div><a class="jiesuan-button cd-popup-trigger">提交</a>
 </div>
+
+<!--弹框-->
+<div class="cd-popup" role="alert">
+	<div class="cd-popup-container">
+		<div class="cd-buttons">
+        	<h1>谷粒网提示</h1>
+			<p>您确定要货到付款?</p>
+            <a href="#" class="cd-popup-close">取消</a><a href="全部订单.html">确定</a>
+		</div>
+	</div>
+</div>
+<script src="js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
-<script type="text/javascript" src="js/jquery.dialog.js"></script>
 <script> 
+jQuery(document).ready(function($){
+	//open popup
+	$('.cd-popup-trigger').on('click', function(event){
+		event.preventDefault();
+		$('.cd-popup').addClass('is-visible');
+	});
+	
+	//close popup
+	$('.cd-popup').on('click', function(event){
+		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') ) {
+			event.preventDefault();
+			$(this).removeClass('is-visible');
+		}
+	});
+});
 $(function(){
 	if(!window.localStorage.getItem("totalmoney")){
 		window.localStorage.setItem("totalmoney",0);

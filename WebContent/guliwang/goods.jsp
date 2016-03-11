@@ -16,6 +16,10 @@
 <title>谷粒网</title>
 <link href="css/base.css" type="text/css" rel="stylesheet">
 <link href="css/layout.css" type="text/css" rel="stylesheet">
+<style type="text/css">
+@-webkit-keyframes bounceInUp{0%,100%,60%,75%,90%{-webkit-animation-timing-function:cubic-bezier(0.215,.61,.355,1);animation-timing-function:cubic-bezier(0.215,.61,.355,1)}0%{opacity:0;-webkit-transform:translate3d(0,3000px,0);transform:translate3d(0,3000px,0)}60%{opacity:1;-webkit-transform:translate3d(0,-20px,0);transform:translate3d(0,-20px,0)}75%{-webkit-transform:translate3d(0,10px,0);transform:translate3d(0,10px,0)}90%{-webkit-transform:translate3d(0,-5px,0);transform:translate3d(0,-5px,0)}100%{-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}}
+@keyframes bounceInUp{0%,100%,60%,75%,90%{-webkit-animation-timing-function:cubic-bezier(0.215,.61,.355,1);animation-timing-function:cubic-bezier(0.215,.61,.355,1)}0%{opacity:0;-webkit-transform:translate3d(0,3000px,0);transform:translate3d(0,3000px,0)}60%{opacity:1;-webkit-transform:translate3d(0,-20px,0);transform:translate3d(0,-20px,0)}75%{-webkit-transform:translate3d(0,10px,0);transform:translate3d(0,10px,0)}90%{-webkit-transform:translate3d(0,-5px,0);transform:translate3d(0,-5px,0)}100%{-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}}.bounceInUp{-webkit-animation-name:bounceInUp;animation-name:bounceInUp}
+</style>
 </head>
 
 <body>
@@ -36,7 +40,7 @@
                         </ul>
                     </div>
                     <div class="fenlei-right">
-                    	<a href="#">豆油</a>
+                    	<a href="#" class="current">豆油</a>
                         <a href="#">菜籽油</a>
                         <a href="#">豆油</a>
                         <a href="#">菜籽油</a>
@@ -49,7 +53,7 @@
             </div>
         </div>
         <input id="searchdishes" type="text" placeholder="请输入食材名称" onkeydown="entersearch()"/>
-        <a href="cart.jsp" class="gwc"><img src="images/gwc.png" ></a>
+        <a href="cart.jsp" class="gwc"><img src="images/gwc.png" ><em>99</em></a>
     </div>
     <div class="goods-wrapper">
         <ul class="home-hot-commodity">
@@ -191,23 +195,23 @@ function initDishes(data){
  	            ' </div>'+
  	           '  <div class="stock-num" name="'+item.goodsid+'">'+
  	                ' <span class="jian min" onclick="subnum(this,'+item.pricesprice
-					   +')">-</span>'+
+					   +')"></span>'+
  	                 '<input readonly="readonly" class="text_box shuliang" name="danpin" type="text" value="'+
  	                 getcurrennumdanpin(item.goodsid)+'"> '+
  	                ' <span class="jia add" onclick="addnum(this,'+item.pricesprice
 					   +',\''+item.goodsname+'\',\''+item.pricesunit+'\',\''+item.goodsunits
 					   +'\',\''+item.goodscode+'\',\''+item.goodsclassname
 					   +'\',\''+item.goodscompany+'\',\''+item.companyshop+'\',\''+item.companydetail
-					   +'\')">+</span>'+
+					   +'\')"></span>'+
  	               '  <span hidden="ture" class="jian min" onclick="subnum(this,'+item.pricesprice2
-				   +')">-</span>'+
+				   +')"></span>'+
  	                ' <input readonly="readonly" hidden="ture" class="text_box shuliang" name="taozhuan" type="text" value="'+
  	                getcurrennumtaozhuan(item.goodsid)+'"> '+
  	                ' <span hidden="ture" class="jia add" onclick="addnum(this,'+item.pricesprice2
 					   +',\''+item.goodsname+'\',\''+item.pricesunit2+'\',\''+item.goodsunits
 					   +'\',\''+item.goodscode+'\',\''+item.goodsclassname
 					   +'\',\''+item.goodscompany+'\',\''+item.companyshop+'\',\''+item.companydetail
-					   +'\')">+</span>'+
+					   +'\')"></span>'+
  	                ' <input type="checkbox" id="'+item.goodsid+'checkbox" class="chk_1" '+item.goodsdetail+'>'+
  	            		'<label for="'+item.goodsid+'checkbox" onclick="checkedgoods(\''+item.goodsid+'\');"></label>'+
  	             '</div>'+

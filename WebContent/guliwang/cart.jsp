@@ -106,10 +106,10 @@ function initDishes(data){
             $(".cart-wrapper").append('<li name="'+item.goodsid+'">'+
                       	'<em><img src="images/pic1.jpg" ></em> '+
                       	'<h2>'+item.goodsname+'<span class="price">'+item.pricesprice+'元/'+item.pricesunit+'</span></h2>'+
-          				'<span onclick="subnum(this,'+item.pricesprice+')" class="jian min">-</span>'+
+          				'<span onclick="subnum(this,'+item.pricesprice+')" class="jian min"></span>'+
                           '<input class="text_box shuliang" name="'+item.goodsdetail+'" type="text" value="'+
        	                getcurrennum(item.goodsid,item.goodsdetail)+'"> '+
-                          '<span onclick="addnum(this,'+item.pricesprice+')" class="jia add">+</span>'+
+                          '<span onclick="addnum(this,'+item.pricesprice+')" class="jia add"></span>'+
                       '</li>');
        });
        $(".cart-wrapper").append('</ul><div class="songda">'+mcompany.companydetail+'</div>');

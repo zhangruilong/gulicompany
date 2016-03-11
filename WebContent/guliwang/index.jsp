@@ -46,7 +46,7 @@ String cityname = city.getCityname();
 			</div>
 			<input id="searchdishes" type="text" placeholder="请输入食材名称"
 				onkeydown="submitSearch(this)" /> <a href="cart.jsp" class="gwc"><img
-				src="images/gwc.png"></a>
+				src="images/gwc.png"><em>99</em></a>
 		</div>
 		<div class="home-hot-wrap">
 			<img src="images/banner.jpg">
