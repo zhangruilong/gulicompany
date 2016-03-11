@@ -31,13 +31,6 @@ public class Com_orderCtl {
 		model.addAttribute("order", order);
 		return "forward:/companySys/orderMana.jsp";
 	}
-	//订单详情
-	@RequestMapping("/companySys/orderDetail")
-	public String orderDetail(Model model,Orderm order){
-		Orderm orderm = ordermMapper.selectByPrimaryKey(order.getOrdermid());
-		model.addAttribute("orderm", orderm);
-		return "forward:/companySys/orderDetail.jsp";
-	}
 	//删除订单
 	@RequestMapping("/companySys/editOrder")
 	public String editOrder(Model model,Orderm order){
@@ -49,6 +42,22 @@ public class Com_orderCtl {
 		}
 		ordermMapper.deleteByPrimaryKey(orderm.getOrdermid());
 		return "forward:allOrder.action";
+	}
+	//订单发货
+	@RequestMapping("/companySys/deliveryGoods")
+	public String deliveryGoods(Model model,Orderm order){
+		order.setOrdermstatue("已发货");
+		ordermMapper.updateByPrimaryKeySelective(order);
+		model.addAttribute("order", order);
+		return "forward:allOrder.action";
+	}
+/*--------------------------订单详情-----------------------------*/
+	//订单详情
+	@RequestMapping("/companySys/orderDetail")
+	public String orderDetail(Model model,Orderm order){
+		Orderm orderm = ordermMapper.selectByPrimaryKey(order.getOrdermid());
+		model.addAttribute("orderm", orderm);
+		return "forward:/companySys/orderDetail.jsp";
 	}
 	//删除订单详情
 	@RequestMapping("/companySys/deleOrderd")

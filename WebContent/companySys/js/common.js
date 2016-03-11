@@ -1,5 +1,5 @@
-function del(url){
-	if(confirm("是否删除")){
+function del(url,message){
+	if(confirm("是否"+message)){
 		parent.main.location.href = url;
 	}
 	
