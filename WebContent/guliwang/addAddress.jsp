@@ -90,7 +90,7 @@
 <body>
 	<form action="addAddress.action" method="post">
 	<div class="gl-box">
-	<div class="wapper-nav"><p class="p-a"><a href="doAddressMana.action?customerId=1" >&lt;返回</a></p>
+	<div class="wapper-nav"><p class="p-a"><a href="doAddressMana.action?customerId=${sessionScope.customer.customerid }" >&lt;返回</a></p>
 	<p class="pp">地址管理</p></div>
 	<div class="home-search-wrapper">
 	<table cellpadding="2" cellspacing="4">
@@ -104,8 +104,8 @@
 			<td><textarea name="addressaddress" placeholder="请输入地址" cols="10" rows="6">${requestScope.address.addressaddress }</textarea></td>
 		</tr>
     </table>
-    <input type="hidden" name="addresscustomer" value="1">
-    <input type="hidden" name="customerId" value="1">
+    <input type="hidden" name="addresscustomer" value="${sessionScope.customer.customerid }">
+    <input type="hidden" name="customerId" value="${sessionScope.customer.customerid }">
     </div>
     <div class="add-address" onclick="javascript:document.forms[0].submit();"><a>  确&nbsp;认&nbsp;添&nbsp;加&nbsp;新&nbsp;地&nbsp;址  </a></div>
 </div>

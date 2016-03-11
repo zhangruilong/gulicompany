@@ -1,7 +1,11 @@
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%String cityname = request.getParameter("city.cityname"); %>
+<%String cityname = request.getParameter("city.cityname"); 
+if(cityname == null || cityname == ""){
+	response.sendRedirect("doGuliwangIndex.action?city.cityname=海盐县&cityparent=嘉兴市");
+}
+%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -30,7 +34,7 @@
 			<div class="menu">
 				<div class="host-city">
 					<p class="quyu">
-						请选择服务区域 <span class="fr">所在城市：${sessionScope.customer.customercity }</span>
+						请选择服务区域 <span class="fr">所在城市：${sessionScope.customer.customercity == null?'嘉兴市':sessionScope.customer.customercity }</span>
 					</p>
 				</div>
 				<div class="menu-tags home-city-drop">

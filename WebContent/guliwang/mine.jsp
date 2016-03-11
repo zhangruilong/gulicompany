@@ -18,7 +18,7 @@
 	<div class="wapper-nav">我的</div>
     <div style="width:100%; padding:5% 0; color:#fff; text-align:center; background:url(images/minebg.jpg)">
     	<img src="images/mendian.jpg" style="border-radius:50px;" width="70" height="70 ">
-        <p>${sessionScope.customer.customershop }</p>
+        <p>${sessionScope.customer.customershop == null?'我的店铺':sessionScope.customer.customershop }</p>
     </div>
 	<div class="personal-center">
     	<a href="#">我的店铺 <span class="sign"></span></a>

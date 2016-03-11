@@ -128,7 +128,7 @@
 <body>
 	<form action="editAddress.action" method="post">
 	<div class="gl-box">
-	<div class="wapper-nav" ><p class="p-a"><a href="doAddressMana.action?customerId=1" >&lt;返回</a></p>
+	<div class="wapper-nav" ><p class="p-a"><a href="doAddressMana.action?customerId=${sessionScope.customer.customerid }" >&lt;返回</a></p>
 	<p class="pp">地址管理<input class="button" type="button" value="删除" onclick="javascript:document.forms[0].action = 'delAddress.action';document.forms[0].submit();"/><input class="button2" type="button" value="保存" onclick="javascript:document.forms[0].submit();"/></p></div>
 	<div class="home-search-wrapper">
 	<table cellpadding="2" cellspacing="4">

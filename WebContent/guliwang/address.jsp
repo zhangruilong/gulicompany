@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 	<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	
 <!doctype html> 
 <html>
 <head>
@@ -50,7 +51,14 @@
     	
         <!-- <a href="#"><span>王金宝</span><span>  16563529810 </span><span class="sign"></span>收货地址: 嘉兴市沿海向城东路89号706室 </a> -->
     </div>
-    <div class="add-address"><a href="addAddress.jsp">+ 新增收货地址</a></div>
+    <div class="add-address">
+    <c:if test="${sessionScope.customer.customershop != null }">
+		<a href="addAddress.jsp">+ 新增收货地址</a>
+    </c:if>
+    <c:if test="${sessionScope.customer.customershop == null }">
+		<a href="" onclick="javascript:alert('请先登录');">+ 新增收货地址</a>
+    </c:if>
+	</div>
 </div>
 </body>
 </html>
