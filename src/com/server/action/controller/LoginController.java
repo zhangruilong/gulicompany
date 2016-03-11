@@ -34,8 +34,8 @@ public class LoginController {
 	public String login(HttpSession session,Customer customer){
 		customer.setCustomerphone("15645566879");
 		customer.setCustomerpsw("1");				//这是默认的账号和密码
-		Customer customer2 = customerMapper.selectByPhone(customer);
-		session.setAttribute("customer", customer2);
+		customer = customerMapper.selectByPhone(customer);
+		session.setAttribute("customer", customer);
 		return "redirect:login.jsp";
 	}
 	//注册页面

@@ -45,7 +45,7 @@ String cityname = city.getCityname();
 				</div>
 			</div>
 			<input id="searchdishes" type="text" placeholder="请输入食材名称"
-				onkeydown="submitSearch(this)" /> <a href="cart.jsp" class="gwc"><img
+				onkeydown="submitSearch(this)" /> <a onclick="docart(this)" href="cart.jsp" class="gwc"><img
 				src="images/gwc.png"><em>99</em></a>
 		</div>
 		<div class="home-hot-wrap">
@@ -185,6 +185,13 @@ String cityname = city.getCityname();
 				var seachVal = $("#searchdishes").val();	//获取搜索条件
 				window.location.href = 'goods.jsp?searchdishes=' + seachVal;
 
+			}
+		}
+		
+		//到购物车页面
+		function docart(obj){
+			if (window.localStorage.getItem("sdishes") == null) {				//判断有没有购物车
+				$(obj).attr("href","emptyCart.jsp");
 			}
 		}
 	</script>

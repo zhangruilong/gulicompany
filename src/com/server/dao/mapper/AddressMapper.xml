@@ -12,14 +12,16 @@
   <sql id="Base_Column_List" >
     ADDRESSID, ADDRESSCUSTOMER, ADDRESSCONNECT, ADDRESSPHONE, ADDRESSADDRESS, ADDRESSTURE
   </sql>
+  <!--  修改用户的所有收货地址'是否默认'为0 -->
+  <update id="updateCusAllAddress" parameterType="com.server.pojo.entity.Address" >
+  	update address set address.addressture = #{addressture} where address.addresscustomer = #{addresscustomer}
+  	
+  </update>
   <!-- 根据条件查询 -->
   <select id="selectByCondition" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    from ADDRESS
-    <where>
-    		and addresscustomer = #{customerId}
-    </where>
+    from ADDRESS  where addresscustomer = #{customerId} order by addressture desc
   </select>
   <!-- 根据主键查询 -->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >

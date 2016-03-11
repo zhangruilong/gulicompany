@@ -10,6 +10,10 @@ import com.server.pojo.entity.Address;
  */
 public interface AddressMapper {
 	/**
+	 * 修改用户的所有收货地址'是否默认'
+	 */
+	void updateCusAllAddress(Address record);
+	/**
 	 * 根据客户id查询
 	 */
 	List<Address> selectByCondition(String customerId);

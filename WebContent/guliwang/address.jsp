@@ -53,7 +53,7 @@
     </div>
     <div class="add-address">
     <c:if test="${sessionScope.customer.customershop != null }">
-		<a href="addAddress.jsp">+ 新增收货地址</a>
+		<a href="doAddAddress.action">+ 新增收货地址</a>
     </c:if>
     <c:if test="${sessionScope.customer.customershop == null }">
 		<a onclick="doLogin()">+ 新增收货地址</a>
