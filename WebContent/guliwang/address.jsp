@@ -56,9 +56,16 @@
 		<a href="addAddress.jsp">+ 新增收货地址</a>
     </c:if>
     <c:if test="${sessionScope.customer.customershop == null }">
-		<a href="" onclick="">+ 新增收货地址</a>
+		<a onclick="doLogin()">+ 新增收货地址</a>
     </c:if>
 	</div>
 </div>
+<script type="text/javascript">
+function doLogin(){
+	if(confirm("是否现在登录")){
+		window.location.href = "login.jsp";
+	}
+}
+</script>
 </body>
 </html>

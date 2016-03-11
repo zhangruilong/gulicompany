@@ -46,7 +46,6 @@ public class Com_orderCtl {
 	//订单发货
 	@RequestMapping("/companySys/deliveryGoods")
 	public String deliveryGoods(Model model,Orderm order){
-		order.setOrdermstatue("已发货");
 		ordermMapper.updateByPrimaryKeySelective(order);
 		model.addAttribute("order", order);
 		return "forward:allOrder.action";
@@ -55,8 +54,8 @@ public class Com_orderCtl {
 	//订单详情
 	@RequestMapping("/companySys/orderDetail")
 	public String orderDetail(Model model,Orderm order){
-		Orderm orderm = ordermMapper.selectByPrimaryKey(order.getOrdermid());
-		model.addAttribute("orderm", orderm);
+		order = ordermMapper.selectByPrimaryKey(order.getOrdermid());
+		model.addAttribute("order", order);
 		return "forward:/companySys/orderDetail.jsp";
 	}
 	//删除订单详情
@@ -72,7 +71,7 @@ public class Com_orderCtl {
 	public String doeditOrder(Model model,String orderdid,Orderm order){
 		Orderd orderd = orderdMapper.selectByPrimaryKey(orderdid);
 		model.addAttribute("orderd", orderd);
-		model.addAttribute("orderm", order);
+		model.addAttribute("order", order);
 		return "forward:/companySys/orderdDeta.jsp";
 	}
 	//修改订单详情
@@ -81,7 +80,7 @@ public class Com_orderCtl {
 		System.out.println(order.getOrdermid());
 		orderdMapper.updateByPrimaryKeySelective(orderd);
 		model.addAttribute("orderd", orderd);
-		model.addAttribute("orderm", order);
+		model.addAttribute("order", order);
 		return "forward:orderDetail.action";
 	}
 }

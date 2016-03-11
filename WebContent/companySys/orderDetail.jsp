@@ -24,8 +24,7 @@ var ordermid = '<%=ordermid%>';
 var ordermcompany = '<%=ordermcompany%>';
 function updateStatue(){
 	var statue = $("#ordermstatue").val();
-	alert(statue);
-	if(confirm("是否修改")){
+	if(confirm("是否修改订单状态")){
 		window.parent.main.location.href = 
 			"deliveryGoods.action?ordermid="
 					+ordermid
@@ -41,23 +40,23 @@ function updateStatue(){
 <form action="deleOrderd.action" method="post">
  <pg:pager maxPageItems="8" url="orderDetail.action">
  <pg:param name="ordermcompany" value="${sessionScope.company.companyid }"/>
- <pg:param name="ordermid" value="${requestScope.orderm.ordermid }"/>
+ <pg:param name="ordermid" value="${requestScope.order.ordermid }"/>
  <pg:param name="orderdids"/>
  <input type="hidden" name="ordermcompany" value="${sessionScope.company.companyid }">
- <input type="hidden" name="ordermid" value="${requestScope.orderm.ordermid }">
+ <input type="hidden" name="ordermid" value="${requestScope.order.ordermid }">
 <div class="page_title">订单管理/订单详情</div>
 <p>
-<span>订单编号:${requestScope.orderm.ordermcode }&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span>订单编号:${requestScope.order.ordermcode }&nbsp;&nbsp;&nbsp;&nbsp;</span>
 <input type="button" value="删除订单" 
-onclick="del('editOrder.action?ordermid=${requestScope.orderm.ordermid }&ordermcompany=${sessionScope.company.companyid }','删除')">
+onclick="del('editOrder.action?ordermid=${requestScope.order.ordermid }&ordermcompany=${sessionScope.company.companyid }','删除')">
 <input type="submit" value="删除商品">
-<input type="button" value="订单状态" 
-onclick="del('deliveryGoods.action?ordermid=${requestScope.orderm.ordermid }&ordermcompany=${sessionScope.company.companyid }','发货')">
+<input type="button" value="修改订单状态" 
+onclick="updateStatue();">
 <select name="ordermstatue" id="ordermstatue">
-	<option>已下单</option>
-	<option>已确认</option>
-	<option>已发货</option>
-	<option>已完成</option>
+	<option ${requestScope.order.ordermstatue =='已下单'?'selected':'' } >已下单</option>
+	<option ${requestScope.order.ordermstatue =='已确认'?'selected':'' } >已确认</option>
+	<option ${requestScope.order.ordermstatue =='已发货'?'selected':'' } >已发货</option>
+	<option ${requestScope.order.ordermstatue =='已完成'?'selected':'' } >已完成</option>
 </select>
 </p>
 <div class="button_bar">
@@ -82,8 +81,8 @@ onclick="del('deliveryGoods.action?ordermid=${requestScope.orderm.ordermid }&ord
 		<th>删除</th>
     </tr>
     </thead>
-    <c:if test="${fn:length(requestScope.orderm.orderdList) != 0 }">
-	<c:forEach var="orderd" items="${requestScope.orderm.orderdList }" varStatus="orderdSta">
+    <c:if test="${fn:length(requestScope.order.orderdList) != 0 }">
+	<c:forEach var="orderd" items="${requestScope.order.orderdList }" varStatus="orderdSta">
 	<pg:item>
 		<tr>	
 			<td><input type="checkbox" name="orderdids" value="${orderd.orderdid}"></td>
@@ -99,12 +98,12 @@ onclick="del('deliveryGoods.action?ordermid=${requestScope.orderm.ordermid }&ord
 			<td>${orderd.orderdnum}</td>
 			<td>${orderd.orderdmoney}</td>
 			<td>${orderd.orderdrightmoney}</td>
-			<td><a href="doeditOrder.action?orderdid=${orderd.orderdid}&ordermcompany=${sessionScope.company.companyid }&ordermid=${requestScope.orderm.ordermid }">修改</a></td>
+			<td><a href="doeditOrder.action?orderdid=${orderd.orderdid}&ordermcompany=${sessionScope.company.companyid }&ordermid=${requestScope.order.ordermid }">修改</a></td>
 		</tr>
 	</pg:item>
 	</c:forEach>
 	</c:if>
-	<c:if test="${fn:length(requestScope.orderm.orderdList)==0 }">
+	<c:if test="${fn:length(requestScope.order.orderdList)==0 }">
 		<tr><td colspan="14" align="center" style="font-size: 26px;color: red;"> 没有可显示的信息</td></tr>
 	</c:if>
     	<tr>
