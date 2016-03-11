@@ -55,6 +55,8 @@ public class OrdermAction extends BaseAction {
 	//修改
 	public void updAll(HttpServletRequest request, HttpServletResponse response){
 		json2cuss(request);
+		cuss.get(0).setUpdor(getCurrentUsername(request));
+		cuss.get(0).setUpdtime(DateUtils.getDateTime());
 		result = DAO.updSingle(cuss.get(0),OrdermPoco.KEYCOLUMN);
 		responsePW(response, result);
 	}
