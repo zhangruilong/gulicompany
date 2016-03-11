@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.server.dao.mapper.OrderdMapper" >
+  <resultMap id="BaseResultMap" type="com.server.pojo.entity.Orderd" >
+    <id column="ORDERDID" property="orderdid" jdbcType="VARCHAR" />
+    <result column="ORDERDORDERM" property="orderdorderm" jdbcType="VARCHAR" />
+    <result column="ORDERDCODE" property="orderdcode" jdbcType="VARCHAR" />
+    <result column="ORDERDTYPE" property="orderdtype" jdbcType="VARCHAR" />
+    <result column="ORDERDNAME" property="orderdname" jdbcType="VARCHAR" />
+    <result column="ORDERDDETAIL" property="orderddetail" jdbcType="VARCHAR" />
+    <result column="ORDERDUNITS" property="orderdunits" jdbcType="VARCHAR" />
+    <result column="ORDERDPRICE" property="orderdprice" jdbcType="FLOAT" />
+    <result column="ORDERDUNIT" property="orderdunit" jdbcType="VARCHAR" />
+    <result column="ORDERDCLASS" property="orderdclass" jdbcType="VARCHAR" />
+    <result column="ORDERDNUM" property="orderdnum" jdbcType="DECIMAL" />
+    <result column="ORDERDMONEY" property="orderdmoney" jdbcType="FLOAT" />
+    <result column="ORDERDRIGHTMONEY" property="orderdrightmoney" jdbcType="FLOAT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ORDERDID, ORDERDORDERM, ORDERDCODE, ORDERDTYPE, ORDERDNAME, ORDERDDETAIL, ORDERDUNITS, 
+    ORDERDPRICE, ORDERDUNIT, ORDERDCLASS, ORDERDNUM, ORDERDMONEY, ORDERDRIGHTMONEY
+  </sql>
+  <!-- 根据主键查询 -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ORDERD
+    where ORDERDID = #{orderdid,jdbcType=VARCHAR}
+  </select>
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ORDERD
+    where ORDERDID = #{orderdid,jdbcType=VARCHAR}
+  </delete>
+  <!-- 选择性添加 -->
+  <insert id="insertSelective" parameterType="com.server.pojo.entity.Orderd" >
+    insert into ORDERD
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderdid != null" >
+        ORDERDID,
+      </if>
+      <if test="orderdorderm != null" >
+        ORDERDORDERM,
+      </if>
+      <if test="orderdcode != null" >
+        ORDERDCODE,
+      </if>
+      <if test="orderdtype != null" >
+        ORDERDTYPE,
+      </if>
+      <if test="orderdname != null" >
+        ORDERDNAME,
+      </if>
+      <if test="orderddetail != null" >
+        ORDERDDETAIL,
+      </if>
+      <if test="orderdunits != null" >
+        ORDERDUNITS,
+      </if>
+      <if test="orderdprice != null" >
+        ORDERDPRICE,
+      </if>
+      <if test="orderdunit != null" >
+        ORDERDUNIT,
+      </if>
+      <if test="orderdclass != null" >
+        ORDERDCLASS,
+      </if>
+      <if test="orderdnum != null" >
+        ORDERDNUM,
+      </if>
+      <if test="orderdmoney != null" >
+        ORDERDMONEY,
+      </if>
+      <if test="orderdrightmoney != null" >
+        ORDERDRIGHTMONEY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderdid != null" >
+        #{orderdid,jdbcType=VARCHAR},
+      </if>
+      <if test="orderdorderm != null" >
+        #{orderdorderm,jdbcType=VARCHAR},
+      </if>
+      <if test="orderdcode != null" >
+        #{orderdcode,jdbcType=VARCHAR},
+      </if>
+      <if test="orderdtype != null" >
+        #{orderdtype,jdbcType=VARCHAR},
+      </if>
+      <if test="orderdname != null" >
+        #{orderdname,jdbcType=VARCHAR},
+      </if>
+      <if test="orderddetail != null" >
+        #{orderddetail,jdbcType=VARCHAR},
+      </if>
+      <if test="orderdunits != null" >
+        #{orderdunits,jdbcType=VARCHAR},
+      </if>
+      <if test="orderdprice != null" >
+        #{orderdprice,jdbcType=FLOAT},
+      </if>
+      <if test="orderdunit != null" >
+        #{orderdunit,jdbcType=VARCHAR},
+      </if>
+      <if test="orderdclass != null" >
+        #{orderdclass,jdbcType=VARCHAR},
+      </if>
+      <if test="orderdnum != null" >
+        #{orderdnum,jdbcType=DECIMAL},
+      </if>
+      <if test="orderdmoney != null" >
+        #{orderdmoney,jdbcType=FLOAT},
+      </if>
+      <if test="orderdrightmoney != null" >
+        #{orderdrightmoney,jdbcType=FLOAT},
+      </if>
+    </trim>
+  </insert>
+  <!-- 根据主键选择性修改 -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.server.pojo.entity.Orderd" >
+    update ORDERD
+    <set >
+      <if test="orderdorderm != null" >
+        ORDERDORDERM = #{orderdorderm,jdbcType=VARCHAR},
+      </if>
+      <if test="orderdcode != null" >
+        ORDERDCODE = #{orderdcode,jdbcType=VARCHAR},
+      </if>
+      <if test="orderdtype != null" >
+        ORDERDTYPE = #{orderdtype,jdbcType=VARCHAR},
+      </if>
+      <if test="orderdname != null" >
+        ORDERDNAME = #{orderdname,jdbcType=VARCHAR},
+      </if>
+      <if test="orderddetail != null" >
+        ORDERDDETAIL = #{orderddetail,jdbcType=VARCHAR},
+      </if>
+      <if test="orderdunits != null" >
+        ORDERDUNITS = #{orderdunits,jdbcType=VARCHAR},
+      </if>
+      <if test="orderdprice != null" >
+        ORDERDPRICE = #{orderdprice,jdbcType=FLOAT},
+      </if>
+      <if test="orderdunit != null" >
+        ORDERDUNIT = #{orderdunit,jdbcType=VARCHAR},
+      </if>
+      <if test="orderdclass != null" >
+        ORDERDCLASS = #{orderdclass,jdbcType=VARCHAR},
+      </if>
+      <if test="orderdnum != null" >
+        ORDERDNUM = #{orderdnum,jdbcType=DECIMAL},
+      </if>
+      <if test="orderdmoney != null" >
+        ORDERDMONEY = #{orderdmoney,jdbcType=FLOAT},
+      </if>
+      <if test="orderdrightmoney != null" >
+        ORDERDRIGHTMONEY = #{orderdrightmoney,jdbcType=FLOAT},
+      </if>
+    </set>
+    where ORDERDID = #{orderdid,jdbcType=VARCHAR}
+  </update>
+</mapper>

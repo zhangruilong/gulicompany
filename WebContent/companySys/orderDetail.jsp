@@ -12,8 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <title></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script type="text/javascript" src="../sysjs/jquery.min.js"></script>
-<link href="css/style2.css" rel="stylesheet" type="text/css">
+
 <style type="text/css">
 body {
     width: 1200px;
@@ -103,22 +102,32 @@ table {
     border-radius: 0 0 6px 0;
 }
 
-}
-  
+
 </style>
+<script type="text/javascript" src="../sysjs/jquery.min.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<link href="css/style2.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+<form action="deleOrderd.action" method="post">
  <pg:pager maxPageItems="8" url="orderDetail.action">
  <pg:param name="ordermcompany" value="${sessionScope.company.companyid }"/>
- <pg:param name="ordermid" value="${requestScope.order.ordermid }"/>
+ <pg:param name="ordermid" value="${requestScope.orderm.ordermid }"/>
+ <pg:param name="orderdids"/>
+ <input type="hidden" name="ordermcompany" value="${sessionScope.company.companyid }">
+ <input type="hidden" name="ordermid" value="${requestScope.orderm.ordermid }">
 <div class="page_title">订单管理/订单详情</div>
-<p>订单编号:${requestScope.orderm.ordermcode }</p>
+<p><span>订单编号:${requestScope.orderm.ordermcode }&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<input type="button" value="删除订单" 
+onclick="del('editOrder.action?ordermid=${requestScope.orderm.ordermid }&ordermcompany=${sessionScope.company.companyid }')">
+<input type="submit" value="删除商品"></p>
 <div class="button_bar">
 </div>
 <br />
 <table class="bordered">
     <thead>
     <tr>
+    	<th>&nbsp;</th>
         <th>序号</th>
 		<th>商品编码</th>
 		<th>商品名称</th>
@@ -131,12 +140,14 @@ table {
 		<th>数量</th>
 		<th>下单金额</th>
 		<th>实际金额</th>
+		<th>删除</th>
     </tr>
     </thead>
     <c:if test="${fn:length(requestScope.orderm.orderdList) != 0 }">
 	<c:forEach var="orderd" items="${requestScope.orderm.orderdList }" varStatus="orderdSta">
 	<pg:item>
-		<tr>
+		<tr>	
+			<td><input type="checkbox" name="orderdids" value="${orderd.orderdid}"></td>
 			<td><c:out value="${orderdSta.count}"></c:out></td>
 			<td>${orderd.orderdcode}</td>
 			<td>${orderd.orderdname}</td>
@@ -149,6 +160,7 @@ table {
 			<td>${orderd.orderdnum}</td>
 			<td>${orderd.orderdmoney}</td>
 			<td>${orderd.orderdrightmoney}</td>
+			<td><a href="doeditOrder.action?orderdid=${orderd.orderdid}&ordermcompany=${sessionScope.company.companyid }&ordermid=${requestScope.orderm.ordermid }">修改</a></td>
 		</tr>
 	</pg:item>
 	</c:forEach>
@@ -171,5 +183,7 @@ table {
 	 </tr>       
 </table>
 </pg:pager>
+</form>
+
 </body>
 </html>

@@ -7,7 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.server.dao.mapper.OrderdMapper;
 import com.server.dao.mapper.OrdermMapper;
+import com.server.pojo.entity.Orderd;
 import com.server.pojo.entity.Orderm;
 
 /**
@@ -19,6 +21,8 @@ import com.server.pojo.entity.Orderm;
 public class Com_orderCtl {
 	@Autowired
 	private OrdermMapper ordermMapper;
+	@Autowired
+	private OrderdMapper orderdMapper;
 	//全部订单
 	@RequestMapping("/companySys/allOrder")
 	public String allOrder(Model model,Orderm order){
@@ -33,5 +37,42 @@ public class Com_orderCtl {
 		Orderm orderm = ordermMapper.selectByPrimaryKey(order.getOrdermid());
 		model.addAttribute("orderm", orderm);
 		return "forward:/companySys/orderDetail.jsp";
+	}
+	//删除订单
+	@RequestMapping("/companySys/editOrder")
+	public String editOrder(Model model,Orderm order){
+		Orderm orderm = ordermMapper.selectByPrimaryKey(order.getOrdermid());
+		if(orderm.getOrderdList() != null && orderm.getOrderdList().size() != 0){
+			for (Orderd orderd : orderm.getOrderdList()) {
+				orderdMapper.deleteByPrimaryKey(orderd.getOrderdid());
+			}
+		}
+		ordermMapper.deleteByPrimaryKey(orderm.getOrdermid());
+		return "forward:allOrder.action";
+	}
+	//删除订单详情
+	@RequestMapping("/companySys/deleOrderd")
+	public String deleOrderd(Model model,String[] orderdids,Orderm order){
+		for (String orderdid : orderdids) {
+			orderdMapper.deleteByPrimaryKey(orderdid);
+		}
+		return "forward:orderDetail.action";
+	}
+	//到'订单详情'修改页
+	@RequestMapping("/companySys/doeditOrder")
+	public String doeditOrder(Model model,String orderdid,Orderm order){
+		Orderd orderd = orderdMapper.selectByPrimaryKey(orderdid);
+		model.addAttribute("orderd", orderd);
+		model.addAttribute("orderm", order);
+		return "forward:/companySys/orderdDeta.jsp";
+	}
+	//修改订单详情
+	@RequestMapping("/companySys/editOrderd")
+	public String editOrderd(Model model,Orderd orderd,Orderm order){
+		System.out.println(order.getOrdermid());
+		orderdMapper.updateByPrimaryKeySelective(orderd);
+		model.addAttribute("orderd", orderd);
+		model.addAttribute("orderm", order);
+		return "forward:orderDetail.action";
 	}
 }
