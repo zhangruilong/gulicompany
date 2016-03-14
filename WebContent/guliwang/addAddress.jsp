@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-	<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!doctype html> 
 <html>
 <head>
@@ -26,11 +26,16 @@
 	<ul>
     	<li><span>所在城市</span> <select id="city">
     		<c:forEach items="${requestScope.cityParents }" var="cyty">
+    		<c:if test="${cyty.cityparent=='root' }">
 				<option value="${cyty.cityparent }">${cyty.cityparent }</option>
+			</c:if>
 			</c:forEach></select><i></i></li>
-        <li><span>所在区域</span> <select  id="xian"><c:forEach items="${requestScope.cityList }" var="cyty">
+        <li><span>所在区域</span> <select  id="xian">
+        	<c:forEach items="${requestScope.cityList }" var="cyty">
+        		<c:if test="${cyty.cityparent!='root' }">
 					<option value="${cyty.cityname }">${cyty.cityname }</option>
-				</c:forEach></select><i></i></li>
+				</c:if>
+			</c:forEach></select><i></i></li>
         <li><span>详细地址</span> <input id="detaAddressa" type="text" placeholder="请输入详细地址"></li>
     </ul>
 </div>

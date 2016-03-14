@@ -66,9 +66,7 @@ public class AddressController {
 	public String doEditAddress(Model model,String addressid){
 		Address address = addressMapper.selectByPrimaryKey(addressid);
 		List<City> cityList = cityMapper.selectAllCity();
-		List<City> cityParents = cityMapper.selectAllParent();
 		model.addAttribute("cityList", cityList);
-		model.addAttribute("cityParents", cityParents);
 		model.addAttribute("address", address);
 		return "forward:/guliwang/editAddress.jsp";
 	}

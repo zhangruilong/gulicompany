@@ -31,14 +31,18 @@
 		<ul>
 			<li><span>所在城市</span> 
 			<select name="customercity">
-				<c:forEach items="${requestScope.cityParents }" var="cyty">
+				<c:forEach items="${requestScope.cityList }" var="cyty">
+					<c:if test="${cyty.cityparent=='root' }">
 					<option value="${cyty.cityparent }">${cyty.cityparent }</option>
+					</c:if>
 				</c:forEach>
 			</select><i></i></li>
 			<li><span>服务区域</span> 
 			<select name="customerxian">
 				<c:forEach items="${requestScope.cityList }" var="cyty">
+				<c:if test="${cyty.cityparent?!='root' }">
 					<option value="${cyty.cityname }">${cyty.cityname }</option>
+				</c:if>
 				</c:forEach>
 					<!-- <option>黄浦区</option> -->
 			</select><i></i></li>
