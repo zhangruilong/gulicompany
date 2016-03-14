@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html >
 <html>
 <head>
@@ -12,6 +14,7 @@
 	padding: 20px 20px 20px 20px;
 	font: 12px Arial, Helvetica, sans-serif;
 	color: #666;
+	max-width: 700px;
 }
 
 .elegant-aero h1 {
@@ -21,6 +24,7 @@
 	background: #C0E1FF;
 	border-bottom: 1px solid #B8DDFF;
 	margin: -20px -20px 15px;
+	font-weight: bold;
 }
 
 .elegant-aero h1>span {
@@ -29,6 +33,13 @@
 }
 
 .elegant-aero label>span {
+	margin-top: 10px;
+	color: #5E5E5E;
+	text-align: right;
+	padding-right: 8px;
+}
+
+.elegant-aero p>span {
 	float: left;
 	margin-top: 10px;
 	color: #5E5E5E;
@@ -83,24 +94,78 @@
 	<div class="elegant-aero">
 		<form action="" method="post" class="STYLE-NAME">
 			<h1>商品价格设置</h1>
-			<p><span>餐饮客户价格 :</span></p> 
-			<p><label>
-				<span>关系等级3 :</span><input size="5" id="name" type="text" name="name" placeholder="账号" />
-				<span>关系等级2 :</span><input size="5" id="name" type="text" name="name" placeholder="账号" />
-				<span>关系等级1 :</span><input size="5" id="name" type="text" name="name" placeholder="账号" />
-			</label> </p>
-			<p><span> 高级客户价格 :</span></p>
-			<p><label>
-				<span>关系等级3 :</span><input size="5" id="name" type="text" name="name" placeholder="账号" />
-				<span>关系等级2 :</span><input size="5" id="name" type="text" name="name" placeholder="账号" />
-				<span>关系等级1 :</span><input size="5" id="name" type="text" name="name" placeholder="账号" />
-			</label> </p>
-			<p><span> 组织单位客户价格 :</span></p>
-			<p><label>
-				<span>关系等级3 :</span><input size="5" id="name" type="text" name="name" placeholder="账号" />
-				<span>关系等级2 :</span><input size="5" id="name" type="text" name="name" placeholder="账号" />
-				<span>关系等级1 :</span><input size="5" id="name" type="text" name="name" placeholder="账号" />
-			</label> </p>
+			<table>
+			<tr><td colspan="3"><p><span>餐饮客户价格 :</span></p> </td></tr>
+			<tr>	
+				
+				<td><label><span>单品价等级3 :</span><input 
+				value="<c:forEach items="${requestScope.goodsCon.pricesList }" var="price"><c:if test="${price.pricesclass == '餐饮客户' && price.priceslevel == 3}">${price.pricesprice }</c:if></c:forEach>" 
+				size="5" id="name" type="text" name="name" placeholder="单品价" /><span>/${requestScope.goodsCon.pricesList[0].pricesunit }</span></label></td>
+				<td><label><span>单品价等级2 :</span><input 
+				value="<c:forEach items="${requestScope.goodsCon.pricesList }" var="price"><c:if test="${price.pricesclass == '餐饮客户' && price.priceslevel == 2}">${price.pricesprice }</c:if></c:forEach>" 
+				size="5" id="name" type="text" name="name" placeholder="单品价" /><span>/${requestScope.goodsCon.pricesList[0].pricesunit }</span></label></td>
+				<td><label><span>单品价等级1 :</span><input 
+				value="<c:forEach items="${requestScope.goodsCon.pricesList }" var="price"><c:if test="${price.pricesclass == '餐饮客户' && price.priceslevel == 1}">${price.pricesprice }</c:if></c:forEach>" 
+				size="5" id="name" type="text" name="name" placeholder="单品价" /><span>/${requestScope.goodsCon.pricesList[0].pricesunit }</span></label></td>
+			</tr>
+			<tr>
+				<td><label><span>套装价等级3 :</span><input 
+				value="<c:forEach items="${requestScope.goodsCon.pricesList }" var="price"><c:if test="${price.pricesclass == '餐饮客户' && price.priceslevel == 3}">${price.pricesprice2 }</c:if></c:forEach>" 
+				size="5" id="name" type="text" name="name" placeholder="套装价" /><span>/${requestScope.goodsCon.pricesList[0].pricesunit2 }</span></label></td>
+				<td><label><span>套装价等级2 :</span><input 
+				value="<c:forEach items="${requestScope.goodsCon.pricesList }" var="price"><c:if test="${price.pricesclass == '餐饮客户' && price.priceslevel == 2}">${price.pricesprice2 }</c:if></c:forEach>" 
+				size="5" id="name" type="text" name="name" placeholder="套装价" /><span>/${requestScope.goodsCon.pricesList[0].pricesunit2 }</span></label></td>
+				<td><label><span>套装价等级1 :</span><input 
+				value="<c:forEach items="${requestScope.goodsCon.pricesList }" var="price"><c:if test="${price.pricesclass == '餐饮客户' && price.priceslevel == 1}">${price.pricesprice2 }</c:if></c:forEach>" 
+				size="5" id="name" type="text" name="name" placeholder="套装价" /><span>/${requestScope.goodsCon.pricesList[0].pricesunit2 }</span></label></td>
+			</tr>
+			<tr><td colspan="3"><p><span> 高级客户价格 :</span></p></td></tr>
+			<tr>
+				<td><label><span>单品价等级3 :</span><input 
+				value="<c:forEach items="${requestScope.goodsCon.pricesList }" var="price"><c:if test="${price.pricesclass == '高级客户' && price.priceslevel == 3}">${price.pricesprice2 }</c:if></c:forEach>" 
+				size="5" id="name" type="text" name="name" placeholder="单品价" /><span>/${requestScope.goodsCon.pricesList[0].pricesunit }</span></label></td>
+				<td><label><span>单品价等级2 :</span><input 
+				value="<c:forEach items="${requestScope.goodsCon.pricesList }" var="price"><c:if test="${price.pricesclass == '高级客户' && price.priceslevel == 2}">${price.pricesprice2 }</c:if></c:forEach>" 
+				size="5" id="name" type="text" name="name" placeholder="单品价" /><span>/${requestScope.goodsCon.pricesList[0].pricesunit }</span></label></td>
+				<td><label><span>单品价等级1 :</span><input 
+				value="<c:forEach items="${requestScope.goodsCon.pricesList }" var="price"><c:if test="${price.pricesclass == '高级客户' && price.priceslevel == 1}">${price.pricesprice2 }</c:if></c:forEach>" 
+				size="5" id="name" type="text" name="name" placeholder="单品价" /><span>/${requestScope.goodsCon.pricesList[0].pricesunit }</span></label></td>
+			</tr>
+			<tr>
+				<td><label><span>套装价等级3 :</span><input 
+				value="<c:forEach items="${requestScope.goodsCon.pricesList }" var="price"><c:if test="${price.pricesclass == '高级客户' && price.priceslevel == 3}">${price.pricesprice2 }</c:if></c:forEach>" 
+				size="5" id="name" type="text" name="name" placeholder="套装价" /><span>/${requestScope.goodsCon.pricesList[0].pricesunit2 }</span></label></td>
+				<td><label><span>套装价等级2 :</span><input 
+				value="<c:forEach items="${requestScope.goodsCon.pricesList }" var="price"><c:if test="${price.pricesclass == '高级客户' && price.priceslevel == 2}">${price.pricesprice2 }</c:if></c:forEach>" 
+				size="5" id="name" type="text" name="name" placeholder="套装价" /><span>/${requestScope.goodsCon.pricesList[0].pricesunit2 }</span></label></td>
+				<td><label><span>套装价等级1 :</span><input 
+				value="<c:forEach items="${requestScope.goodsCon.pricesList }" var="price"><c:if test="${price.pricesclass == '高级客户' && price.priceslevel == 1}">${price.pricesprice2 }</c:if></c:forEach>" 
+				size="5" id="name" type="text" name="name" placeholder="套装价" /><span>/${requestScope.goodsCon.pricesList[0].pricesunit2 }</span></label></td>
+			</tr>
+			<tr><td colspan="3"><p><span> 组织单位客户价格 :</span></p></td></tr>
+			<tr>
+				<td><label><span>单品价等级3 :</span><input 
+				value="<c:forEach items="${requestScope.goodsCon.pricesList }" var="price"><c:if test="${price.pricesclass == '组织单位客户' && price.priceslevel == 3}">${price.pricesprice2 }</c:if></c:forEach>" 
+				size="5" id="name" type="text" name="name" placeholder="单品价" /><span>/${requestScope.goodsCon.pricesList[0].pricesunit }</span></label></td>
+				<td><label><span>单品价等级2 :</span><input 
+				value="<c:forEach items="${requestScope.goodsCon.pricesList }" var="price"><c:if test="${price.pricesclass == '组织单位客户' && price.priceslevel == 2}">${price.pricesprice2 }</c:if></c:forEach>" 
+				size="5" id="name" type="text" name="name" placeholder="单品价" /><span>/${requestScope.goodsCon.pricesList[0].pricesunit }</span></label></td>
+				<td><label><span>单品价等级1 :</span><input 
+				value="<c:forEach items="${requestScope.goodsCon.pricesList }" var="price"><c:if test="${price.pricesclass == '组织单位客户' && price.priceslevel == 1}">${price.pricesprice2 }</c:if></c:forEach>" 
+				size="5" id="name" type="text" name="name" placeholder="单品价" /><span>/${requestScope.goodsCon.pricesList[0].pricesunit }</span></label></td>
+			 </tr>
+			 <tr>
+				<td><label><span>套装价等级3 :</span><input 
+				value="<c:forEach items="${requestScope.goodsCon.pricesList }" var="price"><c:if test="${price.pricesclass == '组织单位客户' && price.priceslevel == 3}">${price.pricesprice2 }</c:if></c:forEach>" 
+				size="5" id="name" type="text" name="name" placeholder="套装价" /><span>/${requestScope.goodsCon.pricesList[0].pricesunit2 }</span></label></td>
+				<td><label><span>套装价等级2 :</span><input 
+				value="<c:forEach items="${requestScope.goodsCon.pricesList }" var="price"><c:if test="${price.pricesclass == '组织单位客户' && price.priceslevel == 2}">${price.pricesprice2 }</c:if></c:forEach>" 
+				size="5" id="name" type="text" name="name" placeholder="套装价" /><span>/${requestScope.goodsCon.pricesList[0].pricesunit2 }</span></label></td>
+				<td><label><span>套装价等级1 :</span><input 
+				value="<c:forEach items="${requestScope.goodsCon.pricesList }" var="price"><c:if test="${price.pricesclass == '组织单位客户' && price.priceslevel == 1}">${price.pricesprice2 }</c:if></c:forEach>" 
+				size="5" id="name" type="text" name="name" placeholder="套装价" /><span>/${requestScope.goodsCon.pricesList[0].pricesunit2 }</span></label></td>
+			</tr>
+			</table>
 			<label> <span>&nbsp;</span> <input type="button"
 				class="button" value="提交" />
 			</label>

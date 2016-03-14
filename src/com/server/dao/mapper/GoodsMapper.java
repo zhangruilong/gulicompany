@@ -22,7 +22,7 @@ public interface GoodsMapper {
      */
     int insertSelective(Goods record);
     /**
-     * 根据主键查询
+     * 根据主键查询商品和价格
      */
     Goods selectByPrimaryKey(String goodsid);
     /**
