@@ -12,13 +12,6 @@
 <link href="css/base.css" type="text/css" rel="stylesheet">
 <link href="css/layout.css" type="text/css" rel="stylesheet">
 <link href="css/dig.css" type="text/css" rel="stylesheet">
-<style type="text/css">
-.cd-popup-container{ background-color:#fff; text-align:center}
-.cd-popup-container h1{ border-bottom:solid 1px #ddd; font-size:1em; font-weight:normal; padding:4% 0; background-color:#eee}
-.cd-popup-container a{ display:inline-block; width:49.8%; background-color:#eee; padding:4% 0; border-top:solid 1px #ddd}
-.cd-popup-container .cd-popup-close{ border-right:solid 1px #ddd}
-.cd-popup-container p{ padding:10% 0}
-</style>
 </head>
 
 <body>
@@ -60,7 +53,7 @@
 		<div class="cd-buttons">
         	<h1>谷粒网提示</h1>
 			<p>您确定要货到付款?</p>
-            <a href="#" class="cd-popup-close">取消</a><a href="全部订单.html">确定</a>
+            <a href="#" class="cd-popup-close">取消</a><a onclick="buy();">确定</a>
 		</div>
 	</div>
 </div>
@@ -101,65 +94,62 @@ function initDishes(data){
         	  '<font class="font-oringe">'+item.ordermmoney+'元</font></li>');
      });
 }
-$(".jiesuan-button").click(function(){ 
+function buy(){
 	//将购物车写入订单表
-	$.dialog.message("谷粒网提示", "您确定要货到付款?", true, function() {
-		$("#popTips").remove();
-		var scompany = JSON.parse(window.localStorage.getItem("scompany"));
-		$.each(scompany, function(y, mcompany) {
-			var ordermjson = '[{"ordermcustomer":"' + 1
-					+ '","ordermcompany":"' + mcompany.ordermcompany 
-					+ '","ordermnum":"' + mcompany.ordermnum
-					+ '","ordermmoney":"' + mcompany.ordermmoney
-					+ '","ordermconnect":"' + "王金宝" 
-					+ '","ordermphone":"' + "13888888888" 
-					+ '","ordermaddress":"' + "嘉兴市沿海向城东路89号706室" 
-					+ '","ordermway":"货到付款"}]';
-			var orderdetjson = '[';
-			var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));
-			$.each(sdishes, function(i, item) {
-				if(mcompany.ordermcompany == item.goodscompany)
-					orderdetjson += '{"orderdetdishes":"' + item.goodsid
-							+ '","orderdcode":"' + item.goodscode
-							+ '","orderdtype":"' + "商品"
-							+ '","orderdname":"' + item.goodsname
-							+ '","orderddetail":"' + item.goodsdetail
-							+ '","orderdunits":"' + item.goodsunits
-							+ '","orderdprice":"' + item.pricesprice
-							+ '","orderdunit":"' + item.pricesunit
-							+ '","orderdprice":"' + item.pricesprice
-							+ '","orderdclass":"' + item.goodsclassname
-							+ '","orderdnum":"' + item.orderdetnum
-							+ '","orderdmoney":"' + (item.pricesprice * item.orderdetnum).toFixed(2)
-							+ '"},';
+	var scompany = JSON.parse(window.localStorage.getItem("scompany"));
+	$.each(scompany, function(y, mcompany) {
+		var ordermjson = '[{"ordermcustomer":"' + 1
+				+ '","ordermcompany":"' + mcompany.ordermcompany 
+				+ '","ordermnum":"' + mcompany.ordermnum
+				+ '","ordermmoney":"' + mcompany.ordermmoney
+				+ '","ordermconnect":"' + "王金宝" 
+				+ '","ordermphone":"' + "13888888888" 
+				+ '","ordermaddress":"' + "嘉兴市沿海向城东路89号706室" 
+				+ '","ordermway":"货到付款"}]';
+		var orderdetjson = '[';
+		var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));
+		$.each(sdishes, function(i, item) {
+			if(mcompany.ordermcompany == item.goodscompany)
+				orderdetjson += '{"orderdetdishes":"' + item.goodsid
+						+ '","orderdcode":"' + item.goodscode
+						+ '","orderdtype":"' + "商品"
+						+ '","orderdname":"' + item.goodsname
+						+ '","orderddetail":"' + item.goodsdetail
+						+ '","orderdunits":"' + item.goodsunits
+						+ '","orderdprice":"' + item.pricesprice
+						+ '","orderdunit":"' + item.pricesunit
+						+ '","orderdprice":"' + item.pricesprice
+						+ '","orderdclass":"' + item.goodsclassname
+						+ '","orderdnum":"' + item.orderdetnum
+						+ '","orderdmoney":"' + (item.pricesprice * item.orderdetnum).toFixed(2)
+						+ '"},';
+		});
+		orderdetjson = orderdetjson.substr(0, orderdetjson.length - 1)
+				+ ']';
+		$.ajax({
+				url : 'OrdermAction.do?method=addOrder',
+				data : {
+					json : ordermjson,
+					orderdetjson : orderdetjson
+				},
+				success : function(resp) {
+					var respText = eval('('+resp+')'); 
+	    			if(respText.success == false) 
+	    				alert(respText.msg);
+	    			else {
+	    				window.localStorage.setItem("sdishes", "[]");
+						window.localStorage.setItem("totalnum", 0);
+						window.localStorage.setItem("totalmoney", 0);
+						alert("下单成功！");
+						window.location.href = "order.jsp";
+	    			}
+				},
+				error : function(resp) {
+					alert('网络出现问题，请稍后再试');
+				}
 			});
-			orderdetjson = orderdetjson.substr(0, orderdetjson.length - 1)
-					+ ']';
-			$.ajax({
-					url : 'OrdermAction.do?method=addOrder',
-					data : {
-						json : ordermjson,
-						orderdetjson : orderdetjson
-					},
-					success : function(resp) {
-						var respText = eval('('+resp+')'); 
-		    			if(respText.success == false) 
-		    				$.dialog.alert("操作提示", respText.msg);
-		    			else {
-		    				window.localStorage.setItem("sdishes", "[]");
-							window.localStorage.setItem("totalnum", 0);
-							window.localStorage.setItem("totalmoney", 0);
-							$.dialog.alert("操作提示", "下单成功！");
-							window.location.href = "order.jsp";
-		    			}
-					},
-					error : function(resp) {
-						alert('网络出现问题，请稍后再试');
-					}
-				});
-	     });
-	}); 
-}) 
+     });
+}
 </script>
 </body>
 </html>

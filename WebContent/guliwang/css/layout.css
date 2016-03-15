@@ -132,6 +132,11 @@ color:#fff !important;
 .jiesuan-submit a { float: right; width: 25%; text-align: center; background-color: #eb3c07; color: #fff }
 .jiesuan .jiesuan-info .payment { padding: 8% 0; margin-left: 4% }
 .jiesuan .jiesuan-info:last-child { margin-bottom: 10% }
+.cd-popup-container{ background-color:#fff; text-align:center}
+.cd-popup-container h1{ border-bottom:solid 1px #ddd; font-size:1em; font-weight:normal; padding:4% 0; background-color:#eee}
+.cd-popup-container a{ display:inline-block; width:49.7%; background-color:#eee; padding:4% 0; border-top:solid 1px #ddd}
+.cd-popup-container .cd-popup-close{ border-right:solid 1px #ddd}
+.cd-popup-container p{ padding:10% 0}
 /*radio*/
 .regular-radio { display: none }
 .regular-radio + label { margin-left: 4%; -webkit-appearance: none; background-color: #fff; border: 1px solid #ccc; color: #999; box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05); padding: 5px 20px 5px 22px; border-radius: 5px; display: inline-block; position: relative }
