@@ -49,7 +49,7 @@ public class AddressController {
 	//添加新收货地址
 	@RequestMapping("/guliwang/addAddress")
 	public String addAddress(Model model,Address address,String customerId){
-		if(address.getAddressture() == 1){
+		if(address.getAddressture() == 1){					//如果勾选了默认就把其他地址设为不是默认
 			Address add = new Address();
 			add.setAddresscustomer(customerId);
 			add.setAddressture(0);
@@ -66,16 +66,14 @@ public class AddressController {
 	public String doEditAddress(Model model,String addressid){
 		Address address = addressMapper.selectByPrimaryKey(addressid);
 		List<City> cityList = cityMapper.selectAllCity();
-		List<City> cityParents = cityMapper.selectAllParent();
 		model.addAttribute("cityList", cityList);
-		model.addAttribute("cityParents", cityParents);
 		model.addAttribute("address", address);
 		return "forward:/guliwang/editAddress.jsp";
 	}
 	//修改收货地址
 	@RequestMapping("/guliwang/editAddress")
 	public String editAddress(Model model,Address address,String customerId){
-		if(address.getAddressture() == 1){
+		if(address.getAddressture() == 1){					//如果勾选了默认就把其他地址设为不是默认
 			Address add = new Address();
 			add.setAddresscustomer(customerId);
 			add.setAddressture(0);
@@ -88,9 +86,16 @@ public class AddressController {
 	}
 	//删除收货地址
 		@RequestMapping("/guliwang/delAddress")
-		public String delAddress(Model model,String addressid,String customerId){
-			addressMapper.deleteByPrimaryKey(addressid);
-			model.addAttribute("addressid", addressid);
+		public String delAddress(Model model,Address address,String customerId){
+			addressMapper.deleteByPrimaryKey(address.getAddressid());
+			if(address.getAddressture() == 1){
+				//如果删除的是默认地址
+				List<Address> addressList = addressMapper.selectByCondition(customerId);		//根据条件查询地址
+				Address address2 = addressList.get(0);
+				address2.setAddressture(1);
+				addressMapper.updateByPrimaryKeySelective(address2);
+			}
+			model.addAttribute("address", address);
 			model.addAttribute("customerId", customerId);
 			return "forward:doAddressMana.action";
 		}

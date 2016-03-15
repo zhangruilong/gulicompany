@@ -34,6 +34,20 @@ function updateStatue(){
 					+statue;
 	}
 }
+function delegoods(){
+	var orderdids = $("[name='orderdids']");
+	var count = 0;
+	$.each(orderdids,function(i,item){
+		if($(item).attr("checked") == "checked"){
+			count ++;
+		}
+	});
+	if(count > 0){
+		document.forms[0].submit();
+	} else {
+		alert("请选择要删除的商品");
+	}
+}
 </script>
 </head>
 <body>
@@ -49,7 +63,7 @@ function updateStatue(){
 <span>订单编号:${requestScope.order.ordermcode }&nbsp;&nbsp;&nbsp;&nbsp;</span>
 <input type="button" value="删除订单" 
 onclick="del('editOrder.action?ordermid=${requestScope.order.ordermid }&ordermcompany=${sessionScope.company.companyid }','删除')">
-<input type="submit" value="删除商品">
+<input type="button" value="删除商品" onclick="delegoods()">
 <input type="button" value="修改订单状态" 
 onclick="updateStatue();">
 <select name="ordermstatue" id="ordermstatue">

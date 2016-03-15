@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-	<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!doctype html> 
 <html>
 <head>
@@ -25,12 +25,17 @@
 <div class="reg-wrapper reg-dianpu-info">
 	<ul>
     	<li><span>所在城市</span> <select id="city">
-    		<c:forEach items="${requestScope.cityParents }" var="cyty">
-				<option value="${cyty.cityparent }">${cyty.cityparent }</option>
+    		<c:forEach items="${requestScope.cityList }" var="cyty">
+    		<c:if test="${cyty.cityparent=='root' }">
+				<option value="${cyty.cityname }">${cyty.cityname }</option>
+			</c:if>
 			</c:forEach></select><i></i></li>
-        <li><span>所在区域</span> <select  id="xian"><c:forEach items="${requestScope.cityList }" var="cyty">
+        <li><span>所在区域</span> <select  id="xian">
+        	<c:forEach items="${requestScope.cityList }" var="cyty">
+        		<c:if test="${cyty.cityparent!='root' }">
 					<option value="${cyty.cityname }">${cyty.cityname }</option>
-				</c:forEach></select><i></i></li>
+				</c:if>
+			</c:forEach></select><i></i></li>
         <li><span>详细地址</span> <input id="detaAddressa" type="text" placeholder="请输入详细地址"></li>
     </ul>
 </div>
@@ -43,6 +48,7 @@
 <input type="hidden" name="addresscustomer" value="${sessionScope.customer.customerid }">
     <input type="hidden" name="customerId" value="${sessionScope.customer.customerid }">
 <div class="add-address-btn">
+	<a onclick="javascript:window.location.href = 'doAddressMana.action?customerId=${sessionScope.customer.customerid }'">返回</a>
     <a onclick="addAddress()">保存</a>
 </div>
 </form>

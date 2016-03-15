@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>谷粒管理平台</title>
 </head>
-<frameset rows="150,*" cols="*" frameborder="no" border="1"
+<frameset rows="100,*" cols="*" frameborder="no" border="1"
 	framespacing="0">
 	<frame src="top.jsp" name="topFrame" scrolling="no" noresize="noresize"
 		id="topFrame" title="topFrame" />

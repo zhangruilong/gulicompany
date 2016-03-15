@@ -42,9 +42,7 @@ public class LoginController {
 	@RequestMapping("/guliwang/doReg")
 	public String doReg(Model model){
 		List<City> cityList = cityMapper.selectAllCity();
-		List<City> cityParents = cityMapper.selectAllParent();
 		model.addAttribute("cityList", cityList);
-		model.addAttribute("cityParents", cityParents);
 		return "forward:reg.jsp";
 	}
 	//注册用户
