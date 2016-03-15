@@ -265,7 +265,7 @@ function selectEmp(companyid) {
 	Empgrid.region = 'center';
 	Empstore.on("beforeload",function(){ 
 		Empstore.baseParams = {
-				query : companyid
+				wheresql : "empcompany='"+companyid+"'"
 		}; 
 	});
 	Empstore.load();//加载数据
@@ -275,7 +275,7 @@ function selectEmp(companyid) {
 		width : 620, // 窗口宽度
 		height : document.body.clientHeight -4, // 窗口高度
 		modal : true,
-		//closeAction: 'hide',
+		closeAction: 'hide',
 		closable : true, // 是否可关闭
 		collapsible : true, // 是否可收缩
 		maximizable : true, // 设置是否可以最大化

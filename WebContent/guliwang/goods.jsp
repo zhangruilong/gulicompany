@@ -19,6 +19,7 @@
 <style type="text/css">
 @-webkit-keyframes bounceInUp{0%,100%,60%,75%,90%{-webkit-animation-timing-function:cubic-bezier(0.215,.61,.355,1);animation-timing-function:cubic-bezier(0.215,.61,.355,1)}0%{opacity:0;-webkit-transform:translate3d(0,3000px,0);transform:translate3d(0,3000px,0)}60%{opacity:1;-webkit-transform:translate3d(0,-20px,0);transform:translate3d(0,-20px,0)}75%{-webkit-transform:translate3d(0,10px,0);transform:translate3d(0,10px,0)}90%{-webkit-transform:translate3d(0,-5px,0);transform:translate3d(0,-5px,0)}100%{-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}}
 @keyframes bounceInUp{0%,100%,60%,75%,90%{-webkit-animation-timing-function:cubic-bezier(0.215,.61,.355,1);animation-timing-function:cubic-bezier(0.215,.61,.355,1)}0%{opacity:0;-webkit-transform:translate3d(0,3000px,0);transform:translate3d(0,3000px,0)}60%{opacity:1;-webkit-transform:translate3d(0,-20px,0);transform:translate3d(0,-20px,0)}75%{-webkit-transform:translate3d(0,10px,0);transform:translate3d(0,10px,0)}90%{-webkit-transform:translate3d(0,-5px,0);transform:translate3d(0,-5px,0)}100%{-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}}.bounceInUp{-webkit-animation-name:bounceInUp;animation-name:bounceInUp}
+.wrapper .fenlei-left li a img{ width:28px; height:28px; vertical-align:middle; margin:0}
 </style>
 </head>
 
@@ -32,7 +33,7 @@
                 <div class="wrapper">
                 	<div class="fenlei-left">
                     	<ul id="fenlei-left">
-                        	<li><a href="#">食用油</a></li>
+                        	<li><a href="#"><img src="images/321.jpg" > 食用油</a></li>
                             <li><a href="#">食用油</a></li>
                             <li class="active"><a href="#">食用油</a></li>
                             <li><a href="#">食用油</a></li>
@@ -158,10 +159,10 @@ function initGoodsclass(data){
 	 $("#fenlei-left").html("");
 	 $.each(data.root, function(i, item) {
 		if(i==0){
-			$("#fenlei-left").append('<li class="active" name="'+item.goodsclassid+'"><a href="#">'+item.goodsclassname+'</a></li>');
+			$("#fenlei-left").append('<li class="active" name="'+item.goodsclassid+'"><a href="#"><img src="images/321.jpg" > '+item.goodsclassname+'</a></li>');
 			getJson(basePath+"GoodsclassAction.do",{method:"mselAll",wheresql:"goodsclassparent = '"+item.goodsclassid+"'"},initGoodsclassright,null);
 		}else{
-			$("#fenlei-left").append('<li name="'+item.goodsclassid+'"><a href="#">'+item.goodsclassname+'</a></li>');
+			$("#fenlei-left").append('<li name="'+item.goodsclassid+'"><a href="#"><img src="images/321.jpg" > '+item.goodsclassname+'</a></li>');
 		}
     });
  	$("#fenlei-left li").each(function(){

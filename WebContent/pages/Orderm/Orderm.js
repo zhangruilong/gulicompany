@@ -366,6 +366,18 @@ Ext.onReady(function() {
 		sm : Ordermsm,
 		bbar : Ordermbbar,
 		tbar : [{
+				text : "订单详情",
+				iconCls : 'select',
+				handler : function() {
+					var selections = Ordermgrid.getSelectionModel().getSelections();
+					if (selections.length != 1) {
+						Ext.Msg.alert('提示', '请选择一条要查看的记录！', function() {
+						});
+						return;
+					}
+					selectOrderd(selections[0].data["ordermid"]);
+				}
+			},'-',{
 				text : "新增",
 				iconCls : 'add',
 				handler : function() {

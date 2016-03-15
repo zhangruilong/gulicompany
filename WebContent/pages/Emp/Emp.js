@@ -152,18 +152,6 @@ Ext.onReady(function() {
 				anchor : '95%'
 			} ]
 		}
-//		, {
-//			columnWidth : 1,
-//			layout : 'form',
-//			items : [ {
-//				xtype : 'textfield',
-//				fieldLabel : '密码',
-//				id : 'Emppassword',
-//				name : 'password',
-//				maxLength : 100,
-//				anchor : '95%'
-//			} ]
-//		}
 		, {
 			columnWidth : 1,
 			layout : 'form',
@@ -180,34 +168,19 @@ Ext.onReady(function() {
 			columnWidth : 1,
 			layout : 'form',
 			items : [ {
-				xtype : 'textfield',
+				xtype : 'combo',
+				emptyText : '请选择',
+				store : statueStore,
+				mode : 'local',
+				triggerAction : 'all',
+				editable : false,
+				allowBlank : false,
+				displayField : 'name',
+				valueField : 'name',
+				hiddenName : 'empstatue',
 				fieldLabel : '状态',
 				id : 'Empempstatue',
 				name : 'empstatue',
-				maxLength : 100,
-				anchor : '95%'
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'form',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '创建时间',
-				id : 'Empcreatetime',
-				name : 'createtime',
-				maxLength : 100,
-				anchor : '95%'
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'form',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '修改时间',
-				id : 'Empupdtime',
-				name : 'updtime',
 				maxLength : 100,
 				anchor : '95%'
 			} ]
