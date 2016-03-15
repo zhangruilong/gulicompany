@@ -65,9 +65,9 @@ $(function(){
 			<td>${goods.goodscode}</td>
 			<td>${goods.goodsname}</td>
 			<td>${goods.goodsunits}</td>
-			<td></td>
+			<td>${goods.gClass.goodsclassname}</td>
 			<td>${goods.goodsdetail}</td>
-			<td>${goods.goodsstatue}</td>
+			<td><a href="putaway.action?goodsid=${goods.goodsid}&goodscompany=${sessionScope.company.companyid }&goodsstatue=${goods.goodsstatue == '上架'?'下架':'上架'}">${goods.goodsstatue}</a></td>
 			<td>${goods.createtime}</td>
 			<td>${goods.creator}</td>
 			<td>${goods.updtime}</td>
@@ -78,7 +78,7 @@ $(function(){
 	</c:forEach>
 	</c:if>
 	<c:if test="${fn:length(requestScope.goodsList)==0 }">
-		<tr><td colspan="14" align="center" style="font-size: 26px;color: red;"> 没有可显示的信息</td></tr>
+		<tr><td colspan="14" align="center" style="font-size: 20px;color: red;"> 没有信息</td></tr>
 	</c:if>
     	<tr>
 		 <td colspan="14" align="center">	

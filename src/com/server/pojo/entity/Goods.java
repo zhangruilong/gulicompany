@@ -65,6 +65,10 @@ public class Goods
     */
    private List<Prices> pricesList;
    /**
+    * 商品类别
+    */
+   private Goodsclass gClass;
+   /**
     * 商品的供应商和客户的关系等级
     */
    private String cclevel;
@@ -306,6 +310,14 @@ public class Goods
 
 	public void setCclevel(String cclevel) {
 		this.cclevel = cclevel;
+	}
+
+	public Goodsclass getgClass() {
+		return gClass;
+	}
+
+	public void setgClass(Goodsclass gClass) {
+		this.gClass = gClass;
 	}
 
 	public Goods() {

@@ -83,7 +83,7 @@ $(function(){
 	</c:forEach>
 	</c:if>
 	<c:if test="${fn:length(requestScope.allOrder)==0 }">
-		<tr><td colspan="14" align="center" style="font-size: 26px;color: red;"> 没有可显示的信息</td></tr>
+		<tr><td colspan="14" align="center" style="font-size: 20px;color: red;"> 没有信息</td></tr>
 	</c:if>
     	<tr>
 		 <td colspan="14" align="center">	

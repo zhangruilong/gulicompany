@@ -110,6 +110,13 @@ public class Com_goodsCtl {
 			model.addAttribute("goodsCon", goodsCon);
 			return "forward:allGoods.action";
 		}
+		//修改商品状态
+		@RequestMapping("/companySys/putaway")
+		public String putaway(Model model,Goods goodsCon){
+			goodsMapper.updateByPrimaryKeySelective(goodsCon);
+			model.addAttribute("goodsCon", goodsCon);
+			return "forward:allGoods.action";
+		}
 	
 }
 

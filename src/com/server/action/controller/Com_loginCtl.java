@@ -21,7 +21,6 @@ public class Com_loginCtl {
 	//登录
 	@RequestMapping("/companySys/login")
 	public String login(HttpSession session,Company company){
-			
 		Company company2 = companyMapper.selectLogin(company);
 		session.setAttribute("company", company2);
 		return "redirect:/companySys/login.jsp";
