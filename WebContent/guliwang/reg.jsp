@@ -33,7 +33,7 @@
 			<select name="customercity">
 				<c:forEach items="${requestScope.cityList }" var="cyty">
 					<c:if test="${cyty.cityparent=='root' }">
-					<option value="${cyty.cityparent }">${cyty.cityparent }</option>
+					<option value="${cyty.cityname }">${cyty.cityname }</option>
 					</c:if>
 				</c:forEach>
 			</select><i></i></li>

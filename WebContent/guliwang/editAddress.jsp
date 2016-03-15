@@ -31,7 +31,7 @@
         <li><span>所在区域</span> <select  id="xian"><c:forEach items="${requestScope.cityList }" var="cyty">
 					<option value="${cyty.cityname }">${cyty.cityname }</option>
 				</c:forEach></select><i></i></li> -->
-        <li><span>详细地址</span> <input value="${requestScope.address.addressaddress }" id="detaAddressa" type="text" placeholder="请输入详细地址"></li>
+        <li><span>详细地址</span> <input name="addressaddress" value="${requestScope.address.addressaddress }" id="detaAddressa" type="text" placeholder="请输入详细地址"></li>
     </ul>
 </div>
 <div class="reg-wrapper">
@@ -40,7 +40,6 @@
     </ul>
 </div>
 <input type="hidden" name="addressid" value="${requestScope.address.addressid }">
-<input id="addressaddress" type="hidden" name="addressaddress" value="">
 <input type="hidden" name="addresscustomer" value="${sessionScope.customer.customerid }">
     <input type="hidden" name="customerId" value="${sessionScope.customer.customerid }">
 <div class="add-address-btn">
@@ -51,10 +50,6 @@
 <script src="js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
 	function addAddress(){
-		var city = $("#city").val();
-		var xian = $("#xian").val();
-		var detaAddressa = $("#detaAddressa").val();
-		var addressaddress = $("#addressaddress").val(city+xian+detaAddressa);
 		document.forms[0].submit();
 	}
 </script>

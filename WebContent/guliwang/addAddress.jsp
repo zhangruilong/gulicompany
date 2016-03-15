@@ -25,9 +25,9 @@
 <div class="reg-wrapper reg-dianpu-info">
 	<ul>
     	<li><span>所在城市</span> <select id="city">
-    		<c:forEach items="${requestScope.cityParents }" var="cyty">
+    		<c:forEach items="${requestScope.cityList }" var="cyty">
     		<c:if test="${cyty.cityparent=='root' }">
-				<option value="${cyty.cityparent }">${cyty.cityparent }</option>
+				<option value="${cyty.cityname }">${cyty.cityname }</option>
 			</c:if>
 			</c:forEach></select><i></i></li>
         <li><span>所在区域</span> <select  id="xian">
@@ -48,6 +48,7 @@
 <input type="hidden" name="addresscustomer" value="${sessionScope.customer.customerid }">
     <input type="hidden" name="customerId" value="${sessionScope.customer.customerid }">
 <div class="add-address-btn">
+	<a onclick="javascript:window.location.href = 'doAddressMana.action?customerId=${sessionScope.customer.customerid }'">返回</a>
     <a onclick="addAddress()">保存</a>
 </div>
 </form>
