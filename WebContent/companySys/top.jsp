@@ -14,7 +14,8 @@ Company company = (Company)session.getAttribute("company");
 <title>谷粒管理平台</title>
 <style type="text/css">
 body{
-background: url(../sysimages/top_repeat.gif) repeat;
+background: url(../sysimages/top_bg.jpg) repeat;
+background-size:100% 100%;
 margin: 0px auto;
 }
 .top{
@@ -27,6 +28,7 @@ height: 100%;
 	height: 100px;
 	width: 200px;
 	text-align: center;
+	color:white;
 }
 .title .guliwang{
 	font-size: 24px;.
@@ -39,7 +41,7 @@ height: 100%;
 }
 .mokuai{
 	position:absolute;
-	margin-left: 240px;
+	margin-left: 300px;
 	width: 650px;
 }
 
@@ -55,6 +57,17 @@ height: 100%;
 	width: 60px;
 	font-size: 24px;
 	margin-right: 10%;
+	color:white;
+}
+.mokuai ul li:HOVER{
+	cursor:pointer;
+	list-style: none;
+	float: right;
+	height: 60px;
+	width: 60px;
+	font-size: 24px;
+	margin-right: 10%;
+	color:yellow;
 }
 </style>
 </head>
