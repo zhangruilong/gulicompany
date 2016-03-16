@@ -8,13 +8,16 @@
 <link href="css/formsty.css" rel="stylesheet" type="text/css">
 <title></title>
 <script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="../sysjs/png.js"></script>
+<%@ include file="../common/common.jsp"%>
 <script type="text/javascript">
 $(function(){
 	var message = '<%=message %>'
 	if(message != null && message != '' && message != 'null'){
 		alert(message);
 	}
-})
+});
+
 function checkPwd(){
 	var newpassword = $("[name='newpassword']").val();
 	var repassword = $("[name='repassword']").val();
@@ -33,6 +36,7 @@ function checkPwd(){
 	}
 	document.forms[0].submit();
 }
+
 </script>
 </head>
 <body>
