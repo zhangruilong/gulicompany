@@ -54,7 +54,7 @@
             </div>
         </div>
         <input id="searchdishes" type="text" placeholder="请输入食材名称" onkeydown="entersearch()"/>
-        <a href="cart.jsp" class="gwc"><img src="images/gwc.png" ><em>99</em></a>
+        <a href="cart.jsp" class="gwc"><img src="images/gwc.png" ><em id="totalnum">0</em></a>
     </div>
     <div class="goods-wrapper">
         <ul class="home-hot-commodity">
@@ -131,6 +131,9 @@ var searchclassesvalue = '<%=searchclassesvalue%>';
 $(function(){ 
 	if(!window.localStorage.getItem("totalnum")){
 		window.localStorage.setItem("totalnum",0);
+		$("#totalnum").text(0);
+	}else{
+		$("#totalnum").text(window.localStorage.getItem("totalnum"));
 	}
 	if(!window.localStorage.getItem("totalmoney")){
 		window.localStorage.setItem("totalmoney",0);
@@ -335,6 +338,7 @@ function addnum(obj,pricesprice,goodsname,pricesunit,goodsunits,goodscode,goodsc
 		});
 	}
 	window.localStorage.setItem("sdishes",JSON.stringify(sdishes));
+	$("#totalnum").text(window.localStorage.getItem("totalnum"));
 }
 function subnum(obj,pricesprice){
 	var numt = $(obj).next(); 
@@ -371,6 +375,7 @@ function subnum(obj,pricesprice){
 		}
 		window.localStorage.setItem("sdishes",JSON.stringify(sdishes));
 	}
+	$("#totalnum").text(window.localStorage.getItem("totalnum"));
 }
 function testJsonp(data){
 	//console.log(data);

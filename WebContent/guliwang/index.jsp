@@ -46,7 +46,7 @@ String cityname = city.getCityname();
 			</div>
 			<input id="searchdishes" type="text" placeholder="请输入食材名称"
 				onkeydown="submitSearch(this)" /> <a onclick="docart(this)" href="cart.jsp" class="gwc"><img
-				src="images/gwc.png"><em>99</em></a>
+				src="images/gwc.png"><em id="totalnum">0</em></a>
 		</div>
 		<div class="home-hot-wrap">
 			<img src="images/banner.jpg">
@@ -100,6 +100,15 @@ String cityname = city.getCityname();
 	<script src="js/jquery-1.8.3.min.js"></script>
 	<script src="js/jquery-dropdown.js"></script>
 	<script type="text/javascript">
+	//购物车图标上的数量
+	$(function(){ 
+		if(!window.localStorage.getItem("totalnum")){
+			window.localStorage.setItem("totalnum",0);
+			$("#totalnum").text(0);
+		}else{
+			$("#totalnum").text(window.localStorage.getItem("totalnum"));
+		}
+	})
 		//将商品信息存入缓存2
 		function chuancan(
 						timegoodsid,
