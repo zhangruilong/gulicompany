@@ -194,9 +194,9 @@
 				<span><c:if test="${requestScope.goodsCon.pricesList[0].pricesunit2 !=null }">/${requestScope.goodsCon.pricesList[0].pricesunit2 }</c:if></span></label></td>
 			</tr>
 			</table>
-			<label> <span>&nbsp;</span> <input type="button" class="button" value="保存" onclick="addData()"/> 
+			<span>&nbsp;</span> <input type="button" class="button" value="保存" onclick="addData()"/> 
 			<input style="margin-left: 30px;" type="button" class="button" value="返回" onclick="javascript:window.parent.main.location.href = 'allGoods.action?goodscompany=${sessionScope.company.companyid }'"/>
-			</label>
+			
 		</form>
 	</div>
 	<script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>

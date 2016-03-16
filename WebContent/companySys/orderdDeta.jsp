@@ -17,11 +17,11 @@
 			<h1>修改订单商品
 				<span>商品名称:${requestScope.orderd.orderdname }</span>
 			</h1>
-			<label> <span>商品数量 :</span> <input id="name" type="text"
+			<label> <span>商品数量 :</span> <input id="orderdnum" type="text"
 				name="orderdnum" placeholder="商品数量" value="${requestScope.orderd.orderdnum } "/>
-			</label> <label> <span>下单金额 :</span> <input id="name" type="text"
+			</label> <label> <span>下单金额 :</span> <input id="orderdmoney" type="text"
 				name="orderdmoney" placeholder="下单金额"  value="${requestScope.orderd.orderdmoney } "/>
-			</label> <label> <span>实际金额 :</span> <input id="name" type="text"
+			</label> <label> <span>实际金额 :</span> <input id="orderdrightmoney" type="text"
 				name="orderdrightmoney" placeholder="实际金额"  value="${requestScope.orderd.orderdrightmoney } "/>
 			</label> <label> <span>&nbsp;</span> <input type="submit"
 				class="button" value="保存修改" />
