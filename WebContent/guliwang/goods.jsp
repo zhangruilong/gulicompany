@@ -135,6 +135,7 @@ $(function(){
 	if(!window.localStorage.getItem("totalmoney")){
 		window.localStorage.setItem("totalmoney",0);
 	}
+	getJson(basePath+"GoodsclassAction.do",{method:"mselAll",wheresql:"goodsclassparent='root'"},initGoodsclass,null);
 	if(searchdishesvalue!="null"&&searchdishesvalue!=""){
 		getJson(basePath+"GoodsviewAction.do",{method:"mselQuery",query:searchdishesvalue},initDishes,null);
 	}else if(searchclassesvalue!="null"&&searchclassesvalue!=""){
@@ -152,17 +153,17 @@ function entersearch(){
     	getJson(basePath+"GoodsviewAction.do",{method:"mselQuery",query:searchdishesvalue},initDishes,null);
     }
 }
-$(".citydrop").click(function(){ 
+/* $(".citydrop").click(function(){ 
 	getJson(basePath+"GoodsclassAction.do",{method:"mselAll",wheresql:"goodsclassparent='root'"},initGoodsclass,null);
-}) 
+})  */
 function initGoodsclass(data){
 	 $("#fenlei-left").html("");
 	 $.each(data.root, function(i, item) {
 		if(i==0){
-			$("#fenlei-left").append('<li class="active" name="'+item.goodsclassid+'"><a href="#"><img src="images/321.jpg" > '+item.goodsclassname+'</a></li>');
+			$("#fenlei-left").append('<li class="active" name="'+item.goodsclassid+'"><a href="#"><img src="'+item.goodsclassdetail+'" > '+item.goodsclassname+'</a></li>');
 			getJson(basePath+"GoodsclassAction.do",{method:"mselAll",wheresql:"goodsclassparent = '"+item.goodsclassid+"'"},initGoodsclassright,null);
 		}else{
-			$("#fenlei-left").append('<li name="'+item.goodsclassid+'"><a href="#"><img src="images/321.jpg" > '+item.goodsclassname+'</a></li>');
+			$("#fenlei-left").append('<li name="'+item.goodsclassid+'"><a href="#"><img src="'+item.goodsclassdetail+'" > '+item.goodsclassname+'</a></li>');
 		}
     });
  	$("#fenlei-left li").each(function(){
