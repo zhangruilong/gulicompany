@@ -123,7 +123,7 @@ String cityname = city.getCityname();
 						timegoodsname,
 						timegoodsunits
 						) {
-			if (window.localStorage.getItem("sdishes") == null) {				//判断有没有购物车
+			if (window.localStorage.getItem("sdishes") == null || window.localStorage.getItem("sdishes") == "[]") {				//判断有没有购物车
 				//没有购物车
 				window.localStorage.setItem("sdishes", "[]");					//创建一个购物车
 				var sdishes = JSON.parse(window.localStorage.getItem("sdishes")); 	//将缓存中的sdishes(字符串)转换为json对象
@@ -199,7 +199,7 @@ String cityname = city.getCityname();
 		
 		//到购物车页面
 		function docart(obj){
-			if (window.localStorage.getItem("sdishes") == null) {				//判断有没有购物车
+			if (window.localStorage.getItem("sdishes") == null || window.localStorage.getItem("sdishes") == "[]") {				//判断有没有购物车
 				$(obj).attr("href","emptyCart.jsp");
 			}
 		}
