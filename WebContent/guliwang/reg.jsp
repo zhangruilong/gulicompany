@@ -17,13 +17,14 @@
 </head>
 
 <body>
+<form action="reg.action" method="post">
 	<div class="reg-wrapper">
 		<ul>
 			<li><span>登录账号</span> <input name="customerphone" type="text"
 				placeholder="请输入手机号码"></li>
-			<li><span>设置密码</span> <input name="customerpsw" type="text"
+			<li><span>设置密码</span> <input name="customerpsw" type="password"
 				placeholder="请输入6-12位字符"></li>
-			<li><span>确认密码</span> <input name="" type="text"
+			<li><span>确认密码</span> <input name="" type="password"
 				placeholder="请再次输入密码"></li>
 		</ul>
 	</div>
@@ -40,7 +41,7 @@
 			<li><span>服务区域</span> 
 			<select name="customerxian">
 				<c:forEach items="${requestScope.cityList }" var="cyty">
-				<c:if test="${cyty.cityparent?!='root' }">
+				<c:if test="${cyty.cityparent!='root' }">
 					<option value="${cyty.cityname }">${cyty.cityname }</option>
 				</c:if>
 				</c:forEach>
@@ -57,7 +58,8 @@
 		</ul>
 	</div>
 	<div class="confirm-reg">
-		<a href="#" class="confirm-reg-btn">确认注册</a> <a href="#">确认注册即同意《谷粒网客户注册网络协议》</a>
+		<a onclick="javascript:document.forms[0].submit()" class="confirm-reg-btn">确认注册</a> <a href="#">确认注册即同意《谷粒网客户注册网络协议》</a>
 	</div>
+	</form>
 </body>
 </html>
