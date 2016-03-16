@@ -7,18 +7,6 @@ body {
 .star_pic{
 	width:16px;
 }
-/*button样式*/
-.common_button {
-	border: #2C59AA 1px solid; 
-	padding:1px 2px 0px 2px; 
-	margin-left:1px;
-	FILTER: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr=#ffffff, EndColorStr=#C3DAF5); 
-} 
-.op_button{
-	border:0px;
-	cursor:hand;
-	width:16px;
-}
 /*表示强调，用于提示必输项*/
 .red_star{
 	color:red;
@@ -446,21 +434,6 @@ a.syslink2:active{
 	border: 1px solid #343331;}
 .boxfocus {
 	BACKGROUND-COLOR: #0058a9; BORDER-BOTTOM: #333333 1px inset; BORDER-LEFT: #333333 1px inset; BORDER-RIGHT: #333333 1px inset; BORDER-TOP: #333333 1px inset; COLOR: white
-}
-.button {
-	background-color: #E0E0E0;
-	border-top-width: 1px;
-	border-right-width: 1px;
-	border-bottom-width: 1px;
-	border-left-width: 1px;
-	border-top-style: solid;
-	border-right-style: solid;
-	border-bottom-style: solid;
-	border-left-style: solid;
-	border-top-color: #FAFBFD;
-	border-right-color: #314351;
-	border-bottom-color: #314351;
-	border-left-color: #FAFBFD;
 }
 .FormTitle {
 	font-size: 14px;

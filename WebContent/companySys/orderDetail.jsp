@@ -49,6 +49,36 @@ function delegoods(){
 	}
 }
 </script>
+<style type="text/css">
+.button {
+	margin-left:20px;
+	
+	border-radius: 5px;
+	color: #fef4e9;
+	border: solid 1px #66ccff;
+	background: #66ccff;
+	background: -webkit-gradient(linear, left top, left bottom, from(#66ccff), to(#6699ff));
+	background: -moz-linear-gradient(top,  #faa51a,  #f47a20);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20');
+}
+.button:hover {
+	border-radius: 5px;
+	background: #6666ff;
+	background: -webkit-gradient(linear, left top, left bottom, from(#6666ff), to(#6699ff));
+	background: -moz-linear-gradient(top,  #f88e11,  #f06015);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f88e11', endColorstr='#f06015');
+}
+.button:active {
+	border-radius: 5px;
+	color: #fcd3a5;
+	background: -webkit-gradient(linear, left top, left bottom, from(#6666ff), to(#6699ff));
+	background: -moz-linear-gradient(top,  #f47a20,  #faa51a);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f47a20', endColorstr='#faa51a');
+}
+.select{
+	margin-left: 20px;
+}
+</style>
 </head>
 <body>
 <form action="deleOrderd.action" method="post">
@@ -61,17 +91,18 @@ function delegoods(){
 <div class="page_title">订单管理/订单详情</div>
 <p>
 <span>订单编号:${requestScope.order.ordermcode }&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<input type="button" value="删除订单" 
-onclick="del('editOrder.action?ordermid=${requestScope.order.ordermid }&ordermcompany=${sessionScope.company.companyid }','删除')">
-<input type="button" value="删除商品" onclick="delegoods()">
-<input type="button" value="修改订单状态" 
-onclick="updateStatue();">
+<span class="select">订单状态:</span>
 <select name="ordermstatue" id="ordermstatue">
 	<option ${requestScope.order.ordermstatue =='已下单'?'selected':'' } >已下单</option>
 	<option ${requestScope.order.ordermstatue =='已确认'?'selected':'' } >已确认</option>
 	<option ${requestScope.order.ordermstatue =='已发货'?'selected':'' } >已发货</option>
 	<option ${requestScope.order.ordermstatue =='已完成'?'selected':'' } >已完成</option>
 </select>
+<input style="margin-left: 0px;" class="button" type="button" value="修改订单状态" 
+onclick="updateStatue();">
+<input class="button" type="button" value="删除订单" 
+onclick="del('editOrder.action?ordermid=${requestScope.order.ordermid }&ordermcompany=${sessionScope.company.companyid }','删除')">
+<input class="button" type="button" value="删除商品" onclick="delegoods()">
 </p>
 <div class="button_bar">
 </div>
