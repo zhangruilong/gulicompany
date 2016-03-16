@@ -14,6 +14,44 @@
 <title>谷粒网</title>
 <link href="css/base.css" type="text/css" rel="stylesheet">
 <link href="css/layout.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript">
+	function reg(){
+		var customerpsw = $("[name='customerpsw']").val();
+		var repwd = $("[name='repwd']").val();
+		
+		var count = 0;
+		var alt;
+		$("input").each(function(i,item){
+			if($(item).val() == null || $(item).val() == ''){
+				count++;
+				alt=$(item).attr("placeholder");
+				return false;
+			}
+		});
+		if(count > 0){
+			alert(alt);
+			return;
+		}
+		$("select").each(function(i,item){
+			if($(item).val() == null || $(item).val() == ''){
+				count++;
+				alt=$(item).children("option").first().text();
+				return false;
+			}
+		});
+		if(count > 0){
+			alert(alt);
+			return;
+		}
+		if(repwd != customerpsw){
+			alert("两次输入的密码不相等");
+			return;
+		}
+		alert("注册成功");
+		document.forms[0].submit();
+	}
+</script>
 </head>
 
 <body>
@@ -24,7 +62,7 @@
 				placeholder="请输入手机号码"></li>
 			<li><span>设置密码</span> <input name="customerpsw" type="password"
 				placeholder="请输入6-12位字符"></li>
-			<li><span>确认密码</span> <input name="" type="password"
+			<li><span>确认密码</span> <input name="repwd" type="password"
 				placeholder="请再次输入密码"></li>
 		</ul>
 	</div>
@@ -32,6 +70,7 @@
 		<ul>
 			<li><span>所在城市</span> 
 			<select name="customercity">
+				<option value="">请选择城市</option>
 				<c:forEach items="${requestScope.cityList }" var="cyty">
 					<c:if test="${cyty.cityparent=='root' }">
 					<option value="${cyty.cityname }">${cyty.cityname }</option>
@@ -40,12 +79,12 @@
 			</select><i></i></li>
 			<li><span>服务区域</span> 
 			<select name="customerxian">
+				<option value="">请选择区域</option>
 				<c:forEach items="${requestScope.cityList }" var="cyty">
 				<c:if test="${cyty.cityparent!='root' }">
 					<option value="${cyty.cityname }">${cyty.cityname }</option>
 				</c:if>
 				</c:forEach>
-					<!-- <option>黄浦区</option> -->
 			</select><i></i></li>
 			<li><span>店铺名称</span> <input name="customershop" type="text"
 				placeholder="请输入店铺名称"></li>
@@ -58,7 +97,7 @@
 		</ul>
 	</div>
 	<div class="confirm-reg">
-		<a onclick="javascript:document.forms[0].submit()" class="confirm-reg-btn">确认注册</a> <a href="#">确认注册即同意《谷粒网客户注册网络协议》</a>
+		<a onclick="reg()" class="confirm-reg-btn">确认注册</a> <a href="#">确认注册即同意《谷粒网客户注册网络协议》</a>
 	</div>
 	</form>
 </body>

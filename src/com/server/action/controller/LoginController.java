@@ -50,13 +50,15 @@ public class LoginController {
 	public String reg(Customer customer,String addressphone){
 		String newCusId = CommonUtil.getNewId();
 		customer.setCustomerid(newCusId);		//设置新id
+		customer.setCustomerstatue("启用");
+		customer.setCustomerlevel(1);
 		customerMapper.insertSelective(customer);		//添加新客户
 		//添加新地址
 		Address address = new Address();
 		address.setAddressture(1);							//自动设为默认地址
 		address.setAddressid(CommonUtil.getNewId());		//设置新id
 		address.setAddressaddress(customer.getCustomeraddress());
-		address.setAddresscustomer(newCusId);
+		address.setAddresscustomer(newCusId);				//客户id
 		address.setAddressphone(addressphone);
 		address.setAddressconnect(customer.getCustomername());
 		addressMapper.insertSelective(address);				//添加默认地址
