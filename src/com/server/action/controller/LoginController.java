@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
  *
  */
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.server.dao.mapper.AddressMapper;
 import com.server.dao.mapper.CityMapper;
@@ -57,7 +58,7 @@ public class LoginController {
 		Address address = new Address();
 		address.setAddressture(1);							//自动设为默认地址
 		address.setAddressid(CommonUtil.getNewId());		//设置新id
-		address.setAddressaddress(customer.getCustomeraddress());
+		address.setAddressaddress(customer.getCustomercity()+customer.getCustomerxian()+customer.getCustomeraddress());
 		address.setAddresscustomer(newCusId);				//客户id
 		address.setAddressphone(addressphone);
 		address.setAddressconnect(customer.getCustomername());
@@ -69,5 +70,15 @@ public class LoginController {
 	public String loginOut(HttpSession session){
 		session.invalidate();
 		return "redirect:login.jsp";
+	}
+	//检查用户名
+	@RequestMapping(value="/guliwang/checkCustomerphone", produces = {"text/javascript;charset=UTF-8"})
+	public @ResponseBody String checkCustomerphone(String customerphone){
+		Customer cus = customerMapper.selectPhoneToCus(customerphone);
+		if(cus == null){
+			return "ok";
+		} else {
+			return "no";
+		}
 	}
 }

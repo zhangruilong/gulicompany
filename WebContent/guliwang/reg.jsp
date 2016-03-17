@@ -14,12 +14,39 @@
 <title>谷粒网</title>
 <link href="css/base.css" type="text/css" rel="stylesheet">
 <link href="css/layout.css" type="text/css" rel="stylesheet">
+<link href="../ExtJS/resources/css/ext-all.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="../ExtJS/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="../ExtJS/ext-all.js"></script>
+<script type="text/javascript" src="../ExtJS/ext-lang-zh_CN.js" charset="UTF-8"></script>
 <script type="text/javascript">
+	$(function(){
+		$("#customerphone").blur(function (){
+			var customerphone = $("#customerphone").val();
+			Ext.Ajax.request({
+				url : 'checkCustomerphone.action',
+				method : 'POST',
+				params : {
+					"customerphone" : customerphone
+				},
+				success : function(resp,opts) {
+					var result = resp.responseText;
+					if(result == "no"){
+						$("#customerphone").attr("name","");
+						alert("手机号已被注册");
+					} else {
+						$("#customerphone").attr("name","customerphone");
+					}
+				},
+				failure : function(resp,opts) {
+					Ext.Msg.alert('提示', '网络出现问题，请稍后再试');
+				}
+			});
+		});
+	})
 	function reg(){
 		var customerpsw = $("[name='customerpsw']").val();
 		var repwd = $("[name='repwd']").val();
-		
 		var count = 0;
 		var alt;
 		$("input").each(function(i,item){
@@ -48,6 +75,10 @@
 			alert("两次输入的密码不相等");
 			return;
 		}
+		if($("#customerphone").attr("name") == ""){
+			alert("手机号已被注册");
+			return;
+		}
 		alert("注册成功");
 		document.forms[0].submit();
 	}
@@ -58,7 +89,7 @@
 <form action="reg.action" method="post">
 	<div class="reg-wrapper">
 		<ul>
-			<li><span>登录账号</span> <input name="customerphone" type="text"
+			<li><span>登录账号</span> <input id="customerphone" name="customerphone" type="text"
 				placeholder="请输入手机号码"></li>
 			<li><span>设置密码</span> <input name="customerpsw" type="password"
 				placeholder="请输入6-12位字符"></li>
