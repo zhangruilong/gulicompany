@@ -5,7 +5,7 @@
 <%City city = (City)request.getAttribute("city"); 
 String cityname = city.getCityname();
 %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!doctype html> 
 <html>
 <head>
 <meta charset="utf-8">
@@ -44,9 +44,8 @@ String cityname = city.getCityname();
 					</ul>
 				</div>
 			</div>
-			<input id="searchdishes" type="text" placeholder="请输入食材名称"
-				onkeydown="submitSearch(this)" /> <a onclick="docart(this)" href="cart.jsp" class="gwc"><img
-				src="images/gwc.png"><em id="totalnum">0</em></a>
+			<input id="searchdishes" type="text" placeholder="请输入食材名称" onkeydown="submitSearch(this)" />
+			<a onclick="docart(this)" href="cart.jsp" class="gwc"><img src="images/gwc.png"><em id="totalnum">0</em></a>
 		</div>
 		<div class="home-hot-wrap">
 			<img src="images/banner.jpg">
@@ -108,6 +107,8 @@ String cityname = city.getCityname();
 		}else{
 			$("#totalnum").text(window.localStorage.getItem("totalnum"));
 		}
+		if(window.localStorage.getItem("totalnum")==0)
+			$("#totalnum").hide();
 	})
 		//将商品信息存入缓存2
 		function chuancan(

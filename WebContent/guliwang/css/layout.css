@@ -7,7 +7,7 @@ body, html { height: 100% }
 .ion-android-person:before { content: "\f3a0" }
 .ion-bag:before { content: "\f110" }
 .ion-clipboard:before { content: "\f127" }
-.ion-home:before, .ion-android-person:before, .ion-bag:before, .ion-clipboard:before,.login-bg .login-content li i:before,.reg-dianpu-info li i:after,.order-detail-user .info-icon:before,.cart-wrapper li .jia:before, .goods-wrapper .home-hot-commodity li .jia:before,.cart-wrapper li .jian:before,.goods-wrapper .home-hot-commodity li .jian:before,.reg-wrapper li i:after  { font-family: "Ionicons"; speak: none; font-style: normal; font-weight: normal; font-variant: normal; text-transform: none; text-rendering: auto; line-height: 1; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale }
+.ion-home:before, .ion-android-person:before, .ion-bag:before, .ion-clipboard:before,.login-bg .login-content li i:before,.reg-dianpu-info li i:after,.order-detail-user .info-icon:before,.cart-wrapper li .jia:before, .goods-wrapper .home-hot-commodity li .jia:before,.cart-wrapper li .jian:before,.goods-wrapper .home-hot-commodity li .jian:before,.reg-wrapper li i:after,.budan-page li a:after { font-family: "Ionicons"; speak: none; font-style: normal; font-weight: normal; font-variant: normal; text-transform: none; text-rendering: auto; line-height: 1; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale }
 /*login*/
 .login-bg{height:100%; background:url(../images/loginbg.jpg) center no-repeat; background-size: cover}
 .login-bg .logo{ text-align:center; padding-top:20%}
@@ -195,6 +195,9 @@ color:#fff !important;
 .wrapper .fenlei-right a { float: left; width: 39%; padding: 6% 0; margin: 4% 0 4% 8%; background-color: #fff; text-align: center; border-radius: 5px }
 .home-city-drop .fenlei-left li { margin-left: 4%; padding: 0 }
 .home-city-drop .fenlei-left .active a { color: #2c77e6 }
+@-webkit-keyframes bounceInUp{0%,100%,60%,75%,90%{-webkit-animation-timing-function:cubic-bezier(0.215,.61,.355,1);animation-timing-function:cubic-bezier(0.215,.61,.355,1)}0%{opacity:0;-webkit-transform:translate3d(0,3000px,0);transform:translate3d(0,3000px,0)}60%{opacity:1;-webkit-transform:translate3d(0,-20px,0);transform:translate3d(0,-20px,0)}75%{-webkit-transform:translate3d(0,10px,0);transform:translate3d(0,10px,0)}90%{-webkit-transform:translate3d(0,-5px,0);transform:translate3d(0,-5px,0)}100%{-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}}
+@keyframes bounceInUp{0%,100%,60%,75%,90%{-webkit-animation-timing-function:cubic-bezier(0.215,.61,.355,1);animation-timing-function:cubic-bezier(0.215,.61,.355,1)}0%{opacity:0;-webkit-transform:translate3d(0,3000px,0);transform:translate3d(0,3000px,0)}60%{opacity:1;-webkit-transform:translate3d(0,-20px,0);transform:translate3d(0,-20px,0)}75%{-webkit-transform:translate3d(0,10px,0);transform:translate3d(0,10px,0)}90%{-webkit-transform:translate3d(0,-5px,0);transform:translate3d(0,-5px,0)}100%{-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}}.bounceInUp{-webkit-animation-name:bounceInUp;animation-name:bounceInUp}
+.wrapper .fenlei-left li a img{ width:28px; height:28px; vertical-align:middle; margin:0}
 /*筛选*/
 .filter-wrapper { overflow: hidden; padding-bottom: 30% }
 .filter-wrapper li { margin-left: 4%; overflow: hidden; border-bottom: solid 1px #eee; padding: 4% 0 }
@@ -236,6 +239,15 @@ color:#fff !important;
 .xieyi-box{ background-color:#fff; padding:4%}
 .xieyi-box p{ margin:2% 0}
 .xieyi-box .back{ display:block; width:100%; margin:auto; border-radius:5px; text-align:center; padding:2% 0; background-color:#2c77e6; color:#fff}
+/*补单*/
+.budan-page .home-search-wrapper{ text-align:center}
+.budan-page .home-search-wrapper input{ float:none; margin:auto; width:87%; background-size:5%}
+.budan-page li{ overflow:hidden; position:relative; border-bottom:solid 1px #ddd; background-color:#fff; padding:4% ;}
+.budan-page li img{ float:left; width:26%; margin-right:4%}
+.budan-page li a:after{content: "\f3d3"; position:absolute; right:4%; top:45%}
+.budan-page li h2{ font-size:1em; font-weight:normal; padding:3% 0}
+.budan-page li span,.budan-page li a{  display:block}
+
 /*footer*/
 .footer { width: 100%; position: fixed; bottom: 0; background-color: #fff; border-top:solid 1px #eee }
 .footer .jiesuan-foot-info { position: relative; width: 75%; float: left; text-align: center; font-size: 1em; padding-top: 4% }
@@ -246,6 +258,7 @@ color:#fff !important;
 .footer .jiesuan-foot-info { font-size: .8em }
 .cart-wrapper .songda { font-size: .4em }
 .footer .jiesuan-foot-info{ padding-top:6%}
+.budan-page li h2{ padding:2% 0}
 }
 @media screen and (min-width:360px) {
 .footer .jiesuan-foot-info { font-size: 1.2em }
@@ -253,7 +266,8 @@ color:#fff !important;
 .cart-wrapper .songda { font-size: .8em }
 .footer .jiesuan-foot-info{ padding-top:4%}
 .home-hot-wrap .home-hot-commodity li a h1 span,.goods-wrapper .home-hot-commodity li h1 span{ font-size:.8em}
-{ font-size:.8em}
+.budan-page li h2{ padding:3% 0}
+
 }
 @media screen and (min-width:414px) {
 .footer .jiesuan-foot-info { font-size: 1.2em }

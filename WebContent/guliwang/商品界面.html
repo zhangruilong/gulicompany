@@ -9,66 +9,7 @@
 <title>谷粒网</title>
 <link href="css/base.css" type="text/css" rel="stylesheet">
 <link href="css/layout.css" type="text/css" rel="stylesheet">
-<style type="text/css">
-@-webkit-keyframes bounceInUp{0%,100%,60%,75%,90%{-webkit-animation-timing-function:cubic-bezier(0.215,.61,.355,1);animation-timing-function:cubic-bezier(0.215,.61,.355,1)}0%{opacity:0;-webkit-transform:translate3d(0,3000px,0);transform:translate3d(0,3000px,0)}60%{opacity:1;-webkit-transform:translate3d(0,-20px,0);transform:translate3d(0,-20px,0)}75%{-webkit-transform:translate3d(0,10px,0);transform:translate3d(0,10px,0)}90%{-webkit-transform:translate3d(0,-5px,0);transform:translate3d(0,-5px,0)}100%{-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}}
-@keyframes bounceInUp{0%,100%,60%,75%,90%{-webkit-animation-timing-function:cubic-bezier(0.215,.61,.355,1);animation-timing-function:cubic-bezier(0.215,.61,.355,1)}0%{opacity:0;-webkit-transform:translate3d(0,3000px,0);transform:translate3d(0,3000px,0)}60%{opacity:1;-webkit-transform:translate3d(0,-20px,0);transform:translate3d(0,-20px,0)}75%{-webkit-transform:translate3d(0,10px,0);transform:translate3d(0,10px,0)}90%{-webkit-transform:translate3d(0,-5px,0);transform:translate3d(0,-5px,0)}100%{-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}}.bounceInUp{-webkit-animation-name:bounceInUp;animation-name:bounceInUp}
-.wrapper .fenlei-left li a img{ width:28px; height:28px; vertical-align:middle; margin:0}
-</style>
 </head>
-<script src="js/jquery-1.8.3.min.js"></script>
-<script src="js/jquery-dropdown.js"></script>
-<script> 
-
-$(function(){ 
-var sum = 0;
-$.each($(".text_box"),function(){
-sum += parseInt(this.value);
-$(".home-search-wrapper .gwc em").html(sum);
-});
-
-$(".add").click(function(){ 
-var sum = 0;
-var t=$(this).parent().find('input[class*=text_box]'); 
-t.val(parseInt(t.val())+1) 
-$.each($(".text_box"),function(){
-sum += parseInt(this.value);
-});
-$(".home-search-wrapper .gwc em").html(sum);
-if(sum>=1){
-	$(".home-search-wrapper .gwc em").animate({top:"-20%"}).show()
-}
-setTotal();
-}) 
-/*if($(".home-search-wrapper .gwc em").val()=0){
-	alert(123)
-}*/
-$(".min").click(function(){ 
-var sum = 0;
-var t=$(this).parent().find('input[class*=text_box]'); 
-t.val(parseInt(t.val())-1) 
-if(parseInt(t.val())<1){ 
-t.val(0); 
-
-} 
-
-$.each($(".text_box"),function(){
-sum += parseInt(this.value);
-});
-$(".home-search-wrapper .gwc em").html(sum);
-if(sum<1){
-	$(".home-search-wrapper .gwc em").animate({top:"-100%"})
-}
-setTotal(); 
-}) 
-function setTotal(){ 
-$(".cart-wrapper li").each(function(){ 
-s+=parseInt($(this).find('input[class*=text_box]').val())*parseFloat($(this).find('span[class*=price]').text()); 
-}); 
-} 
-setTotal(); 
-}) 
-
-</script> 
 <body>
 <div class="gl-box">
 	<div class="home-search-wrapper">
@@ -119,7 +60,7 @@ setTotal();
                 </div>
                 <div class="stock-num">
                     <span id="min" class="jian min"></span>
-                    <input class="text_box shuliang" name="" type="text" value="1" readonly> 
+                    <input class="text_box shuliang" name="" type="text" value="0" readonly> 
                     <span id="add" class="jia add"></span>
                     
                     <input type="checkbox" id="checkbox_a1" class="chk_1">
@@ -204,6 +145,63 @@ setTotal();
     </ul>
 </div>
 
+<script src="js/jquery-1.8.3.min.js"></script>
+<script src="js/jquery-dropdown.js"></script>
+<script> 
+$(function(){ 
+var sum = 0;
+/*$(".home-search-wrapper .gwc em").hide()*/
+$.each($(".text_box"),function(){
+sum += parseInt(this.value);
+$(".home-search-wrapper .gwc em").html(sum);
+if(sum == 0){
+		$(".home-search-wrapper .gwc em").hide()
+	}
+});
 
+$(".add").click(function(){ 
+var sum = 0;
+var t=$(this).parent().find('input[class*=text_box]'); 
+t.val(parseInt(t.val())+1)
+$.each($(".text_box"),function(){
+sum += parseInt(this.value);
+});
+
+if(sum>=1){
+	$(".home-search-wrapper .gwc em").animate({top:"-20%"}).show()
+}
+$(".home-search-wrapper .gwc em").html(sum);
+setTotal();
+}) 
+/*if($(".home-search-wrapper .gwc em").val()=0){
+	alert(123)
+}*/
+$(".min").click(function(){ 
+var sum = 0;
+var t=$(this).parent().find('input[class*=text_box]'); 
+t.val(parseInt(t.val())-1) 
+if(parseInt(t.val())<1){ 
+t.val(0); 
+
+} 
+
+$.each($(".text_box"),function(){
+sum += parseInt(this.value);
+});
+$(".home-search-wrapper .gwc em").html(sum);
+if(sum<1){
+	$(".home-search-wrapper .gwc em").animate({top:"-100%"})
+}
+setTotal(); 
+}) 
+function setTotal(){ 
+$(".cart-wrapper li").each(function(){ 
+s+=parseInt($(this).find('input[class*=text_box]').val())*parseFloat($(this).find('span[class*=price]').text()); 
+}); 
+} 
+setTotal(); 
+}) 
+
+</script> 
 </body>
 </html>

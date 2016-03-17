@@ -19,7 +19,7 @@ var openid = '<%=openid%>';
 			alert("微信服务器未响应，请稍后再进。");
 		}else{
 			window.localStorage.setItem("openid",openid);
-			window.location.href = "http://www.danongs.com/ncpshop/index.html";	
+			window.location.href = "guliwang/index.jsp";	
 		}
 	});
 </script>

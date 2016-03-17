@@ -16,11 +16,6 @@
 <title>谷粒网</title>
 <link href="css/base.css" type="text/css" rel="stylesheet">
 <link href="css/layout.css" type="text/css" rel="stylesheet">
-<style type="text/css">
-@-webkit-keyframes bounceInUp{0%,100%,60%,75%,90%{-webkit-animation-timing-function:cubic-bezier(0.215,.61,.355,1);animation-timing-function:cubic-bezier(0.215,.61,.355,1)}0%{opacity:0;-webkit-transform:translate3d(0,3000px,0);transform:translate3d(0,3000px,0)}60%{opacity:1;-webkit-transform:translate3d(0,-20px,0);transform:translate3d(0,-20px,0)}75%{-webkit-transform:translate3d(0,10px,0);transform:translate3d(0,10px,0)}90%{-webkit-transform:translate3d(0,-5px,0);transform:translate3d(0,-5px,0)}100%{-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}}
-@keyframes bounceInUp{0%,100%,60%,75%,90%{-webkit-animation-timing-function:cubic-bezier(0.215,.61,.355,1);animation-timing-function:cubic-bezier(0.215,.61,.355,1)}0%{opacity:0;-webkit-transform:translate3d(0,3000px,0);transform:translate3d(0,3000px,0)}60%{opacity:1;-webkit-transform:translate3d(0,-20px,0);transform:translate3d(0,-20px,0)}75%{-webkit-transform:translate3d(0,10px,0);transform:translate3d(0,10px,0)}90%{-webkit-transform:translate3d(0,-5px,0);transform:translate3d(0,-5px,0)}100%{-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}}.bounceInUp{-webkit-animation-name:bounceInUp;animation-name:bounceInUp}
-.wrapper .fenlei-left li a img{ width:28px; height:28px; vertical-align:middle; margin:0}
-</style>
 </head>
 
 <body>
@@ -135,6 +130,8 @@ $(function(){
 	}else{
 		$("#totalnum").text(window.localStorage.getItem("totalnum"));
 	}
+	if(window.localStorage.getItem("totalnum")==0)
+		$("#totalnum").hide();
 	if(!window.localStorage.getItem("totalmoney")){
 		window.localStorage.setItem("totalmoney",0);
 	}
@@ -308,6 +305,7 @@ function addnum(obj,pricesprice,goodsname,pricesunit,goodsunits,goodscode,goodsc
 	}
 	var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));
 	if(num == 0){
+		$("#totalnum").show();
 		//新增订单
 		var mdishes = new Object();
 		mdishes.goodsid = $(obj).parent().attr('name');
@@ -363,6 +361,8 @@ function subnum(obj,pricesprice){
 			//种类数
 			var tnum = parseInt(window.localStorage.getItem("totalnum"));
 			window.localStorage.setItem("totalnum",tnum-1);
+			if(tnum == 1)
+			$("#totalnum").hide();
 		}else{
 			//修改订单
 			$.each(sdishes, function(i, item) {
