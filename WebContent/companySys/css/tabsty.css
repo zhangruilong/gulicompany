@@ -7,6 +7,7 @@ body {
 }
 
 table {
+	display: block;
     *border-collapse: collapse; /* IE7 and lower */
     border-spacing: 0;
 }
@@ -33,9 +34,10 @@ table {
 .bordered td, .bordered th {
     border-left: 1px solid #ccc;
     border-top: 1px solid #ccc;
-    padding: 10px;
+    padding: 8px;
     text-align: center;    
 }
+
 
 .bordered th {
     background-color: #dce9f9;

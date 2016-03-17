@@ -43,7 +43,7 @@ public class Com_orderCtl {
 		ordermMapper.deleteByPrimaryKey(orderm.getOrdermid());
 		return "forward:allOrder.action";
 	}
-	//订单发货
+	//修改订单状态
 	@RequestMapping("/companySys/deliveryGoods")
 	public String deliveryGoods(Model model,Orderm order){
 		ordermMapper.updateByPrimaryKeySelective(order);

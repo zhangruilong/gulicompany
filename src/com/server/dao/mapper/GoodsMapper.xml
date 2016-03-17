@@ -46,9 +46,12 @@
   </sql>
   <!-- 根据条件查询 -->
   <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.server.pojo.entity.Goods" >
-    select 
-    <include refid="Base_Column_List" />
-    from GOODS
+    select
+		goods.*,
+		prices.pricesid
+	from goods
+	left outer join prices
+	on prices.pricesgoods = goods.goodsid
     where goodscompany = #{goodscompany}
     <if test="goodsstatue != null and goodsstatue != ''">
     	and goodsstatue = #{goodsstatue}

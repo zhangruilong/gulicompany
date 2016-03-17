@@ -67,7 +67,16 @@ $(function(){
 			<td>${goods.goodsunits}</td>
 			<td>${goods.gClass.goodsclassname}</td>
 			<td>${goods.goodsdetail}</td>
-			<td><a href="putaway.action?goodsid=${goods.goodsid}&goodscompany=${sessionScope.company.companyid }&goodsstatue=${goods.goodsstatue == '上架'?'下架':'上架'}">${goods.goodsstatue}</a></td>
+			<td>
+			<c:if test="${fn:length(goods.pricesList) == 9 }">
+			<a href="putaway.action?goodsid=${goods.goodsid}&goodscompany=${sessionScope.company.companyid }&goodsstatue=${goods.goodsstatue == '上架'?'下架':'上架'}">
+			${goods.goodsstatue}</a>
+			</c:if>
+			<c:if test="${fn:length(goods.pricesList) != 9 }">
+			<a style="color: #C6C6C6;">
+			${goods.goodsstatue}</a>
+			</c:if>
+			</td>
 			<td>${goods.createtime}</td>
 			<td>${goods.creator}</td>
 			<td>${goods.updtime}</td>

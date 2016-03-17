@@ -6,6 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="css/formsty.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -15,7 +16,7 @@
 		<input type="hidden" name="ordermcompany" value="${sessionScope.company.companyid }">
  		<input type="hidden" name="ordermid" value="${requestScope.order.ordermid }">
 			<h1>修改订单商品
-				<span>商品名称:${requestScope.orderd.orderdname }</span>
+				<span>商品名称 : ${requestScope.orderd.orderdname }&nbsp;&nbsp;&nbsp;&nbsp;单位 : ${requestScope.orderd.orderdunit }&nbsp;&nbsp;&nbsp;&nbsp;规格 : ${requestScope.orderd.orderdunits }</span>
 			</h1>
 			<label> <span>商品数量 :</span> <input id="orderdnum" type="text"
 				name="orderdnum" placeholder="商品数量" value="${requestScope.orderd.orderdnum } "/>
@@ -28,5 +29,23 @@
 			</label>
 		</form>
 	</div>
+	<script type="text/javascript">
+	$(function(){
+		var orderdnum = $("#orderdnum").val();
+		var orderdmoney = $("#orderdmoney").val();
+		var orderdrightmoney = $("#orderdrightmoney").val();
+		var money = parseInt(orderdmoney)/parseInt(orderdnum);
+		var rightmoney = parseInt(orderdrightmoney)/parseInt(orderdnum);
+		$("#orderdnum").blur(function(){
+			//自动计算金额
+			alert("ok");
+			orderdnum = $("#orderdnum").val();
+			orderdmoney = parseInt(orderdnum)*parseInt(money);
+			orderdrightmoney = parseInt(orderdnum)*parseInt(rightmoney);
+			$("#orderdmoney").val(orderdmoney);
+			$("#orderdrightmoney").val(orderdrightmoney);
+		});
+	})
+	</script>
 </body>
 </html>

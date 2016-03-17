@@ -17,8 +17,8 @@
 <script type="text/javascript" src="../sysjs/png.js"></script>
 <%@ include file="../common/common.jsp"%>
 <script type=text/javascript>
-
 if (top != window) top.location.href = window.location.href;
+
 function check() {
 	if(document.getElementById('username').value==''||document.getElementById('username').value==null){
 		alert("用户名不能为空");

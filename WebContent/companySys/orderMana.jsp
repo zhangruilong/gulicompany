@@ -35,7 +35,7 @@ $(function(){
 <body>
  <pg:pager maxPageItems="8" url="allOrder.action">
  <pg:param name="ordermcompany" value="${sessionScope.company.companyid }"/>
- <pg:param name="ordermway" value="${request.order.ordermway }"/>
+ <pg:param name="ordermway" value="<%=ordermway %>"/>
 <div class="page_title">订单管理/全部订单</div>
 <div class="button_bar">
 </div>
@@ -51,8 +51,8 @@ $(function(){
 		<th>下单金额</th>
 		<th>实际金额</th>
 		<th>订单状态</th>
-		<th>下单时间</th>
-		<th>修改时间</th>
+		<th style="width: 115px">下单时间</th>
+		<th >修改时间</th>
 		<th>联系人</th>
 		<th>手机</th>
 		<th>地址</th>

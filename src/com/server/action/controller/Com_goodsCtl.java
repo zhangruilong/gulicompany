@@ -58,8 +58,8 @@ public class Com_goodsCtl {
 			goodsCon = goodsMapper.selectByPrimaryKey(goodsCon.getGoodsid());
 			String[] priceStrs = prices.getPricesprice().split(",");
 			String[] price2Strs = prices.getPricesprice2().split(",");
-			String[] pricesIds = prices.getPricesid().split(",");
-			if(goodsCon.getPricesList() == null || goodsCon.getPricesList().size() == 0){
+			
+			if(goodsCon.getPricesList() == null || goodsCon.getPricesList().size() < 9){
 				//如果没有价格
 				for (int i = 0; i < priceStrs.length; i++) {
 					for (int j = 0; j < price2Strs.length; j++) {
@@ -83,7 +83,7 @@ public class Com_goodsCtl {
 				}
 			} else {
 				//如果有价格
-				
+				String[] pricesIds = prices.getPricesid().split(",");
 				for (int i = 0; i < priceStrs.length; i++) {
 					for (int j = 0; j < price2Strs.length; j++) {
 						for (int k = 0; k < pricesIds.length; k++) {
