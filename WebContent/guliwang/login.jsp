@@ -1,17 +1,16 @@
 <%@page import="com.server.pojo.entity.Customer"%>
-<%@ page language="java" import="java.util.*"
-	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-	<%
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%
 		if(null != session.getAttribute("customer")){
 			Customer customer2 = (Customer) session.getAttribute("customer");
 			response.sendRedirect("doGuliwangIndex.action?city.cityname="+customer2.getCustomerxian()+"&cityparent="+customer2.getCustomercity());
 		}
 	 %>
-	<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!doctype html> 
 <html>
 <head>
-<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="format-detection" content="telephone=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -22,19 +21,18 @@
 </head>
 
 <body>
-<form action="login.action" method="post">
 <div class="login-bg">
     <div class="logo"><img src="images/logo.png" ></div>
     <div class="login-content">
+<form action="login.action" method="post">
         <ul>
             <li><i class="user"></i> <input name="customerphone" type="text" placeholder="请输入手机号码"></li>
             <li><i class="pass"></i> <input name="customerpsw" type="password" placeholder="请输入密码"></li>
             <li class="nobd"><a onclick="javascript:document.forms[0].submit()" class="login-btn">登录</a></li>
             <li class="goreg"><a href="doReg.action">尚无账号，立即注册</a></li>
         </ul>
+</form>
     </div>
 </div>
-
-</form>
 </body>
 </html>

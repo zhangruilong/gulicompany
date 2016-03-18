@@ -43,6 +43,32 @@
 				}
 			});
 		});
+		$("#customercity").change(function(){
+			var customercity = $("#customercity").val();
+			Ext.Ajax.request({
+				url : 'querycity.action',
+				method : 'POST',
+				params : {
+					"cityname" : customercity
+				},
+				success : function(resp,opts) {
+					var result = resp.responseText;
+					var $result = Ext.util.JSON.decode(result);
+					$("#customerxian").empty();			//清空select组件内的原始值
+					var $option = $("<option value='' >请选择地区</option>");
+					$("#customerxian").append($option);
+					for ( var i = 0; i < $result.length; i++) {
+						var city = $result[i];
+						var $option = $("<option>"+city.cityname+"</option>");
+						$("#customerxian").append($option);
+					}
+				},
+				failure : function(resp,opts) {
+					Ext.Msg.alert('提示', '网络出现问题，请稍后再试');
+				}
+			});
+		});	                
+
 	})
 	function reg(){
 		var customerpsw = $("[name='customerpsw']").val();
@@ -100,7 +126,7 @@
 	<div class="reg-wrapper reg-dianpu-info">
 		<ul>
 			<li><span>所在城市</span> 
-			<select name="customercity">
+			<select name="customercity" id="customercity">
 				<option value="">请选择城市</option>
 				<c:forEach items="${requestScope.cityList }" var="cyty">
 					<c:if test="${cyty.cityparent=='root' }">
@@ -109,7 +135,7 @@
 				</c:forEach>
 			</select><i></i></li>
 			<li><span>服务区域</span> 
-			<select name="customerxian">
+			<select name="customerxian" id="customerxian">
 				<option value="">请选择区域</option>
 				<c:forEach items="${requestScope.cityList }" var="cyty">
 				<c:if test="${cyty.cityparent!='root' }">
