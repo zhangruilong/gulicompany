@@ -52,7 +52,6 @@ function delegoods(){
 <style type="text/css">
 .button {
 	margin-left:20px;
-	
 	border-radius: 5px;
 	color: #fef4e9;
 	border: solid 1px #66ccff;
@@ -62,6 +61,7 @@ function delegoods(){
 	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20');
 }
 .button:hover {
+	cursor:pointer;
 	border-radius: 5px;
 	background: #6666ff;
 	background: -webkit-gradient(linear, left top, left bottom, from(#6666ff), to(#6699ff));
