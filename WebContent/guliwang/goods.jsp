@@ -377,6 +377,14 @@ function subnum(obj,pricesprice){
 	}
 	$("#totalnum").text(window.localStorage.getItem("totalnum"));
 }
+
+function nextpage(){
+	if(window.localStorage.getItem("totalnum")==0)
+		window.location.href = "cartnothing.html";
+	else
+		window.location.href = "cart.jsp";
+}
+
 function testJsonp(data){
 	//console.log(data);
 }

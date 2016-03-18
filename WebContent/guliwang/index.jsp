@@ -201,7 +201,7 @@ String cityname = city.getCityname();
 		//到购物车页面
 		function docart(obj){
 			if (window.localStorage.getItem("sdishes") == null || window.localStorage.getItem("sdishes") == "[]") {				//判断有没有购物车
-				$(obj).attr("href","emptyCart.jsp");
+				$(obj).attr("href","cartnothing.html");
 			}
 		}
 	</script>
