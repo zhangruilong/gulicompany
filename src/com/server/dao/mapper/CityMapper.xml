@@ -14,21 +14,31 @@
   </sql>
   <!-- 查询所有地区的父类 -->
   <select id="selectAllParent" resultMap="BaseResultMap" >
-    select t.cityparent from city t  group by t.cityparent
-  </select>
-  <!-- 条件查询 -->
-  <select id="selectByCityparent" resultMap="BaseResultMap" parameterType="com.server.pojo.entity.City" >
     select 
     <include refid="Base_Column_List" />
     from CITY
+    where CITYPARENT = 'root'
+  </select>
+  <!-- 根据城市名称或主键查询 -->
+  <select id="selectByCitynameOrKey" resultMap="BaseResultMap" parameterType="com.server.pojo.entity.City" >
+    select 
+    <include refid="Base_Column_List" />
+    from CITY 
     <where>
-    	<if test="cityparent != null and cityparent != '' ">
-    		and cityparent = #{cityparent}
-    	</if>
-    	<if test="cityname != null and cityname != '' ">
+    	<if test="cityname != null and cityname != ''">
     		and cityname = #{cityname}
     	</if>
+    	<if test="cityid != null and cityid != ''">
+    		and cityid = #{cityid}
+    	</if>
     </where>
+  </select>
+  <!-- 根据父类查询 -->
+  <select id="selectByCityparent" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from CITY
+    		where cityparent = #{cityparent}
   </select>
   <!-- 查询所有地区 -->
   <select id="selectAllCity" resultMap="BaseResultMap" >

@@ -2,9 +2,12 @@
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%City city = (City)request.getAttribute("city"); 
-String cityname = city.getCityname();
-%>
+
+<%
+		if(null == session.getAttribute("customer") && null == request.getAttribute("parentCity")){
+			response.sendRedirect("doGuliwangIndex.action?city.cityname=&cityname=");
+		}
+	 %>
 <!doctype html> 
 <html>
 <head>
@@ -33,13 +36,13 @@ String cityname = city.getCityname();
 			<div class="menu">
 				<div class="host-city">
 					<p class="quyu">
-						请选择服务区域 <span class="fr">所在城市：${requestScope.city.cityparent }</span>
+						请选择服务区域 <span class="fr">所在城市：${requestScope.parentCity.cityname }</span>
 					</p>
 				</div>
 				<div class="menu-tags home-city-drop">
 					<ul>
 						<c:forEach items="${requestScope.cityList }" var="city">
-							<li><a href="doGuliwangIndex.action?city.cityname=${city.cityname }&cityparent=${city.cityparent }">${city.cityname }</a></li>
+							<li><a href="doGuliwangIndex.action?city.cityname=${city.cityname }&cityid=${city.cityparent }">${city.cityname }</a></li>
 						</c:forEach>
 					</ul>
 				</div>
@@ -87,7 +90,7 @@ String cityname = city.getCityname();
 		<div class="personal-center-nav">
 			<ul>
 				<li class="active"><a
-					href="doGuliwangIndex.action?city.cityname=${sessionScope.customer.customerxian }&cityparent=${sessionScope.customer.customercity }"><em
+					href="doGuliwangIndex.action?city.cityname=${sessionScope.customer.customerxian }&cityname=${sessionScope.customer.customercity }"><em
 						class="ion-home"></em>首页</a></li>
 				<li><a href="goods.jsp"><em class="ion-bag"></em>商城</a></li>
 				<li><a href="order.jsp"><em class="ion-clipboard"></em>订单</a></li>

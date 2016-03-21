@@ -129,19 +129,12 @@
 			<select name="customercity" id="customercity">
 				<option value="">请选择城市</option>
 				<c:forEach items="${requestScope.cityList }" var="cyty">
-					<c:if test="${cyty.cityparent=='root' }">
-					<option value="${cyty.cityname }">${cyty.cityname }</option>
-					</c:if>
+					<option>${cyty.cityname }</option>
 				</c:forEach>
 			</select><i></i></li>
 			<li><span>服务区域</span> 
 			<select name="customerxian" id="customerxian">
 				<option value="">请选择区域</option>
-				<c:forEach items="${requestScope.cityList }" var="cyty">
-				<c:if test="${cyty.cityparent!='root' }">
-					<option value="${cyty.cityname }">${cyty.cityname }</option>
-				</c:if>
-				</c:forEach>
 			</select><i></i></li>
 			<li><span>店铺名称</span> <input name="customershop" type="text"
 				placeholder="请输入店铺名称"></li>

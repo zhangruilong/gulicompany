@@ -10,9 +10,13 @@ public interface CityMapper {
 	 */
 	List<City> selectAllParent();
 	/**
-	 * 条件查询
+	 * 根据城市名称或主键查询
 	 */
-	List<City> selectByCityparent(City city);
+	List<City> selectByCitynameOrKey(City parentCity);
+	/**
+	 * 根据父类查询
+	 */
+	List<City> selectByCityparent(String cityparent);
 	/**
 	 * 查询所有地区
 	 */

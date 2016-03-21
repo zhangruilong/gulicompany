@@ -45,7 +45,7 @@ public class LoginController {
 	//注册页面
 	@RequestMapping("/guliwang/doReg")
 	public String doReg(Model model){
-		List<City> cityList = cityMapper.selectAllCity();
+		List<City> cityList = cityMapper.selectAllParent();
 		model.addAttribute("cityList", cityList);
 		return "forward:reg.jsp";
 	}
@@ -56,6 +56,7 @@ public class LoginController {
 		customer.setCustomerid(newCusId);		//设置新id
 		customer.setCustomerstatue("启用");
 		customer.setCustomerlevel(1);
+		customer.setCustomertype("餐饮客户");
 		customerMapper.insertSelective(customer);		//添加新客户
 		//添加新地址
 		Address address = new Address();
@@ -84,16 +85,17 @@ public class LoginController {
 			return "no";
 		}
 	}
-	//检查用户名
-		@RequestMapping(value="/guliwang/querycity", produces="application/json")
-		@ResponseBody 
-		public List<City> querycity(City city){
-			City parentCity = cityMapper.selectByCityparent(city).get(0);
-			city = new City();
-			city.setCityparent(parentCity.getCityid());
-			List<City> cityList = cityMapper.selectByCityparent(city);
-			return cityList;
+	//查询地区
+	@RequestMapping(value="/guliwang/querycity", produces="application/json")
+	@ResponseBody 
+	public List<City> querycity(City cityNameOrKey){
+		List<City> cityList = null;
+		if(cityNameOrKey.getCityid() != null || cityNameOrKey.getCityname() != null ){
+			City parentCity = cityMapper.selectByCitynameOrKey(cityNameOrKey).get(0);
+			cityList = cityMapper.selectByCityparent(parentCity.getCityid());
 		}
+		return cityList;
+	}
 }
 
 

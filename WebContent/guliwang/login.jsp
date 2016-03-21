@@ -3,8 +3,8 @@
     pageEncoding="UTF-8"%>
     <%
 		if(null != session.getAttribute("customer")){
-			Customer customer2 = (Customer) session.getAttribute("customer");
-			response.sendRedirect("doGuliwangIndex.action?city.cityname="+customer2.getCustomerxian()+"&cityparent="+customer2.getCustomercity());
+			Customer customer = (Customer) session.getAttribute("customer");
+			response.sendRedirect("doGuliwangIndex.action?city.cityname="+customer.getCustomerxian()+"&cityname="+customer.getCustomercity());
 		}
 	 %>
 <!doctype html> 
