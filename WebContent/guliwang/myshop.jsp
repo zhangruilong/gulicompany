@@ -28,6 +28,8 @@ input:focus{ outline:none}
 </head>
 
 <body>
+<form action="editCus.action" method="post">
+<input type="hidden" name="customerid" value="${requestScope.customer.customerid }">
 <div class="reg-wrapper">
 	<ul>
     	<li><span>店铺名称</span> <input name="customershop" type="text" value="${requestScope.customer.customershop }" placeholder="请输入店铺名称"></li>
@@ -53,7 +55,7 @@ input:focus{ outline:none}
 			</select>
 			</span><i></i> 
 			<span style="position:absolute;display: table;">
-				<input id="customercity" name="customercity" type="text" value="" 
+				<input id="customercity" name="customercity" type="text" value="${requestScope.customer.customercity }" 
 				style="width:118px;margin-left: 200px;">
 			</span>
 			</li>
@@ -64,7 +66,7 @@ input:focus{ outline:none}
 			</select>
 			</span><i></i> 
 			<span style="position:absolute;display: table;">
-				<input id="customerxian" name="customerxian" type="text" 
+				<input id="customerxian" name="customerxian" type="text" value="${requestScope.customer.customerxian }" 
 				style="width:118px;margin-left: 200px;">
 			</span>
 			</li>
@@ -74,13 +76,49 @@ input:focus{ outline:none}
 </div>
 
 <div class="confirm-reg">
-	<a href="#" class="confirm-reg-btn">保存修改</a>
+	<a onclick="doedit()" class="confirm-reg-btn">保存修改</a>
 </div>
+</form>
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="../ExtJS/adapter/ext/ext-base.js"></script>
 <script type="text/javascript" src="../ExtJS/ext-all.js"></script>
 <script type="text/javascript" src="../ExtJS/ext-lang-zh_CN.js" charset="UTF-8"></script>
 <script type="text/javascript">
+$(function(){
+	$("#city").change(function(){
+		var city = $("#city").val();		//得到城市复选框的值
+		$("#city").val("");					//将城市复选框清空
+		$("#customercity").val(city);		//将城市输入框的值变为城市复选框的值
+		Ext.Ajax.request({
+			//通过ajax查询到地区复选框的值
+			url:"querycity.action",
+			method:"POST",
+			params:{
+				"cityname":city
+			},
+			success:function(response,option){
+				var result = response.responseText;			//得到返回的文本信息
+				var $result = Ext.util.JSON.decode(result);	//转化为json对象
+				$("#xian").empty();							//清空
+				var $option = $("<option></option>");		//添加第一个option
+				$("#xian").append($option);
+				for (var i=0; i<$result.length;i++ ){
+					var city = $result[i];
+					$option = $("<option>"+city.cityname+"</option>");
+					$("#xian").append($option);
+				}
+			},
+			failure:function(response,option){
+				Ext.Msg.alert("提示","网络出现问题,请稍后再试");
+			}
+		});
+	});
+	$("#xian").change(function(){
+		var xian = $("#xian").val();
+		$("#xian").val("");
+		$("#customerxian").val(xian);
+	});
+})
 var result = document.getElementById("result");
 var input = document.getElementById("file_input");
 /*function alertMsg()

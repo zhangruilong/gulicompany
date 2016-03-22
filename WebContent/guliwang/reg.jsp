@@ -48,8 +48,8 @@
 			document.getElementById('customercity').value=document.getElementById('city').options[document.getElementById('city').selectedIndex].value;
 			$("#city").val("");
 			Ext.Ajax.request({
-				url : 'querycity.action',
-				method : 'POST',
+				url : "querycity.action",
+				method : "post",
 				params : {
 					"cityname" : customercity
 				},
@@ -61,7 +61,7 @@
 					$("#xian").append($option);
 					for ( var i = 0; i < $result.length; i++) {
 						var city = $result[i];
-						var $option = $("<option>"+city.cityname+"</option>");
+						$option = $("<option>"+city.cityname+"</option>");
 						$("#xian").append($option);
 					}
 				},

@@ -17,7 +17,7 @@
 <div class="view-box">
 <div class="wapper-nav">意见反馈</div>
 <textarea name="" cols="" rows="" placeholder="请输入您的反馈意见（字数200字以内）"></textarea>
-<a href="#" class="view-tj">提交</a>
+<a href="mine.jsp" class="view-tj">提交</a>
 </div>
 </body>
 </html>
