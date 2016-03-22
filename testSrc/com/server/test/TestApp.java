@@ -6,13 +6,17 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.server.dao.mapper.AddressMapper;
 import com.server.dao.mapper.CityMapper;
 import com.server.dao.mapper.CompanyMapper;
 import com.server.dao.mapper.CustomerMapper;
+import com.server.dao.mapper.GoodsMapper;
+import com.server.pojo.entity.Address;
 import com.server.pojo.entity.City;
 import com.server.pojo.entity.Company;
 import com.server.pojo.entity.Customer;
 import com.server.pojo.entity.Goods;
+import com.server.pojo.entity.Prices;
 
 public class TestApp {
 	
@@ -20,11 +24,12 @@ public class TestApp {
 	public void testMappers(){
 		ApplicationContext context = 
 				new ClassPathXmlApplicationContext("applicationContext-dao.xml");
-		CityMapper mapper = (CityMapper) context.getBean("cityMapper");
-		City city = new City();
-		city.setCityparent("上海市");
-		List<City> cityList = mapper.selectByCityparent(city);
-		System.out.println(cityList);
+		AddressMapper mapper = (AddressMapper) context.getBean("addressMapper");
+		Address a = new Address();
+		a.setAddresscustomer("1");
+		a.setAddressture(1);
+		List<Address> addList = mapper.selectDefAddress(a);
+		System.out.println(addList);
 	}
 	
 	@Test
@@ -47,5 +52,16 @@ public class TestApp {
 		company.setCity(city);
 		List<Company> list = mapper.selectCompanyByCondition(company);
 		System.out.println(list);
+	}
+	@Test
+	public void testgetGoodsPrices(){
+		ApplicationContext context = 
+				new ClassPathXmlApplicationContext("applicationContext-dao.xml");
+		GoodsMapper mapper = (GoodsMapper) context.getBean("goodsMapper");
+		Goods goods = mapper.selectByPrimaryKey("2");
+		List<Prices> pricesList = goods.getPricesList();
+		for (Prices prices : pricesList) {
+			System.out.println(prices.getPricesid());
+		}
 	}
 }

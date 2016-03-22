@@ -14,6 +14,7 @@
 <title>谷粒网</title>
 <link href="css/base.css" type="text/css" rel="stylesheet">
 <link href="css/layout.css" type="text/css" rel="stylesheet">
+<link href="css/dig.css" type="text/css" rel="stylesheet">
 <link href="../ExtJS/resources/css/ext-all.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="../ExtJS/adapter/ext/ext-base.js"></script>
@@ -21,7 +22,8 @@
 <script type="text/javascript" src="../ExtJS/ext-lang-zh_CN.js" charset="UTF-8"></script>
 <script type="text/javascript">
 	$(function(){
-		$("#customerphone").blur(function (){
+		/*$("#customerphone").blur(function (){
+			//检查电话号码是否可用
 			var customerphone = $("#customerphone").val();
 			Ext.Ajax.request({
 				url : 'checkCustomerphone.action',
@@ -33,7 +35,8 @@
 					var result = resp.responseText;
 					if(result == "no"){
 						$("#customerphone").attr("name","");
-						alert("手机号已被注册");
+						$(".meg").text("手机号已被注册");		//修改弹窗信息
+						$(".cd-popup").addClass("is-visible");	//弹出窗口
 					} else {
 						$("#customerphone").attr("name","customerphone");
 					}
@@ -42,7 +45,7 @@
 					Ext.Msg.alert('提示', '网络出现问题，请稍后再试');
 				}
 			});
-		});
+		});*/
 		$("#city").change(function(){
 			var customercity = $("#city").val();
 			document.getElementById('customercity').value=document.getElementById('city').options[document.getElementById('city').selectedIndex].value;
@@ -76,6 +79,10 @@
 			$("#xian").val("");
 			$("#customerxian").val(xian);
 		});
+		
+		$(".cd-popup").on("click",function(event){		//绑定点击事件
+				$(this).removeClass("is-visible");	//移除'is-visible' class
+		});
 	})
 	function reg(){
 		var customerpsw = $("[name='customerpsw']").val();
@@ -90,24 +97,25 @@
 			}
 		});
 		if(count > 0){
-			alert(alt);
+			$(".meg").text(alt);		//修改弹窗信息
+			$(".cd-popup").addClass("is-visible");	//弹出窗口
 			return;
 		}
-		/*if(count > 0){
-			alert(alt);
+		if(repwd != customerpsw){
+			$(".meg").text("两次输入的密码不相等");		//修改弹窗信息
+			$(".cd-popup").addClass("is-visible");	//弹出窗口
+			return;
+		}
+		/*if($("#customerphone").attr("name") == ""){
+			$(".meg").text("手机号已被注册");		//修改弹窗信息
+			$(".cd-popup").addClass("is-visible");	//弹出窗口
 			return;
 		}*/
-		if(repwd != customerpsw){
-			alert("两次输入的密码不相等");
-			return;
-		}
-		if($("#customerphone").attr("name") == ""){
-			alert("手机号已被注册");
-			return;
-		}
-		alert("注册成功");
+		//$(".meg").text("注册成功");		//修改弹窗信息
+		//$(".cd-popup").addClass("is-visible");	//弹出窗口
 		document.forms[0].submit();
 	}
+	
 </script>
 </head>
 
@@ -136,7 +144,7 @@
 			</span><i></i> 
 			<span style="position:absolute;display: table;">
 				<input id="customercity" name="customercity" type="text" 
-				style="width:118px;margin-left: 200px;">
+				placeholder="请输入城市" style="width:118px;margin-left: 200px;">
 			</span>
 			</li>
 			<li><span>服务区域</span> 
@@ -147,7 +155,7 @@
 			</span><i></i> 
 			<span style="position:absolute;display: table;">
 				<input id="customerxian" name="customerxian" type="text" 
-				style="width:118px;margin-left: 200px;">
+				placeholder="请输入地区" style="width:118px;margin-left: 200px;">
 			</span>
 			</li>
 			<li><span>店铺名称</span> <input name="customershop" type="text"
@@ -164,5 +172,15 @@
 		<a onclick="reg()" class="confirm-reg-btn">确认注册</a> <a href="agreement.jsp">确认注册即同意《谷粒网客户注册服务协议》</a>
 	</div>
 	</form>
+	<!--弹框-->
+<div class="cd-popup" role="alert">
+	<div class="cd-popup-container">
+		<div class="cd-buttons">
+        	<h1>谷粒网提示</h1>
+			<p class="meg">是否现在登录?</p>
+            <a class="cd-popup-close">确定</a>
+		</div>
+	</div>
+</div>
 </body>
 </html>

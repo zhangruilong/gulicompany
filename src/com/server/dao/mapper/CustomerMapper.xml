@@ -76,7 +76,8 @@
     select 
     CUSTOMERID,  
     CUSTOMERCITY, 
-    CUSTOMERXIAN 
+    CUSTOMERXIAN, 
+    CUSTOMERPHONE
     from CUSTOMER
     where customerphone = #{customerphone} and customerpsw = #{customerpsw}
   </select>

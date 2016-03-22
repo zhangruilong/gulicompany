@@ -12,6 +12,7 @@
 <title>谷粒网</title>
 <link href="css/base.css" type="text/css" rel="stylesheet">
 <link href="css/layout.css" type="text/css" rel="stylesheet">
+<link href="css/dig.css" type="text/css" rel="stylesheet">
 <link href="../ExtJS/resources/css/ext-all.css" type="text/css" rel="stylesheet">
 <style type="text/css">
 #result{ width:auto; position: absolute; right:0; top:0}
@@ -56,7 +57,7 @@ input:focus{ outline:none}
 			</span><i></i> 
 			<span style="position:absolute;display: table;">
 				<input id="customercity" name="customercity" type="text" value="${requestScope.customer.customercity }" 
-				style="width:118px;margin-left: 200px;">
+				placeholder="请输入城市" style="width:118px;margin-left: 200px;">
 			</span>
 			</li>
 			<li><span>服务区域</span> 
@@ -67,7 +68,7 @@ input:focus{ outline:none}
 			</span><i></i> 
 			<span style="position:absolute;display: table;">
 				<input id="customerxian" name="customerxian" type="text" value="${requestScope.customer.customerxian }" 
-				style="width:118px;margin-left: 200px;">
+				placeholder="请输入地区" style="width:118px;margin-left: 200px;">
 			</span>
 			</li>
         <li><span>店铺地址</span> <input name="customeraddress" type="text" value="${requestScope.customer.customeraddress }"
@@ -79,6 +80,16 @@ input:focus{ outline:none}
 	<a onclick="doedit()" class="confirm-reg-btn">保存修改</a>
 </div>
 </form>
+<!--弹框-->
+<div class="cd-popup" role="alert">
+	<div class="cd-popup-container">
+		<div class="cd-buttons">
+        	<h1>谷粒网提示</h1>
+			<p class="meg">是否现在登录?</p>
+            <a class="cd-popup-close">确定</a>
+		</div>
+	</div>
+</div>
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="../ExtJS/adapter/ext/ext-base.js"></script>
 <script type="text/javascript" src="../ExtJS/ext-all.js"></script>
@@ -118,7 +129,31 @@ $(function(){
 		$("#xian").val("");
 		$("#customerxian").val(xian);
 	});
+	$(".cd-popup").on("click",function(event){		//绑定点击事件
+		$(this).removeClass("is-visible");	//移除'is-visible' class
+	});
 })
+function doedit(){
+	var count = 0;
+	var alt;
+	$("input").each(function(i,item){
+		if($(item).val() == null || $(item).val() == ''){
+			if($(item).attr("id") != "file_input"){
+				count++;
+				alt=$(item).attr("placeholder");
+				return false;
+			}
+		}
+	});
+	if(count > 0){
+		$(".meg").text(alt);		//修改弹窗信息
+		$(".cd-popup").addClass("is-visible");	//弹出窗口
+		return;
+	}
+	//$(".meg").text("以保存修改");		//修改弹窗信息
+	//$(".cd-popup").addClass("is-visible");	//弹出窗口
+	document.forms[0].submit();
+}
 var result = document.getElementById("result");
 var input = document.getElementById("file_input");
 /*function alertMsg()

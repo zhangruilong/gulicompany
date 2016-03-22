@@ -63,21 +63,21 @@ input:checked ~ input:active {
   background-position: 0 -24px;
 }
 .p-a{
-	
 	float: left;
 	width: 20%;
-	 position: relative; 
-	 background-color: #2c77e6; 
-	 height: 30px; 
-	 line-height: 30px; 
-	 color: #fff ; 
-	 text-align: center ;
+	position: relative; 
+	background-color: #2c77e6; 
+	height: 30px; 
+	line-height: 30px; 
+	color: #fff ; 
+	text-align: center ;
 }
 .p-a a{
+	position: static;
 	height: 50px; 
 	line-height: 20px; 
 	text-align: center ;
-	color: #fff ;
+	font-size: 20px;
 }
 
 

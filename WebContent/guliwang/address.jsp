@@ -15,7 +15,6 @@
 <link href="css/layout.css" type="text/css" rel="stylesheet">
 <style type="text/css">
 .p-a{
-	
 	float: left;
 	width: 20%;
 	position: relative; 
