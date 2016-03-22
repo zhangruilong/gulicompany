@@ -10,6 +10,10 @@ import com.server.pojo.entity.Address;
  */
 public interface AddressMapper {
 	/**
+	 * 查询默认地址(条件查询)
+	 */
+	List<Address> selectDefAddress(Address record);
+	/**
 	 * 修改用户的所有收货地址'是否默认'
 	 */
 	void updateCusAllAddress(Address record);

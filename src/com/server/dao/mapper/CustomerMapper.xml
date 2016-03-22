@@ -74,9 +74,9 @@
   <!-- 根据条件(手机号和密码)查询客户 -->
   <select id="selectByPhone" resultMap="BaseResultMap" parameterType="com.server.pojo.entity.Customer" >
     select 
-    CUSTOMERID, CUSTOMERCODE, CUSTOMERNAME, CUSTOMERPHONE, CUSTOMERPSW, CUSTOMERSHOP, 
-    CUSTOMERCITY, CUSTOMERXIAN, CUSTOMERADDRESS, CUSTOMERTYPE, CUSTOMERLEVEL, OPENID, 
-    CUSTOMERDETAIL, CUSTOMERSTATUE, CREATETIME, UPDTIME
+    CUSTOMERID,  
+    CUSTOMERCITY, 
+    CUSTOMERXIAN 
     from CUSTOMER
     where customerphone = #{customerphone} and customerpsw = #{customerpsw}
   </select>

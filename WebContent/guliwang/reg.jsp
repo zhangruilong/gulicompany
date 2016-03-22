@@ -43,8 +43,10 @@
 				}
 			});
 		});
-		$("#customercity").change(function(){
-			var customercity = $("#customercity").val();
+		$("#city").change(function(){
+			var customercity = $("#city").val();
+			document.getElementById('customercity').value=document.getElementById('city').options[document.getElementById('city').selectedIndex].value;
+			$("#city").val("");
 			Ext.Ajax.request({
 				url : 'querycity.action',
 				method : 'POST',
@@ -54,13 +56,13 @@
 				success : function(resp,opts) {
 					var result = resp.responseText;
 					var $result = Ext.util.JSON.decode(result);
-					$("#customerxian").empty();			//清空select组件内的原始值
-					var $option = $("<option value='' >请选择地区</option>");
-					$("#customerxian").append($option);
+					$("#xian").empty();			//清空select组件内的原始值
+					var $option = $("<option></option>");
+					$("#xian").append($option);
 					for ( var i = 0; i < $result.length; i++) {
 						var city = $result[i];
 						var $option = $("<option>"+city.cityname+"</option>");
-						$("#customerxian").append($option);
+						$("#xian").append($option);
 					}
 				},
 				failure : function(resp,opts) {
@@ -68,7 +70,12 @@
 				}
 			});
 		});	                
-
+		
+		$("#xian").change(function(){
+			var xian = $("#xian").val();
+			$("#xian").val("");
+			$("#customerxian").val(xian);
+		});
 	})
 	function reg(){
 		var customerpsw = $("[name='customerpsw']").val();
@@ -86,17 +93,10 @@
 			alert(alt);
 			return;
 		}
-		$("select").each(function(i,item){
-			if($(item).val() == null || $(item).val() == ''){
-				count++;
-				alt=$(item).children("option").first().text();
-				return false;
-			}
-		});
-		if(count > 0){
+		/*if(count > 0){
 			alert(alt);
 			return;
-		}
+		}*/
 		if(repwd != customerpsw){
 			alert("两次输入的密码不相等");
 			return;
@@ -126,16 +126,30 @@
 	<div class="reg-wrapper reg-dianpu-info">
 		<ul>
 			<li><span>所在城市</span> 
-			<select name="customercity" id="customercity">
-				<option value="">请选择城市</option>
+			<span style="position:absolute;overflow:hidden;margin-left: 170px;"> 
+			<select id="city" style="width:118px;">
+				<option></option>
 				<c:forEach items="${requestScope.cityList }" var="cyty">
 					<option>${cyty.cityname }</option>
 				</c:forEach>
-			</select><i></i></li>
+			</select>
+			</span><i></i> 
+			<span style="position:absolute;display: table;">
+				<input id="customercity" name="customercity" type="text" 
+				style="width:118px;margin-left: 200px;">
+			</span>
+			</li>
 			<li><span>服务区域</span> 
-			<select name="customerxian" id="customerxian">
-				<option value="">请选择区域</option>
-			</select><i></i></li>
+			<span style="position:absolute;overflow:hidden;margin-left: 170px;"> 
+			<select id="xian" style="width:118px;">
+				<option></option>
+			</select>
+			</span><i></i> 
+			<span style="position:absolute;display: table;">
+				<input id="customerxian" name="customerxian" type="text" 
+				style="width:118px;margin-left: 200px;">
+			</span>
+			</li>
 			<li><span>店铺名称</span> <input name="customershop" type="text"
 				placeholder="请输入店铺名称"></li>
 			<li><span>店铺地址</span> <input name="customeraddress" type="text"
@@ -147,7 +161,7 @@
 		</ul>
 	</div>
 	<div class="confirm-reg">
-		<a onclick="reg()" class="confirm-reg-btn">确认注册</a> <a href="#">确认注册即同意《谷粒网客户注册网络协议》</a>
+		<a onclick="reg()" class="confirm-reg-btn">确认注册</a> <a href="agreement.jsp">确认注册即同意《谷粒网客户注册服务协议》</a>
 	</div>
 	</form>
 </body>

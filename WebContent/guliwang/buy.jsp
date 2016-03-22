@@ -19,7 +19,9 @@
 	<div class="jiesuan">
     	<div class="wapper-nav">结算</div>
     	<div class="shouhuo-wrap">
-        	<a href="address.jsp"><span>收货人：王金宝 13888888888</span><span class="add">收货地址: 嘉兴市沿海向城东路89号706室</span></a>
+        	<a href="doAddressMana.action?customerId=${sessionScope.customer.customerid }&message=foBuy">
+        	<span>收货人：${requestScope.address.addressconnect } ${requestScope.address.addressphone }</span>
+        	<span class="add">收货地址: ${requestScope.address.addressaddress }</span></a>
         </div>
         <div class="jiesuan-info">
         	<h1>结算信息</h1>

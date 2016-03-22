@@ -26,19 +26,21 @@ public class AddressController {
 	private CityMapper cityMapper;
 	//到地址管理页面
 	@RequestMapping("/guliwang/doAddressMana")
-	public String doAddressMana(Model model,String customerId){
+	public String doAddressMana(Model model,String customerId,String message){
 		List<Address> addressList = addressMapper.selectByCondition(customerId);		//根据条件查询地址
 		
 		model.addAttribute("addressList", addressList);
-		
+		model.addAttribute("message", message);
+		if(message != null && message.equals("foBuy")){
+			return "forward:/guliwang/buyAddress.jsp";
+		}
 		return "forward:/guliwang/address.jsp";
+		
 	}
 	//到添加收货地址页面
 	@RequestMapping("/guliwang/doAddAddress")
 	public String doAddAddress(Model model){
-		List<City> cityList = cityMapper.selectAllCity();
 		List<City> cityParents = cityMapper.selectAllParent();
-		model.addAttribute("cityList", cityList);
 		model.addAttribute("cityParents", cityParents);
 		return "forward:/guliwang/addAddress.jsp";
 	}

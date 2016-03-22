@@ -61,7 +61,7 @@ $(function(){
 });
 function nextpage(){
 	setscompany();
-	window.location.href = "buy.jsp";
+	window.location.href = "doBuy.action?addresscustomer=${sessionScope.customer.customerid }&addressture=1";
 }
 function setscompany(){
 	var data = JSON.parse(window.localStorage.getItem("sdishes"));

@@ -12,6 +12,10 @@
 <title>谷粒网</title>
 <link href="css/base.css" type="text/css" rel="stylesheet">
 <link href="css/layout.css" type="text/css" rel="stylesheet">
+<link href="../ExtJS/resources/css/ext-all.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="../ExtJS/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="../ExtJS/ext-all.js"></script>
+<script type="text/javascript" src="../ExtJS/ext-lang-zh_CN.js" charset="UTF-8"></script>
 </head>
 
 <body>
@@ -25,17 +29,13 @@
 <div class="reg-wrapper reg-dianpu-info">
 	<ul>
     	<li><span>所在城市</span> <select id="city">
-    		<c:forEach items="${requestScope.cityList }" var="cyty">
-    		<c:if test="${cyty.cityparent=='root' }">
-				<option value="${cyty.cityname }">${cyty.cityname }</option>
-			</c:if>
+    		<option value="">请选择城市</option>
+    		<c:forEach items="${requestScope.cityParents }" var="cyty">
+				<option>${cyty.cityname }</option>
 			</c:forEach></select><i></i></li>
         <li><span>所在区域</span> <select  id="xian">
-        	<c:forEach items="${requestScope.cityList }" var="cyty">
-        		<c:if test="${cyty.cityparent!='root' }">
-					<option value="${cyty.cityname }">${cyty.cityname }</option>
-				</c:if>
-			</c:forEach></select><i></i></li>
+        	<option value="">请选择地区</option>
+			</select><i></i></li>
         <li><span>详细地址</span> <input id="detaAddressa" type="text" placeholder="请输入详细地址"></li>
     </ul>
 </div>
@@ -61,6 +61,33 @@
 		var addressaddress = $("#addressaddress").val(city+xian+detaAddressa);
 		document.forms[0].submit();
 	}
+	$(function(){
+		$("#city").change(function(){
+			var customercity = $("#city").val();
+			Ext.Ajax.request({
+				url : 'querycity.action',
+				method : 'POST',
+				params : {
+					"cityname" : customercity
+				},
+				success : function(resp,opts) {
+					var result = resp.responseText;
+					var $result = Ext.util.JSON.decode(result);
+					$("#xian").empty();			//清空select组件内的原始值
+					var $option = $("<option value='' >请选择地区</option>");
+					$("#xian").append($option);
+					for ( var i = 0; i < $result.length; i++) {
+						var city = $result[i];
+						var $option = $("<option>"+city.cityname+"</option>");
+						$("#xian").append($option);
+					}
+				},
+				failure : function(resp,opts) {
+					Ext.Msg.alert('提示', '网络出现问题，请稍后再试');
+				}
+			});
+		});	         
+	})
 </script>
 </body>
 </html>
