@@ -11,6 +11,7 @@
 <title>谷粒网</title>
 <link href="css/base.css" type="text/css" rel="stylesheet">
 <link href="css/layout.css" type="text/css" rel="stylesheet">
+<link href="css/dig.css" type="text/css" rel="stylesheet">
 </head>
 
 <body>
@@ -40,7 +41,16 @@
 <div class="footer">
 	<div class="jiesuan-foot-info"><img src="images/jiesuanbg.png" > 种类数：<span id="totalnum">0</span>总价：<span id="totalmoney">0</span> </div><a onclick="nextpage();" class="jiesuan-button">结算</a>
 </div>
-
+<!--弹框-->
+<div class="cd-popup" role="alert">
+	<div class="cd-popup-container">
+		<div class="cd-buttons">
+        	<h1>谷粒网提示</h1>
+			<p>是否现在登录?</p>
+            <a href="#" class="cd-popup-close">取消</a><a href="login.jsp">确定</a>
+		</div>
+	</div>
+</div>
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
 <script> 
 $(function(){
@@ -58,10 +68,22 @@ $(function(){
 	}
 	var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));
 	initDishes(sdishes);
+	$(".cd-popup").on("click",function(event){		//绑定点击事件
+		if($(event.target).is(".cd-popup-close") || $(event.target).is(".cd-popup-container")){
+			//如果点击的是'取消'或者除'确定'外的其他地方
+			$(this).removeClass("is-visible");	//移除'is-visible' class
+			
+		}
+	});
 });
 function nextpage(){
 	setscompany();
-	window.location.href = "doBuy.action?addresscustomer=${sessionScope.customer.customerid }&addressture=1";
+	var url = "doBuy.action?addresscustomer=${sessionScope.customer.customerid }&addressture=1";
+	if(url == "doBuy.action?addresscustomer=&addressture=1"){
+		$(".cd-popup").addClass("is-visible");
+	} else {
+		window.location.href = "doBuy.action?addresscustomer=${sessionScope.customer.customerid }&addressture=1";
+	}
 }
 function setscompany(){
 	var data = JSON.parse(window.localStorage.getItem("sdishes"));
@@ -132,6 +154,7 @@ function getcurrennum(dishesid,goodsdetail){
 		return orderdetnum;
 	}
 }
+//增加商品数量
 function addnum(obj,dishesprice){
 	//总价
 	var tmoney = parseFloat(window.localStorage.getItem("totalmoney"));
@@ -157,6 +180,7 @@ function addnum(obj,dishesprice){
 	});
 	window.localStorage.setItem("sdishes",JSON.stringify(sdishes));
 }
+//减少商品数量
 function subnum(obj,dishesprice){
 	var numt = $(obj).next(); 
 	var num = parseInt(numt.val());
@@ -194,6 +218,10 @@ function subnum(obj,dishesprice){
 			});
 		}
 		window.localStorage.setItem("sdishes",JSON.stringify(sdishes));
+		if(window.localStorage.getItem("sdishes") == "[]"){
+			//如果是空购物车
+			window.location.href = "cartnothing.html";
+		}
 	}
 }
 function successCB(r, cb) {
