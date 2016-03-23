@@ -122,7 +122,7 @@ function initDishes(data){
 	var scompany = setscompany();
     $(".cart-wrapper").html("");
     $.each(scompany, function(y, mcompany) {
-    	$(".cart-wrapper").append('<h1>'+mcompany.companyshop+'</h1><ul>');
+    	$(".cart-wrapper").append('<h1 name="'+mcompany.companyid +'">'+mcompany.companyshop+'</h1><ul>');
     	$.each(data, function(i, item) {
     		if(mcompany.ordermcompany==item.goodscompany)
             $(".cart-wrapper").append('<li name="'+item.goodsid+'">'+
@@ -134,7 +134,7 @@ function initDishes(data){
                           '<span onclick="addnum(this,'+item.pricesprice+')" class="jia add"></span>'+
                       '</li>');
        });
-       $(".cart-wrapper").append('</ul><div class="songda">'+mcompany.companydetail+'</div>');
+       $(".cart-wrapper").append('</ul><div class="songda">'+mcompany.companydetail+'</div>');		//添加供应商信息
 	});
 }
 function getcurrennum(dishesid,goodsdetail){
@@ -194,6 +194,8 @@ function subnum(obj,dishesprice){
 		numt.val(num-1);
 		//订单
 		var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));
+		var scompany = JSON.parse(window.localStorage.getItem("scompany"));
+		var delgoodsid = '-1';
 		if(num == 1){
 			//删除订单
 			$.each(sdishes,function(i,item){

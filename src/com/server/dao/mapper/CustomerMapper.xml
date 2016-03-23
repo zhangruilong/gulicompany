@@ -64,6 +64,13 @@
     CUSTOMERCITY, CUSTOMERXIAN, CUSTOMERADDRESS, CUSTOMERTYPE, CUSTOMERLEVEL, OPENID, 
     CUSTOMERDETAIL, CUSTOMERSTATUE, CREATETIME, UPDTIME
   </sql>
+  <!-- 根据openid查询客户 -->
+  <select id="selectByOpenid" resultMap="BaseResultMap" parameterType="com.server.pojo.entity.Customer" >
+    select 
+    <include refid="Base_Column_List"/>
+    from CUSTOMER
+    where OPENID = #{openid}
+  </select>
   <!-- 根据手机号查询客户 -->
   <select id="selectPhoneToCus" resultMap="BaseResultMap" parameterType="com.server.pojo.entity.Customer" >
     select 
@@ -77,7 +84,7 @@
     CUSTOMERID,  
     CUSTOMERCITY, 
     CUSTOMERXIAN, 
-    CUSTOMERPHONE
+    CUSTOMERSHOP
     from CUSTOMER
     where customerphone = #{customerphone} and customerpsw = #{customerpsw}
   </select>

@@ -6,6 +6,10 @@ import com.server.pojo.entity.Customer;
 
 public interface CustomerMapper {
 	/**
+	 * 根据openid查询客户
+	 */
+	Customer selectByOpenid(String customerphone);
+	/**
 	 * 根据手机号查询客户
 	 */
 	Customer selectPhoneToCus(String customerphone);

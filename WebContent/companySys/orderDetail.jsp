@@ -22,8 +22,7 @@ String ordermcompany = request.getParameter("ordermcompany");
 <script type="text/javascript">
 var ordermid = '<%=ordermid%>';
 var ordermcompany = '<%=ordermcompany%>';
-function updateStatue(){
-	var statue = $("#ordermstatue").val();
+function updateStatue(statue){
 	if(confirm("是否修改订单状态")){
 		window.parent.main.location.href = 
 			"deliveryGoods.action?ordermid="
@@ -91,15 +90,16 @@ function delegoods(){
 <div class="page_title">订单管理/订单详情</div>
 <p>
 <span>订单编号:${requestScope.order.ordermcode }&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="select">订单状态:</span>
-<select name="ordermstatue" id="ordermstatue">
+<!-- <select name="ordermstatue" id="ordermstatue">
 	<option ${requestScope.order.ordermstatue =='已下单'?'selected':'' } >已下单</option>
 	<option ${requestScope.order.ordermstatue =='已确认'?'selected':'' } >已确认</option>
 	<option ${requestScope.order.ordermstatue =='已发货'?'selected':'' } >已发货</option>
 	<option ${requestScope.order.ordermstatue =='已完成'?'selected':'' } >已完成</option>
-</select>
-<input style="margin-left: 0px;" class="button" type="button" value="修改订单状态" 
-onclick="updateStatue();">
+</select> -->
+<span>订单状态 : ${requestScope.order.ordermstatue }&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<input class="button" type="button" value="确认订单" onclick="updateStatue('已确认');">
+<input class="button" type="button" value="订单发货" onclick="updateStatue('已发货');">
+<input class="button" type="button" value="完成订单" onclick="updateStatue('已完成');">
 <input class="button" type="button" value="删除订单" 
 onclick="del('editOrder.action?ordermid=${requestScope.order.ordermid }&ordermcompany=${sessionScope.company.companyid }','删除')">
 <input class="button" type="button" value="删除商品" onclick="delegoods()">

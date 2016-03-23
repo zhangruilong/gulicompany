@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.server.dao.mapper.OrderdMapper;
 import com.server.dao.mapper.OrdermMapper;
@@ -49,6 +50,11 @@ public class Com_orderCtl {
 		ordermMapper.updateByPrimaryKeySelective(order);
 		model.addAttribute("order", order);
 		return "forward:allOrder.action";
+	}
+	//修改订单状态2
+	@RequestMapping("/companySys/updateStatue")
+	public @ResponseBody void updateStatue( Orderm order){
+		ordermMapper.updateByPrimaryKeySelective(order);
 	}
 /*--------------------------订单详情-----------------------------*/
 	//订单详情
