@@ -1,8 +1,6 @@
 package com.server.action.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -23,7 +21,6 @@ import com.server.dao.mapper.CustomerMapper;
 import com.server.pojo.entity.Address;
 import com.server.pojo.entity.City;
 import com.server.pojo.entity.Customer;
-import com.system.tools.base.ModelAndView;
 import com.system.tools.util.CommonUtil;
 @Controller
 public class LoginController {
