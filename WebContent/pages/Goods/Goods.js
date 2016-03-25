@@ -1,8 +1,8 @@
 Ext.onReady(function() {
-	var Goodsclassify = "商品";
-	var Goodstitle = "当前位置:业务管理》" + Goodsclassify;
-	var Goodsaction = "GoodsAction.do";
-	var Goodsfields = ['goodsid'
+	var Goodsclassify = "商品";									//标题栏
+	var Goodstitle = "当前位置:业务管理》" + Goodsclassify;		//标题
+	var Goodsaction = "GoodsAction.do";							//action
+	var Goodsfields = ['goodsid'								//字段
 	        			    ,'goodscompany' 
 	        			    ,'goodscode' 
 	        			    ,'goodsname' 
@@ -17,6 +17,7 @@ Ext.onReady(function() {
 	        			    ,'updor' 
 	        			      ];// 全部字段
 	var Goodskeycolumn = [ 'goodsid' ];// 主键
+	//alert(basePath);
 	var Goodsstore = dataStore(Goodsfields, basePath + Goodsaction + "?method=selQuery");// 定义Goodsstore
 	var Goodssm = new Ext.grid.CheckboxSelectionModel();// grid复选框模式
 	var Goodscm = new Ext.grid.ColumnModel({// 定义columnModel

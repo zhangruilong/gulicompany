@@ -171,6 +171,7 @@ function entersearch(){
 /* $(".citydrop").click(function(){ 
 	getJson(basePath+"GoodsclassAction.do",{method:"mselAll",wheresql:"goodsclassparent='root'"},initGoodsclass,null);
 })  */
+//商品大小类
 function initGoodsclass(data){																								//初始化商品大小类
 	 $("#fenlei-left").html("");
 	 $.each(data.root, function(i, item) {				//遍历 data 中的 root 
@@ -189,12 +190,14 @@ function initGoodsclass(data){																								//初始化商品大小类
 		})
 	});
 }
+//小类
 function initGoodsclassright(data){																							//大小类右边
 	 $(".fenlei-right").html("");
 	 $.each(data.root, function(i, item) {
 		$(".fenlei-right").append('<a href="goods.jsp?searchclasses='+item.goodsclassname+'">'+item.goodsclassname+'</a>');
     });
 }
+//商品
 function initDishes(data){
      $(".home-hot-commodity").html("");
  	 $.each(data.root, function(i, item) {
@@ -246,6 +249,7 @@ function initDishes(data){
 		t2.next().toggle();
 	})
 }
+//收藏商品
 function checkedgoods(goodsid){
 	var url = 'CollectAction.do?method=';
 	if($("#"+goodsid+"checkbox").is(':checked')){

@@ -1,9 +1,12 @@
 package com.system.tools.pojo;
 
-
+/**
+ * 分页查询
+ *
+ */
 public class Queryinfo {
-	 private Class type;
-	 private String start;
+	 private Class type;			//要查询的类
+	 private String start;			
 	 private String end;
 	 private String wheresql;
 	 private String query;

@@ -213,9 +213,9 @@ public class BaseAction {
 	 * @param result 
 	 */
 	public static void responsePW(HttpServletResponse response, String result) {
-		response.setContentType("text/html;charset=utf-8");
+		response.setContentType("text/html;charset=utf-8");				//防止乱码
 		response.setHeader("Cache-Control", "no-cache");
-		if(CommonUtil.isEmpty(result)) result = CommonConst.FAILURE;
+		if(CommonUtil.isEmpty(result)) result = CommonConst.FAILURE;	//如果result为空
 		PrintWriter pw = null;
 		try {
 			pw = response.getWriter();
@@ -242,9 +242,9 @@ public class BaseAction {
 		String cb = request.getParameter("callback");
 		if (cb != null) {
 		    jsonP = true;
-		    response.setContentType("text/javascript");
+		    response.setContentType("text/javascript");			//返回text
 		} else {
-		    response.setContentType("application/x-json");
+		    response.setContentType("application/x-json");		//返回json
 		}
 		PrintWriter pw = null;
 		try {
