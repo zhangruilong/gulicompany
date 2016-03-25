@@ -55,6 +55,7 @@
 <script src="js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
 	function addAddress(){
+		
 		var city = $("#city").val();
 		var xian = $("#xian").val();
 		var detaAddressa = $("#detaAddressa").val();

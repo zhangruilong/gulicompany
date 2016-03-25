@@ -72,16 +72,6 @@ public class LoginController {
 		session.invalidate();
 		return "redirect:login.jsp";
 	}
-	/*//检查用户名
-	@RequestMapping(value="/guliwang/checkCustomerphone", produces = {"text/javascript;charset=UTF-8"})
-	public @ResponseBody String checkCustomerphone(String customerphone){
-		Customer cus = customerMapper.selectPhoneToCus(customerphone);
-		if(cus == null){
-			return "ok";
-		} else {
-			return "no";
-		}
-	}*/
 	//查询地区
 	@RequestMapping(value="/guliwang/querycity", produces="application/json")
 	@ResponseBody 
