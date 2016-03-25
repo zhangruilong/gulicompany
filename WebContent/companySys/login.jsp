@@ -14,8 +14,11 @@
 <meta http-equiv="Expires" content="0" />
 <title>用户登录</title>
 <link href="../sysstyle/style.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="../sysjs/png.js"></script>
-<%@ include file="../common/common.jsp"%>
+<link href="../ExtJS/resources/css/ext-all.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="../ExtJS/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="../ExtJS/ext-all.js"></script>
+<script type="text/javascript" src="../ExtJS/ext-lang-zh_CN.js" charset="UTF-8"></script>
 <script type=text/javascript>
 if (top != window) top.location.href = window.location.href;
 
@@ -74,10 +77,14 @@ function keyLogin(){
 		 margin: auto;
 	}
 	.c_d p{
+	
+	}
+	.c_d p span{
+		background: url(../companySys/images/log_input.png) no-repeat left;
 	}
 	.c_d p input{
 		margin: 15px;
-		background: url(../sysimages/login_input_pawbg.gif) no-repeat left top;
+		background: url(../companySys/images/log_input.png) no-repeat left top;
 		width: 205px;
 		height: 30px;
 		padding: 0 0 0 5px;
@@ -95,7 +102,8 @@ function keyLogin(){
 </style>
 </head>
 
-<body class="login" onkeydown="keyLogin()">
+<body>
+<div class="login" onkeydown="keyLogin()">
 	<form action="login.action" method="post">
 	<div class="login_top">
 		<div>&nbsp;
@@ -105,11 +113,12 @@ function keyLogin(){
 			<h1>谷粒网</h1>
 			<h2>供应商后台管理系统</h2>
 			<p>
-				<input  id="username" type="text" name="loginname" placeholder="用户名:"/>
-				<input  id="password" type="password" name="password" placeholder="密码:"/>
+				<span><input id="username" type="text" name="loginname" placeholder="用户名:" /></span>
+				<input id="password" type="password" name="password" placeholder="密码:" />
 				<input id="submitbutton" class="btn" type="button" value="登录" onclick="submitdata()" /> 
 			</p>
 		</div>
 	</form>
+</div>
 </body>
 </html>
