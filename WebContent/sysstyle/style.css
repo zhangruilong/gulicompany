@@ -78,39 +78,41 @@ input {
 	padding:5%;
 	text-align: center;
 	 height: 400px; 
-	 width: 700px; 
+	 width: 1000px; 
 	 margin: auto;
 }
 .c_d h1{
-	font-size: 35px;
-	height: 80px; 
-	 width: 400px; 
-	 margin: auto;
 }
 .c_d h2{
-	font-size: 35px;
-	height: 80px; 
-	 width: 400px; 
-	 margin: auto;
+	font-family: 黑体,STHeiti;
+	font-size: 50px;
+	font-weight:normal;
+	line-height:170px;
+	color:white;
+	margin: auto;
+}
+.c_d h2 img{
+	vertical-align: middle;
 }
 .c_d .log_input{
 	height: 50px;
+	width: 1000px;
 }
 .c_d .log_input .log_name{
 	display:table;
 	background: url(../companySys/images/log_input.png) no-repeat left;
 	float:left;
-	width:180px;
-	padding: 0px 10px 0px 0px;
-	height:40px;   
+	padding: 0px 10px 0px 10px;
     line-height:40px;   
     border-radius: 5px;
+    margin: 0px 0px 0px 90px;
 }
 .c_d .log_input .log_name input{
-	background: url(../companySys/images/log_input.png) no-repeat left;
-	padding: 0px 0px 0px 0px;
+	background: url(../companySys/images/username.png) no-repeat left;
+	padding: 0px 0px 0px 36px;
 	margin:0px 0px 0px 0px;
-	width: 120px;
+	width: 250px;
+	height:42px;
 	line-height:40px;   
 	font-size: 20px;
 }
@@ -118,27 +120,32 @@ input {
 	display:table;
 	background: url(../companySys/images/log_input.png) no-repeat left;
 	float:left;
-	width:180px;
-	padding: 0px 10px 0px 0px;
-	height:40px;   
+	padding: 0px 10px 0px 10px;
     line-height:40px;   
     border-radius: 5px;
-    margin-left: 50px;
+    margin: 0px 40px 0px 30px;
 }
 .c_d .log_input .log_pwd input{
-	background: url(../companySys/images/log_input.png) no-repeat left;
-	padding: 0px 0px 0px 0px;
+	background: url(../companySys/images/password.png) no-repeat left;
+	padding: 0px 0px 0px 36px;
 	margin:0px 0px 0px 0px;
-	width: 120px;
+	width: 250px;
+	height:42px;
 	line-height:40px;   
 	font-size: 20px;
 }
 
 .c_d .btn{
 	background: url(../companySys/images/log_btn.png) no-repeat left;
-	height: 42px;
-	width: 109px;
+	font-family: 黑体,STHeiti;
+	font-size: 30px;
+	color: white;
+	line-height: 42px;
+	padding: 6px 25px 6px 25px;
+	margin:0px 90px 0px 0px;
+	cursor:pointer;
 }
+
 /*顶部top.html*/
 .topnav {
 	background: url(../sysimages/top_repeat.gif) repeat;

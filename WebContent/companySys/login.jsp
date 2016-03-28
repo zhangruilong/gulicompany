@@ -57,22 +57,24 @@ function keyLogin(){
 </script>
 </head>
 
-<body>
-<div class="login" onkeydown="keyLogin()">
+<body onkeydown="keyLogin()">
+<div class="login">
 	<form action="login.action" method="post">
 		<div class="c_d">
 			<h1>谷粒网</h1>
-			<h2>供应商后台管理系统</h2>
+			<h2>
+				<img src="../companySys/images/left_crossband.png" alt="" />
+				供应商后台管理系统
+				<img src="../companySys/images/right_crossband.png" alt="" />
+			</h2>
 			<div class="log_input">
 				<div class="log_name">
-					<img src="../companySys/images/username.png" style="vertical-align: middle;margin: 0px 8px 7px 0px;"/>
 					<input id="username" type="text" name="loginname" placeholder="用户名:" />
 				</div>
 				<div class="log_pwd">
-					<img src="../companySys/images/password.png" style="vertical-align: middle;margin: 0px 8px 7px 0px;"/>
 					<input id="password" type="password" name="password" placeholder="密码:" />
 				</div>
-				<input id="submitbutton" class="btn" type="button" value="登录" onclick="submitdata()" /> 
+					<a id="submitbutton" class="btn" onclick="submitdata()">登录</a>
 			</div>
 		</div>
 	</form>
