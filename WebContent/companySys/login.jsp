@@ -69,10 +69,11 @@ function keyLogin(){
 					<input id="username" type="text" name="loginname" placeholder="用户名:" />
 				</div>
 				<div class="log_pwd">
-					<img src="../companySys/images/password.png" style="vertical-align: middle;margin-bottom: 5px;"/>
+					<img src="../companySys/images/password.png" style="vertical-align: middle;margin: 0px 8px 7px 0px;"/>
 					<input id="password" type="password" name="password" placeholder="密码:" />
 				</div>
 				<input id="submitbutton" class="btn" type="button" value="登录" onclick="submitdata()" /> 
+				<a><img src="../companySys/images/log_btn.png" alt="" /></a>
 			</div>
 		</div>
 	</form>
