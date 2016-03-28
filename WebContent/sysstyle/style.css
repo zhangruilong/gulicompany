@@ -135,7 +135,9 @@ input {
 }
 
 .c_d .btn{
-	
+	background: url(../companySys/images/log_btn.png) no-repeat left;
+	height: 42px;
+	width: 109px;
 }
 /*顶部top.html*/
 .topnav {

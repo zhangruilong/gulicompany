@@ -73,7 +73,6 @@ function keyLogin(){
 					<input id="password" type="password" name="password" placeholder="密码:" />
 				</div>
 				<input id="submitbutton" class="btn" type="button" value="登录" onclick="submitdata()" /> 
-				<a><img src="../companySys/images/log_btn.png" alt="" /></a>
 			</div>
 		</div>
 	</form>
