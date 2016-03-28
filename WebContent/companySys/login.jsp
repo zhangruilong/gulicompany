@@ -55,68 +55,25 @@ function keyLogin(){
 	}
 };
 </script>
-<style type="text/css">
-	.c_d{
-		position:relative;
-		padding:5%;
-		text-align: center;
-		 height: 400px; 
-		 width: 600px; 
-		 margin: auto;
-	}
-	.c_d h1{
-		font-size: 35px;
-		height: 80px; 
-		 width: 400px; 
-		 margin: auto;
-	}
-	.c_d h2{
-		font-size: 35px;
-		height: 80px; 
-		 width: 400px; 
-		 margin: auto;
-	}
-	.c_d p{
-	
-	}
-	.c_d p span{
-		background: url(../companySys/images/log_input.png) no-repeat left;
-	}
-	.c_d p input{
-		margin: 15px;
-		background: url(../companySys/images/log_input.png) no-repeat left top;
-		width: 205px;
-		height: 30px;
-		padding: 0 0 0 5px;
-		line-height: 30px;
-	}
-	
-	.c_d .btn{
-		background: url(../sysimages/login_btn_bg.gif) no-repeat left top;
-	    width: 61px;
-	    height: 30px;
-	    color: #fff;
-	    font-family: "微软雅黑";
-	    text-align: center;
-	}
-</style>
 </head>
 
 <body>
 <div class="login" onkeydown="keyLogin()">
 	<form action="login.action" method="post">
-	<div class="login_top">
-		<div>&nbsp;
-		</div>
-	</div>
 		<div class="c_d">
 			<h1>谷粒网</h1>
 			<h2>供应商后台管理系统</h2>
-			<p>
-				<span><input id="username" type="text" name="loginname" placeholder="用户名:" /></span>
-				<input id="password" type="password" name="password" placeholder="密码:" />
+			<div class="log_input">
+				<div class="log_name">
+					<img src="../companySys/images/username.png" style="vertical-align: middle;margin: 0px 8px 7px 0px;"/>
+					<input id="username" type="text" name="loginname" placeholder="用户名:" />
+				</div>
+				<div class="log_pwd">
+					<img src="../companySys/images/password.png" style="vertical-align: middle;margin-bottom: 5px;"/>
+					<input id="password" type="password" name="password" placeholder="密码:" />
+				</div>
 				<input id="submitbutton" class="btn" type="button" value="登录" onclick="submitdata()" /> 
-			</p>
+			</div>
 		</div>
 	</form>
 </div>
