@@ -7,7 +7,7 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 Company company = (Company)session.getAttribute("company"); 
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -78,6 +78,7 @@ height: 100px;
 	line-height: 35px;
 	color: #EE8A0F;
 	padding: 0px 0px 0px 40px;
+	border-bottom: 2px solid #FFE2BD;
 }
 .help{
 	float: right;
@@ -104,15 +105,13 @@ height: 100px;
 			<li onclick="doOrder()">订单管理</li>
 		</ul>
 	</div>
-	<div class="help"><a>修改密码</a>|<a>对出</a>|<a>帮助</a></div>
+	<div class="help"><a>修改密码</a>|<a>退出</a>|<a>帮助</a></div>
 	</div>
 	<div class="sysname">供应商后台管理系统</div>
 	<script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript">
 		function doOrder(){
-			var t = $(window.parent.leftFrame.menu_header_title);
-			t.text("订单管理");
-			var menu_body = $(window.parent.leftFrame.menu__body);
+			var menu_body = $(window.parent.leftFrame.menu);
 			menu_body.html("<ul class='nav'>"
 			        +"<li class='nav__item'>"
 			        +"<a href=allOrder.action?ordermcompany="+'<%=company.getCompanyid() %>'+" target='main' class='nav__item-link'>"
@@ -132,9 +131,7 @@ height: 100px;
 			        +"</ul>");
 		}
 		function doGoods(){
-			var t = $(window.parent.leftFrame.menu_header_title);
-			t.text("商品管理");
-			var menu_body = $(window.parent.leftFrame.menu__body);
+			var menu_body = $(window.parent.leftFrame.menu);
 			menu_body.html("<ul class='nav'>"
 			        +"<li class='nav__item'>"
 			        +"<a href=allGoods.action?goodscompany="+'<%=company.getCompanyid() %>'+" target='main' class='nav__item-link'>"
@@ -159,9 +156,7 @@ height: 100px;
 			        +"</ul>");
 		}
 		function doCustomer(){
-			var t = $(window.parent.leftFrame.menu_header_title);
-			t.text("客户管理");
-			var menu_body = $(window.parent.leftFrame.menu__body);
+			var menu_body = $(window.parent.leftFrame.menu);
 			menu_body.html("<ul class='nav'>"
 			        +"<li class='nav__item'>"
 			        +"<a href=allCustomer.action?ccustomercompany="+'<%=company.getCompanyid() %>'+" target='main' class='nav__item-link'>"
@@ -186,9 +181,7 @@ height: 100px;
 			        +"</ul>");
 		}
 		function doSys(){
-			var t = $(window.parent.leftFrame.menu_header_title);
-			t.text("系统管理");
-			var menu_body = $(window.parent.leftFrame.menu__body);
+			var menu_body = $(window.parent.leftFrame.menu);
 			menu_body.html("<ul class='nav'>"
 			        +"<li class='nav__item'>"
 			        +"<a href=cusInfo.jsp target='main' class='nav__item-link'>"

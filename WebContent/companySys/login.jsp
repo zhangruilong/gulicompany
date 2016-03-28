@@ -5,7 +5,7 @@
 			request.getRequestDispatcher("main.jsp").forward(request, response);
 		}
 	 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -13,7 +13,7 @@
 <meta http-equiv="Cache-Control" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
 <title>用户登录</title>
-<link href="../sysstyle/style.css" rel="stylesheet" type="text/css" />
+<link href="../companySys/css/style.css" rel="stylesheet" type="text/css" />
 <link href="../ExtJS/resources/css/ext-all.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="../ExtJS/adapter/ext/ext-base.js"></script>
@@ -57,7 +57,7 @@ function keyLogin(){
 </script>
 </head>
 
-<body onkeydown="keyLogin()">
+<body class="body" onkeydown="keyLogin()">
 <div class="login">
 	<form action="login.action" method="post">
 		<div class="c_d">
