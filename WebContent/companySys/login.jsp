@@ -61,7 +61,7 @@ function keyLogin(){
 <div class="login">
 	<form action="login.action" method="post">
 		<div class="c_d">
-			<h1>谷粒网</h1>
+			<h1><img src="../companySys/images/logo.png" alt="" /></h1>
 			<h2>
 				<img src="../companySys/images/left_crossband.png" alt="" />
 				供应商后台管理系统
@@ -69,10 +69,10 @@ function keyLogin(){
 			</h2>
 			<div class="log_input">
 				<div class="log_name">
-					<input id="username" type="text" name="loginname" placeholder="用户名:" />
+					<input id="username" type="text" name="loginname" placeholder="用户名" />
 				</div>
 				<div class="log_pwd">
-					<input id="password" type="password" name="password" placeholder="密码:" />
+					<input id="password" type="password" name="password" placeholder="密码" />
 				</div>
 					<a id="submitbutton" class="btn" onclick="submitdata()">登录</a>
 			</div>

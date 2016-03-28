@@ -1,13 +1,11 @@
 @CHARSET "UTF-8";
 body {
-    width: 1200px;
     margin: 0px auto;
     font-family: 'trebuchet MS', 'Lucida sans', Arial;
     color: #444;
 }
 
 table {
-	display: block;
     *border-collapse: collapse; /* IE7 and lower */
     border-spacing: 0;
 }

@@ -14,19 +14,19 @@ Company company = (Company)session.getAttribute("company");
 <title>谷粒管理平台</title>
 <style type="text/css">
 body{
-background: url(../sysimages/top_bg.jpg) repeat;
+background: url(../companySys/images/orderImg/top_background.png) repeat;
 background-size:100% 100%;
 margin: 0px auto;
 }
 .top{
 width: 100%;
-height: 100%;
+height: 100px;
 }
 
 .title{
 	float:left;
 	height: 100px;
-	width: 200px;
+	width: 150px;
 	text-align: center;
 	color:white;
 }
@@ -35,14 +35,10 @@ height: 100%;
 	width: 200px;
 	margin-top: 20px;
 }
-.title .gong{
-	font-size: 18px;
-	width: 200px;
-}
 .mokuai{
 	position:absolute;
-	margin-left: 300px;
-	width: 650px;
+	margin-left: 200px;
+	width: 800px;
 }
 
 .mokuai ul{
@@ -50,32 +46,54 @@ height: 100%;
 }
 
 .mokuai ul li{
+	background-image:url("../companySys/images/orderImg/top_btn.png");
 	cursor:pointer;
 	list-style: none;
 	float: right;
-	height: 60px;
-	width: 60px;
-	font-size: 24px;
-	margin-right: 10%;
+	line-height: 39px;
+	width: 125px;
+	font-size: 20px;
+	font-family: SimSun ;
+	font-weight:bold;
+	margin: 45px 5px 0px 0px;
+	text-align:center;
 	color:white;
 }
 .mokuai ul li:HOVER{
+	background-image:url("../companySys/images/orderImg/top_btnHover.png");
 	cursor:pointer;
 	list-style: none;
 	float: right;
-	height: 60px;
-	width: 60px;
-	font-size: 24px;
-	margin-right: 10%;
-	color:yellow;
+	line-height: 39px;
+	width: 125px;
+	font-size: 20px;
+	font-family: SimSun ;
+	font-weight:bold;
+	margin: 45px 5px 0px 0px;
+	color:#EE8A0F;
+}
+.sysname{
+	display:block;
+	background-color:#FBF1E5;
+	line-height: 35px;
+	color: #EE8A0F;
+	padding: 0px 0px 0px 40px;
+}
+.help{
+	float: right;
+	color: white;
+	line-height: 40px;
+	margin: 0px 15px 0px 0px;
+}
+.help a{
+	padding: 0px 12px 0px 12px;
 }
 </style>
 </head>
 <body>
 	<div class="top">
 	<div class="title">
-		<div class="guliwang">谷粒网</div>
-		<div class="gong">供应商后台管理系统</div>
+		<div class="guliwang"><img src="../companySys/images/orderImg/top_logo.png" alt="" /></div>
 	</div>
 	<div class="mokuai">
 		<ul>
@@ -86,7 +104,9 @@ height: 100%;
 			<li onclick="doOrder()">订单管理</li>
 		</ul>
 	</div>
+	<div class="help"><a>修改密码</a>|<a>对出</a>|<a>帮助</a></div>
 	</div>
+	<div class="sysname">供应商后台管理系统</div>
 	<script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript">
 		function doOrder(){
