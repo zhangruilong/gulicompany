@@ -237,6 +237,9 @@ function initDishes(data){
  	            		'<label for="'+item.goodsid+'checkbox" onclick="checkedgoods(\''+item.goodsid+'\');"></label>'+
  	             '</div>'+
  	         '</li>');
+ 			if(item.pricesunit2==null||item.pricesunit2==''||item.pricesunit2==undefined){
+ 				$("#"+item.goodsid+"radio2").parent().css("display","none");
+ 			}
      });
  	$(".regular-radio").change(function(){ 
 		var t = $(this).parent().parent().next().find('input[name*=danpin]');
