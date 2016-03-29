@@ -13,15 +13,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <title></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript" src="../sysjs/jquery.min.js"></script>
-<link href="css/style2.css" rel="stylesheet" type="text/css">
 <link href="css/tabsty.css" rel="stylesheet" type="text/css">
 </head>
 <body>
  <pg:pager maxPageItems="8" url="allTimeGoods.action">
  <pg:param name="timegoodscompany" value="${sessionScope.company.companyid }"/>
-<div class="page_title">商品管理/促销商品</div>
-<div class="button_bar">
-</div>
+<div class="nowposition">当前位置：商品管理》促销商品</div>
 <br />
 <table class="bordered">
     <thead>

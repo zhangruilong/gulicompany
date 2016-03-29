@@ -14,7 +14,6 @@ String ordermway = request.getParameter("ordermway");
 <title></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript" src="../sysjs/jquery.min.js"></script>
-<link href="css/style2.css" rel="stylesheet" type="text/css">
 <link href="css/tabsty.css" rel="stylesheet" type="text/css">
 <script type="text/javascript">
 var ordermway = '<%=ordermway %>';
@@ -35,9 +34,7 @@ $(function(){
  <pg:pager maxPageItems="8" url="allOrder.action">
  <pg:param name="ordermcompany" value="${sessionScope.company.companyid }"/>
  <pg:param name="ordermway" value="<%=ordermway %>"/>
-<div class="page_title">订单管理/全部订单</div>
-<div class="button_bar">
-</div>
+<div class="nowposition">当前位置：订单管理》全部订单</div>
 <br />
 <table class="bordered">
     <thead>
