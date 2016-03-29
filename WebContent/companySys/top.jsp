@@ -12,86 +12,9 @@ Company company = (Company)session.getAttribute("company");
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>谷粒管理平台</title>
-<style type="text/css">
-body{
-background: url(../companySys/images/orderImg/top_background.png) repeat;
-background-size:100% 100%;
-margin: 0px auto;
-}
-.top{
-width: 100%;
-height: 100px;
-}
-
-.title{
-	float:left;
-	height: 100px;
-	width: 150px;
-	text-align: center;
-	color:white;
-}
-.title .guliwang{
-	font-size: 24px;.
-	width: 200px;
-	margin-top: 20px;
-}
-.mokuai{
-	position:absolute;
-	margin-left: 200px;
-	width: 800px;
-}
-
-.mokuai ul{
-	
-}
-
-.mokuai ul li{
-	background-image:url("../companySys/images/orderImg/top_btn.png");
-	cursor:pointer;
-	list-style: none;
-	float: right;
-	line-height: 39px;
-	width: 125px;
-	font-size: 20px;
-	font-family: SimSun ;
-	font-weight:bold;
-	margin: 45px 5px 0px 0px;
-	text-align:center;
-	color:white;
-}
-.mokuai ul li:HOVER{
-	background-image:url("../companySys/images/orderImg/top_btnHover.png");
-	cursor:pointer;
-	list-style: none;
-	float: right;
-	line-height: 39px;
-	width: 125px;
-	font-size: 20px;
-	font-family: SimSun ;
-	font-weight:bold;
-	margin: 45px 5px 0px 0px;
-	color:#EE8A0F;
-}
-.sysname{
-	display:block;
-	background-color:#FBF1E5;
-	line-height: 35px;
-	color: #EE8A0F;
-	padding: 0px 0px 0px 40px;
-	border-bottom: 2px solid #FFE2BD;
-}
-.help{
-	float: right;
-	color: white;
-	line-height: 40px;
-	margin: 0px 15px 0px 0px;
-}
-.help a{
-	padding: 0px 12px 0px 12px;
-}
-</style>
+<link href="../companySys/css/style.css" rel="stylesheet" type="text/css" />
 </head>
-<body>
+<body class="top_body">
 	<div class="top">
 	<div class="title">
 		<div class="guliwang"><img src="../companySys/images/orderImg/top_logo.png" alt="" /></div>
@@ -105,7 +28,7 @@ height: 100px;
 			<li onclick="doOrder()">订单管理</li>
 		</ul>
 	</div>
-	<div class="help"><a>修改密码</a>|<a>退出</a>|<a>帮助</a></div>
+	<div class="help"><a href=editPas.jsp  target='main' >修改密码</a>|<a href=loginOut.action  target='_parent' >退出</a>|<a>帮助</a></div>
 	</div>
 	<div class="sysname">供应商后台管理系统</div>
 	<script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
