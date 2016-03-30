@@ -19,6 +19,26 @@
     <result column="UPDTIME" property="updtime" jdbcType="VARCHAR" />
     <result column="UPDOR" property="updor" jdbcType="VARCHAR" />
     <result column="ORDERMEMP" property="ordermemp" jdbcType="VARCHAR" />
+    <!-- 客户 -->
+    <association property="orderdCustomer" javaType="com.server.pojo.entity.Customer">
+	    <id column="CUSTOMERID" property="customerid" jdbcType="VARCHAR" />
+	    <result column="CUSTOMERCODE" property="customercode" jdbcType="VARCHAR" />
+	    <result column="CUSTOMERNAME" property="customername" jdbcType="VARCHAR" />
+	    <result column="CUSTOMERPHONE" property="customerphone" jdbcType="VARCHAR" />
+	    <result column="CUSTOMERPSW" property="customerpsw" jdbcType="VARCHAR" />
+	    <result column="CUSTOMERSHOP" property="customershop" jdbcType="VARCHAR" />
+	    <result column="CUSTOMERCITY" property="customercity" jdbcType="VARCHAR" />
+	    <result column="CUSTOMERXIAN" property="customerxian" jdbcType="VARCHAR" />
+	    <result column="CUSTOMERADDRESS" property="customeraddress" jdbcType="VARCHAR" />
+	    <result column="CUSTOMERTYPE" property="customertype" jdbcType="VARCHAR" />
+	    <result column="CUSTOMERLEVEL" property="customerlevel" jdbcType="DECIMAL" />
+	    <result column="OPENID" property="openid" jdbcType="VARCHAR" />
+	    <result column="CUSTOMERDETAIL" property="customerdetail" jdbcType="VARCHAR" />
+	    <result column="CUSTOMERSTATUE" property="customerstatue" jdbcType="VARCHAR" />
+	    <result column="CREATETIME" property="createtime" jdbcType="VARCHAR" />
+	    <result column="UPDTIME" property="updtime" jdbcType="VARCHAR" />
+	 </association>
+    <!-- 订单详情 -->
     <collection property="orderdList" ofType="com.server.pojo.entity.Orderd">
     	<id column="ORDERDID" property="orderdid" jdbcType="VARCHAR" />
 	    <result column="ORDERDORDERM" property="orderdorderm" jdbcType="VARCHAR" />
@@ -43,8 +63,12 @@
   <!-- 根据供应商(和条件)查询订单 -->
   <select id="selectByCompany" resultMap="BaseResultMap" parameterType="com.server.pojo.entity.Orderm" >
     select 
-    <include refid="Base_Column_List" />
+    orderm.*,
+    customer.customerid,
+	customer.customershop
     from ORDERM
+    left join customer
+	on orderm.ordermcustomer = customer.customerid
     where ordermcompany = #{ordermcompany,jdbcType=VARCHAR} 
     	<if test="ordermway != null and ordermway != ''">
     		and ORDERMWAY = #{ordermway,jdbcType=VARCHAR} 

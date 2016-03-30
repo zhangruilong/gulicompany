@@ -11,6 +11,9 @@
 <title>谷粒网</title>
 <link href="css/base.css" type="text/css" rel="stylesheet">
 <link href="css/layout.css" type="text/css" rel="stylesheet">
+<link href="css/dig.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+
 </head>
 
 <body>
@@ -18,9 +21,34 @@
 <input type="hidden" name="feedbackcustomer" value="${sessionScope.customer.customerid }">
 <div class="view-box">
 <div class="wapper-nav">意见反馈</div>
-<textarea name="feedbackdetail" cols="" rows="" placeholder="请输入您的反馈意见（字数200字以内）"></textarea>
-<a href="mine.jsp" class="view-tj">提交</a>
+<textarea id="feedbackdetail" name="feedbackdetail" cols="" rows="" placeholder="请输入您的反馈意见（字数200字以内）"></textarea>
+<a onclick="subform()" class="view-tj">提交</a>
 </div>
 </form>
+<!--弹框-->
+<div class="cd-popup" role="alert">
+	<div class="cd-popup-container">
+		<div class="cd-buttons">
+        	<h1>谷粒网提示</h1>
+			<p class="meg">意见内容不能为空</p>
+            <a class="cd-popup-close">确定</a>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(function(){
+	$(".cd-popup").on("click",function(event){		//绑定点击事件
+		$(this).removeClass("is-visible");	//移除'is-visible' class
+	});
+})
+function subform(){
+	var feedbackdetail = $("#feedbackdetail").val();
+	if(feedbackdetail == null || feedbackdetail ==""){
+		$(".cd-popup").addClass("is-visible");	//弹出窗口
+		return;
+	}
+	document.forms[0].submit();
+}
+</script>
 </body>
 </html>
