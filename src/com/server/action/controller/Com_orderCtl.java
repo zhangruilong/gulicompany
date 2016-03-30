@@ -8,8 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.server.dao.mapper.CompanyMapper;
+import com.server.dao.mapper.CustomerMapper;
 import com.server.dao.mapper.OrderdMapper;
 import com.server.dao.mapper.OrdermMapper;
+import com.server.pojo.entity.Company;
+import com.server.pojo.entity.Customer;
 import com.server.pojo.entity.Orderd;
 import com.server.pojo.entity.Orderm;
 
@@ -24,6 +28,10 @@ public class Com_orderCtl {
 	private OrdermMapper ordermMapper;
 	@Autowired
 	private OrderdMapper orderdMapper;
+	@Autowired
+	private CompanyMapper companyMapper;
+	@Autowired
+	private CustomerMapper customerMapper;
 	//全部订单
 	@RequestMapping("/companySys/allOrder")
 	public String allOrder(Model model,Orderm order){
@@ -88,5 +96,16 @@ public class Com_orderCtl {
 		model.addAttribute("orderd", orderd);
 		model.addAttribute("order", order);
 		return "forward:orderDetail.action";
+	}
+	//打印订单
+	@RequestMapping("/companySys/printOrder")
+	public String printOrder(Model model,Orderm order){
+		order = ordermMapper.selectByPrimaryKey(order.getOrdermid());
+		Company company = companyMapper.selectByPrimaryKey(order.getOrdermcompany());
+		Customer customer = customerMapper.selectByPrimaryKey(order.getOrdermcustomer());
+		model.addAttribute("order", order);
+		model.addAttribute("printCompany", company);
+		model.addAttribute("printCustomer", customer);
+		return "forward:/companySys/print.jsp";
 	}
 }

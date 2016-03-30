@@ -131,10 +131,10 @@ public class FileUtil {
 	/**
 	 * 解析ArrayList<?>成excel2003，然后导出
 	 * @param response
-	 * @param temps
-	 * @param heads
-	 * @param discard
-	 * @param name
+	 * @param temps		需要导出的数据集合
+	 * @param heads		表头
+	 * @param discard	要忽略的字段名
+	 * @param name		文件名称
 	 * @throws Exception
 	 */
 	public static void expExcel(HttpServletResponse response, ArrayList<?> temps, String[] heads,

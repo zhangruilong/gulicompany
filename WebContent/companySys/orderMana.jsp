@@ -14,7 +14,6 @@ String ordermway = request.getParameter("ordermway");
 <title></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript" src="../sysjs/jquery.min.js"></script>
-<link href="css/style2.css" rel="stylesheet" type="text/css">
 <link href="css/tabsty.css" rel="stylesheet" type="text/css">
 <script type="text/javascript">
 var ordermway = '<%=ordermway %>';
@@ -26,20 +25,21 @@ $(function(){
 	} else if(ordermway == '货到付款'){
 		$(".page_title").html("订单管理/货到付款订单");
 	}
-	
+	//$(".nowposition").style.backgroundSize="1300px";
 })
-
+function doprint(ordermid){
+	window.open("printOrder.action?ordermid="+ordermid+"&ordermcompany=${sessionScope.company.companyid }");
+	return false;
+}
 </script>
 </head>
 <body>
  <pg:pager maxPageItems="8" url="allOrder.action">
  <pg:param name="ordermcompany" value="${sessionScope.company.companyid }"/>
  <pg:param name="ordermway" value="<%=ordermway %>"/>
-<div class="page_title">订单管理/全部订单</div>
-<div class="button_bar">
-</div>
+<div class="nowposition">当前位置：订单管理》全部订单</div>
 <br />
-<table class="bordered">
+<table class="bordered" style="width: 1300px;">
     <thead>
 
     <tr>
@@ -52,6 +52,7 @@ $(function(){
 		<th>订单状态</th>
 		<th style="width: 115px">下单时间</th>
 		<th >修改时间</th>
+		<th>客户名称</th>
 		<th>联系人</th>
 		<th>手机</th>
 		<th>地址</th>
@@ -72,10 +73,11 @@ $(function(){
 			<td>${order.ordermstatue}</td>
 			<td>${order.ordermtime}</td>
 			<td>${order.updtime}</td>
+			<td>${order.orderdCustomer.customershop}</td>
 			<td>${order.ordermconnect}</td>
 			<td>${order.ordermphone}</td>
 			<td>${order.ordermaddress}</td>
-			<td><a href="">打印</a></td>
+			<td><a href="" onclick="return doprint(${order.ordermid})">打印</a></td>
 			<td><a href="orderDetail.action?ordermid=${order.ordermid}&ordermcompany=${sessionScope.company.companyid }">详情</a></td>
 		</tr>
 		</pg:item>

@@ -80,6 +80,10 @@ public class Orderm
     * 关联orderd
     */
    private List<Orderd> orderdList;
+   /**
+    * 客户
+    */
+   private Customer orderdCustomer;
     //属性方法	    
      /**
 	 *设置主键"订单ID"属性
@@ -376,6 +380,14 @@ public class Orderm
 
 	public void setOrderdList(List<Orderd> orderdList) {
 		this.orderdList = orderdList;
+	}
+
+	public Customer getOrderdCustomer() {
+		return orderdCustomer;
+	}
+
+	public void setOrderdCustomer(Customer orderdCustomer) {
+		this.orderdCustomer = orderdCustomer;
 	}
 
 	public Orderm() {

@@ -15,7 +15,6 @@ String goodsstatue = request.getParameter("goodsstatue");
 <title></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript" src="../sysjs/jquery.min.js"></script>
-<link href="css/style2.css" rel="stylesheet" type="text/css">
 <link href="css/tabsty.css" rel="stylesheet" type="text/css">
 <script type="text/javascript">
 var goodsstatue = '<%=goodsstatue %>';
@@ -36,9 +35,7 @@ $(function(){
  <pg:pager maxPageItems="8" url="allGoods.action">
  <pg:param name="goodscompany" value="${sessionScope.company.companyid }"/>
  <pg:param name="goodsstatue" value="${requestScope.goodsCon.goodsstatue }"/>
-<div class="page_title">商品管理/全部商品</div>
-<div class="button_bar">
-</div>
+<div class="nowposition">当前位置：商品管理》全部商品</div>
 <br />
 <table class="bordered">
     <thead>
