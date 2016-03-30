@@ -36,7 +36,7 @@ public class Oauth2 extends HttpServlet {
 		// 发送 GET 请求
 		String s = HttpRequest.sendGet(
 				"https://api.weixin.qq.com/sns/oauth2/access_token",
-				"appid=wx0720dd830e92482a&secret=13573905dd8bc4619408beaa62b6c65f&code="
+				"appid=wxf5c7a8afa90e6be2&secret=3ad77b3d40d1ab37c052f40b6ce5ba47&code="
 						+ code + "&grant_type=authorization_code");
 		System.out.println(s);
 
