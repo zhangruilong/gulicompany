@@ -14,10 +14,13 @@
 </head>
 
 <body>
+<form action="feedbackof.action" method="post">
+<input type="hidden" name="feedbackcustomer" value="${sessionScope.customer.customerid }">
 <div class="view-box">
 <div class="wapper-nav">意见反馈</div>
-<textarea name="" cols="" rows="" placeholder="请输入您的反馈意见（字数200字以内）"></textarea>
+<textarea name="feedbackdetail" cols="" rows="" placeholder="请输入您的反馈意见（字数200字以内）"></textarea>
 <a href="mine.jsp" class="view-tj">提交</a>
 </div>
+</form>
 </body>
 </html>

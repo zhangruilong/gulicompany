@@ -27,7 +27,10 @@ $(function(){
 	}
 	
 })
-
+function doprint(ordermid){
+	window.open("printOrder.action?ordermid="+ordermid+"&ordermcompany=${sessionScope.company.companyid }");
+	return false;
+}
 </script>
 </head>
 <body>
@@ -72,7 +75,7 @@ $(function(){
 			<td>${order.ordermconnect}</td>
 			<td>${order.ordermphone}</td>
 			<td>${order.ordermaddress}</td>
-			<td><a href="">打印</a></td>
+			<td><a href="" onclick="return doprint(${order.ordermid})">打印</a></td>
 			<td><a href="orderDetail.action?ordermid=${order.ordermid}&ordermcompany=${sessionScope.company.companyid }">详情</a></td>
 		</tr>
 		</pg:item>
