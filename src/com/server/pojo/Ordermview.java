@@ -80,6 +80,10 @@ public class Ordermview
     */
    private String companyshop;   
    /**
+    * companyphone
+    */
+   private String companyphone;   
+   /**
     * companydetail
     */
    private String companydetail;   
@@ -395,6 +399,23 @@ public class Ordermview
 	}	   
 
 	/**
+	 *设置"companyphone"属性
+	 *@param companyphone 实体的Companyphone属性
+	 */
+	public void setCompanyphone(String companyphone)
+	{
+		this.companyphone = companyphone;
+	}
+	
+	/**
+	 *获取"companyphone"属性
+	 */
+	public String getCompanyphone()
+	{
+		return this.companyphone;
+	}	   
+
+	/**
 	 *设置"companydetail"属性
 	 *@param companydetail 实体的Companydetail属性
 	 */
@@ -450,6 +471,7 @@ public class Ordermview
 	 	,String updor
 	 	,String ordermemp
 	 	,String companyshop
+	 	,String companyphone
 	 	,String companydetail
 	 	,String openid
 		 ){
@@ -472,6 +494,7 @@ public class Ordermview
 	 	this.updor = updor;
 	 	this.ordermemp = ordermemp;
 	 	this.companyshop = companyshop;
+	 	this.companyphone = companyphone;
 	 	this.companydetail = companydetail;
 	 	this.openid = openid;
 	}

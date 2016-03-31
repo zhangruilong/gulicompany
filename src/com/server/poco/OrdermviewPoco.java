@@ -40,6 +40,7 @@ public class OrdermviewPoco
 	 	"updor",
 	 	"ordermemp",
 	 	"companyshop",
+	 	"companyphone",
 	 	"companydetail",
 	 	"openid",
 	};
@@ -65,6 +66,7 @@ public class OrdermviewPoco
 	 	"updor",
 	 	"ordermemp",
 	 	"companyshop",
+	 	"companyphone",
 	 	"companydetail",
 	 	"openid",
    };
@@ -93,6 +95,7 @@ public class OrdermviewPoco
 	 	"updor",
 	 	"ordermemp",
 	 	"companyshop",
+	 	"companyphone",
 	 	"companydetail",
 	 	"openid",
    };

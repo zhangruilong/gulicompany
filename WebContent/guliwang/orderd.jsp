@@ -75,6 +75,7 @@ function initOrderm(data){
      $(".pdl-b8").html("");
  	 $.each(data.root, function(i, item) {
  		$(".order-detail-info").append('<p>'+item.companyshop+'</p>'+
+ 				'<p>'+item.companyphone+'</p>'+
  				'<p>'+item.companydetail+'</p>');
  		$(".pdl-b8").append('<p>收货人：'+item.ordermconnect+item.ordermphone+'</p>'+
  				'<p>收货地址：'+item.ordermaddress+'</p>'+
