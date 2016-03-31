@@ -69,6 +69,11 @@
 <script> 
 var basePath = '<%=basePath%>';
 $(function(){
+	//openid
+	if(!window.localStorage.getItem("openid")||window.localStorage.getItem("openid")=="null"){
+		getOpenid();
+		window.localStorage.setItem("openid",getParamValue("openid"));
+	}
 	getJson(basePath+"OrdermviewAction.do",{method:"mselQuery",
 		begindate : "<%=request.getParameter("begindate")%>",
 		enddate : "<%=request.getParameter("enddate")%>",
@@ -76,6 +81,23 @@ $(function(){
 		endmoney : "<%=request.getParameter("endmoney")%>",
 		companyname : "<%=request.getParameter("companyname")%>"},initData,null);
 });
+//openid
+function getOpenid()
+{
+  var thisUrl = location.href;
+  location.href="snsapi-base.api?redir="+encodeURIComponent(thisUrl);
+}
+//openid
+function getParamValue(name)
+{
+  try {
+    return(
+      location.search.match(new RegExp("[\?&]"+name+"=[^&#]*"))[0].split("=")[1]
+    );
+  } catch (ex) {
+    return(null);
+  }
+}
 function initData(data){
     $(".gl-box").html("");
 	 $.each(data.root, function(i, item) {

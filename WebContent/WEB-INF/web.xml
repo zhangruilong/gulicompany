@@ -56,7 +56,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>WxpayNotifyGatewayServlet</servlet-name>
-    <url-pattern>/web/notify.api</url-pattern>
+    <url-pattern>/guliwang/notify.api</url-pattern>
   </servlet-mapping>
 
   <servlet>
@@ -65,7 +65,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>JSAPISigner</servlet-name>
-    <url-pattern>/web/jsapi-signer.api</url-pattern>
+    <url-pattern>/guliwang/jsapi-signer.api</url-pattern>
   </servlet-mapping>
 
   <!-- wxmp -->
@@ -75,7 +75,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>SnsapiBase</servlet-name>
-    <url-pattern>/web/snsapi-base.api</url-pattern>
+    <url-pattern>/guliwang/snsapi-base.api</url-pattern>
   </servlet-mapping>
 
   <servlet>
@@ -84,7 +84,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>SnsapiUserinfo</servlet-name>
-    <url-pattern>/web/snsapi-userinfo.api</url-pattern>
+    <url-pattern>/guliwang/snsapi-userinfo.api</url-pattern>
   </servlet-mapping>
 
   <servlet>
@@ -93,7 +93,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>JSSDKConfig</servlet-name>
-    <url-pattern>/web/jssdk-config.api</url-pattern>
+    <url-pattern>/guliwang/jssdk-config.api</url-pattern>
   </servlet-mapping>
 
   <!-- wxmsg -->
@@ -123,7 +123,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>WxmsgGatewayServlet</servlet-name>
-    <url-pattern>/web/msg-gateway.spi</url-pattern>
+    <url-pattern>/guliwang/msg-gateway.spi</url-pattern>
   </servlet-mapping>
 
   <!-- wxcp -->
@@ -133,7 +133,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>CorpSnsapiBase</servlet-name>
-    <url-pattern>/web/corp-snsapi-base.api</url-pattern>
+    <url-pattern>/guliwang/corp-snsapi-base.api</url-pattern>
   </servlet-mapping>
  <!-- springmvc前端控制器 -->
 	<servlet>
