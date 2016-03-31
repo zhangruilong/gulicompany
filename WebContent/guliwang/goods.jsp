@@ -133,6 +133,7 @@
 var basePath = '<%=basePath%>';
 var searchdishesvalue = '<%=searchdishesvalue%>';
 var searchclassesvalue = '<%=searchclassesvalue%>';
+var openid = window.localStorage.getItem("openid");
 $(function(){ 
 	if(!window.localStorage.getItem("totalnum")){
 		//如果没有totalnum
@@ -149,12 +150,12 @@ $(function(){
 	//通过ajax查询大类
 	getJson(basePath+"GoodsclassAction.do",{method:"mselAll",wheresql:"goodsclassparent='root'"},initGoodsclass,null);
 	if(searchdishesvalue!="null"&&searchdishesvalue!=""){
-		getJson(basePath+"GoodsviewAction.do",{method:"mselQuery",query:searchdishesvalue},initDishes,null);
+		getJson(basePath+"GoodsviewAction.do",{method:"mselQuery",query:searchdishesvalue,openid:openid},initDishes,null);
 	}else if(searchclassesvalue!="null"&&searchclassesvalue!=""){
 		$("#curgoodsclass").html(searchclassesvalue);
-		getJson(basePath+"GoodsviewAction.do",{method:"mselQuery",wheresql:"goodsclassname='"+searchclassesvalue+"'"},initDishes,null);
+		getJson(basePath+"GoodsviewAction.do",{method:"mselQuery",openid:openid,wheresql:"goodsclassname='"+searchclassesvalue+"'"},initDishes,null);
 	}else{
-		getJson(basePath+"GoodsviewAction.do",{method:"mselQuery",wheresql:"goodsclassname='大米'"},initDishes,null);
+		getJson(basePath+"GoodsviewAction.do",{method:"mselQuery",openid:openid,wheresql:"goodsclassname='大米'"},initDishes,null);
 	}
 	$(".cd-popup").on("click",function(event){		//绑定点击事件
 		$(this).removeClass("is-visible");	//移除'is-visible' class
@@ -165,7 +166,7 @@ function entersearch(){
     if (event.keyCode == 13)
     {
     	searchdishesvalue = $("#searchdishes").val();
-    	getJson(basePath+"GoodsviewAction.do",{method:"mselQuery",query:searchdishesvalue},initDishes,null);
+    	getJson(basePath+"GoodsviewAction.do",{method:"mselQuery",query:searchdishesvalue,openid:openid},initDishes,null);
     }
 }
 /* $(".citydrop").click(function(){ 

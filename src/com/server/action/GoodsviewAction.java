@@ -58,6 +58,7 @@ public class GoodsviewAction extends BaseAction {
 	}
 	//分页查询
 	public void mselQuery(HttpServletRequest request, HttpServletResponse response){
+		String openid = request.getParameter("openid");
 		Queryinfo queryinfo = getQueryinfo(request);
 		queryinfo.setType(Goodsview.class);
 		queryinfo.setQuery(DAO.getQuerysql(queryinfo.getQuery()));
