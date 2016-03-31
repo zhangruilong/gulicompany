@@ -61,12 +61,13 @@ public class OrdermviewAction extends BaseAction {
 		queryinfo.setType(Ordermview.class);
 		queryinfo.setQuery(DAO.getQuerysql(queryinfo.getQuery()));
 		queryinfo.setOrder(OrdermviewPoco.ORDER);
+		String openid = request.getParameter("openid");
 		String begindate = request.getParameter("begindate");
 		String enddate = request.getParameter("enddate");
 		String beginmoney = request.getParameter("beginmoney");
 		String endmoney = request.getParameter("endmoney");
 		String companyname = request.getParameter("companyname");
-		String wheresql = "";
+		String wheresql = "openid='"+openid+"'";
 		if(CommonUtil.isNotNull(begindate)){
 			wheresql += " and ordermtime>'"+begindate+"'";
 		}
@@ -82,9 +83,9 @@ public class OrdermviewAction extends BaseAction {
 		if(CommonUtil.isNotNull(companyname)){
 			wheresql += " and companyshop like '%"+companyname+"%'";
 		}
-		if(CommonUtil.isNotNull(wheresql)){
-			wheresql = wheresql.substring(5,wheresql.length());
-		}
+//		if(CommonUtil.isNotNull(wheresql)){
+//			wheresql = wheresql.substring(5,wheresql.length());
+//		}
 		queryinfo.setWheresql(wheresql);
 		Pageinfo pageinfo = new Pageinfo(DAO.getTotal(queryinfo), DAO.selQuery(queryinfo));
 		result = CommonConst.GSON.toJson(pageinfo);

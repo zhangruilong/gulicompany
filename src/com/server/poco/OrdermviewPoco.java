@@ -22,6 +22,7 @@ public class OrdermviewPoco
     * 实体中文字段
     */
    public static String[] CHINESENAME = {
+   		"ordermid",
 	 	"ordermcustomer",
 	 	"ordermcompany",
 	 	"ordermcode",
@@ -40,11 +41,13 @@ public class OrdermviewPoco
 	 	"ordermemp",
 	 	"companyshop",
 	 	"companydetail",
+	 	"openid",
 	};
 	/**
 	 * 实体英文字段
 	 */
    public static final String[] FIELDNAME = {
+   		"ordermid",
 	 	"ordermcustomer",
 	 	"ordermcompany",
 	 	"ordermcode",
@@ -63,6 +66,7 @@ public class OrdermviewPoco
 	 	"ordermemp",
 	 	"companyshop",
 	 	"companydetail",
+	 	"openid",
    };
    /**
     * 实体排序
@@ -90,6 +94,7 @@ public class OrdermviewPoco
 	 	"ordermemp",
 	 	"companyshop",
 	 	"companydetail",
+	 	"openid",
    };
 }
 

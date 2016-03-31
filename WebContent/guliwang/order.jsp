@@ -70,11 +70,13 @@
 var basePath = '<%=basePath%>';
 $(function(){
 	//openid
-	if(!window.localStorage.getItem("openid")||window.localStorage.getItem("openid")=="null"){
+	var openid = window.localStorage.getItem("openid");
+	if(!openid||openid=="null"){
 		getOpenid();
 		window.localStorage.setItem("openid",getParamValue("openid"));
 	}
 	getJson(basePath+"OrdermviewAction.do",{method:"mselQuery",
+		openid : openid,
 		begindate : "<%=request.getParameter("begindate")%>",
 		enddate : "<%=request.getParameter("enddate")%>",
 		beginmoney : "<%=request.getParameter("beginmoney")%>",
