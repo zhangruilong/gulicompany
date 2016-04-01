@@ -59,28 +59,28 @@ public class Com_goodsCtl {
 		goodsCon = goodsMapper.selectByPrimaryKey(goodsCon.getGoodsid());
 		String[] priceStrs = prices.getPricesprice().split(",");
 		String[] price2Strs = prices.getPricesprice2().split(",");
-		
+		prices.setPricesprice2(null);
 		if(goodsCon.getPricesList() == null || goodsCon.getPricesList().size() < 9){
 			//如果没有价格
 			for (int i = 0; i < priceStrs.length; i++) {
 				for (int j = 0; j < price2Strs.length; j++) {
 					if(i == j){
-						prices.setPricesprice(priceStrs[i]);				//单价
 						prices.setPricesprice2(price2Strs[j]);				//套装价
-						if(i < 3){
-							prices.setPricesclass("餐饮客户");				//分类
-						} else if(i>=3 && i<6){
-							prices.setPricesclass("高级客户");
-						} else if(i>=6 && i<9){
-							prices.setPricesclass("组织单位客户");
-						}
-						prices.setPriceslevel(3-(i%3));						//等级
-						java.text.DateFormat yyyy = new java.text.SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-						prices.setCreatetime(yyyy.format(new Date()).toString());		//创建时间
-						prices.setPricesid(CommonUtil.getNewId());			//价格id
-						pricesMapper.insertSelective(prices);				//添加到数据库
 					}
 				} 
+				prices.setPricesprice(priceStrs[i]);				//单价
+				if(i < 3){
+					prices.setPricesclass("餐饮客户");				//分类
+				} else if(i>=3 && i<6){
+					prices.setPricesclass("高级客户");
+				} else if(i>=6 && i<9){
+					prices.setPricesclass("组织单位客户");
+				}
+				prices.setPriceslevel(3-(i%3));						//等级
+				java.text.DateFormat yyyy = new java.text.SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+				prices.setCreatetime(yyyy.format(new Date()).toString());		//创建时间
+				prices.setPricesid(CommonUtil.getNewId());			//价格id
+				pricesMapper.insertSelective(prices);				//添加到数据库
 			}
 		} else {
 			//如果有价格

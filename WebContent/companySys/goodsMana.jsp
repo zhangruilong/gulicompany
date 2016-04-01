@@ -20,11 +20,11 @@ String goodsstatue = request.getParameter("goodsstatue");
 var goodsstatue = '<%=goodsstatue %>';
 $(function(){
 	if(goodsstatue == null || goodsstatue == ''){
-		$(".page_title").html("商品管理/全部商品");
+		$(".nowposition").html("当前位置：商品管理》全部商品");
 	} else if(goodsstatue == '上架'){
-		$(".page_title").html("商品管理/上架商品");
+		$(".nowposition").html("当前位置：商品管理》上架商品");
 	} else if(goodsstatue == '下架'){
-		$(".page_title").html("商品管理/下架商品");
+		$(".nowposition").html("当前位置：商品管理》下架商品");
 	}
 	
 })

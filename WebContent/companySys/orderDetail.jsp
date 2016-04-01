@@ -17,7 +17,6 @@ String ordermcompany = request.getParameter("ordermcompany");
 
 <link href="css/tabsty.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="../sysjs/jquery.min.js"></script>
-<script type="text/javascript" src="js/common.js"></script>
 <script type="text/javascript">
 var ordermid = '<%=ordermid%>';
 var ordermcompany = '<%=ordermcompany%>';

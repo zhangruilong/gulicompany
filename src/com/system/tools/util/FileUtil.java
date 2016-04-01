@@ -179,7 +179,7 @@ public class FileUtil {
 				if (discardflag) {
 					cell = row.createCell(iRow);
 					cell.setCellType(HSSFCell.CELL_TYPE_STRING);
-					cell.setCellValue((String) field.get(obj));
+					cell.setCellValue(String.valueOf(field.get(obj)));			//
 					iRow++;
 				}
 			}

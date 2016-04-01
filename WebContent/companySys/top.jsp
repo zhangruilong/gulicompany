@@ -33,6 +33,9 @@ Company company = (Company)session.getAttribute("company");
 	<div class="sysname">供应商后台管理系统</div>
 	<script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript">
+	$(function(){
+		window.parent.main.location.href = "allOrder.action?ordermcompany="+'<%=company.getCompanyid() %>';
+	})
 		function doOrder(){
 			var menu_body = $(window.parent.leftFrame.menu);
 			menu_body.html("<ul class='nav'>"
@@ -51,7 +54,13 @@ Company company = (Company)session.getAttribute("company");
 			        +"<span class='nav__item-text'>货到付款订单</span>"
 			        +"</a>   "
 			        +"</li>"
+			        +"<li class='nav__item'>"
+			        +"<a href=orderStatistics.action?companyid="+'<%=company.getCompanyid() %>'+" target='main' class='nav__item-link'>"
+			        +"<span class='nav__item-text'>订单商品统计</span>"
+			        +"</a>   "
+			        +"</li>"
 			        +"</ul>");
+			window.parent.main.location.href = "allOrder.action?ordermcompany="+'<%=company.getCompanyid() %>';
 		}
 		function doGoods(){
 			var menu_body = $(window.parent.leftFrame.menu);
@@ -77,6 +86,7 @@ Company company = (Company)session.getAttribute("company");
 			        +"</a>   "
 			        +"</li>"
 			        +"</ul>");
+			window.parent.main.location.href = "allGoods.action?goodscompany="+'<%=company.getCompanyid() %>';
 		}
 		function doCustomer(){
 			var menu_body = $(window.parent.leftFrame.menu);
@@ -102,6 +112,7 @@ Company company = (Company)session.getAttribute("company");
 			        +"</a>   "
 			        +"</li>"
 			        +"</ul>");
+			window.parent.main.location.href = "allCustomer.action?ccustomercompany="+'<%=company.getCompanyid() %>';
 		}
 		function doSys(){
 			var menu_body = $(window.parent.leftFrame.menu);
@@ -122,6 +133,7 @@ Company company = (Company)session.getAttribute("company");
 			        +"</a>   "
 			        +"</li>"
 			        +"</ul>");
+			window.parent.main.location.href = "cusInfo.jsp";
 		}
 	</script>
 </body>

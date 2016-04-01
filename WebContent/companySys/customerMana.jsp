@@ -20,13 +20,13 @@ String customertype = request.getParameter("customer.customertype");
 var customertype = '<%=customertype %>';
 $(function(){
 	if(customertype == null || customertype == ''){
-		$(".page_title").html("客户管理/全部客户");
+		$(".nowposition").html("当前位置：客户管理》全部客户");
 	} else if(customertype == '餐饮客户'){
-		$(".page_title").html("客户管理/餐饮客户");
+		$(".nowposition").html("当前位置：客户管理》餐饮客户");
 	} else if(customertype == '高级客户'){
-		$(".page_title").html("客户管理/高级客户");
+		$(".nowposition").html("当前位置：客户管理》高级客户");
 	} else if(customertype == '组织单位客户'){
-		$(".page_title").html("客户管理/组织单位客户");
+		$(".nowposition").html("当前位置：客户管理》组织单位客户");
 	}
 	
 })
@@ -37,7 +37,7 @@ $(function(){
  <pg:pager maxPageItems="8" url="allCustomer.action">
  <pg:param name="ccustomercompany" value="${sessionScope.company.companyid }"/>
  <pg:param name="customer.customertype" value="${requestScope.ccustomerCon.customer.customertype}"/>
-<div class="nowposition">当前位置：商品管理》全部商品</div>
+<div class="nowposition">当前位置：客户管理》全部客户</div>
 <br />
 <table class="bordered">
     <thead>

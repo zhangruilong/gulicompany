@@ -59,6 +59,10 @@ public class Orderd
     * 实际金额
     */
    private String orderdrightmoney;   
+   /**
+    * 订单
+    */
+   private Orderm orderm;
     //属性方法	    
      /**
 	 *设置主键"订单详细ID"属性
@@ -279,7 +283,16 @@ public class Orderd
 	public String getOrderdrightmoney()
 	{
 		return this.orderdrightmoney;
-	}	   
+	}
+	
+	public Orderm getOrderm() {
+		return orderm;
+	}
+
+	public void setOrderm(Orderm orderm) {
+		this.orderm = orderm;
+	}
+
 	public Orderd() {
 		super();
 		// TODO Auto-generated constructor stub

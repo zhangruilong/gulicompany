@@ -19,11 +19,11 @@ String ordermway = request.getParameter("ordermway");
 var ordermway = '<%=ordermway %>';
 $(function(){
 	if(ordermway == null || ordermway == ''){
-		$(".page_title").html("订单管理/全部订单");
+		$(".nowposition").html("当前位置：订单管理》全部订单");
 	} else if(ordermway == '在线支付'){
-		$(".page_title").html("订单管理/在线支付订单");
+		$(".nowposition").html("当前位置：订单管理》在线支付订单");
 	} else if(ordermway == '货到付款'){
-		$(".page_title").html("订单管理/货到付款订单");
+		$(".nowposition").html("当前位置：订单管理》货到付款订单");
 	}
 	//$(".nowposition").style.backgroundSize="1300px";
 })
@@ -77,7 +77,7 @@ function doprint(ordermid){
 			<td>${order.ordermconnect}</td>
 			<td>${order.ordermphone}</td>
 			<td>${order.ordermaddress}</td>
-			<td><a href="" onclick="return doprint(${order.ordermid})">打印</a></td>
+			<td><a href="" onclick="return doprint('${order.ordermid}')">打印</a></td>
 			<td><a href="orderDetail.action?ordermid=${order.ordermid}&ordermcompany=${sessionScope.company.companyid }">详情</a></td>
 		</tr>
 		</pg:item>

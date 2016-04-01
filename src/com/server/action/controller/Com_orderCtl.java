@@ -1,6 +1,12 @@
 package com.server.action.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +22,7 @@ import com.server.pojo.entity.Company;
 import com.server.pojo.entity.Customer;
 import com.server.pojo.entity.Orderd;
 import com.server.pojo.entity.Orderm;
+import com.system.tools.util.FileUtil;
 
 /**
  * 供应商后台管理系统-订单管理
@@ -107,5 +114,26 @@ public class Com_orderCtl {
 		model.addAttribute("printCompany", company);
 		model.addAttribute("printCustomer", customer);
 		return "forward:/companySys/print.jsp";
+	}
+	//订单商品统计
+	@RequestMapping("/companySys/orderStatistics")
+	public String orderStatistics(Model model,String staTime,String endTime,String companyid,String condition) throws Exception{
+		List<Orderd> list = orderdMapper.selectByTime(staTime, endTime, companyid,condition);
+		model.addAttribute("orderdList", list);
+		model.addAttribute("companyid", companyid);
+		model.addAttribute("staTime", staTime);
+		model.addAttribute("endTime", endTime);
+		model.addAttribute("condition", condition);
+		return "orderStatistics.jsp";
+	}
+	//导出报表
+	@RequestMapping("/companySys/exportReport")
+	@ResponseBody
+	public void exportReport(HttpServletResponse response,String staTime,String endTime,String companyid,String condition) throws Exception{
+		ArrayList<Orderd> list = (ArrayList<Orderd>) orderdMapper.selectByTime(staTime, endTime, companyid,condition);
+		String[] heads = {"商品编码","商品名称","规格","单位","数量","商品单价","商品总价","实际金额"};				//表头
+		String[] discard = {"orderdid","orderdorderm","orderddetail","orderdclass","orderdtype","orderm"};			//要忽略的字段名
+		String name = "订单商品统计报表";									//文件名称
+		FileUtil.expExcel(response, list, heads, discard, name);
 	}
 }
