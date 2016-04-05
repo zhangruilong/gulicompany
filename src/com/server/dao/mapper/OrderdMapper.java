@@ -6,8 +6,14 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.server.pojo.entity.Orderd;
+import com.server.pojo.entity.OrderdStatistics;
 
 public interface OrderdMapper {
+	/**
+	 * 条件查询统计
+	 */
+	OrderdStatistics selectOrderdStatistics(@Param("staTime") String staTime,
+			@Param("endTime") String endTime,@Param("companyid")String companyid,@Param("condition") String condition);
 	/**
 	 * 根据时间范围(多条件)查询订单
 	 */

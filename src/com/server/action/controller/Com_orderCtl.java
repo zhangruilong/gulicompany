@@ -21,6 +21,7 @@ import com.server.dao.mapper.OrdermMapper;
 import com.server.pojo.entity.Company;
 import com.server.pojo.entity.Customer;
 import com.server.pojo.entity.Orderd;
+import com.server.pojo.entity.OrderdStatistics;
 import com.server.pojo.entity.Orderm;
 import com.system.tools.util.FileUtil;
 
@@ -98,7 +99,6 @@ public class Com_orderCtl {
 	//修改订单详情
 	@RequestMapping("/companySys/editOrderd")
 	public String editOrderd(Model model,Orderd orderd,Orderm order){
-		System.out.println(order.getOrdermid());
 		orderdMapper.updateByPrimaryKeySelective(orderd);
 		model.addAttribute("orderd", orderd);
 		model.addAttribute("order", order);
@@ -118,7 +118,9 @@ public class Com_orderCtl {
 	//订单商品统计
 	@RequestMapping("/companySys/orderStatistics")
 	public String orderStatistics(Model model,String staTime,String endTime,String companyid,String condition) throws Exception{
-		List<Orderd> list = orderdMapper.selectByTime(staTime, endTime, companyid,condition);
+		List<Orderd> list = orderdMapper.selectByTime(staTime, endTime, companyid,condition);					//查询数据
+		OrderdStatistics total = orderdMapper.selectOrderdStatistics(staTime, endTime, companyid, condition);	//数据统计
+		model.addAttribute("total", total);
 		model.addAttribute("orderdList", list);
 		model.addAttribute("companyid", companyid);
 		model.addAttribute("staTime", staTime);
@@ -131,9 +133,9 @@ public class Com_orderCtl {
 	@ResponseBody
 	public void exportReport(HttpServletResponse response,String staTime,String endTime,String companyid,String condition) throws Exception{
 		ArrayList<Orderd> list = (ArrayList<Orderd>) orderdMapper.selectByTime(staTime, endTime, companyid,condition);
-		String[] heads = {"商品编码","商品名称","规格","单位","数量","商品单价","商品总价","实际金额"};				//表头
+		String[] heads = {"商品编码","商品名称","规格","数量","单位","商品单价","商品总价","实际金额"};				//表头
 		String[] discard = {"orderdid","orderdorderm","orderddetail","orderdclass","orderdtype","orderm"};			//要忽略的字段名
-		String name = "订单商品统计报表";									//文件名称
+		String name = staTime + "日至" + endTime + "日订单商品统计报表";									//文件名称
 		FileUtil.expExcel(response, list, heads, discard, name);
 	}
 }

@@ -71,10 +71,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</c:forEach>
 	<tr>
 		<td colspan="5">总计</td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
+		<td>${requestScope.total.numtotal }</td>
+		<td>${requestScope.total.pricetotal }</td>
+		<td>${requestScope.total.moneytotal }</td>
+		<td>${requestScope.total.rightmoneytotal }</td>
 		<td></td>
 	</tr>
 	</c:if>
@@ -100,27 +100,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
-var md;
-var md2;
-var defaultDate = "${requestScope.staTime}"
-var defaultDate2 = "${requestScope.endTime}"
-if(defaultDate != ""){
-	defaultDate = defaultDate.substring(0,9);
-} else {
-	defaultDate = "请选择日期...";
-}
-if(defaultDate2 != ""){
-	defaultDate2 = defaultDate2.substring(0,9);
-} else {
-	defaultDate2 = "请选择日期...";
-}
+var md;						//第一个日期对象
+var md2;					//第二个日期对象
    Ext.onReady(function(){
 		md = new Ext.form.DateField({
 			name:"testDate",
 			editable:false, //不允许对日期进行编辑
 			width:100,
 			format:"Y-m-d",
-			emptyText:defaultDate
+			emptyText:"${requestScope.staTime == null?'请选择日期...':requestScope.staTime}"		//默认显示的日期
 		});
 		md.render('divDate');
 		
@@ -129,18 +117,25 @@ if(defaultDate2 != ""){
 			editable:false, //不允许对日期进行编辑
 			width:100,
 			format:"Y-m-d",
-			emptyText:defaultDate2
+			emptyText:"${requestScope.endTime == null?'请选择日期...':requestScope.endTime}"		//默认显示的日期
 		});
 		md2.render('divDate2');
    });
-
+//导出报表
 function report(){
 	window.location.href ="exportReport.action?companyid=${sessionScope.company.companyid }"+
 	"&staTime=${requestScope.staTime }&endTime=${requestScope.endTime }&condition=${requestScope.condition }";
 }
+//查询
 function subfor(){
-	var gedt = Ext.util.Format.date(md.getValue(), 'Y-m-d');
-	var gedt2 = Ext.util.Format.date(md2.getValue(), 'Y-m-d');
+	var gedt = Ext.util.Format.date(md.getValue(), 'Y-m-d');	//得到查询时间
+	var gedt2 = Ext.util.Format.date(md2.getValue(), 'Y-m-d');	
+	if(gedt == ''){
+		gedt = "${requestScope.staTime}";
+	}
+	if(gedt2 == ''){
+		gedt2 = "${requestScope.endTime}";
+	}
 	$("#staTime").val(gedt);
 	$("#endTime").val(gedt2);
 	document.forms[0].submit();

@@ -19,8 +19,6 @@ name="WindowPrint" width="0"></OBJECT>
 <script language="javascript" type="text/javascript">
 function printpreview()
 {
-//WindowPrint.execwb(7,1);
-//wb.execwb(7,1);
 window.print()
 }
 </script>
@@ -29,7 +27,7 @@ window.print()
 	<table width="100%" border="1" cellspacing="0" cellpadding="0" style="border: thin;border-collapse: collapse;">
 		<tr style="height: 110px;">
 			<td colspan="2" style="text-align: center;font-size: 33px;font-family: 黑体;border-left: hidden;border-top: hidden;border-bottom: hidden;">《谷粒网物流配送单》</td>
-			<td colspan="2" style="background-color: #80ffff;">
+			<td rowspan="2" colspan="2" style="background-color: #80ffff;">
 				<div style="margin-top: 10px;">供货商:${requestScope.printCompany.companyshop }</div>
 				<div style="margin-top: 10px;">联系电话:${requestScope.printCompany.companyphone }</div>
 				<div style="margin-top: 10px;">${requestScope.printCompany.companydetail }</div>
@@ -38,8 +36,6 @@ window.print()
 		<tr style="height: 40px;">
 			<td width="15%" style="text-align: center;font-family: 黑体;border-left: hidden;border-top: hidden;border-right: hidden;">订单编号：</td>
 			<td width="35%" style="font-family: 黑体;border-left: hidden;border-top: hidden;">${requestScope.order.ordermcode }</td>
-			<td width="15%" style="background-color: #80ffff;font-family: 黑体;text-align: center;">配送员：</td>
-			<td style="background-color: #80ffff;"></td>
 		</tr>
 	</table>
 	<table width="100%" border="0" cellspacing="0" cellpadding="3" style="padding-top: 20px;">
@@ -92,8 +88,7 @@ window.print()
 			<td align="right">${orderDetail.orderdnum }</td>
 			<td align="right">${orderDetail.orderdmoney }</td>
 			<td align="right">${orderDetail.orderdrightmoney }</td>
-			<!-- <td align="right"></td> -->
-			<td align="left">${orderDetail.orderddetail }</td>
+			<td align="left"></td>
 		</tr>
 	</c:forEach>
 	</table>
@@ -102,27 +97,21 @@ window.print()
 	<table width="100%" border="1" cellspacing="0" cellpadding="3" style="background-color: #80ffff;border: thin;border-collapse: collapse;padding-top: 20px;font-family: 黑体;">
 	<tr>
 		<td width="111" align="center">客户签收</td>
-		<td width="79" align="center">押筐情况(及金额)</td>
 		<td align="center">签收情况(说明)</td>
-		<td width="79" align="center">实收货款(现金)</td>
+		<td width="79" align="center">实收货款(${requestScope.order.ordermway == '货到付款'?'现金':'在线支付' })</td>
 		<td width="79" align="center">支付方式</td>
 	</tr>
 	<tr height="55px">
 		<td></td>
 		<td></td>
 		<td></td>
-		<td></td>
 		<td align="center">${requestScope.order.ordermway }</td>
-	</tr>
-	<tr height="33px">
-		<td align="center">备注:</td>
-		<td colspan="4">便携周转箱押金100元个，归还后不影响使用将退回押金</td>
 	</tr>
 	</table>
 	<table cellpadding="7" style="padding-top: 50px;font-family: 黑体;">
 	<tr>
 		<td>制单员:<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
-		<td>分拣员:<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+		<td>配货员:<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
 		<td>配送员:<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
 		<td>审核员:<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
 	</tr>

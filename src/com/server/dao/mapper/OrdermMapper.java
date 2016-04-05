@@ -8,10 +8,6 @@ import com.server.pojo.entity.Orderm;
 
 public interface OrdermMapper {
 	/**
-	 * 根据时间范围(多条件)查询订单
-	 */
-	List<Orderm> selectByTime(@Param("staTime") String staTime,@Param("endTime") String endTime,@Param("orderm")Orderm record);
-	/**
 	 * 根据供应商(和条件)查询订单
 	 */
 	List<Orderm> selectByCompany(Orderm record);

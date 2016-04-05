@@ -60,18 +60,6 @@
     ORDERMWAY, ORDERMSTATUE, ORDERMDETAIL, ORDERMTIME, ORDERMCONNECT, ORDERMPHONE, ORDERMADDRESS, 
     UPDTIME, UPDOR, ORDERMEMP
   </sql>
-  <!-- 根据时间范围查询订单 -->
-  <select id="selectByTime" resultMap="BaseResultMap" >
-  	select
-		orderd.*,
-		orderm.*
-	from orderm
-	left join orderd
-	on orderd.orderdorderm = orderm.ordermid
-	where orderm.ordermtime &gt; #{staTime}
-	and orderm.ordermtime &lt; #{endTime}
-	and orderm.ordermcompany = #{orderm.ordermcompany,jdbcType=VARCHAR}
-  </select>
   <!-- 根据供应商(和条件)查询订单 -->
   <select id="selectByCompany" resultMap="BaseResultMap" parameterType="com.server.pojo.entity.Orderm" >
     select 
