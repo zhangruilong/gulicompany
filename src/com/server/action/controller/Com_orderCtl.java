@@ -108,7 +108,7 @@ public class Com_orderCtl {
 	@RequestMapping("/companySys/printOrder")
 	public String printOrder(Model model,Orderm order){
 		order = ordermMapper.selectByPrimaryKey(order.getOrdermid());
-		Company company = companyMapper.selectByPrimaryKey(order.getOrdermcompany());
+		Company company = companyMapper.selectByPrimaryKey(order.getOrdermcompany());		//要打印的订单
 		Customer customer = customerMapper.selectByPrimaryKey(order.getOrdermcustomer());
 		model.addAttribute("order", order);
 		model.addAttribute("printCompany", company);

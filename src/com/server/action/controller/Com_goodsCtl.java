@@ -141,7 +141,7 @@ public class Com_goodsCtl {
 	//添加商品
 	@RequestMapping("/companySys/addGoods")
 	public String addGoods(Model model,Goods goodsCon){
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh-mm-ss");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		goodsCon.setGoodsstatue("下架");
 		goodsCon.setCreatetime(sdf.format(new Date()));
 		goodsCon.setGoodsid(CommonUtil.getNewId());

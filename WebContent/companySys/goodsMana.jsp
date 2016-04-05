@@ -62,7 +62,7 @@ function dobiaopin(){
 			'<td>'+item.scantdetail+'</td>'+
 			'<td>'+item.scantunits+'</td>'+
 			'<td>'+item.goodsclass.goodsclassname+'</td>'+
-			'<td><a onclick="seleScant(\''
+			'<td><a class="scant_a" onclick="seleScant(\''
 					+item.scantcode+
 					'\',\''+item.scantname+
 					'\',\''+item.scantdetail+
@@ -84,6 +84,7 @@ function seleScant(scantcode,scantname,scantdetail,scantunits,goodsclassname){
 		}
 	});
 	$(".cd-popup2").removeClass("is-visible");	//移除'is-visible' class
+	
 }
 function popup_formSub(){
 	$("#popup_form").submit();
