@@ -34,8 +34,12 @@ Company company = (Company)session.getAttribute("company");
 	<script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript">
 	$(function(){
+		
 		window.parent.main.location.href = "allOrder.action?ordermcompany="+'<%=company.getCompanyid() %>';
 		$(".mokuai ul li").each(function(i,item){
+			if(i == 4){
+				$(item).addClass("select_mokuai");
+			}
 			$(item).click(function(){
 				$(this).addClass("select_mokuai");
 				$(this).siblings().removeClass("select_mokuai");

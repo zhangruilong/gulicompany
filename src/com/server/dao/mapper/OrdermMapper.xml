@@ -73,6 +73,7 @@
     	<if test="ordermway != null and ordermway != ''">
     		and ORDERMWAY = #{ordermway,jdbcType=VARCHAR} 
     	</if>
+    order by orderm.ordermtime desc
   </select>
   <!-- 根据主键查询 -->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >

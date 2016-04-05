@@ -68,6 +68,7 @@
 		orderd.orderdmoney like '%${condition}%' or
 		orderd.orderdrightmoney like '%${condition}%')
 	</if>
+	order by orderm.ordermtime desc
   </select>
   <!-- 根据时间范围查询订单 -->
   <select id="selectByTime" resultMap="BaseResultMap" >
@@ -96,6 +97,7 @@
 		orderd.orderdmoney like '%${condition}%' or
 		orderd.orderdrightmoney like '%${condition}%')
 	</if>
+	order by orderm.ordermtime desc
   </select>
   <!-- 根据主键查询 -->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >

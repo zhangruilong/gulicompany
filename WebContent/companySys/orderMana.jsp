@@ -84,10 +84,10 @@ function doprint(ordermid){
 	</c:forEach>
 	</c:if>
 	<c:if test="${fn:length(requestScope.allOrder)==0 }">
-		<tr><td colspan="14" align="center" style="font-size: 20px;color: red;"> 没有信息</td></tr>
+		<tr><td colspan="15" align="center" style="font-size: 20px;color: red;"> 没有信息</td></tr>
 	</c:if>
     	<tr>
-		 <td colspan="14" align="center">	
+		 <td colspan="15" align="center">	
 			 <pg:index>
 			 <pg:first><a href="${pageUrl }">第一页</a></pg:first>
 			 <pg:prev><a href="${pageUrl}">上一页</a></pg:prev>

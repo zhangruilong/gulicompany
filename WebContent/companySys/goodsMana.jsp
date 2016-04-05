@@ -87,6 +87,22 @@ function seleScant(scantcode,scantname,scantdetail,scantunits,goodsclassname){
 	
 }
 function popup_formSub(){
+	if($("#goodscode").val() == "" || $("#goodscode").val() == null){
+		alert("商品编码不能为空");
+		return;
+	}
+	if($("#goodsunits").val() == "" || $("#goodsunits").val() == null){
+		alert("规格不能为空");
+		return;
+	}
+	if($("#goodsname").val() == "" || $("#goodsname").val() == null){
+		alert("商品名称不能为空");
+		return;
+	}
+	if($("#goodsclass").val() == "" || $("#goodsclass").val() == null){
+		alert("小类名称不能为空");
+		return;
+	}
 	$("#popup_form").submit();
 }
 </script>
