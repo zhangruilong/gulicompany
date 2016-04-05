@@ -61,14 +61,18 @@ height: 100px;
 .title{
 	float:left;
 	height: 100px;
-	width: 150px;
+	width: 180px;
 	text-align: center;
 	color:white;
 }
 .title .guliwang{
 	font-size: 24px;.
-	width: 200px;
-	margin-top: 20px;
+	width: 180px;
+	height:100px;
+	margin: auto;
+}
+.title .guliwang img{
+	margin-top: 12px;
 }
 .mokuai{
 	position:absolute;
@@ -95,6 +99,19 @@ height: 100px;
 	color:white;
 }
 .mokuai ul li:HOVER{
+	background-image:url("../images/orderImg/top_btnHover.png");
+	cursor:pointer;
+	list-style: none;
+	float: right;
+	line-height: 39px;
+	width: 125px;
+	font-size: 20px;
+	font-family: SimSun ;
+	font-weight:bold;
+	margin: 45px 5px 0px 0px;
+	color:#EE8A0F;
+}
+.mokuai .select_mokuai{
 	background-image:url("../images/orderImg/top_btnHover.png");
 	cursor:pointer;
 	list-style: none;

@@ -133,9 +133,16 @@ public class Com_orderCtl {
 	@ResponseBody
 	public void exportReport(HttpServletResponse response,String staTime,String endTime,String companyid,String condition) throws Exception{
 		ArrayList<Orderd> list = (ArrayList<Orderd>) orderdMapper.selectByTime(staTime, endTime, companyid,condition);
-		String[] heads = {"商品编码","商品名称","规格","数量","单位","商品单价","商品总价","实际金额"};				//表头
+		String[] heads = {"商品编码","商品名称","规格","商品单价","单位","数量","商品总价","实际金额"};				//表头
 		String[] discard = {"orderdid","orderdorderm","orderddetail","orderdclass","orderdtype","orderm"};			//要忽略的字段名
-		String name = staTime + "日至" + endTime + "日订单商品统计报表";									//文件名称
+		String name = "订单商品统计报表";							//文件名称
+		if(!staTime.equals("") && !endTime.equals("")){
+			name = staTime + "日至" + endTime + "日的" + name;
+		} else if(staTime.equals("") && !endTime.equals("")){
+			name = endTime + "日之前的" + name;
+		} else if(endTime.equals("") && !staTime.equals("")){
+			name = staTime + "日之后的" + name;
+		}
 		FileUtil.expExcel(response, list, heads, discard, name);
 	}
 }

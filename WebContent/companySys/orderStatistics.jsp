@@ -108,7 +108,7 @@ var md2;					//第二个日期对象
 			editable:false, //不允许对日期进行编辑
 			width:100,
 			format:"Y-m-d",
-			emptyText:"${requestScope.staTime == null?'请选择日期...':requestScope.staTime}"		//默认显示的日期
+			emptyText:"${(requestScope.staTime == null || requestScope.staTime == '')?'请选择日期...':requestScope.staTime}"		//默认显示的日期
 		});
 		md.render('divDate');
 		
@@ -117,7 +117,7 @@ var md2;					//第二个日期对象
 			editable:false, //不允许对日期进行编辑
 			width:100,
 			format:"Y-m-d",
-			emptyText:"${requestScope.endTime == null?'请选择日期...':requestScope.endTime}"		//默认显示的日期
+			emptyText:"${(requestScope.endTime == null || requestScope.endTime == '')?'请选择日期...':requestScope.endTime}"		//默认显示的日期
 		});
 		md2.render('divDate2');
    });

@@ -51,7 +51,7 @@ function doprint(ordermid){
 		<th>实际金额</th>
 		<th>订单状态</th>
 		<th style="width: 115px">下单时间</th>
-		<th >修改时间</th>
+		<th>修改时间</th>
 		<th>客户名称</th>
 		<th>联系人</th>
 		<th>手机</th>

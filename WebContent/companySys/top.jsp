@@ -35,6 +35,12 @@ Company company = (Company)session.getAttribute("company");
 	<script type="text/javascript">
 	$(function(){
 		window.parent.main.location.href = "allOrder.action?ordermcompany="+'<%=company.getCompanyid() %>';
+		$(".mokuai ul li").each(function(i,item){
+			$(item).click(function(){
+				$(this).addClass("select_mokuai");
+				$(this).siblings().removeClass("select_mokuai");
+			});
+		});
 	})
 		function doOrder(){
 			var menu_body = $(window.parent.leftFrame.menu);
