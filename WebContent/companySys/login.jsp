@@ -58,7 +58,7 @@ function keyLogin(){
 <div class="login">
 	<form action="login.action" method="post">
 		<div class="c_d">
-			<h1><img src="../companySys/images/logo.png" alt="" height="145" width="324"/></h1>
+			<h1><img src="../companySys/images/logo.png" alt=""/></h1>
 			<h2>
 				<img src="../companySys/images/left_crossband.png" alt="" />
 				供应商后台管理系统

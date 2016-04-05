@@ -1,6 +1,7 @@
 @CHARSET "UTF-8";
 body {
     margin: 0px auto;
+    padding:0px;
     font-family: 'trebuchet MS', 'Lucida sans', Arial;
     color: #444;
     font-size: 12px;
@@ -111,8 +112,8 @@ table {
 .button:active {
 }
 .navigation{
-	line-height:30px;
-	padding: 6px 0px 5px 30px;
+	height:30px;
+	padding: 0px 0px 5px 30px;
 	color: #848484;
 	border-bottom: 1px #848484 dashed;
 }

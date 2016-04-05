@@ -106,7 +106,7 @@
   <!-- 登录 -->
   <select id="selectLogin" resultMap="BaseResultMap" parameterType="com.server.pojo.entity.Company" >
     select 
-    <include refid="Base_Column_List" />
+    COMPANYID,COMPANYSHOP,USERNAME,COMPANYPHONE
     from COMPANY
     where loginname = #{loginname} and password = #{password}
   </select>

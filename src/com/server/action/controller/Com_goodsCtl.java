@@ -1,7 +1,12 @@
 package com.server.action.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,10 +15,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.server.dao.mapper.GoodsMapper;
+import com.server.dao.mapper.GoodsclassMapper;
 import com.server.dao.mapper.PricesMapper;
+import com.server.dao.mapper.ScantMapper;
 import com.server.dao.mapper.TimegoodsMapper;
+import com.server.pojo.entity.Company;
 import com.server.pojo.entity.Goods;
+import com.server.pojo.entity.Goodsclass;
 import com.server.pojo.entity.Prices;
+import com.server.pojo.entity.Scant;
 import com.server.pojo.entity.Timegoods;
 import com.system.tools.util.CommonUtil;
 
@@ -27,15 +37,18 @@ public class Com_goodsCtl {
 	@Autowired
 	private GoodsMapper goodsMapper;
 	@Autowired
+	private GoodsclassMapper goodsclassMapper;
+	@Autowired
 	private TimegoodsMapper timegoodsMapper;
 	@Autowired
 	private PricesMapper pricesMapper;
+	@Autowired
+	private ScantMapper scantMapper;
 	//全部商品
 	@RequestMapping("/companySys/allGoods")
 	public String allGoods(Model model,Goods goodsCon){
 		List<Goods> goodsList = goodsMapper.selectByCondition(goodsCon);
 		model.addAttribute("goodsList", goodsList);
-		
 		model.addAttribute("goodsCon", goodsCon);
 		return "forward:/companySys/goodsMana.jsp";
 	}
@@ -124,6 +137,31 @@ public class Com_goodsCtl {
 	public List<Goods> getallGoods(Goods goodsCon){
 		List<Goods> goodsList = goodsMapper.selectByCondition(goodsCon);
 		return goodsList;
+	}
+	//添加商品
+	@RequestMapping("/companySys/addGoods")
+	public String addGoods(Model model,Goods goodsCon){
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh-mm-ss");
+		goodsCon.setGoodsstatue("下架");
+		goodsCon.setCreatetime(sdf.format(new Date()));
+		goodsCon.setGoodsid(CommonUtil.getNewId());
+		goodsMapper.insertSelective(goodsCon);
+		model.addAttribute("goodsCon", goodsCon);
+		return "forward:/companySys/goodsPrices.jsp";
+	}
+	//查询标品
+	@RequestMapping(value="/companySys/getallScant",produces = "application/json")
+	@ResponseBody
+	public List<Scant> getallScant(){
+		List<Scant> list = scantMapper.selectAllScant();
+		return list;
+	}
+	//得到全部小类
+	@RequestMapping(value="/companySys/getallGoodclass",produces = "application/json")
+	@ResponseBody
+	public List<Goodsclass> getallGoodclass(){
+		List<Goodsclass> list = goodsclassMapper.selectAllGoodsclass();
+		return list;
 	}
 }
 

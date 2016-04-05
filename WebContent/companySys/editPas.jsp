@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%String message = (String)request.getAttribute("message"); %>
-<!DOCTYPE html >
+<!DOCTYPE>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="css/formsty.css" rel="stylesheet" type="text/css">
 <title></title>
+<link href="css/formsty.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="../sysjs/png.js"></script>
 <%@ include file="../common/common.jsp"%>

@@ -13,7 +13,7 @@ String ordermway = request.getParameter("ordermway");
 <head>
 <title></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script type="text/javascript" src="../sysjs/jquery.min.js"></script>
+<script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
 <link href="css/tabsty.css" rel="stylesheet" type="text/css">
 <script type="text/javascript">
 var ordermway = '<%=ordermway %>';
