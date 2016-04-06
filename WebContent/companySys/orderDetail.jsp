@@ -16,8 +16,7 @@ String ordermcompany = request.getParameter("ordermcompany");
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <link href="css/tabsty.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="../sysjs/jquery.min.js"></script>
-<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
 var ordermid = '<%=ordermid%>';
 var ordermcompany = '<%=ordermcompany%>';
@@ -56,7 +55,7 @@ function delegoods(){
  <pg:param name="orderdids"/>
  <input type="hidden" name="ordermcompany" value="${sessionScope.company.companyid }">
  <input type="hidden" name="ordermid" value="${requestScope.order.ordermid }">
-<div class="nowposition">订单管理/订单详情</div>
+<div class="nowposition">订单管理》订单详情</div>
 <p class="navigation">
 <span>订单编号:${requestScope.order.ordermcode }&nbsp;&nbsp;&nbsp;&nbsp;</span>
 <span>订单状态 : ${requestScope.order.ordermstatue }&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -67,7 +66,6 @@ function delegoods(){
 onclick="del('editOrder.action?ordermid=${requestScope.order.ordermid }&ordermcompany=${sessionScope.company.companyid }','删除')">
 <input class="button" type="button" value="删除商品" onclick="delegoods()">
 </p>
-<br />
 <table class="bordered">
     <thead>
     <tr>

@@ -28,6 +28,11 @@
           <span class="nav__item-text">货到付款订单</span>
         </a>   
       </li>
+      <li class="nav__item">
+        <a href="orderStatistics.action?companyid=<%=company.getCompanyid() %>" target="main" class="nav__item-link">
+          <span class="nav__item-text">订单商品统计</span>
+        </a>   
+      </li>
       </ul>
 </div>
 </body>

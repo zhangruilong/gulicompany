@@ -1,6 +1,7 @@
 @CHARSET "UTF-8";
 body {
     margin: 0px auto;
+    padding:0px;
     font-family: 'trebuchet MS', 'Lucida sans', Arial;
     color: #444;
     font-size: 12px;
@@ -111,9 +112,17 @@ table {
 .button:active {
 }
 .navigation{
+	height:30px;
 	padding: 0px 0px 5px 30px;
 	color: #848484;
 	border-bottom: 1px #848484 dashed;
+}
+.navigation div{
+	float:left; display:inline;
+	line-height: 30px;
+}
+.navigation .date{
+	margin: 3px 5px 0px 5px;
 }
 .nowposition {
 	background: url("../images/orderImg/nowposition.png") no-repeat;
@@ -121,6 +130,10 @@ table {
 	font-size: 14px;
 	line-height: 40px;
 	padding: 0px 0px 0px 30px;
+}
+.scant_a{
+	color: blue;
+	cursor:pointer;
 }
   
 

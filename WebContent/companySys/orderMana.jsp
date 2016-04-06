@@ -13,17 +13,17 @@ String ordermway = request.getParameter("ordermway");
 <head>
 <title></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script type="text/javascript" src="../sysjs/jquery.min.js"></script>
+<script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
 <link href="css/tabsty.css" rel="stylesheet" type="text/css">
 <script type="text/javascript">
 var ordermway = '<%=ordermway %>';
 $(function(){
 	if(ordermway == null || ordermway == ''){
-		$(".page_title").html("订单管理/全部订单");
+		$(".nowposition").html("当前位置：订单管理》全部订单");
 	} else if(ordermway == '在线支付'){
-		$(".page_title").html("订单管理/在线支付订单");
+		$(".nowposition").html("当前位置：订单管理》在线支付订单");
 	} else if(ordermway == '货到付款'){
-		$(".page_title").html("订单管理/货到付款订单");
+		$(".nowposition").html("当前位置：订单管理》货到付款订单");
 	}
 	//$(".nowposition").style.backgroundSize="1300px";
 })
@@ -51,7 +51,7 @@ function doprint(ordermid){
 		<th>实际金额</th>
 		<th>订单状态</th>
 		<th style="width: 115px">下单时间</th>
-		<th >修改时间</th>
+		<th>修改时间</th>
 		<th>客户名称</th>
 		<th>联系人</th>
 		<th>手机</th>
@@ -77,17 +77,17 @@ function doprint(ordermid){
 			<td>${order.ordermconnect}</td>
 			<td>${order.ordermphone}</td>
 			<td>${order.ordermaddress}</td>
-			<td><a href="" onclick="return doprint(${order.ordermid})">打印</a></td>
+			<td><a href="" onclick="return doprint('${order.ordermid}')">打印</a></td>
 			<td><a href="orderDetail.action?ordermid=${order.ordermid}&ordermcompany=${sessionScope.company.companyid }">详情</a></td>
 		</tr>
 		</pg:item>
 	</c:forEach>
 	</c:if>
 	<c:if test="${fn:length(requestScope.allOrder)==0 }">
-		<tr><td colspan="14" align="center" style="font-size: 20px;color: red;"> 没有信息</td></tr>
+		<tr><td colspan="15" align="center" style="font-size: 20px;color: red;"> 没有信息</td></tr>
 	</c:if>
     	<tr>
-		 <td colspan="14" align="center">	
+		 <td colspan="15" align="center">	
 			 <pg:index>
 			 <pg:first><a href="${pageUrl }">第一页</a></pg:first>
 			 <pg:prev><a href="${pageUrl}">上一页</a></pg:prev>

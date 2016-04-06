@@ -50,7 +50,7 @@ public class Orderd
    /**
     * 数量
     */
-   private int orderdnum;   
+   private Integer orderdnum;   
    /**
     * 下单金额
     */
@@ -59,6 +59,10 @@ public class Orderd
     * 实际金额
     */
    private String orderdrightmoney;   
+   /**
+    * 订单
+    */
+   private Orderm orderm;
     //属性方法	    
      /**
 	 *设置主键"订单详细ID"属性
@@ -234,7 +238,7 @@ public class Orderd
 	 *设置"数量"属性
 	 *@param orderdnum 实体的Orderdnum属性
 	 */
-	public void setOrderdnum(int orderdnum)
+	public void setOrderdnum(Integer orderdnum)
 	{
 		this.orderdnum = orderdnum;
 	}
@@ -242,7 +246,7 @@ public class Orderd
 	/**
 	 *获取"数量"属性
 	 */
-	public int getOrderdnum()
+	public Integer getOrderdnum()
 	{
 		return this.orderdnum;
 	}	   
@@ -279,7 +283,16 @@ public class Orderd
 	public String getOrderdrightmoney()
 	{
 		return this.orderdrightmoney;
-	}	   
+	}
+	
+	public Orderm getOrderm() {
+		return orderm;
+	}
+
+	public void setOrderm(Orderm orderm) {
+		this.orderm = orderm;
+	}
+
 	public Orderd() {
 		super();
 		// TODO Auto-generated constructor stub

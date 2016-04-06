@@ -39,6 +39,10 @@ public class Scant
     * 状态
     */
    private String scantstatue;   
+   /**
+    * 关联小类
+    */
+   private Goodsclass goodsclass;
     //属性方法	    
      /**
 	 *设置主键"标品ID"属性
@@ -175,6 +179,15 @@ public class Scant
 	{
 		return this.scantstatue;
 	}	   
+	
+	public Goodsclass getGoodsclass() {
+		return goodsclass;
+	}
+
+	public void setGoodsclass(Goodsclass goodsclass) {
+		this.goodsclass = goodsclass;
+	}
+
 	public Scant() {
 		super();
 		// TODO Auto-generated constructor stub

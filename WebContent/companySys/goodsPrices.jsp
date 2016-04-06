@@ -204,17 +204,23 @@
 	function addData(){
 		var val1 = $("#1").val();
 		var val10 = $("#10").val();
-		if(val1 == null || val1 == "" ||　val10 == null || val10 == ""){
+		if(val1 == null || val1 == "" ){
 			alert("等级为 3 的餐饮客户价格不能为空.");
 			return;
 		}
 		var allInput = $("input");
 		$.each(allInput,function(i,item){
 			var itemVal = $(item);
-				if(itemVal.val() == null || itemVal.val() == ""){
 					var itemId = itemVal.attr("id");
+				if((itemVal.val() == null || itemVal.val() == "") && parseInt(itemId) < 10){
 					var ofVal = $("#"+(itemId-1)).val();
 					itemVal.val(ofVal);
+				}
+				if(val10 != null && val10 != ""){
+					if((itemVal.val() == null || itemVal.val() == "") && parseInt(itemId) > 10){
+						var ofVal = $("#"+(itemId-1)).val();
+						itemVal.val(ofVal);
+					}
 				}
 		}); 
 		document.forms[0].submit();

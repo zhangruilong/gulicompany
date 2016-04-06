@@ -15,11 +15,90 @@
     <result column="ORDERDNUM" property="orderdnum" jdbcType="DECIMAL" />
     <result column="ORDERDMONEY" property="orderdmoney" jdbcType="FLOAT" />
     <result column="ORDERDRIGHTMONEY" property="orderdrightmoney" jdbcType="FLOAT" />
+    <!-- 订单 -->
+    <association property="orderm" javaType="com.server.pojo.entity.Orderm">
+	    <id column="ORDERMID" property="ordermid" jdbcType="VARCHAR" />
+	    <result column="ORDERMCUSTOMER" property="ordermcustomer" jdbcType="VARCHAR" />
+	    <result column="ORDERMCOMPANY" property="ordermcompany" jdbcType="VARCHAR" />
+	    <result column="ORDERMCODE" property="ordermcode" jdbcType="VARCHAR" />
+	    <result column="ORDERMNUM" property="ordermnum" jdbcType="DECIMAL" />
+	    <result column="ORDERMMONEY" property="ordermmoney" jdbcType="FLOAT" />
+	    <result column="ORDERMRIGHTMONEY" property="ordermrightmoney" jdbcType="FLOAT" />
+	    <result column="ORDERMWAY" property="ordermway" jdbcType="VARCHAR" />
+	    <result column="ORDERMSTATUE" property="ordermstatue" jdbcType="VARCHAR" />
+	    <result column="ORDERMDETAIL" property="ordermdetail" jdbcType="VARCHAR" />
+	    <result column="ORDERMTIME" property="ordermtime" jdbcType="VARCHAR" />
+	    <result column="ORDERMCONNECT" property="ordermconnect" jdbcType="VARCHAR" />
+	    <result column="ORDERMPHONE" property="ordermphone" jdbcType="VARCHAR" />
+	    <result column="ORDERMADDRESS" property="ordermaddress" jdbcType="VARCHAR" />
+	    <result column="UPDTIME" property="updtime" jdbcType="VARCHAR" />
+	    <result column="UPDOR" property="updor" jdbcType="VARCHAR" />
+	    <result column="ORDERMEMP" property="ordermemp" jdbcType="VARCHAR" />
+    </association>
   </resultMap>
   <sql id="Base_Column_List" >
     ORDERDID, ORDERDORDERM, ORDERDCODE, ORDERDTYPE, ORDERDNAME, ORDERDDETAIL, ORDERDUNITS, 
     ORDERDPRICE, ORDERDUNIT, ORDERDCLASS, ORDERDNUM, ORDERDMONEY, ORDERDRIGHTMONEY
   </sql>
+  <!-- 条件查询统计 -->
+  <select id="selectOrderdStatistics" resultType="com.server.pojo.entity.OrderdStatistics" >
+  	select
+  		sum(orderd.orderdnum) as numtotal,
+	    sum(orderd.orderdprice) as pricetotal,
+	    sum(orderd.orderdmoney) as moneytotal,
+	    sum(orderd.orderdrightmoney) as rightmoneytotal
+	from orderd
+	left join orderm
+	on orderd.orderdorderm = orderm.ordermid
+	where orderm.ordermcompany = #{companyid,jdbcType=VARCHAR}
+	<if test="staTime != null and staTime != ''">
+		and orderm.ordermtime &gt; #{staTime}
+	</if>
+	<if test="endTime != null and endTime != ''">
+		and orderm.ordermtime &lt; #{endTime}
+	</if>
+	<if test="condition != null and condition != ''">
+		and 
+		(orderd.orderdcode like '%${condition}%' or
+		orderd.orderdname like '%${condition}%' or
+		orderd.orderdunits like '%${condition}%' or
+		orderd.orderdunit like '%${condition}%' or
+		orderd.orderdnum like '%${condition}%' or
+		orderd.orderdprice like '%${condition}%' or
+		orderd.orderdmoney like '%${condition}%' or
+		orderd.orderdrightmoney like '%${condition}%')
+	</if>
+	order by orderm.ordermtime desc
+  </select>
+  <!-- 根据时间范围查询订单 -->
+  <select id="selectByTime" resultMap="BaseResultMap" >
+  	select
+		orderd.*,
+		orderm.ordermid,
+		orderm.ordermtime
+	from orderd
+	left join orderm
+	on orderd.orderdorderm = orderm.ordermid
+	where orderm.ordermcompany = #{companyid,jdbcType=VARCHAR}
+	<if test="staTime != null and staTime != ''">
+		and orderm.ordermtime &gt; #{staTime}
+	</if>
+	<if test="endTime != null and endTime != ''">
+		and orderm.ordermtime &lt; #{endTime}
+	</if>
+	<if test="condition != null and condition != ''">
+		and 
+		(orderd.orderdcode like '%${condition}%' or
+		orderd.orderdname like '%${condition}%' or
+		orderd.orderdunits like '%${condition}%' or
+		orderd.orderdunit like '%${condition}%' or
+		orderd.orderdnum like '%${condition}%' or
+		orderd.orderdprice like '%${condition}%' or
+		orderd.orderdmoney like '%${condition}%' or
+		orderd.orderdrightmoney like '%${condition}%')
+	</if>
+	order by orderm.ordermtime desc
+  </select>
   <!-- 根据主键查询 -->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 

@@ -11,11 +11,13 @@ import com.server.dao.mapper.CityMapper;
 import com.server.dao.mapper.CompanyMapper;
 import com.server.dao.mapper.CustomerMapper;
 import com.server.dao.mapper.GoodsMapper;
+import com.server.dao.mapper.OrdermMapper;
 import com.server.pojo.entity.Address;
 import com.server.pojo.entity.City;
 import com.server.pojo.entity.Company;
 import com.server.pojo.entity.Customer;
 import com.server.pojo.entity.Goods;
+import com.server.pojo.entity.Orderm;
 import com.server.pojo.entity.Prices;
 
 public class TestApp {
@@ -63,5 +65,15 @@ public class TestApp {
 		for (Prices prices : pricesList) {
 			System.out.println(prices.getPricesid());
 		}
+	}
+	@Test
+	public void testParam(){
+		ApplicationContext context = 
+				new ClassPathXmlApplicationContext("applicationContext-dao.xml");
+		OrdermMapper mapper = (OrdermMapper) context.getBean("ordermMapper");
+		Orderm orderm = new Orderm();
+		orderm.setOrdermcompany("1");
+		List<Orderm> list = mapper.selectByTime("2016-03-16 00:00:00", "2016-03-19 00:00:00", orderm);
+		System.out.println(list);
 	}
 }

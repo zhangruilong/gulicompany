@@ -22,30 +22,6 @@
 <script type="text/javascript" src="../ExtJS/ext-lang-zh_CN.js" charset="UTF-8"></script>
 <script type="text/javascript">
 	$(function(){
-		/*$("#customerphone").blur(function (){
-			//检查电话号码是否可用
-			var customerphone = $("#customerphone").val();
-			Ext.Ajax.request({
-				url : 'checkCustomerphone.action',
-				method : 'POST',
-				params : {
-					"customerphone" : customerphone
-				},
-				success : function(resp,opts) {
-					var result = resp.responseText;
-					if(result == "no"){
-						$("#customerphone").attr("name","");
-						$(".meg").text("手机号已被注册");		//修改弹窗信息
-						$(".cd-popup").addClass("is-visible");	//弹出窗口
-					} else {
-						$("#customerphone").attr("name","customerphone");
-					}
-				},
-				failure : function(resp,opts) {
-					Ext.Msg.alert('提示', '网络出现问题，请稍后再试');
-				}
-			});
-		});*/
 		$("#city").change(function(){
 			var customercity = $("#city").val();
 			document.getElementById('customercity').value=document.getElementById('city').options[document.getElementById('city').selectedIndex].value;
@@ -106,13 +82,6 @@
 			$(".cd-popup").addClass("is-visible");	//弹出窗口
 			return;
 		}
-		/*if($("#customerphone").attr("name") == ""){
-			$(".meg").text("手机号已被注册");		//修改弹窗信息
-			$(".cd-popup").addClass("is-visible");	//弹出窗口
-			return;
-		}*/
-		//$(".meg").text("注册成功");		//修改弹窗信息
-		//$(".cd-popup").addClass("is-visible");	//弹出窗口
 		document.forms[0].submit();
 	}
 	

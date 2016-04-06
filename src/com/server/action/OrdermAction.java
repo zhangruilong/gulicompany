@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.server.dao.OrdermDao;
+import com.server.dao.mapper.OrderdMapper;
 import com.server.pojo.Orderd;
 import com.server.pojo.Orderm;
 import com.server.poco.OrdermPoco;
@@ -28,6 +31,9 @@ public class OrdermAction extends BaseAction {
 	public ArrayList<Orderm> cuss = null;
 	public OrdermDao DAO = new OrdermDao();
 	public java.lang.reflect.Type TYPE = new com.google.gson.reflect.TypeToken<ArrayList<Orderm>>() {}.getType();
+	
+	@Autowired
+	private OrderdMapper orderdMapper;
 	
 	//将json转换成cuss
 	public void json2cuss(HttpServletRequest request){
@@ -138,4 +144,15 @@ public class OrdermAction extends BaseAction {
 		}
 		responsePW(response, result);
 	}
+	//导出
+	/*public void expOrderm(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		String staTime = request.getParameter("staTime");
+		String endTime = request.getParameter("staTime");
+		String companyid = request.getParameter("companyid");
+		ArrayList<com.server.pojo.entity.Orderd> list = orderdMapper.selectByTime(staTime, endTime, companyid);
+		String[] heads = {"商品编码","商品名称","规格","单位","数量","商品单价","商品总价","实际金额"};				//表头
+		String[] discard = {"orderdid","orderdorderm","orderddetail","orderdclass","orderdtype"};			//要忽略的字段名
+		String name = "订单商品统计报表";	
+		FileUtil.expExcel(response,list,heads,discard,name);
+	}*/
 }

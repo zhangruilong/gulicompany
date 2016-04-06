@@ -16,9 +16,6 @@
 <link href="../companySys/css/style.css" rel="stylesheet" type="text/css" />
 <link href="../ExtJS/resources/css/ext-all.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
-<script type="text/javascript" src="../ExtJS/adapter/ext/ext-base.js"></script>
-<script type="text/javascript" src="../ExtJS/ext-all.js"></script>
-<script type="text/javascript" src="../ExtJS/ext-lang-zh_CN.js" charset="UTF-8"></script>
 <script type=text/javascript>
 if (top != window) top.location.href = window.location.href;
 
@@ -61,17 +58,17 @@ function keyLogin(){
 <div class="login">
 	<form action="login.action" method="post">
 		<div class="c_d">
-			<h1><img src="../companySys/images/logo.png" alt="" /></h1>
+			<h1><img src="../companySys/images/logo.png" alt=""/></h1>
 			<h2>
 				<img src="../companySys/images/left_crossband.png" alt="" />
 				供应商后台管理系统
 				<img src="../companySys/images/right_crossband.png" alt="" />
 			</h2>
 			<div class="log_input">
-				<div class="log_name">
+				<div class="log_name"><img alt="" src="../companySys/images/username.png">
 					<input id="username" type="text" name="loginname" placeholder="用户名" />
 				</div>
-				<div class="log_pwd">
+				<div class="log_pwd"><img alt="" src="../companySys/images/password.png">
 					<input id="password" type="password" name="password" placeholder="密码" />
 				</div>
 					<a id="submitbutton" class="btn" onclick="submitdata()">登录</a>
