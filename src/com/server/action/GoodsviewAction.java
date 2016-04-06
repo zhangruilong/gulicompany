@@ -80,4 +80,29 @@ public class GoodsviewAction extends BaseAction {
 		result = CommonConst.GSON.toJson(pageinfo);
 		responsePW(response, result);
 	}
+	//查询
+	public void mselAll(HttpServletRequest request, HttpServletResponse response){
+		String openid = request.getParameter("openid");
+		Queryinfo queryinfo = getQueryinfo(request);
+		queryinfo.setType(Goodsview.class);
+		queryinfo.setQuery(DAO.getQuerysql(queryinfo.getQuery()));
+		queryinfo.setWheresql("pricesclass='3' and priceslevel='3'");
+		queryinfo.setOrder(GoodsviewPoco.ORDER);
+		cuss = (ArrayList<Goodsview>) DAO.selAll(queryinfo);
+		
+		Queryinfo collectqueryinfo = getQueryinfo();
+		collectqueryinfo.setType(Collect.class);
+		ArrayList<Collect> cussCollect = (ArrayList<Collect>) DAO.selAll(collectqueryinfo);
+		for(Goodsview mGoodsview:cuss){
+			for(Collect mCollect:cussCollect){
+				if(mGoodsview.getGoodsid().equals(mCollect.getCollectgoods())){
+					mGoodsview.setGoodsdetail("checked");
+				}
+			}
+		}
+	
+		Pageinfo pageinfo = new Pageinfo(DAO.getTotal(queryinfo), cuss);
+		result = CommonConst.GSON.toJson(pageinfo);
+		responsePW(response, result);
+	}
 }
