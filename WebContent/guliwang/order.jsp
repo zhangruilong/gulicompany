@@ -76,7 +76,7 @@ $(function(){
 		window.localStorage.setItem("openid",getParamValue("openid"));
 	}
 	getJson(basePath+"CustomerAction.do",{method:"selAll",
-		wheresql : "openid='"+openid+"'"},initCustomer,null);
+		wheresql : "openid='"+openid+"'"},initCustomer,null);		//得到openid
 	getJson(basePath+"OrdermviewAction.do",{method:"mselQuery",
 		openid : openid,
 		begindate : "<%=request.getParameter("begindate")%>",
@@ -102,7 +102,7 @@ function getParamValue(name)
     return(null);
   }
 }
-function initCustomer(data){
+function initCustomer(data){			//将customer(客户信息放入缓存)
 	window.localStorage.setItem("customer",JSON.stringify(data.root[0]));
 }
 function initData(data){
