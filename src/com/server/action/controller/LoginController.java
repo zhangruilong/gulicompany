@@ -30,6 +30,9 @@ public class LoginController {
 	private CityMapper cityMapper;
 	@Autowired
 	private AddressMapper addressMapper;
+	
+	//根据openid查询客户信息
+	
 	//登录
 	@RequestMapping("/guliwang/login")
 	public String login(HttpSession session,Customer customer){

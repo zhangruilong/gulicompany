@@ -3,11 +3,6 @@
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<%
-		if(null == session.getAttribute("customer") && null == request.getAttribute("parentCity")){
-			response.sendRedirect("doGuliwangIndex.action?city.cityname=&cityname=");
-		}
-	 %>
 <!doctype html> 
 <html>
 <head>
@@ -31,16 +26,15 @@
 <body>
 	<div class="gl-box">
 		<div class="home-search-wrapper">
-			<span class="citydrop">${requestScope.companyCondition.city.cityname }<em><img
-					src="images/dropbg.png"></em></span>
+			<span class="citydrop"><em><img src="images/dropbg.png"></em></span>
 			<div class="menu">
 				<div class="host-city">
 					<p class="quyu">
-						请选择服务区域 <span class="fr">所在城市：${requestScope.parentCity.cityname }</span>
+						请选择服务区域 <span class="fr">所在城市：</span>
 					</p>
 				</div>
 				<div class="menu-tags home-city-drop">
-					<ul>
+					<ul id="citys-menu">
 						<c:forEach items="${requestScope.cityList }" var="city">
 							<li><a href="doGuliwangIndex.action?city.cityname=${city.cityname }&cityid=${city.cityparent }">${city.cityname }</a></li>
 						</c:forEach>
@@ -82,7 +76,6 @@
 						</a></li>
 					</c:forEach>
 				</c:forEach>
-				<!-- <li><a href="cart.jsp"><span class="fl"><img src="images/pic1.jpg" ></span> <h1>冬菇一品鲜 <span>（240ml*12瓶/箱）</span></h1><span> <strong>￥110.00/箱</strong> <em>￥110.00/箱</em> <font>限购5箱</font></span></a></li> -->
 			</ul>
 		</div>
 
@@ -98,12 +91,17 @@
 			</ul>
 		</div>
 	</div>
-
 	<script src="js/jquery-1.8.3.min.js"></script>
 	<script src="js/jquery-dropdown.js"></script>
 	<script type="text/javascript">
-	//购物车图标上的数量
 	$(function(){ 
+		//openid
+		/* var openid = window.localStorage.getItem("openid");
+		if(!openid||openid=="null"){
+			getOpenid();
+			window.localStorage.setItem("openid",getParamValue("openid"));
+		} */
+		//购物车图标上的数量
 		if(!window.localStorage.getItem("totalnum")){
 			window.localStorage.setItem("totalnum",0);
 			$("#totalnum").text(0);
@@ -112,7 +110,32 @@
 		}
 		if(window.localStorage.getItem("totalnum")==0)
 			$("#totalnum").hide();
+		//得到页面数据
+		$.getJSON("doGuliwangIndex.action",{"city.cityname":null,"cityname":null},initIndexPage);
 	})
+	//openid
+	function getOpenid()
+	{
+	  var thisUrl = location.href;
+	  location.href="snsapi-base.api?redir="+encodeURIComponent(thisUrl);
+	}
+	//openid
+	function getParamValue(name)
+	{
+	  try {
+	    return(
+	      location.search.match(new RegExp("[\?&]"+name+"=[^&#]*"))[0].split("=")[1]
+	    );
+	  } catch (ex) {
+	    return(null);
+	  }
+	}
+	//初始化页面
+	function initIndexPage(data){
+		$(".citydrop").html(data.companyCondition.city.cityname + '<em><img src="images/dropbg.png"></em>');	//初始化区域
+		$(".fr").text('所在城市：'+data.parentCity.cityname);			//所在城市
+		$("#citys-menu").html()
+	}
 		//将商品信息存入缓存2
 		function chuancan(
 						timegoodsid,
