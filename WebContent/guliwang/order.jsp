@@ -74,9 +74,9 @@ $(function(){
 	if(!openid||openid=="null"){
 		getOpenid();
 		window.localStorage.setItem("openid",getParamValue("openid"));
+		getJson(basePath+"CustomerAction.do",{method:"selAll",
+			wheresql : "openid='"+openid+"'"},initCustomer,null);		//得到openid
 	}
-	getJson(basePath+"CustomerAction.do",{method:"selAll",
-		wheresql : "openid='"+openid+"'"},initCustomer,null);		//得到openid
 	getJson(basePath+"OrdermviewAction.do",{method:"mselQuery",
 		openid : openid,
 		begindate : "<%=request.getParameter("begindate")%>",

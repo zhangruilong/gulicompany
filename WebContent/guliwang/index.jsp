@@ -134,7 +134,7 @@
 	function initIndexPage(data){
 		$(".citydrop").html(data.companyCondition.city.cityname + '<em><img src="images/dropbg.png"></em>');	//初始化区域
 		$(".fr").text('所在城市：'+data.parentCity.cityname);			//所在城市
-		$("#citys-menu").html()
+		$("#citys-menu").html("");
 	}
 		//将商品信息存入缓存2
 		function chuancan(
