@@ -22,6 +22,9 @@
         	<a href="doAddressMana.action?customerId=${sessionScope.customer.customerid }&message=foBuy">
         	<span>收货人：${requestScope.address.addressconnect } ${requestScope.address.addressphone }</span>
         	<span class="add">收货地址: ${requestScope.address.addressaddress }</span></a>
+        	<span id="addressconnect" hidden="ture">${requestScope.address.addressconnect }</span>
+        	<span id="addressphone" hidden="ture">${requestScope.address.addressphone }</span>
+        	<span id="addressaddress" hidden="ture">${requestScope.address.addressaddress }</span>
         </div>
         <div class="jiesuan-info">
         	<h1>结算信息</h1>
@@ -77,6 +80,7 @@ jQuery(document).ready(function($){
 		}
 	});
 });
+var customer = JSON.parse(window.localStorage.getItem("customer"));
 $(function(){
 	if(!window.localStorage.getItem("totalmoney")){
 		window.localStorage.setItem("totalmoney",0);
@@ -100,13 +104,13 @@ function buy(){
 	//将购物车写入订单表
 	var scompany = JSON.parse(window.localStorage.getItem("scompany"));
 	$.each(scompany, function(y, mcompany) {
-		var ordermjson = '[{"ordermcustomer":"' + 1
+		var ordermjson = '[{"ordermcustomer":"' + customer.customerid
 				+ '","ordermcompany":"' + mcompany.ordermcompany 
 				+ '","ordermnum":"' + mcompany.ordermnum
 				+ '","ordermmoney":"' + mcompany.ordermmoney
-				+ '","ordermconnect":"' + "王金宝" 
-				+ '","ordermphone":"' + "13888888888" 
-				+ '","ordermaddress":"' + "嘉兴市沿海向城东路89号706室" 
+				+ '","ordermconnect":"' + $("#addressconnect").text()
+				+ '","ordermphone":"' + $("#addressphone").text()
+				+ '","ordermaddress":"' + $("#addressaddress").text()
 				+ '","ordermway":"货到付款"}]';
 		var orderdetjson = '[';
 		var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));

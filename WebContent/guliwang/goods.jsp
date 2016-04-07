@@ -54,7 +54,7 @@
     </div>
     <div class="goods-wrapper">
         <ul class="home-hot-commodity">
-      	    <li>
+      	    <!-- <li>
             	<span class="fl"><img src="images/pic1.jpg" ></span> 
                 <h1>冬菇一品鲜 <span>（240ml*12瓶/箱）</span></h1>
                 <div class="block"> 
@@ -105,7 +105,7 @@
                     <input type="checkbox" id="1checkbox" class="chk_1" checked="checked">
                		<label for="1checkbox"></label>
                 </div>
-            </li>
+            </li> -->
         </ul>
     </div>
 </div>
@@ -134,6 +134,7 @@ var basePath = '<%=basePath%>';
 var searchdishesvalue = '<%=searchdishesvalue%>';
 var searchclassesvalue = '<%=searchclassesvalue%>';
 var openid = window.localStorage.getItem("openid");
+var customer = JSON.parse(window.localStorage.getItem("customer"));
 $(function(){ 
 	if(!window.localStorage.getItem("totalnum")){
 		//如果没有totalnum
@@ -150,12 +151,12 @@ $(function(){
 	//通过ajax查询大类
 	getJson(basePath+"GoodsclassAction.do",{method:"mselAll",wheresql:"goodsclassparent='root'"},initGoodsclass,null);
 	if(searchdishesvalue!="null"&&searchdishesvalue!=""){
-		getJson(basePath+"GoodsviewAction.do",{method:"mselAll",query:searchdishesvalue,openid:openid},initDishes,null);
+		getJson(basePath+"GoodsviewAction.do",{method:"mselAll",query:searchdishesvalue,customertype:customer.customertype,customerlevel:customer.customerlevel},initDishes,null);
 	}else if(searchclassesvalue!="null"&&searchclassesvalue!=""){
 		$("#curgoodsclass").html(searchclassesvalue);
-		getJson(basePath+"GoodsviewAction.do",{method:"mselAll",openid:openid,wheresql:"goodsclassname='"+searchclassesvalue+"'"},initDishes,null);
+		getJson(basePath+"GoodsviewAction.do",{method:"mselAll",customertype:customer.customertype,customerlevel:customer.customerlevel,wheresql:"goodsclassname='"+searchclassesvalue+"'"},initDishes,null);
 	}else{
-		getJson(basePath+"GoodsviewAction.do",{method:"mselAll",openid:openid,wheresql:"goodsclassname='大米'"},initDishes,null);
+		getJson(basePath+"GoodsviewAction.do",{method:"mselAll",customertype:customer.customertype,customerlevel:customer.customerlevel,wheresql:"goodsclassname='大米'"},initDishes,null);
 	}
 	$(".cd-popup").on("click",function(event){		//绑定点击事件
 		$(this).removeClass("is-visible");	//移除'is-visible' class
@@ -166,7 +167,7 @@ function entersearch(){
     if (event.keyCode == 13)
     {
     	searchdishesvalue = $("#searchdishes").val();
-    	getJson(basePath+"GoodsviewAction.do",{method:"mselAll",query:searchdishesvalue,openid:openid},initDishes,null);
+    	getJson(basePath+"GoodsviewAction.do",{method:"mselAll",query:searchdishesvalue,customertype:customer.customertype,customerlevel:customer.customerlevel},initDishes,null);
     }
 }
 /* $(".citydrop").click(function(){ 
@@ -261,7 +262,8 @@ function checkedgoods(goodsid){
 	}else{
 		url +='insAll';
 	}
-	var json = '[{"collectgoods":"' + goodsid + '"}]';
+	var json = '[{"collectgoods":"' + goodsid + 
+		'","collectcustomer":"' + customer.customerid + '"}]';
 	$.ajax({
 		url : url,
 		data : {

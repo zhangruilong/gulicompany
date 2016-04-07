@@ -82,11 +82,12 @@ public class GoodsviewAction extends BaseAction {
 	}
 	//查询
 	public void mselAll(HttpServletRequest request, HttpServletResponse response){
-		String openid = request.getParameter("openid");
+		String customertype = request.getParameter("customertype");
+		String customerlevel = request.getParameter("customerlevel");
 		Queryinfo queryinfo = getQueryinfo(request);
 		queryinfo.setType(Goodsview.class);
 		queryinfo.setQuery(DAO.getQuerysql(queryinfo.getQuery()));
-		queryinfo.setWheresql("pricesclass='3' and priceslevel='3'");
+		queryinfo.setWheresql("pricesclass='"+customertype+"' and priceslevel='"+customerlevel+"'");
 		queryinfo.setOrder(GoodsviewPoco.ORDER);
 		cuss = (ArrayList<Goodsview>) DAO.selAll(queryinfo);
 		

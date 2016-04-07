@@ -19,7 +19,7 @@
 <body>
 <div class="wapper-nav">全部订单<a href="query.jsp">筛选</a></div>
 <div class="gl-box">
-	<div class="add-admin">
+	<!-- <div class="add-admin">
     	<div class="all-order-wrapper">
         	<h1>天然粮油公司<span>2015-10-10 13:00</span></h1>
             <a href="#">
@@ -55,7 +55,7 @@
                 <span class="block">品种数量：<font class="font-oringe">6</font> 总价：<font class="font-oringe">700元</font>	</span>	
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
 <div class="personal-center-nav">
     <ul>
@@ -75,6 +75,8 @@ $(function(){
 		getOpenid();
 		window.localStorage.setItem("openid",getParamValue("openid"));
 	}
+	getJson(basePath+"CustomerAction.do",{method:"selAll",
+		wheresql : "openid='"+openid+"'"},initCustomer,null);
 	getJson(basePath+"OrdermviewAction.do",{method:"mselQuery",
 		openid : openid,
 		begindate : "<%=request.getParameter("begindate")%>",
@@ -99,6 +101,9 @@ function getParamValue(name)
   } catch (ex) {
     return(null);
   }
+}
+function initCustomer(data){
+	window.localStorage.setItem("customer",JSON.stringify(data.root[0]));
 }
 function initData(data){
     $(".gl-box").html("");
