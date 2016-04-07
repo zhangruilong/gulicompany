@@ -49,7 +49,7 @@ function delegoods(){
 </head>
 <body>
 <form action="deleOrderd.action" method="post">
- <pg:pager maxPageItems="8" url="orderDetail.action">
+ <pg:pager maxPageItems="10" url="orderDetail.action">
  <pg:param name="ordermcompany" value="${sessionScope.company.companyid }"/>
  <pg:param name="ordermid" value="${requestScope.order.ordermid }"/>
  <pg:param name="orderdids"/>

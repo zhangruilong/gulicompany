@@ -16,7 +16,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link href="css/tabsty.css" rel="stylesheet" type="text/css">
 </head>
 <body>
- <pg:pager maxPageItems="8" url="allTimeGoods.action">
+ <pg:pager maxPageItems="10" url="allTimeGoods.action">
  <pg:param name="timegoodscompany" value="${sessionScope.company.companyid }"/>
 <div class="nowposition">当前位置：商品管理》促销商品</div>
 <br />

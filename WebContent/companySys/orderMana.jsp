@@ -34,7 +34,7 @@ function doprint(ordermid){
 </script>
 </head>
 <body>
- <pg:pager maxPageItems="8" url="allOrder.action">
+ <pg:pager maxPageItems="10" url="allOrder.action" >
  <pg:param name="ordermcompany" value="${sessionScope.company.companyid }"/>
  <pg:param name="ordermway" value="<%=ordermway %>"/>
 <div class="nowposition">当前位置：订单管理》全部订单</div>

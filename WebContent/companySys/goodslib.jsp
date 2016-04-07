@@ -19,7 +19,7 @@ String ordermcompany = request.getParameter("ordermcompany");
 </head>
 <body>
 <form action="deleOrderd.action" method="post">
- <pg:pager maxPageItems="8" url="orderDetail.action">
+ <pg:pager maxPageItems="10" url="orderDetail.action">
 <div class="nowposition">商品管理/添加商品</div>
 <p class="navigation">
 <input>

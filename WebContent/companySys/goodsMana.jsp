@@ -113,7 +113,7 @@ function popup_formSub(){
 </style>
 </head>
 <body>
- <pg:pager maxPageItems="8" url="allGoods.action">
+ <pg:pager maxPageItems="10" url="allGoods.action">
  <pg:param name="goodscompany" value="${sessionScope.company.companyid }"/>
  <pg:param name="goodsstatue" value="${requestScope.goodsCon.goodsstatue }"/>
 <div class="nowposition">当前位置：商品管理》全部商品</div>

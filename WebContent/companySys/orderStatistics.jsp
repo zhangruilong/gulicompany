@@ -19,7 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 <form action="orderStatistics.action" method="post">
- <pg:pager maxPageItems="8" url="orderStatistics.action">
+ <pg:pager maxPageItems="10" url="orderStatistics.action" >
  <pg:param name="companyid" value="${sessionScope.company.companyid }"/>
  <pg:param name="staTime" value="${requestScope.staTime }"/>
  <pg:param name="endTime" value="${requestScope.endTime }"/>

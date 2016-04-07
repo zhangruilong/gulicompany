@@ -34,7 +34,7 @@ $(function(){
 </script>
 </head>
 <body>
- <pg:pager maxPageItems="8" url="allCustomer.action">
+ <pg:pager maxPageItems="10" url="allCustomer.action">
  <pg:param name="ccustomercompany" value="${sessionScope.company.companyid }"/>
  <pg:param name="customer.customertype" value="${requestScope.ccustomerCon.customer.customertype}"/>
 <div class="nowposition">当前位置：客户管理》全部客户</div>
