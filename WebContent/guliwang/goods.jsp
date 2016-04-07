@@ -54,58 +54,6 @@
     </div>
     <div class="goods-wrapper">
         <ul class="home-hot-commodity">
-      	    <!-- <li>
-            	<span class="fl"><img src="images/pic1.jpg" ></span> 
-                <h1>冬菇一品鲜 <span>（240ml*12瓶/箱）</span></h1>
-                <div class="block"> 
-                	<span>
-                        <input type="radio" id="radio-1-5" name="radio-3-set" class="regular-radio" checked />
-                        <label for="radio-1-5">单品价:<font class="font-oringe">￥5.00</font>/瓶</label>
-                    </span>
-                    <span>
-                        <input type="radio" id="radio-1-6" name="radio-3-set" class="regular-radio" />
-                        <label for="radio-1-6">套装价:<font class="font-oringe">￥60.00</font>/箱</label>
-                    </span>
-                </div>
-                <div class="stock-num">
-                    <span id="min" class="jian min">-</span>
-                    <input class="text_box shuliang" name="danpin" type="text" value="0"> 
-                    <span id="add" class="jia add">+</span>
-                    
-                    <span hidden="ture" class="jian min">-</span>
-                    <input hidden="ture" class="text_box shuliang" name="taozhuan" type="text" value="0"> 
-                    <span hidden="ture" class="jia add">+</span>
-                    
-                    <input type="checkbox" id="checkbox_a3" class="chk_1">
-               		<label for="checkbox_a3"></label>
-                </div>
-            </li>
-            <li>
-            	<span class="fl"><img src="images/pic1.jpg" ></span> 
-                <h1>冬菇一品鲜 <span>（240ml*12瓶/箱）</span></h1>
-                <div class="block"> 
-                	<span>
-                        <input type="radio" id="1radio1" name="1radio" class="regular-radio" checked />
-                        <label for="1radio1">单品价:<font class="font-oringe">￥5.00</font>/瓶</label>
-                    </span>
-                    <span>
-                        <input type="radio" id="1radio2" name="1radio" class="regular-radio" />
-                        <label for="1radio2">套装价:<font class="font-oringe">￥60.00</font>/箱</label>
-                    </span>
-                </div>
-                <div class="stock-num">
-                    <span class="jian min">-</span>
-                    <input class="text_box shuliang" name="danpin" type="text" value="0" readonly="readonly"> 
-                    <span class="jia add">+</span>
-                    
-                    <span hidden="ture" class="jian min">-</span>
-                    <input hidden="ture" class="text_box shuliang" name="taozhuan" type="text" value="0"> 
-                    <span hidden="ture" class="jia add">+</span>
-                    
-                    <input type="checkbox" id="1checkbox" class="chk_1" checked="checked">
-               		<label for="1checkbox"></label>
-                </div>
-            </li> -->
         </ul>
     </div>
 </div>
