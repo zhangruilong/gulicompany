@@ -45,15 +45,16 @@
     </ul>
 </div>
 <input id="addressaddress" type="hidden" name="addressaddress" value="">
-<input type="hidden" name="addresscustomer" value="${sessionScope.customer.customerid }">
-    <input type="hidden" name="customerId" value="${sessionScope.customer.customerid }">
+<input type="hidden" name="addresscustomer" id="addresscustomer" value="">
+    <input type="hidden" name="customerId" id="customerId" value="">
 <div class="add-address-btn">
-	<a onclick="javascript:window.location.href = 'doAddressMana.action?customerId=${sessionScope.customer.customerid }'">返回</a>
+	<a id="add-address-btn-back" >返回</a>
     <a onclick="addAddress()">保存</a>
 </div>
 </form>
 <script src="js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
+var customer = JSON.parse(window.localStorage.getItem("customer"));
 	function addAddress(){
 		
 		var city = $("#city").val();
@@ -63,6 +64,9 @@
 		document.forms[0].submit();
 	}
 	$(function(){
+		$("#addresscustomer").val(customer.customerid);
+		$("#customerId").val(customer.customerid);
+		$("#add-address-btn-back").attr("href","doAddressMana.action?customerId="+customer.customerid);
 		$("#city").change(function(){
 			var customercity = $("#city").val();
 			Ext.Ajax.request({

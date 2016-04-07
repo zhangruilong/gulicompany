@@ -40,9 +40,9 @@
     	<span>设置默认</span></label></li>
     </ul>
 </div>
-<input type="hidden" name="addressid" value="${requestScope.address.addressid }">
-<input type="hidden" name="addresscustomer" value="${sessionScope.customer.customerid }">
-    <input type="hidden" name="customerId" value="${sessionScope.customer.customerid }">
+<input type="hidden" id="addressid" name="addressid" value="${requestScope.address.addressid }">
+<input type="hidden" id="addresscustomer" name="addresscustomer" value="${sessionScope.customer.customerid }">
+    <input type="hidden" id="customerId" name="customerId" value="${sessionScope.customer.customerid }">
 <div class="add-address-btn">
 	<a onclick="javascript:document.forms[0].action = 'delAddress.action';document.forms[0].submit();">删除</a>
     <a onclick="addAddress()">保存</a>
@@ -50,6 +50,11 @@
 </form>
 <script src="js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
+var customer = JSON.parse(window.localStorage.getItem("customer"));
+$(function(){
+	$("#addresscustomer").val(customer.customerid);
+	$("#customerId").val(customer.customerid);
+});
 	function addAddress(){
 		document.forms[0].submit();
 	}

@@ -18,7 +18,7 @@
 
 <body>
 <form action="feedbackof.action" method="post">
-<input type="hidden" name="feedbackcustomer" value="${sessionScope.customer.customerid }">
+<input id="feedbackcustomer" type="hidden" name="feedbackcustomer" value="">
 <div class="view-box">
 <div class="wapper-nav">意见反馈</div>
 <textarea id="feedbackdetail" name="feedbackdetail" cols="" rows="" placeholder="请输入您的反馈意见（字数200字以内）"></textarea>
@@ -36,7 +36,9 @@
 	</div>
 </div>
 <script type="text/javascript">
+var customer = JSON.parse(window.localStorage.getItem("customer"));
 $(function(){
+	$("#feedbackcustomer").val(customer.customerid);
 	$(".cd-popup").on("click",function(event){		//绑定点击事件
 		$(this).removeClass("is-visible");	//移除'is-visible' class
 	});

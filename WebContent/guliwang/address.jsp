@@ -54,5 +54,9 @@
 		<a href="doAddAddress.action">+ 新增收货地址</a>
 	</div>
 </div>
+<script src="js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript">
+	
+</script>
 </body>
 </html>

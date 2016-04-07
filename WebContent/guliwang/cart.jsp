@@ -41,18 +41,9 @@
 <div class="footer">
 	<div class="jiesuan-foot-info"><img src="images/jiesuanbg.png" > 种类数：<span id="totalnum">0</span>总价：<span id="totalmoney">0</span> </div><a onclick="nextpage();" class="jiesuan-button">结算</a>
 </div>
-<!--弹框-->
-<div class="cd-popup" role="alert">
-	<div class="cd-popup-container">
-		<div class="cd-buttons">
-        	<h1>谷粒网提示</h1>
-			<p>是否现在登录?</p>
-            <a href="#" class="cd-popup-close">取消</a><a href="login.jsp">确定</a>
-		</div>
-	</div>
-</div>
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
 <script> 
+var customer = JSON.parse(window.localStorage.getItem("customer"));
 $(function(){
 	if(!window.localStorage.getItem("totalnum")){
 		window.localStorage.setItem("totalnum",0);
@@ -78,12 +69,7 @@ $(function(){
 });
 function nextpage(){
 	setscompany();
-	var url = "doBuy.action?addresscustomer=${sessionScope.customer.customerid }&addressture=1";
-	if(url == "doBuy.action?addresscustomer=&addressture=1"){
-		$(".cd-popup").addClass("is-visible");
-	} else {
-		window.location.href = "doBuy.action?addresscustomer=${sessionScope.customer.customerid }&addressture=1";
-	}
+		window.location.href = "doBuy.action?addresscustomer="+customer.customerid+"&addressture=1";
 }
 function setscompany(){
 	var data = JSON.parse(window.localStorage.getItem("sdishes"));

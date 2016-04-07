@@ -2,7 +2,9 @@
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/";
+%>
 <!doctype html> 
 <html>
 <head>
@@ -35,9 +37,6 @@
 				</div>
 				<div class="menu-tags home-city-drop">
 					<ul id="citys-menu">
-						<c:forEach items="${requestScope.cityList }" var="city">
-							<li><a href="doGuliwangIndex.action?city.cityname=${city.cityname }&cityid=${city.cityparent }">${city.cityname }</a></li>
-						</c:forEach>
 					</ul>
 				</div>
 			</div>
@@ -48,34 +47,6 @@
 			<img src="images/banner.jpg">
 			<div class="home-hot">特惠商品抢购区</div>
 			<ul class="home-hot-commodity">
-				<c:forEach items="${requestScope.companyList }" var="company">
-					<c:forEach items="${company.timegoodsList }" var="timegoods">
-						<li><a
-							onclick="chuancan(
-							'${timegoods.timegoodsid }',
-							'${timegoods.timegoodsdetail }',
-	        				'${timegoods.timegoodscompany }',
-	        				'${company.companyshop }',
-	        				'${company.companydetail }',
-	        				'${timegoods.timegoodsclass }',
-	        				'${timegoods.timegoodscode }',
-	        				'${timegoods.timegoodsorgprice }',
-	        				'${timegoods.timegoodsunit }',
-	        				'${timegoods.timegoodsname }',
-	        				'${timegoods.timegoodsunits }'
-	        				);" 
-							> <span class="fl"> <img
-									src="images/pic1.jpg">
-							</span>
-								<h1>${timegoods.timegoodsname }
-									<span>（${timegoods.timegoodsunits }）</span>
-								</h1> <span> <strong>￥${timegoods.timegoodsorgprice }/${timegoods.timegoodsunit }
-								</strong> <em>￥${timegoods.timegoodsprice }/${timegoods.timegoodsunit }</em>
-									<font>限购${timegoods.timegoodsnum }${timegoods.timegoodsunit }</font>
-							</span>
-						</a></li>
-					</c:forEach>
-				</c:forEach>
 			</ul>
 		</div>
 
@@ -83,7 +54,7 @@
 		<div class="personal-center-nav">
 			<ul>
 				<li class="active"><a
-					href="doGuliwangIndex.action?city.cityname=${sessionScope.customer.customerxian }&cityname=${sessionScope.customer.customercity }"><em
+					href="index.jsp"><em
 						class="ion-home"></em>首页</a></li>
 				<li><a href="goods.jsp"><em class="ion-bag"></em>商城</a></li>
 				<li><a href="order.jsp"><em class="ion-clipboard"></em>订单</a></li>
@@ -94,13 +65,21 @@
 	<script src="js/jquery-1.8.3.min.js"></script>
 	<script src="js/jquery-dropdown.js"></script>
 	<script type="text/javascript">
+	var basePath = '<%=basePath%>';
 	$(function(){ 
 		//openid
-		/* var openid = window.localStorage.getItem("openid");
+		var openid = window.localStorage.getItem("openid");
 		if(!openid||openid=="null"){
-			getOpenid();
-			window.localStorage.setItem("openid",getParamValue("openid"));
-		} */
+			//getOpenid();
+			//window.localStorage.setItem("openid",getParamValue("openid"));
+			window.localStorage.setItem("openid",1);
+			getJson(basePath+"CustomerAction.do",{method:"selAll",
+				wheresql : "openid='"+1+"'"},initCustomer,null);		//得到openid
+		}else{
+			var customer = JSON.parse(window.localStorage.getItem("customer"));
+			//得到页面数据
+			$.getJSON("doGuliwangIndex.action",{"city.cityname":customer.customerxian,"cityname":customer.customercity},initIndexPage,null);
+		}
 		//购物车图标上的数量
 		if(!window.localStorage.getItem("totalnum")){
 			window.localStorage.setItem("totalnum",0);
@@ -110,8 +89,7 @@
 		}
 		if(window.localStorage.getItem("totalnum")==0)
 			$("#totalnum").hide();
-		//得到页面数据
-		$.getJSON("doGuliwangIndex.action",{"city.cityname":null,"cityname":null},initIndexPage);
+		
 	})
 	//openid
 	function getOpenid()
@@ -130,11 +108,43 @@
 	    return(null);
 	  }
 	}
+	//得到客户信息
+	function initCustomer(data){			//将customer(客户信息放入缓存)
+		window.localStorage.setItem("customer",JSON.stringify(data.root[0]));
+		$.getJSON("doGuliwangIndex.action",{"city.cityname":data.root[0].customerxian,"cityname":data.root[0].customercity},initIndexPage,null);
+	}
 	//初始化页面
 	function initIndexPage(data){
 		$(".citydrop").html(data.companyCondition.city.cityname + '<em><img src="images/dropbg.png"></em>');	//初始化区域
 		$(".fr").text('所在城市：'+data.parentCity.cityname);			//所在城市
-		$("#citys-menu").html("");
+		$.each(data.cityList,function(i,item){
+			$("#citys-menu").append('<li><a href="">'+ item.cityname +'</a></li>');									//得到地区
+		});
+		$.each(data.companyList,function(i,item1){
+			$.each(item1.timegoodsList,function(j,item2){
+			$(".home-hot-commodity").append('<li><a '+
+					'onclick="chuancan(\''+
+						item2.timegoodsid +'\',\''+
+						item2.timegoodsdetail +'\',\''+
+        				item2.timegoodscompany +'\',\''+
+        				item1.companyshop +'\',\''+
+        				item1.companydetail +'\',\''+
+        				item2.timegoodsclass +'\',\''+
+        				item2.timegoodscode +'\',\''+
+        				item2.timegoodsorgprice +'\',\''+
+        				item2.timegoodsunit +'\',\''+
+        				item2.timegoodsname +'\',\''+
+        				item2.timegoodsunits +'\''+
+        				');" '+
+						'> <span class="fl"> <img src="images/pic1.jpg"></span>'+
+							'<h1>'+item2.timegoodsname+
+								'<span>（'+item2.timegoodsunits+'）</span>'+
+							'</h1> <span> <strong>￥'+item2.timegoodsorgprice+'/'+item2.timegoodsunit+
+							'</strong> <em>￥'+item2.timegoodsprice+'/'+item2.timegoodsunit+'</em>'+
+								'<font>限购'+item2.timegoodsnum+item2.timegoodsunit+'</font>'+
+					'</span></a></li>');									//得到地区
+			});
+		});
 	}
 		//将商品信息存入缓存2
 		function chuancan(
@@ -228,6 +238,32 @@
 		function docart(obj){
 			if (window.localStorage.getItem("sdishes") == null || window.localStorage.getItem("sdishes") == "[]") {				//判断有没有购物车
 				$(obj).attr("href","cartnothing.html");
+			}
+		}
+		function successCB(r, cb) {
+			cb && cb(r);
+		}
+
+		function getJson(url, param, sCallback, fCallBack) {
+			try
+			{
+				$.ajax({
+					url: url,
+					data: param,
+					dataType:"json",
+					success: function(r) {
+						successCB(r, sCallback);
+						successCB(r, fCallBack);
+					},
+					error:function(r) {
+						var resp = eval(r); 
+						alert(resp.msg);
+					}
+				});
+			}
+			catch (ex)
+			{
+				alert(ex);
 			}
 		}
 	</script>

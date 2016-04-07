@@ -19,7 +19,7 @@
 	<div class="jiesuan">
     	<div class="wapper-nav">结算</div>
     	<div class="shouhuo-wrap">
-        	<a href="doAddressMana.action?customerId=${sessionScope.customer.customerid }&message=foBuy">
+        	<a href="">
         	<span>收货人：${requestScope.address.addressconnect } ${requestScope.address.addressphone }</span>
         	<span class="add">收货地址: ${requestScope.address.addressaddress }</span></a>
         	<span id="addressconnect" hidden="ture">${requestScope.address.addressconnect }</span>
@@ -82,6 +82,7 @@ jQuery(document).ready(function($){
 });
 var customer = JSON.parse(window.localStorage.getItem("customer"));
 $(function(){
+	$(".shouhuo-wrap a").attr("href","doAddressMana.action?customerId="+customer.customerid+"&message=foBuy");
 	if(!window.localStorage.getItem("totalmoney")){
 		window.localStorage.setItem("totalmoney",0);
 		$("#totalmoney").text(0);
