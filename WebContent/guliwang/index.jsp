@@ -66,6 +66,8 @@
 	<script src="js/jquery-dropdown.js"></script>
 	<script type="text/javascript">
 	var basePath = '<%=basePath%>';
+	var xian = '${param.xian}';
+	var city = '${param.city}';
 	$(function(){ 
 		//openid
 		var openid = window.localStorage.getItem("openid");
@@ -75,7 +77,9 @@
 			window.localStorage.setItem("openid",1);
 			getJson(basePath+"CustomerAction.do",{method:"selAll",
 				wheresql : "openid='"+1+"'"},initCustomer,null);		//得到openid
-		}else{
+		} else if(xian != '' && city != ''){
+			$.getJSON("doGuliwangIndex.action",{"city.cityname":xian,"cityid":city},initIndexPage,null);
+		} else {
 			var customer = JSON.parse(window.localStorage.getItem("customer"));
 			//得到页面数据
 			$.getJSON("doGuliwangIndex.action",{"city.cityname":customer.customerxian,"cityname":customer.customercity},initIndexPage,null);
@@ -118,7 +122,7 @@
 		$(".citydrop").html(data.companyCondition.city.cityname + '<em><img src="images/dropbg.png"></em>');	//初始化区域
 		$(".fr").text('所在城市：'+data.parentCity.cityname);			//所在城市
 		$.each(data.cityList,function(i,item){
-			$("#citys-menu").append('<li><a href="">'+ item.cityname +'</a></li>');									//得到地区
+			$("#citys-menu").append('<li><a href="index.jsp?xian='+item.cityname+'&city='+item.cityparent+'">'+ item.cityname +'</a></li>');									//得到地区
 		});
 		$.each(data.companyList,function(i,item1){
 			$.each(item1.timegoodsList,function(j,item2){

@@ -39,7 +39,7 @@ $(function(){
 		window.localStorage.setItem("openid",getParamValue("openid"));
 		getJson(basePath+"CustomerAction.do",{method:"selAll",
 			wheresql : "openid='"+openid+"'"},initCustomer,null);		//得到openid
-	}else if(!window.localStorage.setItem("customer")){
+	}else if(!window.localStorage.getItem("customer")){
 		getJson(basePath+"CustomerAction.do",{method:"selCustomer",
 			wheresql : "openid='"+openid+"'"},initCustomer,null);		//得到openid
 	}
