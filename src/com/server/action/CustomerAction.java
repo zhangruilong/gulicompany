@@ -98,4 +98,21 @@ public class CustomerAction extends BaseAction {
 		result = CommonConst.GSON.toJson(pageinfo);
 		responsePW(response, result);
 	}
+	//查询所有
+	public void selCustomer(HttpServletRequest request, HttpServletResponse response){
+		Queryinfo queryinfo = getQueryinfo(request);
+		queryinfo.setType(Customer.class);
+		queryinfo.setQuery(DAO.getQuerysql(queryinfo.getQuery()));
+		queryinfo.setOrder(CustomerPoco.ORDER);
+		cuss = (ArrayList<Customer>) DAO.selAll(queryinfo);
+		if(cuss.size()==0){
+			Customer mCustomer = new Customer();
+			mCustomer.setCustomerlevel(3);
+			mCustomer.setCustomertype("3");
+			cuss.add(mCustomer);
+		}
+		Pageinfo pageinfo = new Pageinfo(0, cuss);
+		result = CommonConst.GSON.toJson(pageinfo);
+		responsePW(response, result);
+	}
 }
