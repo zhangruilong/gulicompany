@@ -34,7 +34,7 @@ var basePath = '<%=basePath%>';
 $(function(){
 	//openid
 	var openid = window.localStorage.getItem("openid");
-	if(!openid||openid=="null"){
+	if(!openid||openid=="null"||!window.localStorage.getItem("customer")){
 		getOpenid();
 		window.localStorage.setItem("openid",getParamValue("openid"));
 		getJson(basePath+"CustomerAction.do",{method:"selAll",
