@@ -86,12 +86,12 @@ $(function(){
 	//通过ajax查询大类
 	getJson(basePath+"GoodsclassAction.do",{method:"mselAll",wheresql:"goodsclassparent='root'"},initGoodsclass,null);
 	if(searchdishesvalue!="null"&&searchdishesvalue!=""){
-		getJson(basePath+"GoodsviewAction.do",{method:"mselAll",query:searchdishesvalue,customertype:customer.customertype,customerlevel:customer.customerlevel},initDishes,null);
+		getJson(basePath+"GoodsviewAction.do",{method:"mselAll",query:searchdishesvalue,customerid:customer.customerid,customertype:customer.customertype,customerlevel:customer.customerlevel},initDishes,null);
 	}else if(searchclassesvalue!="null"&&searchclassesvalue!=""){
 		$("#curgoodsclass").html(searchclassesvalue);
-		getJson(basePath+"GoodsviewAction.do",{method:"mselAll",customertype:customer.customertype,customerlevel:customer.customerlevel,wheresql:"goodsclassname='"+searchclassesvalue+"'"},initDishes,null);
+		getJson(basePath+"GoodsviewAction.do",{method:"mselAll",customerid:customer.customerid,customertype:customer.customertype,customerlevel:customer.customerlevel,wheresql:"goodsclassname='"+searchclassesvalue+"'"},initDishes,null);
 	}else{
-		getJson(basePath+"GoodsviewAction.do",{method:"mselAll",customertype:customer.customertype,customerlevel:customer.customerlevel,wheresql:"goodsclassname='大米'"},initDishes,null);
+		getJson(basePath+"GoodsviewAction.do",{method:"mselAll",customerid:customer.customerid,customertype:customer.customertype,customerlevel:customer.customerlevel,wheresql:"goodsclassname='大米'"},initDishes,null);
 	}
 	$(".cd-popup").on("click",function(event){		//绑定点击事件
 		$(this).removeClass("is-visible");	//移除'is-visible' class
@@ -102,7 +102,7 @@ function entersearch(){
     if (event.keyCode == 13)
     {
     	searchdishesvalue = $("#searchdishes").val();
-    	getJson(basePath+"GoodsviewAction.do",{method:"mselAll",query:searchdishesvalue,customertype:customer.customertype,customerlevel:customer.customerlevel},initDishes,null);
+    	getJson(basePath+"GoodsviewAction.do",{method:"mselAll",customerid:customer.customerid,query:searchdishesvalue,customertype:customer.customertype,customerlevel:customer.customerlevel},initDishes,null);
     }
 }
 /* $(".citydrop").click(function(){ 
