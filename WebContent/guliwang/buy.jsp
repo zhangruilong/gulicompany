@@ -17,7 +17,7 @@
 <body>
 <div class="gl-box">
 	<div class="jiesuan">
-    	<div class="wapper-nav">结算</div>
+    	<div class="wapper-nav">结算 <a href='javascript:history.go(-1)' class="goback"></a></div>
     	<div class="shouhuo-wrap">
         	<a href="">
         	<span>收货人：${requestScope.address.addressconnect } ${requestScope.address.addressphone }</span>

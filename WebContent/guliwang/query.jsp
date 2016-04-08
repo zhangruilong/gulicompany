@@ -14,11 +14,11 @@
 </head>
 
 <body>
-<div class="gl-box">
+<div class="gl-box bgcol">
 <div class="filter-wrapper">
-	<div class="wapper-nav">筛选</div>
+	<div class="wapper-nav">筛选 <a href='javascript:history.go(-1)' class="goback"></a></div>
     <ul>
-    	<li><span>按时间</span> <input id="begindate" type="date" placeholder="2015-10-10"> 至 <input id="enddate" type="date" placeholder="2015-10-10"></li>
+    	<li><span>按时间</span> <input id="begindate" type="date" placeholder="开始时间"> 至 <input id="enddate" type="date" placeholder="结束时间"></li>
         <li><span>按金额</span> <input id="beginmoney" type="number" placeholder="2000"> 至 <input id="endmoney" type="number" placeholder="3000"></li>
         <li><span>供应商</span> <input id="companyname" type="text" class="supplier-name" placeholder="请输入供应商名称"></li>
     </ul>
