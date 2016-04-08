@@ -104,25 +104,25 @@
 		<ul>
 			<li><span>所在城市</span> 
 			<span style="position:absolute;overflow:hidden;margin-left: 170px;"> 
-			<select id="city" style="width:118px;">
+			<select id="city" style="width:160%;">
 				<option></option>
 				<c:forEach items="${requestScope.cityList }" var="cyty">
 					<option>${cyty.cityname }</option>
 				</c:forEach>
 			</select>
 			</span><i></i> 
-			<span style="position:absolute;display: table;">
+			<span style="position:absolute;display: block;">
 				<input id="customercity" name="customercity" type="text" 
 				placeholder="请输入城市" style="width:118px;margin-left: 200px;">
 			</span>
 			</li>
 			<li><span>服务区域</span> 
 			<span style="position:absolute;overflow:hidden;margin-left: 170px;"> 
-			<select id="xian" style="width:118px;">
+			<select id="xian" style="width:160%;">
 				<option></option>
 			</select>
 			</span><i></i> 
-			<span style="position:absolute;display: table;">
+			<span style="position:absolute;display: block;">
 				<input id="customerxian" name="customerxian" type="text" 
 				placeholder="请输入地区" style="width:118px;margin-left: 200px;">
 			</span>

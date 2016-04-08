@@ -60,6 +60,16 @@ input:focus{ outline:none}
             <li class="active"><a href="mine.jsp"><em class="ion-android-person"></em>我的</a></li>
         </ul>
     </div>
+    <!--弹框-->
+<div class="cd-popup" role="alert">
+	<div class="cd-popup-container">
+		<div class="cd-buttons">
+        	<h1>谷粒网提示</h1>
+			<p>是否现在登录?</p>
+            <a href="#" class="cd-popup-close">取消</a><a href="login.jsp">确定</a>
+		</div>
+	</div>
+</div>
 <script src="js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="../ExtJS/adapter/ext/ext-base.js"></script>
 <script type="text/javascript" src="../ExtJS/ext-all.js"></script>
@@ -68,9 +78,13 @@ input:focus{ outline:none}
 var customer = JSON.parse(window.localStorage.getItem("customer"));
 $(function(){
 	$("#myshopname").text(customer.customershop);
-	$("#a_myshop").attr("href","doEditCus.action?customerid="+customer.customerid);
-	$("#a_mycollect").attr("href","doCollect.action?comid="+customer.customerid);
-	$("#a_address").attr("href","doAddressMana.action?customerId="+customer.customerid);
+	if(customer.customerid != null && customer.customerid != ''){
+		$("#a_myshop").attr("href","doEditCus.action?customerid="+customer.customerid);
+		$("#a_mycollect").attr("href","doCollect.action?comid="+customer.customerid);
+		$("#a_address").attr("href","doAddressMana.action?customerId="+customer.customerid);
+	} else {
+		$(".personal-center a").addClass("cd-popup-trigger");
+	}
 	$(".cd-popup-trigger").on("click",function(event){
 		event.preventDefault();				//防止默认事件发生
 		$(".cd-popup").addClass("is-visible");

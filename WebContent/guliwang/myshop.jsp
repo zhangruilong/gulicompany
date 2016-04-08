@@ -56,7 +56,7 @@ input:focus{ outline:none}
 				<option></option>
 			</select>
 			</span><i></i> 
-			<span style="position:absolute;display: table;">
+			<span style="position:absolute;display: block;">
 				<input id="customerxian" name="customerxian" type="text" value="${requestScope.customer.customerxian }" 
 				placeholder="请输入地区" style="width:118px;margin-left: 200px;">
 			</span>

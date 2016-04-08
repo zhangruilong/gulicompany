@@ -96,7 +96,7 @@
 	  on company.companycity = city.cityid 
 	  left outer join timegoods
 	  on timegoods.timegoodscompany = company.companyid
-	  where timegoods.timegoodsstatue = '正在促销'
+	  where timegoods.timegoodsstatue = '启用'
   	<if test="city != null">
   		<if test="city.cityname != null and city.cityname != ''">
   			and city.cityname = #{city.cityname}

@@ -25,6 +25,16 @@
 <div class="footer">
 	<div class="jiesuan-foot-info"><img src="images/jiesuanbg.png" > 种类数：<span id="totalnum">0</span>总价：<span id="totalmoney">0</span> </div><a onclick="nextpage();" class="jiesuan-button">结算</a>
 </div>
+<!--弹框-->
+<div class="cd-popup" role="alert">
+	<div class="cd-popup-container">
+		<div class="cd-buttons">
+        	<h1>谷粒网提示</h1>
+			<p>还未注册,是否现在注册?</p>
+            <a href="#" class="cd-popup-close">取消</a><a href="doReg.action">确定</a>
+		</div>
+	</div>
+</div>
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
 <script> 
 var customer = JSON.parse(window.localStorage.getItem("customer"));
@@ -53,7 +63,11 @@ $(function(){
 });
 function nextpage(){
 	setscompany();
+	if(customer.customerid != null && customer.customerid != ''){
 		window.location.href = "doBuy.action?addresscustomer="+customer.customerid+"&addressture=1";
+	} else {
+		$(".cd-popup").addClass("is-visible");
+	}
 }
 function setscompany(){
 	var data = JSON.parse(window.localStorage.getItem("sdishes"));
