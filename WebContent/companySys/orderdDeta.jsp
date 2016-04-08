@@ -36,9 +36,8 @@
 		var orderdrightmoney = $("#orderdrightmoney").val();
 		var money = parseInt(orderdmoney)/parseInt(orderdnum);
 		var rightmoney = parseInt(orderdrightmoney)/parseInt(orderdnum);
-		$("#orderdnum").blur(function(){
+		$("#orderdnum").change(function(){
 			//自动计算金额
-			alert("ok");
 			orderdnum = $("#orderdnum").val();
 			orderdmoney = parseInt(orderdnum)*parseInt(money);
 			orderdrightmoney = parseInt(orderdnum)*parseInt(rightmoney);

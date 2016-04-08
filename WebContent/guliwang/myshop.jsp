@@ -36,16 +36,6 @@ input:focus{ outline:none}
     	<li><span>店铺名称</span> <input name="customershop" type="text" value="${requestScope.customer.customershop }" placeholder="请输入店铺名称"></li>
         <li><span>联系人</span> <input name="customername" type="text" value="${requestScope.customer.customername }" placeholder="请输入联系人"></li>
         <li><span>联系电话</span> <input name="customerphone" type="text" value="${requestScope.customer.customerphone }" placeholder="请输入联系电话"></li>
-        <li>
-        	<span>店铺照片</span> 
-        	<div id="uploadImg">
-                <input type="file" id="file_input" />
-                <a href="#" id="clo">点击上传</a> 
-                <span id="result">
-                  <!-- 这里显示读取结果 -->
-                </span> 
-            </div><i></i>
-        </li>
         <li><span>所在城市</span> 
 			<span style="position:absolute;overflow:hidden;margin-left: 170px;"> 
 			<select id="city" style="width:118px;">
@@ -85,7 +75,7 @@ input:focus{ outline:none}
 	<div class="cd-popup-container">
 		<div class="cd-buttons">
         	<h1>谷粒网提示</h1>
-			<p class="meg">是否现在登录?</p>
+			<p class="meg"></p>
             <a class="cd-popup-close">确定</a>
 		</div>
 	</div>
@@ -153,33 +143,6 @@ function doedit(){
 	//$(".meg").text("以保存修改");		//修改弹窗信息
 	//$(".cd-popup").addClass("is-visible");	//弹出窗口
 	document.forms[0].submit();
-}
-var result = document.getElementById("result");
-var input = document.getElementById("file_input");
-/*function alertMsg()
-  {
-  document.getElementById("result").innerHTML = "";
-  document.getElementById("clo").innerHTML = "点击上传";
-  }*/
-if(typeof FileReader === 'undefined'){
-	result.innerHTML = "抱歉，你的浏览器不支持 FileReader";
-	input.setAttribute('disabled','disabled');
-}else{
-	input.addEventListener('change',readFile,false);
-}
-			
-function readFile(){
-	var file = this.files[0];
-	if(!/image\/\w+/.test(file.type)){
-		alert("请确保文件为图像类型");
-		return false;
-	}
-	var reader = new FileReader();
-	reader.readAsDataURL(file);
-	reader.onload = function(e){
-		result.innerHTML = '<img src="'+this.result+'" alt=""/><div class="close" onclick="alertMsg()" style="display:none">×</div>'
-		document.getElementById("clo").innerHTML = "";
-	}
 }
 </script>
 </body>
