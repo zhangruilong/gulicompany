@@ -87,7 +87,7 @@ public class GoodsviewAction extends BaseAction {
 		String customertype = request.getParameter("customertype");
 		String customerlevel = request.getParameter("customerlevel");
 		String goodsclassname = request.getParameter("goodsclassname");
-		String wheresql = "pricesclass='"+customertype+"' and priceslevel='"+customerlevel+"'";
+		String wheresql = "goodsstatue ='上架' and pricesclass='"+customertype+"' and priceslevel='"+customerlevel+"'";
 		if(CommonUtil.isNotEmpty(companyid)){
 			wheresql += " and goodscompany='"+companyid+"'";
 		}
