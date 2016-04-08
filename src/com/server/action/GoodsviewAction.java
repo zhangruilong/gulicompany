@@ -82,17 +82,24 @@ public class GoodsviewAction extends BaseAction {
 	}
 	//查询
 	public void mselAll(HttpServletRequest request, HttpServletResponse response){
+		String companyid = request.getParameter("companyid");
+		String customerid = request.getParameter("customerid");
 		String customertype = request.getParameter("customertype");
 		String customerlevel = request.getParameter("customerlevel");
+		String wheresql = "pricesclass='"+customertype+"' and priceslevel='"+customerlevel+"'";
+		if(CommonUtil.isNotEmpty(companyid)){
+			wheresql += " and goodscompany='"+companyid+"'";
+		}
 		Queryinfo queryinfo = getQueryinfo(request);
 		queryinfo.setType(Goodsview.class);
 		queryinfo.setQuery(DAO.getQuerysql(queryinfo.getQuery()));
-		queryinfo.setWheresql("pricesclass='"+customertype+"' and priceslevel='"+customerlevel+"'");
+		queryinfo.setWheresql(wheresql);
 		queryinfo.setOrder(GoodsviewPoco.ORDER);
 		cuss = (ArrayList<Goodsview>) DAO.selAll(queryinfo);
 		
 		Queryinfo collectqueryinfo = getQueryinfo();
 		collectqueryinfo.setType(Collect.class);
+		collectqueryinfo.setWheresql("collectcustomer='"+customerid+"'");
 		ArrayList<Collect> cussCollect = (ArrayList<Collect>) DAO.selAll(collectqueryinfo);
 		for(Goodsview mGoodsview:cuss){
 			for(Collect mCollect:cussCollect){

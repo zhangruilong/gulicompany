@@ -1,0 +1,118 @@
+
+<!doctype html> 
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>谷粒网</title>
+<link href="css/base.css" type="text/css" rel="stylesheet">
+<link href="css/layout.css" type="text/css" rel="stylesheet">
+<link href="css/dig.css" type="text/css" rel="stylesheet">
+<style type="text/css">
+</style>
+</head>
+
+<body>
+<div class="gl-box budan-page">
+	<div class="home-search-wrapper">
+        <input type="text" placeholder="请输入客户名称">
+    </div>
+    <ul>
+    	<li><a class="cd-popup-trigger"><img src="images/mendian.jpg" > <h2>大福超市</h2><span>王大宝 15865456465</span></a></li>
+        <li><a class="cd-popup-trigger"><img src="images/mendian.jpg" > <h2>大福超市</h2><span>王大宝 15865456465</span></a></li>
+        <li><a class="cd-popup-trigger"><img src="images/mendian.jpg" > <h2>大福超市</h2><span>王大宝 15865456465</span></a></li>
+        <li><a class="cd-popup-trigger"><img src="images/mendian.jpg" > <h2>大福超市</h2><span>王大宝 15865456465</span></a></li>
+    </ul>
+</div>
+
+<!--弹框-->
+<div class="cd-popup" role="alert">
+	<div class="cd-popup-container">
+		<div class="cd-buttons">
+        	<h1>谷粒网提示</h1>
+			<p>您确定要为其补单吗?</p>
+            <a href="#" class="cd-popup-close">取消</a><a href="goods.jsp">确定</a>
+		</div>
+	</div>
+</div>
+<script src="js/jquery-1.8.3.min.js"></script>
+<script>
+jQuery(document).ready(function($){
+	//open popup
+	$('.cd-popup-trigger').on('click', function(event){
+		event.preventDefault();
+		$('.cd-popup').addClass('is-visible');
+	});
+	
+	//close popup
+	$('.cd-popup').on('click', function(event){
+		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') ) {
+			event.preventDefault();
+			$(this).removeClass('is-visible');
+		}
+	});
+});
+$(function(){
+	var emp = JSON.parse(window.localStorage.getItem("emp"));
+	getJson(basePath+"CustomerAction.do",{method:"selAll"},initData,null);
+});
+function initData(data){
+    $(".home-hot-commodity").html("");
+	 $.each(data.root, function(i, item) {
+		$(".home-hot-commodity").append('<li>'+
+	         	'<span class="fl"><img src="images/pic2.jpg" ></span> '+
+	             '<h1>'+item.goodsname+'<span>('+item.goodsunits+')</span></h1>'+
+	           '  <div class="block"> '+
+	             	'<span>'+
+	                 '    <input type="radio" id="'+item.goodsid+'radio1" name="'+item.goodsid+'radio" class="regular-radio" checked />'+
+	                 '    <label for="'+item.goodsid+'radio1">单品价:<font class="font-oringe">￥'+item.pricesprice+'</font>/'+item.pricesunit+'</label>'+
+	               '  </span>'+
+	               '  <span>'+
+	                   '  <input type="radio" id="'+item.goodsid+'radio2" name="'+item.goodsid+'radio" class="regular-radio" />'+
+	               '      <label for="'+item.goodsid+'radio2">套装价:<font class="font-oringe">￥'+item.pricesprice2+'</font>/'+item.pricesunit2+'</label>'+
+	               '  </span>'+
+	            ' </div>'+
+	           '  <div class="stock-num" name="'+item.goodsid+'">'+
+	                ' <span class="jian min" onclick="subnum(this,'+item.pricesprice
+					   +')"></span>'+
+	                 '<input readonly="readonly" class="text_box shuliang" name="danpin" type="text" value="'+
+	                 getcurrennumdanpin(item.goodsid)+'"> '+
+	                ' <span class="jia add" onclick="addnum(this,'+item.pricesprice
+					   +',\''+item.goodsname+'\',\''+item.pricesunit+'\',\''+item.goodsunits
+					   +'\',\''+item.goodscode+'\',\''+item.goodsclassname
+					   +'\',\''+item.goodscompany+'\',\''+item.companyshop+'\',\''+item.companydetail
+					   +'\')"></span>'+
+	               '  <span hidden="ture" class="jian min" onclick="subnum(this,'+item.pricesprice2
+				   +')"></span>'+
+	                ' <input readonly="readonly" hidden="ture" class="text_box shuliang" name="taozhuan" type="text" value="'+
+	                getcurrennumtaozhuan(item.goodsid)+'"> '+
+	                ' <span hidden="ture" class="jia add" onclick="addnum(this,'+item.pricesprice2
+					   +',\''+item.goodsname+'\',\''+item.pricesunit2+'\',\''+item.goodsunits
+					   +'\',\''+item.goodscode+'\',\''+item.goodsclassname
+					   +'\',\''+item.goodscompany+'\',\''+item.companyshop+'\',\''+item.companydetail
+					   +'\')"></span>'+
+	                ' <input type="checkbox" id="'+item.goodsid+'checkbox" class="chk_1" '+item.goodsdetail+'>'+
+	            		'<label for="'+item.goodsid+'checkbox" onclick="checkedgoods(\''+item.goodsid+'\');"></label>'+
+	             '</div>'+
+	         '</li>');
+			if(item.pricesunit2==null||item.pricesunit2==''||item.pricesunit2==undefined){
+				$("#"+item.goodsid+"radio2").parent().css("display","none");
+			}
+    });
+	$(".regular-radio").change(function(){ 
+		var t = $(this).parent().parent().next().find('input[name*=danpin]');
+		t.toggle();
+		t.prev().toggle();
+		t.next().toggle();
+		var t2 = $(this).parent().parent().next().find('input[name*=taozhuan]');
+		t2.toggle();
+		t2.prev().toggle();
+		t2.next().toggle();
+	})
+}
+</script>
+</body>
+</html>

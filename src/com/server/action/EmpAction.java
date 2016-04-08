@@ -8,10 +8,12 @@ import javax.servlet.http.HttpServletResponse;
 import com.server.dao.EmpDao;
 import com.server.pojo.Emp;
 import com.server.poco.EmpPoco;
+import com.system.pojo.System_user;
 import com.system.tools.CommonConst;
 import com.system.tools.base.BaseAction;
 import com.system.tools.pojo.Fileinfo;
 import com.system.tools.pojo.Queryinfo;
+import com.system.tools.util.CipherUtil;
 import com.system.tools.util.CommonUtil;
 import com.system.tools.util.DateUtils;
 import com.system.tools.util.FileUtil;
@@ -97,5 +99,26 @@ public class EmpAction extends BaseAction {
 		Pageinfo pageinfo = new Pageinfo(DAO.getTotal(queryinfo), DAO.selQuery(queryinfo));
 		result = CommonConst.GSON.toJson(pageinfo);
 		responsePW(response, result);
+	}
+	//业务员登入控制
+	public void memplogin(HttpServletRequest request, HttpServletResponse response){
+		response.setContentType("text/html;charset=utf-8");
+		response.setHeader("Cache-Control", "no-cache");
+		//查询验证用户
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		String wheresql = "empstatue = '启用' and loginname = '" + username
+				+ "' and password = '" + password + "'";
+		Queryinfo queryinfo = getQueryinfo();
+		queryinfo.setType(Emp.class);
+		queryinfo.setWheresql(wheresql);
+		cuss = (ArrayList<Emp>) DAO.selAll(queryinfo);
+		if(cuss.size()==0){
+			responsePW(response, "{success:true,code:403,msg:'账号密码错误'}");
+		}else{
+			Pageinfo pageinfo = new Pageinfo(0,cuss);
+			result = CommonConst.GSON.toJson(pageinfo);
+			responsePW(response, result);
+		}
 	}
 }
