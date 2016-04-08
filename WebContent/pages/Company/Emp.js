@@ -42,13 +42,13 @@ function selectEmp(companyid) {
 			width : 80,
 			sortable : true
 		}
-//		, {
-//			header : '密码',
-//			dataIndex : 'password',
-//			align : 'center',
-//			width : 80,
-//			sortable : true
-//		}
+		, {
+			header : '密码',
+			dataIndex : 'password',
+			align : 'center',
+			width : 80,
+			hidden : true
+		}
 		, {
 			header : '描述',
 			dataIndex : 'empdetail',
@@ -128,18 +128,18 @@ function selectEmp(companyid) {
 				anchor : '95%'
 			} ]
 		}
-//		, {
-//			columnWidth : 1,
-//			layout : 'form',
-//			items : [ {
-//				xtype : 'textfield',
-//				fieldLabel : '密码',
-//				id : 'Emppassword',
-//				name : 'password',
-//				maxLength : 100,
-//				anchor : '95%'
-//			} ]
-//		}
+		, {
+			columnWidth : 1,
+			layout : 'form',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '密码',
+				id : 'Emppassword',
+				name : 'password',
+				maxLength : 100,
+				anchor : '95%'
+			} ]
+		}
 		, {
 			columnWidth : 1,
 			layout : 'form',
