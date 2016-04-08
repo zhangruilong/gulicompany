@@ -19,43 +19,6 @@
 <body>
 <div class="wapper-nav">全部订单<a href="query.jsp">筛选</a></div>
 <div class="gl-box">
-	<!-- <div class="add-admin">
-    	<div class="all-order-wrapper">
-        	<h1>天然粮油公司<span>2015-10-10 13:00</span></h1>
-            <a href="#">
-                <span>订单状态：<font class="font-oringe">待付款</font></span><span>订单编号：<font class="font-grey">16563529810</font> </span>
-                <span class="sign"></span>
-            </a>
-            <div class="gopay">
-                <span class="block">品种数量：<font class="font-oringe">6</font> 总价：<font class="font-oringe">700元</font>	</span>	
-                <a href="#">去支付</a>				
-            </div>
-        </div>
-    </div>
-    <div class="add-admin">
-    	<div class="all-order-wrapper">
-        	<h1>天然粮油公司<span>2015-10-10 13:00</span></h1>
-            <a href="#">
-                <span>订单状态：<font class="font-grey">已下单</font></span><span>订单编号：<font class="font-grey">16563529810</font> </span>
-                <span class="sign"></span>
-            </a>
-            <div class="gopay">
-                <span class="block">品种数量：<font class="font-oringe">6</font> 总价：<font class="font-oringe">700元</font>	</span>	
-            </div>
-        </div>
-    </div>
-    <div class="add-admin">
-    	<div class="all-order-wrapper">
-        	<h1>天然粮油公司<span>2015-10-10 13:00</span></h1>
-            <a href="#">
-                <span>订单状态：<font class="font-grey">已下单</font></span><span>订单编号：<font class="font-grey">16563529810</font> </span>
-                <span class="sign"></span>
-            </a>
-            <div class="gopay">
-                <span class="block">品种数量：<font class="font-oringe">6</font> 总价：<font class="font-oringe">700元</font>	</span>	
-            </div>
-        </div>
-    </div> -->
 </div>
 <div class="personal-center-nav">
     <ul>

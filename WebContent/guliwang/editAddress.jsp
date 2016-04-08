@@ -24,13 +24,6 @@
 </div>
 <div class="reg-wrapper reg-dianpu-info">
 	<ul>
-    	<!-- <li><span>所在城市</span> <select id="city">
-    		<c:forEach items="${requestScope.cityParents }" var="cyty">
-				<option value="${cyty.cityparent }">${cyty.cityparent }</option>
-			</c:forEach></select><i></i></li>
-        <li><span>所在区域</span> <select  id="xian"><c:forEach items="${requestScope.cityList }" var="cyty">
-					<option value="${cyty.cityname }">${cyty.cityname }</option>
-				</c:forEach></select><i></i></li> -->
         <li><span>详细地址</span> <input name="addressaddress" value="${requestScope.address.addressaddress }" id="detaAddressa" type="text" placeholder="请输入详细地址"></li>
     </ul>
 </div>

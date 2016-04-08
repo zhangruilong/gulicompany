@@ -122,17 +122,6 @@ input:checked ~ input:active {
 						</a>
 					</li>
 				</c:forEach>
-				<!-- <li><a href="#"><span class="fl"><img
-							src="images/pic1.jpg"></span>
-					<h1>
-							冬菇一品鲜<span>（240ml*12瓶/箱）</span>
-						</h1>
-						<p>
-							单品价:<font>￥5.00</font>/瓶
-						</p>
-						<p>
-							套装价:<font>￥60.00</font>/箱
-						</p></a></li> -->
 			</ul>
 		</div>
 	</div>

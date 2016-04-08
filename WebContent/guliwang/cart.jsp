@@ -19,22 +19,6 @@
 <form id="form1" runat="server">
     <div class="wapper-nav">购物车</div>
     <div class="cart-wrapper" id="tab">
-    	<h1>凯源食品有限公司</h1>
-        <ul>
-        	<li>
-            	<em><img src="images/pic1.jpg" ></em> <h2>啊萨顶顶撒<span class="price">40.00元/瓶</span></h2>
-				<span id="min" class="jian min">-</span>
-                <input class="text_box shuliang" name="" type="text" value="1"> 
-                <span id="add" class="jia add">+</span>
-            </li>
-            <li>
-            	<em><img src="images/pic1.jpg" ></em> <h2>啊萨顶顶撒<span class="price">5.5元/箱</span></h2>
-				<span id="min" class="jian min">-</span>
-                <input class="text_box shuliang" name="" type="text" value="1"> 
-                <span id="add" class="jia add">+</span>
-            </li>
-        </ul>
-        <div class="songda">送达时间：城区2小时送达，郊区次日送达。</div>
     </div>
 </form>
 </div>

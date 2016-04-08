@@ -19,9 +19,6 @@
 
 <body>
 <div class="order-detail-info">
-	<p>天然粮油有限公司</p>
-	<p>联系电话:0579-8247638</p>
-	<p>配送时间:城区2小时送达，郊区次日送达</p>
 </div>
 <div class="order-detail-user">
 <i class="info-icon"></i>
@@ -32,16 +29,6 @@
 </div>
 </div>
 <div class="order-detail-wrapper">
-  <ul id="orderd">
-    	<li><span class="fl">东古一品香 </span><span class="fl">¥60 /箱</span><span class="fl">x2</span><span class="fr"> 120元</span></li>
-        <li><span class="fl">东古一品香 </span><span class="fl">¥60 /箱</span><span class="fl">x2</span><span class="fr"> 120元</span></li>
-        <li><span class="fl">东古一品香 </span><span class="fl">¥60 /箱</span><span class="fl">x2</span><span class="fr"> 120元</span></li>
-        <li><span class="fl">东古一品香 </span><span class="fl">¥60 /箱</span><span class="fl">x2</span><span class="fr"> 120元</span></li>
-        <li><span class="fl">东古一品香 </span><span class="fl">¥60 /箱</span><span class="fl">x2</span><span class="fr"> 120元</span></li>
-  </ul>
-  <p>订单金额: <span>680元</span></p>
-    <p>优惠金额: <span>80元</span></p>
-    <p>实付金额: <span>600元</span></p>
 </div>
 <div class="footer">
 	<div class="order-detail-foot">

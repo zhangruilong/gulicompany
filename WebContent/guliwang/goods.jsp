@@ -29,22 +29,9 @@
                 <div class="wrapper">
                 	<div class="fenlei-left">
                     	<ul id="fenlei-left">
-                        	<li><a href="#"><img src="images/321.jpg" > 食用油</a></li>
-                            <li><a href="#">食用油</a></li>
-                            <li class="active"><a href="#">食用油</a></li>
-                            <li><a href="#">食用油</a></li>
-                            <li><a href="#">食用油</a></li>
                         </ul>
                     </div>
                     <div class="fenlei-right">
-                    	<a href="#" class="current">豆油</a>
-                        <a href="#">菜籽油</a>
-                        <a href="#">豆油</a>
-                        <a href="#">菜籽油</a>
-                        <a href="#">豆油</a>
-                        <a href="#">菜籽油</a>
-                        <a href="#">豆油</a>
-                        <a href="#">菜籽油</a>
                     </div>
                 </div>
             </div>
