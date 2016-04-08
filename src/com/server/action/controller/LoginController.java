@@ -50,13 +50,14 @@ public class LoginController {
 		return "forward:reg.jsp";
 	}
 	//注册用户
-	@RequestMapping("/guliwang/reg")
-	public String reg(Customer customer,String addressphone){
+	@RequestMapping(value="/guliwang/reg" ,produces = "application/json")
+	@ResponseBody
+	public Customer reg(Customer customer,String addressphone){
 		String newCusId = CommonUtil.getNewId();
 		customer.setCustomerid(newCusId);		//设置新id
 		customer.setCustomerstatue("启用");
-		customer.setCustomerlevel(1);
-		customer.setCustomertype("餐饮客户");
+		customer.setCustomerlevel(3);
+		customer.setCustomertype("3");
 		customerMapper.insertSelective(customer);		//添加新客户
 		//添加新地址
 		Address address = new Address();
@@ -64,10 +65,10 @@ public class LoginController {
 		address.setAddressid(CommonUtil.getNewId());		//设置新id
 		address.setAddressaddress(customer.getCustomercity()+customer.getCustomerxian()+customer.getCustomeraddress());
 		address.setAddresscustomer(newCusId);				//客户id
-		address.setAddressphone(addressphone);
+		address.setAddressphone(customer.getCustomerphone());
 		address.setAddressconnect(customer.getCustomername());
 		addressMapper.insertSelective(address);				//添加默认地址
-		return "redirect:login.jsp";
+		return customer;
 	}
 	//注销登录
 	@RequestMapping("/guliwang/loginOut")

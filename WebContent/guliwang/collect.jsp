@@ -138,13 +138,16 @@ input:checked ~ input:active {
 	}
 	
 	function delCollects(){
+		//alert($("[type='checkbox']"));
 		$.each($("[type='checkbox']"),function(i,item){
 			if(item.checked){
 				document.forms[0].submit(); 
 			}else if(i+1 == $("[type='checkbox']").length){
-				window.location.reload();
+				$(".wapper-nav").html("<p class='p-a'><a href='mine.jsp' >&lt;返回</a></p>"+
+				"<p class='pp'>我的收藏</p><a onclick='editToDel()'>编辑</a>");
 			}
 		})
+		
 	}
 </script>
 </body>
