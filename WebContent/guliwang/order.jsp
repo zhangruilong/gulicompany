@@ -34,10 +34,13 @@ var basePath = '<%=basePath%>';
 $(function(){
 	//openid
 	var openid = window.localStorage.getItem("openid");
-	if(!openid||openid=="null"||!window.localStorage.getItem("customer")){
+	if(!openid||openid=="null"){
 		getOpenid();
 		window.localStorage.setItem("openid",getParamValue("openid"));
 		getJson(basePath+"CustomerAction.do",{method:"selAll",
+			wheresql : "openid='"+openid+"'"},initCustomer,null);		//得到openid
+	}else if(!window.localStorage.setItem("customer")){
+		getJson(basePath+"CustomerAction.do",{method:"selCustomer",
 			wheresql : "openid='"+openid+"'"},initCustomer,null);		//得到openid
 	}
 	getJson(basePath+"OrdermviewAction.do",{method:"mselQuery",
