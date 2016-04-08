@@ -107,6 +107,9 @@ public class CustomerAction extends BaseAction {
 		cuss = (ArrayList<Customer>) DAO.selAll(queryinfo);
 		if(cuss.size()==0){
 			Customer mCustomer = new Customer();
+			mCustomer.setCustomercity("嘉兴市");
+			mCustomer.setCustomerxian("海盐县");
+			mCustomer.setCustomershop("我的店铺");
 			mCustomer.setCustomerlevel(3);
 			mCustomer.setCustomertype("3");
 			cuss.add(mCustomer);
