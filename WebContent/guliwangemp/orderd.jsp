@@ -30,12 +30,12 @@
 </div>
 <div class="order-detail-wrapper">
 </div>
-<div class="footer">
+<!-- <div class="footer">
 	<div class="order-detail-foot">
-    	<!-- <a href="#">取消订单</a> -->
+    	<a href="#">取消订单</a>
         <a href="#">重新购买</a>
     </div>
-</div>
+</div> -->
 <script src="js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
 var basePath = '<%=basePath%>';
