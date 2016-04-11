@@ -124,7 +124,6 @@ input:checked ~ input:active {
 				</c:forEach>
 			</ul>
 		</div>
-	</div>
 	</form>
 <script src="js/jquery-1.8.3.min.js"></script>
 <script src="js/jquery-dropdown.js"></script>
@@ -132,13 +131,13 @@ input:checked ~ input:active {
 	function editToDel(){
 		$(".wapper-nav").html("<p class='p-a'><a href='mine.jsp' >&lt;返回</a></p>"+
 				"<p class='pp'>我的收藏</p><a onclick='delCollects()'>删除</a>");
+		
 		$.each($("li"),function(i,item){
 			$(item).prepend("<input type='checkbox' value='"+$(item).attr("name")+"' name='collectids'>");
 		})
 	}
 	
 	function delCollects(){
-		//alert($("[type='checkbox']"));
 		$.each($("[type='checkbox']"),function(i,item){
 			if(item.checked){
 				document.forms[0].submit(); 
@@ -147,7 +146,7 @@ input:checked ~ input:active {
 				"<p class='pp'>我的收藏</p><a onclick='editToDel()'>编辑</a>");
 			}
 		})
-		
+		$("li input").remove();
 	}
 </script>
 </body>
