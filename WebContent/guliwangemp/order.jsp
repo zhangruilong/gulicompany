@@ -32,8 +32,7 @@
 <script> 
 var basePath = '<%=basePath%>';
 $(function(){
-	//openid
-	var customer = JSON.parse(window.localStorage.getItem("customer"));
+	var customer = JSON.parse(window.localStorage.getItem("customeremp"));
 	var openid = customer.openid;
 	getJson(basePath+"OrdermviewAction.do",{method:"mselQuery",
 		openid : openid,
