@@ -69,16 +69,16 @@ public class OrdermviewAction extends BaseAction {
 		String companyname = request.getParameter("companyname");
 		String wheresql = "openid='"+openid+"'";
 		if(CommonUtil.isNotNull(begindate)){
-			wheresql += " and ordermtime>'"+begindate+"'";
+			wheresql += " and ordermtime>='"+begindate+"'";
 		}
 		if(CommonUtil.isNotNull(enddate)){
-			wheresql += " and ordermtime<'"+enddate+"'";
+			wheresql += " and ordermtime<='"+enddate+"'";
 		}
 		if(CommonUtil.isNotNull(beginmoney)){
-			wheresql += " and ordermmoney>'"+beginmoney+"'";
+			wheresql += " and ordermmoney>='"+beginmoney+"'";
 		}
 		if(CommonUtil.isNotNull(endmoney)){
-			wheresql += " and ordermmoney<'"+endmoney+"'";
+			wheresql += " and ordermmoney<='"+endmoney+"'";
 		}
 		if(CommonUtil.isNotNull(companyname)){
 			wheresql += " and companyshop like '%"+companyname+"%'";
