@@ -138,6 +138,7 @@ function initGoodsclassright(data){																							//大小类右边
 function initDishes(data){
      $(".home-hot-commodity").html("");
  	 $.each(data.root, function(i, item) {
+ 		var jsonitem = JSON.stringify(item);
  		$(".home-hot-commodity").append('<li>'+
  	         	'<span class="fl"><img src="../'+item.goodsimage+
  	         	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span> '+
@@ -162,6 +163,7 @@ function initDishes(data){
 					   +'\',\''+item.goodscode+'\',\''+item.goodsclassname
 					   +'\',\''+item.goodscompany+'\',\''+item.companyshop+'\',\''+item.companydetail
 					   +'\')"></span>'+
+				   '<span hidden="ture">'+jsonitem+'</span>'+
  	               '  <span hidden="ture" class="jian min" onclick="subnum(this,'+item.pricesprice2
 				   +')"></span>'+
  	                ' <input readonly="readonly" hidden="ture" class="text_box shuliang" name="taozhuan" type="text" value="'+
@@ -171,6 +173,7 @@ function initDishes(data){
 					   +'\',\''+item.goodscode+'\',\''+item.goodsclassname
 					   +'\',\''+item.goodscompany+'\',\''+item.companyshop+'\',\''+item.companydetail
 					   +'\')"></span>'+
+					'<span hidden="ture">'+jsonitem+'</span>'+
  	                ' <input type="checkbox" id="'+item.goodsid+'checkbox" class="chk_1" '+item.goodsdetail+'>'+
  	            		'<label for="'+item.goodsid+'checkbox" onclick="checkedgoods(\''+item.goodsid+'\');"></label>'+
  	             '</div>'+
@@ -256,6 +259,7 @@ function getcurrennumtaozhuan(dishesid){
 	}
 }
 function addnum(obj,pricesprice,goodsname,pricesunit,goodsunits,goodscode,goodsclassname,goodscompany,companyshop,companydetail){
+	var item = JSON.parse($(obj).next().text());
 	//总价
 	var tmoney = parseFloat(window.localStorage.getItem("totalmoney"));
 	var newtmoney = (tmoney+pricesprice).toFixed(2);
@@ -285,6 +289,7 @@ function addnum(obj,pricesprice,goodsname,pricesunit,goodsunits,goodscode,goodsc
 		mdishes.goodsname = goodsname;
 		mdishes.goodsunits = goodsunits;
 		mdishes.orderdetnum = num + 1;
+		mdishes.goodsimage = item.goodsimage;
 		
 		sdishes.push(mdishes);
 		//种类数

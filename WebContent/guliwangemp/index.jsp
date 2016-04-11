@@ -108,9 +108,11 @@
         				item2.timegoodsorgprice +'\',\''+
         				item2.timegoodsunit +'\',\''+
         				item2.timegoodsname +'\',\''+
+        				item2.timegoodsimage +'\',\''+
         				item2.timegoodsunits +'\''+
         				');" '+
-						'> <span class="fl"> <img src="images/pic1.jpg"></span>'+
+						'> <span class="fl"> <img src="../'+item2.timegoodsimage+
+		 	         	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span>'+
 							'<h1>'+item2.timegoodsname+
 								'<span>（'+item2.timegoodsunits+'）</span>'+
 							'</h1> <span> <strong>￥'+item2.timegoodsorgprice+'/'+item2.timegoodsunit+
@@ -132,6 +134,7 @@
 						timegoodsorgprice,
 						timegoodsunit,
 						timegoodsname,
+						timegoodsimage,
 						timegoodsunits
 						) {
 			if (window.localStorage.getItem("sdishes") == null || window.localStorage.getItem("sdishes") == "[]") {				//判断有没有购物车
@@ -150,6 +153,7 @@
 				mdishes.pricesprice = timegoodsorgprice;
 				mdishes.pricesunit = timegoodsunit;
 				mdishes.goodsname = timegoodsname;
+				mdishes.goodsimage = timegoodsimage;
 				
 				mdishes.goodsunits = timegoodsunits;
 				mdishes.orderdetnum = 1;
@@ -184,6 +188,8 @@
 						mdishes.pricesprice = timegoodsorgprice;
 						mdishes.pricesunit = timegoodsunit;
 						mdishes.goodsname = timegoodsname;
+						mdishes.goodsimage = timegoodsimage;
+						
 						mdishes.goodsunits = timegoodsunits;
 						mdishes.orderdetnum = 1;
 						sdishes.push(mdishes); 												//往json对象中添加一个新的元素(订单)
