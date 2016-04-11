@@ -1,5 +1,7 @@
 package com.server.action.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -19,6 +21,7 @@ import com.server.dao.mapper.AddressMapper;
 import com.server.dao.mapper.CityMapper;
 import com.server.dao.mapper.CustomerMapper;
 import com.server.pojo.entity.Address;
+import com.server.pojo.entity.Ccustomer;
 import com.server.pojo.entity.City;
 import com.server.pojo.entity.Customer;
 import com.system.tools.util.CommonUtil;
@@ -68,6 +71,14 @@ public class LoginController {
 		address.setAddressphone(customer.getCustomerphone());
 		address.setAddressconnect(customer.getCustomername());
 		addressMapper.insertSelective(address);				//添加默认地址
+		//添加与唯一客户的关系
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		Ccustomer newccustomer = new Ccustomer();
+		newccustomer.setCcustomerid(CommonUtil.getNewId());
+		newccustomer.setCcustomercompany("1");
+		newccustomer.setCcustomercustomer(newCusId);
+		newccustomer.setCcustomerdetail("3");
+		newccustomer.setCreatetime(sdf.format(new Date()));
 		return customer;
 	}
 	//注销登录

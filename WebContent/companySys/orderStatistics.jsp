@@ -44,8 +44,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<th>商品名称</th>
 		<th>规格</th>
 		<th>单位</th>
+		<th>单价</th>
 		<th>数量</th>
-		<th>商品单价</th>
 		<th>商品总价</th>
 		<th>实际金额</th>
 		<th>订单时间</th>
@@ -69,9 +69,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</pg:item>
 	</c:forEach>
 	<tr>
-		<td colspan="5">总计</td>
+		<td colspan="6">总计</td>
 		<td>${requestScope.total.numtotal }</td>
-		<td>${requestScope.total.pricetotal }</td>
 		<td>${requestScope.total.moneytotal }</td>
 		<td>${requestScope.total.rightmoneytotal }</td>
 		<td></td>

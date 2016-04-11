@@ -21,11 +21,11 @@ var customertype = '<%=customertype %>';
 $(function(){
 	if(customertype == null || customertype == ''){
 		$(".nowposition").html("当前位置：客户管理》全部客户");
-	} else if(customertype == '餐饮客户'){
+	} else if(customertype == '3'){
 		$(".nowposition").html("当前位置：客户管理》餐饮客户");
-	} else if(customertype == '高级客户'){
-		$(".nowposition").html("当前位置：客户管理》高级客户");
-	} else if(customertype == '组织单位客户'){
+	} else if(customertype == '2'){
+		$(".nowposition").html("当前位置：客户管理》商超客户");
+	} else if(customertype == '1'){
 		$(".nowposition").html("当前位置：客户管理》组织单位客户");
 	}
 	
@@ -50,6 +50,7 @@ $(function(){
 		<th>手机</th>
 		<th>客户类型</th>
 		<th>价格层级</th>
+		<th>操作</th>
     </tr>
     </thead>
     <c:if test="${fn:length(requestScope.ccustomerList) != 0 }">
@@ -62,8 +63,9 @@ $(function(){
 			<td>${ccustomer.customer.customercity}${ccustomer.customer.customerxian}${ccustomer.customer.customeraddress}</td>
 			<td>${ccustomer.customer.customername}</td>
 			<td>${ccustomer.customer.customerphone}</td>
-			<td>${ccustomer.customer.customertype}</td>
+			<td>${ccustomer.customer.customertype == 3?'餐饮客户':(ccustomer.customer.customertype == 2?'商超客户':'组织单位客户')}</td>
 			<td>${ccustomer.ccustomerdetail}</td>
+			<td><a >修改</a></td>
 		</tr>
 	</pg:item>
 	</c:forEach>
