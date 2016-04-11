@@ -69,18 +69,23 @@
 	var xian = '${param.xian}';
 	var city = '${param.city}';
 	$(function(){ 
-		if(!window.localStorage.getItem("customer")){
-			window.localStorage.setItem("openid",'null');
-		}
+		
 		//openid
 		var openid = window.localStorage.getItem("openid");
 		if(!openid||openid=="null"){
 			//getOpenid();
 			//window.localStorage.setItem("openid",getParamValue("openid"));		//得到openid
-			window.localStorage.setItem("openid",6);							//测试用openid
+			window.localStorage.setItem("openid",1);							//测试用openid
 			getJson(basePath+"CustomerAction.do",{method:"selCustomer",
 				wheresql : "openid='"+window.localStorage.getItem("openid")+"'"},initCustomer,null);		//得到openid
-		} else if(xian != '' && xian != null && city != '' && city != null){
+		} else if (!window.localStorage.getItem("customer"))
+		{
+			getJson(basePath+"CustomerAction.do",{method:"selCustomer",
+				wheresql : "openid='"+window.localStorage.getItem("openid")+"'"},initCustomer,null);		//得到openid
+			//window.localStorage.setItem("openid",'null');
+		
+		}
+		else if(xian != '' && xian != null && city != '' && city != null){
 			$.getJSON("doGuliwangIndex.action",{"city.cityname":xian,"cityid":city},initIndexPage,null);
 		} else {
 			var customer = JSON.parse(window.localStorage.getItem("customer"));
@@ -88,6 +93,7 @@
 			//得到页面数据
 			$.getJSON("doGuliwangIndex.action",{"city.cityname":customer.customerxian,"cityname":customer.customercity},initIndexPage,null);
 		}
+		
 		//购物车图标上的数量
 		if(!window.localStorage.getItem("totalnum")){
 			window.localStorage.setItem("totalnum",0);
