@@ -13,8 +13,12 @@ String ordermway = request.getParameter("ordermway");
 <head>
 <title></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
 <link href="css/tabsty.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="<%=basePath%>ExtJS/resources/css/ext-all.css" />
+<script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="<%=basePath%>ExtJS/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="<%=basePath%>ExtJS/ext-all.js"></script>
+<script type="text/javascript" src="<%=basePath%>ExtJS/ext-lang-zh_CN.js" charset="GBK"></script>
 <script type="text/javascript">
 var ordermway = '<%=ordermway %>';
 $(function(){
@@ -34,10 +38,24 @@ function doprint(ordermid){
 </script>
 </head>
 <body>
+<form action="allOrder.action" method="post">
  <pg:pager maxPageItems="10" url="allOrder.action" >
  <pg:param name="ordermcompany" value="${sessionScope.company.companyid }"/>
  <pg:param name="ordermway" value="<%=ordermway %>"/>
+ <pg:param name="staTime" value="${requestScope.staTime }"/>
+ <pg:param name="endTime" value="${requestScope.endTime }"/>
+ <pg:param name="ordermcode" value="${requestScope.order.ordermcode }"/>
+ <input type="hidden" id="staTime" name="staTime" value="${requestScope.staTime }">
+ <input type="hidden" id="endTime" name="endTime" value="${requestScope.endTime }">
+ <input type="hidden" id="ordermcompany" name="ordermcompany" value="${sessionScope.company.companyid }">
 <div class="nowposition">当前位置：订单管理》全部订单</div>
+<div class="navigation">
+<div>下单时间:</div><div id="divDate" class="date"></div>
+<div>到:</div><div id="divDate2"  class="date"></div>
+查询条件:<input type="text" name="ordermcode" value="${requestScope.order.ordermcode }">
+<input class="button" type="button" value="查询" onclick="subfor()">
+<input class="button" type="button" value="导出报表" onclick="report()">
+</div>
 <br />
 <table class="bordered" style="width: 1300px;">
     <thead>
@@ -73,7 +91,7 @@ function doprint(ordermid){
 			<td>${order.ordermstatue}</td>
 			<td>${order.ordermtime}</td>
 			<td>${order.updtime}</td>
-			<td>${order.orderdCustomer.customershop}</td>
+			<td>${order.customershop}</td>
 			<td>${order.ordermconnect}</td>
 			<td>${order.ordermphone}</td>
 			<td>${order.ordermaddress}</td>
@@ -101,5 +119,48 @@ function doprint(ordermid){
 	 </tr>       
 </table>
 </pg:pager>
+</form>
+<script type="text/javascript">
+var md;						//第一个日期对象
+var md2;					//第二个日期对象
+   Ext.onReady(function(){
+		md = new Ext.form.DateField({
+			name:"testDate",
+			editable:false, //不允许对日期进行编辑
+			width:90,
+			format:"Y-m-d",
+			emptyText:"${(requestScope.staTime == null || requestScope.staTime == '')?'请选择日期...':requestScope.staTime}"		//默认显示的日期
+		});
+		md.render('divDate');
+		
+		md2 = new Ext.form.DateField({
+			name:"testDate",
+			editable:false, //不允许对日期进行编辑
+			width:90,
+			format:"Y-m-d",
+			emptyText:"${(requestScope.endTime == null || requestScope.endTime == '')?'请选择日期...':requestScope.endTime}"		//默认显示的日期
+		});
+		md2.render('divDate2');
+   });
+//导出报表
+function report(){
+	window.location.href ="exportOrderReport.action?ordermcompany=${sessionScope.company.companyid }"+
+	"&staTime=${requestScope.staTime }&endTime=${requestScope.endTime }&ordermcode=${requestScope.order.ordermcode }";
+}
+//查询
+function subfor(){
+	var gedt = Ext.util.Format.date(md.getValue(), 'Y-m-d');	//得到查询时间
+	var gedt2 = Ext.util.Format.date(md2.getValue(), 'Y-m-d');	
+	if(gedt == ''){
+		gedt = "${requestScope.staTime}";
+	}
+	if(gedt2 == ''){
+		gedt2 = "${requestScope.endTime}";
+	}
+	$("#staTime").val(gedt);
+	$("#endTime").val(gedt2);
+	document.forms[0].submit();
+}
+</script>
 </body>
 </html>

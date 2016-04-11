@@ -158,7 +158,7 @@
 							'</h1> <span> <strong>￥'+item2.timegoodsorgprice+'/'+item2.timegoodsunit+
 							'</strong> <em>￥'+item2.timegoodsprice+'/'+item2.timegoodsunit+'</em>'+
 								'<font>限购'+item2.timegoodsnum+item2.timegoodsunit+'</font>'+
-					'</span></a></li>');									//得到地区
+					'</span></a></li>');
 			});
 		});
 	}

@@ -52,10 +52,10 @@
 	on orderd.orderdorderm = orderm.ordermid
 	where orderm.ordermcompany = #{companyid,jdbcType=VARCHAR}
 	<if test="staTime != null and staTime != ''">
-		and orderm.ordermtime &gt; #{staTime}
+		and orderm.ordermtime &gt;= #{staTime}
 	</if>
 	<if test="endTime != null and endTime != ''">
-		and orderm.ordermtime &lt; #{endTime}
+		and orderm.ordermtime &lt;= #{endTime}
 	</if>
 	<if test="condition != null and condition != ''">
 		and 
@@ -81,10 +81,10 @@
 	on orderd.orderdorderm = orderm.ordermid
 	where orderm.ordermcompany = #{companyid,jdbcType=VARCHAR}
 	<if test="staTime != null and staTime != ''">
-		and orderm.ordermtime &gt; #{staTime}
+		and orderm.ordermtime &gt;= #{staTime}
 	</if>
 	<if test="endTime != null and endTime != ''">
-		and orderm.ordermtime &lt; #{endTime}
+		and orderm.ordermtime &lt;= #{endTime}
 	</if>
 	<if test="condition != null and condition != ''">
 		and 

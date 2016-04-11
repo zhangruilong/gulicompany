@@ -5,12 +5,13 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.server.pojo.entity.Orderm;
+import com.server.pojo.entity.Ordermview;
 
 public interface OrdermMapper {
 	/**
 	 * 根据供应商(和条件)查询订单
 	 */
-	List<Orderm> selectByCompany(Orderm record);
+	List<Ordermview> selectByCompany(@Param("staTime") String staTime,@Param("endTime") String endTime,@Param("orderm") Orderm record);
 	/**
 	 * 根据主键删除
 	 */

@@ -119,6 +119,7 @@ public class System_attachAction extends BaseAction {
 	}
 	//上传文件
 	public void upload(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("===============upload==============================================================================================");
 		System_user user = getCurrentUser(request);
 		if(CommonUtil.isNotEmpty(user)){
 			String json = request.getParameter("json");

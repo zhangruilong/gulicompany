@@ -76,13 +76,9 @@ public class Ordermview
     */
    private String ordermemp;   
    /**
-    * companyshop
+    * customershop
     */
-   private String companyshop;   
-   /**
-    * companydetail
-    */
-   private String companydetail;   
+   private String customershop;   
     //属性方法	    
      /**
 	 *设置主键"ordermid"属性
@@ -373,39 +369,14 @@ public class Ordermview
 		return this.ordermemp;
 	}	   
 
-	/**
-	 *设置"companyshop"属性
-	 *@param companyshop 实体的Companyshop属性
-	 */
-	public void setCompanyshop(String companyshop)
-	{
-		this.companyshop = companyshop;
+	public String getCustomershop() {
+		return customershop;
 	}
-	
-	/**
-	 *获取"companyshop"属性
-	 */
-	public String getCompanyshop()
-	{
-		return this.companyshop;
-	}	   
 
-	/**
-	 *设置"companydetail"属性
-	 *@param companydetail 实体的Companydetail属性
-	 */
-	public void setCompanydetail(String companydetail)
-	{
-		this.companydetail = companydetail;
+	public void setCustomershop(String customershop) {
+		this.customershop = customershop;
 	}
-	
-	/**
-	 *获取"companydetail"属性
-	 */
-	public String getCompanydetail()
-	{
-		return this.companydetail;
-	}	   
+
 	public Ordermview() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -428,8 +399,6 @@ public class Ordermview
 	 	,String updtime
 	 	,String updor
 	 	,String ordermemp
-	 	,String companyshop
-	 	,String companydetail
 		 ){
 		super();
 		this.ordermid = ordermid;
@@ -449,8 +418,6 @@ public class Ordermview
 	 	this.updtime = updtime;
 	 	this.updor = updor;
 	 	this.ordermemp = ordermemp;
-	 	this.companyshop = companyshop;
-	 	this.companydetail = companydetail;
 	}
 }
 

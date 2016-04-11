@@ -83,11 +83,11 @@ public class Com_goodsCtl {
 				} 
 				prices.setPricesprice(priceStrs[i]);				//单价
 				if(i < 3){
-					prices.setPricesclass("餐饮客户");				//分类
+					prices.setPricesclass("3");				//分类
 				} else if(i>=3 && i<6){
-					prices.setPricesclass("高级客户");
+					prices.setPricesclass("2");
 				} else if(i>=6 && i<9){
-					prices.setPricesclass("组织单位客户");
+					prices.setPricesclass("1");
 				}
 				prices.setPriceslevel(3-(i%3));						//等级
 				java.text.DateFormat yyyy = new java.text.SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -105,11 +105,11 @@ public class Com_goodsCtl {
 							prices.setPricesprice(priceStrs[i]);				//单价
 							prices.setPricesprice2(price2Strs[j]);				//套装价
 							if(i < 3){
-								prices.setPricesclass("餐饮客户");				//分类
+								prices.setPricesclass("3");				//分类
 							} else if(i>=3 && i<6){
-								prices.setPricesclass("高级客户");
+								prices.setPricesclass("2");
 							} else if(i>=6 && i<9){
-								prices.setPricesclass("组织单位客户");
+								prices.setPricesclass("1");
 							}
 							prices.setPriceslevel(3-(i%3));						//等级
 							java.text.DateFormat yyyy = new java.text.SimpleDateFormat("yyyy-MM-dd hh:mm:ss");

@@ -40,7 +40,7 @@ public class LoginController {
 		customer.setCustomerpsw("1");				//这是默认的账号和密码
 		customer = customerMapper.selectByPhone(customer);
 		session.setAttribute("customer", customer);
-		return "redirect:login.jsp";
+		return "redirect:/guliwangemp/index.jsp";
 	}
 	//注册页面
 	@RequestMapping("/guliwang/doReg")

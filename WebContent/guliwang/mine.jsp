@@ -30,16 +30,19 @@ input:focus{ outline:none}
 <body>
 <div class="gl-box">
 	<div class="wapper-nav">我的</div>
+	<form action="System_attachAction.do?other=getch&method=upload">
+	<input type="hidden" name="json" id="json" value="">
     <div style="width:100%; padding-top:2%; color:#fff; text-align:center; background:url(images/minebg.jpg)">
     	<div id="uploadImg">
                 <input type="file" id="file_input" />
-                <a href="#" id="clo"></a> 
+                <a id="clo"></a> 
                 <span id="result">
                   <img src="images/mendian.jpg" style="border-radius:50px;">
                 </span> 
             </div>
         <p id="myshopname"></p>
     </div>
+    </form>
 	<div class="personal-center">
         <a id="a_myshop" href="">我的店铺 <span class="sign"></span></a>
         <a id="a_mycollect" href="">我的收藏 <span class="sign"></span></a>
@@ -97,32 +100,9 @@ $(function(){
 		}
 	});
 })
-var result = document.getElementById("result");
-var input = document.getElementById("file_input");
-/*function alertMsg()
-  {
-  document.getElementById("result").innerHTML = "";
-  document.getElementById("clo").innerHTML = "点击上传";
-  }*/
-if(typeof FileReader === 'undefined'){
-	result.innerHTML = "抱歉，你的浏览器不支持 FileReader";
-	input.setAttribute('disabled','disabled');
-}else{
-	input.addEventListener('change',readFile,false);
-}
-			
-function readFile(){
-	var file = this.files[0];
-	if(!/image\/\w+/.test(file.type)){
-		alert("请确保文件为图像类型");
-		return false;
-	}
-	var reader = new FileReader();
-	reader.readAsDataURL(file);
-	reader.onload = function(e){
-		result.innerHTML = '<img src="'+this.result+'" alt=""/><div class="close" onclick="alertMsg()" style="display:none">×</div>'
-		document.getElementById("clo").innerHTML = "";
-	}
+
+function douploadimg(){
+	window.location.href = "uploadimg.jsp";
 }
 </script>
 </body>

@@ -23,6 +23,7 @@ import com.server.pojo.entity.Customer;
 import com.server.pojo.entity.Orderd;
 import com.server.pojo.entity.OrderdStatistics;
 import com.server.pojo.entity.Orderm;
+import com.server.pojo.entity.Ordermview;
 import com.system.tools.util.FileUtil;
 
 /**
@@ -42,10 +43,18 @@ public class Com_orderCtl {
 	private CustomerMapper customerMapper;
 	//全部订单
 	@RequestMapping("/companySys/allOrder")
-	public String allOrder(Model model,Orderm order){
-		List<Orderm> ordermList = ordermMapper.selectByCompany(order);
+	public String allOrder(Model model,String staTime,String endTime,Orderm order){
+		if(staTime != null && !staTime.equals("") && staTime.length() <19){
+			staTime = staTime + " 00:00:00";
+		}
+		if(endTime != null && !endTime.equals("") && endTime.length() <19){
+			endTime = endTime + " 23:59:59";
+		}
+		List<Ordermview> ordermList = ordermMapper.selectByCompany(staTime, endTime,order);
 		model.addAttribute("allOrder", ordermList);
 		model.addAttribute("order", order);
+		model.addAttribute("staTime", staTime);
+		model.addAttribute("endTime", endTime);
 		return "forward:/companySys/orderMana.jsp";
 	}
 	//删除订单
@@ -118,6 +127,12 @@ public class Com_orderCtl {
 	//订单商品统计
 	@RequestMapping("/companySys/orderStatistics")
 	public String orderStatistics(Model model,String staTime,String endTime,String companyid,String condition) throws Exception{
+		if(staTime != null && staTime.length() <19){
+			staTime = staTime + " 00:00:00";
+		}
+		if(endTime != null && endTime.length() <19){
+			endTime = endTime + " 23:59:59";
+		}
 		List<Orderd> list = orderdMapper.selectByTime(staTime, endTime, companyid,condition);					//查询数据
 		OrderdStatistics total = orderdMapper.selectOrderdStatistics(staTime, endTime, companyid, condition);	//数据统计
 		model.addAttribute("total", total);
@@ -132,6 +147,12 @@ public class Com_orderCtl {
 	@RequestMapping("/companySys/exportReport")
 	@ResponseBody
 	public void exportReport(HttpServletResponse response,String staTime,String endTime,String companyid,String condition) throws Exception{
+		if(staTime != null && !staTime.equals("") && staTime.length() <19){
+			staTime = staTime + " 00:00:00";
+		}
+		if(endTime != null && !endTime.equals("") && endTime.length() <19){
+			endTime = endTime + " 23:59:59";
+		}
 		ArrayList<Orderd> list = (ArrayList<Orderd>) orderdMapper.selectByTime(staTime, endTime, companyid,condition);
 		String[] heads = {"商品编码","商品名称","规格","商品单价","单位","数量","商品总价","实际金额"};				//表头
 		String[] discard = {"orderdid","orderdorderm","orderddetail","orderdclass","orderdtype","orderm"};			//要忽略的字段名
@@ -144,5 +165,28 @@ public class Com_orderCtl {
 			name = staTime + "日之后的" + name;
 		}
 		FileUtil.expExcel(response, list, heads, discard, name);
+	}
+	//导出订单报表
+	@RequestMapping("/companySys/exportOrderReport")
+	@ResponseBody
+	public void exportOrderReport(HttpServletResponse response,String staTime,String endTime,Orderm order) throws Exception{
+		if(staTime != null && !staTime.equals("") && staTime.length() <19){
+			staTime = staTime + " 00:00:00";
+		}
+		if(endTime != null && !endTime.equals("") && endTime.length() <19){
+			endTime = endTime + " 23:59:59";
+		}
+		ArrayList<Ordermview> ordermList = (ArrayList<Ordermview>)ordermMapper.selectByCompany(staTime, endTime,order);
+		String[] heads = {"订单编号","种类数","下单金额","实际金额","支付方式","订单状态","下单时间","联系人","手机","地址","修改时间","客户名称"};				//表头
+		String[] discard = {"ordermid","ordermcustomer","ordermcompany","ordermdetail","updor","ordermemp","orderdList","orderdCustomer"};			//要忽略的字段名
+		String name = "订单统计报表";							//文件名称
+		if(!staTime.equals("") && !endTime.equals("")){
+			name = staTime + "日至" + endTime + "日的" + name;
+		} else if(staTime.equals("") && !endTime.equals("")){
+			name = endTime + "日之前的" + name;
+		} else if(endTime.equals("") && !staTime.equals("")){
+			name = staTime + "日之后的" + name;
+		}
+		FileUtil.expExcel(response, ordermList, heads, discard, name);
 	}
 }

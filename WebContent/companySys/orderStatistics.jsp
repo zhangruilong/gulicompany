@@ -10,7 +10,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <title></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script type="text/javascript" src="../companySys/js/showdate.js"></script>
 <link href="css/tabsty.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="<%=basePath%>ExtJS/resources/css/ext-all.css" />
 <script type="text/javascript" src="<%=basePath%>ExtJS/adapter/ext/ext-base.js"></script>
@@ -106,7 +105,7 @@ var md2;					//第二个日期对象
 		md = new Ext.form.DateField({
 			name:"testDate",
 			editable:false, //不允许对日期进行编辑
-			width:100,
+			width:90,
 			format:"Y-m-d",
 			emptyText:"${(requestScope.staTime == null || requestScope.staTime == '')?'请选择日期...':requestScope.staTime}"		//默认显示的日期
 		});
@@ -115,7 +114,7 @@ var md2;					//第二个日期对象
 		md2 = new Ext.form.DateField({
 			name:"testDate",
 			editable:false, //不允许对日期进行编辑
-			width:100,
+			width:90,
 			format:"Y-m-d",
 			emptyText:"${(requestScope.endTime == null || requestScope.endTime == '')?'请选择日期...':requestScope.endTime}"		//默认显示的日期
 		});

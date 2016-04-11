@@ -82,7 +82,7 @@ onclick="del('editOrder.action?ordermid=${requestScope.order.ordermid }&ordermco
 		<th>数量</th>
 		<th>下单金额</th>
 		<th>实际金额</th>
-		<th>删除</th>
+		<th>修改</th>
     </tr>
     </thead>
     <c:if test="${fn:length(requestScope.order.orderdList) != 0 }">
