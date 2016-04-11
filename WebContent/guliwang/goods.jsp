@@ -139,7 +139,8 @@ function initDishes(data){
      $(".home-hot-commodity").html("");
  	 $.each(data.root, function(i, item) {
  		$(".home-hot-commodity").append('<li>'+
- 	         	'<span class="fl"><img src="images/default.jpg" ></span> '+
+ 	         	'<span class="fl"><img src="../'+item.goodsimage+
+ 	         	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span> '+
  	             '<h1>'+item.goodsname+'<span>('+item.goodsunits+')</span></h1>'+
  	           '  <div class="block"> '+
  	             	'<span>'+
