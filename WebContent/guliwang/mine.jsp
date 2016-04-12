@@ -50,6 +50,7 @@ input:focus{ outline:none}
         <a id="a_address" href="">收货地址 <span class="sign"></span></a>
     </div>
     <div class="personal-center">
+    	<a onclick="clearlocalstore();">清除缓存 <span class="sign"></span></a>
     	<a href="#">谷粒客服 <span class="sign"></span></a>
         <a href="objection.jsp">意见反馈 <span class="sign"></span></a>
     </div>
@@ -103,6 +104,11 @@ $(function(){
 
 function douploadimg(){
 	window.location.href = "uploadimg.jsp";
+}
+
+function clearlocalstore(){
+	localStorage.removeItem("openid");
+	localStorage.removeItem("customer");
 }
 </script>
 </body>
