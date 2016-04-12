@@ -72,7 +72,7 @@ public class OrdermviewAction extends BaseAction {
 			wheresql += " and ordermtime>='"+begindate+"'";
 		}
 		if(CommonUtil.isNotNull(enddate)){
-			wheresql += " and ordermtime<='"+enddate+"'";
+			wheresql += " and ordermtime<='"+enddate+" 24'";
 		}
 		if(CommonUtil.isNotNull(beginmoney)){
 			wheresql += " and ordermmoney>='"+beginmoney+"'";
