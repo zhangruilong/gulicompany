@@ -28,6 +28,28 @@ $(function(){
 		$(".nowposition").html("当前位置：商品管理》下架商品");
 	}
 })
+//提交查询条件
+function subgoodsfor(){
+	document.forms[0].submit();
+}
+//商品价格设置
+function setgoodsprices(){
+	var count = 0;
+	var itemid;
+	$("[type='checkbox']").each(function(i,item){
+		if(item.checked==true){
+			itemid = $(item).attr("id");
+			count++;
+		}
+	});
+	if(count > 0 && count < 2){
+		window.location.href = "doGoodsPrices.action?goodsid="+itemid;
+	} else if(count == 0){
+		alert("请选择商品");
+	} else {
+		alert("只能选择一个商品");
+	}
+}
 function addgoods(){
 	$(".cd-popup").addClass("is-visible");	//弹出窗口
 	$.getJSON("getallGoodclass.action",function(data){
@@ -113,16 +135,23 @@ function popup_formSub(){
 </style>
 </head>
 <body>
- <pg:pager maxPageItems="10" url="allGoods.action">
+<form action="allGoods.action" method="post">
+ <pg:pager maxPageItems="10" url="allGoods.action" export="currentNumber=pageNumber">
  <pg:param name="goodscompany" value="${sessionScope.company.companyid }"/>
  <pg:param name="goodsstatue" value="${requestScope.goodsCon.goodsstatue }"/>
+ <pg:param name="goodsid" value="${requestScope.goodsCon.goodsid }"/>
+ <input type="hidden" name="goodscompany" value="${sessionScope.company.companyid }"> 
 <div class="nowposition">当前位置：商品管理》全部商品</div>
-<p class="navigation">
+<div class="navigation">
+查询条件:&nbsp;&nbsp;<input type="text" name="goodsid" value="${requestScope.goodsCon.goodsid }">
+<input class="button" type="button" value="查询" onclick="subgoodsfor()">
+<input class="button" type="button" value="价格设置" onclick="setgoodsprices()">
 <input class="button" type="button" value="添加商品" onclick="addgoods()">
-</p>
+</div>
 <table class="bordered">
     <thead>
     <tr>
+    	<th></th>
         <th>序号</th>
 		<th>商品编号</th>
 		<th>商品名称</th>
@@ -134,13 +163,13 @@ function popup_formSub(){
 		<th>创建人</th>
 		<th>修改时间</th>
 		<th>修改人</th>
-		<th>价格设置</th>
     </tr>
     </thead>
     <c:if test="${fn:length(requestScope.goodsList) != 0 }">
 	<c:forEach var="goods" items="${requestScope.goodsList }" varStatus="goodsSta">
 	<pg:item>
 		<tr>
+			<td><input type="checkbox" id="${goods.goodsid}"></td>
 			<td><c:out value="${goodsSta.count}"></c:out></td>
 			<td>${goods.goodscode}</td>
 			<td>${goods.goodsname}</td>
@@ -161,7 +190,6 @@ function popup_formSub(){
 			<td>${goods.creator}</td>
 			<td>${goods.updtime}</td>
 			<td>${goods.updor}</td>
-			<td><a href="doGoodsPrices.action?goodsid=${goods.goodsid}">价格设置</a></td>
 		</tr>
 	</pg:item>
 	</c:forEach>
@@ -175,7 +203,12 @@ function popup_formSub(){
 			 <pg:first><a href="${pageUrl }">第一页</a></pg:first>
 			 <pg:prev><a href="${pageUrl}">上一页</a></pg:prev>
 			 <pg:pages>
-			 <a href="${pageUrl}">[${pageNumber }]</a>
+			 	<c:if test="${currentNumber != pageNumber }">
+				 	<a onclick="nowpage(this)" href="${pageUrl}">[${pageNumber }]</a>
+			 	</c:if>
+			 	<c:if test="${currentNumber == pageNumber }">
+			 		<a class="fenye">${pageNumber }</a>
+			 	</c:if>
 			 </pg:pages>
 			 <pg:next><a href="${pageUrl}">下一页</a></pg:next>
 			 <pg:last><a href="${pageUrl }">最后一页</a></pg:last>
@@ -184,6 +217,7 @@ function popup_formSub(){
 	 </tr>
 </table>
 </pg:pager>
+</form>
 <!--弹框-->
 <div class="cd-popup" role="alert">
 	<div class="elegant-aero">

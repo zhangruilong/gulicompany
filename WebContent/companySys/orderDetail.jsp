@@ -45,6 +45,12 @@ function delegoods(){
 		alert("请选择要删除的商品");
 	}
 }
+function del(url,message){
+	if(confirm("是否"+message)){
+		parent.main.location.href = url;
+	}
+	
+}
 </script>
 </head>
 <body>

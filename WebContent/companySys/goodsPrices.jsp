@@ -10,7 +10,7 @@
 .elegant-aero {
 	margin-left: 10px auto;
 	margin-right: auto;
-	background: #D2E9FF;
+	background: #FBF1E5;
 	padding: 20px 20px 20px 20px;
 	font: 12px Arial, Helvetica, sans-serif;
 	color: #666;
@@ -21,8 +21,8 @@
 	font: 24px "Trebuchet MS", Arial, Helvetica, sans-serif;
 	padding: 10px 10px 10px 20px;
 	display: block;
-	background: #C0E1FF;
-	border-bottom: 1px solid #B8DDFF;
+	background: #F6B543;
+	border-bottom: 1px solid white;
 	margin: -20px -20px 15px;
 	font-weight: bold;
 }
@@ -70,7 +70,7 @@
 
 .elegant-aero .button {
 	padding: 10px 30px 10px 30px;
-	background: #66C1E4;
+	background: #EE8704;
 	border: none;
 	color: #FFF;
 	box-shadow: 1px 1px 1px #4C6E91;
@@ -86,7 +86,14 @@
 .elegant-aero p{
 
 }
-
+h1 .title_goodsinfo {
+	font-size: 12px;
+	font-weight: normal;
+	line-height: 22px;
+}
+h1 .title_goodsinfo span{
+	font-weight: bold;
+}
 </style>
 <title>Insert title here</title>
 </head>
@@ -102,10 +109,14 @@
 				</c:forEach>
 			</c:if>
 			<h1>商品价格设置
-			<span>单品单位:<input size="4" type="text" name="pricesunit" value="${requestScope.goodsCon.pricesList[0].pricesunit }">套装单位:<input size="4" type="text" name="pricesunit2" value="${requestScope.goodsCon.pricesList[0].pricesunit2 }"></span>
+			<div class="title_goodsinfo">
+			<span>商品名称:&nbsp;</span>${requestScope.goodsCon.goodsname }&nbsp;&nbsp;
+			<span>编码:&nbsp;</span>${requestScope.goodsCon.goodscode }&nbsp;&nbsp;
+			<span>规格:&nbsp;</span>${requestScope.goodsCon.goodsunits }
+			</div>
 			</h1>
 			<table>
-			<tr><td colspan="3"><p><span>餐饮客户价格 :</span></p> </td></tr>
+			<tr><td colspan="3"><p style="margin-top: 0px;"><span>餐饮客户价格 :</span></p> </td></tr>
 			<tr>	
 				
 				<td><label><span>单品价等级3 :</span><input 
@@ -135,7 +146,7 @@
 				size="5" id="12" type="text" name="pricesprice2" placeholder="套装价" />
 				<span><c:if test="${requestScope.goodsCon.pricesList[0].pricesunit2 !=null }">/${requestScope.goodsCon.pricesList[0].pricesunit2 }</c:if></span></label></td>
 			</tr>
-			<tr><td colspan="3"><p><span> 高级客户价格 :</span></p></td></tr>
+			<tr><td colspan="3"><p><span> 商超客户价格 :</span></p></td></tr>
 			<tr>
 				<td><label><span>单品价等级3 :</span><input 
 				value="<c:forEach items="${requestScope.goodsCon.pricesList }" var="price"><c:if test="${price.pricesclass == '2' && price.priceslevel == 3}">${price.pricesprice }</c:if></c:forEach>" 
@@ -193,6 +204,8 @@
 				size="5" id="18" type="text" name="pricesprice2" placeholder="套装价" />
 				<span><c:if test="${requestScope.goodsCon.pricesList[0].pricesunit2 !=null }">/${requestScope.goodsCon.pricesList[0].pricesunit2 }</c:if></span></label></td>
 			</tr>
+			<tr><td colspan="3"><p><span>单品单位:<input size="4" type="text" name="pricesunit" value="${requestScope.goodsCon.pricesList[0].pricesunit }">
+			套装单位:<input size="4" type="text" name="pricesunit2" value="${requestScope.goodsCon.pricesList[0].pricesunit2 }"></span></p> </td></tr>
 			</table>
 			<span>&nbsp;</span> <input type="button" class="button" value="保存" onclick="addData()"/> 
 			<input style="margin-left: 30px;" type="button" class="button" value="返回" onclick="javascript:window.parent.main.location.href = 'allGoods.action?goodscompany=${sessionScope.company.companyid }'"/>

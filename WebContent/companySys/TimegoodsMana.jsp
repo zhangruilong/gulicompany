@@ -16,7 +16,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link href="css/tabsty.css" rel="stylesheet" type="text/css">
 </head>
 <body>
- <pg:pager maxPageItems="10" url="allTimeGoods.action">
+ <pg:pager maxPageItems="10" url="allTimeGoods.action" export="currentNumber=pageNumber">
  <pg:param name="timegoodscompany" value="${sessionScope.company.companyid }"/>
 <div class="nowposition">当前位置：商品管理》促销商品</div>
 <br />
@@ -66,7 +66,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			 <pg:first><a href="${pageUrl }">第一页</a></pg:first>
 			 <pg:prev><a href="${pageUrl}">上一页</a></pg:prev>
 			 <pg:pages>
-			 <a href="${pageUrl}">[${pageNumber }]</a>
+			 	<c:if test="${currentNumber != pageNumber }">
+				 	<a onclick="nowpage(this)" href="${pageUrl}">[${pageNumber }]</a>
+			 	</c:if>
+			 	<c:if test="${currentNumber == pageNumber }">
+			 		<a class="fenye">${pageNumber }</a>
+			 	</c:if>
 			 </pg:pages>
 			 <pg:next><a href="${pageUrl}">下一页</a></pg:next>
 			 <pg:last><a href="${pageUrl }">最后一页</a></pg:last>

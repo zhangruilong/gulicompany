@@ -34,7 +34,7 @@ $(function(){
 </script>
 </head>
 <body>
- <pg:pager maxPageItems="10" url="allCustomer.action">
+ <pg:pager maxPageItems="10" url="allCustomer.action" export="currentNumber=pageNumber">
  <pg:param name="ccustomercompany" value="${sessionScope.company.companyid }"/>
  <pg:param name="customer.customertype" value="${requestScope.ccustomerCon.customer.customertype}"/>
 <div class="nowposition">当前位置：客户管理》全部客户</div>
@@ -71,15 +71,20 @@ $(function(){
 	</c:forEach>
 	</c:if>
 	<c:if test="${fn:length(requestScope.ccustomerList)==0 }">
-		<tr><td colspan="8" align="center" style="font-size: 20px;color: red;"> 没有信息</td></tr>
+		<tr><td colspan="9" align="center" style="font-size: 20px;color: red;"> 没有信息</td></tr>
 	</c:if>
     	<tr>
-		 <td colspan="8" align="center">	
+		 <td colspan="9" align="center">	
 			 <pg:index>
 			 <pg:first><a href="${pageUrl }">第一页</a></pg:first>
 			 <pg:prev><a href="${pageUrl}">上一页</a></pg:prev>
 			 <pg:pages>
-			 <a href="${pageUrl}">[${pageNumber }]</a>
+			 	<c:if test="${currentNumber != pageNumber }">
+				 	<a onclick="nowpage(this)" href="${pageUrl}">[${pageNumber }]</a>
+			 	</c:if>
+			 	<c:if test="${currentNumber == pageNumber }">
+			 		<a class="fenye">${pageNumber }</a>
+			 	</c:if>
 			 </pg:pages>
 			 <pg:next><a href="${pageUrl}">下一页</a></pg:next>
 			 <pg:last><a href="${pageUrl }">最后一页</a></pg:last>

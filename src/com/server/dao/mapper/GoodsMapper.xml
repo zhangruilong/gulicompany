@@ -56,6 +56,16 @@
     <if test="goodsstatue != null and goodsstatue != ''">
     	and goodsstatue = #{goodsstatue}
     </if>
+    <if test="goodsid != null and goodsid != ''">
+			and
+			(goods.GOODSCODE like '%${goodsid}%' or
+			goods.GOODSNAME like '%${goodsid}%' or
+			goods.GOODSUNITS like '%${goodsid}%' or
+			goods.GOODSCLASS like '%${goodsid}%' or
+			goods.GOODSSTATUE like '%${goodsid}%' or
+			goods.CREATOR like '%${goodsid}%' or
+			goods.UPDOR like '%${goodsid}%')
+		</if>
   </select>
   <!-- 根据主键查询商品和价格和类名 -->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >

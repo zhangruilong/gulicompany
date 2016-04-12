@@ -18,7 +18,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 <form action="orderStatistics.action" method="post">
- <pg:pager maxPageItems="10" url="orderStatistics.action" >
+ <pg:pager maxPageItems="10" url="orderStatistics.action" export="currentNumber=pageNumber">
  <pg:param name="companyid" value="${sessionScope.company.companyid }"/>
  <pg:param name="staTime" value="${requestScope.staTime }"/>
  <pg:param name="endTime" value="${requestScope.endTime }"/>
@@ -31,7 +31,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="navigation">
 <div>交易时间:</div><div id="divDate" class="date"></div>
 <div>到:</div><div id="divDate2"  class="date"></div>
-查询条件:<input type="text" name="condition" value="${requestScope.condition }">
+模糊查询:<input type="text" name="condition" value="${requestScope.condition }">
 <input class="button" type="button" value="查询" onclick="subfor()">
 <input class="button" type="button" value="导出报表" onclick="report()">
 </div>
@@ -85,7 +85,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			 <pg:first><a href="${pageUrl }">第一页</a></pg:first>
 			 <pg:prev><a href="${pageUrl}">上一页</a></pg:prev>
 			 <pg:pages>
-			 <a href="${pageUrl}">[${pageNumber }]</a>
+			 	<c:if test="${currentNumber != pageNumber }">
+				 	<a onclick="nowpage(this)" href="${pageUrl}">[${pageNumber }]</a>
+			 	</c:if>
+			 	<c:if test="${currentNumber == pageNumber }">
+			 		<a class="fenye">${pageNumber }</a>
+			 	</c:if>
 			 </pg:pages>
 			 <pg:next><a href="${pageUrl}">下一页</a></pg:next>
 			 <pg:last><a href="${pageUrl }">最后一页</a></pg:last>

@@ -35,14 +35,14 @@ String ordermway = request.getParameter("ordermway");
 <div class="navigation">
 <div>下单时间:</div><div id="divDate" class="date"></div>
 <div>到:</div><div id="divDate2"  class="date"></div>
-查询条件:<input type="text" name="ordermcode" value="${requestScope.order.ordermcode }">
+模糊查询:<input type="text" name="ordermcode" value="${requestScope.order.ordermcode }">
 <input class="button" type="button" value="查询" onclick="subfor()">
 <input class="button" type="button" value="导出报表" onclick="report()">
 <input class="button" type="button" value="打印" onclick="return doprint()">
 <input class="button" type="button" value="详情" onclick="orderDetail()">
 </div>
 <br />
-<table class="bordered" style="width: 100%;margin-left: 6px;">
+<table class="bordered" style="width: 1250px;margin-left: 6px;">
     <thead>
 
     <tr>
