@@ -19,27 +19,10 @@ String ordermway = request.getParameter("ordermway");
 <script type="text/javascript" src="<%=basePath%>ExtJS/adapter/ext/ext-base.js"></script>
 <script type="text/javascript" src="<%=basePath%>ExtJS/ext-all.js"></script>
 <script type="text/javascript" src="<%=basePath%>ExtJS/ext-lang-zh_CN.js" charset="GBK"></script>
-<script type="text/javascript">
-var ordermway = '<%=ordermway %>';
-$(function(){
-	if(ordermway == null || ordermway == ''){
-		$(".nowposition").html("当前位置：订单管理》全部订单");
-	} else if(ordermway == '在线支付'){
-		$(".nowposition").html("当前位置：订单管理》在线支付订单");
-	} else if(ordermway == '货到付款'){
-		$(".nowposition").html("当前位置：订单管理》货到付款订单");
-	}
-	//$(".nowposition").style.backgroundSize="1300px";
-})
-function doprint(ordermid){
-	window.open("printOrder.action?ordermid="+ordermid+"&ordermcompany=${sessionScope.company.companyid }");
-	return false;
-}
-</script>
 </head>
 <body>
 <form action="allOrder.action" method="post">
- <pg:pager maxPageItems="10" url="allOrder.action" >
+ <pg:pager maxPageItems="10" url="allOrder.action" export="currentNumber=pageNumber">
  <pg:param name="ordermcompany" value="${sessionScope.company.companyid }"/>
  <pg:param name="ordermway" value="<%=ordermway %>"/>
  <pg:param name="staTime" value="${requestScope.staTime }"/>
@@ -55,12 +38,15 @@ function doprint(ordermid){
 查询条件:<input type="text" name="ordermcode" value="${requestScope.order.ordermcode }">
 <input class="button" type="button" value="查询" onclick="subfor()">
 <input class="button" type="button" value="导出报表" onclick="report()">
+<input class="button" type="button" value="打印" onclick="return doprint()">
+<input class="button" type="button" value="详情" onclick="orderDetail()">
 </div>
 <br />
-<table class="bordered" style="width: 1300px;">
+<table class="bordered" style="width: 100%;margin-left: 6px;">
     <thead>
 
     <tr>
+    	<th></th>
         <th>序号</th>
 		<th>订单编号</th>
 		<th>支付方式</th>
@@ -68,20 +54,19 @@ function doprint(ordermid){
 		<th>下单金额</th>
 		<th>实际金额</th>
 		<th>订单状态</th>
-		<th style="width: 115px">下单时间</th>
+		<th>下单时间</th>
 		<th>修改时间</th>
 		<th>客户名称</th>
 		<th>联系人</th>
 		<th>手机</th>
 		<th>地址</th>
-		<th>打印</th>
-		<th>详情</th>
     </tr>
     </thead>
     <c:if test="${fn:length(requestScope.allOrder) != 0 }">
 	<c:forEach var="order" items="${requestScope.allOrder }" varStatus="orderSta">
 	<pg:item>
 		<tr>
+			<td><input type="checkbox" id="${order.ordermid}"></td>
 			<td><c:out value="${orderSta.count}"></c:out></td>
 			<td>${order.ordermcode}</td>
 			<td>${order.ordermway}</td>
@@ -89,14 +74,12 @@ function doprint(ordermid){
 			<td>${order.ordermmoney}</td>
 			<td>${order.ordermrightmoney}</td>
 			<td>${order.ordermstatue}</td>
-			<td>${order.ordermtime}</td>
+			<td>${order.ordermtime }</td>
 			<td>${order.updtime}</td>
 			<td>${order.customershop}</td>
 			<td>${order.ordermconnect}</td>
 			<td>${order.ordermphone}</td>
 			<td>${order.ordermaddress}</td>
-			<td><a href="" onclick="return doprint('${order.ordermid}')">打印</a></td>
-			<td><a href="orderDetail.action?ordermid=${order.ordermid}&ordermcompany=${sessionScope.company.companyid }">详情</a></td>
 		</tr>
 		</pg:item>
 	</c:forEach>
@@ -105,22 +88,78 @@ function doprint(ordermid){
 		<tr><td colspan="15" align="center" style="font-size: 20px;color: red;"> 没有信息</td></tr>
 	</c:if>
     	<tr>
-		 <td colspan="15" align="center">	
+		 <td class="td_fenye" colspan="15" align="center">	
 			 <pg:index>
 			 <pg:first><a href="${pageUrl }">第一页</a></pg:first>
 			 <pg:prev><a href="${pageUrl}">上一页</a></pg:prev>
 			 <pg:pages>
-			 <a href="${pageUrl}">[${pageNumber }]</a>
+			 	<c:if test="${currentNumber != pageNumber }">
+				 	<a onclick="nowpage(this)" href="${pageUrl}">[${pageNumber }]</a>
+			 	</c:if>
+			 	<c:if test="${currentNumber == pageNumber }">
+			 		<a class="fenye">${pageNumber }</a>
+			 	</c:if>
 			 </pg:pages>
 			 <pg:next><a href="${pageUrl}">下一页</a></pg:next>
 			 <pg:last><a href="${pageUrl }">最后一页</a></pg:last>
-			 </pg:index>
+			 </pg:index><!--  <span>当前页是第${currentNumber }页</span> -->
 		 </td>
 	 </tr>       
 </table>
 </pg:pager>
 </form>
 <script type="text/javascript">
+var ordermway = '<%=ordermway %>';
+$(function(){
+	if(ordermway == null || ordermway == ''){
+		$(".nowposition").html("当前位置：订单管理》全部订单");
+	} else if(ordermway == '在线支付'){
+		$(".nowposition").html("当前位置：订单管理》在线支付订单");
+	} else if(ordermway == '货到付款'){
+		$(".nowposition").html("当前位置：订单管理》货到付款订单");
+	}
+	/* var childs = $(".td_fenye").children();
+	$(childs[1]).addClass("fenye"); */
+	var hr = window.location.href;
+	//alert(hr);
+})
+//详情
+function orderDetail(){
+	var count = 0;
+	var itemid;
+	$("[type='checkbox']").each(function(i,item){
+		if(item.checked==true){
+			itemid = $(item).attr("id");
+			count++;
+		}
+	});
+	if(count > 0 && count < 2){
+		window.location.href = "orderDetail.action?ordermid="+itemid+"&ordermcompany=${sessionScope.company.companyid }";
+	} else if(count == 0){
+		alert("请选择订单");
+	} else {
+		alert("只能选择一个订单");
+	}
+}
+//打印
+function doprint(){
+	var count = 0;
+	var itemid;
+	$("[type='checkbox']").each(function(i,item){
+		if(item.checked==true){
+			itemid = $(item).attr("id");
+			count++;
+		}
+	});
+	if(count > 0 && count < 2){
+		window.open("printOrder.action?ordermid="+itemid+"&ordermcompany=${sessionScope.company.companyid }");
+	} else if(count == 0){
+		alert("请选择订单");
+	} else {
+		alert("只能选择一个订单");
+	}
+	return false;
+}
 var md;						//第一个日期对象
 var md2;					//第二个日期对象
    Ext.onReady(function(){
