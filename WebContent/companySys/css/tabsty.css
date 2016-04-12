@@ -47,17 +47,12 @@ table {
 
 
 .bordered th {
-    background-color: #dce9f9;
-    background-image: -webkit-linear-gradient(top, #ebf3fc, #dce9f9);
-    background-image:    -moz-linear-gradient(top, #ebf3fc, #dce9f9);
-    background-image:     -ms-linear-gradient(top, #ebf3fc, #dce9f9);
-    background-image:      -o-linear-gradient(top, #ebf3fc, #dce9f9);
-    background-image:         linear-gradient(top, #ebf3fc, #dce9f9);
+    background-color: #FAB957;
     -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset; 
     -moz-box-shadow:0 1px 0 rgba(255,255,255,.8) inset;  
     box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;        
+   /* text-shadow: 0 1px 0 rgba(255,255,255,.5); */
     border-top: none;
-    text-shadow: 0 1px 0 rgba(255,255,255,.5); 
 }
 
 .bordered td:first-child, .bordered th:first-child {

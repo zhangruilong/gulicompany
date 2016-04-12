@@ -128,11 +128,6 @@ function popup_formSub(){
 	$("#popup_form").submit();
 }
 </script>
-<style type="text/css">
-.bordered tr td{
-	background-color: white;
-}
-</style>
 </head>
 <body>
 <form action="allGoods.action" method="post">
