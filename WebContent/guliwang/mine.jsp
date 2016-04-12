@@ -109,6 +109,7 @@ function douploadimg(){
 function clearlocalstore(){
 	localStorage.removeItem("openid");
 	localStorage.removeItem("customer");
+	alert("清除缓存成功！");
 }
 </script>
 </body>
