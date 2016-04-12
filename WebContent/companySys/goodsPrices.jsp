@@ -135,7 +135,7 @@
 				size="5" id="12" type="text" name="pricesprice2" placeholder="套装价" />
 				<span><c:if test="${requestScope.goodsCon.pricesList[0].pricesunit2 !=null }">/${requestScope.goodsCon.pricesList[0].pricesunit2 }</c:if></span></label></td>
 			</tr>
-			<tr><td colspan="3"><p><span> 高级客户价格 :</span></p></td></tr>
+			<tr><td colspan="3"><p><span> 商超客户价格 :</span></p></td></tr>
 			<tr>
 				<td><label><span>单品价等级3 :</span><input 
 				value="<c:forEach items="${requestScope.goodsCon.pricesList }" var="price"><c:if test="${price.pricesclass == '2' && price.priceslevel == 3}">${price.pricesprice }</c:if></c:forEach>" 

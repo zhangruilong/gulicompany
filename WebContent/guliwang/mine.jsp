@@ -43,13 +43,13 @@ input:focus{ outline:none}
         <p id="myshopname"></p>
     </div>
     </form>
-	<div class="personal-center">
+	<div class="personal-center1">
         <a id="a_myshop" href="">我的店铺 <span class="sign"></span></a>
         <a id="a_mycollect" href="">我的收藏 <span class="sign"></span></a>
         <a href="#">我的谷币 <span class="sign"></span></a>
         <a id="a_address" href="">收货地址 <span class="sign"></span></a>
     </div>
-    <div class="personal-center">
+    <div class="personal-center2">
     	<a onclick="clearlocalstore();">清除缓存 <span class="sign"></span></a>
     	<a href="#">谷粒客服 <span class="sign"></span></a>
         <a href="objection.jsp">意见反馈 <span class="sign"></span></a>
@@ -87,7 +87,7 @@ $(function(){
 		$("#a_mycollect").attr("href","doCollect.action?comid="+customer.customerid);
 		$("#a_address").attr("href","doAddressMana.action?customerId="+customer.customerid);
 	} else {
-		$(".personal-center a").addClass("cd-popup-trigger");
+		$(".personal-center1 a").addClass("cd-popup-trigger");
 	}
 	$(".cd-popup-trigger").on("click",function(event){
 		event.preventDefault();				//防止默认事件发生

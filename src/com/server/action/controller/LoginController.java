@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.server.dao.mapper.AddressMapper;
+import com.server.dao.mapper.CcustomerMapper;
 import com.server.dao.mapper.CityMapper;
 import com.server.dao.mapper.CustomerMapper;
 import com.server.pojo.entity.Address;
@@ -33,6 +34,8 @@ public class LoginController {
 	private CityMapper cityMapper;
 	@Autowired
 	private AddressMapper addressMapper;
+	@Autowired
+	private CcustomerMapper ccustomreMapper;
 	
 	//根据openid查询客户信息
 	
@@ -79,6 +82,7 @@ public class LoginController {
 		newccustomer.setCcustomercustomer(newCusId);
 		newccustomer.setCcustomerdetail("3");
 		newccustomer.setCreatetime(sdf.format(new Date()));
+		ccustomreMapper.insertSelective(newccustomer);
 		return customer;
 	}
 	//注销登录
