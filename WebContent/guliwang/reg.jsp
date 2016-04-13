@@ -22,7 +22,6 @@
 <script type="text/javascript" src="../ExtJS/ext-lang-zh_CN.js" charset="UTF-8"></script>
 <script type="text/javascript">
 	$(function(){
-		$("#openid").val(window.localStorage.getItem("openid"));
 		$("#city").change(function(){
 			var customercity = $("#city").val();
 			document.getElementById('customercity').value=document.getElementById('city').options[document.getElementById('city').selectedIndex].value;
@@ -84,7 +83,7 @@
 			return;
 		}
 		$.getJSON("reg.action",{
-			"openid":$("#openid").val(),
+			"openid":window.localStorage.getItem("openid"),
 			"customercity":$("#customercity").val(),
 			"customerphone":$("#customerphone").val(),
 			"customerxian":$("#customerxian").val(),
@@ -98,7 +97,6 @@
 </head>
 
 <body>
-<input type="hidden" name="openid" id="openid" value="">
 	<div class="reg-wrapper reg-dianpu-info">
 		<ul>
 			<li><span>所在城市</span> 

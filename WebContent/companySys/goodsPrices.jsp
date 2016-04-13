@@ -80,7 +80,7 @@
 }
 
 .elegant-aero .button:hover {
-	background: #3EB1DD;
+	background: #FF9802;
 }
 
 .elegant-aero p{

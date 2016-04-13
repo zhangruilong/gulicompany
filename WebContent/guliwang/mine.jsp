@@ -43,11 +43,11 @@ input:focus{ outline:none}
         <p id="myshopname"></p>
     </div>
     </form>
-	<div class="personal-center num1div">
-        <a id="a_myshop" href="">我的店铺 <span class="sign"></span></a>
-        <a id="a_mycollect" href="">我的收藏 <span class="sign"></span></a>
+	<div class="personal-center">
+        <a id="a_myshop" onclick="tiaozhuan('doEditCus.action?customerid=')">我的店铺 <span class="sign"></span></a>
+        <a id="a_mycollect" onclick="tiaozhuan('doCollect.action?comid=')">我的收藏 <span class="sign"></span></a>
         <a href="#">我的谷币 <span class="sign"></span></a>
-        <a id="a_address" href="">收货地址 <span class="sign"></span></a>
+        <a id="a_address" onclick="tiaozhuan('doAddressMana.action?customerId=')">收货地址 <span class="sign"></span></a>
     </div>
     <div class="personal-center">
     	<a onclick="clearlocalstore();">清除缓存 <span class="sign"></span></a>
@@ -82,17 +82,6 @@ input:focus{ outline:none}
 var customer = JSON.parse(window.localStorage.getItem("customer"));
 $(function(){
 	$("#myshopname").text(customer.customershop);
-	if(customer.customerid != null && customer.customerid != ''){
-		$("#a_myshop").attr("href","doEditCus.action?customerid="+customer.customerid);
-		$("#a_mycollect").attr("href","doCollect.action?comid="+customer.customerid);
-		$("#a_address").attr("href","doAddressMana.action?customerId="+customer.customerid);
-	} else {
-		$(".num1div a").addClass("cd-popup-trigger");
-	}
-	$(".cd-popup-trigger").on("click",function(event){
-		event.preventDefault();				//防止默认事件发生
-		$(".cd-popup").addClass("is-visible");
-	});
 	$(".cd-popup").on("click",function(event){		//绑定点击事件
 		if($(event.target).is(".cd-popup-close") || $(event.target).is(".cd-popup-container")){
 			//如果点击的是'取消'或者除'确定'外的其他地方
@@ -110,6 +99,15 @@ function clearlocalstore(){
 	localStorage.removeItem("openid");
 	localStorage.removeItem("customer");
 	alert("清除缓存成功！");
+}
+function tiaozhuan(url){
+	if(!window.localStorage.getItem("openid")){
+		window.location.href = "index.jsp";
+	} else if(customer.cusotmerid == null || customer.cusotmerid == ''){
+		$(".cd-popup").addClass("is-visible");
+	} else {
+		window.location.href = rul+customer.customerid;
+	}
 }
 </script>
 </body>

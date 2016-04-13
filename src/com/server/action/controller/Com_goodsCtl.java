@@ -68,7 +68,7 @@ public class Com_goodsCtl {
 	}
 	//设置商品价格
 	@RequestMapping("/companySys/addGoodsPrices")
-	public String addGoodsPrices(Model model,Goods goodsCon,Prices prices){
+	public String addGoodsPrices(Goods goodsCon,Prices prices){
 		goodsCon = goodsMapper.selectByPrimaryKey(goodsCon.getGoodsid());
 		String[] priceStrs = prices.getPricesprice().split(",");
 		String[] price2Strs = prices.getPricesprice2().split(",");
@@ -121,8 +121,7 @@ public class Com_goodsCtl {
 				} 
 			}
 		}
-		model.addAttribute("goodsCon", goodsCon);
-		return "forward:allGoods.action";
+		return "redirect:allGoods.action?goodscompany="+goodsCon.getGoodscompany();
 	}
 	//修改商品状态
 	@RequestMapping("/companySys/putaway")

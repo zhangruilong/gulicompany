@@ -65,7 +65,7 @@ $(function(){
 			<td>${ccustomer.customer.customerphone}</td>
 			<td>${ccustomer.customer.customertype == 3?'餐饮客户':(ccustomer.customer.customertype == 2?'商超客户':'组织单位客户')}</td>
 			<td>${ccustomer.ccustomerdetail}</td>
-			<td><a >修改</a></td>
+			<td><a href="editCusInfo.jsp?customerid=${ccustomer.customer.customerid}&ccustomerid=${ccustomer.ccustomerid}">修改</a></td>
 		</tr>
 	</pg:item>
 	</c:forEach>

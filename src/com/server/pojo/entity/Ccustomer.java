@@ -20,7 +20,7 @@ public class Ccustomer
     */
    private String ccustomercustomer;   
    /**
-    * 描述
+    * 描述(客户和供应商的关系等级)
     */
    private String ccustomerdetail;   
    /**
