@@ -71,6 +71,8 @@ var searchclassesvalue = '<%=searchclassesvalue%>';
 var openid = window.localStorage.getItem("openid");
 var customer = JSON.parse(window.localStorage.getItem("customer"));
 $(function(){ 
+	getJson(basePath+"CustomerAction.do",{method:"selCustomer",
+		wheresql : "openid='"+openid+"'"},initCustomer,null);		//得到openid
 	if(!window.localStorage.getItem("totalnum")){
 		//如果没有totalnum
 		window.localStorage.setItem("totalnum",0);
@@ -97,6 +99,10 @@ $(function(){
 		$(this).removeClass("is-visible");	//移除'is-visible' class
 	});
 })
+function initCustomer(data){			//将customer(客户信息放入缓存)
+	window.localStorage.setItem("customer",JSON.stringify(data.root[0]));
+	customer = data.root[0];
+}
 function entersearch(){
     var event = window.event || arguments.callee.caller.arguments[0];
     if (event.keyCode == 13)

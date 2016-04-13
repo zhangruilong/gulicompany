@@ -36,9 +36,6 @@ $(function(){
 	if(!window.localStorage.getItem("openid")||"null"==window.localStorage.getItem("openid")){
 		getOpenid();
 		window.localStorage.setItem("openid",getParamValue("openid"));
-	}else if(!window.localStorage.getItem("customer")){
-		getJson(basePath+"CustomerAction.do",{method:"selCustomer",
-			wheresql : "openid='"+window.localStorage.getItem("openid")+"'"},initCustomer,null);		//得到openid
 	}else{
 		getJson(basePath+"OrdermviewAction.do",{method:"mselQuery",
 			openid : window.localStorage.getItem("openid"),
@@ -47,6 +44,8 @@ $(function(){
 			beginmoney : "<%=request.getParameter("beginmoney")%>",
 			endmoney : "<%=request.getParameter("endmoney")%>",
 			companyname : "<%=request.getParameter("companyname")%>"},initData,null);
+		getJson(basePath+"CustomerAction.do",{method:"selCustomer",
+			wheresql : "openid='"+window.localStorage.getItem("openid")+"'"},initCustomer,null);		//得到openid
 	}
 });
 //openid
