@@ -53,7 +53,7 @@ $(function(){
 });
 function nextpage(){
 	setscompany();
-		window.location.href = "doBuy.action?addresscustomer="+customer.customerid+"&addressture=1";
+		window.location.href = "doEmpBuy.action?addresscustomer="+customer.customerid+"&addressture=1";
 }
 function setscompany(){
 	var data = JSON.parse(window.localStorage.getItem("sdishes"));

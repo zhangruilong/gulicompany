@@ -73,6 +73,7 @@ public class Com_goodsCtl {
 		String[] priceStrs = prices.getPricesprice().split(",");
 		String[] price2Strs = prices.getPricesprice2().split(",");
 		prices.setPricesprice2(null);
+		java.text.DateFormat yyyy = new java.text.SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		if(goodsCon.getPricesList() == null || goodsCon.getPricesList().size() < 9){
 			//如果没有价格
 			for (int i = 0; i < priceStrs.length; i++) {
@@ -90,7 +91,6 @@ public class Com_goodsCtl {
 					prices.setPricesclass("1");
 				}
 				prices.setPriceslevel(3-(i%3));						//等级
-				java.text.DateFormat yyyy = new java.text.SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 				prices.setCreatetime(yyyy.format(new Date()).toString());		//创建时间
 				prices.setPricesid(CommonUtil.getNewId());			//价格id
 				pricesMapper.insertSelective(prices);				//添加到数据库
@@ -112,8 +112,7 @@ public class Com_goodsCtl {
 								prices.setPricesclass("1");
 							}
 							prices.setPriceslevel(3-(i%3));						//等级
-							java.text.DateFormat yyyy = new java.text.SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-							prices.setCreatetime(yyyy.format(new Date()).toString());		//创建时间
+							prices.setUpdtime(yyyy.format(new Date()).toString());		//修改时间
 							prices.setPricesid(pricesIds[k]);					//价格id
 							pricesMapper.updateByPrimaryKeySelective(prices);	//修改
 						}
@@ -121,6 +120,8 @@ public class Com_goodsCtl {
 				} 
 			}
 		}
+		goodsCon.setUpdtime(yyyy.format(new Date()).toString());
+		goodsMapper.updateByPrimaryKeySelective(goodsCon);
 		return "redirect:allGoods.action?goodscompany="+goodsCon.getGoodscompany();
 	}
 	//修改商品状态

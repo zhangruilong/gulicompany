@@ -101,12 +101,12 @@ function clearlocalstore(){
 	alert("清除缓存成功！");
 }
 function tiaozhuan(url){
-	if(!window.localStorage.getItem("openid")){
+	if(!window.localStorage.getItem("openid") || window.localStorage.getItem("openid") == 'null'){
 		window.location.href = "index.jsp";
 	} else if(customer.cusotmerid == null || customer.cusotmerid == ''){
 		$(".cd-popup").addClass("is-visible");
 	} else {
-		window.location.href = rul+customer.customerid;
+		window.location.href = url+customer.customerid;
 	}
 }
 </script>

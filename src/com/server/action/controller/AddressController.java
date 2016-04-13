@@ -38,6 +38,19 @@ public class AddressController {
 		return "forward:/guliwang/address.jsp";
 		
 	}
+	//到地址管理页面EMP
+	@RequestMapping("/guliwangemp/doEmpAddressMana")
+	public String doEmpAddressMana(Model model,String customerId,String message){
+		List<Address> addressList = addressMapper.selectByCondition(customerId);		//根据条件查询地址
+		
+		model.addAttribute("addressList", addressList);
+		model.addAttribute("message", message);
+		if(message != null && message.equals("foBuy")){
+			return "forward:/guliwangemp/buyAddress.jsp";
+		}
+		return "forward:/guliwangemp/address.jsp";
+		
+	}
 	//到添加收货地址页面
 	@RequestMapping("/guliwang/doAddAddress")
 	public String doAddAddress(Model model){

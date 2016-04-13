@@ -22,6 +22,13 @@
 <script type="text/javascript" src="../ExtJS/ext-lang-zh_CN.js" charset="UTF-8"></script>
 <script type="text/javascript">
 	$(function(){
+		//防止openid 为 字符串"null"
+		if(!window.localStorage.getItem("openid") || window.localStorage.getItem("openid")== 'null' || window.localStorage.getItem("openid") == ''){
+			//$(".meg").text("请先清理缓存");
+			//$(".cd-popup").addClass("is-visible");
+			window.location.href = "index.jsp";
+			return;
+		}
 		$("#city").change(function(){
 			var customercity = $("#city").val();
 			document.getElementById('customercity').value=document.getElementById('city').options[document.getElementById('city').selectedIndex].value;

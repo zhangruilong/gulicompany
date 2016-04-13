@@ -103,9 +103,9 @@ h1 .title_goodsinfo span{
 			<input type="hidden" name="goodsid" value="${requestScope.goodsCon.goodsid }">
 			<input type="hidden" name="pricesgoods" value="${requestScope.goodsCon.goodsid }">
 			<input type="hidden" name="goodscompany" value="${sessionScope.company.companyid }"/>
-			<c:if test="${requestScope.goodsCon.pricesList[0].pricesunit !=null }">
+			<c:if test="${requestScope.goodsCon.pricesList[0].pricesid !=null }">
 				<c:forEach items="${requestScope.goodsCon.pricesList }" var="price">
-					<input type="hidden" name=pricesid value="${price.pricesid }">
+					<input type="hidden" name="pricesid" value="${price.pricesid }">
 				</c:forEach>
 			</c:if>
 			<h1>商品价格设置
@@ -116,6 +116,8 @@ h1 .title_goodsinfo span{
 			</div>
 			</h1>
 			<table>
+			<tr><td colspan="3"><p><span>单品单位:<input size="4" type="text" id="pricesunit" name="pricesunit" value="${requestScope.goodsCon.pricesList[0].pricesunit }">
+			套装单位:<input size="4" type="text" id="pricesunit2" name="pricesunit2" value="${requestScope.goodsCon.pricesList[0].pricesunit2 }"></span></p> </td></tr>
 			<tr><td colspan="3"><p style="margin-top: 0px;"><span>餐饮客户价格 :</span></p> </td></tr>
 			<tr>	
 				
@@ -204,8 +206,7 @@ h1 .title_goodsinfo span{
 				size="5" id="18" type="text" name="pricesprice2" placeholder="套装价" />
 				<span><c:if test="${requestScope.goodsCon.pricesList[0].pricesunit2 !=null }">/${requestScope.goodsCon.pricesList[0].pricesunit2 }</c:if></span></label></td>
 			</tr>
-			<tr><td colspan="3"><p><span>单品单位:<input size="4" type="text" name="pricesunit" value="${requestScope.goodsCon.pricesList[0].pricesunit }">
-			套装单位:<input size="4" type="text" name="pricesunit2" value="${requestScope.goodsCon.pricesList[0].pricesunit2 }"></span></p> </td></tr>
+			
 			</table>
 			<span>&nbsp;</span> <input type="button" class="button" value="保存" onclick="addData()"/> 
 			<input style="margin-left: 30px;" type="button" class="button" value="返回" onclick="javascript:window.parent.main.location.href = 'allGoods.action?goodscompany=${sessionScope.company.companyid }'"/>
@@ -217,8 +218,14 @@ h1 .title_goodsinfo span{
 	function addData(){
 		var val1 = $("#1").val();
 		var val10 = $("#10").val();
+		var pricesunit = $("#pricesunit").val();
+		var pricesunit2 = $("#pricesunit2").val();
 		if(val1 == null || val1 == "" ){
 			alert("等级为 3 的餐饮客户价格不能为空.");
+			return;
+		}
+		if(pricesunit == null || pricesunit == "" ||pricesunit2 == null || pricesunit2 == "" ){
+			alert("单位不能为空");
 			return;
 		}
 		var allInput = $("input");
@@ -236,6 +243,7 @@ h1 .title_goodsinfo span{
 					}
 				}
 		}); 
+		
 		document.forms[0].submit();
 	}
 	
