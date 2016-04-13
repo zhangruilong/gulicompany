@@ -71,18 +71,13 @@
 	$(function(){ 
 		
 		//openid
-		//var openid = window.localStorage.getItem("openid");
-		if(!window.localStorage.getItem("openid")){
+		if(!window.localStorage.getItem("openid")||"null"==window.localStorage.getItem("openid")){
 			getOpenid();
 			window.localStorage.setItem("openid",getParamValue("openid"));		//得到openid
-			//getJson(basePath+"CustomerAction.do",{method:"selCustomer",
-			//	wheresql : "openid='"+window.localStorage.getItem("openid")+"'"},initCustomer,null);		//得到openid
 		} else if (!window.localStorage.getItem("customer"))
 		{	
 			getJson(basePath+"CustomerAction.do",{method:"selCustomer",
 				wheresql : "openid='"+window.localStorage.getItem("openid")+"'"},initCustomer,null);		//得到openid
-			//window.localStorage.setItem("openid",'null');
-		
 		}
 		else if(xian != '' && xian != null && city != '' && city != null){
 			

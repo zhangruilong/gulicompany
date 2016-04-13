@@ -33,11 +33,9 @@
 var basePath = '<%=basePath%>';
 $(function(){
 	//openid
-	if(!window.localStorage.getItem("openid")){
+	if(!window.localStorage.getItem("openid")||"null"==window.localStorage.getItem("openid")){
 		getOpenid();
 		window.localStorage.setItem("openid",getParamValue("openid"));
-		getJson(basePath+"CustomerAction.do",{method:"selAll",
-			wheresql : "openid='"+window.localStorage.getItem("openid")+"'"},initCustomer,null);		//得到openid
 	}else if(!window.localStorage.getItem("customer")){
 		getJson(basePath+"CustomerAction.do",{method:"selCustomer",
 			wheresql : "openid='"+window.localStorage.getItem("openid")+"'"},initCustomer,null);		//得到openid
