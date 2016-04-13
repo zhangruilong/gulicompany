@@ -58,7 +58,7 @@
 						class="ion-home"></em>首页</a></li>
 				<li><a href="goods.jsp"><em class="ion-bag"></em>商城</a></li>
 				<li><a href="order.jsp"><em class="ion-clipboard"></em>订单</a></li>
-				<li><a href=""><em class="ion-android-person"></em>我的</a></li>
+				<li><a href="customerlist.jsp"><em class="ion-android-person"></em>客户</a></li>
 			</ul>
 		</div>
 	</div>
@@ -71,10 +71,10 @@
 	$(function(){ 
 		//得到页面数据
 		if(xian != '' && city != ''){		
-			$.getJSON("doGuliwangIndex.action",{"city.cityname":xian,"cityid":city},initIndexPage,null);
+			$.getJSON("doEmpGuliwangIndex.action",{"city.cityname":xian,"cityid":city},initIndexPage,null);
 		} else {
-			var customer = JSON.parse(window.localStorage.getItem("customer"));
-			$.getJSON("doGuliwangIndex.action",{"city.cityname":customer.customerxian,"cityname":customer.customercity},initIndexPage,null);
+			var customeremp = JSON.parse(window.localStorage.getItem("customeremp"));
+			$.getJSON("doEmpGuliwangIndex.action",{"city.cityname":customeremp.customerxian,"cityname":customeremp.customercity},initIndexPage,null);
 		}
 		//购物车图标上的数量
 		if(!window.localStorage.getItem("totalnum")){
