@@ -34,10 +34,10 @@ input:focus{ outline:none}
 	<input type="hidden" name="json" id="json" value="">
     <div style="width:100%; padding-top:2%; color:#fff; background:url(images/minebg.jpg);">
     	<div id="uploadImg" style="margin:0 41% auto;">
-                <input type="file" id="file_input" />
+                <!-- <input type="file" id="file_input" /> -->
                 <a id="clo"></a> 
                 <span id="result" style="">
-                  <img src="images/mendian.jpg" style="border-radius:50px;">
+                  <img src="images/default.jpg" style="border-radius:50px;">
                 </span> 
             </div>
         <p id="myshopname" style="text-align: center;"></p>

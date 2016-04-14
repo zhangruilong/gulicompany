@@ -107,8 +107,14 @@ public class Com_orderCtl {
 	}
 	//修改订单详情
 	@RequestMapping("/companySys/editOrderd")
-	public String editOrderd(Model model,Orderd orderd,Orderm order){
+	public String editOrderd(Model model,Orderd orderd,Orderm order,Float diffOrderdmoney,Float diffOrderdrightmoney){
 		orderdMapper.updateByPrimaryKeySelective(orderd);
+		Orderm updateOrderm = ordermMapper.selectByPrimaryKey(order.getOrdermid());					//查询要修改的订单
+		Float nowOrdermmoney = Float.parseFloat(updateOrderm.getOrdermmoney()) - diffOrderdmoney;	//得到计算后的下单金额
+		Float nowOrderdrightmoney = Float.parseFloat(updateOrderm.getOrdermrightmoney()) - diffOrderdrightmoney;	//计算后的实际金额
+		updateOrderm.setOrdermmoney(nowOrdermmoney.toString());				
+		updateOrderm.setOrdermrightmoney(nowOrderdrightmoney.toString());
+		ordermMapper.updateByPrimaryKeySelective(updateOrderm);										//修改下单金额和实际金额
 		model.addAttribute("orderd", orderd);
 		model.addAttribute("order", order);
 		return "forward:orderDetail.action";

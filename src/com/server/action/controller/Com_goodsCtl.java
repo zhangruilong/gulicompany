@@ -28,6 +28,7 @@ import com.server.pojo.entity.Prices;
 import com.server.pojo.entity.Scant;
 import com.server.pojo.entity.Timegoods;
 import com.system.tools.util.CommonUtil;
+import com.system.tools.util.DateUtils;
 
 /**
  * 供应商后台管理系统-商品管理
@@ -48,10 +49,22 @@ public class Com_goodsCtl {
 	private ScantMapper scantMapper;
 	//全部商品
 	@RequestMapping("/companySys/allGoods")
-	public String allGoods(Model model,Goods goodsCon){
-		List<Goods> goodsList = goodsMapper.selectByCondition(goodsCon);
+	public String allGoods(Model model,Goods goodsCon,Integer pagenow){
+		if(pagenow == null){
+			pagenow = 1;
+		}
+		Integer count = goodsMapper.selectByConditionCount(goodsCon);	//总信息条数
+		Integer pageCount;		//总页数
+		if(count % 10 ==0){
+			pageCount = count / 10;
+		} else {
+			pageCount = (count / 10) +1;
+		}
+		List<Goods> goodsList = goodsMapper.selectByCondition(goodsCon,pagenow,10);
 		model.addAttribute("goodsList", goodsList);
 		model.addAttribute("goodsCon", goodsCon);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("pagenow", pagenow);
 		return "forward:/companySys/goodsMana.jsp";
 	}
 	//全部促销品
@@ -77,7 +90,6 @@ public class Com_goodsCtl {
 		String[] priceStrs = prices.getPricesprice().split(",");
 		String[] price2Strs = prices.getPricesprice2().split(",");
 		prices.setPricesprice2(null);
-		java.text.DateFormat yyyy = new java.text.SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		if(goodsCon.getPricesList() == null || goodsCon.getPricesList().size() < 9){
 			//如果没有价格
 			for (int i = 0; i < priceStrs.length; i++) {
@@ -95,7 +107,7 @@ public class Com_goodsCtl {
 					prices.setPricesclass("1");
 				}
 				prices.setPriceslevel(3-(i%3));						//等级
-				prices.setCreatetime(yyyy.format(new Date()).toString());		//创建时间
+				prices.setCreatetime(DateUtils.getDateTime());		//创建时间
 				prices.setPricesid(CommonUtil.getNewId());			//价格id
 				pricesMapper.insertSelective(prices);				//添加到数据库
 			}
@@ -116,7 +128,7 @@ public class Com_goodsCtl {
 								prices.setPricesclass("1");
 							}
 							prices.setPriceslevel(3-(i%3));						//等级
-							prices.setUpdtime(yyyy.format(new Date()).toString());		//修改时间
+							prices.setUpdtime(DateUtils.getDateTime());		//修改时间
 							prices.setPricesid(pricesIds[k]);					//价格id
 							pricesMapper.updateByPrimaryKeySelective(prices);	//修改
 						}
@@ -124,7 +136,7 @@ public class Com_goodsCtl {
 				} 
 			}
 		}
-		goodsCon.setUpdtime(yyyy.format(new Date()).toString());
+		goodsCon.setUpdtime(DateUtils.getDateTime());
 		goodsMapper.updateByPrimaryKeySelective(goodsCon);
 		return map;
 	}
@@ -137,6 +149,7 @@ public class Com_goodsCtl {
 		Goods putawayGoods = goodsMapper.selectByPrimaryKey(goodsCon.getGoodsid());
 		List<Prices> pricesList = putawayGoods.getPricesList();
 		if(pricesList.size() == 9){								//判断是否设置了9个价格
+			goodsCon.setUpdtime(DateUtils.getDateTime());		//设置修改时间
 			goodsMapper.updateByPrimaryKeySelective(goodsCon);
 			editResult = "修改成功！";
 		} else {
@@ -149,15 +162,14 @@ public class Com_goodsCtl {
 	@RequestMapping(value="/companySys/getallGoods",produces = "application/json")
 	@ResponseBody
 	public List<Goods> getallGoods(Goods goodsCon){
-		List<Goods> goodsList = goodsMapper.selectByCondition(goodsCon);
+		List<Goods> goodsList = goodsMapper.selectByCondition(goodsCon,1,10);
 		return goodsList;
 	}
 	//添加商品
 	@RequestMapping("/companySys/addGoods")
 	public String addGoods(Model model,Goods goodsCon){
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		goodsCon.setGoodsstatue("下架");
-		goodsCon.setCreatetime(sdf.format(new Date()));
+		goodsCon.setCreatetime(DateUtils.getDateTime());
 		goodsCon.setGoodsid(CommonUtil.getNewId());
 		goodsMapper.insertSelective(goodsCon);
 		model.addAttribute("goodsCon", goodsCon);

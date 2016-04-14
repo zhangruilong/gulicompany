@@ -14,6 +14,7 @@ import com.server.dao.mapper.CcustomerMapper;
 import com.server.dao.mapper.CustomerMapper;
 import com.server.pojo.entity.Ccustomer;
 import com.server.pojo.entity.Customer;
+import com.system.tools.util.DateUtils;
 
 /**
  * 供应商后台管理系统-客户管理
@@ -50,7 +51,8 @@ public class Com_customerCtl {
 	@ResponseBody
 	public Map<String,Object> editCcusAndCus(Customer customer,Ccustomer ccustomer){
 		Map<String,Object> map = new HashMap<String, Object>();
-		customer.setCustomerlevel(Integer.parseInt(ccustomer.getCcustomerdetail()));
+		//customer.setCustomerlevel(Integer.parseInt(ccustomer.getCcustomerdetail()));
+		customer.setUpdtime(DateUtils.getDateTime());				//设置客户修改时间
 		customerMapper.updateByPrimaryKeySelective(customer);
 		ccustomerMapper.updateByPrimaryKeySelective(ccustomer);
 		return map;

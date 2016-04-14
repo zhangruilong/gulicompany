@@ -15,6 +15,8 @@
 		<input type="hidden" name="orderdid" value="${requestScope.orderd.orderdid }">
 		<input type="hidden" name="ordermcompany" value="${sessionScope.company.companyid }">
  		<input type="hidden" name="ordermid" value="${requestScope.order.ordermid }">
+ 		<input type="hidden" id="diffOrderdmoney" name="diffOrderdmoney" value="">
+ 		<input type="hidden" id="diffOrderdrightmoney" name="diffOrderdrightmoney" value="">
 			<h1>修改订单商品
 				<span>商品名称 : ${requestScope.orderd.orderdname }&nbsp;&nbsp;&nbsp;&nbsp;单位 : ${requestScope.orderd.orderdunit }&nbsp;&nbsp;&nbsp;&nbsp;规格 : ${requestScope.orderd.orderdunits }</span>
 			</h1>
@@ -24,8 +26,8 @@
 				name="orderdmoney" placeholder="下单金额"  value="${requestScope.orderd.orderdmoney } "/>
 			</label> <label> <span>实际金额 :</span> <input id="orderdrightmoney" type="text"
 				name="orderdrightmoney" placeholder="实际金额"  value="${requestScope.orderd.orderdrightmoney } "/>
-			</label> <label> <span>&nbsp;</span> <input type="submit"
-				class="button" value="保存修改" />
+			</label> <label> <span>&nbsp;</span> <input type="button"
+				class="button" value="保存修改" onclick="editMoney()"/>
 			</label>
 		</form>
 	</div>
@@ -45,6 +47,17 @@
 			$("#orderdrightmoney").val(orderdrightmoney);
 		});
 	})
+	function editMoney(){
+		var orderdmoney = $("#orderdmoney").val();
+		var orderdrightmoney = $("#orderdrightmoney").val();
+		var orderdmoney0 = '${requestScope.orderd.orderdmoney }';				//原来的下单金额
+		var orderdrightmoney0 = '${requestScope.orderd.orderdrightmoney }';		//原来的实际金额
+		var diffOrderdmoney = parseInt(orderdmoney0) - parseInt(orderdmoney);				//计算得到差价
+		var diffOrderdrightmoney = parseInt(orderdrightmoney0) - parseInt(orderdrightmoney);
+		$("#diffOrderdmoney").val(diffOrderdmoney);								//设置隐藏表单的值
+		$("#diffOrderdrightmoney").val(diffOrderdrightmoney);
+		document.forms[0].submit();												//提交表单
+	}
 	</script>
 </body>
 </html>

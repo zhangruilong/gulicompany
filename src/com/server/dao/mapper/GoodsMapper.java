@@ -2,6 +2,8 @@ package com.server.dao.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.server.pojo.entity.Goods;
 /**
  * 商品
@@ -10,9 +12,14 @@ import com.server.pojo.entity.Goods;
  */
 public interface GoodsMapper {
 	/**
+	 * 查询信息条数
+	 */
+	Integer selectByConditionCount(Goods goods);
+	/**
      * 根据条件查询
      */
-    List<Goods> selectByCondition(Goods record);
+    List<Goods> selectByCondition(@Param("goods") Goods goods,
+    		@Param("nowpage") Integer nowpage,@Param("pagesize") Integer pagesize);
 	/**
 	 * 根据主键删除
 	 */

@@ -147,11 +147,6 @@ function goodsStatusEdit(goodsid){
 </head>
 <body>
 <form action="allGoods.action" method="post">
- <pg:pager maxPageItems="10" url="allGoods.action" export="currentNumber=pageNumber">
- <pg:param name="goodscompany" value="${sessionScope.company.companyid }"/>
- <pg:param name="goodsstatue" value="${requestScope.goodsCon.goodsstatue }"/>
- <pg:param name="goodsid" value="${requestScope.goodsCon.goodsid }"/>
- <pg:param name="goodscode" value="${requestScope.goodsCon.goodscode }"/>
  <input type="hidden" name="goodscompany" value="${sessionScope.company.companyid }"> 
 <div class="nowposition">当前位置：商品管理》全部商品</div>
 <div class="navigation">
@@ -179,7 +174,6 @@ function goodsStatusEdit(goodsid){
     </thead>
     <c:if test="${fn:length(requestScope.goodsList) != 0 }">
 	<c:forEach var="goods" items="${requestScope.goodsList }" varStatus="goodsSta">
-	<pg:item>
 		<tr>
 			<td><input type="checkbox" id="${goods.goodsid}"></td>
 			<td><c:out value="${goodsSta.count}"></c:out></td>
@@ -196,32 +190,21 @@ function goodsStatusEdit(goodsid){
 			<td>${goods.updtime}</td>
 			<td>${goods.updor}</td>
 		</tr>
-	</pg:item>
 	</c:forEach>
 	</c:if>
 	<c:if test="${fn:length(requestScope.goodsList)==0 }">
 		<tr><td colspan="14" align="center" style="font-size: 20px;color: red;"> 没有信息</td></tr>
 	</c:if>
     	<tr>
-		 <td colspan="14" align="center">	
-			 <pg:index>
-			 <pg:first><a href="${pageUrl }">第一页</a></pg:first>
-			 <pg:prev><a href="${pageUrl}">上一页</a></pg:prev>
-			 <pg:pages>
-			 	<c:if test="${currentNumber != pageNumber }">
-				 	<a onclick="nowpage(this)" href="${pageUrl}">[${pageNumber }]</a>
-			 	</c:if>
-			 	<c:if test="${currentNumber == pageNumber }">
-			 		<span class="fenye">${pageNumber }</span>
-			 	</c:if>
-			 </pg:pages>
-			 <pg:next><a href="${pageUrl}">下一页</a></pg:next>
-			 <pg:last><a href="${pageUrl }">最后一页</a></pg:last>
-			 </pg:index>
+		 <td colspan="14" align="center">
+		 	<a>第一页</a>
+		 	<a>上一页</a>
+		 	<span>当前第${requestScope.pagenow }页</span>
+		 	<a>下一页</a>
+		 	<a>最后一页</a>
 		 </td>
 	 </tr>
 </table>
-</pg:pager>
 </form>
 <!--弹框-->
 <div class="cd-popup" role="alert">

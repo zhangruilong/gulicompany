@@ -35,7 +35,7 @@ function delegoods(){
 	var orderdids = $("[name='orderdids']");
 	var count = 0;
 	$.each(orderdids,function(i,item){
-		if($(item).attr("checked") == "checked"){
+		if(item.checked){
 			count ++;
 		}
 	});
