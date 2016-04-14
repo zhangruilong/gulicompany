@@ -69,7 +69,6 @@ function dobiaopin(){
 		$("#scant").html('<thead><tr><th>序号</th>'+
 		'<th>商品编码</th>'+
 		'<th>商品名称</th>'+
-		'<th>描述</th>'+
 		'<th>规格</th>'+
 		'<th>小类名称</th>'+
 		'<th>点击选择</th></tr></thead>');
@@ -81,13 +80,11 @@ function dobiaopin(){
 			'<tr><td>'+(i+1)+'</td>'+
 			'<td>'+item.scantcode+'</td>'+
 			'<td>'+item.scantname+'</td>'+
-			'<td>'+item.scantdetail+'</td>'+
 			'<td>'+item.scantunits+'</td>'+
 			'<td>'+item.goodsclass.goodsclassname+'</td>'+
 			'<td><a class="scant_a" onclick="seleScant(\''
 					+item.scantcode+
 					'\',\''+item.scantname+
-					'\',\''+item.scantdetail+
 					'\',\''+item.scantunits+
 					'\',\''+item.goodsclass.goodsclassname+
 					'\')">选择</a></td></tr>'
@@ -95,10 +92,9 @@ function dobiaopin(){
 		});
 	});
 }
-function seleScant(scantcode,scantname,scantdetail,scantunits,goodsclassname){
+function seleScant(scantcode,scantname,scantunits,goodsclassname){
 	$("#goodscode").val(scantcode);
 	$("#goodsname").val(scantname);
-	$("#goodsdetail").val(scantdetail);
 	$("#goodsunits").val(scantunits);
 	$("#goodsclass option").each(function(i,item){
 		if($(item).text() == goodsclassname){
@@ -174,7 +170,6 @@ function goodsStatusEdit(goodsid){
 		<th>商品名称</th>
 		<th>规格</th>
 		<th>类别</th>
-		<th>描述</th>
 		<th>状态</th>
 		<th>创建时间</th>
 		<th>创建人</th>
@@ -192,7 +187,6 @@ function goodsStatusEdit(goodsid){
 			<td>${goods.goodsname}</td>
 			<td>${goods.goodsunits}</td>
 			<td>${goods.gClass.goodsclassname}</td>
-			<td>${goods.goodsdetail}</td>
 			<td>
 			<a class="edit_goodsStatus${goods.goodsid}" onclick="goodsStatusEdit('${goods.goodsid}')" >
 			${goods.goodsstatue}</a>
@@ -240,8 +234,6 @@ function goodsStatusEdit(goodsid){
 				name="goodscode" placeholder="商品编码" /></label>
 			<label><span>商品名称 :</span><input id="goodsname" type="text"
 				name="goodsname" placeholder="商品名称" /></label>
-			<label><span>描述 :</span><input id="goodsdetail" type="text"
-				name="goodsdetail" placeholder="描述" /></label>
 			<label><span>规格 :</span><input id="goodsunits" type="text"
 				name="goodsunits" placeholder="规格" /></label>
 			<label><span>小类名称 :</span>
