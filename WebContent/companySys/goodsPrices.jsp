@@ -99,7 +99,7 @@ h1 .title_goodsinfo span{
 </head>
 <body>
 	<div class="elegant-aero">
-		<form action="addGoodsPrices.action" method="post" class="STYLE-NAME">
+		<form class="STYLE-NAME">
 			<input type="hidden" name="goodsid" value="${requestScope.goodsCon.goodsid }">
 			<input type="hidden" name="pricesgoods" value="${requestScope.goodsCon.goodsid }">
 			<input type="hidden" name="goodscompany" value="${sessionScope.company.companyid }"/>
@@ -228,6 +228,7 @@ h1 .title_goodsinfo span{
 			return;
 		}
 		var allInput = $("input");
+		//设置默认价格
 		$.each(allInput,function(i,item){
 			var itemVal = $(item);
 					var itemId = itemVal.attr("id");
@@ -242,8 +243,47 @@ h1 .title_goodsinfo span{
 					}
 				}
 		}); 
+		//提交信息
+		var pricesid = '';
+		var pricesprice = '';
+		var pricesprice2 = '';
+		if($("[name='pricesid']") != null){
+			$("[name='pricesid']").each(function(i,item){
+				if(i < ($("[name='pricesid']").length -1)){
+					pricesid += $(item).val()+',';
+				} else {
+					pricesid += $(item).val();
+				}
+			})
+		}
+		$("[name='pricesprice']").each(function(i,item){
+			if(i < ($("[name='pricesprice']").length -1)){
+				pricesprice += $(item).val()+',';
+			} else {
+				pricesprice += $(item).val();
+			}
+		})
+		$("[name='pricesprice2']").each(function(i,item){
+			if(i < ($("[name='pricesprice2']").length -1)){
+				pricesprice2 += $(item).val()+',';
+			} else {
+				pricesprice2 += $(item).val();
+			}
+		})
 		
-		document.forms[0].submit();
+		$.getJSON("addGoodsPrices.action",{
+			"pricesid":pricesid,
+			"pricesprice":pricesprice,
+			"pricesprice2":pricesprice2,
+			"goodsid":'${requestScope.goodsCon.goodsid }',
+			"pricesgoods":'${requestScope.goodsCon.goodsid }',
+			"goodscompany":'${sessionScope.company.companyid }',
+			'pricesunit':$("#pricesunit").val(),
+			'pricesunit2':$("#pricesunit2").val()
+		},function(data){
+			alert('价格已更新！');
+			history.back();
+		});
 	}
 	
 	</script>

@@ -70,7 +70,9 @@ public class Com_goodsCtl {
 	}
 	//设置商品价格
 	@RequestMapping("/companySys/addGoodsPrices")
-	public String addGoodsPrices(Goods goodsCon,Prices prices){
+	@ResponseBody
+	public Map<String, Object> addGoodsPrices(Goods goodsCon,Prices prices){
+		Map<String, Object> map = new HashMap<String, Object>();
 		goodsCon = goodsMapper.selectByPrimaryKey(goodsCon.getGoodsid());
 		String[] priceStrs = prices.getPricesprice().split(",");
 		String[] price2Strs = prices.getPricesprice2().split(",");
@@ -124,7 +126,7 @@ public class Com_goodsCtl {
 		}
 		goodsCon.setUpdtime(yyyy.format(new Date()).toString());
 		goodsMapper.updateByPrimaryKeySelective(goodsCon);
-		return "redirect:allGoods.action?goodscompany="+goodsCon.getGoodscompany();
+		return map;
 	}
 	//修改商品状态
 	@RequestMapping("/companySys/putaway")

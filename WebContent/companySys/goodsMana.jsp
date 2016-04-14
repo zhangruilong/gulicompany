@@ -155,6 +155,7 @@ function goodsStatusEdit(goodsid){
  <pg:param name="goodscompany" value="${sessionScope.company.companyid }"/>
  <pg:param name="goodsstatue" value="${requestScope.goodsCon.goodsstatue }"/>
  <pg:param name="goodsid" value="${requestScope.goodsCon.goodsid }"/>
+ <pg:param name="goodscode" value="${requestScope.goodsCon.goodscode }"/>
  <input type="hidden" name="goodscompany" value="${sessionScope.company.companyid }"> 
 <div class="nowposition">当前位置：商品管理》全部商品</div>
 <div class="navigation">
@@ -162,6 +163,7 @@ function goodsStatusEdit(goodsid){
 <input class="button" type="button" value="查询" onclick="subgoodsfor()">
 <input class="button" type="button" value="价格设置" onclick="setgoodsprices()">
 <input class="button" type="button" value="添加商品" onclick="addgoods()">
+<input class="button" type="button" value="刷新" onclick="javascript:window.location.reload()">
 </div>
 <table class="bordered">
     <thead>

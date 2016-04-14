@@ -24,8 +24,12 @@ public class CollectController {
 	@RequestMapping("/guliwang/doCollect")
 	public String doCollect(Model model,String comid){
 		Customer customer = customerMapper.selectCollectGoodsById(comid);	//根据客户id查询收藏商品
-		model.addAttribute("customerCollect", customer);
-		return "forward:/guliwang/collect.jsp";
+		if(customer.getCollectList().size() == 0){
+			return "/guliwang/collectnothing.html";
+		} else {
+			model.addAttribute("customerCollect", customer);
+			return "forward:/guliwang/collect.jsp";
+		}
 	}
 	//删除收藏品
 	@RequestMapping("/guliwang/delCollect")
