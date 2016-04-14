@@ -29,24 +29,24 @@ input:focus{ outline:none}
 
 <body>
 <div class="gl-box">
-	<div class="wapper-nav">我的</div>
+	<div class="wapper-nav" style="">我的</div>
 	<form action="System_attachAction.do?other=getch&method=upload">
 	<input type="hidden" name="json" id="json" value="">
-    <div style="width:100%; padding-top:2%; color:#fff; text-align:center; background:url(images/minebg.jpg)">
-    	<div id="uploadImg">
+    <div style="width:100%; padding-top:2%; color:#fff; background:url(images/minebg.jpg);">
+    	<div id="uploadImg" style="margin:0 41% auto;">
                 <input type="file" id="file_input" />
                 <a id="clo"></a> 
-                <span id="result">
+                <span id="result" style="">
                   <img src="images/mendian.jpg" style="border-radius:50px;">
                 </span> 
             </div>
-        <p id="myshopname"></p>
+        <p id="myshopname" style="text-align: center;"></p>
     </div>
     </form>
 	<div class="personal-center">
         <a id="a_myshop" onclick="tiaozhuan('doEditCus.action?customerid=')">我的店铺 <span class="sign"></span></a>
         <a id="a_mycollect" onclick="tiaozhuan('doCollect.action?comid=')">我的收藏 <span class="sign"></span></a>
-        <a href="#">我的谷币 <span class="sign"></span></a>
+        <a onclick="notOnLine()">我的谷币 <span class="sign"></span></a>
         <a id="a_address" onclick="tiaozhuan('doAddressMana.action?customerId=')">收货地址 <span class="sign"></span></a>
     </div>
     <div class="personal-center">
@@ -69,8 +69,8 @@ input:focus{ outline:none}
 	<div class="cd-popup-container">
 		<div class="cd-buttons">
         	<h1>谷粒网提示</h1>
-			<p>是否注册?</p>
-            <a href="#" class="cd-popup-close">取消</a><a href="doReg.action">确定</a>
+			<p class="meg">是否注册?</p>
+            <a href="#" class="cd-popup-close">取消</a><a class="ok" href="doReg.action" style="display: inline-block;">确定</a>
 		</div>
 	</div>
 </div>
@@ -103,11 +103,24 @@ function clearlocalstore(){
 function tiaozhuan(url){
 	if(!window.localStorage.getItem("openid") || window.localStorage.getItem("openid") == 'null'){
 		window.location.href = "index.jsp";
-	} else if(customer.cusotmerid == null || customer.cusotmerid == ''){
+	} else if(customer.customerid == null || customer.customerid == ''){
 		$(".cd-popup").addClass("is-visible");
 	} else {
 		window.location.href = url+customer.customerid;
 	}
+}
+function notOnLine(){
+	$(".ok").css("display","none");
+	$(".cd-popup-close").text("确定");
+	$(".meg").text("待上线");
+	$(".cd-popup-close").click(function(){
+		setTimeout(function(){
+			$(".cd-popup-close").text("取消");
+			$(".meg").text("是否注册?");
+			$(".ok").css("display","inline-block");
+			},1000);
+	});
+	$(".cd-popup").addClass("is-visible");
 }
 </script>
 </body>

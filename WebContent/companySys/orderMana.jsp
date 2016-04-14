@@ -97,7 +97,7 @@ String ordermway = request.getParameter("ordermway");
 				 	<a onclick="nowpage(this)" href="${pageUrl}">[${pageNumber }]</a>
 			 	</c:if>
 			 	<c:if test="${currentNumber == pageNumber }">
-			 		<a class="fenye">${pageNumber }</a>
+			 		<span class="fenye">${pageNumber }</span>
 			 	</c:if>
 			 </pg:pages>
 			 <pg:next><a href="${pageUrl}">下一页</a></pg:next>

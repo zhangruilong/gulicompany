@@ -32,8 +32,8 @@ input {
   cursor: pointer;
   vertical-align: middle;
   box-shadow: hsla(0,0%,100%,.15) 0 1px 1px, inset hsla(0,0%,0%,.5) 0 0 0 1px;
-  background-color: hsla(0,0%,0%,.2);
-  background-image: -webkit-radial-gradient( hsla(200,100%,90%,1) 0%, hsla(200,100%,70%,1) 15%, hsla(200,100%,60%,.3) 28%, hsla(200,100%,30%,0) 70% );
+  background-color: white;
+  background-image: -webkit-radial-gradient( red 0%, red 15%, red 28%, hsla(200,100%,30%,0) 70% );
   background-repeat: no-repeat;
   -webkit-transition: background-position .15s cubic-bezier(.8, 0, 1, 1),
     -webkit-transform .25s cubic-bezier(.8, 0, 1, 1);
@@ -111,7 +111,7 @@ input:checked ~ input:active {
 				"我的收藏<a onclick='delCollects()'>删除</a>");
 		
 		$.each($("li"),function(i,item){
-			$(item).prepend("<input type='checkbox' value='"+$(item).attr("name")+"' name='collectids'>");
+			$(item).prepend("<input style='background-color:whit;' type='checkbox' value='"+$(item).attr("name")+"' name='collectids'>");
 		})
 	}
 	

@@ -23,7 +23,7 @@
 	margin: 0px auto;
 	margin-top: 5%;
 	max-width: 700px;
-	background: #D2E9FF;
+	background: #FBF1E5;
 	padding: 20px 20px 20px 20px;
 	font: 12px Arial, Helvetica, sans-serif;
 	color: #666;
@@ -33,7 +33,7 @@
 	font: 24px "Trebuchet MS", Arial, Helvetica, sans-serif;
 	padding: 10px 10px 10px 20px;
 	display: block;
-	background: #C0E1FF;
+	background: #F6B543;
 	border-bottom: 1px solid #B8DDFF;
 	margin: -20px -20px 15px;
 }
@@ -99,7 +99,7 @@
 	font-size:16px;
 	padding:5px;
 	margin: 0px 0px 0px 40px;
-	background: #66C1E4;
+	background: #EE8704;
 	border: none;
 	color: #FFF;
 	box-shadow: 1px 1px 1px #4C6E91;
@@ -109,5 +109,5 @@
 }
 
 .elegant-aero .popup_button:hover {
-	background: #3EB1DD;
+	background: #FF9802;
 }

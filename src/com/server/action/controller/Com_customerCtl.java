@@ -50,6 +50,7 @@ public class Com_customerCtl {
 	@ResponseBody
 	public Map<String,Object> editCcusAndCus(Customer customer,Ccustomer ccustomer){
 		Map<String,Object> map = new HashMap<String, Object>();
+		customer.setCustomerlevel(Integer.parseInt(ccustomer.getCcustomerdetail()));
 		customerMapper.updateByPrimaryKeySelective(customer);
 		ccustomerMapper.updateByPrimaryKeySelective(ccustomer);
 		return map;

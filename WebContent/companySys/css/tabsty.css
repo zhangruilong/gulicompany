@@ -27,7 +27,9 @@ table {
     box-shadow: 0 1px 1px #ccc;         
     margin: 0px 0px 0px 15px;
 }
-
+.bordered tr{
+	background-color: white;
+}
 .bordered tr:hover {
     background: #fbf8e9;
     -o-transition: all 0.1s ease-in-out;
@@ -90,6 +92,11 @@ table {
 }
 .bordered td a{
 	text-decoration:none;
+	color: blue;
+	cursor:pointer;
+}
+.bordered td{
+	/*background-color: white;*/
 }
 .button {
 	background: url("../images/orderImg/order_btn.png");

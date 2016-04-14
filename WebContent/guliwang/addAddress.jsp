@@ -41,7 +41,7 @@
 </div>
 <div class="reg-wrapper">
 	<ul>
-    	<li><label><input name="addressture" type="checkbox" value="1" class="set-default"> <span>设置默认</span></label></li>
+    	<li><label><input name="addressture" type="checkbox" value="1" class="set-default" style="margin-top: 3px;"> <span>设置默认</span></label></li>
     </ul>
 </div>
 <input id="addressaddress" type="hidden" name="addressaddress" value="">

@@ -2,7 +2,9 @@ package com.server.action.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -126,10 +128,20 @@ public class Com_goodsCtl {
 	}
 	//修改商品状态
 	@RequestMapping("/companySys/putaway")
-	public String putaway(Model model,Goods goodsCon){
-		goodsMapper.updateByPrimaryKeySelective(goodsCon);
-		model.addAttribute("goodsCon", goodsCon);
-		return "forward:allGoods.action";
+	@ResponseBody
+	public Map<String, Object> putaway(Goods goodsCon){
+		Map<String, Object> map = new HashMap<String, Object>();
+		String editResult;										//要返回的提示信息
+		Goods putawayGoods = goodsMapper.selectByPrimaryKey(goodsCon.getGoodsid());
+		List<Prices> pricesList = putawayGoods.getPricesList();
+		if(pricesList.size() == 9){								//判断是否设置了9个价格
+			goodsMapper.updateByPrimaryKeySelective(goodsCon);
+			editResult = "修改成功！";
+		} else {
+			editResult = "修改失败，请先设置价格。";
+		}
+		map.put("editResult", editResult);
+		return map;
 	}
 	//全部商品
 	@RequestMapping(value="/companySys/getallGoods",produces = "application/json")

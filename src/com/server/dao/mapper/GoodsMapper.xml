@@ -47,24 +47,21 @@
   <!-- 根据条件查询 -->
   <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.server.pojo.entity.Goods" >
     select
-		goods.*,
-		prices.pricesid
+		goods.*
 	from goods
-	left outer join prices
-	on prices.pricesgoods = goods.goodsid
     where goodscompany = #{goodscompany}
     <if test="goodsstatue != null and goodsstatue != ''">
     	and goodsstatue = #{goodsstatue}
     </if>
-    <if test="goodsid != null and goodsid != ''">
+    <if test="goodscode != null and goodscode != ''">
 			and
-			(goods.GOODSCODE like '%${goodsid}%' or
-			goods.GOODSNAME like '%${goodsid}%' or
-			goods.GOODSUNITS like '%${goodsid}%' or
-			goods.GOODSCLASS like '%${goodsid}%' or
-			goods.GOODSSTATUE like '%${goodsid}%' or
-			goods.CREATOR like '%${goodsid}%' or
-			goods.UPDOR like '%${goodsid}%')
+			(goods.GOODSCODE like '%${goodscode}%' or
+			goods.GOODSNAME like '%${goodscode}%' or
+			goods.GOODSUNITS like '%${goodscode}%' or
+			goods.GOODSCLASS like '%${goodscode}%' or
+			goods.GOODSSTATUE like '%${goodscode}%' or
+			goods.CREATOR like '%${goodscode}%' or
+			goods.UPDOR like '%${goodscode}%')
 		</if>
   </select>
   <!-- 根据主键查询商品和价格和类名 -->

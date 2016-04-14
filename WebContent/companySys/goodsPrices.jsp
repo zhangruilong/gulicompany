@@ -209,7 +209,7 @@ h1 .title_goodsinfo span{
 			
 			</table>
 			<span>&nbsp;</span> <input type="button" class="button" value="保存" onclick="addData()"/> 
-			<input style="margin-left: 30px;" type="button" class="button" value="返回" onclick="javascript:window.parent.main.location.href = 'allGoods.action?goodscompany=${sessionScope.company.companyid }'"/>
+			<input style="margin-left: 30px;" type="button" class="button" value="返回" onclick="javascript:window.history.back()"/>
 			
 		</form>
 	</div>
@@ -219,12 +219,11 @@ h1 .title_goodsinfo span{
 		var val1 = $("#1").val();
 		var val10 = $("#10").val();
 		var pricesunit = $("#pricesunit").val();
-		var pricesunit2 = $("#pricesunit2").val();
 		if(val1 == null || val1 == "" ){
 			alert("等级为 3 的餐饮客户价格不能为空.");
 			return;
 		}
-		if(pricesunit == null || pricesunit == "" ||pricesunit2 == null || pricesunit2 == "" ){
+		if(pricesunit == null || pricesunit == "" ){
 			alert("单位不能为空");
 			return;
 		}

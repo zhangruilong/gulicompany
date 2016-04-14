@@ -97,7 +97,11 @@
 			"customershop":$("#customershop").val(),
 			"customername":$("#customername").val(),
 			"customeraddress":$("#customeraddress").val()
-		},function(data){window.localStorage.setItem("customer",JSON.stringify(data));alert("注册成功");window.location.href = "index.jsp";});
+		},function(data){
+			window.localStorage.setItem("customer",JSON.stringify(data));
+			$(".meg").text("注册成功！");
+			$(".cd-buttons a").attr("href","index.jsp");
+		});
 	}
 	
 </script>
@@ -117,7 +121,7 @@
 			</span><i></i> 
 			<span style="position:absolute;display: block;">
 				<input id="customercity" name="customercity" type="text"  id="customercity"
-				placeholder="请输入城市" style="width:118px;margin-left: 200px;">
+				placeholder="请输入城市" style="width:118px;margin-left: 228%;">
 			</span>
 			</li>
 			<li><span>服务区域</span> 
@@ -128,7 +132,7 @@
 			</span><i></i> 
 			<span style="position:absolute;display: block;">
 				<input id="customerxian" name="customerxian" type="text"  id="customerxian"
-				placeholder="请输入地区" style="width:118px;margin-left: 200px;">
+				placeholder="请输入地区" style="width:118px;margin-left: 228%;">
 			</span>
 			</li>
 			<li><span>店铺名称</span> <input name="customershop" type="text" id="customershop"

@@ -127,6 +127,26 @@ function popup_formSub(){
 	}
 	$("#popup_form").submit();
 }
+function goodsStatusEdit(goodsid){
+	var nowstatue = $(".edit_goodsStatus"+goodsid).text();
+	var goodsstatue;
+	if($.trim(nowstatue) == '上架'){
+		goodsstatue = '下架';
+	} else {
+		goodsstatue = '上架';
+	}
+	$.getJSON("putaway.action",
+			{
+				"goodsid":goodsid,
+				"goodscompany":"${sessionScope.company.companyid }",
+				"goodsstatue":goodsstatue
+			},function(data){
+				alert(data.editResult);				//返回的提示信息
+				if(data.editResult == '修改成功！'){
+					$(".edit_goodsStatus"+goodsid).text(goodsstatue);	
+				}
+			});
+}
 </script>
 </head>
 <body>
@@ -138,7 +158,7 @@ function popup_formSub(){
  <input type="hidden" name="goodscompany" value="${sessionScope.company.companyid }"> 
 <div class="nowposition">当前位置：商品管理》全部商品</div>
 <div class="navigation">
-查询条件:&nbsp;&nbsp;<input type="text" name="goodsid" value="${requestScope.goodsCon.goodsid }">
+查询条件:&nbsp;&nbsp;<input type="text" name="goodscode" value="${requestScope.goodsCon.goodscode }">
 <input class="button" type="button" value="查询" onclick="subgoodsfor()">
 <input class="button" type="button" value="价格设置" onclick="setgoodsprices()">
 <input class="button" type="button" value="添加商品" onclick="addgoods()">
@@ -172,14 +192,8 @@ function popup_formSub(){
 			<td>${goods.gClass.goodsclassname}</td>
 			<td>${goods.goodsdetail}</td>
 			<td>
-			<c:if test="${fn:length(goods.pricesList) == 9 }">
-			<a href="putaway.action?goodsid=${goods.goodsid}&goodscompany=${sessionScope.company.companyid }&goodsstatue=${goods.goodsstatue == '上架'?'下架':'上架'}">
+			<a class="edit_goodsStatus${goods.goodsid}" onclick="goodsStatusEdit('${goods.goodsid}')" >
 			${goods.goodsstatue}</a>
-			</c:if>
-			<c:if test="${fn:length(goods.pricesList) != 9 }">
-			<a style="color: #C6C6C6;">
-			${goods.goodsstatue}</a>
-			</c:if>
 			</td>
 			<td>${goods.createtime}</td>
 			<td>${goods.creator}</td>
@@ -202,7 +216,7 @@ function popup_formSub(){
 				 	<a onclick="nowpage(this)" href="${pageUrl}">[${pageNumber }]</a>
 			 	</c:if>
 			 	<c:if test="${currentNumber == pageNumber }">
-			 		<a class="fenye">${pageNumber }</a>
+			 		<span class="fenye">${pageNumber }</span>
 			 	</c:if>
 			 </pg:pages>
 			 <pg:next><a href="${pageUrl}">下一页</a></pg:next>

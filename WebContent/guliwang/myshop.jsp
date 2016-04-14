@@ -47,7 +47,7 @@ input:focus{ outline:none}
 			</span><i></i> 
 			<span style="position:absolute;display:block;">
 				<input id="customercity" name="customercity" type="text" value="${requestScope.customer.customercity }" 
-				placeholder="请输入城市" style="width:118px;margin-left: 200px;">
+				placeholder="请输入城市" style="width:118px;margin-left: 228%;">
 			</span>
 			</li>
 			<li><span>服务区域</span> 
@@ -58,7 +58,7 @@ input:focus{ outline:none}
 			</span><i></i> 
 			<span style="position:absolute;display: block;">
 				<input id="customerxian" name="customerxian" type="text" value="${requestScope.customer.customerxian }" 
-				placeholder="请输入地区" style="width:118px;margin-left: 200px;">
+				placeholder="请输入地区" style="width:118px;margin-left: 228%;">
 			</span>
 			</li>
         <li><span>店铺地址</span> <input name="customeraddress" type="text" value="${requestScope.customer.customeraddress }"

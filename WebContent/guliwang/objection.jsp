@@ -49,6 +49,11 @@ function subform(){
 		$(".cd-popup").addClass("is-visible");	//弹出窗口
 		return;
 	}
+	$(".meg").text("感谢您的反馈！");
+	$(".cd-buttons a").attr("onclick","submitform()");
+	$(".cd-popup").addClass("is-visible");	//弹出窗口
+}
+function submitform(){
 	document.forms[0].submit();
 }
 </script>

@@ -29,7 +29,7 @@
 </div>
 <div class="reg-wrapper">
 	<ul>
-    	<li><label><input name="addressture" type="checkbox" value="1" class="set-default" ${requestScope.address.addressture == 1?'checked':'' }> 
+    	<li><label><input style="margin-top: 4px;" name="addressture" type="checkbox" value="1" class="set-default" ${requestScope.address.addressture == 1?'checked':'' }> 
     	<span>设置默认</span></label></li>
     </ul>
 </div>
