@@ -47,7 +47,7 @@
   <!-- 根据条件查询 -->
   <select id="selectByConditionCount" resultType="int">
 	select
-		count(*) count
+		count(*) 
 	from goods
     where goods.goodscompany = #{goodscompany}
     <if test="goodsstatue != null and goodsstatue != ''">

@@ -60,6 +60,77 @@
     ORDERMWAY, ORDERMSTATUE, ORDERMDETAIL, ORDERMTIME, ORDERMCONNECT, ORDERMPHONE, ORDERMADDRESS, 
     UPDTIME, UPDOR, ORDERMEMP
   </sql>
+  <!-- 根据供应商(和条件)查询订单(分页) -->
+  <select id="selectByPage" resultType="com.server.pojo.entity.Ordermview">
+  	select * from 
+	(select A.*, ROWNUM RN from (
+    select 
+    orderm.ORDERMID, orderm.ORDERMCUSTOMER, orderm.ORDERMCOMPANY, orderm.ORDERMCODE, orderm.ORDERMNUM, orderm.ORDERMMONEY, orderm.ORDERMRIGHTMONEY, 
+    orderm.ORDERMWAY, orderm.ORDERMSTATUE, orderm.ORDERMDETAIL, orderm.ORDERMTIME,
+    orderm.ORDERMCONNECT, 
+    orderm.ORDERMPHONE, 
+    orderm.ORDERMADDRESS, 
+    orderm.UPDTIME, orderm.UPDOR, orderm.ORDERMEMP,
+    customer.customershop, 
+    customer.customerid
+    from ORDERM
+    left join customer
+	on orderm.ordermcustomer = customer.customerid
+    where ordermcompany = #{orderm.ordermcompany,jdbcType=VARCHAR} 
+    	<if test="orderm.ordermway != null and orderm.ordermway != ''">
+    		and ORDERMWAY = #{orderm.ordermway,jdbcType=VARCHAR} 
+    	</if>
+    	<if test="staTime != null and staTime != ''">
+			and orderm.ordermtime &gt;= #{staTime}
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and orderm.ordermtime &lt;= #{endTime}
+		</if>
+		<if test="orderm.ordermcode != null and orderm.ordermcode != ''">
+			and
+			(orderm.ORDERMCODE like '%${orderm.ordermcode}%' or
+			orderm.ORDERMWAY like '%${orderm.ordermcode}%' or
+			orderm.ORDERMSTATUE like '%${orderm.ordermcode}%' or
+			orderm.ORDERMCONNECT like '%${orderm.ordermcode}%' or
+			orderm.ORDERMPHONE like '%${orderm.ordermcode}%' or
+			orderm.ORDERMADDRESS like '%${orderm.ordermcode}%' or
+			orderm.UPDOR like '%${orderm.ordermcode}%' or
+			customer.customershop like '%${orderm.ordermcode}%')
+		</if>
+    order by orderm.ordermtime desc
+    ) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) ) 
+where RN &gt; ((#{nowpage}-1)*#{pagesize})
+  </select>
+  <!-- 根据供应商(和条件)查询订单(数量) -->
+  <select id="selectByCompanyCount" resultType="int">
+    select 
+    count(*) 
+    from ORDERM
+    left join customer
+	on orderm.ordermcustomer = customer.customerid
+    where ordermcompany = #{orderm.ordermcompany,jdbcType=VARCHAR} 
+    	<if test="orderm.ordermway != null and orderm.ordermway != ''">
+    		and ORDERMWAY = #{orderm.ordermway,jdbcType=VARCHAR} 
+    	</if>
+    	<if test="staTime != null and staTime != ''">
+			and orderm.ordermtime &gt;= #{staTime}
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and orderm.ordermtime &lt;= #{endTime}
+		</if>
+		<if test="orderm.ordermcode != null and orderm.ordermcode != ''">
+			and
+			(orderm.ORDERMCODE like '%${orderm.ordermcode}%' or
+			orderm.ORDERMWAY like '%${orderm.ordermcode}%' or
+			orderm.ORDERMSTATUE like '%${orderm.ordermcode}%' or
+			orderm.ORDERMCONNECT like '%${orderm.ordermcode}%' or
+			orderm.ORDERMPHONE like '%${orderm.ordermcode}%' or
+			orderm.ORDERMADDRESS like '%${orderm.ordermcode}%' or
+			orderm.UPDOR like '%${orderm.ordermcode}%' or
+			customer.customershop like '%${orderm.ordermcode}%')
+		</if>
+    order by orderm.ordermtime desc
+  </select>
   <!-- 根据供应商(和条件)查询订单 -->
   <select id="selectByCompany" resultType="com.server.pojo.entity.Ordermview">
     select 

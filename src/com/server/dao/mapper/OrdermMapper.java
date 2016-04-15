@@ -9,9 +9,21 @@ import com.server.pojo.entity.Ordermview;
 
 public interface OrdermMapper {
 	/**
+	 * 根据供应商(和条件)查询订单(分页)
+	 */
+	List<Ordermview> selectByPage(@Param("staTime") String staTime,
+			@Param("endTime") String endTime,@Param("orderm") Orderm record,
+			@Param("nowpage") Integer nowpage,@Param("pagesize") Integer pagesize);
+	/**
+	 * 根据供应商(和条件)查询订单(数量)
+	 */
+	Integer selectByCompanyCount(@Param("staTime") String staTime,
+			@Param("endTime") String endTime,@Param("orderm") Orderm record);
+	/**
 	 * 根据供应商(和条件)查询订单
 	 */
-	List<Ordermview> selectByCompany(@Param("staTime") String staTime,@Param("endTime") String endTime,@Param("orderm") Orderm record);
+	List<Ordermview> selectByCompany(@Param("staTime") String staTime,
+			@Param("endTime") String endTime,@Param("orderm") Orderm record);
 	/**
 	 * 根据主键删除
 	 */

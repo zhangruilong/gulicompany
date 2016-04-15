@@ -43,18 +43,31 @@ public class Com_orderCtl {
 	private CustomerMapper customerMapper;
 	//全部订单
 	@RequestMapping("/companySys/allOrder")
-	public String allOrder(Model model,String staTime,String endTime,Orderm order){
+	public String allOrder(Model model,String staTime,String endTime,Orderm order,Integer pagenow){
 		if(staTime != null && !staTime.equals("") && staTime.length() <19){
 			staTime = staTime + " 00:00:00";
 		}
 		if(endTime != null && !endTime.equals("") && endTime.length() <19){
 			endTime = endTime + " 23:59:59";
 		}
-		List<Ordermview> ordermList = ordermMapper.selectByCompany(staTime, endTime,order);
+		if(pagenow == null){
+			pagenow = 1;
+		}
+		Integer count = ordermMapper.selectByCompanyCount(staTime, endTime,order);	//总信息条数
+		Integer pageCount;		//总页数
+		if(count % 10 ==0){
+			pageCount = count / 10;
+		} else {
+			pageCount = (count / 10) +1;
+		}
+		List<Ordermview> ordermList = ordermMapper.selectByPage(staTime, endTime,order,pagenow,10);
 		model.addAttribute("allOrder", ordermList);
 		model.addAttribute("order", order);
 		model.addAttribute("staTime", staTime);
 		model.addAttribute("endTime", endTime);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("pagenow", pagenow);
+		model.addAttribute("count", count);
 		return "forward:/companySys/orderMana.jsp";
 	}
 	//删除订单
