@@ -10,6 +10,17 @@ import com.server.pojo.entity.OrderdStatistics;
 
 public interface OrderdMapper {
 	/**
+	 * 根据时间范围(多条件)查询订单(分页)
+	 */
+	ArrayList<Orderd> selectByPage(@Param("staTime") String staTime,
+			@Param("endTime") String endTime,@Param("companyid")String companyid,@Param("condition") String condition,
+			@Param("nowpage") Integer nowpage,@Param("pagesize") Integer pagesize);
+	/**
+	 * 根据时间范围(多条件)查询订单(数量)
+	 */
+	Integer selectByTimeCount(@Param("staTime") String staTime,
+			@Param("endTime") String endTime,@Param("companyid")String companyid,@Param("condition") String condition);
+	/**
 	 * 条件查询统计
 	 */
 	OrderdStatistics selectOrderdStatistics(@Param("staTime") String staTime,

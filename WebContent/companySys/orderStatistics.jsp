@@ -1,7 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@taglib uri="http://jsptags.com/tags/navigation/pager" prefix="pg"%>
 <%
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/";
 %>
@@ -17,12 +16,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="<%=basePath%>ExtJS/ext-lang-zh_CN.js" charset="GBK"></script>
 </head>
 <body>
-<form action="orderStatistics.action" method="post">
- <pg:pager maxPageItems="10" url="orderStatistics.action" export="currentNumber=pageNumber">
- <pg:param name="companyid" value="${sessionScope.company.companyid }"/>
- <pg:param name="staTime" value="${requestScope.staTime }"/>
- <pg:param name="endTime" value="${requestScope.endTime }"/>
- <pg:param name="condition" value="${requestScope.condition }"/>
+<form id='main_form' action="orderStatistics.action" method="post">
  <input type="hidden" name="companyid" value="${sessionScope.company.companyid }">
  <input type="hidden" id="staTime" name="staTime" value="${requestScope.staTime }">
  <input type="hidden" id="endTime" name="endTime" value="${requestScope.endTime }">
@@ -31,7 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="navigation">
 <div>交易时间:</div><div id="divDate" class="date"></div>
 <div>到:</div><div id="divDate2"  class="date"></div>
-模糊查询:<input type="text" name="condition" value="${requestScope.condition }">
+模糊查询:<input type="text"  class="condition_query" name="condition" value="${requestScope.condition }">
 <input class="button" type="button" value="查询" onclick="subfor()">
 <input class="button" type="button" value="导出报表" onclick="report()">
 </div>
@@ -44,8 +38,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<th>商品名称</th>
 		<th>规格</th>
 		<th>单位</th>
-		<th>单价</th>
 		<th>数量</th>
+		<th>单价</th>
 		<th>商品总价</th>
 		<th>实际金额</th>
 		<th>订单时间</th>
@@ -53,7 +47,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </thead>
     <c:if test="${fn:length(requestScope.orderdList) != 0 }">
 	<c:forEach var="orderd" items="${requestScope.orderdList }" varStatus="orderdSta">
-	<pg:item>
 		<tr>	
 			<td><c:out value="${orderdSta.count}"></c:out></td>
 			<td>${orderd.orderdcode}</td>
@@ -66,7 +59,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td>${orderd.orderdrightmoney}</td>
 			<td>${orderd.orderm.ordermtime}</td>
 		</tr>
-	</pg:item>
 	</c:forEach>
 	<tr>
 		<td colspan="6">总计</td>
@@ -80,25 +72,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<tr><td colspan="14" align="center" style="font-size: 26px;color: red;"> 没有可显示的信息</td></tr>
 	</c:if>
     	<tr>
-		 <td colspan="14" align="center">	
-			 <pg:index>
-			 <pg:first><a href="${pageUrl }">第一页</a></pg:first>
-			 <pg:prev><a href="${pageUrl}">上一页</a></pg:prev>
-			 <pg:pages>
-			 	<c:if test="${currentNumber != pageNumber }">
-				 	<a onclick="nowpage(this)" href="${pageUrl}">[${pageNumber }]</a>
-			 	</c:if>
-			 	<c:if test="${currentNumber == pageNumber }">
-			 		<span class="fenye">${pageNumber }</span>
-			 	</c:if>
-			 </pg:pages>
-			 <pg:next><a href="${pageUrl}">下一页</a></pg:next>
-			 <pg:last><a href="${pageUrl }">最后一页</a></pg:last>
-			 </pg:index>
+		 <td class="td_fenye" colspan="14" align="center">	
+			 <c:if test="${requestScope.pagenow > 1 }">
+		 	<a onclick="fenye('1')">第一页</a>
+		 </c:if>
+		 <c:if test="${requestScope.pagenow == 1 }">
+		 	<span>第一页</span>
+		 </c:if>
+		  <c:if test="${requestScope.pagenow > 1 }">
+		 	<a onclick="fenye('${requestScope.pagenow - 1 }')">上一页</a>
+		 </c:if>
+		 <c:if test="${requestScope.pagenow == 1 }">
+		 	<span>上一页</span>
+		 </c:if>
+		 	
+		 	<span>当前第${requestScope.pagenow }页</span>
+		 	
+		 <c:if test="${requestScope.pagenow < requestScope.pageCount }">
+		 	<a onclick="fenye('${requestScope.pagenow + 1 }')">下一页</a>
+		 </c:if>
+		 <c:if test="${requestScope.pagenow == requestScope.pageCount }">
+		 	<span>下一页</span>
+		 </c:if>
+		 <c:if test="${requestScope.pagenow < requestScope.pageCount }">
+		 	<a onclick="fenye('${requestScope.pageCount }')">最后一页</a>
+		 </c:if>
+		 <c:if test="${requestScope.pagenow == requestScope.pageCount }">
+		 	<span>最后一页&nbsp;</span>
+		 </c:if>
+		 	<span>跳转到第<input style="width: 22px;text-align: center;" size="1" type="text" id="pagenow" name="pagenow" value="${requestScope.pagenow }">页</span>
+		 	<input type="submit" value="GO" style="width: 40px;height: 20px;font-size:8px; text-align: center;cursor:pointer;">
+		 	<span>一共 ${requestScope.count } 条数据</span>
 		 </td>
 	 </tr>       
 </table>
-</pg:pager>
 </form>
 
 <script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
@@ -123,7 +130,26 @@ var md2;					//第二个日期对象
 			emptyText:"${(requestScope.endTime == null || requestScope.endTime == '')?'请选择日期...':requestScope.endTime}"		//默认显示的日期
 		});
 		md2.render('divDate2');
+		$("#main_form").on("submit",function(){
+			checkCondition();
+		});
    });
+ //检查查询条件是否变化
+  function checkCondition(){
+	  $(".condition_query").val($.trim($(".condition_query").val()));
+   	if($(".condition_query").val() != '${requestScope.condition }'){
+   		$("#pagenow").val('1');
+   	}
+   	if($('#staTime').val() != '${requestScope.staTime }'){
+   		$("#pagenow").val('1');
+   	}
+   	if($('#endTime').val() != '${requestScope.endTime }'){
+   		$("#pagenow").val('1');
+   	}
+   	if(parseInt($("#pagenow").val()) > '${requestScope.pageCount }' ){
+   		$("#pagenow").val('${requestScope.pageCount }');
+   	}
+  }
 //导出报表
 function report(){
 	window.location.href ="exportReport.action?companyid=${sessionScope.company.companyid }"+
@@ -141,6 +167,13 @@ function subfor(){
 	}
 	$("#staTime").val(gedt);
 	$("#endTime").val(gedt2);
+	checkCondition();
+	document.forms[0].submit();
+}
+//分页
+function fenye(targetPage){
+	$("#pagenow").val(targetPage);
+	checkCondition();
 	document.forms[0].submit();
 }
 </script>

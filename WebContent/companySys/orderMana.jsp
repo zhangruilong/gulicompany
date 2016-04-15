@@ -130,6 +130,7 @@ $(function(){
 })
 //检查查询条件是否变化
 function checkCondition(){
+	$(".ordermcode_query").val($.trim($(".ordermcode_query").val()));
 	if($(".ordermcode_query").val() != '${requestScope.order.ordermcode }'){
 		$("#pagenow").val('1');
 	}

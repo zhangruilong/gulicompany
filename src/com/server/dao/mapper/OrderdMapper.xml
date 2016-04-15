@@ -40,6 +40,66 @@
     ORDERDID, ORDERDORDERM, ORDERDCODE, ORDERDTYPE, ORDERDNAME, ORDERDDETAIL, ORDERDUNITS, 
     ORDERDPRICE, ORDERDUNIT, ORDERDCLASS, ORDERDNUM, ORDERDMONEY, ORDERDRIGHTMONEY
   </sql>
+  <!-- 根据时间范围(多条件)查询订单(分页) -->
+  <select id="selectByPage" resultMap="BaseResultMap" >
+  	select * from 
+	(select A.*, ROWNUM RN from (
+  	select
+		orderd.*,
+		orderm.ordermid,
+		orderm.ordermtime
+	from orderd
+	left join orderm
+	on orderd.orderdorderm = orderm.ordermid
+	where orderm.ordermcompany = #{companyid,jdbcType=VARCHAR}
+	<if test="staTime != null and staTime != ''">
+		and orderm.ordermtime &gt;= #{staTime}
+	</if>
+	<if test="endTime != null and endTime != ''">
+		and orderm.ordermtime &lt;= #{endTime}
+	</if>
+	<if test="condition != null and condition != ''">
+		and 
+		(orderd.orderdcode like '%${condition}%' or
+		orderd.orderdname like '%${condition}%' or
+		orderd.orderdunits like '%${condition}%' or
+		orderd.orderdunit like '%${condition}%' or
+		orderd.orderdnum like '%${condition}%' or
+		orderd.orderdprice like '%${condition}%' or
+		orderd.orderdmoney like '%${condition}%' or
+		orderd.orderdrightmoney like '%${condition}%')
+	</if>
+	order by orderm.ordermtime desc
+	 ) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) ) 
+	where RN &gt; ((#{nowpage}-1)*#{pagesize})
+  </select>
+  <!-- 根据时间范围(多条件)查询订单(数量) -->
+  <select id="selectByTimeCount" resultType="int" >
+  	select
+		count(*) 
+	from orderd
+	left join orderm
+	on orderd.orderdorderm = orderm.ordermid
+	where orderm.ordermcompany = #{companyid,jdbcType=VARCHAR}
+	<if test="staTime != null and staTime != ''">
+		and orderm.ordermtime &gt;= #{staTime}
+	</if>
+	<if test="endTime != null and endTime != ''">
+		and orderm.ordermtime &lt;= #{endTime}
+	</if>
+	<if test="condition != null and condition != ''">
+		and 
+		(orderd.orderdcode like '%${condition}%' or
+		orderd.orderdname like '%${condition}%' or
+		orderd.orderdunits like '%${condition}%' or
+		orderd.orderdunit like '%${condition}%' or
+		orderd.orderdnum like '%${condition}%' or
+		orderd.orderdprice like '%${condition}%' or
+		orderd.orderdmoney like '%${condition}%' or
+		orderd.orderdrightmoney like '%${condition}%')
+	</if>
+	order by orderm.ordermtime desc
+  </select>
   <!-- 条件查询统计 -->
   <select id="selectOrderdStatistics" resultType="com.server.pojo.entity.OrderdStatistics" >
   	select
@@ -70,7 +130,7 @@
 	</if>
 	order by orderm.ordermtime desc
   </select>
-  <!-- 根据时间范围查询订单 -->
+  <!-- 根据时间范围(多条件)查询订单 -->
   <select id="selectByTime" resultMap="BaseResultMap" >
   	select
 		orderd.*,

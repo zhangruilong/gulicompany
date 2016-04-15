@@ -145,14 +145,24 @@ public class Com_orderCtl {
 	}
 	//订单商品统计
 	@RequestMapping("/companySys/orderStatistics")
-	public String orderStatistics(Model model,String staTime,String endTime,String companyid,String condition) throws Exception{
-		if(staTime != null && staTime.length() <19){
+	public String orderStatistics(Model model,String staTime,String endTime,String companyid,String condition,Integer pagenow) throws Exception{
+		if(staTime != null && !staTime.equals("") && staTime.length() <19){
 			staTime = staTime + " 00:00:00";
 		}
-		if(endTime != null && endTime.length() <19){
+		if(endTime != null && !endTime.equals("") && endTime.length() <19){
 			endTime = endTime + " 23:59:59";
 		}
-		List<Orderd> list = orderdMapper.selectByTime(staTime, endTime, companyid,condition);					//查询数据
+		if(pagenow == null){
+			pagenow = 1;
+		}
+		Integer count = orderdMapper.selectByTimeCount(staTime, endTime, companyid,condition);	//总信息条数
+		Integer pageCount;		//总页数
+		if(count % 10 ==0){
+			pageCount = count / 10;
+		} else {
+			pageCount = (count / 10) +1;
+		}
+		List<Orderd> list = orderdMapper.selectByPage(staTime, endTime, companyid,condition,pagenow,10);					//查询数据
 		OrderdStatistics total = orderdMapper.selectOrderdStatistics(staTime, endTime, companyid, condition);	//数据统计
 		model.addAttribute("total", total);
 		model.addAttribute("orderdList", list);
@@ -160,6 +170,9 @@ public class Com_orderCtl {
 		model.addAttribute("staTime", staTime);
 		model.addAttribute("endTime", endTime);
 		model.addAttribute("condition", condition);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("pagenow", pagenow);
+		model.addAttribute("count", count);
 		return "orderStatistics.jsp";
 	}
 	//导出报表
