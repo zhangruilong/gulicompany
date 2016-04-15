@@ -99,119 +99,114 @@ h1 .title_goodsinfo span{
 </head>
 <body>
 	<div class="elegant-aero">
-		<form class="STYLE-NAME">
-			<input type="hidden" name="goodsid" value="${requestScope.goodsCon.goodsid }">
-			<input type="hidden" name="pricesgoods" value="${requestScope.goodsCon.goodsid }">
-			<input type="hidden" name="goodscompany" value="${sessionScope.company.companyid }"/>
-			<c:if test="${requestScope.goodsCon.pricesList[0].pricesid !=null }">
-				<c:forEach items="${requestScope.goodsCon.pricesList }" var="price">
+			<c:if test="${requestScope.editPriGoods.pricesList[0].pricesid !=null }">
+				<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price">
 					<input type="hidden" name="pricesid" value="${price.pricesid }">
 				</c:forEach>
 			</c:if>
 			<h1>商品价格设置
 			<div class="title_goodsinfo">
-			<span>商品名称:&nbsp;</span>${requestScope.goodsCon.goodsname }&nbsp;&nbsp;
-			<span>编码:&nbsp;</span>${requestScope.goodsCon.goodscode }&nbsp;&nbsp;
-			<span>规格:&nbsp;</span>${requestScope.goodsCon.goodsunits }
+			<span>商品名称:&nbsp;</span>${requestScope.editPriGoods.goodsname }&nbsp;&nbsp;
+			<span>编码:&nbsp;</span>${requestScope.editPriGoods.goodscode }&nbsp;&nbsp;
+			<span>规格:&nbsp;</span>${requestScope.editPriGoods.goodsunits }
 			</div>
 			</h1>
 			<table>
-			<tr><td colspan="3"><p><span>单品单位:<input size="4" type="text" id="pricesunit" name="pricesunit" value="${requestScope.goodsCon.pricesList[0].pricesunit }">
-			套装单位:<input size="4" type="text" id="pricesunit2" name="pricesunit2" value="${requestScope.goodsCon.pricesList[0].pricesunit2 }"></span></p> </td></tr>
+			<tr><td colspan="3"><p><span>单品单位:<input size="4" type="text" id="pricesunit" name="pricesunit" value="${requestScope.editPriGoods.pricesList[0].pricesunit }">
+			套装单位:<input size="4" type="text" id="pricesunit2" name="pricesunit2" value="${requestScope.editPriGoods.pricesList[0].pricesunit2 }"></span></p> </td></tr>
 			<tr><td colspan="3"><p style="margin-top: 0px;"><span>餐饮客户价格 :</span></p> </td></tr>
 			<tr>	
 				
 				<td><label><span>单品价等级3 :</span><input 
-				value="<c:forEach items="${requestScope.goodsCon.pricesList }" var="price"><c:if test="${price.pricesclass == '3' && price.priceslevel == 3}">${price.pricesprice }</c:if></c:forEach>" 
+				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '3' && price.priceslevel == 3}">${price.pricesprice }</c:if></c:forEach>" 
 				size="5" id="1" type="text" name="pricesprice" placeholder="单品价" />
-				<span><c:if test="${requestScope.goodsCon.pricesList[0].pricesunit !=null }">/${requestScope.goodsCon.pricesList[0].pricesunit }</c:if></span></label></td>
+				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit }</c:if></span></label></td>
 				<td><label><span>单品价等级2 :</span><input 
-				value="<c:forEach items="${requestScope.goodsCon.pricesList }" var="price"><c:if test="${price.pricesclass == '3' && price.priceslevel == 2}">${price.pricesprice }</c:if></c:forEach>" 
+				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '3' && price.priceslevel == 2}">${price.pricesprice }</c:if></c:forEach>" 
 				size="5" id="2" type="text" name="pricesprice" placeholder="单品价" />
-				<span><c:if test="${requestScope.goodsCon.pricesList[0].pricesunit !=null }">/${requestScope.goodsCon.pricesList[0].pricesunit }</c:if></span></label></td>
+				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit }</c:if></span></label></td>
 				<td><label><span>单品价等级1 :</span><input 
-				value="<c:forEach items="${requestScope.goodsCon.pricesList }" var="price"><c:if test="${price.pricesclass == '3' && price.priceslevel == 1}">${price.pricesprice }</c:if></c:forEach>" 
+				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '3' && price.priceslevel == 1}">${price.pricesprice }</c:if></c:forEach>" 
 				size="5" id="3" type="text" name="pricesprice" placeholder="单品价" />
-				<span><c:if test="${requestScope.goodsCon.pricesList[0].pricesunit !=null }">/${requestScope.goodsCon.pricesList[0].pricesunit }</c:if></span></label></td>
+				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit }</c:if></span></label></td>
 			</tr>
 			<tr>
 				<td><label><span>套装价等级3 :</span><input 
-				value="<c:forEach items="${requestScope.goodsCon.pricesList }" var="price"><c:if test="${price.pricesclass == '3' && price.priceslevel == 3}">${price.pricesprice2 }</c:if></c:forEach>" 
+				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '3' && price.priceslevel == 3}">${price.pricesprice2 }</c:if></c:forEach>" 
 				size="5" id="10" type="text" name="pricesprice2" placeholder="套装价" />
-				<span><c:if test="${requestScope.goodsCon.pricesList[0].pricesunit2 !=null }">/${requestScope.goodsCon.pricesList[0].pricesunit2 }</c:if></span></label></td>
+				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit2 !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit2 }</c:if></span></label></td>
 				<td><label><span>套装价等级2 :</span><input 
-				value="<c:forEach items="${requestScope.goodsCon.pricesList }" var="price"><c:if test="${price.pricesclass == '3' && price.priceslevel == 2}">${price.pricesprice2 }</c:if></c:forEach>" 
+				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '3' && price.priceslevel == 2}">${price.pricesprice2 }</c:if></c:forEach>" 
 				size="5" id="11" type="text" name="pricesprice2" placeholder="套装价" />
-				<span><c:if test="${requestScope.goodsCon.pricesList[0].pricesunit2 !=null }">/${requestScope.goodsCon.pricesList[0].pricesunit2 }</c:if></span></label></td>
+				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit2 !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit2 }</c:if></span></label></td>
 				<td><label><span>套装价等级1 :</span><input 
-				value="<c:forEach items="${requestScope.goodsCon.pricesList }" var="price"><c:if test="${price.pricesclass == '3' && price.priceslevel == 1}">${price.pricesprice2 }</c:if></c:forEach>" 
+				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '3' && price.priceslevel == 1}">${price.pricesprice2 }</c:if></c:forEach>" 
 				size="5" id="12" type="text" name="pricesprice2" placeholder="套装价" />
-				<span><c:if test="${requestScope.goodsCon.pricesList[0].pricesunit2 !=null }">/${requestScope.goodsCon.pricesList[0].pricesunit2 }</c:if></span></label></td>
+				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit2 !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit2 }</c:if></span></label></td>
 			</tr>
 			<tr><td colspan="3"><p><span> 商超客户价格 :</span></p></td></tr>
 			<tr>
 				<td><label><span>单品价等级3 :</span><input 
-				value="<c:forEach items="${requestScope.goodsCon.pricesList }" var="price"><c:if test="${price.pricesclass == '2' && price.priceslevel == 3}">${price.pricesprice }</c:if></c:forEach>" 
+				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '2' && price.priceslevel == 3}">${price.pricesprice }</c:if></c:forEach>" 
 				size="5" id="4" type="text" name="pricesprice" placeholder="单品价" />
-				<span><c:if test="${requestScope.goodsCon.pricesList[0].pricesunit !=null }">/${requestScope.goodsCon.pricesList[0].pricesunit }</c:if></span></label></td>
+				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit }</c:if></span></label></td>
 				<td><label><span>单品价等级2 :</span><input 
-				value="<c:forEach items="${requestScope.goodsCon.pricesList }" var="price"><c:if test="${price.pricesclass == '2' && price.priceslevel == 2}">${price.pricesprice }</c:if></c:forEach>" 
+				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '2' && price.priceslevel == 2}">${price.pricesprice }</c:if></c:forEach>" 
 				size="5" id="5" type="text" name="pricesprice" placeholder="单品价" />
-				<span><c:if test="${requestScope.goodsCon.pricesList[0].pricesunit !=null }">/${requestScope.goodsCon.pricesList[0].pricesunit }</c:if></span></label></td>
+				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit }</c:if></span></label></td>
 				<td><label><span>单品价等级1 :</span><input 
-				value="<c:forEach items="${requestScope.goodsCon.pricesList }" var="price"><c:if test="${price.pricesclass == '2' && price.priceslevel == 1}">${price.pricesprice }</c:if></c:forEach>" 
+				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '2' && price.priceslevel == 1}">${price.pricesprice }</c:if></c:forEach>" 
 				size="5" id="6" type="text" name="pricesprice" placeholder="单品价" />
-				<span><c:if test="${requestScope.goodsCon.pricesList[0].pricesunit !=null }">/${requestScope.goodsCon.pricesList[0].pricesunit }</c:if></span></label></td>
+				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit }</c:if></span></label></td>
 			</tr>
 			<tr>
 				<td><label><span>套装价等级3 :</span><input 
-				value="<c:forEach items="${requestScope.goodsCon.pricesList }" var="price"><c:if test="${price.pricesclass == '2' && price.priceslevel == 3}">${price.pricesprice2 }</c:if></c:forEach>" 
+				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '2' && price.priceslevel == 3}">${price.pricesprice2 }</c:if></c:forEach>" 
 				size="5" id="13" type="text" name="pricesprice2" placeholder="套装价" />
-				<span><c:if test="${requestScope.goodsCon.pricesList[0].pricesunit2 !=null }">/${requestScope.goodsCon.pricesList[0].pricesunit2 }</c:if></span></label></td>
+				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit2 !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit2 }</c:if></span></label></td>
 				<td><label><span>套装价等级2 :</span><input 
-				value="<c:forEach items="${requestScope.goodsCon.pricesList }" var="price"><c:if test="${price.pricesclass == '2' && price.priceslevel == 2}">${price.pricesprice2 }</c:if></c:forEach>" 
+				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '2' && price.priceslevel == 2}">${price.pricesprice2 }</c:if></c:forEach>" 
 				size="5" id="14" type="text" name="pricesprice2" placeholder="套装价" />
-				<span><c:if test="${requestScope.goodsCon.pricesList[0].pricesunit2 !=null }">/${requestScope.goodsCon.pricesList[0].pricesunit2 }</c:if></span></label></td>
+				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit2 !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit2 }</c:if></span></label></td>
 				<td><label><span>套装价等级1 :</span><input 
-				value="<c:forEach items="${requestScope.goodsCon.pricesList }" var="price"><c:if test="${price.pricesclass == '2' && price.priceslevel == 1}">${price.pricesprice2 }</c:if></c:forEach>" 
+				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '2' && price.priceslevel == 1}">${price.pricesprice2 }</c:if></c:forEach>" 
 				size="5" id="15" type="text" name="pricesprice2" placeholder="套装价" />
-				<span><c:if test="${requestScope.goodsCon.pricesList[0].pricesunit2 !=null }">/${requestScope.goodsCon.pricesList[0].pricesunit2 }</c:if></span></label></td>
+				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit2 !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit2 }</c:if></span></label></td>
 			</tr>
 			<tr><td colspan="3"><p><span> 组织单位客户价格 :</span></p></td></tr>
 			<tr>
 				<td><label><span>单品价等级3 :</span><input 
-				value="<c:forEach items="${requestScope.goodsCon.pricesList }" var="price"><c:if test="${price.pricesclass == '1' && price.priceslevel == 3}">${price.pricesprice }</c:if></c:forEach>" 
+				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '1' && price.priceslevel == 3}">${price.pricesprice }</c:if></c:forEach>" 
 				size="5" id="7" type="text" name="pricesprice" placeholder="单品价" />
-				<span><c:if test="${requestScope.goodsCon.pricesList[0].pricesunit !=null }">/${requestScope.goodsCon.pricesList[0].pricesunit }</c:if></span></label></td>
+				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit }</c:if></span></label></td>
 				<td><label><span>单品价等级2 :</span><input 
-				value="<c:forEach items="${requestScope.goodsCon.pricesList }" var="price"><c:if test="${price.pricesclass == '1' && price.priceslevel == 2}">${price.pricesprice }</c:if></c:forEach>" 
+				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '1' && price.priceslevel == 2}">${price.pricesprice }</c:if></c:forEach>" 
 				size="5" id="8" type="text" name="pricesprice" placeholder="单品价" />
-				<span><c:if test="${requestScope.goodsCon.pricesList[0].pricesunit !=null }">/${requestScope.goodsCon.pricesList[0].pricesunit }</c:if></span></label></td>
+				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit }</c:if></span></label></td>
 				<td><label><span>单品价等级1 :</span><input 
-				value="<c:forEach items="${requestScope.goodsCon.pricesList }" var="price"><c:if test="${price.pricesclass == '1' && price.priceslevel == 1}">${price.pricesprice }</c:if></c:forEach>" 
+				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '1' && price.priceslevel == 1}">${price.pricesprice }</c:if></c:forEach>" 
 				size="5" id="9" type="text" name="pricesprice" placeholder="单品价" />
-				<span><c:if test="${requestScope.goodsCon.pricesList[0].pricesunit !=null }">/${requestScope.goodsCon.pricesList[0].pricesunit }</c:if></span></label></td>
+				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit }</c:if></span></label></td>
 			 </tr>
 			 <tr>
 				<td><label><span>套装价等级3 :</span><input 
-				value="<c:forEach items="${requestScope.goodsCon.pricesList }" var="price"><c:if test="${price.pricesclass == '1' && price.priceslevel == 3}">${price.pricesprice2 }</c:if></c:forEach>" 
+				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '1' && price.priceslevel == 3}">${price.pricesprice2 }</c:if></c:forEach>" 
 				size="5" id="16" type="text" name="pricesprice2" placeholder="套装价" />
-				<span><c:if test="${requestScope.goodsCon.pricesList[0].pricesunit2 !=null }">/${requestScope.goodsCon.pricesList[0].pricesunit2 }</c:if></span></label></td>
+				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit2 !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit2 }</c:if></span></label></td>
 				<td><label><span>套装价等级2 :</span><input 
-				value="<c:forEach items="${requestScope.goodsCon.pricesList }" var="price"><c:if test="${price.pricesclass == '1' && price.priceslevel == 2}">${price.pricesprice2 }</c:if></c:forEach>" 
+				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '1' && price.priceslevel == 2}">${price.pricesprice2 }</c:if></c:forEach>" 
 				size="5" id="17" type="text" name="pricesprice2" placeholder="套装价" />
-				<span><c:if test="${requestScope.goodsCon.pricesList[0].pricesunit2 !=null }">/${requestScope.goodsCon.pricesList[0].pricesunit2 }</c:if></span></label></td>
+				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit2 !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit2 }</c:if></span></label></td>
 				<td><label><span>套装价等级1 :</span><input 
-				value="<c:forEach items="${requestScope.goodsCon.pricesList }" var="price"><c:if test="${price.pricesclass == '1' && price.priceslevel == 1}">${price.pricesprice2 }</c:if></c:forEach>" 
+				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '1' && price.priceslevel == 1}">${price.pricesprice2 }</c:if></c:forEach>" 
 				size="5" id="18" type="text" name="pricesprice2" placeholder="套装价" />
-				<span><c:if test="${requestScope.goodsCon.pricesList[0].pricesunit2 !=null }">/${requestScope.goodsCon.pricesList[0].pricesunit2 }</c:if></span></label></td>
+				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit2 !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit2 }</c:if></span></label></td>
 			</tr>
 			
 			</table>
 			<span>&nbsp;</span> <input type="button" class="button" value="保存" onclick="addData()"/> 
 			<input style="margin-left: 30px;" type="button" class="button" value="返回" onclick="javascript:window.history.back()"/>
 			
-		</form>
 	</div>
 	<script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript">
@@ -270,19 +265,20 @@ h1 .title_goodsinfo span{
 				pricesprice2 += $(item).val();
 			}
 		})
-		
 		$.getJSON("addGoodsPrices.action",{
 			"pricesid":pricesid,
 			"pricesprice":pricesprice,
 			"pricesprice2":pricesprice2,
-			"goodsid":'${requestScope.goodsCon.goodsid }',
-			"pricesgoods":'${requestScope.goodsCon.goodsid }',
-			"goodscompany":'${sessionScope.company.companyid }',
+			"goodsid":'${requestScope.editPriGoods.goodsid }',
+			"pricesgoods":'${requestScope.editPriGoods.goodsid }',
+			"goodscompany":'${requestScope.editPriGoods.goodscompany }',
 			'pricesunit':$("#pricesunit").val(),
 			'pricesunit2':$("#pricesunit2").val()
 		},function(data){
 			alert('价格已更新！');
-			history.back();
+			window.location.href = 'allGoods.action?goodscompany=${requestScope.goodsCon.goodscompany }'+
+					'&goodscode=${requestScope.goodsCon.goodscode }&goodsstatue=${requestScope.goodsCon.goodsstatue }'+
+					'&goodsid=${requestScope.goodsCon.goodsid }&pagenow=${requestScope.pagenow }';
 		});
 	}
 	

@@ -17,6 +17,142 @@ String goodsstatue = request.getParameter("goodsstatue");
 <script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
 <link href="css/tabsty.css" rel="stylesheet" type="text/css">
 <link href="css/dig.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+<form id='main_form' action="allGoods.action" method="post">
+ <input type="hidden" name="goodscompany" value="${sessionScope.company.companyid }"> 
+ <input type="hidden" name="goodsstatue" value="${goods.goodsstatue}"> 
+ <input type="hidden" class="setPricesGoodsId" name="goodsid" value="">
+<div class="nowposition">当前位置：商品管理》全部商品</div>
+<div class="navigation">
+查询条件:&nbsp;&nbsp;<input type="text" id="goodscode" name="goodscode" value="${requestScope.goodsCon.goodscode }">
+<input class="button" type="button" value="查询" onclick="subgoodsfor()">
+<input class="button" type="button" value="价格设置" onclick="setgoodsprices()">
+<input class="button" type="button" value="添加商品" onclick="addgoods()">
+<input class="button" type="button" value="刷新" onclick="javascript:window.location.reload()">
+</div>
+<table class="bordered">
+    <thead>
+    <tr>
+    	<th></th>
+        <th>序号</th>
+		<th>商品编号</th>
+		<th>商品名称</th>
+		<th>规格</th>
+		<th>类别</th>
+		<th>状态</th>
+		<th>创建时间</th>
+		<th>创建人</th>
+		<th>修改时间</th>
+		<th>修改人</th>
+    </tr>
+    </thead>
+    <c:if test="${fn:length(requestScope.goodsList) != 0 }">
+	<c:forEach var="goods" items="${requestScope.goodsList }" varStatus="goodsSta">
+		<tr>
+			<td><input type="checkbox" id="${goods.goodsid}"></td>
+			<td><c:out value="${goodsSta.count}"></c:out></td>
+			<td>${goods.goodscode}</td>
+			<td>${goods.goodsname}</td>
+			<td>${goods.goodsunits}</td>
+			<td>${goods.gClass.goodsclassname}</td>
+			<td>
+			<a class="edit_goodsStatus${goods.goodsid}" onclick="goodsStatusEdit('${goods.goodsid}')" >
+			${goods.goodsstatue}</a>
+			</td>
+			<td>${goods.createtime}</td>
+			<td>${goods.creator}</td>
+			<td>${goods.updtime}</td>
+			<td>${goods.updor}</td>
+		</tr>
+	</c:forEach>
+	</c:if>
+	<c:if test="${fn:length(requestScope.goodsList)==0 }">
+		<tr><td colspan="14" align="center" style="font-size: 20px;color: red;"> 没有信息</td></tr>
+	</c:if>
+    	<tr>
+		 <td colspan="14" align="center">
+		 <c:if test="${requestScope.pagenow > 1 }">
+		 	<a onclick="fenye('1')">第一页</a>
+		 </c:if>
+		 <c:if test="${requestScope.pagenow == 1 }">
+		 	<span>第一页</span>
+		 </c:if>
+		  <c:if test="${requestScope.pagenow > 1 }">
+		 	<a onclick="fenye('${requestScope.pagenow - 1 }')">上一页</a>
+		 </c:if>
+		 <c:if test="${requestScope.pagenow == 1 }">
+		 	<span>上一页</span>
+		 </c:if>
+		 	
+		 	<span>当前第${requestScope.pagenow }页</span>
+		 	
+		 <c:if test="${requestScope.pagenow < requestScope.pageCount }">
+		 	<a onclick="fenye('${requestScope.pagenow + 1 }')">下一页</a>
+		 </c:if>
+		 <c:if test="${requestScope.pagenow == requestScope.pageCount }">
+		 	<span>下一页</span>
+		 </c:if>
+		 <c:if test="${requestScope.pagenow < requestScope.pageCount }">
+		 	<a onclick="fenye('${requestScope.pageCount }')">最后一页</a>
+		 </c:if>
+		 <c:if test="${requestScope.pagenow == requestScope.pageCount }">
+		 	<span>最后一页&nbsp;</span>
+		 </c:if>
+		 	<span>跳转到第<input style="width: 22px;text-align: center;" size="1" type="text" id="pagenow" name="pagenow" value="${requestScope.pagenow }">页</span>
+		 	<input type="submit" value="GO" style="width: 40px;height: 20px;font-size:8px; text-align: center;cursor:pointer;">
+		 	<span>一共 ${requestScope.count } 条数据</span>
+		 </td>
+	 </tr>
+</table>
+</form>
+<!--弹框-->
+<div class="cd-popup" role="alert">
+	<div class="elegant-aero">
+		<form id="popup_form" action="addGoods.action" method="post" class="STYLE-NAME">
+		<input type="hidden" name="creator" value="${sessionScope.company.companyshop }">
+		<input type="hidden" name="goodscompany" value="${sessionScope.company.companyid }">
+			<h1>添加商品</h1>
+			<label><span>商品编码 :</span><input id="addgoodscode" type="text"
+				name="goodscode" placeholder="商品编码" /></label>
+			<label><span>商品名称 :</span><input id="goodsname" type="text"
+				name="goodsname" placeholder="商品名称" /></label>
+			<label><span>规格 :</span><input id="goodsunits" type="text"
+				name="goodsunits" placeholder="规格" /></label>
+			<label><span>小类名称 :</span>
+			<select name="goodsclass" id="goodsclass">
+				<option value="">请选择</option>
+			</select>
+			</label>
+			<p><label><input type="button"
+				class="popup_button" value="提交" onclick="popup_formSub()"/>
+			</label>
+			<label><input type="button"
+				class="popup_button" value="从标品库中选择" onclick="dobiaopin()"/>
+			</label>
+			<label><input type="button"
+				class="popup_button" value="关闭窗口" onclick="close_popup()"/>
+			</label></p>
+		</form>
+	</div>
+</div>
+<!--弹框-->
+<div class="cd-popup2" role="alert">
+	<table class="bordered" id="scant" style="margin: 5% auto 0 auto;">
+		<thead>
+	    <tr>
+	        <th>序号</th>
+			<th>商品编码</th>
+			<th>商品名称</th>
+			<th>描述</th>
+			<th>规格</th>
+			<th>小类名称</th>
+			<th>点击选择</th>
+	    </tr>
+	    </thead>
+	</table>
+</div>
 <script type="text/javascript">
 var goodsstatue = '<%=goodsstatue %>';
 $(function(){
@@ -27,7 +163,22 @@ $(function(){
 	} else if(goodsstatue == '下架'){
 		$(".nowposition").html("当前位置：商品管理》下架商品");
 	}
+	$("#main_form").on("submit",function(){
+		checkCondition();
+	});
+	if('${param.goodsid}'!=''){
+		$('#${param.goodsid}').attr("checked",true);
+	}
 })
+//检查查询条件是否变化
+function checkCondition(){
+	if($("#goodscode").val() != '${requestScope.goodsCon.goodscode }'){
+		$("#pagenow").val('1');
+	}
+	if(parseInt($("#pagenow").val()) > '${requestScope.pageCount }' ){
+		$("#pagenow").val('${requestScope.pageCount }');
+	}
+}
 //提交查询条件
 function subgoodsfor(){
 	document.forms[0].submit();
@@ -43,7 +194,10 @@ function setgoodsprices(){
 		}
 	});
 	if(count > 0 && count < 2){
-		window.location.href = "doGoodsPrices.action?goodsid="+itemid;
+		//window.location.href = "doGoodsPrices.action?goodsid="+itemid+"&pagenow=${requestScope.pagenow}";
+		$('#main_form').attr('action','doGoodsPrices.action');
+		$('.setPricesGoodsId').val(itemid);
+		$('#main_form').submit();
 	} else if(count == 0){
 		alert("请选择商品");
 	} else {
@@ -93,7 +247,7 @@ function dobiaopin(){
 	});
 }
 function seleScant(scantcode,scantname,scantunits,goodsclassname){
-	$("#goodscode").val(scantcode);
+	$("#addgoodscode").val(scantcode);
 	$("#goodsname").val(scantname);
 	$("#goodsunits").val(scantunits);
 	$("#goodsclass option").each(function(i,item){
@@ -105,7 +259,7 @@ function seleScant(scantcode,scantname,scantunits,goodsclassname){
 	
 }
 function popup_formSub(){
-	if($("#goodscode").val() == "" || $("#goodscode").val() == null){
+	if($("#addgoodscode").val() == "" || $("#addgoodscode").val() == null){
 		alert("商品编码不能为空");
 		return;
 	}
@@ -143,114 +297,10 @@ function goodsStatusEdit(goodsid){
 				}
 			});
 }
+function fenye(targetPage){
+	$("#pagenow").val(targetPage);
+	document.forms[0].submit();
+}
 </script>
-</head>
-<body>
-<form action="allGoods.action" method="post">
- <input type="hidden" name="goodscompany" value="${sessionScope.company.companyid }"> 
-<div class="nowposition">当前位置：商品管理》全部商品</div>
-<div class="navigation">
-查询条件:&nbsp;&nbsp;<input type="text" name="goodscode" value="${requestScope.goodsCon.goodscode }">
-<input class="button" type="button" value="查询" onclick="subgoodsfor()">
-<input class="button" type="button" value="价格设置" onclick="setgoodsprices()">
-<input class="button" type="button" value="添加商品" onclick="addgoods()">
-<input class="button" type="button" value="刷新" onclick="javascript:window.location.reload()">
-</div>
-<table class="bordered">
-    <thead>
-    <tr>
-    	<th></th>
-        <th>序号</th>
-		<th>商品编号</th>
-		<th>商品名称</th>
-		<th>规格</th>
-		<th>类别</th>
-		<th>状态</th>
-		<th>创建时间</th>
-		<th>创建人</th>
-		<th>修改时间</th>
-		<th>修改人</th>
-    </tr>
-    </thead>
-    <c:if test="${fn:length(requestScope.goodsList) != 0 }">
-	<c:forEach var="goods" items="${requestScope.goodsList }" varStatus="goodsSta">
-		<tr>
-			<td><input type="checkbox" id="${goods.goodsid}"></td>
-			<td><c:out value="${goodsSta.count}"></c:out></td>
-			<td>${goods.goodscode}</td>
-			<td>${goods.goodsname}</td>
-			<td>${goods.goodsunits}</td>
-			<td>${goods.gClass.goodsclassname}</td>
-			<td>
-			<a class="edit_goodsStatus${goods.goodsid}" onclick="goodsStatusEdit('${goods.goodsid}')" >
-			${goods.goodsstatue}</a>
-			</td>
-			<td>${goods.createtime}</td>
-			<td>${goods.creator}</td>
-			<td>${goods.updtime}</td>
-			<td>${goods.updor}</td>
-		</tr>
-	</c:forEach>
-	</c:if>
-	<c:if test="${fn:length(requestScope.goodsList)==0 }">
-		<tr><td colspan="14" align="center" style="font-size: 20px;color: red;"> 没有信息</td></tr>
-	</c:if>
-    	<tr>
-		 <td colspan="14" align="center">
-		 	<a>第一页</a>
-		 	<a>上一页</a>
-		 	<span>当前第${requestScope.pagenow }页</span>
-		 	<a>下一页</a>
-		 	<a>最后一页</a>
-		 </td>
-	 </tr>
-</table>
-</form>
-<!--弹框-->
-<div class="cd-popup" role="alert">
-	<div class="elegant-aero">
-		<form id="popup_form" action="addGoods.action" method="post" class="STYLE-NAME">
-		<input type="hidden" name="creator" value="${sessionScope.company.companyshop }">
-		<input type="hidden" name="goodscompany" value="${sessionScope.company.companyid }">
-			<h1>添加商品</h1>
-			<label><span>商品编码 :</span><input id="goodscode" type="text"
-				name="goodscode" placeholder="商品编码" /></label>
-			<label><span>商品名称 :</span><input id="goodsname" type="text"
-				name="goodsname" placeholder="商品名称" /></label>
-			<label><span>规格 :</span><input id="goodsunits" type="text"
-				name="goodsunits" placeholder="规格" /></label>
-			<label><span>小类名称 :</span>
-			<select name="goodsclass" id="goodsclass">
-				<option value="">请选择</option>
-			</select>
-			</label>
-			<p><label><input type="button"
-				class="popup_button" value="提交" onclick="popup_formSub()"/>
-			</label>
-			<label><input type="button"
-				class="popup_button" value="从标品库中选择" onclick="dobiaopin()"/>
-			</label>
-			<label><input type="button"
-				class="popup_button" value="关闭窗口" onclick="close_popup()"/>
-			</label></p>
-		</form>
-	</div>
-</div>
-<!--弹框-->
-<div class="cd-popup2" role="alert">
-	<table class="bordered" id="scant" style="margin: 5% auto 0 auto;">
-		<thead>
-	    <tr>
-	        <th>序号</th>
-			<th>商品编码</th>
-			<th>商品名称</th>
-			<th>描述</th>
-			<th>规格</th>
-			<th>小类名称</th>
-			<th>点击选择</th>
-	    </tr>
-	    </thead>
-	</table>
-</div>
 </body>
 </html>

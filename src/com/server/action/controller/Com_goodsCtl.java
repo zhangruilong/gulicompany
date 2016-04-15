@@ -65,6 +65,7 @@ public class Com_goodsCtl {
 		model.addAttribute("goodsCon", goodsCon);
 		model.addAttribute("pageCount", pageCount);
 		model.addAttribute("pagenow", pagenow);
+		model.addAttribute("count", count);
 		return "forward:/companySys/goodsMana.jsp";
 	}
 	//全部促销品
@@ -76,21 +77,23 @@ public class Com_goodsCtl {
 	}
 	//到商品价格页面
 	@RequestMapping("/companySys/doGoodsPrices")
-	public String doGoodsPrices(Model model,Goods goodsCon){
-		goodsCon = goodsMapper.selectByPrimaryKey(goodsCon.getGoodsid());
+	public String doGoodsPrices(Model model,Goods goodsCon,Integer pagenow){
+		Goods editPriGoods = goodsMapper.selectByPrimaryKey(goodsCon.getGoodsid());
+		model.addAttribute("editPriGoods", editPriGoods);
 		model.addAttribute("goodsCon", goodsCon);
+		model.addAttribute("pagenow", pagenow);
 		return "forward:/companySys/goodsPrices.jsp";
 	}
 	//设置商品价格
 	@RequestMapping("/companySys/addGoodsPrices")
 	@ResponseBody
-	public Map<String, Object> addGoodsPrices(Goods goodsCon,Prices prices){
+	public Map<String, Object> addGoodsPrices(Goods editPriGoods,Prices prices){
 		Map<String, Object> map = new HashMap<String, Object>();
-		goodsCon = goodsMapper.selectByPrimaryKey(goodsCon.getGoodsid());
+		Goods updateGoods = goodsMapper.selectByPrimaryKey(editPriGoods.getGoodsid());
 		String[] priceStrs = prices.getPricesprice().split(",");
 		String[] price2Strs = prices.getPricesprice2().split(",");
 		prices.setPricesprice2(null);
-		if(goodsCon.getPricesList() == null || goodsCon.getPricesList().size() < 9){
+		if(updateGoods.getPricesList() == null || updateGoods.getPricesList().size() < 9){
 			//如果没有价格
 			for (int i = 0; i < priceStrs.length; i++) {
 				for (int j = 0; j < price2Strs.length; j++) {
@@ -136,8 +139,8 @@ public class Com_goodsCtl {
 				} 
 			}
 		}
-		goodsCon.setUpdtime(DateUtils.getDateTime());
-		goodsMapper.updateByPrimaryKeySelective(goodsCon);
+		updateGoods.setUpdtime(DateUtils.getDateTime());
+		goodsMapper.updateByPrimaryKeySelective(updateGoods);
 		return map;
 	}
 	//修改商品状态

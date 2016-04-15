@@ -101,6 +101,7 @@
 			window.localStorage.setItem("customer",JSON.stringify(data));
 			$(".meg").text("注册成功！");
 			$(".cd-buttons a").attr("href","index.jsp");
+			$(".cd-popup").addClass("is-visible");	//弹出窗口
 		});
 	}
 	

@@ -51,7 +51,7 @@ public class Com_customerCtl {
 	@ResponseBody
 	public Map<String,Object> editCcusAndCus(Customer customer,Ccustomer ccustomer){
 		Map<String,Object> map = new HashMap<String, Object>();
-		//customer.setCustomerlevel(Integer.parseInt(ccustomer.getCcustomerdetail()));
+		customer.setCustomerlevel(Integer.parseInt(ccustomer.getCcustomerdetail()));
 		customer.setUpdtime(DateUtils.getDateTime());				//设置客户修改时间
 		customerMapper.updateByPrimaryKeySelective(customer);
 		ccustomerMapper.updateByPrimaryKeySelective(ccustomer);
