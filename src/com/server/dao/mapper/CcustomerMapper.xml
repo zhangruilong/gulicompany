@@ -31,8 +31,25 @@
   <sql id="Base_Column_List" >
     CCUSTOMERID, CCUSTOMERCOMPANY, CCUSTOMERCUSTOMER, CCUSTOMERDETAIL, CREATETIME, CREATOR
   </sql>
+  <!-- 根据供应商查询客户关系(数量) -->
+  <select id="selectCusByComCount" resultType="int">
+    select 
+		count(*) 
+	from 
+		ccustomer 
+		left outer join customer 
+		on ccustomer.ccustomercustomer = customer.customerid
+		where ccustomer.ccustomercompany = #{ccustomer.ccustomercompany}
+		<if test="ccustomer.customer != null">
+			<if test="ccustomer.customer.customertype != null and ccustomer.customer.customertype != ''">
+				and customer.customertype = #{ccustomer.customer.customertype}
+			</if>
+		</if>
+  </select>
   <!-- 根据供应商查询客户关系 -->
-  <select id="selectCusByCom" resultMap="BaseResultMap" parameterType="com.server.pojo.entity.Ccustomer" >
+  <select id="selectCusByCom" resultMap="BaseResultMap">
+  	select * from 
+	(select A.*, ROWNUM RN from (
     select 
 		ccustomer.ccustomerid,
 		ccustomer.ccustomerdetail,
@@ -41,12 +58,14 @@
 		ccustomer 
 		left outer join customer 
 		on ccustomer.ccustomercustomer = customer.customerid
-		where ccustomer.ccustomercompany = #{ccustomercompany}
-		<if test="customer != null">
-			<if test="customer.customertype != null and customer.customertype != ''">
-				and customer.customertype = #{customer.customertype}
+		where ccustomer.ccustomercompany = #{ccustomer.ccustomercompany}
+		<if test="ccustomer.customer != null">
+			<if test="ccustomer.customer.customertype != null and ccustomer.customer.customertype != ''">
+				and customer.customertype = #{ccustomer.customer.customertype}
 			</if>
 		</if>
+		) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) ) 
+		where RN &gt; ((#{nowpage}-1)*#{pagesize})
   </select>
   <!-- 根据客户id查询所有关系系统 -->
   <select id="selectByCusId" resultMap="BaseResultMap" parameterType="java.lang.String" >

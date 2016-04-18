@@ -2,41 +2,25 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@taglib uri="http://jsptags.com/tags/navigation/pager" prefix="pg"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 String customertype = request.getParameter("customer.customertype");
 %>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE>
 <html>
 <head>
 <title></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript" src="../sysjs/jquery.min.js"></script>
 <link href="css/tabsty.css" rel="stylesheet" type="text/css">
-<script type="text/javascript">
-var customertype = '<%=customertype %>';
-$(function(){
-	if(customertype == null || customertype == ''){
-		$(".nowposition").html("当前位置：客户管理》全部客户");
-	} else if(customertype == '3'){
-		$(".nowposition").html("当前位置：客户管理》餐饮客户");
-	} else if(customertype == '2'){
-		$(".nowposition").html("当前位置：客户管理》商超客户");
-	} else if(customertype == '1'){
-		$(".nowposition").html("当前位置：客户管理》组织单位客户");
-	}
-	
-})
 
-</script>
 </head>
 <body>
- <pg:pager maxPageItems="10" url="allCustomer.action" export="currentNumber=pageNumber">
- <pg:param name="ccustomercompany" value="${sessionScope.company.companyid }"/>
- <pg:param name="customer.customertype" value="${requestScope.ccustomerCon.customer.customertype}"/>
+<form action="allCustomer.action" method="post" id="main_form">
+<input type="hidden" name="ccustomercompany" value="${requestScope.ccustomerCon.ccustomercompany }">
+<input type="hidden" name="customer.customertype" value="${requestScope.ccustomerCon.customer.customertype }">
 <div class="nowposition">当前位置：客户管理》全部客户</div>
 <br />
 <table class="bordered">
@@ -56,7 +40,6 @@ $(function(){
     </thead>
     <c:if test="${fn:length(requestScope.ccustomerList) != 0 }">
 	<c:forEach var="ccustomer" items="${requestScope.ccustomerList }" varStatus="ccustomerSta">
-	<pg:item>
 		<tr>
 			<td><c:out value="${ccustomerSta.count}"></c:out></td>
 			<td>${ccustomer.customer.customercode}</td>
@@ -69,31 +52,75 @@ $(function(){
 			<td>${ccustomer.customer.updtime}</td>
 			<td><a href="editCusInfo.jsp?customerid=${ccustomer.customer.customerid}&ccustomerid=${ccustomer.ccustomerid}">修改</a></td>
 		</tr>
-	</pg:item>
 	</c:forEach>
 	</c:if>
 	<c:if test="${fn:length(requestScope.ccustomerList)==0 }">
-		<tr><td colspan="9" align="center" style="font-size: 20px;color: red;"> 没有信息</td></tr>
+		<tr><td colspan="10" align="center" style="font-size: 20px;color: red;"> 没有信息</td></tr>
 	</c:if>
     	<tr>
-		 <td colspan="9" align="center">	
-			 <pg:index>
-			 <pg:first><a href="${pageUrl }">第一页</a></pg:first>
-			 <pg:prev><a href="${pageUrl}">上一页</a></pg:prev>
-			 <pg:pages>
-			 	<c:if test="${currentNumber != pageNumber }">
-				 	<a onclick="nowpage(this)" href="${pageUrl}">[${pageNumber }]</a>
-			 	</c:if>
-			 	<c:if test="${currentNumber == pageNumber }">
-			 		<span class="fenye">${pageNumber }</span>
-			 	</c:if>
-			 </pg:pages>
-			 <pg:next><a href="${pageUrl}">下一页</a></pg:next>
-			 <pg:last><a href="${pageUrl }">最后一页</a></pg:last>
-			 </pg:index>
+		 <td colspan="10" align="center">
+		 <c:if test="${requestScope.pagenow > 1 }">
+		 	<a onclick="fenye('1')">第一页</a>
+		 </c:if>
+		 <c:if test="${requestScope.pagenow == 1 }">
+		 	<span>第一页</span>
+		 </c:if>
+		  <c:if test="${requestScope.pagenow > 1 }">
+		 	<a onclick="fenye('${requestScope.pagenow - 1 }')">上一页</a>
+		 </c:if>
+		 <c:if test="${requestScope.pagenow == 1 }">
+		 	<span>上一页</span>
+		 </c:if>
+		 	
+		 	<span>当前第${requestScope.pagenow }页</span>
+		 	
+		 <c:if test="${requestScope.pagenow < requestScope.pageCount }">
+		 	<a onclick="fenye('${requestScope.pagenow + 1 }')">下一页</a>
+		 </c:if>
+		 <c:if test="${requestScope.pagenow == requestScope.pageCount }">
+		 	<span>下一页</span>
+		 </c:if>
+		 <c:if test="${requestScope.pagenow < requestScope.pageCount }">
+		 	<a onclick="fenye('${requestScope.pageCount }')">最后一页</a>
+		 </c:if>
+		 <c:if test="${requestScope.pagenow == requestScope.pageCount }">
+		 	<span>最后一页&nbsp;</span>
+		 </c:if>
+		 	<span>跳转到第<input style="width: 22px;text-align: center;" size="1" type="text" id="pagenow" name="pagenow" value="${requestScope.pagenow }">页</span>
+		 	<input type="submit" value="GO" style="width: 40px;height: 20px;font-size:8px; text-align: center;cursor:pointer;">
+		 	<span>一共 ${requestScope.count } 条数据</span>
 		 </td>
 	 </tr>       
 </table>
-</pg:pager>
+</form>
+<script type="text/javascript">
+var customertype = '<%=customertype %>';
+$(function(){
+	if(customertype == null || customertype == ''){
+		$(".nowposition").html("当前位置：客户管理》全部客户");
+	} else if(customertype == '3'){
+		$(".nowposition").html("当前位置：客户管理》餐饮客户");
+	} else if(customertype == '2'){
+		$(".nowposition").html("当前位置：客户管理》商超客户");
+	} else if(customertype == '1'){
+		$(".nowposition").html("当前位置：客户管理》组织单位客户");
+	}
+	$("#main_form").on("submit",function(){
+		checkCondition();
+	});
+})
+//检查查询条件是否变化
+function checkCondition(){
+	if(parseInt($("#pagenow").val()) > '${requestScope.pageCount }' ){
+		$("#pagenow").val('${requestScope.pageCount }');
+	}
+}
+//分页
+function fenye(targetPage){
+	$("#pagenow").val(targetPage);
+	checkCondition()
+	document.forms[0].submit();
+}
+</script>
 </body>
 </html>

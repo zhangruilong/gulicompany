@@ -9,7 +9,7 @@ body {
      -moz-box-shadow:inset 2px 1px 4px #A0A0A0;
     -webkit-box-shadow: inset 2px 1px 4px #A0A0A0;
     box-shadow: inset 2px 1px 4px #A0A0A0;
-    
+    height: 100%;
 }
 
 table {

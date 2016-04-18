@@ -23,12 +23,23 @@
     TIMEGOODSUNIT, TIMEGOODSPRICE, TIMEGOODSORGPRICE, TIMEGOODSNUM, TIMEGOODSCLASS, TIMEGOODSIMAGE, 
     TIMEGOODSSTATUE, CREATETIME, CREATOR
   </sql>
+  <!-- 根据条件查询(数量) -->
+  <select id="selectByConditionCount" resultType="int" parameterType="com.server.pojo.entity.Timegoods" >
+    select 
+    	count(*) 
+    from timegoods
+    where timegoodscompany = #{timegoodscompany}
+  </select>
   <!-- 根据条件查询 -->
-  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.server.pojo.entity.Timegoods" >
+  <select id="selectByCondition" resultMap="BaseResultMap">
+  select * from 
+	(select A.*, ROWNUM RN from (
     select 
     <include refid="Base_Column_List" />
     from timegoods
-    where timegoodscompany = #{timegoodscompany}
+    where timegoodscompany = #{timegoods.timegoodscompany}
+    ) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) ) 
+		where RN &gt; ((#{nowpage}-1)*#{pagesize})
   </select>
   <!-- 根据主键查询 -->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >

@@ -26,6 +26,7 @@ import com.server.pojo.entity.Ccustomer;
 import com.server.pojo.entity.City;
 import com.server.pojo.entity.Customer;
 import com.system.tools.util.CommonUtil;
+import com.system.tools.util.DateUtils;
 @Controller
 public class LoginController {
 	@Autowired
@@ -64,6 +65,7 @@ public class LoginController {
 		customer.setCustomerstatue("启用");
 		customer.setCustomerlevel(3);
 		customer.setCustomertype("3");
+		customer.setCreatetime(DateUtils.getDateTime());
 		customerMapper.insertSelective(customer);		//添加新客户
 		//添加新地址
 		Address address = new Address();

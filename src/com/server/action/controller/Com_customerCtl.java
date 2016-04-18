@@ -29,10 +29,23 @@ public class Com_customerCtl {
 	private CustomerMapper customerMapper;
 	//全部客户
 	@RequestMapping(value="/companySys/allCustomer")
-	public String allCustomer(Model model,Ccustomer ccustomerCon){
-		List<Ccustomer> ccustomerList = ccustomerMapper.selectCusByCom(ccustomerCon);
+	public String allCustomer(Model model,Ccustomer ccustomerCon,Integer pagenow){
+		if(pagenow == null){
+			pagenow = 1;
+		}
+		Integer count = ccustomerMapper.selectCusByComCount(ccustomerCon);	//总信息条数
+		Integer pageCount;		//总页数
+		if(count % 10 ==0){
+			pageCount = count / 10;
+		} else {
+			pageCount = (count / 10) +1;
+		}
+		List<Ccustomer> ccustomerList = ccustomerMapper.selectCusByCom(ccustomerCon,pagenow,10);
 		model.addAttribute("ccustomerList", ccustomerList);
 		model.addAttribute("ccustomerCon", ccustomerCon);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("pagenow", pagenow);
+		model.addAttribute("count", count);
 		return "forward:/companySys/customerMana.jsp";
 	}
 	//修改客户信息页面

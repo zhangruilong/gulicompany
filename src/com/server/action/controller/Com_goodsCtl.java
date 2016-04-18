@@ -70,9 +70,23 @@ public class Com_goodsCtl {
 	}
 	//全部促销品
 	@RequestMapping("/companySys/allTimeGoods")
-	public String allTimeGoods(Model model,Timegoods timegoodsCon){
-		List<Timegoods> timegoodsList = timegoodsMapper.selectByCondition(timegoodsCon);
+	public String allTimeGoods(Model model,Timegoods timegoodsCon,Integer pagenow){
+		if(pagenow == null){
+			pagenow = 1;
+		}
+		Integer count = timegoodsMapper.selectByConditionCount(timegoodsCon);	//总信息条数
+		Integer pageCount;		//总页数
+		if(count % 10 ==0){
+			pageCount = count / 10;
+		} else {
+			pageCount = (count / 10) +1;
+		}
+		List<Timegoods> timegoodsList = timegoodsMapper.selectByCondition(timegoodsCon,pagenow,10);
 		model.addAttribute("timegoodsList", timegoodsList);
+		model.addAttribute("timegoodsCon", timegoodsCon);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("pagenow", pagenow);
+		model.addAttribute("count", count);
 		return "forward:/companySys/TimegoodsMana.jsp";
 	}
 	//到商品价格页面
