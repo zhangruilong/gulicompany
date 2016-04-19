@@ -27,14 +27,16 @@ input:focus{ outline:none}
 </head>
 
 <body>
-<form action="System_attachAction.do?other=getch&method=upload" method="get">
+<form action="System_attachAction.do" method="post" enctype="multipart/form-data">
 <input type="hidden" name="json" id="json" value="">
+<input type="hidden" name="method" id="method" value="uploadImg">
+<input type="hidden" name="other" id="other" value="getch">
 <div class="reg-wrapper">
 	<ul>
     	<li>
         	<span>店铺照片</span> 
         	<div id="uploadImg">
-                <input type="file" id="file_input" />
+                <input type="file" id="file_input" name=""/>
                 <a href="#" id="clo">点击上传</a> 
                 <span id="result">
                   <img src="images/mendian.jpg" style="border-radius:50px;">
@@ -79,14 +81,10 @@ function readFile(){
 	}
 }
 function uploadimg(){
-	$("#json").val('{"code":"bianma","detail":"","classify":"客户","fid":"'+customer.customerid+',"}');
+	$("#json").val('[{"code":"bianma","detail":"","classify":"客户","fid":"'+customer.customerid+',"}]');
 	document.forms[0].submit();
-	/* $.getJSON("System_attachAction.do?other=getch&method=upload",{
-		"code":"bianma",
-		"detail":"",
-		"classify":"客户",
-		"fid":customer.customerid+","
-	},function(){alert("ok")}); */
+	/* var json = '[{"code":"bianma","detail":"","classify":"客户","fid":\"'+customer.customerid+'\"}]';
+	$.getJSON("System_attachAction.do?other=getch&method=uploadImg",{json:json},function(){alert("ok")}); */
 }
 </script>
 </body>

@@ -23,6 +23,7 @@ public class Com_loginCtl {
 	public String login(HttpSession session,Company company){
 		Company company2 = companyMapper.selectLogin(company);
 		session.setAttribute("company", company2);
+		session.setMaxInactiveInterval(7200);
 		return "redirect:/companySys/login.jsp";
 	}
 	//注销

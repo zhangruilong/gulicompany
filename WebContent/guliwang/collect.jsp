@@ -75,7 +75,7 @@ input:checked ~ input:active {
 		<div class="shoucang-wrap">
 			<ul>
 				<c:forEach items="${requestScope.customerCollect.collectList }" var="collect">
-					<li name="${collect.collectid }"><a><span class="fl">
+					<li name="${collect.collectid }"><a href="goods.jsp?searchdishes=${collect.goods.goodscode }"><span class="fl">
 					<img src="../${collect.goods.goodsimage }" alt="" onerror="javascript:this.src='images/default.jpg'"/></span>
 						<h1>${collect.goods.goodsname }<span>（${collect.goods.goodsunits }）</span>
 							</h1>

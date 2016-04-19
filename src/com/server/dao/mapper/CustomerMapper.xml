@@ -94,6 +94,8 @@
 		customer.customerid,
 		customer.customertype,
 		collect.collectid,
+		goods.goodsid,
+		goods.goodscode,
 		goods.goodsname,
 		goods.goodsunits,
 		goods.goodsimage,

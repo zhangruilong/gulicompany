@@ -60,6 +60,7 @@
     ORDERMWAY, ORDERMSTATUE, ORDERMDETAIL, ORDERMTIME, ORDERMCONNECT, ORDERMPHONE, ORDERMADDRESS, 
     UPDTIME, UPDOR, ORDERMEMP
   </sql>
+  <!-- 根据ordermcustomer和orderdcode(商品编码) -->
   <!-- 根据供应商(和条件)查询订单(分页) -->
   <select id="selectByPage" resultType="com.server.pojo.entity.Ordermview">
   	select * from 

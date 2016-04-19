@@ -19,7 +19,6 @@
 </head>
 
 <body>
-<form action="addAddress.action" method="post">
 <div class="reg-wrapper">
 	<ul>
     	<li><span>收件人</span> <input name="addressconnect" type="text" placeholder="请输入联系人名" /></li>
@@ -44,14 +43,10 @@
     	<li><label><input name="addressture" type="checkbox" value="1" class="set-default" style="margin-top: 3px;"> <span>设置默认</span></label></li>
     </ul>
 </div>
-<input id="addressaddress" type="hidden" name="addressaddress" value="">
-<input type="hidden" name="addresscustomer" id="addresscustomer" value="">
-    <input type="hidden" name="customerId" id="customerId" value="">
 <div class="add-address-btn">
-	<a id="add-address-btn-back" >返回</a>
+	<a onclick="javascript:history.go(-1)" >返回</a>
     <a onclick="addAddress()">保存</a>
 </div>
-</form>
 <script src="js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
 var customer = JSON.parse(window.localStorage.getItem("customer"));
@@ -60,13 +55,18 @@ var customer = JSON.parse(window.localStorage.getItem("customer"));
 		var city = $("#city").val();
 		var xian = $("#xian").val();
 		var detaAddressa = $("#detaAddressa").val();
-		var addressaddress = $("#addressaddress").val(city+xian+detaAddressa);
-		document.forms[0].submit();
+		$.getJSON('addAddress.action',{
+			'addressconnect':$('[name="addressconnect"]').val(),
+			'addressphone':$('[name="addressphone"]').val(),
+			'addressaddress':city+xian+detaAddressa,
+			'addresscustomer':customer.customerid,
+			'addressture':$('[name="addressture"]').val(),
+			'customerId':customer.customerid
+		},function(data){
+			window.location.href = 'doAddressMana.action?customerId='+customer.customerid;
+		});
 	}
 	$(function(){
-		$("#addresscustomer").val(customer.customerid);
-		$("#customerId").val(customer.customerid);
-		$("#add-address-btn-back").attr("href","doAddressMana.action?customerId="+customer.customerid);
 		$("#city").change(function(){
 			var customercity = $("#city").val();
 			Ext.Ajax.request({

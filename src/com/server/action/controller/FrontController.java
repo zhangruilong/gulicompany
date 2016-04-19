@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.server.dao.mapper.CityMapper;
 import com.server.dao.mapper.CompanyMapper;
+import com.server.dao.mapper.CustomerMapper;
 import com.server.pojo.entity.City;
 import com.server.pojo.entity.Company;
 /**
@@ -25,6 +26,8 @@ public class FrontController {
 	private CityMapper cityMapper;	
 	@Autowired
 	private CompanyMapper companyMapper;
+	@Autowired
+	private CustomerMapper customerMapper;
 	
 	@RequestMapping(value="/guliwang/doGuliwangIndex",produces="application/json")
 	@ResponseBody
@@ -54,4 +57,21 @@ public class FrontController {
 		pageInfo.put("parentCity", parentCity);
 		return pageInfo;
 	}
+	@RequestMapping(value="/guliwangemp/judgePurchase",produces="application/json")
+	@ResponseBody
+	public Map<String, Object> judgePurchase(Integer timegoodsnum,String timegoodscode){
+		Map<String, Object> map = new HashMap<String, Object>();
+		return map;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+

@@ -35,7 +35,7 @@ input:focus{ outline:none}
     <div style="width:100%; padding-top:2%; color:#fff; background:url(images/minebg.jpg);">
     	<div id="uploadImg" style="margin:0 41% auto;">
                 <!-- <input type="file" id="file_input" /> -->
-                <a id="clo"></a> 
+                <a id="clo" href="uploadimg.jsp"></a> 
                 <span id="result" style="">
                   <img src="images/default.jpg" style="border-radius:50px;">
                 </span> 
@@ -45,7 +45,7 @@ input:focus{ outline:none}
     </form>
 	<div class="personal-center">
         <a id="a_myshop" onclick="tiaozhuan('doEditCus.action?customerid=')">我的店铺 <span class="sign"></span></a>
-        <a id="a_mycollect" onclick="tiaozhuan('doCollect.action?comid=')">我的收藏 <span class="sign"></span></a>
+        <a id="a_mycollect" onclick="tiaozhuan('doCollPage.action?comid=')">我的收藏 <span class="sign"></span></a>
         <a onclick="notOnLine()">我的谷币 <span class="sign"></span></a>
         <a id="a_address" onclick="tiaozhuan('doAddressMana.action?customerId=')">收货地址 <span class="sign"></span></a>
     </div>
