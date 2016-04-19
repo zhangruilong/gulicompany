@@ -74,16 +74,18 @@ $(function(){
 	getJson(basePath+"CustomerAction.do",{method:"selCustomer",
 		wheresql : "openid='"+openid+"'"},initCustomer,null);		//得到openid
 	if(!window.localStorage.getItem("totalnum")){
-		//如果没有totalnum
 		window.localStorage.setItem("totalnum",0);
-		$("#totalnum").text(0);
-	}else{
-		$("#totalnum").text(window.localStorage.getItem("totalnum"));
 	}
-	if(window.localStorage.getItem("totalnum")==0)
-		$("#totalnum").hide();
 	if(!window.localStorage.getItem("totalmoney")){
 		window.localStorage.setItem("totalmoney",0);
+	}
+	if(!window.localStorage.getItem("cartnum")){
+		window.localStorage.setItem("cartnum",0);
+	}else if(window.localStorage.getItem("cartnum")==0){
+		$("#totalnum").hide();
+		$("#totalnum").text(0);
+	}else{
+		$("#totalnum").text(window.localStorage.getItem("cartnum"));
 	}
 	//通过ajax查询大类
 	getJson(basePath+"GoodsclassAction.do",{method:"mselAll",wheresql:"goodsclassparent='root' and goodsclassstatue='启用'"},initGoodsclass,null);
@@ -148,11 +150,11 @@ function initDishes(data){
  		$(".home-hot-commodity").append('<li>'+
  	         	'<span class="fl"><img src="../'+item.goodsimage+
  	         	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span> '+
- 	             '<h1>'+item.goodsname+'<span>('+item.goodsunits+')</span></h1>'+
+ 	         	'<h1>'+item.goodsname+'<span>('+item.goodsunits+')</span></h1>'+
  	           '  <div class="block"> '+
  	             	'<span>'+
  	                 '    <input type="radio" id="'+item.goodsid+'radio1" name="'+item.goodsid+'radio" class="regular-radio" checked />'+
- 	                 '    <label for="'+item.goodsid+'radio1">单品价:<font class="font-oringe">￥'+item.pricesprice+'</font>/'+item.pricesunit+'</label>'+
+ 	                '    <label for="'+item.goodsid+'radio1">单品价:<font class="font-oringe">￥'+item.pricesprice+'</font>/'+item.pricesunit+'</label>'+
  	               '  </span>'+
  	               '  <span>'+
  	                   '  <input type="radio" id="'+item.goodsid+'radio2" name="'+item.goodsid+'radio" class="regular-radio" />'+
@@ -312,7 +314,10 @@ function addnum(obj,pricesprice,goodsname,pricesunit,goodsunits,goodscode,goodsc
 		});
 	}
 	window.localStorage.setItem("sdishes",JSON.stringify(sdishes));
-	$("#totalnum").text(window.localStorage.getItem("totalnum"));
+	
+	var cartnum = parseInt(window.localStorage.getItem("cartnum"));
+	$("#totalnum").text(cartnum+1);
+	window.localStorage.setItem("cartnum",cartnum+1);
 }
 function subnum(obj,pricesprice){
 	var numt = $(obj).next(); 
@@ -351,7 +356,9 @@ function subnum(obj,pricesprice){
 		}
 		window.localStorage.setItem("sdishes",JSON.stringify(sdishes));
 	}
-	$("#totalnum").text(window.localStorage.getItem("totalnum"));
+	var cartnum = parseInt(window.localStorage.getItem("cartnum"));
+	$("#totalnum").text(cartnum-1);
+	window.localStorage.setItem("cartnum",cartnum-1);
 }
 
 function nextpage(){

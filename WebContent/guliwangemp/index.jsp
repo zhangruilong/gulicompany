@@ -159,7 +159,8 @@
 				mdishes.orderdetnum = 1;
 				sdishes.push(mdishes); 											//往json对象中添加一个新的元素(订单)
 				window.localStorage.setItem("sdishes", JSON.stringify(sdishes));
-				
+				var cartnum = parseInt(window.localStorage.getItem("cartnum"));
+				window.localStorage.setItem("cartnum",cartnum+1);
 				window.localStorage.setItem("totalnum", 1); 					//设置缓存中的种类数量等于一 
 				window.localStorage.setItem("totalmoney", timegoodsorgprice);	//总金额等于商品价
 				window.location.href = "cart.jsp";
@@ -198,6 +199,8 @@
 						var tmoney = parseFloat(window.localStorage.getItem("totalmoney")); //从缓存中取出总金额
 						var newtmoney = (tmoney+parseFloat(timegoodsorgprice)).toFixed(2);
 						window.localStorage.setItem("totalmoney",newtmoney);	
+						var cartnum = parseInt(window.localStorage.getItem("cartnum"));
+						window.localStorage.setItem("cartnum",cartnum+1);
 						window.location.href = "cart.jsp";
 					}	
 				})

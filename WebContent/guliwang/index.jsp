@@ -69,7 +69,6 @@
 	var xian = '${param.xian}';
 	var city = '${param.city}';
 	$(function(){ 
-		
 		//openid
 		if(!window.localStorage.getItem("openid")||"null"==window.localStorage.getItem("openid")){
 			alert(window.localStorage.getItem("openid"));
@@ -85,15 +84,18 @@
 				wheresql : "openid='"+window.localStorage.getItem("openid")+"'"},initCustomer,null);		//得到openid
 		}
 		
-		//购物车图标上的数量
 		if(!window.localStorage.getItem("totalnum")){
 			window.localStorage.setItem("totalnum",0);
+		}
+		//购物车图标上的数量
+		if(!window.localStorage.getItem("cartnum")){
+			window.localStorage.setItem("cartnum",0);
+		}else if(window.localStorage.getItem("cartnum")==0){
+			$("#totalnum").hide();
 			$("#totalnum").text(0);
 		}else{
-			$("#totalnum").text(window.localStorage.getItem("totalnum"));
+			$("#totalnum").text(window.localStorage.getItem("cartnum"));
 		}
-		if(window.localStorage.getItem("totalnum")==0)
-			$("#totalnum").hide();
 		
 	})
 	//openid
@@ -193,6 +195,8 @@
 				
 				window.localStorage.setItem("totalnum", 1); 					//设置缓存中的种类数量等于一 
 				window.localStorage.setItem("totalmoney", timegoodsorgprice);	//总金额等于商品价
+				var cartnum = parseInt(window.localStorage.getItem("cartnum"));
+				window.localStorage.setItem("cartnum",cartnum+1);
 				window.location.href = "cart.jsp";
 			} else {
 				
@@ -229,6 +233,8 @@
 						var tmoney = parseFloat(window.localStorage.getItem("totalmoney")); //从缓存中取出总金额
 						var newtmoney = (tmoney+parseFloat(timegoodsorgprice)).toFixed(2);
 						window.localStorage.setItem("totalmoney",newtmoney);	
+						var cartnum = parseInt(window.localStorage.getItem("cartnum"));
+						window.localStorage.setItem("cartnum",cartnum+1);
 						window.location.href = "cart.jsp";
 					}	
 				})

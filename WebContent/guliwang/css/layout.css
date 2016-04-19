@@ -178,7 +178,7 @@ color:#fff !important;
 .cart-wrapper li .shuliang, .goods-wrapper .home-hot-commodity li .shuliang { position: relative; float: left; width: 30px; height: 24px; float: left; margin: 0; border: none; border-top: 1px #ccc solid; border-bottom: solid 1px #ccc; text-align: center; padding: 1px 0; background-color:#fff }
 /*商品*/
 .goods-wrapper .home-hot-commodity li h1 { margin: 2% 0 }
-.stock-num { position: relative; margin: 2% 0; float: left; width: 65% }
+.stock-num { position: relative; margin: 2% 4%; float: right; width: 65% }
 .block .regular-radio:checked + label { border: none; font-size: 1.4em }
 .block span { display: block }
 .block .regular-radio + label { border: none; box-shadow: none; background: url(../images/price-rd-dis.png) no-repeat; top: 60%; left: 0; margin: 0; background-position: 2% 50%; background-size: 10%; font-size: 1.4em }

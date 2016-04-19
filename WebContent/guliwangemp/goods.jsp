@@ -72,16 +72,18 @@ var emp = JSON.parse(window.localStorage.getItem("emp"));
 var customer = JSON.parse(window.localStorage.getItem("customeremp"));
 $(function(){ 
 	if(!window.localStorage.getItem("totalnum")){
-		//如果没有totalnum
 		window.localStorage.setItem("totalnum",0);
-		$("#totalnum").text(0);
-	}else{
-		$("#totalnum").text(window.localStorage.getItem("totalnum"));
 	}
-	if(window.localStorage.getItem("totalnum")==0)
-		$("#totalnum").hide();
 	if(!window.localStorage.getItem("totalmoney")){
 		window.localStorage.setItem("totalmoney",0);
+	}
+	if(!window.localStorage.getItem("cartnum")){
+		window.localStorage.setItem("cartnum",0);
+	}else if(window.localStorage.getItem("cartnum")==0){
+		$("#totalnum").hide();
+		$("#totalnum").text(0);
+	}else{
+		$("#totalnum").text(window.localStorage.getItem("cartnum"));
 	}
 	//通过ajax查询大类
 	getJson(basePath+"GoodsclassAction.do",{method:"mselAll",wheresql:"goodsclassparent='root' and goodsclassstatue='启用'"},initGoodsclass,null);
@@ -306,7 +308,10 @@ function addnum(obj,pricesprice,goodsname,pricesunit,goodsunits,goodscode,goodsc
 		});
 	}
 	window.localStorage.setItem("sdishes",JSON.stringify(sdishes));
-	$("#totalnum").text(window.localStorage.getItem("totalnum"));
+
+	var cartnum = parseInt(window.localStorage.getItem("cartnum"));
+	$("#totalnum").text(cartnum+1);
+	window.localStorage.setItem("cartnum",cartnum+1);
 }
 function subnum(obj,pricesprice){
 	var numt = $(obj).next(); 
@@ -345,7 +350,9 @@ function subnum(obj,pricesprice){
 		}
 		window.localStorage.setItem("sdishes",JSON.stringify(sdishes));
 	}
-	$("#totalnum").text(window.localStorage.getItem("totalnum"));
+	var cartnum = parseInt(window.localStorage.getItem("cartnum"));
+	$("#totalnum").text(cartnum-1);
+	window.localStorage.setItem("cartnum",cartnum-1);
 }
 
 function nextpage(){

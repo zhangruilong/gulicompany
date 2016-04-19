@@ -164,6 +164,8 @@ function addnum(obj,dishesprice){
 		}
 	});
 	window.localStorage.setItem("sdishes",JSON.stringify(sdishes));
+	var cartnum = parseInt(window.localStorage.getItem("cartnum"));
+	window.localStorage.setItem("cartnum",cartnum+1);
 }
 //减少商品数量
 function subnum(obj,dishesprice){
@@ -205,6 +207,8 @@ function subnum(obj,dishesprice){
 			});
 		}
 		window.localStorage.setItem("sdishes",JSON.stringify(sdishes));
+		var cartnum = parseInt(window.localStorage.getItem("cartnum"));
+		window.localStorage.setItem("cartnum",cartnum-1);
 		if(window.localStorage.getItem("sdishes") == "[]"){
 			//如果是空购物车
 			window.location.href = "cartnothing.html";
