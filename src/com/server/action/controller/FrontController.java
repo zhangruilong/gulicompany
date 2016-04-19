@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.server.dao.mapper.CityMapper;
 import com.server.dao.mapper.CompanyMapper;
 import com.server.dao.mapper.CustomerMapper;
+import com.server.dao.mapper.OrdermMapper;
 import com.server.pojo.entity.City;
 import com.server.pojo.entity.Company;
+import com.server.pojo.entity.Orderm;
 /**
  * 首页
  * @author taolichao
@@ -27,7 +29,7 @@ public class FrontController {
 	@Autowired
 	private CompanyMapper companyMapper;
 	@Autowired
-	private CustomerMapper customerMapper;
+	private OrdermMapper ordermMapper;
 	
 	@RequestMapping(value="/guliwang/doGuliwangIndex",produces="application/json")
 	@ResponseBody
@@ -57,10 +59,17 @@ public class FrontController {
 		pageInfo.put("parentCity", parentCity);
 		return pageInfo;
 	}
-	@RequestMapping(value="/guliwangemp/judgePurchase",produces="application/json")
+	//判断限购数量是否到达上限
+	@RequestMapping(value="/guliwang/judgePurchase",produces="application/json")
 	@ResponseBody
-	public Map<String, Object> judgePurchase(Integer timegoodsnum,String timegoodscode){
+	public Map<String, Object> judgePurchase(Integer timegoodsnum,String timegoodscode,String customerid){
 		Map<String, Object> map = new HashMap<String, Object>();
+		Integer num = ordermMapper.selectOrderByCustomerGoods(customerid, timegoodscode);
+		if(num != null && num >= timegoodsnum){
+			map.put("result", "no");
+		} else {
+			map.put("result", "ok");
+		}
 		return map;
 	}
 }

@@ -130,7 +130,7 @@
 		$.each(data.companyList,function(i,item1){
 			$.each(item1.timegoodsList,function(j,item2){
 			$(".home-hot-commodity").append('<li><a '+
-					'onclick="chuancan(\''+
+					'onclick="judgePurchase(\''+
 						item2.timegoodsid +'\',\''+
 						item2.timegoodsdetail +'\',\''+
         				item2.timegoodscompany +'\',\''+
@@ -142,8 +142,8 @@
         				item2.timegoodsunit +'\',\''+
         				item2.timegoodsname +'\',\''+
         				item2.timegoodsimage +'\',\''+
-        				item2.timegoodsunits +'\''+
-        				');" '+
+        				item2.timegoodsunits +'\',\''+
+        				item2.timegoodsnum+'\');" '+
 						'> <span class="fl"> <img src="../'+item2.timegoodsimage+
 		 	         	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span>'+
 							'<h1>'+item2.timegoodsname+
@@ -155,6 +155,50 @@
 			});
 		});
 	}
+	//判断是否到达限购数量
+	function judgePurchase(
+			timegoodsid,
+			timegoodsdetail,
+			timegoodscompany,
+			companyshop,
+			companydetail,
+			timegoodsclass,
+			timegoodscode,
+			timegoodsorgprice,
+			timegoodsunit,
+			timegoodsname,
+			timegoodsimage,
+			timegoodsunits,
+			timegoodsnum
+			) {
+		var customer = JSON.parse(window.localStorage.getItem("customer"));
+		$.getJSON('judgePurchase.action',{
+			'timegoodsnum':timegoodsnum,
+			'timegoodscode':timegoodscode,
+			'customerid':customer.customerid
+		},function(data){
+			if(data.result == 'ok'){
+				alert(data.result);
+				chuancan(
+						timegoodsid,
+						timegoodsdetail,
+						timegoodscompany,
+						companyshop,
+						companydetail,
+						timegoodsclass,
+						timegoodscode,
+						timegoodsorgprice,
+						timegoodsunit,
+						timegoodsname,
+						timegoodsimage,
+						timegoodsunits
+						);
+			} else {
+				alert('购买数量超过限购数量');
+			}
+		});
+	}
+
 		//将商品信息存入缓存2
 		function chuancan(
 						timegoodsid,
@@ -187,7 +231,7 @@
 				mdishes.pricesunit = timegoodsunit;
 				mdishes.goodsname = timegoodsname;
 				mdishes.goodsimage = timegoodsimage;
-				
+				mdishes.orderdtype = '秒杀';
 				mdishes.goodsunits = timegoodsunits;
 				mdishes.orderdetnum = 1;
 				sdishes.push(mdishes); 											//往json对象中添加一个新的元素(订单)

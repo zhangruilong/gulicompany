@@ -9,6 +9,10 @@ import com.server.pojo.entity.Ordermview;
 
 public interface OrdermMapper {
 	/**
+	 * 根据ordermcustomer和orderdcode(商品编码)查询订单
+	 */
+	Integer selectOrderByCustomerGoods(@Param("ordermcustomer") String ordermcustomer,@Param("orderdcode") String orderdcode);
+	/**
 	 * 根据供应商(和条件)查询订单(分页)
 	 */
 	List<Ordermview> selectByPage(@Param("staTime") String staTime,
