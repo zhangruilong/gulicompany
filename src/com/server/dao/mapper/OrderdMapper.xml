@@ -40,6 +40,16 @@
     ORDERDID, ORDERDORDERM, ORDERDCODE, ORDERDTYPE, ORDERDNAME, ORDERDDETAIL, ORDERDUNITS, 
     ORDERDPRICE, ORDERDUNIT, ORDERDCLASS, ORDERDNUM, ORDERDMONEY, ORDERDRIGHTMONEY
   </sql>
+  <!-- 查询到客户的所有秒杀品的订单详情 -->
+  <select id="selectOrderdByCustomerMiaosha" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+	orderd.*
+	from orderd
+	left join orderm
+	on orderm.ordermid = orderd.orderdorderm
+	where orderm.ordermcustomer = #{ordermcustomer}
+	and orderd.orderdtype = '秒杀'
+  </select>
   <!-- 根据时间范围(多条件)查询订单(分页) -->
   <select id="selectByPage" resultMap="BaseResultMap" >
   	select * from 

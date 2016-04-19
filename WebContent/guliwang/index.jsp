@@ -129,29 +129,40 @@
 		});
 		$.each(data.companyList,function(i,item1){
 			$.each(item1.timegoodsList,function(j,item2){
-			$(".home-hot-commodity").append('<li><a '+
-					'onclick="judgePurchase(\''+
-						item2.timegoodsid +'\',\''+
-						item2.timegoodsdetail +'\',\''+
-        				item2.timegoodscompany +'\',\''+
-        				item1.companyshop +'\',\''+
-        				item1.companydetail +'\',\''+
-        				item2.timegoodsclass +'\',\''+
-        				item2.timegoodscode +'\',\''+
-        				item2.timegoodsorgprice +'\',\''+
-        				item2.timegoodsunit +'\',\''+
-        				item2.timegoodsname +'\',\''+
-        				item2.timegoodsimage +'\',\''+
-        				item2.timegoodsunits +'\',\''+
-        				item2.timegoodsnum+'\');" '+
-						'> <span class="fl"> <img src="../'+item2.timegoodsimage+
-		 	         	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span>'+
-							'<h1>'+item2.timegoodsname+
-								'<span>（'+item2.timegoodsunits+'）</span>'+
-							'</h1> <span> <strong>￥'+item2.timegoodsorgprice+'/'+item2.timegoodsunit+
-							'</strong> <em>￥'+item2.timegoodsprice+'/'+item2.timegoodsunit+'</em>'+
-								'<font>限购'+item2.timegoodsnum+item2.timegoodsunit+'</font>'+
-					'</span></a></li>');
+			var liObj = '<li><a '+
+			'onclick="judgePurchase(\''+
+			item2.timegoodsid +'\',\''+
+			item2.timegoodsdetail +'\',\''+
+			item2.timegoodscompany +'\',\''+
+			item1.companyshop +'\',\''+
+			item1.companydetail +'\',\''+
+			item2.timegoodsclass +'\',\''+
+			item2.timegoodscode +'\',\''+
+			item2.timegoodsorgprice +'\',\''+
+			item2.timegoodsunit +'\',\''+
+			item2.timegoodsname +'\',\''+
+			item2.timegoodsimage +'\',\''+
+			item2.timegoodsunits +'\',\''+
+			item2.timegoodsnum+'\');" '+
+			'> <span class="fl"> <img src="../'+item2.timegoodsimage+
+	         	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span>'+
+				'<h1>'+item2.timegoodsname+
+					'<span>（'+item2.timegoodsunits+'）</span>'+
+				'</h1> <span> <strong>￥'+item2.timegoodsorgprice+'/'+item2.timegoodsunit+
+				'</strong> <em>￥'+item2.timegoodsprice+'/'+item2.timegoodsunit+'</em>';
+			if(data.cusOrderdList != null && data.cusOrderdList.length != 0){
+				var itemGoodsCount = 0;
+				$.each(data.cusOrderdList,function(k,item3){
+					if(item3.orderdcode == timegoodscode){
+						itemGoodsCount += item3.orderdnum
+					}
+				});
+				liObj += '<font>限购'+(item2.timegoodsnum - itemGoodsCount)+item2.timegoodsunit+'</font>';
+			} else {
+				liObj += '<font>限购'+item2.timegoodsnum+item2.timegoodsunit+'</font>';
+			}
+			
+			$(".home-hot-commodity").append(liObj+'</span></a></li>');
 			});
 		});
 	}
@@ -172,6 +183,9 @@
 			timegoodsnum
 			) {
 		var customer = JSON.parse(window.localStorage.getItem("customer"));
+		if(!customer.customerid){
+			alert("购买前需注册");
+		}
 		$.getJSON('judgePurchase.action',{
 			'timegoodsnum':timegoodsnum,
 			'timegoodscode':timegoodscode,
