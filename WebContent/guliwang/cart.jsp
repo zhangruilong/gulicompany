@@ -17,7 +17,7 @@
 <body>
 <div class="gl-box">
 <form id="form1" runat="server">
-    <div class="wapper-nav">购物车</div>
+    <div class="wapper-nav"><a onclick="javascript:history.go(-1);" class='goback'></a>购物车</div>
     <div class="cart-wrapper" id="tab">
     </div>
 </form>
