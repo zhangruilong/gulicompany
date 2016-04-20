@@ -157,11 +157,11 @@
 						itemGoodsCount += item3.orderdnum
 					}
 				});
-				liObj += '<font>限购'+(item2.timegoodsnum - itemGoodsCount)+item2.timegoodsunit+'</font><br/>'+
-							'<font>限量'+item2.allnum+'箱还剩'+item2.surplusnum+'箱</font>';
+				liObj += '<font>限购'+(item2.timegoodsnum - itemGoodsCount)+item2.timegoodsunit+'</font><br/>'
+							+'<font>限量'+item2.allnum+'箱还剩'+item2.surplusnum+'箱</font>';
 			} else {
-				liObj += '<font>限购'+item2.timegoodsnum+item2.timegoodsunit+'</font><br/>'+
-							'<font>限量'+item2.allnum+'箱还剩'+item2.surplusnum+'箱</font>';
+				liObj += '<font>限购'+item2.timegoodsnum+item2.timegoodsunit+'</font><br/>'
+							+'<font>限量'+item2.allnum+'箱还剩'+item2.surplusnum+'箱</font>';
 			}
 			
 			$(".home-hot-commodity").append(liObj+'</span></a></li>');

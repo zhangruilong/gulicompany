@@ -35,7 +35,7 @@ input:focus{ outline:none}
     <div style="width:100%; padding-top:2%; color:#fff; background:url(images/minebg.jpg);">
     	<div id="uploadImg" style="margin:0 41% auto;">
                 <!-- <input type="file" id="file_input" /> -->
-                <a id="clo" href="uploadimg.jsp"></a> 
+                <!-- <a id="clo" href="uploadimg.jsp"></a>  -->
                 <span id="result" style="">
                   <img src="images/default.jpg" style="border-radius:50px;">
                 </span> 

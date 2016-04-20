@@ -158,7 +158,7 @@ function initDishes(data){
  	               '  </span>'+
  	             	'<span>'+
  	                 '    <input type="radio" id="'+item.goodsid+'radio1" name="'+item.goodsid+'radio" class="regular-radio" checked />'+
- 	                '    <label for="'+item.goodsid+'radio1">单品价:<font class="font-oringe">￥'+item.pricesprice+'</font>/'+item.pricesunit+'</label>'+
+ 	                '    <label for="'+item.goodsid+'radio1">售价:<font class="font-oringe">￥'+item.pricesprice+'</font>/'+item.pricesunit+'</label>'+
  	               '  </span>'+
  	            ' </div>'+
  	           '  <div class="stock-num" name="'+item.goodsid+'">'+

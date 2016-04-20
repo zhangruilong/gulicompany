@@ -79,24 +79,12 @@ input:checked ~ input:active {
 					<img src="../${collect.goods.goodsimage }" alt="" onerror="javascript:this.src='images/default.jpg'"/></span>
 						<h1>${collect.goods.goodsname }<span>（${collect.goods.goodsunits }）</span>
 							</h1>
-							<c:forEach items="${collect.goods.pricesList }" var="price">
-								<c:if test="${price.pricesclass == requestScope.customerCollect.customertype && price.priceslevel == collect.goods.cclevel }">
-									<p>
-										套装价:<font>￥${price.pricesprice2 }</font>/${price.pricesunit2 }
+							<p>
+										<font>&nbsp;</font>
 									</p>
 									<p>
-										单品价:<font>￥${price.pricesprice } </font>/${price.pricesunit }
+										<font>&nbsp;</font>
 									</p>
-								</c:if>
-								<c:if test="${collect.goods.cclevel == null && price.priceslevel == 3 && price.pricesclass == '餐饮客户'}">
-									<p>
-										套装价:<font>￥${price.pricesprice2 }</font>/${price.pricesunit2 }
-									</p>
-									<p>
-										单品价:<font>￥${price.pricesprice } </font>/${price.pricesunit }
-									</p>
-								</c:if>
-							</c:forEach>
 						</a>
 					</li>
 				</c:forEach>

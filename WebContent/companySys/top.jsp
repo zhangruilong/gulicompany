@@ -91,8 +91,8 @@ Company company = (Company)session.getAttribute("company");
 			        +"</a>   "
 			        +"</li>"
 			        +"<li class='nav__item'>"
-			        +"<a href=allTimeGoods.action?timegoodscompany="+'<%=company.getCompanyid() %>'+"  target='main' class='nav__item-link'>"
-			        +"<span class='nav__item-text'>促销商品</span>"
+			        <%-- +"<a href=allTimeGoods.action?timegoodscompany="+'<%=company.getCompanyid() %>'+"  target='main' class='nav__item-link'>" --%>
+			        +"<span class='nav__item-text'>秒杀商品</span>"
 			        +"</a>   "
 			        +"</li>"
 			        +"</ul>");

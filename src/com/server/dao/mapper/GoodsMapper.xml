@@ -68,9 +68,13 @@
   <select id="selectByCondition" resultMap="BaseResultMap">
   select * from 
 (select A.*, ROWNUM RN from (
-	select
-		goods.*
-	from goods
+		select
+    goods.*,
+    goodsclass.goodsclassname,
+    goodsclass.goodsclassid
+    from goods
+    left join goodsclass
+    on goodsclass.goodsclassid = goods.goodsclass
     where goods.goodscompany = #{goods.goodscompany}
     <if test="goods.goodsstatue != null and goods.goodsstatue != ''">
     	and goods.goodsstatue = #{goods.goodsstatue}

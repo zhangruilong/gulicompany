@@ -144,7 +144,6 @@ String goodsstatue = request.getParameter("goodsstatue");
 	        <th>序号</th>
 			<th>商品编码</th>
 			<th>商品名称</th>
-			<th>描述</th>
 			<th>规格</th>
 			<th>小类名称</th>
 			<th>点击选择</th>
@@ -214,22 +213,16 @@ function addgoods(){
 		});
 	});
 }
+//关闭添加商品窗口
 function close_popup(){
 	$(".cd-popup").removeClass("is-visible");	//移除'is-visible' class
 }
+//弹出标品窗口
 function dobiaopin(){
 	$(".cd-popup2").addClass("is-visible");	//弹出标品窗口
 	$.getJSON("getallScant.action",function(data){
-		$("#scant").html('<thead><tr><th>序号</th>'+
-		'<th>商品编码</th>'+
-		'<th>商品名称</th>'+
-		'<th>规格</th>'+
-		'<th>小类名称</th>'+
-		'<th>点击选择</th></tr></thead>');
+		$("#scant td").remove();
 		$.each(data,function(i,item){
-			if(item.scantdetail == null){
-				item.scantdetail = '';
-			}
 			$("#scant").append(
 			'<tr><td>'+(i+1)+'</td>'+
 			'<td>'+item.scantcode+'</td>'+
@@ -246,6 +239,7 @@ function dobiaopin(){
 		});
 	});
 }
+//选择标品
 function seleScant(scantcode,scantname,scantunits,goodsclassname){
 	$("#addgoodscode").val(scantcode);
 	$("#goodsname").val(scantname);
@@ -258,6 +252,7 @@ function seleScant(scantcode,scantname,scantunits,goodsclassname){
 	$(".cd-popup2").removeClass("is-visible");	//移除'is-visible' class
 	
 }
+//提交添加商品的表单
 function popup_formSub(){
 	if($("#addgoodscode").val() == "" || $("#addgoodscode").val() == null){
 		alert("商品编码不能为空");
@@ -277,6 +272,7 @@ function popup_formSub(){
 	}
 	$("#popup_form").submit();
 }
+//修改商品状态
 function goodsStatusEdit(goodsid){
 	var nowstatue = $(".edit_goodsStatus"+goodsid).text();
 	var goodsstatue;

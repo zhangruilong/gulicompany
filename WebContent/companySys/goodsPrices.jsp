@@ -112,25 +112,25 @@ h1 .title_goodsinfo span{
 			</div>
 			</h1>
 			<table>
-			<tr><td colspan="3"><p><span>单品单位:<input size="4" type="text" id="pricesunit" name="pricesunit" value="${requestScope.editPriGoods.pricesList[0].pricesunit }">
-			套装单位:<input size="4" type="text" id="pricesunit2" name="pricesunit2" value="${requestScope.editPriGoods.pricesList[0].pricesunit2 }"></span></p> </td></tr>
+			<tr><td colspan="3"><p><span>单位:<input size="4" type="text" id="pricesunit" name="pricesunit" value="${requestScope.editPriGoods.pricesList[0].pricesunit }">
+			<!-- 套装单位:<input size="4" type="text" id="pricesunit2" name="pricesunit2" value="${requestScope.editPriGoods.pricesList[0].pricesunit2 }"> --></span></p> </td></tr>
 			<tr><td colspan="3"><p style="margin-top: 0px;"><span>餐饮客户价格 :</span></p> </td></tr>
 			<tr>	
 				
-				<td><label><span>单品价等级3 :</span><input 
+				<td><label><span>售价等级3 :</span><input 
 				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '3' && price.priceslevel == 3}">${price.pricesprice }</c:if></c:forEach>" 
-				size="5" id="1" type="text" name="pricesprice" placeholder="单品价" />
+				size="5" id="1" type="text" name="pricesprice" placeholder="售价" />
 				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit }</c:if></span></label></td>
-				<td><label><span>单品价等级2 :</span><input 
+				<td><label><span>售价等级2 :</span><input 
 				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '3' && price.priceslevel == 2}">${price.pricesprice }</c:if></c:forEach>" 
-				size="5" id="2" type="text" name="pricesprice" placeholder="单品价" />
+				size="5" id="2" type="text" name="pricesprice" placeholder="售价" />
 				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit }</c:if></span></label></td>
-				<td><label><span>单品价等级1 :</span><input 
+				<td><label><span>售价等级1 :</span><input 
 				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '3' && price.priceslevel == 1}">${price.pricesprice }</c:if></c:forEach>" 
-				size="5" id="3" type="text" name="pricesprice" placeholder="单品价" />
+				size="5" id="3" type="text" name="pricesprice" placeholder="售价" />
 				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit }</c:if></span></label></td>
 			</tr>
-			<tr>
+			<!-- <tr>
 				<td><label><span>套装价等级3 :</span><input 
 				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '3' && price.priceslevel == 3}">${price.pricesprice2 }</c:if></c:forEach>" 
 				size="5" id="10" type="text" name="pricesprice2" placeholder="套装价" />
@@ -143,23 +143,23 @@ h1 .title_goodsinfo span{
 				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '3' && price.priceslevel == 1}">${price.pricesprice2 }</c:if></c:forEach>" 
 				size="5" id="12" type="text" name="pricesprice2" placeholder="套装价" />
 				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit2 !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit2 }</c:if></span></label></td>
-			</tr>
+			</tr> -->
 			<tr><td colspan="3"><p><span> 商超客户价格 :</span></p></td></tr>
 			<tr>
-				<td><label><span>单品价等级3 :</span><input 
+				<td><label><span>售价等级3 :</span><input 
 				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '2' && price.priceslevel == 3}">${price.pricesprice }</c:if></c:forEach>" 
-				size="5" id="4" type="text" name="pricesprice" placeholder="单品价" />
+				size="5" id="4" type="text" name="pricesprice" placeholder="售价" />
 				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit }</c:if></span></label></td>
-				<td><label><span>单品价等级2 :</span><input 
+				<td><label><span>售价等级2 :</span><input 
 				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '2' && price.priceslevel == 2}">${price.pricesprice }</c:if></c:forEach>" 
-				size="5" id="5" type="text" name="pricesprice" placeholder="单品价" />
+				size="5" id="5" type="text" name="pricesprice" placeholder="售价" />
 				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit }</c:if></span></label></td>
-				<td><label><span>单品价等级1 :</span><input 
+				<td><label><span>售价等级1 :</span><input 
 				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '2' && price.priceslevel == 1}">${price.pricesprice }</c:if></c:forEach>" 
-				size="5" id="6" type="text" name="pricesprice" placeholder="单品价" />
+				size="5" id="6" type="text" name="pricesprice" placeholder="售价" />
 				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit }</c:if></span></label></td>
 			</tr>
-			<tr>
+			<!--<tr>
 				<td><label><span>套装价等级3 :</span><input 
 				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '2' && price.priceslevel == 3}">${price.pricesprice2 }</c:if></c:forEach>" 
 				size="5" id="13" type="text" name="pricesprice2" placeholder="套装价" />
@@ -172,23 +172,23 @@ h1 .title_goodsinfo span{
 				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '2' && price.priceslevel == 1}">${price.pricesprice2 }</c:if></c:forEach>" 
 				size="5" id="15" type="text" name="pricesprice2" placeholder="套装价" />
 				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit2 !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit2 }</c:if></span></label></td>
-			</tr>
+			</tr> -->
 			<tr><td colspan="3"><p><span> 组织单位客户价格 :</span></p></td></tr>
 			<tr>
-				<td><label><span>单品价等级3 :</span><input 
+				<td><label><span>售价等级3 :</span><input 
 				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '1' && price.priceslevel == 3}">${price.pricesprice }</c:if></c:forEach>" 
-				size="5" id="7" type="text" name="pricesprice" placeholder="单品价" />
+				size="5" id="7" type="text" name="pricesprice" placeholder="售价" />
 				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit }</c:if></span></label></td>
-				<td><label><span>单品价等级2 :</span><input 
+				<td><label><span>售价等级2 :</span><input 
 				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '1' && price.priceslevel == 2}">${price.pricesprice }</c:if></c:forEach>" 
-				size="5" id="8" type="text" name="pricesprice" placeholder="单品价" />
+				size="5" id="8" type="text" name="pricesprice" placeholder="售价" />
 				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit }</c:if></span></label></td>
-				<td><label><span>单品价等级1 :</span><input 
+				<td><label><span>售价等级1 :</span><input 
 				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '1' && price.priceslevel == 1}">${price.pricesprice }</c:if></c:forEach>" 
-				size="5" id="9" type="text" name="pricesprice" placeholder="单品价" />
+				size="5" id="9" type="text" name="pricesprice" placeholder="售价" />
 				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit }</c:if></span></label></td>
 			 </tr>
-			 <tr>
+			<!-- <tr>
 				<td><label><span>套装价等级3 :</span><input 
 				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '1' && price.priceslevel == 3}">${price.pricesprice2 }</c:if></c:forEach>" 
 				size="5" id="16" type="text" name="pricesprice2" placeholder="套装价" />
@@ -201,7 +201,7 @@ h1 .title_goodsinfo span{
 				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '1' && price.priceslevel == 1}">${price.pricesprice2 }</c:if></c:forEach>" 
 				size="5" id="18" type="text" name="pricesprice2" placeholder="套装价" />
 				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit2 !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit2 }</c:if></span></label></td>
-			</tr>
+			</tr> -->
 			
 			</table>
 			<span>&nbsp;</span> <input type="button" class="button" value="保存" onclick="addData()"/> 
