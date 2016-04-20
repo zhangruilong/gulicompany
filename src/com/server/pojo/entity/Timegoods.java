@@ -44,9 +44,9 @@ public class Timegoods
     */
    private String timegoodsorgprice;   
    /**
-    * 限量
+    * 个人限量
     */
-   private int timegoodsnum;   
+   private Integer timegoodsnum;   
    /**
     * 小类名称
     */
@@ -67,6 +67,14 @@ public class Timegoods
     * 创建人
     */
    private String creator;   
+   /**
+    * 全部限量
+    */
+   private Integer allnum;
+   /**
+    * 剩余数量
+    */
+   private Integer surplusnum;
     //属性方法	    
      /**
 	 *设置主键"促销品ID"属性
@@ -225,7 +233,7 @@ public class Timegoods
 	 *设置"限量"属性
 	 *@param timegoodsnum 实体的Timegoodsnum属性
 	 */
-	public void setTimegoodsnum(int timegoodsnum)
+	public void setTimegoodsnum(Integer timegoodsnum)
 	{
 		this.timegoodsnum = timegoodsnum;
 	}
@@ -233,7 +241,7 @@ public class Timegoods
 	/**
 	 *获取"限量"属性
 	 */
-	public int getTimegoodsnum()
+	public Integer getTimegoodsnum()
 	{
 		return this.timegoodsnum;
 	}	   
@@ -322,6 +330,23 @@ public class Timegoods
 	{
 		return this.creator;
 	}	   
+	
+	public Integer getAllnum() {
+		return allnum;
+	}
+
+	public void setAllnum(Integer allnum) {
+		this.allnum = allnum;
+	}
+
+	public Integer getSurplusnum() {
+		return surplusnum;
+	}
+
+	public void setSurplusnum(Integer surplusnum) {
+		this.surplusnum = surplusnum;
+	}
+
 	public Timegoods() {
 		super();
 		// TODO Auto-generated constructor stub

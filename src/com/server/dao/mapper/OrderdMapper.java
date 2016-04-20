@@ -10,6 +10,10 @@ import com.server.pojo.entity.OrderdStatistics;
 
 public interface OrderdMapper {
 	/**
+	 * 查询到客户的所有秒杀品的订单详情
+	 */
+	List<Orderd> selectOrderdByCustomerMiaosha(String ordermcustomer);
+	/**
 	 * 根据时间范围(多条件)查询订单(分页)
 	 */
 	ArrayList<Orderd> selectByPage(@Param("staTime") String staTime,

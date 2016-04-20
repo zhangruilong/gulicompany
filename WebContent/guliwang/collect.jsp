@@ -75,25 +75,25 @@ input:checked ~ input:active {
 		<div class="shoucang-wrap">
 			<ul>
 				<c:forEach items="${requestScope.customerCollect.collectList }" var="collect">
-					<li name="${collect.collectid }"><a><span class="fl">
+					<li name="${collect.collectid }"><a href="goods.jsp?searchdishes=${collect.goods.goodscode }"><span class="fl">
 					<img src="../${collect.goods.goodsimage }" alt="" onerror="javascript:this.src='images/default.jpg'"/></span>
 						<h1>${collect.goods.goodsname }<span>（${collect.goods.goodsunits }）</span>
 							</h1>
 							<c:forEach items="${collect.goods.pricesList }" var="price">
 								<c:if test="${price.pricesclass == requestScope.customerCollect.customertype && price.priceslevel == collect.goods.cclevel }">
 									<p>
-										单品价:<font>￥${price.pricesprice } </font>/${price.pricesunit }
+										套装价:<font>￥${price.pricesprice2 }</font>/${price.pricesunit2 }
 									</p>
 									<p>
-										套装价:<font>￥${price.pricesprice2 }</font>/${price.pricesunit2 }
+										单品价:<font>￥${price.pricesprice } </font>/${price.pricesunit }
 									</p>
 								</c:if>
 								<c:if test="${collect.goods.cclevel == null && price.priceslevel == 3 && price.pricesclass == '餐饮客户'}">
 									<p>
-										单品价:<font>￥${price.pricesprice } </font>/${price.pricesunit }
+										套装价:<font>￥${price.pricesprice2 }</font>/${price.pricesunit2 }
 									</p>
 									<p>
-										套装价:<font>￥${price.pricesprice2 }</font>/${price.pricesunit2 }
+										单品价:<font>￥${price.pricesprice } </font>/${price.pricesunit }
 									</p>
 								</c:if>
 							</c:forEach>

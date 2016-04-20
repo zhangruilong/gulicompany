@@ -12,8 +12,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.server.dao.mapper.CityMapper;
 import com.server.dao.mapper.CompanyMapper;
+import com.server.dao.mapper.CustomerMapper;
+import com.server.dao.mapper.OrderdMapper;
+import com.server.dao.mapper.OrdermMapper;
 import com.server.pojo.entity.City;
 import com.server.pojo.entity.Company;
+import com.server.pojo.entity.Orderd;
+import com.server.pojo.entity.Orderm;
 /**
  * 首页
  * @author taolichao
@@ -25,10 +30,14 @@ public class FrontController {
 	private CityMapper cityMapper;	
 	@Autowired
 	private CompanyMapper companyMapper;
-	
+	@Autowired
+	private OrdermMapper ordermMapper;
+	@Autowired
+	private OrderdMapper orderdMapper;
+	//查询首页所需的数据
 	@RequestMapping(value="/guliwang/doGuliwangIndex",produces="application/json")
 	@ResponseBody
-	public Map<String, Object> doGuliwangIndex(Company companyCondition,City parentCity){
+	public Map<String, Object> doGuliwangIndex(Company companyCondition,City parentCity,String customerid){
 		Map<String, Object> pageInfo = new HashMap<String, Object>();
 		parentCity = cityMapper.selectByCitynameOrKey(parentCity).get(0);				//根据父类城市名称或主键查询得到父类城市
 		List<City> cities = cityMapper.selectByCityparent(parentCity.getCityid());	//根据父类城市ID查询得到地区集合
@@ -38,8 +47,15 @@ public class FrontController {
 		pageInfo.put("companyList", companyList);
 		pageInfo.put("companyCondition", companyCondition);
 		pageInfo.put("parentCity", parentCity);
+		//查询到客户的所有秒杀品的订单详情
+		List<Orderd> cusOrderdList = null;
+		if(customerid != null){
+			cusOrderdList = orderdMapper.selectOrderdByCustomerMiaosha(customerid);
+		}
+		pageInfo.put("cusOrderdList", cusOrderdList);
 		return pageInfo;
 	}
+	//查询首页所需的数据( EMP )
 	@RequestMapping(value="/guliwangemp/doEmpGuliwangIndex",produces="application/json")
 	@ResponseBody
 	public Map<String, Object> doEmpGuliwangIndex(Company companyCondition,City parentCity){
@@ -54,4 +70,28 @@ public class FrontController {
 		pageInfo.put("parentCity", parentCity);
 		return pageInfo;
 	}
+	//判断限购数量是否到达上限
+	@RequestMapping(value="/guliwang/judgePurchase",produces="application/json")
+	@ResponseBody
+	public Map<String, Object> judgePurchase(Integer timegoodsnum,String timegoodscode,String customerid){
+		Map<String, Object> map = new HashMap<String, Object>();
+		Integer num = ordermMapper.selectOrderByCustomerGoods(customerid, timegoodscode);
+		if(num != null && num >= timegoodsnum){
+			map.put("result", "no");
+		} else {
+			map.put("result", "ok");
+		}
+		return map;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+

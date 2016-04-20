@@ -1,12 +1,16 @@
 package com.server.action.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.lang.StringUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.server.dao.mapper.AddressMapper;
 import com.server.dao.mapper.CityMapper;
@@ -60,7 +64,9 @@ public class AddressController {
 	}
 	//添加新收货地址
 	@RequestMapping("/guliwang/addAddress")
-	public String addAddress(Model model,Address address,String customerId){
+	@ResponseBody
+	public Map<String,Object> addAddress(Model model,Address address,String customerId){
+		Map<String,Object> map = new HashMap<String, Object>();
 		if(address.getAddressture() == 1){					//如果勾选了默认就把其他地址设为不是默认
 			Address add = new Address();
 			add.setAddresscustomer(customerId);
@@ -71,7 +77,7 @@ public class AddressController {
 		addressMapper.insertSelective(address);
 		model.addAttribute("address", address);
 		model.addAttribute("customerId", customerId);
-		return "forward:doAddressMana.action";
+		return map;
 	}
 	//到修改收货地址页面
 	@RequestMapping("/guliwang/doEditAddress")

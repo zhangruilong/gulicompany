@@ -140,4 +140,27 @@ public class System_attachAction extends BaseAction {
 		}
 		responsePW(response, result);
 	}
+	//上传文件
+		public void uploadImg(HttpServletRequest request, HttpServletResponse response) {
+			System.out.println("===============upload==============================================================================================");
+			//System_user user = getCurrentUser(request);
+			//if(CommonUtil.isNotEmpty(user)){
+				String json = request.getParameter("json");
+				System.out.println("json : " + json);
+				if(CommonUtil.isNotEmpty(json)) {
+					cuss = CommonConst.GSON.fromJson(json, TYPE);
+				}
+				//String creator = user.getUsername();
+				Fileinfo fileinfo = FileUtil.upload(request,0,null,null,"upload");
+				System_attach temp = cuss.get(0);
+				temp.setId(CommonUtil.getNewId());
+		        temp.setName(fileinfo.getFullname());
+		        temp.setAttachsize(String.valueOf(fileinfo.getSize()/1024)+"KB");
+		        temp.setType(fileinfo.getType());
+		        //temp.setCreator(creator);
+		        temp.setCreatetime(DateUtils.getDateTime());
+				result = DAO.insSingle(temp);
+			//}
+			responsePW(response, result);
+		}
 }

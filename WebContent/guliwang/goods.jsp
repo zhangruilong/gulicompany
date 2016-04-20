@@ -152,13 +152,13 @@ function initDishes(data){
  	         	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span> '+
  	         	'<h1>'+item.goodsname+'<span>('+item.goodsunits+')</span></h1>'+
  	           '  <div class="block"> '+
- 	             	'<span>'+
- 	                 '    <input type="radio" id="'+item.goodsid+'radio1" name="'+item.goodsid+'radio" class="regular-radio" checked />'+
- 	                '    <label for="'+item.goodsid+'radio1">单品价:<font class="font-oringe">￥'+item.pricesprice+'</font>/'+item.pricesunit+'</label>'+
- 	               '  </span>'+
  	               '  <span>'+
  	                   '  <input type="radio" id="'+item.goodsid+'radio2" name="'+item.goodsid+'radio" class="regular-radio" />'+
  	               '      <label for="'+item.goodsid+'radio2">套装价:<font class="font-oringe">￥'+item.pricesprice2+'</font>/'+item.pricesunit2+'</label>'+
+ 	               '  </span>'+
+ 	             	'<span>'+
+ 	                 '    <input type="radio" id="'+item.goodsid+'radio1" name="'+item.goodsid+'radio" class="regular-radio" checked />'+
+ 	                '    <label for="'+item.goodsid+'radio1">单品价:<font class="font-oringe">￥'+item.pricesprice+'</font>/'+item.pricesunit+'</label>'+
  	               '  </span>'+
  	            ' </div>'+
  	           '  <div class="stock-num" name="'+item.goodsid+'">'+
