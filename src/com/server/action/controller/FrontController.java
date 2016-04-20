@@ -34,7 +34,7 @@ public class FrontController {
 	private OrdermMapper ordermMapper;
 	@Autowired
 	private OrderdMapper orderdMapper;
-	
+	//查询首页所需的数据
 	@RequestMapping(value="/guliwang/doGuliwangIndex",produces="application/json")
 	@ResponseBody
 	public Map<String, Object> doGuliwangIndex(Company companyCondition,City parentCity,String customerid){
@@ -55,6 +55,7 @@ public class FrontController {
 		pageInfo.put("cusOrderdList", cusOrderdList);
 		return pageInfo;
 	}
+	//查询首页所需的数据( EMP )
 	@RequestMapping(value="/guliwangemp/doEmpGuliwangIndex",produces="application/json")
 	@ResponseBody
 	public Map<String, Object> doEmpGuliwangIndex(Company companyCondition,City parentCity){

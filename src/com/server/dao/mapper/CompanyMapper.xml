@@ -73,6 +73,8 @@
 	    <result column="TIMEGOODSSTATUE" property="timegoodsstatue" jdbcType="VARCHAR" />
 	    <result column="CREATETIME" property="createtime" jdbcType="VARCHAR" />
 	    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+	    <result column="ALLNUM" property="allnum" jdbcType="DECIMAL" />
+    	<result column="SURPLUSNUM" property="surplusnum" jdbcType="DECIMAL" />
     </collection>
   </resultMap>
   <sql id="Base_Column_List" >
