@@ -27,7 +27,7 @@ input:focus{ outline:none}
 </head>
 
 <body>
-<form action="System_attachAction.do" method="post" enctype="multipart/form-data">
+<form action="System_attachAction.do" method="get" enctype="multipart/form-data">
 <input type="hidden" name="json" id="json" value="">
 <input type="hidden" name="method" id="method" value="uploadImg">
 <input type="hidden" name="other" id="other" value="getch">
