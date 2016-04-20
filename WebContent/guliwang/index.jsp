@@ -157,9 +157,11 @@
 						itemGoodsCount += item3.orderdnum
 					}
 				});
-				liObj += '<font>限购'+(item2.timegoodsnum - itemGoodsCount)+item2.timegoodsunit+'</font>';
+				liObj += '<font>限购'+(item2.timegoodsnum - itemGoodsCount)+item2.timegoodsunit+'</font><br/>'+
+							'<font>限量1000箱还剩500箱</font>';
 			} else {
-				liObj += '<font>限购'+item2.timegoodsnum+item2.timegoodsunit+'</font>';
+				liObj += '<font>限购'+item2.timegoodsnum+item2.timegoodsunit+'</font><br/>'+
+							'<font>限量1000箱还剩500箱</font>';
 			}
 			
 			$(".home-hot-commodity").append(liObj+'</span></a></li>');
