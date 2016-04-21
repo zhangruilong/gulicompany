@@ -194,7 +194,6 @@
 			'customerid':customer.customerid
 		},function(data){
 			if(data.result == 'ok'){
-				alert(data.result);
 				chuancan(
 						timegoodsid,
 						timegoodsdetail,
