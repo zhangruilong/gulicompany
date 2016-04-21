@@ -25,6 +25,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 .fenyelan_button{
 	width: 40px;height: 20px;font-size:8px; text-align: center;cursor:pointer;
 }
+.goods_select_popup{
+	margin:0px auto;
+	margin-top:1%;
+	width: 60%;
+	background-color: #FBF1E5;
+}
 </style>
 </head>
 <body>
@@ -33,7 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="nowposition">当前位置：商品管理》秒杀商品</div>
 <div class="navigation">
 <input class="button" type="button" value="添加秒杀商品" onclick="addtimegoods()">
-<!-- <input class="button" type="button" value="刷新" onclick="javascript:window.location.reload()"> -->
+<input class="button" type="button" value="刷新" onclick="javascript:window.location.reload()">
 </div>
 <table class="bordered">
     <thead>
@@ -145,6 +151,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 <!--弹框-->
 <div class="cd-popup2" role="alert">
+<div class="goods_select_popup">
+<div class="navigation">
+查询条件:&nbsp;&nbsp;<input type="text" id="goodscode" name="goodscode" value="">
+<input class="button" type="button" value="查询" onclick="queryGooods()">
+<input class="button" type="button" value="关闭" onclick="closeCdPopup2()">
+</div>
 	<table class="bordered" id="scant" style="margin: 5% auto 0 auto;">
 		<thead>
 	    <tr>
@@ -157,6 +169,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    </tr>
 	    </thead>
 	</table>
+</div>
 </div>
 <script type="text/javascript">
 $(function(){
@@ -178,10 +191,15 @@ function fenye(targetPage){
 }
 //商品分页
 function fenyeGoods(targetPage){
-	if(targetPage == null){
-		targetPage = $("#pagenowGoods").val();
-	}
 	loadGoodsData(targetPage);
+}
+//跳转到第X页
+function goodsPageTo(pageCountGoods){
+	var pagenowGoods = $("#pagenowGoods").val();
+	if(parseInt(pagenowGoods) > parseInt(pageCountGoods)){
+		pagenowGoods = pageCountGoods;
+	}
+	loadGoodsData(pagenowGoods);
 }
 //弹出添加秒杀商品的窗口
 function addtimegoods(){
@@ -198,6 +216,10 @@ function addtimegoods(){
 function close_popup(){
 	$(".cd-popup").removeClass("is-visible");	//移除'is-visible' class
 }
+//关闭商品选择窗口
+function closeCdPopup2(){
+	$(".cd-popup2").removeClass("is-visible");
+}
 //弹出商品窗口
 function dobiaopin(){
 	$(".cd-popup2").addClass("is-visible");	//弹出标品窗口
@@ -207,8 +229,9 @@ function dobiaopin(){
 function loadGoodsData(pagenowGoods){
 	var data = {
 				'goodscompany':'${sessionScope.company.companyid }',
-				'pagenowGoods':pagenowGoods
-			}
+				'pagenowGoods':pagenowGoods,
+				'goodscode':$.trim($("#goodscode").val())
+			};
 	$.getJSON("getallGoods.action",data,function(data){
 		$("#scant td").remove();
 		$.each(data.goodsList,function(i,item){
@@ -241,7 +264,7 @@ function loadGoodsData(pagenowGoods){
 		}
 		goodsfenye += '<span>跳转到第<input class="fenyelan_input" size="1" type="text" id="pagenowGoods" value="'+
 			data.pagenowGoods+'">页</span>'+
-		 	'<input onclick="fenyeGoods()" type="button" value="GO" class="fenyelan_button">'+
+		 	'<input onclick=goodsPageTo("'+data.pageCountGoods+'") type="button" value="GO" class="fenyelan_button">'+
 	 		'<span>一共 '+data.countGoods+' 条数据</span>';
 		$("#scant").append(goodsfenye);
 	});
@@ -285,6 +308,10 @@ function popup_formSub(){
 			document.forms[0].submit();
 		});
 	}
+}
+//条件查询
+function queryGooods(){
+	loadGoodsData(1);
 }
 </script>
 </body>
