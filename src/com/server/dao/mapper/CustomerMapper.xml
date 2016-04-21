@@ -91,34 +91,19 @@
   <!-- 根据客户id查询收藏的商品 -->
   <select id="selectCollectGoodsById" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
-		customer.customerid,
-		customer.customertype,
-		collect.collectid,
-		goods.goodsid,
-		goods.goodscode,
-		goods.goodsname,
-		goods.goodsunits,
-		goods.goodsimage,
-    	ccustomer.ccustomerdetail as ccLevel,
-		prices.pricesprice,
-		prices.pricesunit,
-		prices.pricesprice2,
-		prices.pricesunit2,
-		prices.pricesclass,
-		prices.priceslevel  
-	from 
-		customer 
-		left outer join collect 
-		on collect.collectcustomer = customer.customerid 
-		left outer join goods 
-		on collect.collectgoods = goods.goodsid 
-    left outer join company 
-    on goods.goodscompany = company.companyid 
-    left outer join ccustomer 
-    on ccustomer.ccustomercompany = company.companyid and ccustomer.ccustomercustomer = customer.customerid 
-		left outer join prices 
-		on prices.pricesgoods = goods.goodsid 
-	where customer.customerid = #{customerid}
+    customer.customerid,
+    goods.goodsid,
+    goods.goodscode,
+    goods.goodsname,
+    goods.goodsunits,
+    goods.goodsimage
+  from 
+    customer 
+    left outer join collect 
+    on collect.collectcustomer = customer.customerid 
+    left outer join goods 
+    on collect.collectgoods = goods.goodsid 
+  where customer.customerid = #{customerid}
   </select>
   <!-- 根据主键查询 -->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >

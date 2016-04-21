@@ -355,10 +355,11 @@ function subnum(obj,pricesprice){
 			});
 		}
 		window.localStorage.setItem("sdishes",JSON.stringify(sdishes));
+		var cartnum = parseInt(window.localStorage.getItem("cartnum"));
+		$("#totalnum").text(cartnum-1);
+		window.localStorage.setItem("cartnum",cartnum-1);
 	}
-	var cartnum = parseInt(window.localStorage.getItem("cartnum"));
-	$("#totalnum").text(cartnum-1);
-	window.localStorage.setItem("cartnum",cartnum-1);
+	
 }
 
 function nextpage(){

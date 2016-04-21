@@ -52,7 +52,7 @@ public class MineController {
 	@RequestMapping("/guliwang/feedbackof")
 	public String feedbackof(Feedback feedback){
 		feedback.setFeedbackid(CommonUtil.getNewId());		//id
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		feedback.setFeedbacktime(sdf.format(new Date()).toString());	//反馈时间
 		
 		feedbackMapper.insertSelective(feedback);
