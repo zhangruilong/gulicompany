@@ -178,22 +178,22 @@ public class Com_goodsCtl {
 	//全部商品
 	@RequestMapping(value="/companySys/getallGoods",produces = "application/json")
 	@ResponseBody
-	public Map<String,Object> getallGoods(Goods goodsCon,Integer pagenow){
+	public Map<String,Object> getallGoods(Goods goodsCon,Integer pagenowGoods){
 		Map<String,Object> map = new HashMap<String, Object>();
-		if(pagenow == null){
-			pagenow = 1;
+		if(pagenowGoods == null){
+			pagenowGoods = 1;
 		}
-		Integer count = goodsMapper.selectByConditionCount(goodsCon);	//总信息条数
-		Integer pageCount;		//总页数
-		if(count % 10 ==0){
-			pageCount = count / 10;
+		Integer countGoods = goodsMapper.selectByConditionCount(goodsCon);	//总信息条数
+		Integer pageCountGoods;		//总页数
+		if(countGoods % 10 ==0){
+			pageCountGoods = countGoods / 10;
 		} else {
-			pageCount = (count / 10) +1;
+			pageCountGoods = (countGoods / 10) +1;
 		}
-		List<Goods> goodsList = goodsMapper.selectByCondition(goodsCon,pagenow,10);
-		map.put("pageCount", pageCount);
-		map.put("count", count);
-		map.put("pagenow", pagenow);
+		List<Goods> goodsList = goodsMapper.selectByCondition(goodsCon,pagenowGoods,10);
+		map.put("pageCountGoods", pageCountGoods);
+		map.put("countGoods", countGoods);
+		map.put("pagenowGoods", pagenowGoods);
 		map.put("goodsList", goodsList);
 		return map;
 	}

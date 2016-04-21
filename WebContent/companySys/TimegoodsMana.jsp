@@ -18,6 +18,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 .elegant-aero{
 	margin-top: 0;
 }
+.fenyelan_input{
+	width: 22px;
+	text-align: center;
+}
+.fenyelan_button{
+	width: 40px;height: 20px;font-size:8px; text-align: center;cursor:pointer;
+}
 </style>
 </head>
 <body>
@@ -26,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="nowposition">当前位置：商品管理》秒杀商品</div>
 <div class="navigation">
 <input class="button" type="button" value="添加秒杀商品" onclick="addtimegoods()">
-<input class="button" type="button" value="刷新" onclick="javascript:window.location.reload()">
+<!-- <input class="button" type="button" value="刷新" onclick="javascript:window.location.reload()"> -->
 </div>
 <table class="bordered">
     <thead>
@@ -93,8 +100,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		 <c:if test="${requestScope.pagenow == requestScope.pageCount }">
 		 	<span>最后一页&nbsp;</span>
 		 </c:if>
-		 	<span>跳转到第<input style="width: 22px;text-align: center;" size="1" type="text" id="pagenow" name="pagenow" value="${requestScope.pagenow }">页</span>
-		 	<input type="submit" value="GO" style="width: 40px;height: 20px;font-size:8px; text-align: center;cursor:pointer;">
+		 	<span>跳转到第<input class="fenyelan_input" size="1" type="text" id="pagenow" name="pagenow" value="${requestScope.pagenow }">页</span>
+		 	<input type="button" onclick="javascript:document.forms[0].submit()" value="GO" class="fenyelan_button">
 		 	<span>一共 ${requestScope.count } 条数据</span>
 		 </td>
 	 </tr>       
@@ -171,9 +178,10 @@ function fenye(targetPage){
 }
 //商品分页
 function fenyeGoods(targetPage){
-	$("#pagenow").val(targetPage);
-	checkCondition();
-	document.forms[0].submit();
+	if(targetPage == null){
+		targetPage = $("#pagenowGoods").val();
+	}
+	loadGoodsData(targetPage);
 }
 //弹出添加秒杀商品的窗口
 function addtimegoods(){
@@ -193,9 +201,15 @@ function close_popup(){
 //弹出商品窗口
 function dobiaopin(){
 	$(".cd-popup2").addClass("is-visible");	//弹出标品窗口
-	$.getJSON("getallGoods.action",{
-		'goodscompany':'${sessionScope.company.companyid }'
-	},function(data){
+	loadGoodsData(1);
+}
+//加载商品数据
+function loadGoodsData(pagenowGoods){
+	var data = {
+				'goodscompany':'${sessionScope.company.companyid }',
+				'pagenowGoods':pagenowGoods
+			}
+	$.getJSON("getallGoods.action",data,function(data){
 		$("#scant td").remove();
 		$.each(data.goodsList,function(i,item){
 			$("#scant").append(
@@ -212,6 +226,24 @@ function dobiaopin(){
 					'\')">选择</a></td></tr>'
 			);
 		});
+		var goodsfenye = '<tr><td colspan="7">';
+		if(data.pagenowGoods > 1){
+			goodsfenye += '<a onclick=fenyeGoods("1")>第一页</a><a onclick=fenyeGoods("'+(parseInt(data.pagenowGoods)-1)+'")>上一页</a>';
+			
+		} else {
+			goodsfenye += '<span>第一页</span><span>上一页</span>';
+		}
+		goodsfenye += '<span>当前第'+data.pagenowGoods+'页</span>';
+		if(data.pagenowGoods < data.pageCountGoods){
+			goodsfenye += '<a onclick=fenyeGoods("'+(parseInt(data.pagenowGoods)+1)+'")>下一页</a><a onclick=fenyeGoods("'+data.pageCountGoods+'")>最后一页</a>';
+		} else {
+			goodsfenye += '<span>下一页</span><span>最后一页&nbsp;</span>';
+		}
+		goodsfenye += '<span>跳转到第<input class="fenyelan_input" size="1" type="text" id="pagenowGoods" value="'+
+			data.pagenowGoods+'">页</span>'+
+		 	'<input onclick="fenyeGoods()" type="button" value="GO" class="fenyelan_button">'+
+	 		'<span>一共 '+data.countGoods+' 条数据</span>';
+		$("#scant").append(goodsfenye);
 	});
 }
 //选择商品
