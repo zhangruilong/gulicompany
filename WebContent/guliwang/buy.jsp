@@ -119,7 +119,7 @@ function buy(){
 			if(mcompany.ordermcompany == item.goodscompany)
 				orderdetjson += '{"orderdetdishes":"' + item.goodsid
 						+ '","orderdcode":"' + item.goodscode
-						+ '","orderdtype":"' + "商品"
+						+ '","orderdtype":"' + item.orderdtype
 						+ '","orderdname":"' + item.goodsname
 						+ '","orderddetail":"' + item.goodsdetail
 						+ '","orderdunits":"' + item.goodsunits
