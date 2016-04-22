@@ -187,6 +187,7 @@
 		var customer = JSON.parse(window.localStorage.getItem("customer"));
 		if(!customer.customerid){
 			alert("购买前需注册");
+			return;
 		}
 		$.getJSON('judgePurchase.action',{
 			'timegoodsnum':timegoodsnum,
@@ -206,7 +207,8 @@
 						timegoodsunit,
 						timegoodsname,
 						timegoodsimage,
-						timegoodsunits
+						timegoodsunits,
+						timegoodsnum
 						);
 			} else {
 				alert('购买数量超过限购数量');
@@ -227,7 +229,8 @@
 						timegoodsunit,
 						timegoodsname,
 						timegoodsimage,
-						timegoodsunits
+						timegoodsunits,
+						timegoodsnum
 						) {
 			if (window.localStorage.getItem("sdishes") == null || window.localStorage.getItem("sdishes") == "[]") {				//判断有没有购物车
 				//没有购物车
@@ -247,6 +250,7 @@
 				mdishes.goodsname = timegoodsname;
 				mdishes.goodsimage = timegoodsimage;
 				mdishes.orderdtype = '秒杀';
+				mdishes.timegoodsnum = timegoodsnum;
 				mdishes.goodsunits = timegoodsunits;
 				mdishes.orderdetnum = 1;
 				sdishes.push(mdishes); 											//往json对象中添加一个新的元素(订单)
@@ -283,7 +287,8 @@
 						mdishes.pricesunit = timegoodsunit;
 						mdishes.goodsname = timegoodsname;
 						mdishes.goodsimage = timegoodsimage;
-						
+						mdishes.orderdtype = '秒杀';
+						mdishes.timegoodsnum = timegoodsnum;
 						mdishes.goodsunits = timegoodsunits;
 						mdishes.orderdetnum = 1;
 						sdishes.push(mdishes); 												//往json对象中添加一个新的元素(订单)

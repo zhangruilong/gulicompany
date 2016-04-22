@@ -131,12 +131,33 @@ public class Com_goodsCtl {
 		} else {
 			//如果有价格
 			String[] pricesIds = prices.getPricesid().split(",");
-			for (int i = 0; i < priceStrs.length; i++) {
-				for (int j = 0; j < price2Strs.length; j++) {
+			if(price2Strs.length == 9){										//有套装价的情况
+				for (int i = 0; i < priceStrs.length; i++) {
+					for (int j = 0; j < price2Strs.length; j++) {
+						for (int k = 0; k < pricesIds.length; k++) {
+							if(i == j && i==k){
+								prices.setPricesprice(priceStrs[i]);				//单价
+								prices.setPricesprice2(price2Strs[j]);				//套装价
+								if(i < 3){
+									prices.setPricesclass("3");				//分类
+								} else if(i>=3 && i<6){
+									prices.setPricesclass("2");
+								} else if(i>=6 && i<9){
+									prices.setPricesclass("1");
+								}
+								prices.setPriceslevel(3-(i%3));						//等级
+								prices.setUpdtime(DateUtils.getDateTime());		//修改时间
+								prices.setPricesid(pricesIds[k]);					//价格id
+								pricesMapper.updateByPrimaryKeySelective(prices);	//修改
+							}
+						}
+					} 
+				}
+			} else {				//没有套装价的情况
+				for (int i = 0; i < priceStrs.length; i++) {
 					for (int k = 0; k < pricesIds.length; k++) {
-						if(i == j && i==k){
+						if(i==k){
 							prices.setPricesprice(priceStrs[i]);				//单价
-							prices.setPricesprice2(price2Strs[j]);				//套装价
 							if(i < 3){
 								prices.setPricesclass("3");				//分类
 							} else if(i>=3 && i<6){
@@ -150,7 +171,7 @@ public class Com_goodsCtl {
 							pricesMapper.updateByPrimaryKeySelective(prices);	//修改
 						}
 					}
-				} 
+				}
 			}
 		}
 		updateGoods.setUpdtime(DateUtils.getDateTime());

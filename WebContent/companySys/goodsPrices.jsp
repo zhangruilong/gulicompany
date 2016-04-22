@@ -102,6 +102,7 @@ h1 .title_goodsinfo span{
 			<c:if test="${requestScope.editPriGoods.pricesList[0].pricesid !=null }">
 				<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price">
 					<input type="hidden" name="pricesid" value="${price.pricesid }">
+					<input type="hidden" name="pricesprice2" value="">
 				</c:forEach>
 			</c:if>
 			<h1>商品价格设置

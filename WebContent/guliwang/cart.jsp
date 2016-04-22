@@ -61,14 +61,40 @@ $(function(){
 		}
 	});
 });
+//点击结算时执行的方法
 function nextpage(){
-	setscompany();
+	checkCusSecKill();	//检查客户是否可以购买秒杀商品
+	setscompany();		//设置供应商信息
 	if(customer.customerid != null && customer.customerid != ''){
 		window.location.href = "doBuy.action?addresscustomer="+customer.customerid+"&addressture=1";
 	} else {
 		$(".cd-popup").addClass("is-visible");
 	}
 }
+//检查客户是否可以购买秒杀商品
+function checkCusSecKill(){
+	var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));
+	$.post('queryCusSecKillOrder.action',{'customerid':customer.customerid},function(data){
+		var count = 0;
+		$.each(sdishes,function(i,item1){
+			if(item.orderdtype == '秒杀'){
+				var restNum = parseInt(item1.timegoodsnum);
+				$.each(data,function(i,item2){
+					if(item2.orderdcode == item1.goodscode){
+						restNum -= parseInt(item2.timegoodsnum);
+					}
+				});
+				if(restNum < 0){		//买的秒杀商品数量超过了个人限量
+					count++;
+				}
+			}
+		});
+		if(count > 0){
+			alert('您购买的秒杀商品超过了限购数量。');
+		}
+	},'json');
+}
+//设置供应商信息
 function setscompany(){
 	var data = JSON.parse(window.localStorage.getItem("sdishes"));
 	var scompany = new Array();
