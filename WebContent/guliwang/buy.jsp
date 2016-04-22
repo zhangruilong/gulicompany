@@ -147,6 +147,7 @@ function buy(){
 	    				window.localStorage.setItem("sdishes", "[]");
 						window.localStorage.setItem("totalnum", 0);
 						window.localStorage.setItem("totalmoney", 0);
+						window.localStorage.setItem("cartnum", 0);
 						alert("下单成功！");
 						window.location.href = "order.jsp";
 	    			}
