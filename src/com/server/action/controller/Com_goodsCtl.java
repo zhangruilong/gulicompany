@@ -210,9 +210,24 @@ public class Com_goodsCtl {
 	//查询标品
 	@RequestMapping(value="/companySys/getallScant",produces = "application/json")
 	@ResponseBody
-	public List<Scant> getallScant(){
-		List<Scant> list = scantMapper.selectAllScant();
-		return list;
+	public Map<String,Object> getallScant(Integer nowpageScant){
+		Map<String,Object> map = new HashMap<String, Object>();
+		if(nowpageScant == null){
+			nowpageScant = 1;
+		}
+		Integer countScant = scantMapper.selectAllScantNum(nowpageScant, 10);
+		Integer pageCountScant;		//总页数
+		if(countScant % 10 ==0){
+			pageCountScant = countScant / 10;
+		} else {
+			pageCountScant = (countScant / 10) +1;
+		}
+		List<Scant> Scantlist = scantMapper.selectAllScant(nowpageScant,10);
+		map.put("pageCountScant", pageCountScant);
+		map.put("countScant", countScant);
+		map.put("nowpageScant", nowpageScant);
+		map.put("Scantlist", Scantlist);
+		return map;
 	}
 	//得到全部小类
 	@RequestMapping(value="/companySys/getallGoodclass",produces = "application/json")

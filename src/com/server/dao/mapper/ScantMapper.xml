@@ -22,8 +22,22 @@
   <sql id="Base_Column_List" >
     SCANTID, SCANTCODE, SCANTNAME, SCANTDETAIL, SCANTUNITS, SCANTCLASS, SCANTIMAGE, SCANTSTATUE
   </sql>
+  <!-- 查询全部 Scant和小类名称(信息条数)-->
+  <select id="selectAllScantNum" resultType="int">
+  	select * from 
+	(select A.*, ROWNUM RN from (
+    select 
+    COUNT(*) 
+    from SCANT
+    left join goodsclass
+    on scant.scantclass = goodsclass.goodsclassid
+     ) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) ) 
+	where RN &gt; ((#{nowpage}-1)*#{pagesize})
+  </select>
   <!-- 查询全部 Scant和小类名称-->
   <select id="selectAllScant" resultMap="BaseResultMap">
+  	select * from 
+	(select A.*, ROWNUM RN from (
     select 
     SCANT.*,
     goodsclass.goodsclassid,
@@ -31,6 +45,8 @@
     from SCANT
     left join goodsclass
     on scant.scantclass = goodsclass.goodsclassid
+     ) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) ) 
+	where RN &gt; ((#{nowpage}-1)*#{pagesize})
   </select>
   <!-- 根据主键查询 -->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >

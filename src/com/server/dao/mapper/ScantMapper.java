@@ -2,13 +2,21 @@ package com.server.dao.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.server.pojo.entity.Scant;
 
 public interface ScantMapper {
 	/**
+	 * 查询全部 标品和小类名称(信息条数)
+	 */
+	Integer selectAllScantNum(@Param("nowpage") Integer nowpage,
+			@Param("pagesize") Integer pagesize);
+	/**
 	 * 查询全部 标品和小类名称
 	 */
-	List<Scant> selectAllScant();
+	List<Scant> selectAllScant(@Param("nowpage") Integer nowpage,
+			@Param("pagesize") Integer pagesize);
 	/**
 	 * 根据主键删除
 	 */

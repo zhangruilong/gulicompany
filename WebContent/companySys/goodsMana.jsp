@@ -223,7 +223,7 @@ function dobiaopin(){
 	$(".cd-popup2").addClass("is-visible");	//弹出标品窗口
 	$.getJSON("getallScant.action",function(data){
 		$("#scant td").remove();
-		$.each(data,function(i,item){
+		$.each(data.Scantlist,function(i,item){
 			$("#scant").append(
 			'<tr><td>'+(i+1)+'</td>'+
 			'<td>'+item.scantcode+'</td>'+
@@ -238,6 +238,24 @@ function dobiaopin(){
 					'\')">选择</a></td></tr>'
 			);
 		});
+		var scantfenye = '<tr><td colspan="7">';
+		if(data.nowpageScant > 1){
+			scantfenye += '<a onclick=fenyeScant("1")>第一页</a><a onclick=fenyeScant("'+(parseInt(data.nowpageScant)-1)+'")>上一页</a>';
+			
+		} else {
+			scantfenye += '<span>第一页</span><span>上一页</span>';
+		}
+		scantfenye += '<span>当前第'+data.nowpageScant+'页</span>';
+		if(data.nowpageScant < data.pageCountScant){
+			scantfenye += '<a onclick=fenyeScant("'+(parseInt(data.nowpageScant)+1)+'")>下一页</a><a onclick=fenyeScant("'+data.pageCountScant+'")>最后一页</a>';
+		} else {
+			scantfenye += '<span>下一页</span><span>最后一页&nbsp;</span>';
+		}
+		scantfenye += '<span>跳转到第<input class="fenyelan_input" size="1" type="text" id="nowpageScant" value="'+
+			data.nowpageScant+'">页</span>'+
+		 	'<input onclick=scantPageTo("'+data.pageCountScant+'") type="button" value="GO" class="fenyelan_button">'+
+	 		'<span>一共 '+data.countScant+' 条数据</span>';
+		$("#scant").append(scantfenye);
 	});
 }
 //选择标品
