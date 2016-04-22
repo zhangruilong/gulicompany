@@ -104,6 +104,7 @@
   			and city.cityname = #{city.cityname}
   		</if>
   	</if>
+  	order by to_number(timegoods.timegoodsdetail)
   </select>
   <!-- 登录 -->
   <select id="selectLogin" resultMap="BaseResultMap" parameterType="com.server.pojo.entity.Company" >
