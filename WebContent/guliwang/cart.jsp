@@ -23,7 +23,7 @@
 </form>
 </div>
 <div class="footer">
-	<div class="jiesuan-foot-info"><img src="images/jiesuanbg.png" > 种类数：<span id="totalnum">0</span>总价：<span id="totalmoney">0</span> </div><a onclick="nextpage();" class="jiesuan-button">结算</a>
+	<div class="jiesuan-foot-info"><img src="images/jiesuanbg.png" > 种类数：<span id="totalnum">0</span>总价：<span id="totalmoney">0</span> </div><a onclick="checkCusSecKill();" class="jiesuan-button">结算</a>
 </div>
 <!--弹框-->
 <div class="cd-popup" role="alert">
@@ -63,7 +63,6 @@ $(function(){
 });
 //点击结算时执行的方法
 function nextpage(){
-	checkCusSecKill();	//检查客户是否可以购买秒杀商品
 	setscompany();		//设置供应商信息
 	if(customer.customerid != null && customer.customerid != ''){
 		window.location.href = "doBuy.action?addresscustomer="+customer.customerid+"&addressture=1";
@@ -74,16 +73,18 @@ function nextpage(){
 //检查客户是否可以购买秒杀商品
 function checkCusSecKill(){
 	var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));
-	$.post('queryCusSecKillOrder.action',{'customerid':customer.customerid},function(data){
+	$.post('queryCusSecKillOrderd.action',{'customerid':customer.customerid},function(data){
 		var count = 0;
 		$.each(sdishes,function(i,item1){
-			if(item.orderdtype == '秒杀'){
-				var restNum = parseInt(item1.timegoodsnum);
-				$.each(data,function(i,item2){
-					if(item2.orderdcode == item1.goodscode){
-						restNum -= parseInt(item2.timegoodsnum);
-					}
-				});
+			if(item1.orderdtype == '秒杀'){
+				var restNum = parseInt(item1.timegoodsnum) - parseInt(item1.orderdetnum);
+				if(data){
+					$.each(data,function(i,item2){
+						if(item2.orderdcode == item1.goodscode){
+							restNum -= parseInt(item2.orderdnum);
+						}
+					});
+				}
 				if(restNum < 0){		//买的秒杀商品数量超过了个人限量
 					count++;
 				}
@@ -91,6 +92,8 @@ function checkCusSecKill(){
 		});
 		if(count > 0){
 			alert('您购买的秒杀商品超过了限购数量。');
+		} else {
+			nextpage();
 		}
 	},'json');
 }

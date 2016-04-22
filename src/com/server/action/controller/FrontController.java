@@ -83,6 +83,13 @@ public class FrontController {
 		}
 		return map;
 	}
+	//判断限购数量是否到达上限
+	@RequestMapping(value="/guliwang/queryCusSecKillOrderd",produces="application/json")
+	@ResponseBody
+	public List<Orderd> queryCusSecKillOrderd(String customerid){
+		List<Orderd> miaoshaList = orderdMapper.selectOrderdByCustomerMiaosha(customerid);
+		return miaoshaList;
+	}
 }
 
 
