@@ -179,6 +179,7 @@ function checkCondition(){
 }
 //提交查询条件
 function subgoodsfor(){
+	$("#goodscode").val($.trim($("#goodscode").val()));
 	checkCondition();
 	document.forms[0].submit();
 }

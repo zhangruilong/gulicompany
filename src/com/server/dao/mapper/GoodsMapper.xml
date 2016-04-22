@@ -49,6 +49,8 @@
 	select
 		count(*) 
 	from goods
+	left join goodsclass
+    on goodsclass.goodsclassid = goods.goodsclass
     where goods.goodscompany = #{goodscompany}
     <if test="goodsstatue != null and goodsstatue != ''">
     	and goods.goodsstatue = #{goodsstatue}
@@ -61,7 +63,8 @@
 			goods.GOODSCLASS like '%${goodscode}%' or
 			goods.GOODSSTATUE like '%${goodscode}%' or
 			goods.CREATOR like '%${goodscode}%' or
-			goods.UPDOR like '%${goodscode}%')
+			goods.UPDOR like '%${goodscode}%' or
+			goodsclass.goodsclassname like '%${goodscode}%')
 		</if>
   </select>
   <!-- 根据条件查询 -->
@@ -87,7 +90,8 @@
 			goods.GOODSCLASS like '%${goods.goodscode}%' or
 			goods.GOODSSTATUE like '%${goods.goodscode}%' or
 			goods.CREATOR like '%${goods.goodscode}%' or
-			goods.UPDOR like '%${goods.goodscode}%')
+			goods.UPDOR like '%${goods.goodscode}%' or
+			goodsclass.goodsclassname like '%${goods.goodscode}%')
 		</if>
  ) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) ) 
 where RN &gt; ((#{nowpage}-1)*#{pagesize})

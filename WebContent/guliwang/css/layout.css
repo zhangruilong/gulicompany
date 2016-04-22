@@ -87,7 +87,7 @@ color:#fff !important;
 .home-hot-wrap .home-hot-commodity li { overflow: hidden; margin-left: 4%; position:relative; border-bottom:solid 1px #eee }
 .home-hot-wrap .home-hot-commodity li a, .goods-wrapper .home-hot-commodity li a { display: block; padding: 4% 4% 4% 0; position: relative; overflow: hidden }
 .home-hot-wrap .home-hot-commodity li a h1, .goods-wrapper .home-hot-commodity li h1 { font-size: 1em; font-weight: normal; margin: 4% 0 }
-.home-hot-wrap .home-hot-commodity li a .fl img, .goods-wrapper .home-hot-commodity li .fl img { width: 90px; height: 90px }
+.home-hot-wrap .home-hot-commodity li a .fl img, .goods-wrapper .home-hot-commodity li .fl img { width: 90px; }
 .home-hot-wrap .home-hot-commodity li a span, .goods-wrapper .home-hot-commodity li span { color: #666; font-size: .6em }
 .home-hot-wrap .home-hot-commodity li a span.fl, .goods-wrapper .home-hot-commodity li span.fl { margin-right: 2%; margin-top: 4% }
 .home-hot-wrap .home-hot-commodity li a span.fl { margin-top: 0 }
