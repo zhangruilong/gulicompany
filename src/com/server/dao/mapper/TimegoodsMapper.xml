@@ -23,7 +23,7 @@
   <sql id="Base_Column_List" >
     TIMEGOODSID, TIMEGOODSCOMPANY, TIMEGOODSCODE, TIMEGOODSNAME, TIMEGOODSDETAIL, TIMEGOODSUNITS, 
     TIMEGOODSUNIT, TIMEGOODSPRICE, TIMEGOODSORGPRICE, TIMEGOODSNUM, TIMEGOODSCLASS, TIMEGOODSIMAGE, 
-    TIMEGOODSSTATUE, CREATETIME, CREATOR
+    TIMEGOODSSTATUE, CREATETIME, CREATOR, ALLNUM, SURPLUSNUM
   </sql>
   <!-- 根据条件查询(数量) -->
   <select id="selectByConditionCount" resultType="int" parameterType="com.server.pojo.entity.Timegoods" >
@@ -104,6 +104,12 @@
       <if test="creator != null" >
         CREATOR,
       </if>
+      <if test="allnum != null" >
+        ALLNUM,
+      </if>
+      <if test="surplusnum != null" >
+        SURPLUSNUM,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="timegoodsid != null" >
@@ -150,6 +156,12 @@
       </if>
       <if test="creator != null" >
         #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="allnum != null" >
+        #{allnum,jdbcType=DECIMAL},
+      </if>
+      <if test="surplusnum != null" >
+        #{surplusnum,jdbcType=DECIMAL},
       </if>
     </trim>
   </insert>
@@ -198,6 +210,12 @@
       </if>
       <if test="creator != null" >
         CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="allnum != null" >
+        ALLNUM = #{allnum,jdbcType=DECIMAL},
+      </if>
+      <if test="surplusnum != null" >
+        SURPLUSNUM = #{surplusnum,jdbcType=DECIMAL},
       </if>
     </set>
     where TIMEGOODSID = #{timegoodsid,jdbcType=VARCHAR}

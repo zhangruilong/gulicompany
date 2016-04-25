@@ -1,14 +1,19 @@
 package com.server.action.controller;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.server.dao.mapper.AddressMapper;
+import com.server.dao.mapper.TimegoodsMapper;
 import com.server.pojo.entity.Address;
+import com.server.pojo.entity.Timegoods;
 
 /**
  * 结算
@@ -19,6 +24,8 @@ import com.server.pojo.entity.Address;
 public class BuyController {
 	@Autowired
 	private AddressMapper addressMapper;
+	@Autowired
+	private TimegoodsMapper timegoodsMapper;
 	//到结算页面
 	@RequestMapping("/guliwang/doBuy")
 	public String doBuy(Model model,Address address){
@@ -36,19 +43,44 @@ public class BuyController {
 		return "forward:/guliwang/buy.jsp";
 	}
 	//到结算页面
-		@RequestMapping("/guliwangemp/doEmpBuy")
-		public String doEmpBuy(Model model,Address address){
-			if(address.getAddressid() == null){
-				List<Address> addList = addressMapper.selectDefAddress(address);
-				if(addList != null && addList.size() != 0){
-					address = addList.get(0);
-				} else {
-					address = addressMapper.selectByCondition(address.getAddresscustomer()).get(0);
-				}
+	@RequestMapping("/guliwangemp/doEmpBuy")
+	public String doEmpBuy(Model model,Address address){
+		if(address.getAddressid() == null){
+			List<Address> addList = addressMapper.selectDefAddress(address);
+			if(addList != null && addList.size() != 0){
+				address = addList.get(0);
 			} else {
-				address = addressMapper.selectByPrimaryKey(address.getAddressid());
+				address = addressMapper.selectByCondition(address.getAddresscustomer()).get(0);
 			}
-			model.addAttribute("address", address);
-			return "forward:/guliwangemp/buy.jsp";
+		} else {
+			address = addressMapper.selectByPrimaryKey(address.getAddressid());
 		}
+		model.addAttribute("address", address);
+		return "forward:/guliwangemp/buy.jsp";
+	}
+	//修改秒杀商品的剩余数量
+	@RequestMapping("/guliwang/editRestAmount")
+	@ResponseBody
+	public String editRestAmount(String timegoodsids,String timegoodssum){
+		String[] timegoodsidsStr = timegoodsids.split(",");
+		String[] timegoodssumStr = timegoodssum.split(",");
+		String msg = "ok";
+		List<Timegoods> timegoodsList = new ArrayList<Timegoods>();
+		for (int i = 0; i < timegoodsidsStr.length; i++) {									//遍历是否有超过秒杀商品剩余数量的
+			Timegoods timegoods = timegoodsMapper.selectByPrimaryKey(timegoodsidsStr[i]);
+			timegoodsList.add(timegoods);
+			if(timegoods.getSurplusnum() - Integer.parseInt(timegoodssumStr[i]) < 0){
+				msg = "no";
+				break;
+			}
+		}
+		if(msg.equals("ok")){
+			for(int i = 0; i < timegoodsList.size() ; i++){
+				Timegoods timegoods = timegoodsList.get(i);
+				timegoods.setSurplusnum(timegoods.getSurplusnum() - Integer.parseInt(timegoodssumStr[i]));
+				timegoodsMapper.updateByPrimaryKeySelective(timegoods);
+			}
+		}
+		return msg;
+	}
 }
