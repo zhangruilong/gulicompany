@@ -22,7 +22,7 @@
 <body>
 <div class="gl-box budan-page">
 	<div class="home-search-wrapper">
-        <input type="text" placeholder="请输入客户名称">
+        <input type="text" placeholder="请输入客户名称" onkeydown="entersearch(this);">
     </div>
     <ul id="customerlist">
     	<li><span hidden="ture">2121</span>
@@ -72,6 +72,13 @@ function initData(data){
 			$(this).removeClass('is-visible');
 		}
 	});
+}
+function entersearch(obj){
+    var event = window.event || arguments.callee.caller.arguments[0];
+    if (event.keyCode == 13)
+    {
+    	getJson(basePath+"CustomerAction.do",{method:"selAll",query:$(obj).val()},initData,null);
+    }
 }
 function successCB(r, cb) {
 	cb && cb(r);
