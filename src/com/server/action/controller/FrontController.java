@@ -39,7 +39,7 @@ public class FrontController {
 	//查询首页所需的数据
 	@RequestMapping(value="/guliwang/doGuliwangIndex",produces="application/json")
 	@ResponseBody
-	public Map<String, Object> doGuliwangIndex(City parentCity){
+	public Map<String, Object> doGuliwangIndex(Company companyCondition,City parentCity){
 		Map<String, Object> pageInfo = new HashMap<String, Object>();
 		parentCity = cityMapper.selectByCitynameOrKey(parentCity).get(0);				//根据父类城市名称或主键查询得到父类城市
 		List<City> cities = cityMapper.selectByCityparent(parentCity.getCityid());	//根据父类城市ID查询得到地区集合
@@ -54,6 +54,7 @@ public class FrontController {
 			cusOrderdList = orderdMapper.selectOrderdByCustomerMiaosha(customerid);
 		}
 		pageInfo.put("cusOrderdList", cusOrderdList);*/
+		pageInfo.put("companyCondition", companyCondition);
 		return pageInfo;
 	}
 	//查询首页所需的数据( EMP )

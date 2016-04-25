@@ -56,70 +56,66 @@ $(function(){
 	}
 	//页面信息
 	if(xian != ''){
-		$.getJSON("maizengPage.action",{"city.cityname":xian},initMiaoshaPage);
+		$.getJSON("maizengPage.action",{"givegoodcompany.city.cityname":xian},initMiaoshaPage);
 	} else {
-		$.getJSON("maizengPage.action",{"city.cityname":customer.customerxian},initMiaoshaPage);
+		$.getJSON("maizengPage.action",{"givegoodcompany.city.cityname":customer.customerxian},initMiaoshaPage);
 	}
 });
 //初始化页面
 function initMiaoshaPage(data){
-		$(".home-hot-commodity").html("");
-	 	$.each(data.companyList,function(i,item1){
-		$.each(item1.timegoodsList,function(j,item2){
+	$(".home-hot-commodity").html("");
+	$.each(data.giveList,function(i,item1){
 		var liObj = '<li><a '+
 		'onclick="judgePurchase(\''+
-		item2.timegoodsid +'\',\''+
-		item2.timegoodsdetail +'\',\''+
-		item2.timegoodscompany +'\',\''+
+		item1.givegoodsid +'\',\''+
+		item1.givegoodsdetail +'\',\''+
+		item1.givegoodscompany +'\',\''+
 		item1.companyshop +'\',\''+
 		item1.companydetail +'\',\''+
-		item2.timegoodsclass +'\',\''+
-		item2.timegoodscode +'\',\''+
-		item2.timegoodsorgprice +'\',\''+
-		item2.timegoodsunit +'\',\''+
-		item2.timegoodsname +'\',\''+
-		item2.timegoodsimage +'\',\''+
-		item2.timegoodsunits +'\',\''+
-		item2.timegoodsnum+'\');" '+
-		'> <span class="fl"> <img src="../'+item2.timegoodsimage+
+		item1.givegoodsclass +'\',\''+
+		item1.givegoodscode +'\',\''+
+		item1.givegoodsorgprice +'\',\''+
+		item1.givegoodsunit +'\',\''+
+		item1.givegoodsname +'\',\''+
+		item1.givegoodsimage +'\',\''+
+		item1.givegoodsunits +'\',\''+
+		item1.givegoodsnum+'\');" '+
+		'> <span class="fl"> <img src="../'+item1.givegoodsimage+
          	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span>'+
-			'<h1>'+item2.timegoodsname+
-				'<span>（'+item2.timegoodsunits+'）</span>'+
-			'</h1> <span> <strong>￥'+item2.timegoodsorgprice+'/'+item2.timegoodsunit+
-			'</strong> <em>￥'+item2.timegoodsprice+'/'+item2.timegoodsunit+'</em>';
+			'<h1>'+item1.givegoodsname+
+				'<span>（'+item1.givegoodsunits+'）</span>'+
+			'</h1> <span> <strong>￥'+item1.givegoodsprice+'/'+item1.givegoodsunit+
+			'</strong> ';
 		if(data.cusOrderdList != null && data.cusOrderdList.length != 0){
 			var itemGoodsCount = 0;
 			$.each(data.cusOrderdList,function(k,item3){
-				if(item3.orderdcode == timegoodscode){
+				if(item3.orderdcode == givegoodscode){
 					itemGoodsCount += item3.orderdnum
 				}
 			});
-			liObj += '<font>限购'+(item2.timegoodsnum - itemGoodsCount)+item2.timegoodsunit+'</font><br/>'
-						+'<font>限量'+item2.allnum+'箱还剩'+item2.surplusnum+'箱</font>';
+			liObj += '<font>限购'+(item1.givegoodsnum - itemGoodsCount)+item1.givegoodsunit+'</font><br/>';
 		} else {
-			liObj += '<font>限购'+item2.timegoodsnum+item2.timegoodsunit+'</font><br/>'
-						+'<font>限量'+item2.allnum+'箱还剩'+item2.surplusnum+'箱</font>';
+			liObj += '<font>限购'+item1.givegoodsnum+item1.givegoodsunit+'</font><br/>';
 		}
 		
 		$(".home-hot-commodity").append(liObj+'</span></a></li>');
-		});
 	});
 }
 //判断是否到达限购数量
 function judgePurchase(
-		timegoodsid,
-		timegoodsdetail,
-		timegoodscompany,
+		givegoodsid,
+		givegoodsdetail,
+		givegoodscompany,
 		companyshop,
 		companydetail,
-		timegoodsclass,
-		timegoodscode,
-		timegoodsorgprice,
-		timegoodsunit,
-		timegoodsname,
-		timegoodsimage,
-		timegoodsunits,
-		timegoodsnum
+		givegoodsclass,
+		givegoodscode,
+		givegoodsorgprice,
+		givegoodsunit,
+		givegoodsname,
+		givegoodsimage,
+		givegoodsunits,
+		givegoodsnum
 		) {
 	var customer = JSON.parse(window.localStorage.getItem("customer"));
 	if(!customer.customerid){
@@ -127,25 +123,25 @@ function judgePurchase(
 		return;
 	}
 	$.getJSON('judgePurchase.action',{
-		'timegoodsnum':timegoodsnum,
-		'timegoodscode':timegoodscode,
+		'givegoodsnum':givegoodsnum,
+		'givegoodscode':givegoodscode,
 		'customerid':customer.customerid
 	},function(data){
 		if(data.result == 'ok'){
 			chuancan(
-					timegoodsid,
-					timegoodsdetail,
-					timegoodscompany,
+					givegoodsid,
+					givegoodsdetail,
+					givegoodscompany,
 					companyshop,
 					companydetail,
-					timegoodsclass,
-					timegoodscode,
-					timegoodsorgprice,
-					timegoodsunit,
-					timegoodsname,
-					timegoodsimage,
-					timegoodsunits,
-					timegoodsnum
+					givegoodsclass,
+					givegoodscode,
+					givegoodsorgprice,
+					givegoodsunit,
+					givegoodsname,
+					givegoodsimage,
+					givegoodsunits,
+					givegoodsnum
 					);
 		} else {
 			alert('购买数量超过限购数量');
@@ -154,19 +150,19 @@ function judgePurchase(
 }
 //将商品信息存入缓存2
 function chuancan(
-				timegoodsid,
-				timegoodsdetail,
-				timegoodscompany,
+				givegoodsid,
+				givegoodsdetail,
+				givegoodscompany,
 				companyshop,
 				companydetail,
-				timegoodsclass,
-				timegoodscode,
-				timegoodsorgprice,
-				timegoodsunit,
-				timegoodsname,
-				timegoodsimage,
-				timegoodsunits,
-				timegoodsnum
+				givegoodsclass,
+				givegoodscode,
+				givegoodsorgprice,
+				givegoodsunit,
+				givegoodsname,
+				givegoodsimage,
+				givegoodsunits,
+				givegoodsnum
 				) {
 	if (window.localStorage.getItem("sdishes") == null || window.localStorage.getItem("sdishes") == "[]") {				//判断有没有购物车
 		//没有购物车
@@ -174,26 +170,26 @@ function chuancan(
 		var sdishes = JSON.parse(window.localStorage.getItem("sdishes")); 	//将缓存中的sdishes(字符串)转换为json对象
 		//新增订单
 		var mdishes = new Object();
-		mdishes.goodsid = timegoodsid;
-		mdishes.goodsdetail = timegoodsdetail;
-		mdishes.goodscompany = timegoodscompany;
+		mdishes.goodsid = givegoodsid;
+		mdishes.goodsdetail = givegoodsdetail;
+		mdishes.goodscompany = givegoodscompany;
 		mdishes.companyshop = companyshop;
 		mdishes.companydetail = companydetail;
-		mdishes.goodsclassname = timegoodsclass;
-		mdishes.goodscode = timegoodscode;
-		mdishes.pricesprice = timegoodsorgprice;
-		mdishes.pricesunit = timegoodsunit;
-		mdishes.goodsname = timegoodsname;
-		mdishes.goodsimage = timegoodsimage;
+		mdishes.goodsclassname = givegoodsclass;
+		mdishes.goodscode = givegoodscode;
+		mdishes.pricesprice = givegoodsorgprice;
+		mdishes.pricesunit = givegoodsunit;
+		mdishes.goodsname = givegoodsname;
+		mdishes.goodsimage = givegoodsimage;
 		mdishes.orderdtype = '秒杀';
-		mdishes.timegoodsnum = timegoodsnum;
-		mdishes.goodsunits = timegoodsunits;
+		mdishes.timegoodsnum = givegoodsnum;
+		mdishes.goodsunits = givegoodsunits;
 		mdishes.orderdetnum = 1;
 		sdishes.push(mdishes); 											//往json对象中添加一个新的元素(订单)
 		window.localStorage.setItem("sdishes", JSON.stringify(sdishes));
 		
 		window.localStorage.setItem("totalnum", 1); 					//设置缓存中的种类数量等于一 
-		window.localStorage.setItem("totalmoney", timegoodsorgprice);	//总金额等于商品价
+		window.localStorage.setItem("totalmoney", givegoodsorgprice);	//总金额等于商品价
 		var cartnum = parseInt(window.localStorage.getItem("cartnum"));
 		window.localStorage.setItem("cartnum",cartnum+1);
 		window.location.href = "cart.jsp";
@@ -204,7 +200,7 @@ function chuancan(
 		var tnum = parseInt(window.localStorage.getItem("totalnum"));		//取出商品的总类数
 		$.each(sdishes,function(i,item) {								//遍历购物车中的商品
 			//i是增量,item是迭代出来的元素.i从0开始
-			if( item.goodsid == timegoodsid){
+			if( item.goodsid == givegoodsid){
 				//如果商品id相同
 				window.location.href = "cart.jsp";
 				return false;
@@ -212,26 +208,26 @@ function chuancan(
 				//如果最后一次进入时goodsid不相同
 				//新增订单
 				var mdishes = new Object();
-				mdishes.goodsid = timegoodsid;
-				mdishes.goodsdetail = timegoodsdetail;
-				mdishes.goodscompany = timegoodscompany;
+				mdishes.goodsid = givegoodsid;
+				mdishes.goodsdetail = givegoodsdetail;
+				mdishes.goodscompany = givegoodscompany;
 				mdishes.companyshop = companyshop;
 				mdishes.companydetail = companydetail;
-				mdishes.goodsclassname = timegoodsclass;
-				mdishes.goodscode = timegoodscode;
-				mdishes.pricesprice = timegoodsorgprice;
-				mdishes.pricesunit = timegoodsunit;
-				mdishes.goodsname = timegoodsname;
-				mdishes.goodsimage = timegoodsimage;
+				mdishes.goodsclassname = givegoodsclass;
+				mdishes.goodscode = givegoodscode;
+				mdishes.pricesprice = givegoodsorgprice;
+				mdishes.pricesunit = givegoodsunit;
+				mdishes.goodsname = givegoodsname;
+				mdishes.goodsimage = givegoodsimage;
 				mdishes.orderdtype = '秒杀';
-				mdishes.timegoodsnum = timegoodsnum;
-				mdishes.goodsunits = timegoodsunits;
+				mdishes.timegoodsnum = givegoodsnum;
+				mdishes.goodsunits = givegoodsunits;
 				mdishes.orderdetnum = 1;
 				sdishes.push(mdishes); 												//往json对象中添加一个新的元素(订单)
 				window.localStorage.setItem("sdishes", JSON.stringify(sdishes));
 				window.localStorage.setItem("totalnum", tnum + 1);					//商品种类数加一
 				var tmoney = parseFloat(window.localStorage.getItem("totalmoney")); //从缓存中取出总金额
-				var newtmoney = (tmoney+parseFloat(timegoodsorgprice)).toFixed(2);
+				var newtmoney = (tmoney+parseFloat(givegoodsorgprice)).toFixed(2);
 				window.localStorage.setItem("totalmoney",newtmoney);	
 				var cartnum = parseInt(window.localStorage.getItem("cartnum"));
 				window.localStorage.setItem("cartnum",cartnum+1);
