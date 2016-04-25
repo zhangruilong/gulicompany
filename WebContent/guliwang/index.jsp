@@ -56,8 +56,8 @@
 		</div>
 
 		<div class="personal-center">
-	        <a id="a_myshop" onclick="" href="miaosha.jsp">秒杀商品 <span class="sign"></span></a>
-	        <a id="a_mycollect" onclick="">买赠商品 <span class="sign"></span></a>
+	        <a id="a_myshop" onclick="" href="miaosha.jsp?xian=${param.xian }">秒杀商品 <span class="sign"></span></a>
+	        <a id="a_mycollect" onclick="" href="give.jsp">买赠商品 <span class="sign"></span></a>
 	        <a onclick="">热销商品 <span class="sign"></span></a>
 	    </div>
 		<div class="personal-center-nav">

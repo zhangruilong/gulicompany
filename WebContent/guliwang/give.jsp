@@ -22,10 +22,8 @@
 </head>
 <body>
 <div class="gl-box">
-	<!-- <div class="home-search-wrapper"><a onclick='javascript:history.go(-1);' class='goback'></a>
-	<span>秒杀商品</span><a href="cart.jsp" class="gwc"><img src="images/gwc.png" ><em id="totalnum">0</em></a></div> -->
     <div class="wapper-nav"><a onclick='javascript:history.go(-1);' class='goback'></a>
-	秒杀商品<a onclick="docart(this)" href="cart.jsp" class="gwc"><img src="images/gwc.png" ><em id="totalnum">0</em></a></div>
+	买赠商品<a onclick="docart(this)" href="cart.jsp" class="gwc"><img src="images/gwc.png" ><em id="totalnum">0</em></a></div>
     <div class="goods-wrapper">
         <ul class="home-hot-commodity">
         </ul>
@@ -58,9 +56,9 @@ $(function(){
 	}
 	//页面信息
 	if(xian != ''){
-		$.getJSON("miaoshaPage.action",{"city.cityname":xian},initMiaoshaPage);
+		$.getJSON("maizengPage.action",{"city.cityname":xian},initMiaoshaPage);
 	} else {
-		$.getJSON("miaoshaPage.action",{"city.cityname":customer.customerxian},initMiaoshaPage);
+		$.getJSON("maizengPage.action",{"city.cityname":customer.customerxian},initMiaoshaPage);
 	}
 });
 //初始化页面
@@ -246,32 +244,6 @@ function chuancan(
 function docart(obj){
 	if (window.localStorage.getItem("sdishes") == null || window.localStorage.getItem("sdishes") == "[]") {				//判断有没有购物车
 		$(obj).attr("href","cartnothing.html");
-	}
-}
-function successCB(r, cb) {
-	cb && cb(r);
-}
-
-function getJson(url, param, sCallback, fCallBack) {
-	try
-	{
-		$.ajax({
-			url: url,
-			data: param,
-			dataType:"json",
-			success: function(r) {
-				successCB(r, sCallback);
-				successCB(r, fCallBack);
-			},
-			error:function(r) {
-				var resp = eval(r); 
-				alert(resp.msg);
-			}
-		});
-	}
-	catch (ex)
-	{
-		alert(ex);
 	}
 }
 </script>
