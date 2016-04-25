@@ -22,6 +22,11 @@
 	.home-search-wrapper .citydrop img{
 		margin-top: 10px;
 	}
+	.personal-center a{
+		line-height: 250%;
+		font-size: 30px;
+		padding: 10px;
+	}
 </style>
 </head>
 
@@ -50,7 +55,11 @@
 			</ul>
 		</div>
 
-
+		<div class="personal-center">
+	        <a id="a_myshop" onclick="" href="miaosha.jsp">秒杀商品 <span class="sign"></span></a>
+	        <a id="a_mycollect" onclick="">买赠商品 <span class="sign"></span></a>
+	        <a onclick="">热销商品 <span class="sign"></span></a>
+	    </div>
 		<div class="personal-center-nav">
 			<ul>
 				<li class="active"><a
@@ -127,7 +136,7 @@
 		$.each(data.cityList,function(i,item){
 			$("#citys-menu").append('<li><a href="index.jsp?xian='+item.cityname+'&city='+item.cityparent+'">'+ item.cityname +'</a></li>');									//得到地区
 		});
-		$.each(data.companyList,function(i,item1){
+		/* $.each(data.companyList,function(i,item1){
 			$.each(item1.timegoodsList,function(j,item2){
 			var liObj = '<li><a '+
 			'onclick="judgePurchase(\''+
@@ -166,7 +175,7 @@
 			
 			$(".home-hot-commodity").append(liObj+'</span></a></li>');
 			});
-		});
+		}); */
 	}
 	//判断是否到达限购数量
 	function judgePurchase(

@@ -29,7 +29,7 @@ input:focus{ outline:none}
 
 <body>
 <div class="gl-box">
-	<div class="wapper-nav" style="">我的</div>
+	<div class="wapper-nav">我的</div>
 	<form action="System_attachAction.do?other=getch&method=upload">
 	<input type="hidden" name="json" id="json" value="">
     <div style="width:100%; padding-top:2%; color:#fff; background:url(images/minebg.jpg);">
