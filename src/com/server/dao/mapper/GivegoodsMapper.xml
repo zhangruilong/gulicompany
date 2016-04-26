@@ -46,8 +46,9 @@
     GIVEGOODSUNIT, GIVEGOODSPRICE, GIVEGOODSNUM, GIVEGOODSCLASS, GIVEGOODSIMAGE, GIVEGOODSSTATUE, 
     CREATETIME, CREATOR
   </sql>
+  <!-- 根据供应商所在地区查询买赠商品 -->
   <select id="selectByCompanyXian" resultMap="BaseResultMap" parameterType="com.server.pojo.entity.Givegoods" >
-  	select g.*
+  	select *
 	from givegoods g
 	left join company c
 	on g.givegoodscompany = c.companyid

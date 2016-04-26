@@ -41,14 +41,14 @@
     ORDERDPRICE, ORDERDUNIT, ORDERDCLASS, ORDERDNUM, ORDERDMONEY, ORDERDRIGHTMONEY
   </sql>
   <!-- 查询到客户的所有秒杀品的订单详情 -->
-  <select id="selectOrderdByCustomerMiaosha" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectOrderdByCustomerMiaosha" resultMap="BaseResultMap" parameterType="com.server.pojo.entity.Orderd" >
     select
 	 d.*
 	from orderd d
 	left join orderm m
 	on m.ordermid = d.orderdorderm
-	where d.orderdtype = '秒杀'
-	and m.ordermcustomer = #{ordermcustomer}
+	where d.orderdtype = #{orderdtype}
+	and m.ordermcustomer = #{orderm.ordermcustomer}
   </select>
   <!-- 根据时间范围(多条件)查询订单(分页) -->
   <select id="selectByPage" resultMap="BaseResultMap" >

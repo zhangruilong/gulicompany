@@ -70,11 +70,11 @@ function initMiaoshaPage(data){
 		item1.givegoodsid +'\',\''+
 		item1.givegoodsdetail +'\',\''+
 		item1.givegoodscompany +'\',\''+
-		item1.companyshop +'\',\''+
-		item1.companydetail +'\',\''+
+		item1.givegoodcompany.companyphone +'\',\''+
+		item1.givegoodcompany.companydetail +'\',\''+
 		item1.givegoodsclass +'\',\''+
 		item1.givegoodscode +'\',\''+
-		item1.givegoodsorgprice +'\',\''+
+		item1.givegoodsprice +'\',\''+
 		item1.givegoodsunit +'\',\''+
 		item1.givegoodsname +'\',\''+
 		item1.givegoodsimage +'\',\''+
@@ -122,7 +122,7 @@ function judgePurchase(
 		alert("购买前需注册");
 		return;
 	}
-	$.getJSON('judgePurchase.action',{
+	$.getJSON('judgePurchaseGiveGoods.action',{
 		'givegoodsnum':givegoodsnum,
 		'givegoodscode':givegoodscode,
 		'customerid':customer.customerid
@@ -181,7 +181,7 @@ function chuancan(
 		mdishes.pricesunit = givegoodsunit;
 		mdishes.goodsname = givegoodsname;
 		mdishes.goodsimage = givegoodsimage;
-		mdishes.orderdtype = '秒杀';
+		mdishes.orderdtype = '买赠';
 		mdishes.timegoodsnum = givegoodsnum;
 		mdishes.goodsunits = givegoodsunits;
 		mdishes.orderdetnum = 1;
@@ -219,7 +219,7 @@ function chuancan(
 				mdishes.pricesunit = givegoodsunit;
 				mdishes.goodsname = givegoodsname;
 				mdishes.goodsimage = givegoodsimage;
-				mdishes.orderdtype = '秒杀';
+				mdishes.orderdtype = '买赠';
 				mdishes.timegoodsnum = givegoodsnum;
 				mdishes.goodsunits = givegoodsunits;
 				mdishes.orderdetnum = 1;

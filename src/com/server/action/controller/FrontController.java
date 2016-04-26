@@ -36,6 +36,8 @@ public class FrontController {
 	private OrdermMapper ordermMapper;
 	@Autowired
 	private GivegoodsMapper givegoodsMapper;
+	@Autowired
+	private OrderdMapper orderdMapper;
 	//查询首页所需的数据
 	@RequestMapping(value="/guliwang/doGuliwangIndex",produces="application/json")
 	@ResponseBody
@@ -92,18 +94,38 @@ public class FrontController {
 		pageInfo.put("giveList", giveList);
 		return pageInfo;
 	}
-	//判断限购数量是否到达上限
+	//判断秒杀商品的限购数量是否到达上限
 	@RequestMapping(value="/guliwang/judgePurchase",produces="application/json")
 	@ResponseBody
 	public Map<String, Object> judgePurchase(Integer timegoodsnum,String timegoodscode,String customerid){
 		Map<String, Object> map = new HashMap<String, Object>();
-		Integer num = ordermMapper.selectOrderByCustomerGoods(customerid, timegoodscode);
+		Integer num = ordermMapper.selectOrderByCustomerGoods(customerid, timegoodscode,"秒杀");
 		if(num != null && num >= timegoodsnum){
 			map.put("result", "no");
 		} else {
 			map.put("result", "ok");
 		}
 		return map;
+	}
+	//判断买赠商品的限购数量
+	@RequestMapping(value="/guliwang/judgePurchaseGiveGoods")
+	@ResponseBody
+	public Map<String, Object> judgePurchaseGiveGoods(Integer givegoodsnum,String givegoodscode,String customerid){
+		Map<String, Object> map = new HashMap<String, Object>();
+		Integer num = ordermMapper.selectOrderByCustomerGoods(customerid, givegoodscode,"买赠");
+		if(num != null && num >= givegoodsnum){
+			map.put("result", "no");
+		} else {
+			map.put("result", "ok");
+		}
+		return map;
+	}
+	//判断限购数量是否到达上限
+	@RequestMapping(value="/guliwang/queryCusSecKillOrderd",produces="application/json")
+	@ResponseBody
+	public List<Orderd> queryCusSecKillOrderd(String customerid){
+		List<Orderd> miaoshaList = orderdMapper.selectOrderdByCustomerMiaosha(customerid);
+		return miaoshaList;
 	}
 }
 

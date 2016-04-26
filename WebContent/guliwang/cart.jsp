@@ -74,6 +74,7 @@ function nextpage(){
 function checkCusSecKill(){
 	var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));
 	$.post('queryCusSecKillOrderd.action',{'customerid':customer.customerid},function(data){
+		alert(stringify(data));
 		var count = 0;
 		$.each(sdishes,function(i,item1){
 			if(item1.orderdtype == '秒杀'){

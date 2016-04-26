@@ -69,7 +69,7 @@
 	on orderd.orderdorderm = orderm.ordermid
 	where orderm.ordermcustomer = #{ordermcustomer}
 	and orderd.orderdcode = #{orderdcode}
-	and orderd.orderdtype = '秒杀'
+	and orderd.orderdtype = #{orderdtype}
   </select>
   <!-- 根据供应商(和条件)查询订单(分页) -->
   <select id="selectByPage" resultType="com.server.pojo.entity.Ordermview">

@@ -11,7 +11,8 @@ public interface OrdermMapper {
 	/**
 	 * 根据ordermcustomer和orderdcode(商品编码)查询订单
 	 */
-	Integer selectOrderByCustomerGoods(@Param("ordermcustomer") String ordermcustomer,@Param("orderdcode") String orderdcode);
+	Integer selectOrderByCustomerGoods(@Param("ordermcustomer") String ordermcustomer,
+			@Param("orderdcode") String orderdcode,@Param("orderdtype") String orderdtype);
 	/**
 	 * 根据供应商(和条件)查询订单(分页)
 	 */
