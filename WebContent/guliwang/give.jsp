@@ -144,7 +144,7 @@ function judgePurchase(
 					givegoodsnum
 					);
 		} else {
-			alert('购买数量超过限购数量');
+			alert('您的购买数量超过限购数量');
 		}
 	});
 }
@@ -199,8 +199,7 @@ function chuancan(
 		var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));	//将缓存中的sdishes(字符串)转换为json对象
 		var tnum = parseInt(window.localStorage.getItem("totalnum"));		//取出商品的总类数
 		$.each(sdishes,function(i,item) {								//遍历购物车中的商品
-			//i是增量,item是迭代出来的元素.i从0开始
-			if( item.goodsid == givegoodsid){
+			if( item.goodsid == givegoodsid && item.orderdtype == '买赠'){
 				//如果商品id相同
 				window.location.href = "cart.jsp";
 				return false;

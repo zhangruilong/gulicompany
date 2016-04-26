@@ -73,14 +73,13 @@ function nextpage(){
 //检查客户是否可以购买秒杀商品
 function checkCusSecKill(){
 	var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));
-	$.post('queryCusSecKillOrderd.action',{'customerid':customer.customerid},function(data){
-		alert(stringify(data));
+	$.post('queryCusSecKillOrderd.action',{'orderm.ordermcustomer':customer.customerid},function(data){
 		var count = 0;
 		$.each(sdishes,function(i,item1){
 			if(item1.orderdtype == '秒杀'){
 				var restNum = parseInt(item1.timegoodsnum) - parseInt(item1.orderdetnum);
 				if(data){
-					$.each(data,function(i,item2){
+					$.each(data.miaoshaList,function(i,item2){
 						if(item2.orderdcode == item1.goodscode){
 							restNum -= parseInt(item2.orderdnum);
 						}
@@ -90,9 +89,22 @@ function checkCusSecKill(){
 					count++;
 				}
 			}
+			if(item1.orderdtype == '买赠'){
+				var restNum = parseInt(item1.timegoodsnum) - parseInt(item1.orderdetnum);
+				if(data){
+					$.each(data.giveGoodsList,function(i,item2){
+						if(item2.orderdcode == item1.goodscode){
+							restNum -= parseInt(item2.orderdnum);
+						}
+					});
+				}
+				if(restNum < 0){		//买的商品数量超过了限购数量
+					count++;
+				}
+			}
 		});
 		if(count > 0){
-			alert('您购买的秒杀商品超过了限购数量。');
+			alert('您购买的商品超过了限购数量。');
 		} else {
 			nextpage();
 		}

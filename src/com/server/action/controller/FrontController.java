@@ -123,9 +123,15 @@ public class FrontController {
 	//判断限购数量是否到达上限
 	@RequestMapping(value="/guliwang/queryCusSecKillOrderd",produces="application/json")
 	@ResponseBody
-	public List<Orderd> queryCusSecKillOrderd(String customerid){
-		List<Orderd> miaoshaList = orderdMapper.selectOrderdByCustomerMiaosha(customerid);
-		return miaoshaList;
+	public Map<String, Object> queryCusSecKillOrderd(Orderd orderd){
+		Map<String, Object> map = new HashMap<String, Object>();
+		orderd.setOrderdtype("秒杀");
+		List<Orderd> miaoshaList = orderdMapper.selectOrderdByCustomerMiaosha(orderd);
+		orderd.setOrderdtype("买赠");
+		List<Orderd> giveGoodsList = orderdMapper.selectOrderdByCustomerMiaosha(orderd);
+		map.put("miaoshaList", miaoshaList);
+		map.put("giveGoodsList", giveGoodsList);
+		return map;
 	}
 }
 
