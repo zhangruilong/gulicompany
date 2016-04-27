@@ -10,12 +10,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.server.dao.mapper.AddressMapper;
 import com.server.dao.mapper.CityMapper;
 import com.server.dao.mapper.CompanyMapper;
 import com.server.dao.mapper.CustomerMapper;
 import com.server.dao.mapper.GivegoodsMapper;
 import com.server.dao.mapper.OrderdMapper;
 import com.server.dao.mapper.OrdermMapper;
+import com.server.pojo.entity.Address;
 import com.server.pojo.entity.City;
 import com.server.pojo.entity.Company;
 import com.server.pojo.entity.Givegoods;
@@ -38,6 +40,8 @@ public class FrontController {
 	private GivegoodsMapper givegoodsMapper;
 	@Autowired
 	private OrderdMapper orderdMapper;
+	@Autowired
+	private AddressMapper addressMapper;
 	//查询首页所需的数据
 	@RequestMapping(value="/guliwang/doGuliwangIndex",produces="application/json")
 	@ResponseBody
@@ -125,10 +129,18 @@ public class FrontController {
 	@ResponseBody
 	public Map<String, Object> queryCusSecKillOrderd(Orderd orderd){
 		Map<String, Object> map = new HashMap<String, Object>();
+		Address record = new Address();
+		String msg = "";
+		record.setAddresscustomer(orderd.getOrderm().getOrdermcustomer());
+		List<Address> addressList = addressMapper.selectDefAddress(record);
+		if(addressList == null || addressList.size() == 0){
+			msg = "no";
+		}
 		orderd.setOrderdtype("秒杀");
 		List<Orderd> miaoshaList = orderdMapper.selectOrderdByCustomerMiaosha(orderd);
 		orderd.setOrderdtype("买赠");
 		List<Orderd> giveGoodsList = orderdMapper.selectOrderdByCustomerMiaosha(orderd);
+		map.put("msg", msg);
 		map.put("miaoshaList", miaoshaList);
 		map.put("giveGoodsList", giveGoodsList);
 		return map;

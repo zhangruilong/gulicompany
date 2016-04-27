@@ -40,6 +40,23 @@
     ORDERDID, ORDERDORDERM, ORDERDCODE, ORDERDTYPE, ORDERDNAME, ORDERDDETAIL, ORDERDUNITS, 
     ORDERDPRICE, ORDERDUNIT, ORDERDCLASS, ORDERDNUM, ORDERDMONEY, ORDERDRIGHTMONEY
   </sql>
+  <!-- 查询热销商品 -->
+  <select id="selectHotGoodsCodeAndType" resultMap="BaseResultMap" >
+    select * from 
+	  (select A.*, ROWNUM RN from (
+	select
+	sum(od.orderdnum) odgoodsnum,
+	od.orderdcode
+	from orderd od
+	left join orderm om
+	on om.ordermid = od.orderdorderm
+	where om.ordermtime &gt;= #{staTime}
+	and om.ordermtime &lt;= #{endTime}
+	group by od.orderdcode
+	order by odgoodsnum desc
+	) A where ROWNUM  &lt;= (1*10))
+	  where RN &gt; ((1-1)*10)
+  </select>
   <!-- 查询到客户的所有秒杀品的订单详情 -->
   <select id="selectOrderdByCustomerMiaosha" resultMap="BaseResultMap" parameterType="com.server.pojo.entity.Orderd" >
     select

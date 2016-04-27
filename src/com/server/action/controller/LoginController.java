@@ -61,6 +61,7 @@ public class LoginController {
 	@ResponseBody
 	public Customer reg(Customer customer,String addressphone){
 		String newCusId = CommonUtil.getNewId();
+		
 		customer.setCustomerid(newCusId);		//设置新id
 		customer.setCustomerstatue("启用");
 		customer.setCustomerlevel(3);
@@ -70,7 +71,7 @@ public class LoginController {
 		//添加新地址
 		Address address = new Address();
 		address.setAddressture(1);							//自动设为默认地址
-		address.setAddressid(CommonUtil.getNewId());		//设置新id
+		address.setAddressid(newCusId);		//设置新id
 		address.setAddressaddress(customer.getCustomercity()+customer.getCustomerxian()+customer.getCustomeraddress());
 		address.setAddresscustomer(newCusId);				//客户id
 		address.setAddressphone(customer.getCustomerphone());
@@ -79,7 +80,7 @@ public class LoginController {
 		//添加与唯一客户的关系
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		Ccustomer newccustomer = new Ccustomer();
-		newccustomer.setCcustomerid(CommonUtil.getNewId());
+		newccustomer.setCcustomerid(newCusId);
 		newccustomer.setCcustomercompany("1");
 		newccustomer.setCcustomercustomer(newCusId);
 		newccustomer.setCcustomerdetail("3");

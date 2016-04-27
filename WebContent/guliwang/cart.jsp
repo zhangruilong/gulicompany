@@ -30,8 +30,8 @@
 	<div class="cd-popup-container">
 		<div class="cd-buttons">
         	<h1>谷粒网提示</h1>
-			<p>还未注册,是否现在注册?</p>
-            <a href="#" class="cd-popup-close">取消</a><a href="doReg.action">确定</a>
+			<p class="popup_msg">还未注册,是否现在注册?</p>
+            <a href="#" class="cd-popup-close">取消</a><a class="popup_queding" href="doReg.action">确定</a>
 		</div>
 	</div>
 </div>
@@ -75,6 +75,12 @@ function checkCusSecKill(){
 	var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));
 	$.post('queryCusSecKillOrderd.action',{'orderm.ordermcustomer':customer.customerid},function(data){
 		var count = 0;
+		if(data.msg == 'no'){
+			$(".popup_msg").text("还没有收货地址,请先添加收货地址。");
+			$(".popup_queding").attr("href","mine.jsp");
+			$(".cd-popup").addClass("is-visible");
+			return;
+		}
 		$.each(sdishes,function(i,item1){
 			if(item1.orderdtype == '秒杀'){
 				var restNum = parseInt(item1.timegoodsnum) - parseInt(item1.orderdetnum);

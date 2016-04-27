@@ -13,21 +13,41 @@
 <link href="css/layout.css" type="text/css" rel="stylesheet">
 <link href="css/dig.css" type="text/css" rel="stylesheet">
 <style type="text/css">
-/* .home-search-wrapper{
-	text-align: center;
-	color: white;
-	font-size: 20px;
-} */
+
+#menu{width:100%; overflow:hidden; margin:0 auto;border:1px solid #BF9660;}
+#menu #nav {display:block;width:100%;padding:0;margin:0;list-style:none;}
+#menu #nav li {float:left;width:33.3%;}
+#menu #nav li a {display:block;line-height:27px;text-decoration:none;padding:0 0 0 5px; text-align:center; color:#333;}
+#menu_con{ width:358px; height:135px; border-top:none}
+.tag{ padding:10px; overflow:hidden;}
+.selected{background:#C5A069; color:#fff;}
 </style>
 </head>
 <body>
 <div class="gl-box">
     <div class="wapper-nav"><a onclick='javascript:history.go(-1);' class='goback'></a>
 	热销商品<a onclick="docart(this)" href="cart.jsp" class="gwc"><img src="images/gwc.png" ><em id="totalnum">0</em></a></div>
-    <div class="goods-wrapper">
-        <ul class="home-hot-commodity">
-        </ul>
-    </div>
+    <!--代码部分begin-->
+<div id="menu">
+<!--tag标题-->
+    <ul id="nav">
+        <li><a href="#" class="selected">今日热销商品</a></li>
+        <li><a href="#" class="">本周热销</a></li>
+        <li><a href="#" class="">本月热销</a></li>
+    </ul>
+<!--二级菜单-->
+    <div id="menu_con">
+        <div class="tag" style="display:block">
+            这里是jQuery特效内容列表
+         </div> 
+        <div class="tag" style="display:none">
+            这里是tab切换效果   
+         </div> 
+        <div class="tag"  style="display:none">
+            这里是菜单导航效果
+        </div> 
+</div>
+</div>
 </div>
 <!--弹框-->
 <div class="cd-popup" role="alert">
@@ -101,6 +121,60 @@ function initMiaoshaPage(data){
 		$(".home-hot-commodity").append(liObj+'</span></a></li>');
 	});
 }
+//到购物车页面
+function docart(obj){
+	if (window.localStorage.getItem("sdishes") == null || window.localStorage.getItem("sdishes") == "[]") {				//判断有没有购物车
+		$(obj).attr("href","cartnothing.html");
+	}
+}
+//tab标签特效
+var tabs=function(){
+    function tag(name,elem){
+        return (elem||document).getElementsByTagName(name);
+    }
+    //获得相应ID的元素
+    function id(name){
+        return document.getElementById(name);
+    }
+    function first(elem){
+        elem=elem.firstChild;
+        return elem&&elem.nodeType==1? elem:next(elem);
+    }
+    function next(elem){
+        do{
+            elem=elem.nextSibling;  
+        }while(
+            elem&&elem.nodeType!=1  
+        )
+        return elem;
+    }
+    return {
+        set:function(elemId,tabId){
+            var elem=tag("li",id(elemId));
+            var tabs=tag("div",id(tabId));
+            var listNum=elem.length;
+            var tabNum=tabs.length;
+            for(var i=0;i<listNum;i++){
+                    elem[i].onclick=(function(i){
+                        return function(){
+                            for(var j=0;j<tabNum;j++){
+                                if(i==j){
+                                    tabs[j].style.display="block";
+                                    //alert(elem[j].firstChild);
+                                    elem[j].firstChild.className="selected";
+                                }
+                                else{
+                                    tabs[j].style.display="none";
+                                    elem[j].firstChild.className="";
+                                }
+                            }
+                        }
+                    })(i)
+            }
+        }
+    }
+}();
+tabs.set("nav","menu_con");//执行
 </script>
 </body>
 </html>

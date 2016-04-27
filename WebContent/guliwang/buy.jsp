@@ -146,39 +146,62 @@ function buy(){
 				{'timegoodsids':timegoodsids,'timegoodssum':timegoodssum},
 				function(data){
 					if(data == 'ok'){
-						$.ajax({
-							url : 'OrdermAction.do?method=addOrder',
-							data : {
-								json : ordermjson,
-								orderdetjson : orderdetjson
-							},
-							success : function(resp) {
-								var respText = eval('('+resp+')'); 
-				    			if(respText.success == false) 
-				    				alert(respText.msg);
-				    			else {
-				    				window.localStorage.setItem("sdishes", "[]");
-									window.localStorage.setItem("totalnum", 0);
-									window.localStorage.setItem("totalmoney", 0);
-									window.localStorage.setItem("cartnum", 0);
-									alert("下单成功！");
-									window.location.href = "order.jsp";
-				    			}
-							},
-							error : function(resp) {
-								alert('网络出现问题，请稍后再试');
-							}
-						});
+						saveOrder(ordermjson,orderdetjson);
 					} else {
 						$(".meg").text("您购买的秒杀商品卖完了.......");
 						$(".cd-popup-ok").attr("onclick","javascript:window.location.href = 'cart.jsp'");
 						$('.cd-popup').addClass('is-visible');			//弹窗
 					}
 			});
+		} else {
+			saveOrder(ordermjson,orderdetjson);
 		}
 		
      });
 }
+//保存订单和订单详情
+function saveOrder(ordermjson,orderdetjson){
+	$.ajax({
+		url : 'OrdermAction.do?method=addOrder',
+		data : {
+			json : ordermjson,
+			orderdetjson : orderdetjson
+		},
+		success : function(resp) {
+			var respText = eval('('+resp+')'); 
+			if(respText.success == false) 
+				alert(respText.msg);
+			else {
+				window.localStorage.setItem("sdishes", "[]");
+				window.localStorage.setItem("totalnum", 0);
+				window.localStorage.setItem("totalmoney", 0);
+				window.localStorage.setItem("cartnum", 0);
+				alert("下单成功！");
+				window.location.href = "order.jsp";
+			}
+		},
+		error : function(resp) {
+			alert('网络出现问题，请稍后再试');
+		}
+	});
+}
 </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

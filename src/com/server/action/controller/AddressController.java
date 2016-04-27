@@ -109,9 +109,11 @@ public class AddressController {
 			if(address.getAddressture() == 1){
 				//如果删除的是默认地址
 				List<Address> addressList = addressMapper.selectByCondition(customerId);		//根据条件查询地址
-				Address address2 = addressList.get(0);
-				address2.setAddressture(1);
-				addressMapper.updateByPrimaryKeySelective(address2);
+				if(addressList != null && addressList.size() != 0){
+					Address address2 = addressList.get(0);
+					address2.setAddressture(1);
+					addressMapper.updateByPrimaryKeySelective(address2);
+				}
 			}
 			model.addAttribute("address", address);
 			model.addAttribute("customerId", customerId);

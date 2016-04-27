@@ -10,6 +10,10 @@ import com.server.pojo.entity.OrderdStatistics;
 
 public interface OrderdMapper {
 	/**
+	 * 查询热销商品
+	 */
+	List<Orderd> selectHotGoodsCodeAndType(@Param("staTime") String staTime,@Param("endTime") String endTime);
+	/**
 	 * 查询到客户的所有秒杀品的订单详情
 	 */
 	List<Orderd> selectOrderdByCustomerMiaosha(Orderd orderd);
