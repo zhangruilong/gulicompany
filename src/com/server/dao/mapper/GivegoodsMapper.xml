@@ -46,6 +46,12 @@
     GIVEGOODSUNIT, GIVEGOODSPRICE, GIVEGOODSNUM, GIVEGOODSCLASS, GIVEGOODSIMAGE, GIVEGOODSSTATUE, 
     CREATETIME, CREATOR
   </sql>
+  <!-- 根据编码查询 -->
+  <select id="selectByCode" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select * 
+    from GIVEGOODS
+    where GIVEGOODSCODE = #{givegoodscode,jdbcType=VARCHAR}
+  </select>
   <!-- 根据供应商所在地区查询买赠商品 -->
   <select id="selectByCompanyXian" resultMap="BaseResultMap" parameterType="com.server.pojo.entity.Givegoods" >
   	select *

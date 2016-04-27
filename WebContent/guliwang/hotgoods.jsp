@@ -37,7 +37,7 @@
     </ul>
 <!--二级菜单-->
     <div id="menu_con">
-        <div class="tag" style="display:block">
+        <div class="tag today_hotGoods" style="display:block">
             这里是jQuery特效内容列表
          </div> 
         <div class="tag" style="display:none">
@@ -76,35 +76,39 @@ $(function(){
 	}
 	//页面信息
 	if(xian != ''){
-		$.getJSON("maizengPage.action",{"givegoodcompany.city.cityname":xian},initMiaoshaPage);
+		$.getJSON("hotTodayGoods.action",{"cityname":xian},initMiaoshaPage);
 	} else {
-		$.getJSON("maizengPage.action",{"givegoodcompany.city.cityname":customer.customerxian},initMiaoshaPage);
+		$.getJSON("hotTodayGoods.action",{"cityname":customer.customerxian},initMiaoshaPage);
 	}
 });
 //初始化页面
 function initMiaoshaPage(data){
-	$(".home-hot-commodity").html("");
-	$.each(data.giveList,function(i,item1){
+	return;
+	$(".today_hotGoods").html("");
+	$.each(data,function(i,item){
+		if(item.type == '商品'){
+			
+		}
 		var liObj = '<li><a '+
 		'onclick="judgePurchase(\''+
-		item1.givegoodsid +'\',\''+
-		item1.givegoodsdetail +'\',\''+
-		item1.givegoodscompany +'\',\''+
-		item1.givegoodcompany.companyphone +'\',\''+
-		item1.givegoodcompany.companydetail +'\',\''+
-		item1.givegoodsclass +'\',\''+
-		item1.givegoodscode +'\',\''+
-		item1.givegoodsprice +'\',\''+
-		item1.givegoodsunit +'\',\''+
-		item1.givegoodsname +'\',\''+
-		item1.givegoodsimage +'\',\''+
-		item1.givegoodsunits +'\',\''+
-		item1.givegoodsnum+'\');" '+
-		'> <span class="fl"> <img src="../'+item1.givegoodsimage+
+		item.givegoodsid +'\',\''+
+		item.givegoodsdetail +'\',\''+
+		item.givegoodscompany +'\',\''+
+		item.givegoodcompany.companyphone +'\',\''+
+		item.givegoodcompany.companydetail +'\',\''+
+		item.givegoodsclass +'\',\''+
+		item.givegoodscode +'\',\''+
+		item.givegoodsprice +'\',\''+
+		item.givegoodsunit +'\',\''+
+		item.givegoodsname +'\',\''+
+		item.givegoodsimage +'\',\''+
+		item.givegoodsunits +'\',\''+
+		item.givegoodsnum+'\');" '+
+		'> <span class="fl"> <img src="../'+item.givegoodsimage+
          	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span>'+
-			'<h1>'+item1.givegoodsname+
-				'<span>（'+item1.givegoodsunits+'）</span>'+
-			'</h1> <span> <strong>￥'+item1.givegoodsprice+'/'+item1.givegoodsunit+
+			'<h1>'+item.givegoodsname+
+				'<span>（'+item.givegoodsunits+'）</span>'+
+			'</h1> <span> <strong>￥'+item.givegoodsprice+'/'+item.givegoodsunit+
 			'</strong> ';
 		if(data.cusOrderdList != null && data.cusOrderdList.length != 0){
 			var itemGoodsCount = 0;
@@ -113,9 +117,9 @@ function initMiaoshaPage(data){
 					itemGoodsCount += item3.orderdnum
 				}
 			});
-			liObj += '<font>限购'+(item1.givegoodsnum - itemGoodsCount)+item1.givegoodsunit+'</font><br/>';
+			liObj += '<font>限购'+(item.givegoodsnum - itemGoodsCount)+item.givegoodsunit+'</font><br/>';
 		} else {
-			liObj += '<font>限购'+item1.givegoodsnum+item1.givegoodsunit+'</font><br/>';
+			liObj += '<font>限购'+item.givegoodsnum+item.givegoodsunit+'</font><br/>';
 		}
 		
 		$(".home-hot-commodity").append(liObj+'</span></a></li>');

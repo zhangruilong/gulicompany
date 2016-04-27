@@ -78,7 +78,6 @@
 	var xian = '${param.xian}';
 	var city = '${param.city}';
 	$(function(){ 
-		window.localStorage.setItem("openid","111111111");
 		//openid
 		if(!window.localStorage.getItem("openid")||"null"==window.localStorage.getItem("openid")){
 			alert(window.localStorage.getItem("openid"));

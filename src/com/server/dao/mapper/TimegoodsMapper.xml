@@ -25,6 +25,13 @@
     TIMEGOODSUNIT, TIMEGOODSPRICE, TIMEGOODSORGPRICE, TIMEGOODSNUM, TIMEGOODSCLASS, TIMEGOODSIMAGE, 
     TIMEGOODSSTATUE, CREATETIME, CREATOR, ALLNUM, SURPLUSNUM
   </sql>
+  <!-- 根据编码查询 -->
+  <select id="selectByCode" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from TIMEGOODS
+    where TIMEGOODSCODE = #{timegoodscode,jdbcType=VARCHAR}
+  </select>
   <!-- 根据条件查询(数量) -->
   <select id="selectByConditionCount" resultType="int" parameterType="com.server.pojo.entity.Timegoods" >
     select 

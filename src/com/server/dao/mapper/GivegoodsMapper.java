@@ -6,6 +6,10 @@ import com.server.pojo.entity.Givegoods;
 
 public interface GivegoodsMapper {
 	/**
+	 * 根据编码查询
+	 */
+	List<Givegoods> selectByCode(String givegoodscode);
+	/**
 	 * 根据供应商所在地区查询买赠商品
 	 */
 	List<Givegoods> selectByCompanyXian(Givegoods givegoods);

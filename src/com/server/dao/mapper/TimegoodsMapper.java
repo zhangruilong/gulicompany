@@ -8,6 +8,10 @@ import com.server.pojo.entity.Timegoods;
 
 public interface TimegoodsMapper {
 	/**
+	 * 根据编码查询
+	 */
+	List<Timegoods> selectByCode(String timegoodscode);
+	/**
      * 根据条件查询(数量)
      */
     Integer selectByConditionCount(Timegoods timegoods);

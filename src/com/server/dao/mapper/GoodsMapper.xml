@@ -44,7 +44,20 @@
     GOODSID, GOODSCOMPANY, GOODSCODE, GOODSNAME, GOODSDETAIL, GOODSUNITS, GOODSCLASS, 
     GOODSIMAGE, GOODSSTATUE, CREATETIME, UPDTIME, CREATOR, UPDOR
   </sql>
-  <!-- 根据条件查询 -->
+  <!-- 根据编码查询商品 -->
+  <select id="selectByGoods" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+		goods.*,
+		prices.*,
+		goodsclass.goodsclassname 
+	from goods
+	left outer join prices 
+	on prices.pricesgoods = goods.goodsid
+	left outer join goodsclass
+	on goods.goodsclass = goodsclass.goodsclassid
+    where goods.GOODSCODE = #{goodscode}
+  </select>
+  <!-- 查询信息总条数 -->
   <select id="selectByConditionCount" resultType="int">
 	select
 		count(*) 
@@ -67,10 +80,10 @@
 			goodsclass.goodsclassname like '%${goodscode}%')
 		</if>
   </select>
-  <!-- 根据条件查询 -->
+  <!-- 根据分页查询 -->
   <select id="selectByCondition" resultMap="BaseResultMap">
-  select * from 
-(select A.*, ROWNUM RN from (
+	select * from 
+	(select A.*, ROWNUM RN from (
 		select
     goods.*,
     goodsclass.goodsclassname,

@@ -12,11 +12,15 @@ import com.server.pojo.entity.Goods;
  */
 public interface GoodsMapper {
 	/**
-	 * 查询信息条数
+	 * 根据编码查询商品
+	 */
+	List<Goods> selectByGoods(String goodscode);
+	/**
+	 * 查询信息总条数
 	 */
 	Integer selectByConditionCount(Goods goods);
 	/**
-     * 根据条件查询
+     * 根据分页查询
      */
     List<Goods> selectByCondition(@Param("goods") Goods goods,
     		@Param("nowpage") Integer nowpage,@Param("pagesize") Integer pagesize);
@@ -29,7 +33,7 @@ public interface GoodsMapper {
      */
     int insertSelective(Goods record);
     /**
-     * 根据主键查询商品和价格
+     * 根据主键查询商品和价格和类名 
      */
     Goods selectByPrimaryKey(String goodsid);
     /**

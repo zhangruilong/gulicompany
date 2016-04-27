@@ -12,7 +12,7 @@ public interface OrderdMapper {
 	/**
 	 * 查询热销商品
 	 */
-	List<Orderd> selectHotGoodsCodeAndType(@Param("staTime") String staTime,@Param("endTime") String endTime);
+	List<Orderd> selectHotGoodsCodeAndType(@Param("staTime") String staTime,@Param("endTime") String endTime,@Param("cityname") String cityname);
 	/**
 	 * 查询到客户的所有秒杀品的订单详情
 	 */

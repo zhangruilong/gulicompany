@@ -1,5 +1,6 @@
 package com.server.action.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,14 +16,19 @@ import com.server.dao.mapper.CityMapper;
 import com.server.dao.mapper.CompanyMapper;
 import com.server.dao.mapper.CustomerMapper;
 import com.server.dao.mapper.GivegoodsMapper;
+import com.server.dao.mapper.GoodsMapper;
 import com.server.dao.mapper.OrderdMapper;
 import com.server.dao.mapper.OrdermMapper;
+import com.server.dao.mapper.TimegoodsMapper;
 import com.server.pojo.entity.Address;
 import com.server.pojo.entity.City;
 import com.server.pojo.entity.Company;
 import com.server.pojo.entity.Givegoods;
+import com.server.pojo.entity.Goods;
+import com.server.pojo.entity.GoodsVo;
 import com.server.pojo.entity.Orderd;
 import com.server.pojo.entity.Orderm;
+import com.system.tools.util.DateUtils;
 /**
  * 首页
  * @author taolichao
@@ -42,6 +48,10 @@ public class FrontController {
 	private OrderdMapper orderdMapper;
 	@Autowired
 	private AddressMapper addressMapper;
+	@Autowired
+	private GoodsMapper goodsMapper;
+	@Autowired
+	private TimegoodsMapper timegoodsMapper;
 	//查询首页所需的数据
 	@RequestMapping(value="/guliwang/doGuliwangIndex",produces="application/json")
 	@ResponseBody
@@ -144,6 +154,33 @@ public class FrontController {
 		map.put("miaoshaList", miaoshaList);
 		map.put("giveGoodsList", giveGoodsList);
 		return map;
+	}
+	//热销商品
+	@RequestMapping(value="/guliwang/hotTodayGoods")
+	@ResponseBody
+	public List<GoodsVo> hotTodayGoods(String cityname){
+		String today = DateUtils.getDate();
+		List<Orderd> orderdList = orderdMapper.selectHotGoodsCodeAndType(today + " 00:00:00", today + " 23:59:59",cityname);
+		List<GoodsVo> goodsVoList = new ArrayList<GoodsVo>();
+		for (Orderd orderd : orderdList) {
+			if(orderd.getOrderdtype().equals("商品")){
+				GoodsVo goodsVo = new GoodsVo();
+				goodsVo.setType("商品");
+				goodsVo.setGoods(goodsMapper.selectByGoods(orderd.getOrderdcode()).get(0));
+				goodsVoList.add(goodsVo);
+			} else if(orderd.getOrderdtype().equals("秒杀")){
+				GoodsVo goodsVo = new GoodsVo();
+				goodsVo.setType("秒杀");
+				goodsVo.setTimegoods(timegoodsMapper.selectByCode(orderd.getOrderdcode()).get(0));
+				goodsVoList.add(goodsVo);
+			} else {
+				GoodsVo goodsVo = new GoodsVo();
+				goodsVo.setType("买赠");
+				goodsVo.setGivegoods(givegoodsMapper.selectByCode(orderd.getOrderdcode()).get(0));
+				goodsVoList.add(goodsVo);
+			}
+		}
+		return goodsVoList;
 	}
 }
 
