@@ -64,6 +64,7 @@
 				and customer.customertype = #{ccustomer.customer.customertype}
 			</if>
 		</if>
+		order by customer.createtime asc
 		) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) ) 
 		where RN &gt; ((#{nowpage}-1)*#{pagesize})
   </select>
