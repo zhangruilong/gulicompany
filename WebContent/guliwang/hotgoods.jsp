@@ -22,11 +22,11 @@ String dateString = formatter.format(currentTime);
 
 #menu{width:100%; overflow:hidden; margin:0 auto;border:1px solid #BF9660;}
 #menu #nav {display:block;width:100%;padding:0;margin:0;list-style:none;}
-#menu #nav li {float:left;width:33.3%;}
+#menu #nav li {float:left;width:33.3%; background-color: white;}
 #menu #nav li a {display:block;line-height:27px;text-decoration:none;padding:0 0 0 5px; text-align:center; color:#333;}
 #menu_con{ border-top:none}
 .tag{ padding:10px; overflow:hidden;}
-.selected{background:#C5A069; color:#fff;}
+.selected{background:#D5D5D5; color:#fff;}
 </style>
 </head>
 <body>
@@ -46,12 +46,6 @@ String dateString = formatter.format(currentTime);
         <div class="tag goods-wrapper" style="display:block;">
 	        	<ul class="home-hot-commodity">
 	        	</ul>
-        </div> 
-        <div class="tag" style="display:none">
-            这里是tab切换效果   
-         </div> 
-        <div class="tag"  style="display:none">
-            这里是菜单导航效果
         </div> 
 </div>
 </div>
