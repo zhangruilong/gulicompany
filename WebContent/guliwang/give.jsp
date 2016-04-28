@@ -44,6 +44,7 @@
 <script type="text/javascript">
 var customer = JSON.parse(window.localStorage.getItem("customer"));
 var xian = '${param.xian}';
+var givegoodscode = '${param.givegoodscode}';
 $(function(){ 
 	//购物车图标上的数量
 	if(!window.localStorage.getItem("cartnum")){
@@ -55,11 +56,11 @@ $(function(){
 		$("#totalnum").text(window.localStorage.getItem("cartnum"));
 	}
 	//页面信息
-	if(xian != ''){
-		$.getJSON("maizengPage.action",{"givegoodcompany.city.cityname":xian},initMiaoshaPage);
-	} else {
-		$.getJSON("maizengPage.action",{"givegoodcompany.city.cityname":customer.customerxian},initMiaoshaPage);
+	//页面信息
+	if(xian == ''){
+		xian = customer.customerxian
 	}
+	$.getJSON("maizengPage.action",{"givegoodcompany.city.cityname":xian,"givegoodscode":givegoodscode},initMiaoshaPage);
 });
 //初始化页面
 function initMiaoshaPage(data){

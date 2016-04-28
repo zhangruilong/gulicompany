@@ -131,13 +131,13 @@ function initMiaoshaPage(data){
 	         	'<h1>'+item.goods.goodsname+'<br><span>('+item.goods.goodsunits+')</span></h1>'+
 	           '  <div class="block"> </div></li>';
 		} else if(item.type == '秒杀'){
-			var liObj = '<li>'+
+			var liObj = '<li onclick="purchaseMiaosha(\''+item.timegoods.timegoodscode+'\')">'+
          	'<span class="fl"><img src="../'+item.timegoods.timegoodsimage+
          	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span> '+
          	'<h1>'+item.timegoods.timegoodsname+'<br><span>('+item.timegoods.timegoodsunits+')</span></h1>'+
            '  <div class="block"> </div></li>';
 		} else {
-			var liObj = '<li>'+
+			var liObj = '<li onclick="purchaseGiveGoods(\''+item.givegoods.givegoodscode+'\')">'+
          	'<span class="fl"><img src="../'+item.givegoods.givegoodsimage+
          	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span> '+
          	'<h1>'+item.givegoods.givegoodsname+'<br><span>('+item.givegoods.givegoodsunits+')</span></h1>'+
@@ -150,7 +150,14 @@ function initMiaoshaPage(data){
 function purchaseGoods(goodscode){
 	window.location.href = 'goods.jsp?searchdishes='+goodscode;
 }
-
+//购买秒杀商品
+function purchaseMiaosha(timegoodscode){
+	window.location.href = 'miaosha.jsp?xian='+ xian +'&timegoodscode='+ timegoodscode;
+}
+//购买买赠商品
+function purchaseGiveGoods(givegoodscode){
+	window.location.href = 'give.jsp?xian='+ xian +'&givegoodscode='+ givegoodscode;
+}
 //到购物车页面
 function docart(obj){
 	if (window.localStorage.getItem("sdishes") == null || window.localStorage.getItem("sdishes") == "[]") {				//判断有没有购物车

@@ -56,7 +56,7 @@
 		    <result column="UPDOR" property="updor" jdbcType="VARCHAR" />
 		 </collection>
     </collection>
-    <!-- 关联促销品 -->
+    <!-- 关联秒杀品 -->
     <collection property="timegoodsList" ofType="com.server.pojo.entity.Timegoods">
     	<id column="TIMEGOODSID" property="timegoodsid" jdbcType="VARCHAR" />
 	    <result column="TIMEGOODSCOMPANY" property="timegoodscompany" jdbcType="VARCHAR" />
@@ -102,6 +102,11 @@
   	<if test="city != null">
   		<if test="city.cityname != null and city.cityname != ''">
   			and city.cityname = #{city.cityname}
+  		</if>
+  	</if>
+  	<if test="timegoodsList != null">
+  		<if test="timegoodsList[0].timegoodscode != null and timegoodsList[0].timegoodscode != ''">
+  			and timegoods.timegoodscode = #{timegoodsList[0].timegoodscode}
   		</if>
   	</if>
   	order by to_number(timegoods.timegoodsdetail)

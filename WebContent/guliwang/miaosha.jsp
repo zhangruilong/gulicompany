@@ -36,8 +36,8 @@
 	<div class="cd-popup-container">
 		<div class="cd-buttons">
         	<h1>谷粒网提示</h1>
-			<p class="meg">操作成功!</p>
-            <a class="cd-popup-close">确定</a>
+			<p class="meg">购买前需注册。是否注册?</p>
+            <a class="cd-popup-close">取消</a><a class="ok" href="doReg.action" style="display: inline-block;">确定</a>
 		</div>
 	</div>
 </div>
@@ -46,6 +46,7 @@
 <script type="text/javascript">
 var customer = JSON.parse(window.localStorage.getItem("customer"));
 var xian = '${param.xian}';
+var timegoodscode = '${param.timegoodscode}';
 $(function(){ 
 	//购物车图标上的数量
 	if(!window.localStorage.getItem("cartnum")){
@@ -56,12 +57,19 @@ $(function(){
 	}else{
 		$("#totalnum").text(window.localStorage.getItem("cartnum"));
 	}
+	//弹窗
+	$(".cd-popup").on("click",function(event){		//绑定点击事件
+		if($(event.target).is(".cd-popup-close") || $(event.target).is(".cd-popup-container")){
+			//如果点击的是'取消'或者除'确定'外的其他地方
+			$(this).removeClass("is-visible");	//移除'is-visible' class
+			
+		}
+	});
 	//页面信息
-	if(xian != ''){
-		$.getJSON("miaoshaPage.action",{"city.cityname":xian},initMiaoshaPage);
-	} else {
-		$.getJSON("miaoshaPage.action",{"city.cityname":customer.customerxian},initMiaoshaPage);
+	if(xian == ''){
+		xian = customer.customerxian
 	}
+	$.getJSON("miaoshaPage.action",{"city.cityname":xian,"timegoodsList[0].timegoodscode":timegoodscode},initMiaoshaPage);
 });
 //初始化页面
 function initMiaoshaPage(data){
@@ -125,7 +133,7 @@ function judgePurchase(
 		) {
 	var customer = JSON.parse(window.localStorage.getItem("customer"));
 	if(!customer.customerid){
-		alert("购买前需注册");
+		$(".cd-popup").addClass("is-visible");
 		return;
 	}
 	$.getJSON('judgePurchase.action',{

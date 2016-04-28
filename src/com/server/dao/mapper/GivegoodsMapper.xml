@@ -62,6 +62,9 @@
 	on city.cityid = c.companycity
 	where givegoodsstatue = '启用' 
 	and city.cityname = #{givegoodcompany.city.cityname}
+	<if test="givegoodscode != null and givegoodscode != ''">
+		and g.givegoodscode = #{givegoodscode}
+	</if>
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
