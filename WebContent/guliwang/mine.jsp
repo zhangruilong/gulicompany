@@ -98,6 +98,10 @@ function douploadimg(){
 function clearlocalstore(){
 	localStorage.removeItem("openid");
 	localStorage.removeItem("customer");
+	localStorage.removeItem("sdishes");
+	localStorage.removeItem("totalnum");
+	localStorage.removeItem("totalmoney");
+	localStorage.removeItem("cartnum");
 	alert("清除缓存成功！");
 }
 function tiaozhuan(url){
