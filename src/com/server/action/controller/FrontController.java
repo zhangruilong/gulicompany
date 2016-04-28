@@ -158,9 +158,8 @@ public class FrontController {
 	//热销商品
 	@RequestMapping(value="/guliwang/hotTodayGoods")
 	@ResponseBody
-	public List<GoodsVo> hotTodayGoods(String cityname){
-		String today = DateUtils.getDate();
-		List<Orderd> orderdList = orderdMapper.selectHotGoodsCodeAndType(today + " 00:00:00", today + " 23:59:59",cityname);
+	public List<GoodsVo> hotTodayGoods(String cityname,String staTime,String endTime){
+		List<Orderd> orderdList = orderdMapper.selectHotGoodsCodeAndType(staTime, endTime,cityname);
 		List<GoodsVo> goodsVoList = new ArrayList<GoodsVo>();
 		for (Orderd orderd : orderdList) {
 			if(orderd.getOrderdtype().equals("商品")){

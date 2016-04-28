@@ -36,12 +36,16 @@
 	    <result column="ORDERMEMP" property="ordermemp" jdbcType="VARCHAR" />
     </association>
   </resultMap>
+  <resultMap type="com.server.pojo.entity.Orderd" id="groupByOrderdcode">
+  	<id column="ORDERDCODE" property="orderdcode" jdbcType="VARCHAR" />
+  	<result column="ORDERDTYPE" property="orderdtype" jdbcType="VARCHAR" />
+  </resultMap>
   <sql id="Base_Column_List" >
     ORDERDID, ORDERDORDERM, ORDERDCODE, ORDERDTYPE, ORDERDNAME, ORDERDDETAIL, ORDERDUNITS, 
     ORDERDPRICE, ORDERDUNIT, ORDERDCLASS, ORDERDNUM, ORDERDMONEY, ORDERDRIGHTMONEY
   </sql>
   <!-- 查询热销商品订单(编码和类型) -->
-  <select id="selectHotGoodsCodeAndType" resultMap="BaseResultMap" >
+  <select id="selectHotGoodsCodeAndType" resultMap="groupByOrderdcode" >
     select * from 
 	  (select A.*, ROWNUM RN from (
 	select

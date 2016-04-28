@@ -1,5 +1,11 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+Date currentTime = new Date(); 
+SimpleDateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd"); 
+String dateString = formatter.format(currentTime); 
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +24,7 @@
 #menu #nav {display:block;width:100%;padding:0;margin:0;list-style:none;}
 #menu #nav li {float:left;width:33.3%;}
 #menu #nav li a {display:block;line-height:27px;text-decoration:none;padding:0 0 0 5px; text-align:center; color:#333;}
-#menu_con{ width:358px; height:135px; border-top:none}
+#menu_con{ border-top:none}
 .tag{ padding:10px; overflow:hidden;}
 .selected{background:#C5A069; color:#fff;}
 </style>
@@ -31,15 +37,16 @@
 <div id="menu">
 <!--tag标题-->
     <ul id="nav">
-        <li><a href="#" class="selected">今日热销商品</a></li>
-        <li><a href="#" class="">本周热销</a></li>
-        <li><a href="#" class="">本月热销</a></li>
+        <li><a href="#" class="selected" onclick="todayHotGoods(this)">今日热销商品</a></li>
+        <li><a href="#" class="" onclick="thisWeekHotGoods(this)">本周热销</a></li>
+        <li><a href="#" class="" onclick="thisMonthHotGoods(this)">本月热销</a></li>
     </ul>
 <!--二级菜单-->
     <div id="menu_con">
-        <div class="tag today_hotGoods" style="display:block">
-            这里是jQuery特效内容列表
-         </div> 
+        <div class="tag goods-wrapper" style="display:block;">
+	        	<ul class="home-hot-commodity">
+	        	</ul>
+        </div> 
         <div class="tag" style="display:none">
             这里是tab切换效果   
          </div> 
@@ -61,9 +68,11 @@
 </div>
 <script src="js/jquery-2.1.4.min.js"></script>
 <script src="js/jquery-dropdown.js"></script>
+<script src="js/getDate.js"></script>
 <script type="text/javascript">
 var customer = JSON.parse(window.localStorage.getItem("customer"));
 var xian = '${param.xian}';
+var dateString = '<%=dateString%>';
 $(function(){ 
 	//购物车图标上的数量
 	if(!window.localStorage.getItem("cartnum")){
@@ -74,57 +83,74 @@ $(function(){
 	}else{
 		$("#totalnum").text(window.localStorage.getItem("cartnum"));
 	}
-	//页面信息
-	if(xian != ''){
-		$.getJSON("hotTodayGoods.action",{"cityname":xian},initMiaoshaPage);
-	} else {
-		$.getJSON("hotTodayGoods.action",{"cityname":customer.customerxian},initMiaoshaPage);
-	}
+	todayHotGoods();
 });
+
+//今日热销
+function todayHotGoods(obj){
+	$(obj).parent().siblings().children().removeClass('selected');
+	$(obj).addClass('selected');
+	pageInfo(dateString + ' 00:00:00',dateString + ' 23:59:59');
+}
+//本周热销
+function thisWeekHotGoods(obj){
+	$(obj).parent().siblings().children().removeClass('selected');
+	$(obj).addClass('selected');
+	pageInfo(getWeekStartDate() + ' 00:00:00',getWeekEndDate() + ' 23:59:59');
+}
+//本月热销
+function thisMonthHotGoods(obj){
+	$(obj).parent().siblings().children().removeClass('selected');
+	$(obj).addClass('selected');
+	pageInfo(getMonthStartDate() + ' 00:00:00',getMonthEndDate() + ' 23:59:59');
+}
+//页面信息
+function pageInfo(staTime,endTime){
+	if(xian != ''){
+		$.getJSON("hotTodayGoods.action",{
+			"cityname":xian,
+			"staTime":staTime,
+			"endTime":endTime
+			},initMiaoshaPage);
+	} else {
+		$.getJSON("hotTodayGoods.action",{
+			"cityname":customer.customerxian,
+			"staTime":staTime,
+			"endTime":endTime
+			},initMiaoshaPage);
+	}
+}
 //初始化页面
 function initMiaoshaPage(data){
-	return;
-	$(".today_hotGoods").html("");
+	$(".home-hot-commodity").html("");
 	$.each(data,function(i,item){
 		if(item.type == '商品'){
-			
-		}
-		var liObj = '<li><a '+
-		'onclick="judgePurchase(\''+
-		item.givegoodsid +'\',\''+
-		item.givegoodsdetail +'\',\''+
-		item.givegoodscompany +'\',\''+
-		item.givegoodcompany.companyphone +'\',\''+
-		item.givegoodcompany.companydetail +'\',\''+
-		item.givegoodsclass +'\',\''+
-		item.givegoodscode +'\',\''+
-		item.givegoodsprice +'\',\''+
-		item.givegoodsunit +'\',\''+
-		item.givegoodsname +'\',\''+
-		item.givegoodsimage +'\',\''+
-		item.givegoodsunits +'\',\''+
-		item.givegoodsnum+'\');" '+
-		'> <span class="fl"> <img src="../'+item.givegoodsimage+
-         	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span>'+
-			'<h1>'+item.givegoodsname+
-				'<span>（'+item.givegoodsunits+'）</span>'+
-			'</h1> <span> <strong>￥'+item.givegoodsprice+'/'+item.givegoodsunit+
-			'</strong> ';
-		if(data.cusOrderdList != null && data.cusOrderdList.length != 0){
-			var itemGoodsCount = 0;
-			$.each(data.cusOrderdList,function(k,item3){
-				if(item3.orderdcode == givegoodscode){
-					itemGoodsCount += item3.orderdnum
-				}
-			});
-			liObj += '<font>限购'+(item.givegoodsnum - itemGoodsCount)+item.givegoodsunit+'</font><br/>';
+			var liObj = '<li onclick="purchaseGoods(\''+item.goods.goodscode+'\')">'+
+	         	'<span class="fl"><img src="../'+item.goods.goodsimage+
+	         	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span> '+
+	         	'<h1>'+item.goods.goodsname+'<br><span>('+item.goods.goodsunits+')</span></h1>'+
+	           '  <div class="block"> </div></li>';
+		} else if(item.type == '秒杀'){
+			var liObj = '<li>'+
+         	'<span class="fl"><img src="../'+item.timegoods.timegoodsimage+
+         	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span> '+
+         	'<h1>'+item.timegoods.timegoodsname+'<br><span>('+item.timegoods.timegoodsunits+')</span></h1>'+
+           '  <div class="block"> </div></li>';
 		} else {
-			liObj += '<font>限购'+item.givegoodsnum+item.givegoodsunit+'</font><br/>';
+			var liObj = '<li>'+
+         	'<span class="fl"><img src="../'+item.givegoods.givegoodsimage+
+         	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span> '+
+         	'<h1>'+item.givegoods.givegoodsname+'<br><span>('+item.givegoods.givegoodsunits+')</span></h1>'+
+           '  <div class="block"> </div></li>';
 		}
-		
-		$(".home-hot-commodity").append(liObj+'</span></a></li>');
+		$(".home-hot-commodity").append(liObj);
 	});
 }
+//购买商品
+function purchaseGoods(goodscode){
+	window.location.href = 'goods.jsp?searchdishes='+goodscode;
+}
+
 //到购物车页面
 function docart(obj){
 	if (window.localStorage.getItem("sdishes") == null || window.localStorage.getItem("sdishes") == "[]") {				//判断有没有购物车
@@ -132,7 +158,7 @@ function docart(obj){
 	}
 }
 //tab标签特效
-var tabs=function(){
+/* var tabs=function(){
     function tag(name,elem){
         return (elem||document).getElementsByTagName(name);
     }
@@ -178,7 +204,7 @@ var tabs=function(){
         }
     }
 }();
-tabs.set("nav","menu_con");//执行
+tabs.set("nav","menu_con");//执行 */
 </script>
 </body>
 </html>
