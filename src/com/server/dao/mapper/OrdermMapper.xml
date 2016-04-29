@@ -68,6 +68,7 @@
 	left join orderd
 	on orderd.orderdorderm = orderm.ordermid
 	where orderm.ordermcustomer = #{ordermcustomer}
+	and orderm.ordermstatue != '已删除'
 	and orderd.orderdcode = #{orderdcode}
 	and orderd.orderdtype = #{orderdtype}
   </select>
@@ -87,7 +88,8 @@
     from ORDERM
     left join customer
 	on orderm.ordermcustomer = customer.customerid
-    where ordermcompany = #{orderm.ordermcompany,jdbcType=VARCHAR} 
+    where orderm.ordermcompany = #{orderm.ordermcompany,jdbcType=VARCHAR} 
+    and orderm.ordermstatue != '已删除'
     	<if test="orderm.ordermway != null and orderm.ordermway != ''">
     		and ORDERMWAY = #{orderm.ordermway,jdbcType=VARCHAR} 
     	</if>
@@ -116,10 +118,11 @@ where RN &gt; ((#{nowpage}-1)*#{pagesize})
   <select id="selectByCompanyCount" resultType="int">
     select 
     count(*) 
-    from ORDERM
+    from orderm
     left join customer
 	on orderm.ordermcustomer = customer.customerid
     where ordermcompany = #{orderm.ordermcompany,jdbcType=VARCHAR} 
+    and orderm.ordermstatue != '已删除'
     	<if test="orderm.ordermway != null and orderm.ordermway != ''">
     		and ORDERMWAY = #{orderm.ordermway,jdbcType=VARCHAR} 
     	</if>
@@ -157,6 +160,7 @@ where RN &gt; ((#{nowpage}-1)*#{pagesize})
     left join customer
 	on orderm.ordermcustomer = customer.customerid
     where ordermcompany = #{orderm.ordermcompany,jdbcType=VARCHAR} 
+    and orderm.ordermstatue != '已删除'
     	<if test="orderm.ordermway != null and orderm.ordermway != ''">
     		and ORDERMWAY = #{orderm.ordermway,jdbcType=VARCHAR} 
     	</if>

@@ -89,6 +89,7 @@
 	left join orderm
 	on orderd.orderdorderm = orderm.ordermid
 	where orderm.ordermcompany = #{companyid,jdbcType=VARCHAR}
+	and orderm.ordermstatue != '已删除'
 	<if test="staTime != null and staTime != ''">
 		and orderm.ordermtime &gt;= #{staTime}
 	</if>
@@ -118,6 +119,7 @@
 	left join orderm
 	on orderd.orderdorderm = orderm.ordermid
 	where orderm.ordermcompany = #{companyid,jdbcType=VARCHAR}
+	and orderm.ordermstatue != '已删除'
 	<if test="staTime != null and staTime != ''">
 		and orderm.ordermtime &gt;= #{staTime}
 	</if>
@@ -148,6 +150,7 @@
 	left join orderm
 	on orderd.orderdorderm = orderm.ordermid
 	where orderm.ordermcompany = #{companyid,jdbcType=VARCHAR}
+	and orderm.ordermstatue != '已删除'
 	<if test="staTime != null and staTime != ''">
 		and orderm.ordermtime &gt;= #{staTime}
 	</if>
@@ -177,6 +180,7 @@
 	left join orderm
 	on orderd.orderdorderm = orderm.ordermid
 	where orderm.ordermcompany = #{companyid,jdbcType=VARCHAR}
+	and orderm.ordermstatue != '已删除'
 	<if test="staTime != null and staTime != ''">
 		and orderm.ordermtime &gt;= #{staTime}
 	</if>

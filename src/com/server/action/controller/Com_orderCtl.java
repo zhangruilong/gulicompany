@@ -73,13 +73,8 @@ public class Com_orderCtl {
 	//删除订单
 	@RequestMapping("/companySys/editOrder")
 	public String editOrder(Model model,Orderm order){
-		Orderm orderm = ordermMapper.selectByPrimaryKey(order.getOrdermid());
-		if(orderm.getOrderdList() != null && orderm.getOrderdList().size() != 0){
-			for (Orderd orderd : orderm.getOrderdList()) {
-				orderdMapper.deleteByPrimaryKey(orderd.getOrderdid());
-			}
-		}
-		ordermMapper.deleteByPrimaryKey(orderm.getOrdermid());
+		order.setOrdermstatue("已删除");
+		ordermMapper.updateByPrimaryKeySelective(order);
 		return "forward:allOrder.action";
 	}
 	//修改订单状态
