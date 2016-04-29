@@ -154,6 +154,10 @@ public class System_attachAction extends BaseAction {
 				//String creator = user.getUsername();
 				Fileinfo fileinfo = FileUtil.upload(request,0,null,null,"upload");
 				System_attach temp = cuss.get(0);
+				String delsql = "delete from system_attach where classify='"+temp.getClassify()
+				+"' and fid='"+ temp.getFid()+"'";
+				result = DAO.doSingle(delsql);
+				
 				temp.setId(CommonUtil.getNewId());
 		        temp.setName(fileinfo.getFullname());
 		        temp.setAttachsize(String.valueOf(fileinfo.getSize()/1024)+"KB");

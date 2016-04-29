@@ -9,14 +9,18 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.server.dao.mapper.CityMapper;
 import com.server.dao.mapper.CustomerMapper;
 import com.server.dao.mapper.FeedbackMapper;
+import com.server.dao.mapper.System_attachMapper;
 import com.server.pojo.entity.City;
 import com.server.pojo.entity.Customer;
 import com.server.pojo.entity.Feedback;
+import com.server.pojo.entity.System_attach;
 import com.system.tools.util.CommonUtil;
 
 /**
@@ -32,6 +36,18 @@ public class MineController {
 	private CityMapper cityMapper;
 	@Autowired
 	private FeedbackMapper feedbackMapper;
+	@Autowired
+	private System_attachMapper attachMapper;
+	//我的
+	@RequestMapping("/guliwang/minePage")
+	@ResponseBody
+	public System_attach minePage(System_attach attach){
+		List<System_attach> attaList = attachMapper.selectByClassifyAndFid(attach);
+		if(attaList != null && attaList.size() >0){
+			attach = attachMapper.selectByClassifyAndFid(attach).get(0);
+		}
+		return attach;
+	}
 	//到修改页
 	@RequestMapping("/guliwang/doEditCus")
 	public String doEditCus(Model model,Customer customer){
