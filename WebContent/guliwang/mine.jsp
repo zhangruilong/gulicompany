@@ -34,11 +34,9 @@ input:focus{ outline:none}
 	<input type="hidden" name="json" id="json" value="">
     <div style="width:100%; padding-top:2%; color:#fff; background:url(images/minebg.jpg);">
     	<div id="uploadImg" style="margin:0 41% auto;">
-                <!-- <input type="file" id="file_input" /> -->
-                <a id="clo" href="uploadimg.jsp"></a>
                 <span id="result" style="">
                   <img id="result_img" src="images/default.jpg" style="border-radius:50px;">
-                </span> 
+                </span>
             </div>
         <p id="myshopname" style="text-align: center;"></p>
     </div>
@@ -94,9 +92,11 @@ $(function(){
 		if($(event.target).is(".cd-popup-close") || $(event.target).is(".cd-popup-container")){
 			//如果点击的是'取消'或者除'确定'外的其他地方
 			$(this).removeClass("is-visible");	//移除'is-visible' class
-			
 		}
 	});
+	$("#result_img").on("click",function(){
+		window.location.href = 'uploadimg.jsp';
+	})
 })
 
 function douploadimg(){
