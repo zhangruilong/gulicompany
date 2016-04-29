@@ -18,7 +18,7 @@
 <title>谷粒网</title>
 <link href="css/base.css" type="text/css" rel="stylesheet">
 <link href="css/layout.css" type="text/css" rel="stylesheet">
-<link rel="stylesheet" href="css/lbstyle.css" type="text/css" />
+<link rel="stylesheet" href="css/swipe.css" type="text/css" />
 <style type="text/css">
 	.home-search-wrapper .citydrop img{
 		margin-top: 10px;
@@ -50,17 +50,18 @@
 			<a onclick="docart(this)" href="cart.jsp" class="gwc"><img src="images/gwc.png"><em id="totalnum">0</em></a>
 		</div>
 		<div class="home-hot-wrap">
-
-	<div class="slide" id="slide">
-		<div class="img-div">
-			<img src="../images/banner.jpg" title="图片1"/>
-			<img src="../images/banner.jpg" title="图片2"/>
-		</div>
-		<div class="slide-btn">
-			<a href="#" class="hover">●</a>
-			<a href="#">●</a>
-		</div>
-	</div>
+<div class="addWrap">
+  <div class="swipe" id="mySwipe">
+    <div class="swipe-wrap">
+      <div><a href="javascript:;"><img class="img-responsive" src="../images/banner1.jpg"/></a></div>
+      <div><a href="javascript:;"><img class="img-responsive" src="../images/banner2.jpg"/></a></div>
+    </div>
+  </div>
+  <ul id="position">
+    <li class="cur"></li>
+    <li class=""></li>
+  </ul>
+</div>
 			<div class="home-hot">特惠商品抢购区</div>
 			<ul class="home-hot-commodity">
 			</ul>
@@ -369,110 +370,21 @@
 			}
 		}
 	</script>
-	<script type="text/javascript">
-
-
-var zBase = {
-	config:{
-		index:0,
-		auto:true,
-		direct:'left'
-	},
-	init:function(){
-		this.slide = this.$id('slide');
-		this.img_div = this.$c('img-div')[0],
-		this.slide_btn = this.$tag('a',this.$c('slide-btn')[0]);
-		this.img_arr = this.$tag('img',this.img_div);
-		if(this.config.auto) this.play();
-		this.hover();
-	},
-	$id:function(id){return document.getElementById(id);},
-	$tag:function(tagName,obj){return (obj ?obj : document).getElementsByTagName(tagName);	},
-	$c: function (claN,obj){
-		var tag = this.$tag('*'),reg = new RegExp('(^|\\s)'+claN+'(\\s|$)'),arr=[];
-		for(var i=0;i<tag.length;i++){
-			if (reg.test(tag[i].className)){
-				arr.push(tag[i]);
-			}
+<script src="js/swipe.js"></script> 
+<script type="text/javascript">
+var bullets = document.getElementById('position').getElementsByTagName('li');
+var banner = Swipe(document.getElementById('mySwipe'), {
+	auto: 2000,
+	continuous: true,
+	disableScroll:false,
+	callback: function(pos) {
+		var i = bullets.length;
+		while (i--) {
+		  bullets[i].className = ' ';
 		}
-		return arr;
-	},
-	$add:function(obj,claN){
-		reg = new RegExp('(^|\\s)'+claN+'(\\s|$)');
-		if (!reg.test(obj.className)){
-			
-			obj.className += ' '+claN;
-		}
-	},
-	$remve:function(obj,claN){var cla=obj.className,reg="/\\s*"+claN+"\\b/g";obj.className=cla?cla.replace(eval(reg),''):''},
-	css:function(obj,attr,value){
-		if(value){
-		  obj.style[attr] = value;
-		}else{
-	   return  typeof window.getComputedStyle != 'undefined' ? window.getComputedStyle(obj,null)[attr] : obj.currentStyle[attr];
-	   }
-	},
-	animate:function(obj,attr,val){
-		var d = 1000;//动画时间一秒完成。
-		if(obj[attr+'timer']) clearInterval(obj[attr+'timer']);
-		var start = parseInt(zBase.css(obj,attr));//动画开始位置
-		//space = 动画结束位置-动画开始位置，即动画要运动的距离。
-		var space =  val- start,st=(new Date).getTime(),m=space>0? 'ceil':'floor';
-		obj[attr+'timer'] = setInterval(function(){
-			var t=(new Date).getTime()-st;//表示运行了多少时间，
-			if (t < d){//如果运行时间小于动画时间
-				zBase.css(obj,attr,Math[m](zBase.easing['easeOut'](t,start,space,d)) +'px');
-			}else{
-				clearInterval(obj[attr+'timer']);
-				zBase.css(obj,attr,top+space+'px');
-			}
-		},20);
-	},
-	play:function(){
-		this.slide.timer = setInterval(function(){
-			zBase.config.index++;
-			if(zBase.config.index>=zBase.img_arr.length) zBase.config.index=0;//如果当前索引大于图片总数，把索引设置0
-			
-			zBase.animate(zBase.img_div,zBase.config.direct,-zBase.config.index*500);
-			for(var j=0;j<zBase.slide_btn.length;j++){
-				zBase.$remve(zBase.slide_btn[j],'hover');
-			}
-			zBase.$add(zBase.slide_btn[zBase.config.index],'hover');
-			
-		},3000)
-			
-			
-	},
-	hover:function(){
-		for(var i=0;i<this.slide_btn.length;i++){
-			this.slide_btn[i].index = i;//储存每个导航的索引值
-			this.slide_btn[i].onmouseover = function(){
-				if(zBase.slide.timer) clearInterval(zBase.slide.timer);
-				zBase.config.index =this.index; 
-				
-				for(var j=0;j<zBase.slide_btn.length;j++){
-					zBase.$remve(zBase.slide_btn[j],'hover') ;
-				}
-				zBase.$add(zBase.slide_btn[zBase.config.index],'hover');
-				zBase.animate(zBase.img_div,zBase.config.direct,-zBase.config.index*500);
-			}
-			this.slide_btn[i].onmouseout = function(){
-				zBase.play();
-			}
-		}
-	},
-	 easing :{
-		linear:function(t,b,c,d){return c*t/d + b;},
-		swing:function(t,b,c,d) {return -c/2 * (Math.cos(Math.PI*t/d) - 1) + b;},
-		easeIn:function(t,b,c,d){return c*(t/=d)*t*t*t + b;},
-		easeOut:function(t,b,c,d){return -c*((t=t/d-1)*t*t*t - 1) + b;},
-		easeInOut:function(t,b,c,d){return ((t/=d/2) < 1)?(c/2*t*t*t*t + b):(-c/2*((t-=2)*t*t*t - 2) + b);}
+		bullets[pos].className = 'cur';
 	}
-}
-		
-zBase.init();
-			
-		
+});
 </script>
 </body>
 </html>
