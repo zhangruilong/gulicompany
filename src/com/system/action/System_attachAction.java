@@ -1,5 +1,6 @@
 package com.system.action;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
@@ -161,6 +162,13 @@ public class System_attachAction extends BaseAction {
 		        temp.setCreatetime(DateUtils.getDateTime());
 				result = DAO.insSingle(temp);
 			//}
-			responsePW(response, result);
+				if(CommonConst.SUCCESS.equals(result)){
+					try {
+						response.sendRedirect("mine.jsp");
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 		}
 }

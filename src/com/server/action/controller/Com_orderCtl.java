@@ -105,9 +105,20 @@ public class Com_orderCtl {
 	//删除订单详情
 	@RequestMapping("/companySys/deleOrderd")
 	public String deleOrderd(Model model,String[] orderdids,Orderm order){
+		Float money = Float.parseFloat(order.getOrdermmoney());
+		Float rightmoney = Float.parseFloat(order.getOrdermrightmoney());
+		Integer ordermnum = order.getOrdermnum();
 		for (String orderdid : orderdids) {
+			Orderd orderd = orderdMapper.selectByPrimaryKey(orderdid);
+			money -= Float.parseFloat(orderd.getOrderdmoney());
+			rightmoney -= Float.parseFloat(orderd.getOrderdrightmoney());
+			ordermnum--;
 			orderdMapper.deleteByPrimaryKey(orderdid);
 		}
+		order.setOrdermmoney(money.toString());
+		order.setOrdermrightmoney(rightmoney.toString());
+		order.setOrdermnum(ordermnum);
+		ordermMapper.updateByPrimaryKeySelective(order);
 		return "forward:orderDetail.action";
 	}
 	//到'订单详情'修改页

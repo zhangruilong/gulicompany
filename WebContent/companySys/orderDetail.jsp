@@ -17,41 +17,7 @@ String ordermcompany = request.getParameter("ordermcompany");
 
 <link href="css/tabsty.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
-<script type="text/javascript">
-var ordermid = '<%=ordermid%>';
-var ordermcompany = '<%=ordermcompany%>';
-function updateStatue(statue){
-	if(confirm("是否修改订单状态")){
-		window.parent.main.location.href = 
-			"deliveryGoods.action?ordermid="
-					+ordermid
-					+"&ordermcompany="
-					+ordermcompany
-					+"&ordermstatue="
-					+statue;
-	}
-}
-function delegoods(){
-	var orderdids = $("[name='orderdids']");
-	var count = 0;
-	$.each(orderdids,function(i,item){
-		if(item.checked){
-			count ++;
-		}
-	});
-	if(count > 0){
-		document.forms[0].submit();
-	} else {
-		alert("请选择要删除的商品");
-	}
-}
-function del(url,message){
-	if(confirm("是否"+message)){
-		parent.main.location.href = url;
-	}
-	
-}
-</script>
+
 </head>
 <body>
 <form action="deleOrderd.action" method="post">
@@ -61,6 +27,9 @@ function del(url,message){
  <pg:param name="orderdids"/>
  <input type="hidden" name="ordermcompany" value="${sessionScope.company.companyid }">
  <input type="hidden" name="ordermid" value="${requestScope.order.ordermid }">
+ <input type="hidden" name="ordermrightmoney" value="${requestScope.order.ordermrightmoney }">
+ <input type="hidden" name="ordermmoney" value="${requestScope.order.ordermmoney }">
+ <input type="hidden" name="ordermnum" value="${requestScope.order.ordermnum }">
 <div class="nowposition">订单管理》订单详情</div>
 <p class="navigation">
 <span>订单编号:${requestScope.order.ordermcode }&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -132,6 +101,40 @@ onclick="del('editOrder.action?ordermid=${requestScope.order.ordermid }&ordermco
 </table>
 </pg:pager>
 </form>
-
+<script type="text/javascript">
+var ordermid = '<%=ordermid%>';
+var ordermcompany = '<%=ordermcompany%>';
+function updateStatue(statue){
+	if(confirm("是否修改订单状态")){
+		window.parent.main.location.href = 
+			"deliveryGoods.action?ordermid="
+					+ordermid
+					+"&ordermcompany="
+					+ordermcompany
+					+"&ordermstatue="
+					+statue;
+	}
+}
+function delegoods(){
+	var orderdids = $("[name='orderdids']");
+	var count = 0;
+	$.each(orderdids,function(i,item){
+		if(item.checked){
+			count ++;
+		}
+	});
+	if(count > 0){
+		document.forms[0].submit();
+	} else {
+		alert("请选择要删除的商品");
+	}
+}
+function del(url,message){
+	if(confirm("是否"+message)){
+		parent.main.location.href = url;
+	}
+	
+}
+</script>
 </body>
 </html>

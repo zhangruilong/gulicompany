@@ -56,8 +56,6 @@
 		var diffOrderdrightmoney = parseFloat(orderdrightmoney0) - parseFloat(orderdrightmoney);
 		$("#diffOrderdmoney").val(diffOrderdmoney);								//设置隐藏表单的值
 		$("#diffOrderdrightmoney").val(diffOrderdrightmoney);
-		alert(diffOrderdmoney);
-		alert(diffOrderdrightmoney);
 		//return;
 		document.forms[0].submit();												//提交表单
 	}
