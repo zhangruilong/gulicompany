@@ -52,6 +52,24 @@
     from GIVEGOODS
     where GIVEGOODSCODE = #{givegoodscode,jdbcType=VARCHAR}
   </select>
+  <!-- 根据条件查询(数量) -->
+  <select id="selectByConditionCount" resultType="int" parameterType="com.server.pojo.entity.Givegoods" >
+    select 
+    	count(*) 
+    from GIVEGOODS
+    where GIVEGOODSCOMPANY = #{givegoodscompany}
+  </select>
+  <!-- 根据条件查询 -->
+  <select id="selectByCondition" resultMap="BaseResultMap">
+  select * from 
+	(select A.*, ROWNUM RN from (
+    select 
+    <include refid="Base_Column_List" />
+    from GIVEGOODS
+    where givegoodscompany = #{givegoods.givegoodscompany}
+    ) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) ) 
+		where RN &gt; ((#{nowpage}-1)*#{pagesize})
+  </select>
   <!-- 根据供应商所在地区查询买赠商品 -->
   <select id="selectByCompanyXian" resultMap="BaseResultMap" parameterType="com.server.pojo.entity.Givegoods" >
   	select *

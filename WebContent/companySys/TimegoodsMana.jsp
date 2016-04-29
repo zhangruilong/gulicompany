@@ -107,7 +107,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		 	<span>最后一页&nbsp;</span>
 		 </c:if>
 		 	<span>跳转到第<input class="fenyelan_input" size="1" type="text" id="pagenow" name="pagenow" value="${requestScope.pagenow }">页</span>
-		 	<input type="button" onclick="javascript:document.forms[0].submit()" value="GO" class="fenyelan_button">
+		 	<input type="button" onclick="timegoodsjump()" value="GO" class="fenyelan_button">
 		 	<span>一共 ${requestScope.count } 条数据</span>
 		 </td>
 	 </tr>       
@@ -117,10 +117,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="cd-popup" role="alert">
 	<div class="elegant-aero">
 			<h1>添加秒杀商品</h1>
-			<label><span>秒杀商品编码 :</span><input id="timegoodscode" type="text"
-				name="timegoodscode" placeholder="商品编码" /></label>
-			<label><span>秒杀商品名称 :</span><input id="timegoodsname" type="text"
-				name="timegoodsname" placeholder="商品名称" /></label>
+			<input type="hidden" id="timegoodsimage" value="">
+			<label><span>编码 :</span><input id="timegoodscode" type="text"
+				name="timegoodscode" placeholder="编码" /></label>
+			<label><span>名称 :</span><input id="timegoodsname" type="text"
+				name="timegoodsname" placeholder="名称" /></label>
 			<label><span>规格 :</span><input id="timegoodsunits" type="text"
 				name="timegoodsunits" placeholder="规格" /></label>
 			<label><span>小类名称 :</span>
@@ -193,7 +194,14 @@ function fenye(targetPage){
 function fenyeGoods(targetPage){
 	loadGoodsData(targetPage);
 }
-//跳转到第X页
+//秒杀商品跳转到第X页
+function timegoodsjump(){
+	if(parseInt($("#pagenow").val()) > '${requestScope.pageCount }' ){
+		$("#pagenow").val('${requestScope.pageCount }');
+	}
+	document.forms[0].submit();
+}
+//商品跳转到第X页
 function goodsPageTo(pageCountGoods){
 	var pagenowGoods = $("#pagenowGoods").val();
 	if(parseInt(pagenowGoods) > parseInt(pageCountGoods)){
@@ -246,6 +254,7 @@ function loadGoodsData(pagenowGoods){
 					'\',\''+item.goodsname+
 					'\',\''+item.goodsunits+
 					'\',\''+item.gClass.goodsclassname+
+					'\',\''+item.goodsimage+
 					'\')">选择</a></td></tr>'
 			);
 		});
@@ -270,7 +279,7 @@ function loadGoodsData(pagenowGoods){
 	});
 }
 //选择商品
-function seleScant(timegoodscode,timegoodsname,timegoodsunits,goodsclassname){
+function seleScant(timegoodscode,timegoodsname,timegoodsunits,goodsclassname,timegoodsimage){
 	$("#timegoodscode").val(timegoodscode);
 	$("#timegoodsname").val(timegoodsname);
 	$("#timegoodsunits").val(timegoodsunits);
@@ -279,6 +288,7 @@ function seleScant(timegoodscode,timegoodsname,timegoodsunits,goodsclassname){
 			$(item).attr("selected",true);
 		}
 	});
+	$("#timegoodsimage").val(timegoodsimage);
 	$(".cd-popup2").removeClass("is-visible");	//移除'is-visible' class
 	
 }
@@ -302,7 +312,7 @@ function popup_formSub(){
 		}
 	});
 	if(count == 0){
-		data += '"timegoodscompany":"${requestScope.timegoodsCon.timegoodscompany }","creator":"${sessionScope.company.companyshop }"}';
+		data += '"timegoodsimage":"'+$("#timegoodsimage").val()+'","timegoodscompany":"${requestScope.timegoodsCon.timegoodscompany }","creator":"${sessionScope.company.companyshop }"}';
 		$.getJSON('addTimeGoods.action',JSON.parse(data),function(){
 			alert('添加成功');
 			document.forms[0].submit();

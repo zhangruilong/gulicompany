@@ -34,11 +34,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </style>
 </head>
 <body>
-<form id="main_form" action="allTimeGoods.action" method="post">
-<input type="hidden" name="timegoodscompany" value="${requestScope.timegoodsCon.timegoodscompany }">
+<form id="main_form" action="allGiveGoods.action" method="post">
+<input type="hidden" name="givegoodscompany" value="${requestScope.givegoodsCon.givegoodscompany }">
 <div class="nowposition">当前位置：商品管理》买赠商品</div>
 <div class="navigation">
-<input class="button" type="button" value="添加买赠商品" onclick="addtimegoods()">
+<input class="button" type="button" value="添加买赠商品" onclick="addgivegoods()">
 <input class="button" type="button" value="刷新" onclick="javascript:window.location.reload()">
 </div>
 <table class="bordered">
@@ -49,32 +49,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<th>商品名称</th>
 		<th>规格</th>
 		<th>类别</th>
-		<th>原价</th>
-		<th>现价</th>
-		<th>限量</th>
+		<th>售价</th>
 		<th>状态</th>
 		<th>创建时间</th>
 		<th>创建人</th>
     </tr>
     </thead>
-    <c:if test="${fn:length(requestScope.timegoodsList) != 0 }">
-	<c:forEach var="timegoods" items="${requestScope.timegoodsList }" varStatus="timegoodsSta">
+    <c:if test="${fn:length(requestScope.givegoodsList) != 0 }">
+	<c:forEach var="givegoods" items="${requestScope.givegoodsList }" varStatus="givegoodsSta">
 		<tr>
-			<td><c:out value="${timegoodsSta.count}"></c:out></td>
-			<td>${timegoods.timegoodscode}</td>
-			<td>${timegoods.timegoodsname}</td>
-			<td>${timegoods.timegoodsunits}</td>
-			<td>${timegoods.timegoodsclass}</td>
-			<td>${timegoods.timegoodsprice}</td>
-			<td>${timegoods.timegoodsorgprice}</td>
-			<td>${timegoods.timegoodsnum}</td>
-			<td>${timegoods.timegoodsstatue}</td>
-			<td>${timegoods.createtime}</td>
-			<td>${timegoods.creator}</td>
+			<td><c:out value="${givegoodsSta.count}"></c:out></td>
+			<td>${givegoods.givegoodscode}</td>
+			<td>${givegoods.givegoodsname}</td>
+			<td>${givegoods.givegoodsunits}</td>
+			<td>${givegoods.givegoodsclass}</td>
+			<td>${givegoods.givegoodsprice}</td>
+			<td>${givegoods.givegoodsstatue}</td>
+			<td>${givegoods.createtime}</td>
+			<td>${givegoods.creator}</td>
 		</tr>
 	</c:forEach>
 	</c:if>
-	<c:if test="${fn:length(requestScope.timegoodsList)==0 }">
+	<c:if test="${fn:length(requestScope.givegoodsList)==0 }">
 		<tr><td colspan="14" align="center" style="font-size: 20px;color: red;"> 没有信息</td></tr>
 	</c:if>
     	<tr>
@@ -107,7 +103,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		 	<span>最后一页&nbsp;</span>
 		 </c:if>
 		 	<span>跳转到第<input class="fenyelan_input" size="1" type="text" id="pagenow" name="pagenow" value="${requestScope.pagenow }">页</span>
-		 	<input type="button" onclick="javascript:document.forms[0].submit()" value="GO" class="fenyelan_button">
+		 	<input type="button" onclick="givegoodsjump()" value="GO" class="fenyelan_button">
 		 	<span>一共 ${requestScope.count } 条数据</span>
 		 </td>
 	 </tr>       
@@ -116,22 +112,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--弹框-->
 <div class="cd-popup" role="alert">
 	<div class="elegant-aero">
-			<h1>添加秒杀商品</h1>
-			<label><span>秒杀商品编码 :</span><input id="timegoodscode" type="text"
-				name="timegoodscode" placeholder="商品编码" /></label>
-			<label><span>秒杀商品名称 :</span><input id="timegoodsname" type="text"
-				name="timegoodsname" placeholder="商品名称" /></label>
-			<label><span>规格 :</span><input id="timegoodsunits" type="text"
-				name="timegoodsunits" placeholder="规格" /></label>
+			<h1>添加买赠商品</h1>
+			<input type="hidden" id="givegoodsimage" value="">
+			<label><span>编码 :</span><input id="givegoodscode" type="text"
+				name="givegoodscode" placeholder="编码" /></label>
+			<label><span>名称 :</span><input id="givegoodsname" type="text"
+				name="givegoodsname" placeholder="名称" /></label>
+			<label><span>规格 :</span><input id="givegoodsunits" type="text"
+				name="givegoodsunits" placeholder="规格" /></label>
 			<label><span>小类名称 :</span>
-			<select name="timegoodsclass" id="timegoodsclass">
+			<select name="givegoodsclass" id="givegoodsclass">
 				<option value="">请选择</option>
 			</select>
 			</label>
-			<label><span>单位 :</span><input id="timegoodsunit" type="text"
-				name="timegoodsunit" placeholder="单位" /></label>
-			<label><span>原价 :</span><input id="timegoodsprice" type="text"
-				name="timegoodsprice" placeholder="原价" /></label>
+			<label><span>单位 :</span><input id="givegoodsunit" type="text"
+				name="givegoodsunit" placeholder="单位" /></label>
+			<label><span>售价 :</span><input id="givegoodsprice" type="text"
+				name="givegoodsprice" placeholder="售价" /></label>
+			<label><span>个人限量 :</span><input id="givegoodsnum" type="text"
+				name="givegoodsnum" placeholder="个人限量" /></label>
+			<label><span>买赠描述 :</span><textarea name="givegoodsdetail"></textarea></label>
 			<p><label><input type="button"
 				class="popup_button" value="提交" onclick="popup_formSub()"/>
 			</label>
@@ -187,6 +187,13 @@ function fenye(targetPage){
 function fenyeGoods(targetPage){
 	loadGoodsData(targetPage);
 }
+//买增商品跳转到第X页
+function givegoodsjump(){
+	if(parseInt($("#pagenow").val()) > '${requestScope.pageCount }' ){
+		$("#pagenow").val('${requestScope.pageCount }');
+	}
+	document.forms[0].submit();
+}
 //跳转到第X页
 function goodsPageTo(pageCountGoods){
 	var pagenowGoods = $("#pagenowGoods").val();
@@ -195,12 +202,12 @@ function goodsPageTo(pageCountGoods){
 	}
 	loadGoodsData(pagenowGoods);
 }
-//弹出添加秒杀商品的窗口
-function addtimegoods(){
+//弹出添加买赠商品的窗口
+function addgivegoods(){
 	$(".cd-popup").addClass("is-visible");	//弹出窗口
 	$.getJSON("getallGoodclass.action",function(data){
 		$.each(data,function(i,item){
-			$("#timegoodsclass").append(
+			$("#givegoodsclass").append(
 				'<option value="'+item.goodsclassid+'">'+item.goodsclassname+'</option>'
 			)
 		});
@@ -240,6 +247,7 @@ function loadGoodsData(pagenowGoods){
 					'\',\''+item.goodsname+
 					'\',\''+item.goodsunits+
 					'\',\''+item.gClass.goodsclassname+
+					'\',\''+item.goodsimage+
 					'\')">选择</a></td></tr>'
 			);
 		});
@@ -264,26 +272,33 @@ function loadGoodsData(pagenowGoods){
 	});
 }
 //选择商品
-function seleScant(timegoodscode,timegoodsname,timegoodsunits,goodsclassname){
-	$("#timegoodscode").val(timegoodscode);
-	$("#timegoodsname").val(timegoodsname);
-	$("#timegoodsunits").val(timegoodsunits);
-	$("#timegoodsclass option").each(function(i,item){
+function seleScant(givegoodscode,givegoodsname,givegoodsunits,goodsclassname,givegoodsimage){
+	$("#givegoodscode").val(givegoodscode);
+	$("#givegoodsname").val(givegoodsname);
+	$("#givegoodsunits").val(givegoodsunits);
+	$("#givegoodsclass option").each(function(i,item){
 		if($(item).text() == goodsclassname){
 			$(item).attr("selected",true);
 		}
 	});
+	$("#givegoodsimage").val(givegoodsimage);
 	$(".cd-popup2").removeClass("is-visible");	//移除'is-visible' class
 	
 }
 //提交添加商品的表单
 function popup_formSub(){
 	var data = '{';
-	if($("#timegoodsclass").val() == "" || $("#timegoodsclass").val() == null){
+	if($("#givegoodsclass").val() == null || $("#givegoodsclass").val() == "" ){
 		alert("小类名称不能为空");
 		return;
 	} else {
-		data += '"timegoodsclass":"'+$("#timegoodsclass").val()+'",';
+		data += '"givegoodsclass":"'+$("#givegoodsclass").val()+'",';
+	}
+	if($(".elegant-aero textarea").val() == null || $(".elegant-aero textarea").val() == ""){
+		alert("买赠描述不能为空");
+		return;
+	} else {
+		data += '"'+$(".elegant-aero textarea").attr("name") + '":"' + $(".elegant-aero textarea").val() + '",'
 	}
 	var count = 0;
 	$(".elegant-aero [type='text']").each(function(i,item){
@@ -296,8 +311,8 @@ function popup_formSub(){
 		}
 	});
 	if(count == 0){
-		data += '"timegoodscompany":"${requestScope.timegoodsCon.timegoodscompany }","creator":"${sessionScope.company.companyshop }"}';
-		$.getJSON('addTimeGoods.action',JSON.parse(data),function(){
+		data += '"givegoodsimage":"'+$("#givegoodsimage").val()+'","givegoodscompany":"${requestScope.givegoodsCon.givegoodscompany }","creator":"${sessionScope.company.companyshop }"}';
+		$.getJSON('addGiveGoods.action',JSON.parse(data),function(){
 			alert('添加成功');
 			document.forms[0].submit();
 		});

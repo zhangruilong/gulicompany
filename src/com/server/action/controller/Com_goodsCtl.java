@@ -16,12 +16,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.server.dao.mapper.GivegoodsMapper;
 import com.server.dao.mapper.GoodsMapper;
 import com.server.dao.mapper.GoodsclassMapper;
 import com.server.dao.mapper.PricesMapper;
 import com.server.dao.mapper.ScantMapper;
 import com.server.dao.mapper.TimegoodsMapper;
 import com.server.pojo.entity.Company;
+import com.server.pojo.entity.Givegoods;
 import com.server.pojo.entity.Goods;
 import com.server.pojo.entity.Goodsclass;
 import com.server.pojo.entity.Prices;
@@ -47,6 +49,8 @@ public class Com_goodsCtl {
 	private PricesMapper pricesMapper;
 	@Autowired
 	private ScantMapper scantMapper;
+	@Autowired
+	private GivegoodsMapper givegoodsMapper;
 	//全部商品
 	@RequestMapping("/companySys/allGoods")
 	public String allGoods(Model model,Goods goodsCon,Integer pagenow){
@@ -88,6 +92,27 @@ public class Com_goodsCtl {
 		model.addAttribute("pagenow", pagenow);
 		model.addAttribute("count", count);
 		return "forward:/companySys/TimegoodsMana.jsp";
+	}
+	//全部买赠商品
+	@RequestMapping("/companySys/allGiveGoods")
+	public String allGiveGoods(Model model,Givegoods givegoodsCon,Integer pagenow){
+		if(pagenow == null){
+			pagenow = 1;
+		}
+		Integer count = givegoodsMapper.selectByConditionCount(givegoodsCon);	//总信息条数
+		Integer pageCount;		//总页数
+		if(count % 10 ==0){
+			pageCount = count / 10;
+		} else {
+			pageCount = (count / 10) +1;
+		}
+		List<Givegoods> givegoodsList = givegoodsMapper.selectByCondition(givegoodsCon,pagenow,10);
+		model.addAttribute("givegoodsList", givegoodsList);
+		model.addAttribute("givegoodsCon", givegoodsCon);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("pagenow", pagenow);
+		model.addAttribute("count", count);
+		return "forward:/companySys/GivegoodsMana.jsp";
 	}
 	//到商品价格页面
 	@RequestMapping("/companySys/doGoodsPrices")
@@ -267,6 +292,17 @@ public class Com_goodsCtl {
 		timegoods.setSurplusnum(timegoods.getAllnum());
 		timegoods.setTimegoodsstatue("启用");
 		timegoodsMapper.insertSelective(timegoods);
+		return map;
+	}
+	//添加买赠商品
+	@RequestMapping(value="/companySys/addGiveGoods",produces = "application/json")
+	@ResponseBody
+	public Map<String, Object> addGiveGoods(Givegoods givegoods){
+		Map<String, Object> map = new HashMap<String, Object>();
+		givegoods.setGivegoodsid(CommonUtil.getNewId());
+		givegoods.setCreatetime(DateUtils.getDateTime());
+		givegoods.setGivegoodsstatue("启用");
+		givegoodsMapper.insertSelective(givegoods);
 		return map;
 	}
 }
