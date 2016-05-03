@@ -153,6 +153,16 @@
 			$(".cd-popup").addClass("is-visible");	//弹出窗口
 			return;
 		}
+		if($("[name='customercity']").val() == null || $("[name='customercity']").val() == ''){
+			$(".meg").text("请选择城市");		//修改弹窗信息
+			$(".cd-popup").addClass("is-visible");	//弹出窗口
+			return;
+		}
+		if($("[name='customerxian']").val() == null || $("[name='customerxian']").val() == ''){
+			$(".meg").text("请选择地区");		//修改弹窗信息
+			$(".cd-popup").addClass("is-visible");	//弹出窗口
+			return;
+		}
 		$.getJSON("reg.action",{
 			"openid":window.localStorage.getItem("openid"),
 			"customercity":$("[name='customercity']").val(),
