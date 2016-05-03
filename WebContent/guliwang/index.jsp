@@ -90,7 +90,7 @@
 	var xian = '${param.xian}';
 	var city = '${param.city}';
 	$(function(){ 
-		//window.localStorage.setItem("openid","222222222");
+		window.localStorage.setItem("openid","222222222");
 		//openid
 		if(!window.localStorage.getItem("openid")||"null"==window.localStorage.getItem("openid")){
 			alert(window.localStorage.getItem("openid"));

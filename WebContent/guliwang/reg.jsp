@@ -24,9 +24,18 @@
 </head>
 
 <body>
+<form action="">
 	<div class="reg-wrapper reg-dianpu-info">
 		<ul>
-			<li><span>所在城市</span> 
+			<li><span>所在城市</span> <select id="city" name="customercity" style="width:29%;margin-left: 39%;">
+    		<option value="">请选择城市</option>
+    		<c:forEach items="${requestScope.cityList }" var="c">
+				<option>${c.cityname }</option>
+			</c:forEach></select><i></i></li>
+        <li><span>所在区域</span> <select  id="xian" name="customerxian" style="width:25%;margin-left: 39%;display:inline-block;color: black;">
+        	<option value="">请选择地区</option>
+			</select><i></i></li>
+			<!-- <li><span>所在城市</span> 
 			<span style="position:absolute;overflow:hidden;margin-left: 170px;"> 
 			<select id="city" style="width:160%;">
 				<option></option>
@@ -34,7 +43,7 @@
 					<option>${cyty.cityname }</option>
 				</c:forEach>
 			</select>
-			</span><i></i> 
+			</span><i></i>
 			<span style="position:absolute;display: block;">
 				<input id="customercity" name="customercity" type="text"  id="customercity"
 				placeholder="请输入城市" style="width:118px;margin-left: 228%;">
@@ -50,7 +59,7 @@
 				<input id="customerxian" name="customerxian" type="text"  id="customerxian"
 				placeholder="请输入地区" style="width:118px;margin-left: 228%;">
 			</span>
-			</li>
+			</li> -->
 			<li><span>店铺名称</span> <input name="customershop" type="text" id="customershop"
 				placeholder="请输入店铺名称"></li>
 			<li><span>店铺地址</span> <input name="customeraddress" type="text" id="customeraddress"
@@ -74,6 +83,7 @@
 		</div>
 	</div>
 </div>
+</form>
 <script type="text/javascript">
 	$(function(){
 		//防止openid 为 字符串"null"
@@ -85,8 +95,8 @@
 		}
 		$("#city").change(function(){
 			var customercity = $("#city").val();
-			document.getElementById('customercity').value=document.getElementById('city').options[document.getElementById('city').selectedIndex].value;
-			$("#city").val("");
+			//document.getElementById('customercity').value=document.getElementById('city').options[document.getElementById('city').selectedIndex].value;
+			//$("#city").val("");
 			Ext.Ajax.request({
 				url : "querycity.action",
 				method : "post",
@@ -97,7 +107,7 @@
 					var result = resp.responseText;
 					var $result = Ext.util.JSON.decode(result);
 					$("#xian").empty();			//清空select组件内的原始值
-					var $option = $("<option></option>");
+					var $option = $('<option value="">请选择地区</option>');
 					$("#xian").append($option);
 					for ( var i = 0; i < $result.length; i++) {
 						var city = $result[i];
@@ -111,11 +121,11 @@
 			});
 		});	                
 		
-		$("#xian").change(function(){
+		/* $("#xian").change(function(){
 			var xian = $("#xian").val();
 			$("#xian").val("");
 			$("#customerxian").val(xian);
-		});
+		}); */
 		
 		$(".cd-popup").on("click",function(event){		//绑定点击事件
 				$(this).removeClass("is-visible");	//移除'is-visible' class
@@ -145,9 +155,9 @@
 		}
 		$.getJSON("reg.action",{
 			"openid":window.localStorage.getItem("openid"),
-			"customercity":$("#customercity").val(),
+			"customercity":$("[name='customercity']").val(),
 			"customerphone":$("#customerphone").val(),
-			"customerxian":$("#customerxian").val(),
+			"customerxian":$("[name='customerxian']").val(),
 			"customershop":$("#customershop").val(),
 			"customername":$("#customername").val(),
 			"customeraddress":$("#customeraddress").val()
