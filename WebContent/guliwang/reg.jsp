@@ -132,8 +132,6 @@
 		});
 	})
 	function reg(){
-		var customerpsw = $("[name='customerpsw']").val();
-		var repwd = $("[name='repwd']").val();
 		var count = 0;
 		var alt;
 		$("input").each(function(i,item){
@@ -145,11 +143,6 @@
 		});
 		if(count > 0){
 			$(".meg").text(alt);		//修改弹窗信息
-			$(".cd-popup").addClass("is-visible");	//弹出窗口
-			return;
-		}
-		if(repwd != customerpsw){
-			$(".meg").text("两次输入的密码不相等");		//修改弹窗信息
 			$(".cd-popup").addClass("is-visible");	//弹出窗口
 			return;
 		}
