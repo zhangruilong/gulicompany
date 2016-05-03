@@ -13,9 +13,9 @@
 <link href="css/layout.css" type="text/css" rel="stylesheet">
 <link href="css/dig.css" type="text/css" rel="stylesheet">
 <style type="text/css">
-/* .goodsdetail{
-	font-size: 22px;
-} */
+.goods-wrapper .home-hot-commodity li a{
+	padding: 0;
+}
 </style>
 </head>
 <body>

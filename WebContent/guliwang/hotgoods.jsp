@@ -37,9 +37,9 @@ String dateString = formatter.format(currentTime);
 <div id="menu">
 <!--tag标题-->
     <ul id="nav">
-        <li><a href="#" class="selected" onclick="todayHotGoods(this)">今日热销</a></li>
-        <li><a href="#" class="" onclick="thisWeekHotGoods(this)">本周热销</a></li>
-        <li><a href="#" class="" onclick="thisMonthHotGoods(this)">本月热销</a></li>
+        <li><a class="selected" onclick="todayHotGoods(this)">今日热销</a></li>
+        <li><a class="" onclick="thisWeekHotGoods(this)">本周热销</a></li>
+        <li><a class="" onclick="thisMonthHotGoods(this)">本月热销</a></li>
     </ul>
 <!--二级菜单-->
     <div id="menu_con">

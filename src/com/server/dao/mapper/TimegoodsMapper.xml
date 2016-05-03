@@ -55,8 +55,6 @@
     select 
     *
     from timegoods
-    left join goodsclass
-	on timegoods.timegoodsclass = goodsclass.goodsclassid
     where timegoodscompany = #{timegoods.timegoodscompany}
     ) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) ) 
 		where RN &gt; ((#{nowpage}-1)*#{pagesize})

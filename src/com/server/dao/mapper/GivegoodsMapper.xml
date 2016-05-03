@@ -76,8 +76,6 @@
     select 
      *
     from GIVEGOODS
-    left join goodsclass
-	on givegoods.givegoodsclass = goodsclass.goodsclassid
     where givegoodscompany = #{givegoods.givegoodscompany}
     ) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) ) 
 		where RN &gt; ((#{nowpage}-1)*#{pagesize})
