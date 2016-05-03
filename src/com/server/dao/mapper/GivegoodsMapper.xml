@@ -16,6 +16,7 @@
     <result column="GIVEGOODSSTATUE" property="givegoodsstatue" jdbcType="VARCHAR" />
     <result column="CREATETIME" property="createtime" jdbcType="VARCHAR" />
     <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <!-- 供应商 -->
     <association property="givegoodcompany" javaType="com.server.pojo.entity.Company">
     	<id column="COMPANYID" property="companyid" jdbcType="VARCHAR" />
 	    <result column="COMPANYCODE" property="companycode" jdbcType="VARCHAR" />
@@ -39,6 +40,15 @@
 		    <result column="CITYDETAIL" property="citydetail" jdbcType="VARCHAR" />
 		    <result column="CITYSTATUE" property="citystatue" jdbcType="VARCHAR" />
 	    </association>
+    </association>
+    <!-- 小类 -->
+    <association property="giveGoodsClass" javaType="com.server.pojo.entity.Goodsclass">
+		<id column="GOODSCLASSID" property="goodsclassid" jdbcType="VARCHAR" />
+	    <result column="GOODSCLASSCODE" property="goodsclasscode" jdbcType="VARCHAR" />
+	    <result column="GOODSCLASSNAME" property="goodsclassname" jdbcType="VARCHAR" />
+	    <result column="GOODSCLASSPARENT" property="goodsclassparent" jdbcType="VARCHAR" />
+	    <result column="GOODSCLASSDETAIL" property="goodsclassdetail" jdbcType="VARCHAR" />
+	    <result column="GOODSCLASSSTATUE" property="goodsclassstatue" jdbcType="VARCHAR" />    
     </association>
   </resultMap>
   <sql id="Base_Column_List" >
@@ -64,8 +74,10 @@
   select * from 
 	(select A.*, ROWNUM RN from (
     select 
-    <include refid="Base_Column_List" />
+     *
     from GIVEGOODS
+    left join goodsclass
+	on givegoods.givegoodsclass = goodsclass.goodsclassid
     where givegoodscompany = #{givegoods.givegoodscompany}
     ) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) ) 
 		where RN &gt; ((#{nowpage}-1)*#{pagesize})

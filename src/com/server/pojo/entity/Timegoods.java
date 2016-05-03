@@ -75,7 +75,19 @@ public class Timegoods
     * 剩余数量
     */
    private Integer surplusnum;
-    //属性方法	    
+   /**
+    * 小类
+    */
+   private Goodsclass timeGoodsClass;
+   
+	//属性方法	    
+   public Goodsclass getTimeGoodsClass() {
+	   return timeGoodsClass;
+   }
+   
+   public void setTimeGoodsClass(Goodsclass timeGoodsClass) {
+	   this.timeGoodsClass = timeGoodsClass;
+   }
      /**
 	 *设置主键"促销品ID"属性
 	 *@param timegoodsid 实体的Timegoodsid属性

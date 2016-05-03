@@ -20,6 +20,60 @@
 <script type="text/javascript" src="../ExtJS/adapter/ext/ext-base.js"></script>
 <script type="text/javascript" src="../ExtJS/ext-all.js"></script>
 <script type="text/javascript" src="../ExtJS/ext-lang-zh_CN.js" charset="UTF-8"></script>
+
+</head>
+
+<body>
+	<div class="reg-wrapper reg-dianpu-info">
+		<ul>
+			<li><span>所在城市</span> 
+			<span style="position:absolute;overflow:hidden;margin-left: 170px;"> 
+			<select id="city" style="width:160%;">
+				<option></option>
+				<c:forEach items="${requestScope.cityList }" var="cyty">
+					<option>${cyty.cityname }</option>
+				</c:forEach>
+			</select>
+			</span><i></i> 
+			<span style="position:absolute;display: block;">
+				<input id="customercity" name="customercity" type="text"  id="customercity"
+				placeholder="请输入城市" style="width:118px;margin-left: 228%;">
+			</span>
+			</li>
+			<li><span>服务区域</span> 
+			<span style="position:absolute;overflow:hidden;margin-left: 170px;"> 
+			<select id="xian" style="width:160%;">
+				<option></option>
+			</select>
+			</span><i></i> 
+			<span style="position:absolute;display: block;">
+				<input id="customerxian" name="customerxian" type="text"  id="customerxian"
+				placeholder="请输入地区" style="width:118px;margin-left: 228%;">
+			</span>
+			</li>
+			<li><span>店铺名称</span> <input name="customershop" type="text" id="customershop"
+				placeholder="请输入店铺名称"></li>
+			<li><span>店铺地址</span> <input name="customeraddress" type="text" id="customeraddress"
+				placeholder="请输入店铺地址"></li>
+			<li><span>联系人</span><input name="customername" type="text" id="customername"
+				placeholder="请输入名字"></li>
+			<li><span>联系电话</span><input name="customerphone" type="text" id="customerphone"
+				placeholder="请输入联系人号码"></li>
+		</ul>
+	</div>
+	<div class="confirm-reg">
+		<a onclick="reg()" class="confirm-reg-btn">确认注册</a> <a href="agreement.jsp">确认注册即同意《谷粒网客户注册服务协议》</a>
+	</div>
+	<!--弹框-->
+<div class="cd-popup" role="alert">
+	<div class="cd-popup-container">
+		<div class="cd-buttons">
+        	<h1>谷粒网提示</h1>
+			<p class="meg">是否现在登录?</p>
+            <a class="cd-popup-close">确定</a>
+		</div>
+	</div>
+</div>
 <script type="text/javascript">
 	$(function(){
 		//防止openid 为 字符串"null"
@@ -106,58 +160,5 @@
 	}
 	
 </script>
-</head>
-
-<body>
-	<div class="reg-wrapper reg-dianpu-info">
-		<ul>
-			<li><span>所在城市</span> 
-			<span style="position:absolute;overflow:hidden;margin-left: 170px;"> 
-			<select id="city" style="width:160%;">
-				<option></option>
-				<c:forEach items="${requestScope.cityList }" var="cyty">
-					<option>${cyty.cityname }</option>
-				</c:forEach>
-			</select>
-			</span><i></i> 
-			<span style="position:absolute;display: block;">
-				<input id="customercity" name="customercity" type="text"  id="customercity"
-				placeholder="请输入城市" style="width:118px;margin-left: 228%;">
-			</span>
-			</li>
-			<li><span>服务区域</span> 
-			<span style="position:absolute;overflow:hidden;margin-left: 170px;"> 
-			<select id="xian" style="width:160%;">
-				<option></option>
-			</select>
-			</span><i></i> 
-			<span style="position:absolute;display: block;">
-				<input id="customerxian" name="customerxian" type="text"  id="customerxian"
-				placeholder="请输入地区" style="width:118px;margin-left: 228%;">
-			</span>
-			</li>
-			<li><span>店铺名称</span> <input name="customershop" type="text" id="customershop"
-				placeholder="请输入店铺名称"></li>
-			<li><span>店铺地址</span> <input name="customeraddress" type="text" id="customeraddress"
-				placeholder="请输入店铺地址"></li>
-			<li><span>联系人</span><input name="customername" type="text" id="customername"
-				placeholder="请输入名字"></li>
-			<li><span>联系电话</span><input name="customerphone" type="text" id="customerphone"
-				placeholder="请输入联系人号码"></li>
-		</ul>
-	</div>
-	<div class="confirm-reg">
-		<a onclick="reg()" class="confirm-reg-btn">确认注册</a> <a href="agreement.jsp">确认注册即同意《谷粒网客户注册服务协议》</a>
-	</div>
-	<!--弹框-->
-<div class="cd-popup" role="alert">
-	<div class="cd-popup-container">
-		<div class="cd-buttons">
-        	<h1>谷粒网提示</h1>
-			<p class="meg">是否现在登录?</p>
-            <a class="cd-popup-close">确定</a>
-		</div>
-	</div>
-</div>
 </body>
 </html>

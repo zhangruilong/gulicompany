@@ -30,6 +30,16 @@ public class Givegoods {
     private String creator;
 
     private Company givegoodcompany;
+    
+    private Goodsclass giveGoodsClass;
+
+	public Goodsclass getGiveGoodsClass() {
+		return giveGoodsClass;
+	}
+
+	public void setGiveGoodsClass(Goodsclass giveGoodsClass) {
+		this.giveGoodsClass = giveGoodsClass;
+	}
 
 	public Company getGivegoodcompany() {
 		return givegoodcompany;
