@@ -109,7 +109,7 @@
   			and timegoods.timegoodscode = #{timegoodsList[0].timegoodscode}
   		</if>
   	</if>
-  	order by to_number(timegoods.timegoodsdetail)
+  	order by timegoods.timegoodsseq
   </select>
   <!-- 登录 -->
   <select id="selectLogin" resultMap="BaseResultMap" parameterType="com.server.pojo.entity.Company" >

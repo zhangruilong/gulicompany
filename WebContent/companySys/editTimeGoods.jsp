@@ -36,14 +36,16 @@
 				name="timegoodsclass" value="${requestScope.editTimeGoods.timegoodsclass }" placeholder="小类名称" /></label> -->
 			<label><span>单位 :</span><input id="timegoodsunit" type="text"
 				name="timegoodsunit" value="${requestScope.editTimeGoods.timegoodsunit }" placeholder="单位" /></label>
-			<label><span>原价 :</span><input id="timegoodsprice" type="text"
+			<label><span>原价 :</span><input id="timegoodsprice" type="number"
 				name="timegoodsprice" value="${requestScope.editTimeGoods.timegoodsprice }" placeholder="原价" /></label>
-			<label><span>现价 :</span><input id="timegoodsorgprice" type="text"
+			<label><span>现价 :</span><input id="timegoodsorgprice" type="number"
 				name="timegoodsorgprice" value="${requestScope.editTimeGoods.timegoodsorgprice }" placeholder="现价" /></label>
-			<label><span>个人限量 :</span><input id="timegoodsnum" type="text"
+			<label><span>个人限量 :</span><input id="timegoodsnum" type="number"
 				name="timegoodsnum" value="${requestScope.editTimeGoods.timegoodsnum }" placeholder="个人限量" /></label>
-			<label><span>全部限量 :</span><input id="allnum" type="text"
+			<label><span>全部限量 :</span><input id="allnum" type="number"
 				name="allnum" value="${requestScope.editTimeGoods.allnum }" placeholder="全部限量" /></label>
+			<label><span>顺序 :</span><input id="timegoodsseq" type="number"
+				name="timegoodsseq" value="${requestScope.editTimeGoods.timegoodsseq }" placeholder="顺序" /></label>
 			<p><input type="button"
 				class="button" value="保存修改" onclick="saveEdit()"/>
 			<input type="button"
@@ -55,7 +57,7 @@
 function saveEdit(){
 	var data = '{';
 	var count = 0;
-	$(".elegant-aero [type='text']").each(function(i,item){
+	$(".elegant-aero [type='text']").add(".elegant-aero [type='number']").each(function(i,item){
 		if($(item).val() == null || $(item).val() == '' ){
 			alert($(item).attr('placeholder') + '不能为空');
 			count++;

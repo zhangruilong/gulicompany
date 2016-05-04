@@ -36,10 +36,12 @@
 				name="givegoodsclass" value="${requestScope.editGiveGoods.givegoodsclass }" placeholder="小类名称" /></label> -->
 			<label><span>单位 :</span><input id="givegoodsunit" type="text"
 				name="givegoodsunit" value="${requestScope.editGiveGoods.givegoodsunit }" placeholder="单位" /></label>
-			<label><span>售价 :</span><input id="givegoodsprice" type="text"
+			<label><span>售价 :</span><input id="givegoodsprice" type="number"
 				name="givegoodsprice" value="${requestScope.editGiveGoods.givegoodsprice }" placeholder="原价" /></label>
-			<label><span>个人限量 :</span><input id="givegoodsnum" type="text"
+			<label><span>个人限量 :</span><input id="givegoodsnum" type="number"
 				name="givegoodsnum" value="${requestScope.editGiveGoods.givegoodsnum }" placeholder="个人限量" /></label>
+			<label><span>顺序 :</span><input id="givegoodsseq" type="number"
+				name="givegoodsseq" value="${requestScope.editGiveGoods.givegoodsseq }" placeholder="顺序" /></label>
 			<p><input type="button"
 				class="button" value="保存修改" onclick="saveEdit()"/>
 			<input type="button"
@@ -51,7 +53,7 @@
 function saveEdit(){
 	var data = '{';
 	var count = 0;
-	$(".elegant-aero [type='text']").each(function(i,item){
+	$(".elegant-aero [type='text']").add(".elegant-aero [type='number']").each(function(i,item){
 		if($(item).val() == null || $(item).val() == '' ){
 			alert($(item).attr('placeholder') + '不能为空');
 			count++;

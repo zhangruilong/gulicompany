@@ -43,7 +43,7 @@
 	font-weight: bold;
 }
 
-.elegant-aero input[type="text"], .elegant-aero input[type="password"],
+.elegant-aero input[type="number"], .elegant-aero input[type="text"], .elegant-aero input[type="password"],
 	.elegant-aero textarea, .elegant-aero select {
 	color: #888;
 	width: 70%;

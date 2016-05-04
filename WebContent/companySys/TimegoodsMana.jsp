@@ -144,6 +144,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				name="timegoodsnum" placeholder="个人限量" /></label>
 			<label><span>全部限量 :</span><input id="allnum" type="number"
 				name="allnum" placeholder="全部限量" /></label>
+			<label><span>顺序 :</span><input id="timegoodsseq" type="number"
+				name="timegoodsseq" placeholder="顺序" /></label>
 			<p><label><input type="button"
 				class="popup_button" value="提交" onclick="popup_formSub()"/>
 			</label>
