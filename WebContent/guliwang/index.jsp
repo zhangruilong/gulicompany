@@ -55,6 +55,7 @@
     <div class="swipe-wrap">
       <div><a href="javascript:;"><img class="img-responsive" src="../images/banner1.jpg"/></a></div>
       <div><a href="javascript:;"><img class="img-responsive" src="../images/banner2.jpg"/></a></div>
+      <div><a href="../images/youhuida.jpg"><img class="img-responsive" src="../images/youhui.jpg"/></a></div>
     </div>
   </div>
   <ul id="position">
