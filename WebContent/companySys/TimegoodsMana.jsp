@@ -36,14 +36,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 <form id="main_form" action="allTimeGoods.action" method="post">
 <input type="hidden" name="timegoodscompany" value="${requestScope.timegoodsCon.timegoodscompany }">
+<input type="hidden" name="timegoodsid" value="">
 <div class="nowposition">当前位置：商品管理》秒杀商品</div>
 <div class="navigation">
 <input class="button" type="button" value="添加秒杀商品" onclick="addtimegoods()">
+<input class="button" type="button" value="修改" onclick="editTimeGoods()">
+<input class="button" type="button" value="删除" onclick="removeTimeGoods()">
 <input class="button" type="button" value="刷新" onclick="javascript:window.location.reload()">
 </div>
 <table class="bordered">
     <thead>
     <tr>
+    	<th></th>
         <th>序号</th>
 		<th>商品编号</th>
 		<th>商品名称</th>
@@ -60,6 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <c:if test="${fn:length(requestScope.timegoodsList) != 0 }">
 	<c:forEach var="timegoods" items="${requestScope.timegoodsList }" varStatus="timegoodsSta">
 		<tr>
+			<td><input type="checkbox" id="${timegoods.timegoodsid}"></td>
 			<td><c:out value="${timegoodsSta.count}"></c:out></td>
 			<td>${timegoods.timegoodscode}</td>
 			<td>${timegoods.timegoodsname}</td>
@@ -124,11 +129,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				name="timegoodsname" placeholder="名称" /></label>
 			<label><span>规格 :</span><input id="timegoodsunits" type="text"
 				name="timegoodsunits" placeholder="规格" /></label>
-			<label><span>小类名称 :</span>
+			<!-- <label><span>小类名称 :</span>
 			<select name="timegoodsclass" id="timegoodsclass">
 				<option value="">请选择</option>
 			</select>
-			</label>
+			</label> -->
 			<label><span>单位 :</span><input id="timegoodsunit" type="text"
 				name="timegoodsunit" placeholder="单位" /></label>
 			<label><span>原价 :</span><input id="timegoodsprice" type="text"
@@ -165,7 +170,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<th>商品编码</th>
 			<th>商品名称</th>
 			<th>规格</th>
-			<th>小类名称</th>
+			<!-- <th>小类名称</th> -->
 			<th>点击选择</th>
 	    </tr>
 	    </thead>
@@ -212,13 +217,13 @@ function goodsPageTo(pageCountGoods){
 //弹出添加秒杀商品的窗口
 function addtimegoods(){
 	$(".cd-popup").addClass("is-visible");	//弹出窗口
-	$.getJSON("getallGoodclass.action",function(data){
+	/* $.getJSON("getallGoodclass.action",function(data){
 		$.each(data,function(i,item){
 			$("#timegoodsclass").append(
 				'<option value="'+item.goodsclassid+'">'+item.goodsclassname+'</option>'
 			)
 		});
-	});
+	}); */
 }
 //关闭添加秒杀商品窗口
 function close_popup(){
@@ -248,12 +253,10 @@ function loadGoodsData(pagenowGoods){
 			'<td>'+item.goodscode+'</td>'+
 			'<td>'+item.goodsname+'</td>'+
 			'<td>'+item.goodsunits+'</td>'+
-			'<td>'+item.gClass.goodsclassname+'</td>'+
 			'<td><a class="scant_a" onclick="seleScant(\''
 					+item.goodscode+
 					'\',\''+item.goodsname+
 					'\',\''+item.goodsunits+
-					'\',\''+item.gClass.goodsclassname+
 					'\',\''+item.goodsimage+
 					'\')">选择</a></td></tr>'
 			);
@@ -279,15 +282,15 @@ function loadGoodsData(pagenowGoods){
 	});
 }
 //选择商品
-function seleScant(timegoodscode,timegoodsname,timegoodsunits,goodsclassname,timegoodsimage){
+function seleScant(timegoodscode,timegoodsname,timegoodsunits,timegoodsimage){
 	$("#timegoodscode").val(timegoodscode);
 	$("#timegoodsname").val(timegoodsname);
 	$("#timegoodsunits").val(timegoodsunits);
-	$("#timegoodsclass option").each(function(i,item){
+	/* $("#timegoodsclass option").each(function(i,item){
 		if($(item).text() == goodsclassname){
 			$(item).attr("selected",true);
 		}
-	});
+	}); */
 	$("#timegoodsimage").val(timegoodsimage);
 	$(".cd-popup2").removeClass("is-visible");	//移除'is-visible' class
 	
@@ -295,12 +298,12 @@ function seleScant(timegoodscode,timegoodsname,timegoodsunits,goodsclassname,tim
 //提交添加商品的表单
 function popup_formSub(){
 	var data = '{';
-	if($("#timegoodsclass").val() == "" || $("#timegoodsclass").val() == null){
+	/* if($("#timegoodsclass").val() == "" || $("#timegoodsclass").val() == null){
 		alert("小类名称不能为空");
 		return;
-	} else {
-		data += '"timegoodsclass":"'+$("#timegoodsclass").val()+'",';
-	}
+	} else { */
+		data += '"timegoodsclass":"秒杀商品",';
+	/* } */
 	var count = 0;
 	$(".elegant-aero [type='text']").each(function(i,item){
 		if($(item).val() == null || $(item).val() == '' ){
@@ -315,13 +318,34 @@ function popup_formSub(){
 		data += '"timegoodsimage":"'+$("#timegoodsimage").val()+'","timegoodscompany":"${requestScope.timegoodsCon.timegoodscompany }","creator":"${sessionScope.company.companyshop }"}';
 		$.getJSON('addTimeGoods.action',JSON.parse(data),function(){
 			alert('添加成功');
-			document.forms[0].submit();
+			fenye('1');
 		});
 	}
 }
 //条件查询
 function queryGooods(){
 	loadGoodsData(1);
+}
+//修改秒杀商品
+function editTimeGoods(){
+	var count = 0;
+	var itemid;
+	$("[type='checkbox']").each(function(i,item){
+		if(item.checked==true){
+			itemid = $(item).attr("id");
+			count++;
+		}
+	});
+	if(count > 0 && count < 2){
+		//window.location.href = "doGoodsPrices.action?goodsid="+itemid+"&pagenow=${requestScope.pagenow}";
+		$('#main_form').attr('action','doEditTimeGoods.action');
+		$('[name="timegoodsid"]').val(itemid);
+		$('#main_form').submit();
+	} else if(count == 0){
+		alert("请选择秒杀商品");
+	} else {
+		alert("只能选择一个秒杀商品");
+	}
 }
 </script>
 </body>

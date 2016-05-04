@@ -120,11 +120,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				name="givegoodsname" placeholder="名称" /></label>
 			<label><span>规格 :</span><input id="givegoodsunits" type="text"
 				name="givegoodsunits" placeholder="规格" /></label>
-			<label><span>小类名称 :</span>
+			<!-- <label><span>小类名称 :</span>
 			<select name="givegoodsclass" id="givegoodsclass">
 				<option value="">请选择</option>
 			</select>
-			</label>
+			</label> -->
 			<label><span>单位 :</span><input id="givegoodsunit" type="text"
 				name="givegoodsunit" placeholder="单位" /></label>
 			<label><span>售价 :</span><input id="givegoodsprice" type="text"
@@ -158,7 +158,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<th>商品编码</th>
 			<th>商品名称</th>
 			<th>规格</th>
-			<th>小类名称</th>
+			<!-- <th>小类名称</th> -->
 			<th>点击选择</th>
 	    </tr>
 	    </thead>
@@ -205,13 +205,13 @@ function goodsPageTo(pageCountGoods){
 //弹出添加买赠商品的窗口
 function addgivegoods(){
 	$(".cd-popup").addClass("is-visible");	//弹出窗口
-	$.getJSON("getallGoodclass.action",function(data){
+	/* $.getJSON("getallGoodclass.action",function(data){
 		$.each(data,function(i,item){
 			$("#givegoodsclass").append(
 				'<option value="'+item.goodsclassid+'">'+item.goodsclassname+'</option>'
 			)
 		});
-	});
+	}); */
 }
 //关闭添加秒杀商品窗口
 function close_popup(){
@@ -241,12 +241,10 @@ function loadGoodsData(pagenowGoods){
 			'<td>'+item.goodscode+'</td>'+
 			'<td>'+item.goodsname+'</td>'+
 			'<td>'+item.goodsunits+'</td>'+
-			'<td>'+item.gClass.goodsclassname+'</td>'+
 			'<td><a class="scant_a" onclick="seleScant(\''
 					+item.goodscode+
 					'\',\''+item.goodsname+
 					'\',\''+item.goodsunits+
-					'\',\''+item.gClass.goodsclassname+
 					'\',\''+item.goodsimage+
 					'\')">选择</a></td></tr>'
 			);
@@ -272,15 +270,15 @@ function loadGoodsData(pagenowGoods){
 	});
 }
 //选择商品
-function seleScant(givegoodscode,givegoodsname,givegoodsunits,goodsclassname,givegoodsimage){
+function seleScant(givegoodscode,givegoodsname,givegoodsunits,givegoodsimage){
 	$("#givegoodscode").val(givegoodscode);
 	$("#givegoodsname").val(givegoodsname);
 	$("#givegoodsunits").val(givegoodsunits);
-	$("#givegoodsclass option").each(function(i,item){
+	/* $("#givegoodsclass option").each(function(i,item){
 		if($(item).text() == goodsclassname){
 			$(item).attr("selected",true);
 		}
-	});
+	}); */
 	$("#givegoodsimage").val(givegoodsimage);
 	$(".cd-popup2").removeClass("is-visible");	//移除'is-visible' class
 	
@@ -288,12 +286,12 @@ function seleScant(givegoodscode,givegoodsname,givegoodsunits,goodsclassname,giv
 //提交添加商品的表单
 function popup_formSub(){
 	var data = '{';
-	if($("#givegoodsclass").val() == null || $("#givegoodsclass").val() == "" ){
+	/* if($("#givegoodsclass").val() == null || $("#givegoodsclass").val() == "" ){
 		alert("小类名称不能为空");
 		return;
-	} else {
-		data += '"givegoodsclass":"'+$("#givegoodsclass").val()+'",';
-	}
+	} else { */
+		data += '"givegoodsclass":"买赠商品",';
+	/* } */
 	if($(".elegant-aero textarea").val() == null || $(".elegant-aero textarea").val() == ""){
 		alert("买赠描述不能为空");
 		return;
