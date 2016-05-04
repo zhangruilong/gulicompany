@@ -36,14 +36,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 <form id="main_form" action="allGiveGoods.action" method="post">
 <input type="hidden" name="givegoodscompany" value="${requestScope.givegoodsCon.givegoodscompany }">
+<input type="hidden" name="givegoodsid" value="">
 <div class="nowposition">当前位置：商品管理》买赠商品</div>
 <div class="navigation">
-<input class="button" type="button" value="添加买赠商品" onclick="addgivegoods()">
+<input class="button" type="button" value="添加" onclick="addgivegoods()">
+<input class="button" type="button" value="修改" onclick="editGiveGoods()">
+<input class="button" type="button" value="删除" onclick="removeGiveGoods()">
 <input class="button" type="button" value="刷新" onclick="javascript:window.location.reload()">
 </div>
 <table class="bordered">
     <thead>
     <tr>
+    	<th></th>
         <th>序号</th>
 		<th>商品编号</th>
 		<th>商品名称</th>
@@ -58,6 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <c:if test="${fn:length(requestScope.givegoodsList) != 0 }">
 	<c:forEach var="givegoods" items="${requestScope.givegoodsList }" varStatus="givegoodsSta">
 		<tr>
+			<td><input type="checkbox" id="${givegoods.givegoodsid}"></td>
 			<td><c:out value="${givegoodsSta.count}"></c:out></td>
 			<td>${givegoods.givegoodscode}</td>
 			<td>${givegoods.givegoodsname}</td>
@@ -127,10 +132,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</label> -->
 			<label><span>单位 :</span><input id="givegoodsunit" type="text"
 				name="givegoodsunit" placeholder="单位" /></label>
-			<label><span>售价 :</span><input id="givegoodsprice" type="text"
+			<label><span>售价 :</span><input id="givegoodsprice" type="number"
 				name="givegoodsprice" placeholder="售价" /></label>
-			<label><span>个人限量 :</span><input id="givegoodsnum" type="text"
+			<label><span>个人限量 :</span><input id="givegoodsnum" type="number"
 				name="givegoodsnum" placeholder="个人限量" /></label>
+			<label><span>顺序 :</span><input id="givegoodsseq" type="number"
+				name="givegoodsseq" placeholder="顺序" /></label>
 			<label><span>买赠描述 :</span><textarea name="givegoodsdetail"></textarea></label>
 			<p><label><input type="button"
 				class="popup_button" value="提交" onclick="popup_formSub()"/>
@@ -299,7 +306,7 @@ function popup_formSub(){
 		data += '"'+$(".elegant-aero textarea").attr("name") + '":"' + $(".elegant-aero textarea").val() + '",'
 	}
 	var count = 0;
-	$(".elegant-aero [type='text']").each(function(i,item){
+	$(".elegant-aero [type='text']").add(".elegant-aero [type='number']").each(function(i,item){
 		if($(item).val() == null || $(item).val() == '' ){
 			alert($(item).attr('placeholder') + '不能为空');
 			count++;
@@ -319,6 +326,54 @@ function popup_formSub(){
 //条件查询
 function queryGooods(){
 	loadGoodsData(1);
+}
+//修改买赠商品
+function editGiveGoods(){
+	var count = 0;
+	var itemid;
+	$("[type='checkbox']").each(function(i,item){
+		if(item.checked==true){
+			itemid = $(item).attr("id");
+			count++;
+		}
+	});
+	if(count > 0 && count < 2){
+		//window.location.href = "doGoodsPrices.action?goodsid="+itemid+"&pagenow=${requestScope.pagenow}";
+		$('#main_form').attr('action','doEditGiveGoods.action');
+		$('[name="givegoodsid"]').val(itemid);
+		$('#main_form').submit();
+	} else if(count == 0){
+		alert("请选择秒杀商品");
+	} else {
+		alert("只能选择一个秒杀商品");
+	}
+}
+//删除买赠商品
+function removeGiveGoods(){
+	var count = 0;
+	var itemid;
+	$("[type='checkbox']").each(function(i,item){
+		if(item.checked==true){
+			itemid = $(item).attr("id");
+			count++;
+		}
+	});
+	if(count > 0 && count < 2){
+		if(confirm("是否删除")){
+			$.post('removeGiveGoods.action',{'givegoodsid':itemid},function(data){
+				if(data == 'ok'){
+					alert("删除成功");
+					window.location.reload();
+				} else {
+					alert("删除失败");
+				}
+			});
+		}
+	} else if(count == 0){
+		alert("请选择秒杀商品");
+	} else {
+		alert("只能选择一个秒杀商品");
+	}
 }
 </script>
 </body>

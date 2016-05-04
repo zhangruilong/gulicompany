@@ -16,6 +16,7 @@
     <result column="GIVEGOODSSTATUE" property="givegoodsstatue" jdbcType="VARCHAR" />
     <result column="CREATETIME" property="createtime" jdbcType="VARCHAR" />
     <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="GIVEGOODSSEQ" property="givegoodsseq" jdbcType="DECIMAL" />
     <!-- 供应商 -->
     <association property="givegoodcompany" javaType="com.server.pojo.entity.Company">
     	<id column="COMPANYID" property="companyid" jdbcType="VARCHAR" />
@@ -54,7 +55,7 @@
   <sql id="Base_Column_List" >
     GIVEGOODSID, GIVEGOODSCOMPANY, GIVEGOODSCODE, GIVEGOODSNAME, GIVEGOODSDETAIL, GIVEGOODSUNITS, 
     GIVEGOODSUNIT, GIVEGOODSPRICE, GIVEGOODSNUM, GIVEGOODSCLASS, GIVEGOODSIMAGE, GIVEGOODSSTATUE, 
-    CREATETIME, CREATOR
+    CREATETIME, CREATOR,GIVEGOODSSEQ
   </sql>
   <!-- 根据编码查询 -->
   <select id="selectByCode" resultMap="BaseResultMap" parameterType="java.lang.String" >
@@ -149,6 +150,9 @@
       <if test="creator != null" >
         CREATOR,
       </if>
+      <if test="givegoodsseq != null" >
+        GIVEGOODSSEQ,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="givegoodsid != null" >
@@ -193,6 +197,9 @@
       <if test="creator != null" >
         #{creator,jdbcType=VARCHAR},
       </if>
+      <if test="givegoodsseq != null" >
+        #{givegoodsseq,jdbcType=DECIMAL},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.server.pojo.entity.Givegoods" >
@@ -236,6 +243,9 @@
       </if>
       <if test="creator != null" >
         CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="givegoodsseq != null" >
+        GIVEGOODSSEQ = #{givegoodsseq,jdbcType=DECIMAL},
       </if>
     </set>
     where GIVEGOODSID = #{givegoodsid,jdbcType=VARCHAR}

@@ -33,6 +33,16 @@ public class Givegoods {
     
     private Goodsclass giveGoodsClass;
 
+    private Integer givegoodsseq;
+    
+	public Integer getGivegoodsseq() {
+		return givegoodsseq;
+	}
+
+	public void setGivegoodsseq(Integer givegoodsseq) {
+		this.givegoodsseq = givegoodsseq;
+	}
+
 	public Goodsclass getGiveGoodsClass() {
 		return giveGoodsClass;
 	}

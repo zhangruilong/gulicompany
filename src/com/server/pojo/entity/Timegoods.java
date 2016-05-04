@@ -76,16 +76,29 @@ public class Timegoods
     */
    private Integer surplusnum;
    /**
+    * 顺序
+    */
+   private Integer timegoodsseq;
+   /**
     * 小类
     */
    private Goodsclass timeGoodsClass;
    
-	//属性方法	    
+	//属性方法	
+   
    public Goodsclass getTimeGoodsClass() {
 	   return timeGoodsClass;
    }
    
-   public void setTimeGoodsClass(Goodsclass timeGoodsClass) {
+   public Integer getTimegoodsseq() {
+		return timegoodsseq;
+	}
+	
+	public void setTimegoodsseq(Integer timegoodsseq) {
+		this.timegoodsseq = timegoodsseq;
+	}
+
+	public void setTimeGoodsClass(Goodsclass timeGoodsClass) {
 	   this.timeGoodsClass = timeGoodsClass;
    }
      /**

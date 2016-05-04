@@ -19,6 +19,7 @@
     <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
     <result column="ALLNUM" property="allnum" jdbcType="DECIMAL" />
     <result column="SURPLUSNUM" property="surplusnum" jdbcType="DECIMAL" />
+    <result column="TIMEGOODSSEQ" property="timegoodsseq" jdbcType="DECIMAL" />
     <!-- 小类 -->
     <association property="timeGoodsClass" javaType="com.server.pojo.entity.Goodsclass">
 		<id column="GOODSCLASSID" property="goodsclassid" jdbcType="VARCHAR" />
@@ -32,7 +33,7 @@
   <sql id="Base_Column_List" >
     TIMEGOODSID, TIMEGOODSCOMPANY, TIMEGOODSCODE, TIMEGOODSNAME, TIMEGOODSDETAIL, TIMEGOODSUNITS, 
     TIMEGOODSUNIT, TIMEGOODSPRICE, TIMEGOODSORGPRICE, TIMEGOODSNUM, TIMEGOODSCLASS, TIMEGOODSIMAGE, 
-    TIMEGOODSSTATUE, CREATETIME, CREATOR, ALLNUM, SURPLUSNUM
+    TIMEGOODSSTATUE, CREATETIME, CREATOR, ALLNUM, SURPLUSNUM,TIMEGOODSSEQ
   </sql>
   <!-- 根据编码查询 -->
   <select id="selectByCode" resultMap="BaseResultMap" parameterType="java.lang.String" >
@@ -126,6 +127,9 @@
       <if test="surplusnum != null" >
         SURPLUSNUM,
       </if>
+      <if test="timegoodsseq != null" >
+        TIMEGOODSSEQ,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="timegoodsid != null" >
@@ -178,6 +182,9 @@
       </if>
       <if test="surplusnum != null" >
         #{surplusnum,jdbcType=DECIMAL},
+      </if>
+      <if test="timegoodsseq != null" >
+        #{timegoodsseq,jdbcType=DECIMAL},
       </if>
     </trim>
   </insert>
@@ -232,6 +239,9 @@
       </if>
       <if test="surplusnum != null" >
         SURPLUSNUM = #{surplusnum,jdbcType=DECIMAL},
+      </if>
+      <if test="timegoodsseq != null" >
+        TIMEGOODSSEQ = #{timegoodsseq,jdbcType=DECIMAL},
       </if>
     </set>
     where TIMEGOODSID = #{timegoodsid,jdbcType=VARCHAR}

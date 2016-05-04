@@ -23,7 +23,7 @@
 </head>
 <body>
 	<div class="elegant-aero">
-		<form action="editTimeGoods.action" method="post" class="STYLE-NAME">
+		<form action="" method="post" class="STYLE-NAME">
 		<input type="hidden" name="timegoodscompany" value="${requestScope.timegoodsCon.timegoodscompany }">
 			<h1>秒杀商品信息</h1>
 			<label><span>编码 :</span><input id="timegoodscode" type="text"

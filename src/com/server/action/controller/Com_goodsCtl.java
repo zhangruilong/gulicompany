@@ -142,6 +142,47 @@ public class Com_goodsCtl {
 			return "no";
 		}
 	}
+	//删除 秒杀 商品
+	@RequestMapping("/companySys/removeTimeGoods")
+	@ResponseBody
+	public String removeTimeGoods(String timegoodsid){
+		int del = timegoodsMapper.deleteByPrimaryKey(timegoodsid);
+		if(del > 0){
+			return "ok";
+		} else {
+			return "no";
+		}
+	}
+	//修改 买赠 商品页面
+	@RequestMapping("/companySys/doEditGiveGoods")
+	public String doEditGiveGoods(Model model,Givegoods givegoodsCon,Integer pagenow){
+		Givegoods editGiveGoods = givegoodsMapper.selectByPrimaryKey(givegoodsCon.getGivegoodsid());
+		model.addAttribute("editGiveGoods", editGiveGoods);
+		model.addAttribute("pagenow", pagenow);
+		return "forward:/companySys/editGiveGoods.jsp";
+	}
+	//修改 买赠 商品
+	@RequestMapping("/companySys/editGiveGoods")
+	@ResponseBody
+	public String editGiveGoods(Givegoods editGiveGoods){
+		int upd = givegoodsMapper.updateByPrimaryKeySelective(editGiveGoods);
+		if(upd > 0){
+			return "ok";
+		} else {
+			return "no";
+		}
+	}
+	//删除 买赠 商品
+	@RequestMapping("/companySys/removeGiveGoods")
+	@ResponseBody
+	public String removeGiveGoods(String givegoodsid){
+		int del = givegoodsMapper.deleteByPrimaryKey(givegoodsid);
+		if(del > 0){
+			return "ok";
+		} else {
+			return "no";
+		}
+	}
 	//设置商品价格
 	@RequestMapping("/companySys/addGoodsPrices")
 	@ResponseBody

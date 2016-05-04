@@ -39,7 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <input type="hidden" name="timegoodsid" value="">
 <div class="nowposition">当前位置：商品管理》秒杀商品</div>
 <div class="navigation">
-<input class="button" type="button" value="添加秒杀商品" onclick="addtimegoods()">
+<input class="button" type="button" value="添加" onclick="addtimegoods()">
 <input class="button" type="button" value="修改" onclick="editTimeGoods()">
 <input class="button" type="button" value="删除" onclick="removeTimeGoods()">
 <input class="button" type="button" value="刷新" onclick="javascript:window.location.reload()">
@@ -136,13 +136,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</label> -->
 			<label><span>单位 :</span><input id="timegoodsunit" type="text"
 				name="timegoodsunit" placeholder="单位" /></label>
-			<label><span>原价 :</span><input id="timegoodsprice" type="text"
+			<label><span>原价 :</span><input id="timegoodsprice" type="number"
 				name="timegoodsprice" placeholder="原价" /></label>
-			<label><span>现价 :</span><input id="timegoodsorgprice" type="text"
+			<label><span>现价 :</span><input id="timegoodsorgprice" type="number"
 				name="timegoodsorgprice" placeholder="现价" /></label>
-			<label><span>个人限量 :</span><input id="timegoodsnum" type="text"
+			<label><span>个人限量 :</span><input id="timegoodsnum" type="number"
 				name="timegoodsnum" placeholder="个人限量" /></label>
-			<label><span>全部限量 :</span><input id="allnum" type="text"
+			<label><span>全部限量 :</span><input id="allnum" type="number"
 				name="allnum" placeholder="全部限量" /></label>
 			<p><label><input type="button"
 				class="popup_button" value="提交" onclick="popup_formSub()"/>
@@ -305,7 +305,7 @@ function popup_formSub(){
 		data += '"timegoodsclass":"秒杀商品",';
 	/* } */
 	var count = 0;
-	$(".elegant-aero [type='text']").each(function(i,item){
+	$(".elegant-aero [type='text']").add(".elegant-aero [type='number']").each(function(i,item){
 		if($(item).val() == null || $(item).val() == '' ){
 			alert($(item).attr('placeholder') + '不能为空');
 			count++;
@@ -341,6 +341,33 @@ function editTimeGoods(){
 		$('#main_form').attr('action','doEditTimeGoods.action');
 		$('[name="timegoodsid"]').val(itemid);
 		$('#main_form').submit();
+	} else if(count == 0){
+		alert("请选择秒杀商品");
+	} else {
+		alert("只能选择一个秒杀商品");
+	}
+}
+//删除秒杀商品
+function removeTimeGoods(){
+	var count = 0;
+	var itemid;
+	$("[type='checkbox']").each(function(i,item){
+		if(item.checked==true){
+			itemid = $(item).attr("id");
+			count++;
+		}
+	});
+	if(count > 0 && count < 2){
+		if(confirm("是否删除")){
+			$.post('removeTimeGoods.action',{'timegoodsid':itemid},function(data){
+				if(data == 'ok'){
+					alert("删除成功");
+					window.location.reload();
+				} else {
+					alert("删除失败");
+				}
+			});
+		}
 	} else if(count == 0){
 		alert("请选择秒杀商品");
 	} else {
