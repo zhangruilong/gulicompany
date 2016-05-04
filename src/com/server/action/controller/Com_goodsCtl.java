@@ -123,6 +123,25 @@ public class Com_goodsCtl {
 		model.addAttribute("pagenow", pagenow);
 		return "forward:/companySys/goodsPrices.jsp";
 	}
+	//修改 秒杀 商品页面
+	@RequestMapping("/companySys/doEditTimeGoods")
+	public String doEditTimeGoods(Model model,Timegoods timegoodsCon,Integer pagenow){
+		Timegoods editTimeGoods = timegoodsMapper.selectByPrimaryKey(timegoodsCon.getTimegoodsid());
+		model.addAttribute("editTimeGoods", editTimeGoods);
+		model.addAttribute("pagenow", pagenow);
+		return "forward:/companySys/editTimeGoods.jsp";
+	}
+	//修改 秒杀 商品
+	@RequestMapping("/companySys/editTimeGoods")
+	@ResponseBody
+	public String editTimeGoods(Timegoods editTimeGoods){
+		int upd = timegoodsMapper.updateByPrimaryKeySelective(editTimeGoods);
+		if(upd > 0){
+			return "ok";
+		} else {
+			return "no";
+		}
+	}
 	//设置商品价格
 	@RequestMapping("/companySys/addGoodsPrices")
 	@ResponseBody
