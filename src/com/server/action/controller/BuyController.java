@@ -42,6 +42,35 @@ public class BuyController {
 		model.addAttribute("address", address);
 		return "forward:/guliwang/buy.jsp";
 	}
+	
+	//修改秒杀商品的剩余数量
+	@RequestMapping("/guliwang/editRestAmount")
+	@ResponseBody
+	public String editRestAmount(String timegoodsids,String timegoodssum){
+		String[] timegoodsidsStr = timegoodsids.split(",");
+		String[] timegoodssumStr = timegoodssum.split(",");
+		String msg = "ok";
+		List<Timegoods> timegoodsList = new ArrayList<Timegoods>();
+		for (int i = 0; i < timegoodsidsStr.length; i++) {									//遍历是否有超过秒杀商品剩余数量的
+			Timegoods timegoods = timegoodsMapper.selectByPrimaryKey(timegoodsidsStr[i]);
+			timegoodsList.add(timegoods);
+			if(timegoods.getAllnum() != -1 && timegoods.getSurplusnum() - Integer.parseInt(timegoodssumStr[i]) < 0){
+				msg = "no";
+				break;
+			}
+		}
+		if(msg.equals("ok")){
+			for(int i = 0; i < timegoodsList.size() ; i++){
+				Timegoods timegoods = timegoodsList.get(i);
+				timegoods.setSurplusnum(timegoods.getSurplusnum() - Integer.parseInt(timegoodssumStr[i]));
+				timegoodsMapper.updateByPrimaryKeySelective(timegoods);
+			}
+		}
+		return msg;
+	}
+	
+//////////////////////////////////////////////////EMP补单页面  /////////////////////////////////////////////////////////////////////////////////
+	
 	//到结算页面
 	@RequestMapping("/guliwangemp/doEmpBuy")
 	public String doEmpBuy(Model model,Address address){
@@ -58,10 +87,11 @@ public class BuyController {
 		model.addAttribute("address", address);
 		return "forward:/guliwangemp/buy.jsp";
 	}
+	
 	//修改秒杀商品的剩余数量
-	@RequestMapping("/guliwang/editRestAmount")
+	@RequestMapping("/guliwangemp/editRestAmountEmp")
 	@ResponseBody
-	public String editRestAmount(String timegoodsids,String timegoodssum){
+	public String editRestAmountEmp(String timegoodsids,String timegoodssum){
 		String[] timegoodsidsStr = timegoodsids.split(",");
 		String[] timegoodssumStr = timegoodssum.split(",");
 		String msg = "ok";

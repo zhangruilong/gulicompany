@@ -73,27 +73,7 @@ public class FrontController {
 		pageInfo.put("companyCondition", companyCondition);
 		return pageInfo;
 	}
-	//查询首页所需的数据( EMP )
-	@RequestMapping(value="/guliwangemp/doEmpGuliwangIndex",produces="application/json")
-	@ResponseBody
-	public Map<String, Object> doEmpGuliwangIndex(Company companyCondition,City parentCity){
-		Map<String, Object> pageInfo = new HashMap<String, Object>();
-		parentCity = cityMapper.selectByCitynameOrKey(parentCity).get(0);				//根据父类城市名称或主键查询得到父类城市
-		List<City> cities = cityMapper.selectByCityparent(parentCity.getCityid());	//根据父类城市ID查询得到地区集合
-		pageInfo.put("cityList", cities);
-		pageInfo.put("parentCity", parentCity);
-		/*//根据 '地区' 查询该地区的 '经销商' 和该经销商的 '促销商品'
-		List<Company> companyList = companyMapper.selectCompanyByCondition(companyCondition);	//条件中包含城市名
-		pageInfo.put("companyList", companyList);
-		//查询到客户的所有秒杀品的订单详情
-		List<Orderd> cusOrderdList = null;
-		if(customerid != null){
-			cusOrderdList = orderdMapper.selectOrderdByCustomerMiaosha(customerid);
-		}
-		pageInfo.put("cusOrderdList", cusOrderdList);*/
-		pageInfo.put("companyCondition", companyCondition);
-		return pageInfo;
-	}
+	
 	//秒杀页
 	@RequestMapping(value="/guliwang/miaoshaPage",produces="application/json")
 	@ResponseBody
@@ -168,6 +148,126 @@ public class FrontController {
 	@RequestMapping(value="/guliwang/hotTodayGoods")
 	@ResponseBody
 	public List<GoodsVo> hotTodayGoods(String cityname,String staTime,String endTime){
+		List<Orderd> orderdList = orderdMapper.selectHotGoodsCodeAndType(staTime, endTime,cityname);
+		List<GoodsVo> goodsVoList = new ArrayList<GoodsVo>();
+		for (Orderd orderd : orderdList) {
+			if(orderd.getOrderdtype().equals("商品")){
+				GoodsVo goodsVo = new GoodsVo();
+				goodsVo.setType("商品");
+				goodsVo.setGoods(goodsMapper.selectByGoods(orderd.getOrderdcode()).get(0));
+				goodsVoList.add(goodsVo);
+			} else if(orderd.getOrderdtype().equals("秒杀")){
+				GoodsVo goodsVo = new GoodsVo();
+				goodsVo.setType("秒杀");
+				goodsVo.setTimegoods(timegoodsMapper.selectByCode(orderd.getOrderdcode()).get(0));
+				goodsVoList.add(goodsVo);
+			} else {
+				GoodsVo goodsVo = new GoodsVo();
+				goodsVo.setType("买赠");
+				goodsVo.setGivegoods(givegoodsMapper.selectByCode(orderd.getOrderdcode()).get(0));
+				goodsVoList.add(goodsVo);
+			}
+		}
+		return goodsVoList;
+	}
+	
+////////////////////////////////////////////////// EMP补单页面  /////////////////////////////////////////////////////////////////////////////////
+	
+	//查询首页所需的数据( EMP )
+	@RequestMapping(value="/guliwangemp/doEmpGuliwangIndex",produces="application/json")
+	@ResponseBody
+	public Map<String, Object> doEmpGuliwangIndex(Company companyCondition,City parentCity){
+		Map<String, Object> pageInfo = new HashMap<String, Object>();
+		parentCity = cityMapper.selectByCitynameOrKey(parentCity).get(0);				//根据父类城市名称或主键查询得到父类城市
+		List<City> cities = cityMapper.selectByCityparent(parentCity.getCityid());	//根据父类城市ID查询得到地区集合
+		pageInfo.put("cityList", cities);
+		pageInfo.put("parentCity", parentCity);
+		/*//根据 '地区' 查询该地区的 '经销商' 和该经销商的 '促销商品'
+		List<Company> companyList = companyMapper.selectCompanyByCondition(companyCondition);	//条件中包含城市名
+		pageInfo.put("companyList", companyList);
+		//查询到客户的所有秒杀品的订单详情
+		List<Orderd> cusOrderdList = null;
+		if(customerid != null){
+			cusOrderdList = orderdMapper.selectOrderdByCustomerMiaosha(customerid);
+		}
+		pageInfo.put("cusOrderdList", cusOrderdList);*/
+		pageInfo.put("companyCondition", companyCondition);
+		return pageInfo;
+	}
+	//秒杀页
+	@RequestMapping(value="/guliwangemp/miaoshaPageEmp",produces="application/json")
+	@ResponseBody
+	public Map<String, Object> miaoshaEmpPage(Company companyCondition){
+		Map<String, Object> pageInfo = new HashMap<String, Object>();
+		//根据 '地区' 查询该地区的 '经销商' 和该经销商的 '秒杀商品'
+		List<Company> companyList = companyMapper.selectCompanyByCondition(companyCondition);	//条件中包含城市名
+		pageInfo.put("companyList", companyList);
+		return pageInfo;
+	}
+	//买赠页
+	@RequestMapping(value="/guliwangemp/maizengPageEmp",produces="application/json")
+	@ResponseBody
+	public Map<String, Object> maizengEmpPage(Givegoods givegoods){
+		Map<String, Object> pageInfo = new HashMap<String, Object>();
+		//根据 '地区' 查询该地区的 '经销商' 和该经销商的 '买赠商品'
+		List<Givegoods> giveList = givegoodsMapper.selectByCompanyXian(givegoods);
+		pageInfo.put("giveList", giveList);
+		return pageInfo;
+	}
+	//判断秒杀商品的限购数量是否到达上限
+	@RequestMapping(value="/guliwangemp/judgePurchaseEmp",produces="application/json")
+	@ResponseBody
+	public Map<String, Object> judgePurchaseEmp(Integer timegoodsnum,String timegoodscode,String customerid){
+		Map<String, Object> map = new HashMap<String, Object>();
+		String date = DateUtils.getDate();
+		Integer num = ordermMapper.selectOrderByCustomerGoods(customerid, timegoodscode,"秒杀",date + " 00:00:00",date + " 23:59:59");
+		if(num != null && num >= timegoodsnum){
+			map.put("result", "no");
+		} else {
+			map.put("result", "ok");
+		}
+		return map;
+	}
+	//判断买赠商品的限购数量
+	@RequestMapping(value="/guliwangemp/judgePurchaseGiveGoodsEmp")
+	@ResponseBody
+	public Map<String, Object> judgePurchaseGiveGoodsEmp(Integer givegoodsnum,String givegoodscode,String customerid){
+		Map<String, Object> map = new HashMap<String, Object>();
+		String date = DateUtils.getDate();
+		Integer num = ordermMapper.selectOrderByCustomerGoods(customerid, givegoodscode,"买赠",date + " 00:00:00",date + " 23:59:59");
+		if(num != null && num >= givegoodsnum){
+			map.put("result", "no");
+		} else {
+			map.put("result", "ok");
+		}
+		return map;
+	}
+	//判断限购数量是否到达上限
+	@RequestMapping(value="/guliwangemp/queryCusSecKillOrderdEmp",produces="application/json")
+	@ResponseBody
+	public Map<String, Object> queryCusSecKillOrderdEmp(Orderd orderd){
+		Map<String, Object> map = new HashMap<String, Object>();
+		Address record = new Address();
+		String msg = "";
+		record.setAddresscustomer(orderd.getOrderm().getOrdermcustomer());
+		List<Address> addressList = addressMapper.selectDefAddress(record);
+		if(addressList == null || addressList.size() == 0){
+			msg = "no";
+		}
+		String date = DateUtils.getDate();
+		orderd.setOrderdtype("秒杀");
+		List<Orderd> miaoshaList = orderdMapper.selectOrderdByCustomerMiaosha(orderd,date + " 00:00:00",date + " 23:59:59");
+		orderd.setOrderdtype("买赠");
+		List<Orderd> giveGoodsList = orderdMapper.selectOrderdByCustomerMiaosha(orderd,date + " 00:00:00",date + " 23:59:59");
+		map.put("msg", msg);
+		map.put("miaoshaList", miaoshaList);
+		map.put("giveGoodsList", giveGoodsList);
+		return map;
+	}
+	//热销商品
+	@RequestMapping(value="/guliwangemp/hotTodayGoodsEmp")
+	@ResponseBody
+	public List<GoodsVo> hotTodayGoodsEmp(String cityname,String staTime,String endTime){
 		List<Orderd> orderdList = orderdMapper.selectHotGoodsCodeAndType(staTime, endTime,cityname);
 		List<GoodsVo> goodsVoList = new ArrayList<GoodsVo>();
 		for (Orderd orderd : orderdList) {
