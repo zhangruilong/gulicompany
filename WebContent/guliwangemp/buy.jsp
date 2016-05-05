@@ -142,7 +142,7 @@ function buy(){
 			}
 		});
 		if(timegoodsids != '' && timegoodssum != ''){
-			$.post('editRestAmount.action',
+			$.post('editRestAmountEmp.action',
 				{'timegoodsids':timegoodsids,'timegoodssum':timegoodssum},
 				function(data){
 					if(data == 'ok'){

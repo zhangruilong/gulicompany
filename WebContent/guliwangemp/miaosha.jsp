@@ -13,11 +13,9 @@
 <link href="css/layout.css" type="text/css" rel="stylesheet">
 <link href="css/dig.css" type="text/css" rel="stylesheet">
 <style type="text/css">
-/* .home-search-wrapper{
-	text-align: center;
-	color: white;
-	font-size: 20px;
-} */
+.goods-wrapper .home-hot-commodity li a{
+	padding: 0;
+}
 </style>
 </head>
 <body>
