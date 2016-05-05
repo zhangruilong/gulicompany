@@ -22,7 +22,7 @@ public class CollectController {
 	private CollectMapper collectMapper;
 	//到收藏页面
 	@RequestMapping("/guliwang/doCollPageddddd")
-	public String doCollect(Model model,String comid){
+	public String doCollPageddddd(Model model,String comid){
 		Customer customer = customerMapper.selectCollectGoodsById(comid);	//根据客户id查询收藏商品
 		if(customer.getCollectList().size() == 0){
 			return "/guliwang/collectnothing.html";
