@@ -14,7 +14,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 body{
 	margin: 0px; 
  	padding: 0px;
- 	font-size: 12px;
+ 	font-size: 14px;
+ 	font-weight: bold;
 }
 .print_tab tr td{
 	text-align: center;
@@ -22,7 +23,7 @@ body{
 </style>
 </head>
 
-<body style="width:675px;">
+<body style="width:675px;height:400px;">
 <OBJECT classid="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2" height="0" id="WindowPrint" 
 name="WindowPrint" width="0"></OBJECT>
 
@@ -34,17 +35,17 @@ window.print()
 </script>
 
 <div>
-	<table width="100%" border="1" cellspacing="0" cellpadding="0" style="border: thin;border-collapse: collapse;">
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
 		<tr>
-			<td colspan="2" style="text-align: center;font-size: 33px;font-family: 黑体;border-left: hidden;border-top: hidden;border-bottom: hidden;">《谷粒网物流配送单》</td>
-			<td rowspan="2" colspan="2" style="background-color: #80ffff;">
-				<div style="margin-top: 7px;">供货商:${requestScope.printCompany.companyshop }</div>
-				<div style="margin-top: 7px;">联系电话:${requestScope.printCompany.companyphone }</div>
-			</td>
+			<td colspan="6" style="text-align: center;font-size: 33px;font-family: 黑体;border-left: hidden;border-top: hidden;border-bottom: hidden;">《谷粒网物流配送单》</td>
 		</tr>
 		<tr style="height: 40px;">
-			<td width="15%" style="text-align: center;font-family: 黑体;border-left: hidden;border-top: hidden;border-right: hidden;">订单编号：</td>
-			<td width="35%" style="font-family: 黑体;border-left: hidden;border-top: hidden;">${requestScope.order.ordermcode }</td>
+			<td width="10%" style="text-align: center;font-family: 黑体;border-left: hidden;border-top: hidden;border-right: hidden;">订单编号：</td>
+			<td width="25%" style="font-family: 黑体;border-left: hidden;border-top: hidden;">${requestScope.order.ordermcode }</td>
+			<td width="10%" style="text-align: center;font-family: 黑体;border-left: hidden;border-top: hidden;border-right: hidden;">供货商：</td>
+			<td width="25%" style="font-family: 黑体;border-left: hidden;border-top: hidden;">${requestScope.printCompany.companyshop }</td>
+			<td width="10%" style="text-align: center;font-family: 黑体;border-left: hidden;border-top: hidden;border-right: hidden;">联系电话：</td>
+			<td width="25%" style="font-family: 黑体;border-left: hidden;border-top: hidden;">${requestScope.printCompany.companyphone }</td>
 		</tr>
 	</table>
 	<table width="100%" border="0" cellspacing="0" cellpadding="3">
@@ -64,15 +65,15 @@ window.print()
 		</tr>
 	</table>
 	
-	<table class="print_tab" width="100%" border="1" cellspacing="0" cellpadding="2" style="border: thin;border-collapse: collapse;margin-top: 5px;">
+	<table class="print_tab" width="100%" border="1" cellspacing="0" cellpadding="2" style="border-collapse: collapse;margin-top: 5px;">
 	<tr>
 		<td width="35" align="center" style="font-family: 黑体;">序号</td>
 		<td width="79" align="center" style="font-family: 黑体;">商品编号</td>
 		<td width="170" style="font-family: 黑体;">商品名称</td>
 		<td width="99" align="center" style="font-family: 黑体;">规格</td>
 		<td width="40" align="center" style="font-family: 黑体;">单位</td>
+		<td width="62" style="font-family: 黑体;">数量</td>
 		<td width="40" align="center" style="font-family: 黑体;">价格</td>
-		<td width="62" style="font-family: 黑体;">下单数量</td>
 		<td width="57" style="font-family: 黑体;">下单金额</td>
 		<td width="57" style="font-family: 黑体;">实际金额</td>
 		<td width="100" align="center" style="font-family: 黑体;background-color: #80ffff;">备注</td>
@@ -84,8 +85,8 @@ window.print()
 			<td style="text-align: left;">${orderDetail.orderdname }</td>
 			<td align="left">${orderDetail.orderdunits }</td>
 			<td align="left">${orderDetail.orderdunit }</td>
-			<td align="right">${orderDetail.orderdprice }</td>
 			<td align="right">${orderDetail.orderdnum }</td>
+			<td align="right">${orderDetail.orderdprice }</td>
 			<td align="right">${orderDetail.orderdmoney }</td>
 			<td align="right">${orderDetail.orderdrightmoney }</td>
 			<td align="left" style="-webkit-text-size-adjust:none;font-size: 8px;">${ orderDetail.orderdtype == '买赠'?orderDetail.orderddetail:'' }</td>
@@ -98,7 +99,7 @@ window.print()
 	<span style="font-family: 黑体;float: right;padding-top: 3px;padding-right: 40px;padding-bottom: 3px;">优惠金额：</span>
 	<span style="font-family: 黑体;float: right;padding-top: 3px;padding-right: 40px;padding-bottom: 3px;">￥${requestScope.order.ordermmoney }</span>
 	<span style="font-family: 黑体;float: right;padding-top: 3px;padding-right: 40px;padding-bottom: 3px;">下单金额合计：</span>
-	<table width="100%" border="1" cellspacing="0" cellpadding="3" style="background-color: #80ffff;border: thin;border-collapse: collapse;padding-top: 20px;font-family: 黑体;">
+	<table width="100%" border="1" cellspacing="0" cellpadding="3" style="background-color: #80ffff;border-collapse: collapse;padding-top: 20px;font-family: 黑体;">
 	<tr>
 		<td width="111" align="center">客户签收</td>
 		<td align="center">签收说明</td>
@@ -114,10 +115,10 @@ window.print()
 	</table>
 	<table cellpadding="7" style="width:100%; margin-left: 10px;padding-top: 5px;font-family: 黑体;">
 	<tr>
-		<td style="width: 26%">制单员:<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
-		<td style="width: 26%">配货员:<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
-		<td style="width: 26%">配送员:<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
-		<td style="width: 26%">审核员:<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+		<td style="width: 24%">制单员:<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+		<td style="width: 24%">配货员:<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+		<td style="width: 24%">配送员:<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+		<td style="width: 24%">审核员:<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
 	</tr>
 	</table>
 </div>

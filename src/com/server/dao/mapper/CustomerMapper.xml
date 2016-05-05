@@ -96,7 +96,8 @@
     goods.goodscode,
     goods.goodsname,
     goods.goodsunits,
-    goods.goodsimage
+    goods.goodsimage,
+    collect.collectid
   from 
     customer 
     left outer join collect 

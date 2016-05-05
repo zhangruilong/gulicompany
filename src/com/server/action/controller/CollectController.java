@@ -21,7 +21,7 @@ public class CollectController {
 	@Autowired
 	private CollectMapper collectMapper;
 	//到收藏页面
-	@RequestMapping("/guliwang/doCollPage")
+	@RequestMapping("/guliwang/doCollPageddddd")
 	public String doCollect(Model model,String comid){
 		Customer customer = customerMapper.selectCollectGoodsById(comid);	//根据客户id查询收藏商品
 		if(customer.getCollectList().size() == 0){
@@ -39,6 +39,6 @@ public class CollectController {
 				collectMapper.deleteByPrimaryKey(str);
 			}
 		}
-		return "forward:doCollect.action";
+		return "forward:doCollPageddddd.action";
 	}
 }

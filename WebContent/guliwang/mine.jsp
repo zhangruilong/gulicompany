@@ -43,7 +43,7 @@ input:focus{ outline:none}
     </form>
 	<div class="personal-center">
         <a id="a_myshop" onclick="tiaozhuan('doEditCus.action?customerid=')">我的店铺 <span class="sign"></span></a>
-        <a id="a_mycollect" onclick="tiaozhuan('doCollPage.action?comid=')">我的收藏 <span class="sign"></span></a>
+        <a id="a_mycollect" onclick="tiaozhuan('doCollPageddddd.action?comid=')">我的收藏 <span class="sign"></span></a>
         <a onclick="notOnLine()">我的谷币 <span class="sign"></span></a>
         <a id="a_address" onclick="tiaozhuan('doAddressMana.action?customerId=')">收货地址 <span class="sign"></span></a>
     </div>
@@ -84,7 +84,6 @@ $(function(){
 		'classify':'客户',
 		'fid':customer.customerid+','
 	},function(data){
-		alert(data.name);
 		if(data.name){
 			$("#result_img").attr("src","../"+data.name);
 		}
