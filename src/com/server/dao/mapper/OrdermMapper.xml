@@ -71,6 +71,8 @@
 	and orderm.ordermstatue != '已删除'
 	and orderd.orderdcode = #{orderdcode}
 	and orderd.orderdtype = #{orderdtype}
+	and orderm.ORDERMTIME &gt;= #{staTime}
+	and orderm.ORDERMTIME &lt;= #{endTime}
   </select>
   <!-- 根据供应商(和条件)查询订单(分页) -->
   <select id="selectByPage" resultType="com.server.pojo.entity.Ordermview">

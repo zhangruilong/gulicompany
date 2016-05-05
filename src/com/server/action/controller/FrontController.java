@@ -81,11 +81,17 @@ public class FrontController {
 		parentCity = cityMapper.selectByCitynameOrKey(parentCity).get(0);				//根据父类城市名称或主键查询得到父类城市
 		List<City> cities = cityMapper.selectByCityparent(parentCity.getCityid());	//根据父类城市ID查询得到地区集合
 		pageInfo.put("cityList", cities);
-		//根据 '地区' 查询该地区的 '经销商' 和该经销商的 '秒杀商品'
+		pageInfo.put("parentCity", parentCity);
+		/*//根据 '地区' 查询该地区的 '经销商' 和该经销商的 '促销商品'
 		List<Company> companyList = companyMapper.selectCompanyByCondition(companyCondition);	//条件中包含城市名
 		pageInfo.put("companyList", companyList);
+		//查询到客户的所有秒杀品的订单详情
+		List<Orderd> cusOrderdList = null;
+		if(customerid != null){
+			cusOrderdList = orderdMapper.selectOrderdByCustomerMiaosha(customerid);
+		}
+		pageInfo.put("cusOrderdList", cusOrderdList);*/
 		pageInfo.put("companyCondition", companyCondition);
-		pageInfo.put("parentCity", parentCity);
 		return pageInfo;
 	}
 	//秒杀页
@@ -113,7 +119,8 @@ public class FrontController {
 	@ResponseBody
 	public Map<String, Object> judgePurchase(Integer timegoodsnum,String timegoodscode,String customerid){
 		Map<String, Object> map = new HashMap<String, Object>();
-		Integer num = ordermMapper.selectOrderByCustomerGoods(customerid, timegoodscode,"秒杀");
+		String date = DateUtils.getDate();
+		Integer num = ordermMapper.selectOrderByCustomerGoods(customerid, timegoodscode,"秒杀",date + " 00:00:00",date + " 23:59:59");
 		if(num != null && num >= timegoodsnum){
 			map.put("result", "no");
 		} else {
@@ -126,7 +133,8 @@ public class FrontController {
 	@ResponseBody
 	public Map<String, Object> judgePurchaseGiveGoods(Integer givegoodsnum,String givegoodscode,String customerid){
 		Map<String, Object> map = new HashMap<String, Object>();
-		Integer num = ordermMapper.selectOrderByCustomerGoods(customerid, givegoodscode,"买赠");
+		String date = DateUtils.getDate();
+		Integer num = ordermMapper.selectOrderByCustomerGoods(customerid, givegoodscode,"买赠",date + " 00:00:00",date + " 23:59:59");
 		if(num != null && num >= givegoodsnum){
 			map.put("result", "no");
 		} else {
