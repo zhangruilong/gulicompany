@@ -57,6 +57,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<th>现价</th>
 		<th>限量</th>
 		<th>状态</th>
+		<th>顺序</th>
 		<th>创建时间</th>
 		<th>创建人</th>
     </tr>
@@ -74,6 +75,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td>${timegoods.timegoodsorgprice}</td>
 			<td>${timegoods.timegoodsnum}</td>
 			<td>${timegoods.timegoodsstatue}</td>
+			<td>${timegoods.timegoodsseq}</td>
 			<td>${timegoods.createtime}</td>
 			<td>${timegoods.creator}</td>
 		</tr>

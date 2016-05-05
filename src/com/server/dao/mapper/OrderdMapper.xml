@@ -74,8 +74,10 @@
 	from orderd d
 	left join orderm m
 	on m.ordermid = d.orderdorderm
-	where d.orderdtype = #{orderdtype}
-	and m.ordermcustomer = #{orderm.ordermcustomer}
+	where d.orderdtype = #{orderd.orderdtype}
+	and m.ordermcustomer = #{orderd.orderm.ordermcustomer}
+	and m.ORDERMTIME &gt;= #{staTime}
+	and m.ORDERMTIME &lt;= #{endTime}
   </select>
   <!-- 根据时间范围(多条件)查询订单(分页) -->
   <select id="selectByPage" resultMap="BaseResultMap" >

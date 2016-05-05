@@ -16,7 +16,7 @@ public interface OrderdMapper {
 	/**
 	 * 查询到客户的所有秒杀品的订单详情
 	 */
-	List<Orderd> selectOrderdByCustomerMiaosha(Orderd orderd);
+	List<Orderd> selectOrderdByCustomerMiaosha(@Param("orderd") Orderd orderd,@Param("staTime") String staTime,@Param("endTime") String endTime);
 	/**
 	 * 根据时间范围(多条件)查询订单(分页)
 	 */

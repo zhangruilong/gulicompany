@@ -146,10 +146,11 @@ public class FrontController {
 		if(addressList == null || addressList.size() == 0){
 			msg = "no";
 		}
+		String date = DateUtils.getDate();
 		orderd.setOrderdtype("秒杀");
-		List<Orderd> miaoshaList = orderdMapper.selectOrderdByCustomerMiaosha(orderd);
+		List<Orderd> miaoshaList = orderdMapper.selectOrderdByCustomerMiaosha(orderd,date + " 00:00:00",date + " 23:59:59");
 		orderd.setOrderdtype("买赠");
-		List<Orderd> giveGoodsList = orderdMapper.selectOrderdByCustomerMiaosha(orderd);
+		List<Orderd> giveGoodsList = orderdMapper.selectOrderdByCustomerMiaosha(orderd,date + " 00:00:00",date + " 23:59:59");
 		map.put("msg", msg);
 		map.put("miaoshaList", miaoshaList);
 		map.put("giveGoodsList", giveGoodsList);

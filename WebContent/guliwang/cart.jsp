@@ -73,6 +73,7 @@ function nextpage(){
 //检查客户是否可以购买秒杀商品
 function checkCusSecKill(){
 	var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));
+	var outGoodsName = '';
 	$.post('queryCusSecKillOrderd.action',{'orderm.ordermcustomer':customer.customerid},function(data){
 		var count = 0;
 		if(data.msg == 'no'){
@@ -164,7 +165,7 @@ function initDishes(data){
           				'<span onclick="subnum(this,'+item.pricesprice+')" class="jian min"></span>'+
                           '<input class="text_box shuliang" name="'+item.goodsdetail+'" type="text" value="'+
        	                getcurrennum(item.goodsid,item.goodsdetail)+'"> '+
-                          '<span onclick="addnum(this,'+item.pricesprice+')" class="jia add"></span>'+
+                          '<span onclick="addnum(this,'+item.pricesprice+',\''+item.goodscode+'\',\''+item.goodsclassname+'\')" class="jia add"></span>'+
                       '</li>');
        });
        $(".cart-wrapper").append('</ul><div class="songda">'+mcompany.companydetail+'</div>');		//添加供应商信息
@@ -188,32 +189,76 @@ function getcurrennum(dishesid,goodsdetail){
 	}
 }
 //增加商品数量
-function addnum(obj,dishesprice){
-	//总价
-	var tmoney = parseFloat(window.localStorage.getItem("totalmoney"));
-	var newtmoney = (tmoney+dishesprice).toFixed(2);
-	$("#totalmoney").text(newtmoney);
-	window.localStorage.setItem("totalmoney",newtmoney);
-	//数量
-	var numt = $(obj).prev(); 
-	var num = parseInt(numt.val());
-	numt.val(num+1);
-	//订单
-	if(window.localStorage.getItem("sdishes")==null){
-		window.localStorage.setItem("sdishes","[]");
-	}
-	var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));
-	//修改订单
-	$.each(sdishes, function(i, item) {
-		if(item.goodsid==$(obj).parent().attr('name')
-				&&item.goodsdetail==$(obj).prev().attr('name')){
-			item.orderdetnum = item.orderdetnum + 1;
-			return false;
+function addnum(obj,dishesprice,goodscode,goodsclassname){
+	$.post('queryCusSecKillOrderd.action',{'orderm.ordermcustomer':customer.customerid},function(data){
+		var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));
+		var count = 0;
+		if(data.msg == 'no'){
+			$(".popup_msg").text("还没有收货地址,请先添加收货地址。");
+			$(".popup_queding").attr("href","mine.jsp");
+			$(".cd-popup").addClass("is-visible");
+			return;
 		}
-	});
-	window.localStorage.setItem("sdishes",JSON.stringify(sdishes));
-	var cartnum = parseInt(window.localStorage.getItem("cartnum"));
-	window.localStorage.setItem("cartnum",cartnum+1);
+		$.each(sdishes,function(i,item1){
+			if(item1.orderdtype == goodsclassname.substring(0,2) && item1.goodscode == goodscode){
+				var restNum = parseInt(item1.timegoodsnum) - parseInt(item1.orderdetnum);
+				if(data){
+					$.each(data.miaoshaList,function(i,item2){
+						if(item2.orderdcode == item1.goodscode){
+							restNum -= parseInt(item2.orderdnum);
+						}
+					});
+				}
+				if(restNum-1 < 0){		//买的秒杀商品数量超过了个人限量
+					count++;
+				}
+			}
+			/* if(item1.orderdtype == '买赠'){
+				var restNum = parseInt(item1.timegoodsnum) - parseInt(item1.orderdetnum);
+				if(data){
+					$.each(data.giveGoodsList,function(i,item2){
+						if(item2.orderdcode == item1.goodscode){
+							restNum -= parseInt(item2.orderdnum);
+						}
+					});
+				}
+				if(restNum < 0){		//买的商品数量超过了限购数量
+					count++;
+				}
+			} */
+			
+		});
+		
+		if(count > 0){
+			alert('您购买的商品超过了限购数量。');
+		} else {
+			//总价
+			var tmoney = parseFloat(window.localStorage.getItem("totalmoney"));
+			var newtmoney = (tmoney+dishesprice).toFixed(2);
+			$("#totalmoney").text(newtmoney);
+			window.localStorage.setItem("totalmoney",newtmoney);
+			//数量
+			var numt = $(obj).prev(); 
+			var num = parseInt(numt.val());
+			numt.val(num+1);
+			//订单
+			if(window.localStorage.getItem("sdishes")==null){
+				window.localStorage.setItem("sdishes","[]");
+			}
+			var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));
+			//修改订单
+			$.each(sdishes, function(i, item) {
+				if(item.goodsid==$(obj).parent().attr('name')
+						&&item.goodsdetail==$(obj).prev().attr('name')){
+					item.orderdetnum = item.orderdetnum + 1;
+					return false;
+				}
+			});
+			window.localStorage.setItem("sdishes",JSON.stringify(sdishes));
+			var cartnum = parseInt(window.localStorage.getItem("cartnum"));
+			window.localStorage.setItem("cartnum",cartnum+1);
+		}
+	},'json');
 }
 //减少商品数量
 function subnum(obj,dishesprice){

@@ -54,7 +54,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<th>规格</th>
 		<th>类别</th>
 		<th>售价</th>
+		<th>描述</th>
 		<th>状态</th>
+		<th>顺序</th>
 		<th>创建时间</th>
 		<th>创建人</th>
     </tr>
@@ -69,7 +71,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td>${givegoods.givegoodsunits}</td>
 			<td>${givegoods.givegoodsclass}</td>
 			<td>${givegoods.givegoodsprice}</td>
+			<td>${givegoods.givegoodsdetail}</td>
 			<td>${givegoods.givegoodsstatue}</td>
+			<td>${givegoods.givegoodsseq}</td>
 			<td>${givegoods.createtime}</td>
 			<td>${givegoods.creator}</td>
 		</tr>

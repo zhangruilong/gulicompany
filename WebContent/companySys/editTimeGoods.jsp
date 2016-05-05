@@ -46,6 +46,10 @@
 				name="allnum" value="${requestScope.editTimeGoods.allnum }" placeholder="全部限量" /></label>
 			<label><span>顺序 :</span><input id="timegoodsseq" type="number"
 				name="timegoodsseq" value="${requestScope.editTimeGoods.timegoodsseq }" placeholder="顺序" /></label>
+			<label><span>状态 :</span><select name="timegoodsstatue">
+				<option ${requestScope.editTimeGoods.timegoodsstatue == '启用'?'selected':'' }>启用</option>
+				<option ${requestScope.editTimeGoods.timegoodsstatue == '禁用'?'selected':'' }>禁用</option>
+			</select></label>
 			<p><input type="button"
 				class="button" value="保存修改" onclick="saveEdit()"/>
 			<input type="button"
@@ -57,6 +61,7 @@
 function saveEdit(){
 	var data = '{';
 	var count = 0;
+	data += '"timegoodsstatue":"' +$("[name='timegoodsstatue']").val() +'",';
 	$(".elegant-aero [type='text']").add(".elegant-aero [type='number']").each(function(i,item){
 		if($(item).val() == null || $(item).val() == '' ){
 			alert($(item).attr('placeholder') + '不能为空');

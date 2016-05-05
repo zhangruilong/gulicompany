@@ -84,8 +84,9 @@ $(function(){
 		'classify':'客户',
 		'fid':customer.customerid+','
 	},function(data){
+		alert(data.name);
 		if(data.name){
-			$("#result_img").attr("src",data.name);
+			$("#result_img").attr("src","../"+data.name);
 		}
 	});
 	$(".cd-popup").on("click",function(event){		//绑定点击事件

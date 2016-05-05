@@ -42,6 +42,11 @@
 				name="givegoodsnum" value="${requestScope.editGiveGoods.givegoodsnum }" placeholder="个人限量" /></label>
 			<label><span>顺序 :</span><input id="givegoodsseq" type="number"
 				name="givegoodsseq" value="${requestScope.editGiveGoods.givegoodsseq }" placeholder="顺序" /></label>
+			<label><span>状态 :</span><select name="givegoodsstatue">
+				<option ${requestScope.editGiveGoods.givegoodsstatue == '启用'?'selected':'' }>启用</option>
+				<option ${requestScope.editGiveGoods.givegoodsstatue == '禁用'?'selected':'' }>禁用</option>
+			</select></label>
+			<label><span>描述 :</span><textarea name="givegoodsdetail">${requestScope.editGiveGoods.givegoodsdetail }</textarea></label>
 			<p><input type="button"
 				class="button" value="保存修改" onclick="saveEdit()"/>
 			<input type="button"
@@ -53,6 +58,12 @@
 function saveEdit(){
 	var data = '{';
 	var count = 0;
+	if($("[name='givegoodsdetail']").val == null || $("[name='givegoodsdetail']").val == '' ){
+		alert("描述不能为空");
+	} else {
+		data += '"givegoodsdetail":"' +$("[name='givegoodsdetail']").val() +'",';
+	}
+	data += '"givegoodsstatue":"' +$("[name='givegoodsstatue']").val() +'",';
 	$(".elegant-aero [type='text']").add(".elegant-aero [type='number']").each(function(i,item){
 		if($(item).val() == null || $(item).val() == '' ){
 			alert($(item).attr('placeholder') + '不能为空');
