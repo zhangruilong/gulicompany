@@ -65,7 +65,7 @@ $(function(){
 function nextpage(){
 	setscompany();		//设置供应商信息
 	if(customer.customerid != null && customer.customerid != ''){
-		window.location.href = "../doBuy.action?addresscustomer="+customer.customerid+"&addressture=1";
+		window.location.href = "doEmpBuy.action?addresscustomer="+customer.customerid+"&addressture=1";
 	} else {
 		$(".cd-popup").addClass("is-visible");
 	}
@@ -74,7 +74,7 @@ function nextpage(){
 function checkCusSecKill(){
 	var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));
 	var outGoodsName = '';
-	$.post('../queryCusSecKillOrderd.action',{'orderm.ordermcustomer':customer.customerid},function(data){
+	$.post('queryCusSecKillOrderdEmp.action',{'orderm.ordermcustomer':customer.customerid},function(data){
 		var count = 0;
 		if(data.msg == 'no'){
 			$(".popup_msg").text("还没有收货地址,请先添加收货地址。");
@@ -190,7 +190,7 @@ function getcurrennum(dishesid,goodsdetail){
 }
 //增加商品数量
 function addnum(obj,dishesprice,goodscode,goodsclassname){
-	$.post('queryCusSecKillOrderd.action',{'orderm.ordermcustomer':customer.customerid},function(data){
+	$.post('queryCusSecKillOrderdEmp.action',{'orderm.ordermcustomer':customer.customerid},function(data){
 		var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));
 		var count = 0;
 		if(data.msg == 'no'){

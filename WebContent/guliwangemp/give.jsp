@@ -40,7 +40,7 @@
 <script src="js/jquery-2.1.4.min.js"></script>
 <script src="js/jquery-dropdown.js"></script>
 <script type="text/javascript">
-var customer = JSON.parse(window.localStorage.getItem("customer"));
+var customer = JSON.parse(window.localStorage.getItem("customeremp"));
 var xian = '${param.xian}';
 var givegoodscode = '${param.givegoodscode}';
 $(function(){ 
@@ -58,7 +58,7 @@ $(function(){
 	if(xian == ''){
 		xian = customer.customerxian
 	}
-	$.getJSON("../maizengPage.action",{"givegoodcompany.city.cityname":xian,"givegoodscode":givegoodscode},initMiaoshaPage);
+	$.getJSON("maizengPageEmp.action",{"givegoodcompany.city.cityname":xian,"givegoodscode":givegoodscode},initMiaoshaPage);
 });
 //初始化页面
 function initMiaoshaPage(data){
@@ -116,12 +116,12 @@ function judgePurchase(
 		givegoodsunits,
 		givegoodsnum
 		) {
-	var customer = JSON.parse(window.localStorage.getItem("customer"));
+	var customer = JSON.parse(window.localStorage.getItem("customeremp"));
 	if(!customer.customerid){
 		alert("购买前需注册");
 		return;
 	}
-	$.getJSON('judgePurchaseGiveGoods.action',{
+	$.getJSON('judgePurchaseGiveGoodsEmp.action',{
 		'givegoodsnum':givegoodsnum,
 		'givegoodscode':givegoodscode,
 		'customerid':customer.customerid

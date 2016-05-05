@@ -69,7 +69,7 @@ $(function(){
 	if(xian == ''){
 		xian = customer.customerxian
 	}
-	$.getJSON("../miaoshaPage.action",{"city.cityname":xian,"timegoodsList[0].timegoodscode":timegoodscode},initMiaoshaPage);
+	$.getJSON("miaoshaPageEmp.action",{"city.cityname":xian,"timegoodsList[0].timegoodscode":timegoodscode},initMiaoshaPage);
 });
 //初始化页面
 function initMiaoshaPage(data){
@@ -140,7 +140,7 @@ function judgePurchase(
 		$(".cd-popup").addClass("is-visible");
 		return;
 	}
-	$.getJSON('../judgePurchase.action',{
+	$.getJSON('judgePurchaseEmp.action',{
 		'timegoodsnum':timegoodsnum,
 		'timegoodscode':timegoodscode,
 		'customerid':customer.customerid

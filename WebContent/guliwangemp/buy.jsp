@@ -57,8 +57,8 @@
 	<div class="cd-popup-container">
 		<div class="cd-buttons">
         	<h1>谷粒网提示</h1>
-			<p>您确定要货到付款?</p>
-            <a href="#" class="cd-popup-close">取消</a><a onclick="buy();">确定</a>
+			<p class="meg">您确定要货到付款?</p>
+            <a href="#" class="cd-popup-close">取消</a><a class="cd-popup-ok" onclick="buy();">确定</a>
 		</div>
 	</div>
 </div>
@@ -69,7 +69,7 @@ jQuery(document).ready(function($){
 	//open popup
 	$('.cd-popup-trigger').on('click', function(event){
 		event.preventDefault();
-		$('.cd-popup').addClass('is-visible');
+		$('.cd-popup').addClass('is-visible');			//弹窗
 	});
 	
 	//close popup
@@ -80,9 +80,9 @@ jQuery(document).ready(function($){
 		}
 	});
 });
-var customer = JSON.parse(window.localStorage.getItem("customeremp"));
+var customer =  JSON.parse(window.localStorage.getItem("customeremp"));
 $(function(){
-	$(".shouhuo-wrap a").attr("href","doEmpAddressMana.action?customerId="+customer.customerid+"&message=foBuy");
+	$(".shouhuo-wrap a").attr("href","doAddressMana.action?customerId="+customer.customerid+"&message=foBuy");
 	if(!window.localStorage.getItem("totalmoney")){
 		window.localStorage.setItem("totalmoney",0);
 		$("#totalmoney").text(0);
@@ -119,7 +119,7 @@ function buy(){
 			if(mcompany.ordermcompany == item.goodscompany)
 				orderdetjson += '{"orderdetdishes":"' + item.goodsid
 						+ '","orderdcode":"' + item.goodscode
-						+ '","orderdtype":"' + "商品"
+						+ '","orderdtype":"' + item.orderdtype
 						+ '","orderdname":"' + item.goodsname
 						+ '","orderddetail":"' + item.goodsdetail
 						+ '","orderdunits":"' + item.goodsunits
@@ -133,31 +133,75 @@ function buy(){
 		});
 		orderdetjson = orderdetjson.substr(0, orderdetjson.length - 1)
 				+ ']';
-		$.ajax({
-				url : 'OrdermAction.do?method=addOrder',
-				data : {
-					json : ordermjson,
-					orderdetjson : orderdetjson
-				},
-				success : function(resp) {
-					var respText = eval('('+resp+')'); 
-	    			if(respText.success == false) 
-	    				alert(respText.msg);
-	    			else {
-	    				window.localStorage.setItem("sdishes", "[]");
-						window.localStorage.setItem("totalnum", 0);
-						window.localStorage.setItem("cartnum", 0);
-						window.localStorage.setItem("totalmoney", 0);
-						alert("下单成功！");
-						window.location.href = "order.jsp";
-	    			}
-				},
-				error : function(resp) {
-					alert('网络出现问题，请稍后再试');
-				}
+		var timegoodsids = '';				//秒杀商品id
+		var timegoodssum = '';				//秒杀商品数量
+		$.each(JSON.parse(orderdetjson),function(i,item){	//遍历添加的订单详情
+			if(item.orderdtype == '秒杀'){		//如果是秒杀商品
+				timegoodsids += item.orderdetdishes + ',';
+				timegoodssum += item.orderdnum + ',';
+			}
+		});
+		if(timegoodsids != '' && timegoodssum != ''){
+			$.post('editRestAmount.action',
+				{'timegoodsids':timegoodsids,'timegoodssum':timegoodssum},
+				function(data){
+					if(data == 'ok'){
+						saveOrder(ordermjson,orderdetjson);
+					} else {
+						$(".meg").text("您购买的秒杀商品卖完了.......");
+						$(".cd-popup-ok").attr("onclick","javascript:window.location.href = 'cart.jsp'");
+						$('.cd-popup').addClass('is-visible');			//弹窗
+					}
 			});
+		} else {
+			saveOrder(ordermjson,orderdetjson);
+		}
+		
      });
+}
+//保存订单和订单详情
+function saveOrder(ordermjson,orderdetjson){
+	$.ajax({
+		url : 'OrdermAction.do?method=addOrder',
+		data : {
+			json : ordermjson,
+			orderdetjson : orderdetjson
+		},
+		success : function(resp) {
+			var respText = eval('('+resp+')'); 
+			if(respText.success == false) 
+				alert(respText.msg);
+			else {
+				window.localStorage.setItem("sdishes", "[]");
+				window.localStorage.setItem("totalnum", 0);
+				window.localStorage.setItem("totalmoney", 0);
+				window.localStorage.setItem("cartnum", 0);
+				alert("下单成功！");
+				window.location.href = "order.jsp";
+			}
+		},
+		error : function(resp) {
+			alert('网络出现问题，请稍后再试');
+		}
+	});
 }
 </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
