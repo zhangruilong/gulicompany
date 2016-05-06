@@ -119,11 +119,15 @@ String goodsstatue = request.getParameter("goodsstatue");
 				name="goodsname" placeholder="商品名称" /></label>
 			<label><span>规格 :</span><input id="goodsunits" type="text"
 				name="goodsunits" placeholder="规格" /></label>
+			<label><span>描述 :</span><input id="goodsdetail" type="text"
+				name="goodsdetail" placeholder="描述" /></label>
 			<label><span>小类名称 :</span>
 			<select name="goodsclass" id="goodsclass">
 				<option value="">请选择</option>
 			</select>
 			</label>
+			<label><span>图片路径 :</span><input id="goodsimage" type="text"
+				name="goodsimage" placeholder="描述" /></label>
 			<p><label><input type="button"
 				class="popup_button" value="提交" onclick="popup_formSub()"/>
 			</label>

@@ -115,7 +115,7 @@ h1 .title_goodsinfo span{
 			<table>
 			<tr><td colspan="3"><p><span>单位:<input size="4" type="text" id="pricesunit" name="pricesunit" value="${requestScope.editPriGoods.pricesList[0].pricesunit }">
 			<!-- 套装单位:<input size="4" type="text" id="pricesunit2" name="pricesunit2" value="${requestScope.editPriGoods.pricesList[0].pricesunit2 }"> --></span></p> </td></tr>
-			<tr><td colspan="3"><p style="margin-top: 0px;"><span>餐饮客户价格 :</span></p> </td></tr>
+			<tr><td colspan="3"><p style="margin-top: 0px;"><span>餐饮客户价格 :&nbsp;&nbsp;&nbsp;&nbsp;状态:<</span></p> </td></tr>
 			<tr>	
 				
 				<td><label><span>售价等级3 :</span><input 
