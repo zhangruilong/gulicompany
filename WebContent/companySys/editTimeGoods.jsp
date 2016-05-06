@@ -46,6 +46,8 @@
 				name="allnum" value="${requestScope.editTimeGoods.allnum }" placeholder="全部限量" /></label>
 			<label><span>顺序 :</span><input id="timegoodsseq" type="number"
 				name="timegoodsseq" value="${requestScope.editTimeGoods.timegoodsseq }" placeholder="顺序" /></label>
+			<label><span>图片路径 :</span><input id="timegoodsimage" type="text"
+				name="timegoodsimage" value="${requestScope.editTimeGoods.timegoodsimage }" placeholder="图片路径" /></label>
 			<label><span>状态 :</span><select name="timegoodsstatue">
 				<option ${requestScope.editTimeGoods.timegoodsstatue == '启用'?'selected':'' }>启用</option>
 				<option ${requestScope.editTimeGoods.timegoodsstatue == '禁用'?'selected':'' }>禁用</option>
