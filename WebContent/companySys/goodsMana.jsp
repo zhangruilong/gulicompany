@@ -128,6 +128,12 @@ String goodsstatue = request.getParameter("goodsstatue");
 			</label>
 			<label><span>图片路径 :</span><input id="goodsimage" type="text"
 				name="goodsimage" placeholder="描述" /></label>
+			<label><span>品牌 :</span><input id="goodsbrand" type="text"
+				name="goodsbrand" placeholder="品牌" /></label>
+			<label><span>种类 :</span><input id="goodstype" type="text"
+				name="goodstype" placeholder="种类" /></label>
+			<label><span>顺序 :</span><input id="goodsorder" type="number"
+				name="goodsorder" placeholder="顺序" /></label>
 			<p><label><input type="button"
 				class="popup_button" value="提交" onclick="popup_formSub()"/>
 			</label>
@@ -277,23 +283,21 @@ function seleScant(scantcode,scantname,scantunits,goodsclassname){
 }
 //提交添加商品的表单
 function popup_formSub(){
-	if($("#addgoodscode").val() == "" || $("#addgoodscode").val() == null){
-		alert("商品编码不能为空");
-		return;
-	}
-	if($("#goodsunits").val() == "" || $("#goodsunits").val() == null){
-		alert("规格不能为空");
-		return;
-	}
-	if($("#goodsname").val() == "" || $("#goodsname").val() == null){
-		alert("商品名称不能为空");
-		return;
-	}
 	if($("#goodsclass").val() == "" || $("#goodsclass").val() == null){
 		alert("小类名称不能为空");
 		return;
 	}
-	$("#popup_form").submit();
+	var count = 0;
+	$(".elegant-aero [type='text']").add(".elegant-aero [type='number']").each(function(i,item){
+		if($(item).val() == null || $(item).val() == '' ){
+			alert($(item).attr('placeholder') + '不能为空');
+			count++;
+			return false;
+		}
+	});
+	if(count == 0){
+		$("#popup_form").submit();
+	}
 }
 //修改商品状态
 function goodsStatusEdit(goodsid){

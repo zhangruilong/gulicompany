@@ -109,7 +109,8 @@
 			goods.CREATOR like '%${goods.goodscode}%' or
 			goods.UPDOR like '%${goods.goodscode}%' or
 			goodsclass.goodsclassname like '%${goods.goodscode}%')
-		</if>
+	</if>
+	order by goods.createtime
  ) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) ) 
 where RN &gt; ((#{nowpage}-1)*#{pagesize})
     
