@@ -67,6 +67,18 @@ public class Timegoods
     * 创建人
     */
    private String creator;   
+   /**
+    * 全部限量
+    */
+   private int allnum;   
+   /**
+    * 剩余数量
+    */
+   private int surplusnum;   
+   /**
+    * 顺序
+    */
+   private int timegoodsseq;   
     //属性方法	    
      /**
 	 *设置主键"促销品ID"属性
@@ -322,6 +334,57 @@ public class Timegoods
 	{
 		return this.creator;
 	}	   
+
+	/**
+	 *设置"全部限量"属性
+	 *@param allnum 实体的Allnum属性
+	 */
+	public void setAllnum(int allnum)
+	{
+		this.allnum = allnum;
+	}
+	
+	/**
+	 *获取"全部限量"属性
+	 */
+	public int getAllnum()
+	{
+		return this.allnum;
+	}	   
+
+	/**
+	 *设置"剩余数量"属性
+	 *@param surplusnum 实体的Surplusnum属性
+	 */
+	public void setSurplusnum(int surplusnum)
+	{
+		this.surplusnum = surplusnum;
+	}
+	
+	/**
+	 *获取"剩余数量"属性
+	 */
+	public int getSurplusnum()
+	{
+		return this.surplusnum;
+	}	   
+
+	/**
+	 *设置"顺序"属性
+	 *@param timegoodsseq 实体的Timegoodsseq属性
+	 */
+	public void setTimegoodsseq(int timegoodsseq)
+	{
+		this.timegoodsseq = timegoodsseq;
+	}
+	
+	/**
+	 *获取"顺序"属性
+	 */
+	public int getTimegoodsseq()
+	{
+		return this.timegoodsseq;
+	}	   
 	public Timegoods() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -342,6 +405,9 @@ public class Timegoods
 	 	,String timegoodsstatue
 	 	,String createtime
 	 	,String creator
+	 	,int allnum
+	 	,int surplusnum
+	 	,int timegoodsseq
 		 ){
 		super();
 		this.timegoodsid = timegoodsid;
@@ -359,6 +425,9 @@ public class Timegoods
 	 	this.timegoodsstatue = timegoodsstatue;
 	 	this.createtime = createtime;
 	 	this.creator = creator;
+	 	this.allnum = allnum;
+	 	this.surplusnum = surplusnum;
+	 	this.timegoodsseq = timegoodsseq;
 	}
 }
 

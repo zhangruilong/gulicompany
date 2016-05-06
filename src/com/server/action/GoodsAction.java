@@ -67,7 +67,7 @@ public class GoodsAction extends BaseAction {
 		queryinfo.setQuery(DAO.getQuerysql(queryinfo.getQuery()));
 		queryinfo.setOrder(GoodsPoco.ORDER);
 		cuss = (ArrayList<Goods>) DAO.selAll(queryinfo);
-		FileUtil.expExcel(response,cuss,GoodsPoco.CHINESENAME,GoodsPoco.KEYCOLUMN,GoodsPoco.NAME);
+		FileUtil.expExcel(response,cuss,GoodsPoco.CHINESENAME,GoodsPoco.NAME);
 	}
 	//导入
 	public void impAll(HttpServletRequest request, HttpServletResponse response){

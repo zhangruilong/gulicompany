@@ -60,6 +60,18 @@ public class Goodsview
     */
    private String updor;   
    /**
+    * goodsbrand
+    */
+   private String goodsbrand;   
+   /**
+    * goodstype
+    */
+   private String goodstype;   
+   /**
+    * goodsorder
+    */
+   private int goodsorder;   
+   /**
     * goodsclassid
     */
    private String goodsclassid;   
@@ -351,6 +363,57 @@ public class Goodsview
 	public String getUpdor()
 	{
 		return this.updor;
+	}	   
+
+	/**
+	 *设置"goodsbrand"属性
+	 *@param goodsbrand 实体的Goodsbrand属性
+	 */
+	public void setGoodsbrand(String goodsbrand)
+	{
+		this.goodsbrand = goodsbrand;
+	}
+	
+	/**
+	 *获取"goodsbrand"属性
+	 */
+	public String getGoodsbrand()
+	{
+		return this.goodsbrand;
+	}	   
+
+	/**
+	 *设置"goodstype"属性
+	 *@param goodstype 实体的Goodstype属性
+	 */
+	public void setGoodstype(String goodstype)
+	{
+		this.goodstype = goodstype;
+	}
+	
+	/**
+	 *获取"goodstype"属性
+	 */
+	public String getGoodstype()
+	{
+		return this.goodstype;
+	}	   
+
+	/**
+	 *设置"goodsorder"属性
+	 *@param goodsorder 实体的Goodsorder属性
+	 */
+	public void setGoodsorder(int goodsorder)
+	{
+		this.goodsorder = goodsorder;
+	}
+	
+	/**
+	 *获取"goodsorder"属性
+	 */
+	public int getGoodsorder()
+	{
+		return this.goodsorder;
 	}	   
 
 	/**
@@ -676,6 +739,9 @@ public class Goodsview
 	 	,String updtime
 	 	,String creator
 	 	,String updor
+	 	,String goodsbrand
+	 	,String goodstype
+	 	,int goodsorder
 	 	,String goodsclassid
 	 	,String goodsclasscode
 	 	,String goodsclassname
@@ -709,6 +775,9 @@ public class Goodsview
 	 	this.updtime = updtime;
 	 	this.creator = creator;
 	 	this.updor = updor;
+	 	this.goodsbrand = goodsbrand;
+	 	this.goodstype = goodstype;
+	 	this.goodsorder = goodsorder;
 	 	this.goodsclassid = goodsclassid;
 	 	this.goodsclasscode = goodsclasscode;
 	 	this.goodsclassname = goodsclassname;

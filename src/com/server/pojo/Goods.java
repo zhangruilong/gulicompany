@@ -59,6 +59,18 @@ public class Goods
     * 修改人
     */
    private String updor;   
+   /**
+    * 品牌
+    */
+   private String goodsbrand;   
+   /**
+    * 种类
+    */
+   private String goodstype;   
+   /**
+    * 顺序
+    */
+   private int goodsorder;   
     //属性方法	    
      /**
 	 *设置主键"商品ID"属性
@@ -280,6 +292,57 @@ public class Goods
 	{
 		return this.updor;
 	}	   
+
+	/**
+	 *设置"品牌"属性
+	 *@param goodsbrand 实体的Goodsbrand属性
+	 */
+	public void setGoodsbrand(String goodsbrand)
+	{
+		this.goodsbrand = goodsbrand;
+	}
+	
+	/**
+	 *获取"品牌"属性
+	 */
+	public String getGoodsbrand()
+	{
+		return this.goodsbrand;
+	}	   
+
+	/**
+	 *设置"种类"属性
+	 *@param goodstype 实体的Goodstype属性
+	 */
+	public void setGoodstype(String goodstype)
+	{
+		this.goodstype = goodstype;
+	}
+	
+	/**
+	 *获取"种类"属性
+	 */
+	public String getGoodstype()
+	{
+		return this.goodstype;
+	}	   
+
+	/**
+	 *设置"顺序"属性
+	 *@param goodsorder 实体的Goodsorder属性
+	 */
+	public void setGoodsorder(int goodsorder)
+	{
+		this.goodsorder = goodsorder;
+	}
+	
+	/**
+	 *获取"顺序"属性
+	 */
+	public int getGoodsorder()
+	{
+		return this.goodsorder;
+	}	   
 	public Goods() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -298,6 +361,9 @@ public class Goods
 	 	,String updtime
 	 	,String creator
 	 	,String updor
+	 	,String goodsbrand
+	 	,String goodstype
+	 	,int goodsorder
 		 ){
 		super();
 		this.goodsid = goodsid;
@@ -313,6 +379,9 @@ public class Goods
 	 	this.updtime = updtime;
 	 	this.creator = creator;
 	 	this.updor = updor;
+	 	this.goodsbrand = goodsbrand;
+	 	this.goodstype = goodstype;
+	 	this.goodsorder = goodsorder;
 	}
 }
 

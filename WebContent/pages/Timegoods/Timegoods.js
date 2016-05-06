@@ -17,6 +17,9 @@ Ext.onReady(function() {
 	        			    ,'timegoodsstatue' 
 	        			    ,'createtime' 
 	        			    ,'creator' 
+	        			    ,'allnum' 
+	        			    ,'surplusnum' 
+	        			    ,'timegoodsseq' 
 	        			      ];// 全部字段
 	var Timegoodskeycolumn = [ 'timegoodsid' ];// 主键
 	var Timegoodsstore = dataStore(Timegoodsfields, basePath + Timegoodsaction + "?method=selQuery");// 定义Timegoodsstore
@@ -121,6 +124,27 @@ Ext.onReady(function() {
 		, {
 			header : '创建人',
 			dataIndex : 'creator',
+			align : 'center',
+			width : 80,
+			sortable : true
+		}
+		, {
+			header : '全部限量',
+			dataIndex : 'allnum',
+			align : 'center',
+			width : 80,
+			sortable : true
+		}
+		, {
+			header : '剩余数量',
+			dataIndex : 'surplusnum',
+			align : 'center',
+			width : 80,
+			sortable : true
+		}
+		, {
+			header : '顺序',
+			dataIndex : 'timegoodsseq',
 			align : 'center',
 			width : 80,
 			sortable : true
@@ -308,6 +332,42 @@ Ext.onReady(function() {
 				anchor : '95%'
 			} ]
 		}
+		, {
+			columnWidth : 1,
+			layout : 'form',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '全部限量',
+				id : 'Timegoodsallnum',
+				name : 'allnum',
+				maxLength : 100,
+				anchor : '95%'
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'form',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '剩余数量',
+				id : 'Timegoodssurplusnum',
+				name : 'surplusnum',
+				maxLength : 100,
+				anchor : '95%'
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'form',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '顺序',
+				id : 'Timegoodstimegoodsseq',
+				name : 'timegoodsseq',
+				maxLength : 100,
+				anchor : '95%'
+			} ]
+		}
 		]
 	});
 	
@@ -338,7 +398,7 @@ Ext.onReady(function() {
 				handler : function() {
 					var selections = Timegoodsgrid.getSelectionModel().getSelections();
 					if (selections.length != 1) {
-						Ext.Msg.alert('提示', '请选择一条要修改的记录！', function() {
+						Ext.Msg.alert('提示', '请选择一条数据！', function() {
 						});
 						return;
 					}
@@ -351,7 +411,7 @@ Ext.onReady(function() {
 				handler : function() {
 					var selections = Timegoodsgrid.getSelectionModel().getSelections();
 					if (Ext.isEmpty(selections)) {
-						Ext.Msg.alert('提示', '请选择您要删除的数据！');
+						Ext.Msg.alert('提示', '请至少选择一条数据！');
 						return;
 					}
 					commonDelete(basePath + Timegoodsaction + "?method=delAll",selections,Timegoodsstore,Timegoodskeycolumn);
@@ -384,7 +444,7 @@ Ext.onReady(function() {
 				handler : function() {
 					var selections = Timegoodsgrid.getSelectionModel().getSelections();
 					if (selections.length != 1) {
-						Ext.Msg.alert('提示', '请选择一条您要上传附件的数据！', function() {
+						Ext.Msg.alert('提示', '请选择一条数据！', function() {
 						});
 						return;
 					}
@@ -420,12 +480,12 @@ Ext.onReady(function() {
 		]
 	});
 	Timegoodsgrid.region = 'center';
-	Timegoodsstore.load();//加载数据
 	Timegoodsstore.on("beforeload",function(){ 
 		Timegoodsstore.baseParams = {
 				query : Ext.getCmp("query"+Timegoodsaction).getValue()
 		}; 
 	});
+	Timegoodsstore.load();//加载数据
 	var win = new Ext.Viewport({//只能有一个viewport
 		resizable : true,
 		layout : 'border',

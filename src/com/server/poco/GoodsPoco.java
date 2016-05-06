@@ -22,6 +22,7 @@ public class GoodsPoco
     * 实体中文字段
     */
    public static String[] CHINESENAME = {
+   		"商品ID",
 	 	"经销商ID",
 	 	"编码",
 	 	"名称",
@@ -34,11 +35,15 @@ public class GoodsPoco
 	 	"修改时间",
 	 	"创建人",
 	 	"修改人",
+	 	"品牌",
+	 	"种类",
+	 	"顺序",
 	};
 	/**
 	 * 实体英文字段
 	 */
    public static final String[] FIELDNAME = {
+   		"goodsid",
 	 	"goodscompany",
 	 	"goodscode",
 	 	"goodsname",
@@ -51,6 +56,9 @@ public class GoodsPoco
 	 	"updtime",
 	 	"creator",
 	 	"updor",
+	 	"goodsbrand",
+	 	"goodstype",
+	 	"goodsorder",
    };
    /**
     * 实体排序
@@ -72,6 +80,9 @@ public class GoodsPoco
 	 	"updtime",
 	 	"creator",
 	 	"updor",
+	 	"goodsbrand",
+	 	"goodstype",
+	 	"goodsorder",
    };
 }
 

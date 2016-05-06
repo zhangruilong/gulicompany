@@ -92,7 +92,10 @@ public class GoodsviewAction extends BaseAction {
 			wheresql += " and goodscompany='"+companyid+"'";
 		}
 		if(CommonUtil.isNotEmpty(goodsclassname)){
-			wheresql += " and goodsclassname='"+goodsclassname+"'";
+			wheresql += " and (goodsclassname='"+goodsclassname+
+					"' or goodsbrand='"+goodsclassname+
+					"' or goodstype='"+goodsclassname+
+					"')";
 		}
 		Queryinfo queryinfo = getQueryinfo(request);
 		queryinfo.setType(Goodsview.class);

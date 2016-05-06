@@ -190,6 +190,56 @@ public class FileUtil {
 		out.close();
 	}
 	/**
+	 * 解析ArrayList<?>成excel2003，然后导出
+	 * @param response
+	 * @param temps		需要导出的数据集合
+	 * @param heads		表头
+	 * @param discard	要忽略的字段名
+	 * @param name		文件名称
+	 * @throws Exception
+	 */
+	public static void expExcel(HttpServletResponse response, ArrayList<?> temps, String[] heads,
+			 String name) throws Exception {
+		response.reset();
+		response.addHeader("Content-Disposition", "attachment;filename=\""
+				+ new String((name+".xls").getBytes("GBK"), "ISO8859_1") + "\"");
+		response.setContentType("application/download");
+		OutputStream out = response.getOutputStream();
+		HSSFWorkbook workbook = new HSSFWorkbook();
+		//在Excel工作薄中建一张工作表  
+		HSSFSheet sheet = workbook.createSheet("Sheet1");  
+		//设置单元格格式(文本)  
+		//HSSFCellStyle cellStyle = book.createCellStyle();  
+
+		HSSFRow row = sheet.createRow(0);
+		HSSFCell cell;
+		// 写入列名称
+		for (int i = 0; i < heads.length; i++) {
+			cell = row.createCell(i);
+			cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+			cell.setCellValue(heads[i]);
+		}
+		int iLine = 1;// 写入各条记录，每条记录对应Excel中的一行
+		for (int k = 0; k < temps.size(); k++) {
+			Object obj = temps.get(k);
+			Field[] fields = obj.getClass().getDeclaredFields();
+			row = sheet.createRow(iLine);
+			int iRow = 0;// 写入每条记录对应Excel中的一列
+			for (int j = 0; j < fields.length; j++) {
+				Field field = fields[j];
+				field.setAccessible(true);// 忽略访问权限，私有的也可以访问
+				cell = row.createCell(iRow);
+				cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+				cell.setCellValue(String.valueOf(field.get(obj)));			//
+				iRow++;
+			}
+			iLine++;
+		}
+		workbook.write(out);
+		out.flush();
+		out.close();
+	}
+	/**
 	 * 解析List<String[]>成excel2003，然后导出
 	 * @param response
 	 * @param temps

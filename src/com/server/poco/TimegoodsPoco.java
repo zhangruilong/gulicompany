@@ -22,6 +22,7 @@ public class TimegoodsPoco
     * 实体中文字段
     */
    public static String[] CHINESENAME = {
+   		"促销品ID",
 	 	"经销商ID",
 	 	"编码",
 	 	"名称",
@@ -36,11 +37,15 @@ public class TimegoodsPoco
 	 	"状态",
 	 	"创建时间",
 	 	"创建人",
+	 	"全部限量",
+	 	"剩余数量",
+	 	"顺序",
 	};
 	/**
 	 * 实体英文字段
 	 */
    public static final String[] FIELDNAME = {
+   		"timegoodsid",
 	 	"timegoodscompany",
 	 	"timegoodscode",
 	 	"timegoodsname",
@@ -55,6 +60,9 @@ public class TimegoodsPoco
 	 	"timegoodsstatue",
 	 	"createtime",
 	 	"creator",
+	 	"allnum",
+	 	"surplusnum",
+	 	"timegoodsseq",
    };
    /**
     * 实体排序
@@ -78,6 +86,9 @@ public class TimegoodsPoco
 	 	"timegoodsstatue",
 	 	"createtime",
 	 	"creator",
+	 	"allnum",
+	 	"surplusnum",
+	 	"timegoodsseq",
    };
 }
 

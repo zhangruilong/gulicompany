@@ -22,6 +22,7 @@ public class GoodsviewPoco
     * 实体中文字段
     */
    public static String[] CHINESENAME = {
+   		"goodsid",
 	 	"goodscompany",
 	 	"goodscode",
 	 	"goodsname",
@@ -34,6 +35,9 @@ public class GoodsviewPoco
 	 	"updtime",
 	 	"creator",
 	 	"updor",
+	 	"goodsbrand",
+	 	"goodstype",
+	 	"goodsorder",
 	 	"goodsclassid",
 	 	"goodsclasscode",
 	 	"goodsclassname",
@@ -57,6 +61,7 @@ public class GoodsviewPoco
 	 * 实体英文字段
 	 */
    public static final String[] FIELDNAME = {
+   		"goodsid",
 	 	"goodscompany",
 	 	"goodscode",
 	 	"goodsname",
@@ -69,6 +74,9 @@ public class GoodsviewPoco
 	 	"updtime",
 	 	"creator",
 	 	"updor",
+	 	"goodsbrand",
+	 	"goodstype",
+	 	"goodsorder",
 	 	"goodsclassid",
 	 	"goodsclasscode",
 	 	"goodsclassname",
@@ -91,7 +99,7 @@ public class GoodsviewPoco
    /**
     * 实体排序
     */
-   public static final String ORDER = " goodsname,pricesprice ";
+   public static final String ORDER = " goodsid desc ";
    /**
 	 * 要模糊查询字段
 	 */
@@ -108,6 +116,9 @@ public class GoodsviewPoco
 	 	"updtime",
 	 	"creator",
 	 	"updor",
+	 	"goodsbrand",
+	 	"goodstype",
+	 	"goodsorder",
 	 	"goodsclassid",
 	 	"goodsclasscode",
 	 	"goodsclassname",

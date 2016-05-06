@@ -1,85 +1,113 @@
 Ext.onReady(function() {
-	var Goodsclassify = "商品";
-	var Goodstitle = "当前位置:业务管理》" + Goodsclassify;
-	var Goodsaction = "GoodsAction.do";
-	var Goodsfields = ['goodsid'
-	        			    ,'goodscompany' 
-	        			    ,'goodscode' 
-	        			    ,'goodsname' 
-	        			    ,'goodsdetail' 
-	        			    ,'goodsunits' 
-	        			    ,'goodsclass' 
-	        			    ,'goodsimage' 
-	        			    ,'goodsstatue' 
+	var Givegoodsclassify = "买赠";
+	var Givegoodstitle = "当前位置:业务管理》" + Givegoodsclassify;
+	var Givegoodsaction = "GivegoodsAction.do";
+	var Givegoodsfields = ['givegoodsid'
+	        			    ,'givegoodscompany' 
+	        			    ,'givegoodscode' 
+	        			    ,'givegoodsname' 
+	        			    ,'givegoodsdetail' 
+	        			    ,'givegoodsunits' 
+	        			    ,'givegoodsunit' 
+	        			    ,'givegoodsprice' 
+	        			    ,'givegoodsorgprice' 
+	        			    ,'givegoodsnum' 
+	        			    ,'givegoodsclass' 
+	        			    ,'givegoodsimage' 
+	        			    ,'givegoodsstatue' 
 	        			    ,'createtime' 
-	        			    ,'updtime' 
 	        			    ,'creator' 
-	        			    ,'updor' 
-	        			    ,'goodsbrand' 
-	        			    ,'goodstype' 
-	        			    ,'goodsorder' 
+	        			    ,'givegoodsseq' 
 	        			      ];// 全部字段
-	var Goodskeycolumn = [ 'goodsid' ];// 主键
-	var Goodsstore = dataStore(Goodsfields, basePath + Goodsaction + "?method=selQuery");// 定义Goodsstore
-	var Goodssm = new Ext.grid.CheckboxSelectionModel();// grid复选框模式
-	var Goodscm = new Ext.grid.ColumnModel({// 定义columnModel
-		columns : [ new Ext.grid.RowNumberer(), Goodssm, {// 改
-			header : '商品ID',
-			dataIndex : 'goodsid',
+	var Givegoodskeycolumn = [ 'givegoodsid' ];// 主键
+	var Givegoodsstore = dataStore(Givegoodsfields, basePath + Givegoodsaction + "?method=selQuery");// 定义Givegoodsstore
+	var Givegoodssm = new Ext.grid.CheckboxSelectionModel();// grid复选框模式
+	var Givegoodscm = new Ext.grid.ColumnModel({// 定义columnModel
+		columns : [ new Ext.grid.RowNumberer(), Givegoodssm, {// 改
+			header : '买赠ID',
+			dataIndex : 'givegoodsid',
 			hidden : true
 		}
 		, {
 			header : '经销商ID',
-			dataIndex : 'goodscompany',
+			dataIndex : 'givegoodscompany',
 			align : 'center',
 			width : 80,
 			sortable : true
 		}
 		, {
 			header : '编码',
-			dataIndex : 'goodscode',
+			dataIndex : 'givegoodscode',
 			align : 'center',
 			width : 80,
 			sortable : true
 		}
 		, {
 			header : '名称',
-			dataIndex : 'goodsname',
+			dataIndex : 'givegoodsname',
 			align : 'center',
 			width : 80,
 			sortable : true
 		}
 		, {
 			header : '描述',
-			dataIndex : 'goodsdetail',
+			dataIndex : 'givegoodsdetail',
 			align : 'center',
 			width : 80,
 			sortable : true
 		}
 		, {
 			header : '规格',
-			dataIndex : 'goodsunits',
+			dataIndex : 'givegoodsunits',
 			align : 'center',
 			width : 80,
 			sortable : true
 		}
 		, {
-			header : '小类ID',
-			dataIndex : 'goodsclass',
+			header : '单位',
+			dataIndex : 'givegoodsunit',
+			align : 'center',
+			width : 80,
+			sortable : true
+		}
+		, {
+			header : '售价',
+			dataIndex : 'givegoodsprice',
+			align : 'center',
+			width : 80,
+			sortable : true
+		}
+		, {
+			header : '现价',
+			dataIndex : 'givegoodsorgprice',
+			align : 'center',
+			width : 80,
+			sortable : true
+		}
+		, {
+			header : '个人限购',
+			dataIndex : 'givegoodsnum',
+			align : 'center',
+			width : 80,
+			sortable : true
+		}
+		, {
+			header : '小类',
+			dataIndex : 'givegoodsclass',
 			align : 'center',
 			width : 80,
 			sortable : true
 		}
 		, {
 			header : '图片',
-			dataIndex : 'goodsimage',
+			dataIndex : 'givegoodsimage',
 			align : 'center',
 			width : 80,
 			sortable : true
 		}
 		, {
 			header : '状态',
-			dataIndex : 'goodsstatue',
+			dataIndex : 'givegoodsstatue',
 			align : 'center',
 			width : 80,
 			sortable : true
@@ -92,13 +120,6 @@ Ext.onReady(function() {
 			sortable : true
 		}
 		, {
-			header : '修改时间',
-			dataIndex : 'updtime',
-			align : 'center',
-			width : 80,
-			sortable : true
-		}
-		, {
 			header : '创建人',
 			dataIndex : 'creator',
 			align : 'center',
@@ -106,45 +127,24 @@ Ext.onReady(function() {
 			sortable : true
 		}
 		, {
-			header : '修改人',
-			dataIndex : 'updor',
-			align : 'center',
-			width : 80,
-			sortable : true
-		}
-		, {
-			header : '品牌',
-			dataIndex : 'goodsbrand',
-			align : 'center',
-			width : 80,
-			sortable : true
-		}
-		, {
-			header : '种类',
-			dataIndex : 'goodstype',
-			align : 'center',
-			width : 80,
-			sortable : true
-		}
-		, {
 			header : '顺序',
-			dataIndex : 'goodsorder',
+			dataIndex : 'givegoodsseq',
 			align : 'center',
 			width : 80,
 			sortable : true
 		}
 		]
 	});
-	var GoodsdataForm = new Ext.form.FormPanel({// 定义新增和修改的FormPanel
-		id:'GoodsdataForm',
+	var GivegoodsdataForm = new Ext.form.FormPanel({// 定义新增和修改的FormPanel
+		id:'GivegoodsdataForm',
 		labelAlign : 'right',
 		frame : true,
 		layout : 'column',
 		items : [ {
 			items : [ {
 				xtype : 'textfield',
-				id : 'Goodsgoodsid',
-				name : 'goodsid',
+				id : 'Givegoodsgivegoodsid',
+				name : 'givegoodsid',
 				hidden : true
 			} ]
 		}
@@ -154,8 +154,8 @@ Ext.onReady(function() {
 			items : [ {
 				xtype : 'textfield',
 				fieldLabel : '经销商ID',
-				id : 'Goodsgoodscompany',
-				name : 'goodscompany',
+				id : 'Givegoodsgivegoodscompany',
+				name : 'givegoodscompany',
 				maxLength : 100,
 				anchor : '95%'
 			} ]
@@ -166,8 +166,8 @@ Ext.onReady(function() {
 			items : [ {
 				xtype : 'textfield',
 				fieldLabel : '编码',
-				id : 'Goodsgoodscode',
-				name : 'goodscode',
+				id : 'Givegoodsgivegoodscode',
+				name : 'givegoodscode',
 				maxLength : 100,
 				anchor : '95%'
 			} ]
@@ -178,8 +178,8 @@ Ext.onReady(function() {
 			items : [ {
 				xtype : 'textfield',
 				fieldLabel : '名称',
-				id : 'Goodsgoodsname',
-				name : 'goodsname',
+				id : 'Givegoodsgivegoodsname',
+				name : 'givegoodsname',
 				maxLength : 100,
 				anchor : '95%'
 			} ]
@@ -190,8 +190,8 @@ Ext.onReady(function() {
 			items : [ {
 				xtype : 'textfield',
 				fieldLabel : '描述',
-				id : 'Goodsgoodsdetail',
-				name : 'goodsdetail',
+				id : 'Givegoodsgivegoodsdetail',
+				name : 'givegoodsdetail',
 				maxLength : 100,
 				anchor : '95%'
 			} ]
@@ -202,8 +202,8 @@ Ext.onReady(function() {
 			items : [ {
 				xtype : 'textfield',
 				fieldLabel : '规格',
-				id : 'Goodsgoodsunits',
-				name : 'goodsunits',
+				id : 'Givegoodsgivegoodsunits',
+				name : 'givegoodsunits',
 				maxLength : 100,
 				anchor : '95%'
 			} ]
@@ -213,9 +213,57 @@ Ext.onReady(function() {
 			layout : 'form',
 			items : [ {
 				xtype : 'textfield',
-				fieldLabel : '小类ID',
-				id : 'Goodsgoodsclass',
-				name : 'goodsclass',
+				fieldLabel : '单位',
+				id : 'Givegoodsgivegoodsunit',
+				name : 'givegoodsunit',
+				maxLength : 100,
+				anchor : '95%'
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'form',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '售价',
+				id : 'Givegoodsgivegoodsprice',
+				name : 'givegoodsprice',
+				maxLength : 100,
+				anchor : '95%'
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'form',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '现价',
+				id : 'Givegoodsgivegoodsorgprice',
+				name : 'givegoodsorgprice',
+				maxLength : 100,
+				anchor : '95%'
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'form',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '个人限购',
+				id : 'Givegoodsgivegoodsnum',
+				name : 'givegoodsnum',
+				maxLength : 100,
+				anchor : '95%'
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'form',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '小类',
+				id : 'Givegoodsgivegoodsclass',
+				name : 'givegoodsclass',
 				maxLength : 100,
 				anchor : '95%'
 			} ]
@@ -226,8 +274,8 @@ Ext.onReady(function() {
 			items : [ {
 				xtype : 'textfield',
 				fieldLabel : '图片',
-				id : 'Goodsgoodsimage',
-				name : 'goodsimage',
+				id : 'Givegoodsgivegoodsimage',
+				name : 'givegoodsimage',
 				maxLength : 100,
 				anchor : '95%'
 			} ]
@@ -238,8 +286,8 @@ Ext.onReady(function() {
 			items : [ {
 				xtype : 'textfield',
 				fieldLabel : '状态',
-				id : 'Goodsgoodsstatue',
-				name : 'goodsstatue',
+				id : 'Givegoodsgivegoodsstatue',
+				name : 'givegoodsstatue',
 				maxLength : 100,
 				anchor : '95%'
 			} ]
@@ -250,7 +298,7 @@ Ext.onReady(function() {
 			items : [ {
 				xtype : 'textfield',
 				fieldLabel : '创建时间',
-				id : 'Goodscreatetime',
+				id : 'Givegoodscreatetime',
 				name : 'createtime',
 				maxLength : 100,
 				anchor : '95%'
@@ -261,20 +309,8 @@ Ext.onReady(function() {
 			layout : 'form',
 			items : [ {
 				xtype : 'textfield',
-				fieldLabel : '修改时间',
-				id : 'Goodsupdtime',
-				name : 'updtime',
-				maxLength : 100,
-				anchor : '95%'
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'form',
-			items : [ {
-				xtype : 'textfield',
 				fieldLabel : '创建人',
-				id : 'Goodscreator',
+				id : 'Givegoodscreator',
 				name : 'creator',
 				maxLength : 100,
 				anchor : '95%'
@@ -285,45 +321,9 @@ Ext.onReady(function() {
 			layout : 'form',
 			items : [ {
 				xtype : 'textfield',
-				fieldLabel : '修改人',
-				id : 'Goodsupdor',
-				name : 'updor',
-				maxLength : 100,
-				anchor : '95%'
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'form',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '品牌',
-				id : 'Goodsgoodsbrand',
-				name : 'goodsbrand',
-				maxLength : 100,
-				anchor : '95%'
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'form',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '种类',
-				id : 'Goodsgoodstype',
-				name : 'goodstype',
-				maxLength : 100,
-				anchor : '95%'
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'form',
-			items : [ {
-				xtype : 'textfield',
 				fieldLabel : '顺序',
-				id : 'Goodsgoodsorder',
-				name : 'goodsorder',
+				id : 'Givegoodsgivegoodsseq',
+				name : 'givegoodsseq',
 				maxLength : 100,
 				anchor : '95%'
 			} ]
@@ -331,56 +331,56 @@ Ext.onReady(function() {
 		]
 	});
 	
-	var Goodsbbar = pagesizebar(Goodsstore);//定义分页
-	var Goodsgrid = new Ext.grid.GridPanel({
+	var Givegoodsbbar = pagesizebar(Givegoodsstore);//定义分页
+	var Givegoodsgrid = new Ext.grid.GridPanel({
 		height : document.documentElement.clientHeight - 4,
 		width : '100%',
-		title : Goodstitle,
-		store : Goodsstore,
+		title : Givegoodstitle,
+		store : Givegoodsstore,
 		stripeRows : true,
 		frame : true,
 		loadMask : {
 			msg : '正在加载表格数据,请稍等...'
 		},
-		cm : Goodscm,
-		sm : Goodssm,
-		bbar : Goodsbbar,
+		cm : Givegoodscm,
+		sm : Givegoodssm,
+		bbar : Givegoodsbbar,
 		tbar : [{
 				text : "新增",
 				iconCls : 'add',
 				handler : function() {
-					GoodsdataForm.form.reset();
-					createWindow(basePath + Goodsaction + "?method=insAll", "新增", GoodsdataForm, Goodsstore);
+					GivegoodsdataForm.form.reset();
+					createWindow(basePath + Givegoodsaction + "?method=insAll", "新增", GivegoodsdataForm, Givegoodsstore);
 				}
 			},'-',{
 				text : "修改",
 				iconCls : 'edit',
 				handler : function() {
-					var selections = Goodsgrid.getSelectionModel().getSelections();
+					var selections = Givegoodsgrid.getSelectionModel().getSelections();
 					if (selections.length != 1) {
 						Ext.Msg.alert('提示', '请选择一条数据！', function() {
 						});
 						return;
 					}
-					createWindow(basePath + Goodsaction + "?method=updAll", "修改", GoodsdataForm, Goodsstore);
-					GoodsdataForm.form.loadRecord(selections[0]);
+					createWindow(basePath + Givegoodsaction + "?method=updAll", "修改", GivegoodsdataForm, Givegoodsstore);
+					GivegoodsdataForm.form.loadRecord(selections[0]);
 				}
 			},'-',{
 				text : "删除",
 				iconCls : 'delete',
 				handler : function() {
-					var selections = Goodsgrid.getSelectionModel().getSelections();
+					var selections = Givegoodsgrid.getSelectionModel().getSelections();
 					if (Ext.isEmpty(selections)) {
 						Ext.Msg.alert('提示', '请至少选择一条数据！');
 						return;
 					}
-					commonDelete(basePath + Goodsaction + "?method=delAll",selections,Goodsstore,Goodskeycolumn);
+					commonDelete(basePath + Givegoodsaction + "?method=delAll",selections,Givegoodsstore,Givegoodskeycolumn);
 				}
 			},'-',{
 				text : "导入",
 				iconCls : 'imp',
 				handler : function() {
-					commonImp(basePath + Goodsaction + "?method=impAll","导入",Goodsstore);
+					commonImp(basePath + Givegoodsaction + "?method=impAll","导入",Givegoodsstore);
 				}
 			},'-',{
 				text : "后台导出",
@@ -388,7 +388,7 @@ Ext.onReady(function() {
 				handler : function() {
 					Ext.Msg.confirm('请确认', '<b>提示:</b>请确认要导出当前数据？', function(btn, text) {
 						if (btn == 'yes') {
-							window.location.href = basePath + Goodsaction + "?method=expAll"; 
+							window.location.href = basePath + Givegoodsaction + "?method=expAll"; 
 						}
 					});
 				}
@@ -396,27 +396,27 @@ Ext.onReady(function() {
 				text : "前台导出",
 				iconCls : 'exp',
 				handler : function() {
-					commonExp(Goodsgrid);
+					commonExp(Givegoodsgrid);
 				}
 			},'-',{
 				text : "附件",
 				iconCls : 'attach',
 				handler : function() {
-					var selections = Goodsgrid.getSelectionModel().getSelections();
+					var selections = Givegoodsgrid.getSelectionModel().getSelections();
 					if (selections.length != 1) {
 						Ext.Msg.alert('提示', '请选择一条数据！', function() {
 						});
 						return;
 					}
 					var fid = '';
-					for (var i=0;i<Goodskeycolumn.length;i++){
-						fid += selections[0].data[Goodskeycolumn[i]] + ","
+					for (var i=0;i<Givegoodskeycolumn.length;i++){
+						fid += selections[0].data[Givegoodskeycolumn[i]] + ","
 					}
-					commonAttach(fid, Goodsclassify);
+					commonAttach(fid, Givegoodsclassify);
 				}
 			},'->',{
 				xtype : 'textfield',
-				id : 'query'+Goodsaction,
+				id : 'query'+Givegoodsaction,
 				name : 'query',
 				emptyText : '模糊匹配',
 				width : 100,
@@ -424,12 +424,12 @@ Ext.onReady(function() {
 				listeners : {
 					specialkey : function(field, e) {
 						if (e.getKey() == Ext.EventObject.ENTER) {
-							if ("" == Ext.getCmp("query"+Goodsaction).getValue()) {
-								Goodsstore.load();
+							if ("" == Ext.getCmp("query"+Givegoodsaction).getValue()) {
+								Givegoodsstore.load();
 							} else {
-								Goodsstore.load({
+								Givegoodsstore.load({
 									params : {
-										query : Ext.getCmp("query"+Goodsaction).getValue()
+										query : Ext.getCmp("query"+Givegoodsaction).getValue()
 									}
 								});
 							}
@@ -439,17 +439,17 @@ Ext.onReady(function() {
 			}
 		]
 	});
-	Goodsgrid.region = 'center';
-	Goodsstore.on("beforeload",function(){ 
-		Goodsstore.baseParams = {
-				query : Ext.getCmp("query"+Goodsaction).getValue()
+	Givegoodsgrid.region = 'center';
+	Givegoodsstore.on("beforeload",function(){ 
+		Givegoodsstore.baseParams = {
+				query : Ext.getCmp("query"+Givegoodsaction).getValue()
 		}; 
 	});
-	Goodsstore.load();//加载数据
+	Givegoodsstore.load();//加载数据
 	var win = new Ext.Viewport({//只能有一个viewport
 		resizable : true,
 		layout : 'border',
 		bodyStyle : 'padding:0px;',
-		items : [ Goodsgrid ]
+		items : [ Givegoodsgrid ]
 	});
 })
