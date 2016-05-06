@@ -31,7 +31,7 @@
 	width: 100px;
 	border: solid 1px ;
 	display: block;
-	background-color: #999;
+	background-color: #ccc;
 }
 </style>
 </head>
@@ -67,7 +67,9 @@
 			<!-- <select id="xian" style="width:160%;">
 				<option></option>
 			</select> -->
-			<div class="float_select_quyu"></div>
+			<span class="float_select_quyu">
+				<a>海盐县</a>
+			</span>
 			</span><i></i> 
 			<span style="position:absolute;display: block;">
 				<input id="customerxian" name="customerxian" type="text"  id="customerxian"

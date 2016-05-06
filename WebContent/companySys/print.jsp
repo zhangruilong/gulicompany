@@ -15,7 +15,7 @@ body{
 	margin: 0px; 
  	padding: 0px;
  	font-size: 14px;
- 	font-weight: bold;
+ 	font-family: 黑体;
 }
 .print_tab tr td{
 	text-align: center;
@@ -23,7 +23,7 @@ body{
 </style>
 </head>
 
-<body style="width:675px;height:400px;">
+<body style="width:700px;height:400px;">
 <OBJECT classid="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2" height="0" id="WindowPrint" 
 name="WindowPrint" width="0"></OBJECT>
 
@@ -35,48 +35,48 @@ window.print()
 </script>
 
 <div>
-	<table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
+	<table width="100%" cellspacing="0" cellpadding="0" style="border-collapse: collapse;border-bottom:solid 1px black;">
 		<tr>
 			<td colspan="6" style="text-align: center;font-size: 33px;font-family: 黑体;border-left: hidden;border-top: hidden;border-bottom: hidden;">《谷粒网物流配送单》</td>
 		</tr>
 		<tr style="height: 40px;">
-			<td width="10%" style="text-align: center;font-family: 黑体;border-left: hidden;border-top: hidden;border-right: hidden;">订单编号：</td>
+			<td width="10%" style="text-align: center;font-family: 黑体;font-size: 12px;border-left: hidden;border-top: hidden;border-right: hidden;">订单编号：</td>
 			<td width="25%" style="font-family: 黑体;border-left: hidden;border-top: hidden;">${requestScope.order.ordermcode }</td>
-			<td width="10%" style="text-align: center;font-family: 黑体;border-left: hidden;border-top: hidden;border-right: hidden;">供货商：</td>
+			<td width="10%" style="text-align: center;font-family: 黑体;font-size: 12px;border-left: hidden;border-top: hidden;border-right: hidden;">供货商：</td>
 			<td width="25%" style="font-family: 黑体;border-left: hidden;border-top: hidden;">${requestScope.printCompany.companyshop }</td>
-			<td width="10%" style="text-align: center;font-family: 黑体;border-left: hidden;border-top: hidden;border-right: hidden;">联系电话：</td>
+			<td width="10%" style="text-align: center;font-family: 黑体;font-size: 12px;border-left: hidden;border-top: hidden;border-right: hidden;">联系电话：</td>
 			<td width="25%" style="font-family: 黑体;border-left: hidden;border-top: hidden;">${requestScope.printCompany.companyphone }</td>
 		</tr>
 	</table>
 	<table width="100%" border="0" cellspacing="0" cellpadding="3">
 		<tr>
-			<td align="right" style="width: 75px;">客户名称：</td>
+			<td align="right" style="width: 75px;font-size: 12px;">客户名称：</td>
 			<td>${requestScope.printCustomer.customershop }</td>
-			<td  align="right">联系人：</td>
+			<td  align="right" style="font-size: 12px;">联系人：</td>
 			<td>${requestScope.order.ordermconnect }</td>
-			<td align="right">联系电话：</td>
+			<td align="right" style="font-size: 12px;">联系电话：</td>
 			<td>${requestScope.order.ordermphone }</td>
 		</tr>
 		<tr>
-			<td align="right">联系地址：</td>
+			<td align="right" style="font-size: 12px;">联系地址：</td>
 			<td colspan="3">${requestScope.order.ordermaddress }</td>
-			<td align="right" style="background-color: #80ffff; text-align: left;">订单备注：</td>
+			<td align="right" style="background-color: #80ffff; text-align: left;font-size: 12px;">订单备注：</td>
 			<td colspan="2" style="background-color: #80ffff;">${requestScope.order.ordermdetail }</td>
 		</tr>
 	</table>
 	
 	<table class="print_tab" width="100%" border="1" cellspacing="0" cellpadding="2" style="border-collapse: collapse;margin-top: 5px;">
 	<tr>
-		<td width="35" align="center" style="font-family: 黑体;">序号</td>
-		<td width="79" align="center" style="font-family: 黑体;">商品编号</td>
-		<td width="170" style="font-family: 黑体;">商品名称</td>
-		<td width="99" align="center" style="font-family: 黑体;">规格</td>
-		<td width="40" align="center" style="font-family: 黑体;">单位</td>
-		<td width="62" style="font-family: 黑体;">数量</td>
-		<td width="40" align="center" style="font-family: 黑体;">价格</td>
-		<td width="57" style="font-family: 黑体;">下单金额</td>
-		<td width="57" style="font-family: 黑体;">实际金额</td>
-		<td width="100" align="center" style="font-family: 黑体;background-color: #80ffff;">备注</td>
+		<td width="35" align="center" style="font-family: 黑体;font-size: 12px;">序号</td>
+		<td width="79" align="center" style="font-family: 黑体;font-size: 12px;">商品编号</td>
+		<td width="170" style="font-family: 黑体;font-size: 12px;">商品名称</td>
+		<td width="114" align="center" style="font-family: 黑体;font-size: 12px;">规格</td>
+		<td width="40" align="center" style="font-family: 黑体;font-size: 12px;">单位</td>
+		<td width="62" style="font-family: 黑体;font-size: 12px;">数量</td>
+		<td width="40" align="center" style="font-family: 黑体;font-size: 12px;">价格</td>
+		<td width="57" style="font-family: 黑体;font-size: 12px;">下单金额</td>
+		<td width="57" style="font-family: 黑体;font-size: 12px;">实际金额</td>
+		<td width="110" align="center" style="font-family: 黑体;font-size: 12px;background-color: #80ffff;">备注</td>
 	</tr>
 	<c:forEach items="${requestScope.order.orderdList }" var="orderDetail" varStatus="sta">
 		<tr>
@@ -94,17 +94,17 @@ window.print()
 	</c:forEach>
 	</table>
 	<span style="font-family: 黑体;float: right;padding-top: 3px;padding-right: 40px;padding-bottom: 3px;">￥${requestScope.order.ordermrightmoney }</span>
-	<span style="font-family: 黑体;float: right;padding-top: 3px;padding-right: 40px;padding-bottom: 3px;">实际应收货款:</span>
+	<span style="font-family: 黑体;float: right;padding-top: 3px;padding-right: 40px;padding-bottom: 3px;font-size: 12px;">实际应收货款:</span>
 	<span style="font-family: 黑体;float: right;padding-top: 3px;padding-right: 40px;padding-bottom: 3px;">￥${requestScope.order.ordermmoney - requestScope.order.ordermrightmoney }</span>
-	<span style="font-family: 黑体;float: right;padding-top: 3px;padding-right: 40px;padding-bottom: 3px;">优惠金额：</span>
+	<span style="font-family: 黑体;float: right;padding-top: 3px;padding-right: 40px;padding-bottom: 3px;font-size: 12px;">优惠金额：</span>
 	<span style="font-family: 黑体;float: right;padding-top: 3px;padding-right: 40px;padding-bottom: 3px;">￥${requestScope.order.ordermmoney }</span>
-	<span style="font-family: 黑体;float: right;padding-top: 3px;padding-right: 40px;padding-bottom: 3px;">下单金额合计：</span>
+	<span style="font-family: 黑体;float: right;padding-top: 3px;padding-right: 40px;padding-bottom: 3px;font-size: 12px;">下单金额合计：</span>
 	<table width="100%" border="1" cellspacing="0" cellpadding="3" style="background-color: #80ffff;border-collapse: collapse;padding-top: 20px;font-family: 黑体;">
 	<tr>
-		<td width="111" align="center">客户签收</td>
-		<td align="center">签收说明</td>
-		<td width="120" align="center">实收货款(${requestScope.order.ordermway == '货到付款'?'现金':'在线支付' })</td>
-		<td width="79" align="center">支付方式</td>
+		<td width="111" align="center" style="font-size: 12px;">客户签收</td>
+		<td align="center" style="font-size: 12px;">签收说明</td>
+		<td width="120" align="center" style="font-size: 12px;">实收货款(${requestScope.order.ordermway == '货到付款'?'现金':'在线支付' })</td>
+		<td width="79" align="center" style="font-size: 12px;">支付方式</td>
 	</tr>
 	<tr height="30px">
 		<td></td>
@@ -115,10 +115,10 @@ window.print()
 	</table>
 	<table cellpadding="7" style="width:100%; margin-left: 10px;padding-top: 5px;font-family: 黑体;">
 	<tr>
-		<td style="width: 24%">制单员:<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
-		<td style="width: 24%">配货员:<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
-		<td style="width: 24%">配送员:<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
-		<td style="width: 24%">审核员:<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+		<td style="width: 24%;font-size: 12px;">制单员:<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+		<td style="width: 24%;font-size: 12px;">配货员:<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+		<td style="width: 24%;font-size: 12px;">配送员:<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+		<td style="width: 24%;font-size: 12px;">审核员:<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
 	</tr>
 	</table>
 </div>
