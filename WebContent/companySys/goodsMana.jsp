@@ -29,6 +29,7 @@ String goodsstatue = request.getParameter("goodsstatue");
 <input class="button" type="button" value="查询" onclick="subgoodsfor()">
 <input class="button" type="button" value="价格设置" onclick="setgoodsprices()">
 <input class="button" type="button" value="添加商品" onclick="addgoods()">
+<input class="button" type="button" value="修改" onclick="editgoods()">
 <input class="button" type="button" value="刷新" onclick="javascript:window.location.reload()">
 </div>
 <table class="bordered">
@@ -193,6 +194,26 @@ function subgoodsfor(){
 	checkCondition();
 	document.forms[0].submit();
 }
+//修改商品
+function editgoods(){
+	var count = 0;
+	var itemid;
+	$("[type='checkbox']").each(function(i,item){
+		if(item.checked==true){
+			itemid = $(item).attr("id");
+			count++;
+		}
+	});
+	if(count > 0 && count < 2){
+		$('#main_form').attr('action','doEditGoods.action');
+		$("[name='goodsid']").val(itemid);
+		$('#main_form').submit();
+	} else if(count == 0){
+		alert("请选择商品");
+	} else {
+		alert("只能选择一个商品");
+	}
+}
 //商品价格设置
 function setgoodsprices(){
 	var count = 0;
@@ -214,6 +235,7 @@ function setgoodsprices(){
 		alert("只能选择一个商品");
 	}
 }
+//添加商品窗口
 function addgoods(){
 	$(".cd-popup").addClass("is-visible");	//弹出窗口
 	$.getJSON("getallGoodclass.action",function(data){

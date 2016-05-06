@@ -329,6 +329,26 @@ public class Com_goodsCtl {
 		model.addAttribute("goodsCon", goodsCon);
 		return "forward:/companySys/goodsPrices.jsp";
 	}
+	//修改商品页面
+	@RequestMapping("/companySys/doEditGoods")
+	public String doEditGoods(Model model,Goods goodsCon,Integer pagenow){
+		Goods editGoods = goodsMapper.selectByPrimaryKey(goodsCon.getGoodsid());
+		model.addAttribute("goodsCon", goodsCon);
+		model.addAttribute("pagenow", pagenow);
+		model.addAttribute("editGoods", editGoods);
+		return "forward:/companySys/editGoods.jsp";
+	}
+	//修改商品
+	@RequestMapping("/companySys/editGoods")
+	@ResponseBody
+	public String editGoods(Goods editGoods){
+		int upd = goodsMapper.updateByPrimaryKeySelective(editGoods);
+		if(upd > 0){
+			return "ok";
+		} else {
+			return "no";
+		}
+	}
 	//查询标品
 	@RequestMapping(value="/companySys/getallScant",produces = "application/json")
 	@ResponseBody
