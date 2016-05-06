@@ -191,6 +191,7 @@ public class Com_goodsCtl {
 		Goods updateGoods = goodsMapper.selectByPrimaryKey(editPriGoods.getGoodsid());
 		String[] priceStrs = prices.getPricesprice().split(",");
 		String[] price2Strs = prices.getPricesprice2().split(",");
+		String[] creator = prices.getCreator().split(",");
 		prices.setPricesprice2(null);
 		if(updateGoods.getPricesList() == null || updateGoods.getPricesList().size() < 9){
 			//如果没有价格
@@ -200,6 +201,11 @@ public class Com_goodsCtl {
 						prices.setPricesprice2(price2Strs[j]);				//套装价
 					}
 				} 
+				if(creator[i/3].equals("1")){
+					prices.setCreator("启用");					//价格状态设置为启用
+				} else if (creator[i/3].equals("0")){
+					prices.setCreator("禁用");					//价格状态设置为禁用
+				}
 				prices.setPricesprice(priceStrs[i]);				//单价
 				if(i < 3){
 					prices.setPricesclass("3");				//分类
@@ -212,7 +218,7 @@ public class Com_goodsCtl {
 				prices.setCreatetime(DateUtils.getDateTime());		//创建时间
 				prices.setPricesid(CommonUtil.getNewId());			//价格id
 				pricesMapper.insertSelective(prices);				//添加到数据库
-			}
+		}
 		} else {
 			//如果有价格
 			String[] pricesIds = prices.getPricesid().split(",");
@@ -229,6 +235,11 @@ public class Com_goodsCtl {
 									prices.setPricesclass("2");
 								} else if(i>=6 && i<9){
 									prices.setPricesclass("1");
+								}
+								if(creator[i/3].equals("1")){
+									prices.setCreator("启用");					//价格状态设置为启用
+								} else if (creator[i/3].equals("0")){
+									prices.setCreator("禁用");					//价格状态设置为禁用
 								}
 								prices.setPriceslevel(3-(i%3));						//等级
 								prices.setUpdtime(DateUtils.getDateTime());		//修改时间
@@ -249,6 +260,11 @@ public class Com_goodsCtl {
 								prices.setPricesclass("2");
 							} else if(i>=6 && i<9){
 								prices.setPricesclass("1");
+							}
+							if(creator[i/3].equals("1")){
+								prices.setCreator("启用");					//价格状态设置为启用
+							} else if (creator[i/3].equals("0")){
+								prices.setCreator("禁用");					//价格状态设置为禁用
 							}
 							prices.setPriceslevel(3-(i%3));						//等级
 							prices.setUpdtime(DateUtils.getDateTime());		//修改时间

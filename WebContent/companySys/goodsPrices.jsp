@@ -110,12 +110,20 @@ h1 .title_goodsinfo span{
 			<span>商品名称:&nbsp;</span>${requestScope.editPriGoods.goodsname }&nbsp;&nbsp;
 			<span>编码:&nbsp;</span>${requestScope.editPriGoods.goodscode }&nbsp;&nbsp;
 			<span>规格:&nbsp;</span>${requestScope.editPriGoods.goodsunits }
+			<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price">
+				<c:if test="${price.pricesclass == '3' && price.priceslevel == 3 && price.creator == '启用'}">checked</c:if>
+			</c:forEach>
 			</div>
 			</h1>
 			<table>
 			<tr><td colspan="3"><p><span>单位:<input size="4" type="text" id="pricesunit" name="pricesunit" value="${requestScope.editPriGoods.pricesList[0].pricesunit }">
 			<!-- 套装单位:<input size="4" type="text" id="pricesunit2" name="pricesunit2" value="${requestScope.editPriGoods.pricesList[0].pricesunit2 }"> --></span></p> </td></tr>
-			<tr><td colspan="3"><p style="margin-top: 0px;"><span>餐饮客户价格 :&nbsp;&nbsp;&nbsp;&nbsp;状态:<</span></p> </td></tr>
+			<tr><td colspan="3"><p style="margin-top: 0px;"><span>餐饮客户价格 :&nbsp;&nbsp;&nbsp;&nbsp;
+			价格启用:<input type="checkbox" name="creator" 
+			<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price">
+				<c:if test="${price.pricesclass == '3' && price.priceslevel == 3 && price.creator == '启用'}">checked</c:if>
+			</c:forEach>
+			style="vertical-align:middle"></span></p></td></tr>
 			<tr>	
 				
 				<td><label><span>售价等级3 :</span><input 
@@ -145,7 +153,12 @@ h1 .title_goodsinfo span{
 				size="5" id="12" type="text" name="pricesprice2" placeholder="套装价" />
 				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit2 !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit2 }</c:if></span></label></td>
 			</tr> -->
-			<tr><td colspan="3"><p><span> 商超客户价格 :</span></p></td></tr>
+			<tr><td colspan="3"><p><span> 商超客户价格 :&nbsp;&nbsp;&nbsp;&nbsp;
+			价格启用:<input type="checkbox" name="creator" 
+			<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price">
+				<c:if test="${price.pricesclass == '2' && price.priceslevel == 3 && price.creator == '启用'}">checked</c:if>
+			</c:forEach>
+			 style="vertical-align:middle"></span></p></td></tr>
 			<tr>
 				<td><label><span>售价等级3 :</span><input 
 				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '2' && price.priceslevel == 3}">${price.pricesprice }</c:if></c:forEach>" 
@@ -174,7 +187,12 @@ h1 .title_goodsinfo span{
 				size="5" id="15" type="text" name="pricesprice2" placeholder="套装价" />
 				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit2 !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit2 }</c:if></span></label></td>
 			</tr> -->
-			<tr><td colspan="3"><p><span> 组织单位客户价格 :</span></p></td></tr>
+			<tr><td colspan="3"><p><span> 组织单位客户价格 :&nbsp;&nbsp;&nbsp;&nbsp;
+			价格启用:<input type="checkbox" name="creator" 
+			<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price">
+				<c:if test="${price.pricesclass == '1' && price.priceslevel == 3 && price.creator == '启用'}">checked</c:if>
+			</c:forEach>
+			 style="vertical-align:middle"></span></p></td></tr>
 			<tr>
 				<td><label><span>售价等级3 :</span><input 
 				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '1' && price.priceslevel == 3}">${price.pricesprice }</c:if></c:forEach>" 
@@ -212,9 +230,11 @@ h1 .title_goodsinfo span{
 	<script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript">
 	function addData(){
+		//window.location.reload();
+		//return;
 		var val1 = $("#1").val();
 		var val10 = $("#10").val();
-		var pricesunit = $("#pricesunit").val();
+		var pricesunit = $("#pricesunit").val();		//单位
 		if(val1 == null || val1 == "" ){
 			alert("等级为 3 的餐饮客户价格不能为空.");
 			return;
@@ -243,6 +263,7 @@ h1 .title_goodsinfo span{
 		var pricesid = '';
 		var pricesprice = '';
 		var pricesprice2 = '';
+		var creator = '';
 		if($("[name='pricesid']") != null){
 			$("[name='pricesid']").each(function(i,item){
 				if(i < ($("[name='pricesid']").length -1)){
@@ -266,6 +287,21 @@ h1 .title_goodsinfo span{
 				pricesprice2 += $(item).val();
 			}
 		})
+		$("[name='creator']").each(function(i,item){
+			if(i < ($("[name='creator']").length -1)){
+				if(item.checked == true){
+					creator += '1,'
+				} else {
+					creator += '0,'
+				}
+			} else {
+				if(item.checked == true){
+					creator += '1'
+				} else {
+					creator += '0'
+				}
+			}
+		});
 		$.getJSON("addGoodsPrices.action",{
 			"pricesid":pricesid,
 			"pricesprice":pricesprice,
@@ -274,7 +310,8 @@ h1 .title_goodsinfo span{
 			"pricesgoods":'${requestScope.editPriGoods.goodsid }',
 			"goodscompany":'${requestScope.editPriGoods.goodscompany }',
 			'pricesunit':$("#pricesunit").val(),
-			'pricesunit2':$("#pricesunit2").val()
+			'pricesunit2':$("#pricesunit2").val(),
+			'creator':creator
 		},function(data){
 			alert('价格已更新！');
 			window.location.href = 'allGoods.action?goodscompany=${requestScope.goodsCon.goodscompany }'+

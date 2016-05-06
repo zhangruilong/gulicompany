@@ -15,6 +15,9 @@
     <result column="UPDTIME" property="updtime" jdbcType="VARCHAR" />
     <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
     <result column="UPDOR" property="updor" jdbcType="VARCHAR" />
+    <result column="GOODSBRAND" property="goodsbrand" jdbcType="VARCHAR" />
+    <result column="GOODSTYPE" property="goodstype" jdbcType="VARCHAR" />
+    <result column="GOODSORDER" property="goodsorder" jdbcType="DECIMAL" />
     <!-- 商品类别 -->
     <association property="gClass" javaType="com.server.pojo.entity.Goodsclass">
     	<id column="GOODSCLASS" property="goodsclassid" jdbcType="VARCHAR" />
@@ -36,13 +39,14 @@
 	    <result column="PRICESUNIT2" property="pricesunit2" jdbcType="VARCHAR" />
 	    <result column="CREATETIME" property="createtime" jdbcType="VARCHAR" />
 	    <result column="UPDTIME" property="updtime" jdbcType="VARCHAR" />
-	    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+	    <result column="PRICESCREATOR" property="creator" jdbcType="VARCHAR" />
 	    <result column="UPDOR" property="updor" jdbcType="VARCHAR" />
     </collection>
   </resultMap>
   <sql id="Base_Column_List" >
     GOODSID, GOODSCOMPANY, GOODSCODE, GOODSNAME, GOODSDETAIL, GOODSUNITS, GOODSCLASS, 
-    GOODSIMAGE, GOODSSTATUE, CREATETIME, UPDTIME, CREATOR, UPDOR
+    GOODSIMAGE, GOODSSTATUE, CREATETIME, UPDTIME, CREATOR, UPDOR, GOODSBRAND, GOODSTYPE, 
+    GOODSORDER
   </sql>
   <!-- 根据编码查询商品 -->
   <select id="selectByGoods" resultMap="BaseResultMap" parameterType="java.lang.String" >
@@ -114,7 +118,16 @@ where RN &gt; ((#{nowpage}-1)*#{pagesize})
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
 		goods.*,
-		prices.*,
+		prices.pricesid, 
+		prices.pricesclass,
+		prices.priceslevel,
+		prices.pricesprice,
+		prices.pricesunit,
+		prices.pricesprice2,
+		prices.pricesunit2,
+		prices.createtime,
+		prices.creator pricescreator,
+		prices.updor,
 		goodsclass.goodsclassname 
 	from goods
 	left outer join prices 

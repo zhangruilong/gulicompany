@@ -1,5 +1,6 @@
 package com.server.pojo.entity;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.List;
 /**
@@ -60,6 +61,12 @@ public class Goods
     * 修改人
     */
    private String updor;   
+   
+   private String goodsbrand;			//品牌
+
+   private String goodstype;			//种类
+
+   private BigDecimal goodsorder;		//顺序
    /**
     * 关联价格(一对多)
     */
@@ -318,6 +325,30 @@ public class Goods
 
 	public void setgClass(Goodsclass gClass) {
 		this.gClass = gClass;
+	}
+
+	public String getGoodsbrand() {
+		return goodsbrand;
+	}
+
+	public void setGoodsbrand(String goodsbrand) {
+		this.goodsbrand = goodsbrand;
+	}
+
+	public String getGoodstype() {
+		return goodstype;
+	}
+
+	public void setGoodstype(String goodstype) {
+		this.goodstype = goodstype;
+	}
+
+	public BigDecimal getGoodsorder() {
+		return goodsorder;
+	}
+
+	public void setGoodsorder(BigDecimal goodsorder) {
+		this.goodsorder = goodsorder;
 	}
 
 	public Goods() {
