@@ -184,6 +184,15 @@ where RN &gt; ((#{nowpage}-1)*#{pagesize})
       <if test="updor != null" >
         UPDOR,
       </if>
+      <if test="goodsbrand != null" >
+        GOODSBRAND,
+      </if>
+      <if test="goodstype != null" >
+        GOODSTYPE,
+      </if>
+      <if test="goodsorder != null" >
+        GOODSORDER,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="goodsid != null" >
@@ -224,6 +233,15 @@ where RN &gt; ((#{nowpage}-1)*#{pagesize})
       </if>
       <if test="updor != null" >
         #{updor,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsbrand != null" >
+        #{goodsbrand,jdbcType=VARCHAR},
+      </if>
+      <if test="goodstype != null" >
+        #{goodstype,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsorder != null" >
+        #{goodsorder,jdbcType=DECIMAL},
       </if>
     </trim>
   </insert>
@@ -266,6 +284,15 @@ where RN &gt; ((#{nowpage}-1)*#{pagesize})
       </if>
       <if test="updor != null" >
         UPDOR = #{updor,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsbrand != null" >
+        GOODSBRAND = #{goodsbrand,jdbcType=VARCHAR},
+      </if>
+      <if test="goodstype != null" >
+        GOODSTYPE = #{goodstype,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsorder != null" >
+        GOODSORDER = #{goodsorder,jdbcType=DECIMAL},
       </if>
     </set>
     where GOODSID = #{goodsid,jdbcType=VARCHAR}
