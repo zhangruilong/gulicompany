@@ -208,7 +208,7 @@ h1 .title_goodsinfo span{
 				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit }</c:if></span></label></td>
 			 </tr>
 			<!-- <tr>
-				<td><label><span>套装价等级3 :</span><input 
+				<td><label><span>套装价等级3 :</span><input  
 				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '1' && price.priceslevel == 3}">${price.pricesprice2 }</c:if></c:forEach>" 
 				size="5" id="16" type="text" name="pricesprice2" placeholder="套装价" />
 				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit2 !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit2 }</c:if></span></label></td>
