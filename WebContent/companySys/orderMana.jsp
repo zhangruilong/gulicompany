@@ -18,6 +18,23 @@ String ordermway = request.getParameter("ordermway");
 <script type="text/javascript" src="<%=basePath%>ExtJS/adapter/ext/ext-base.js"></script>
 <script type="text/javascript" src="<%=basePath%>ExtJS/ext-all.js"></script>
 <script type="text/javascript" src="<%=basePath%>ExtJS/ext-lang-zh_CN.js" charset="GBK"></script>
+<style type="text/css">
+.bordered tr td {
+	padding: 5px;
+	padding-left: 3px;
+	padding-right: 3px;
+}
+.bordered tr th{
+	padding: 5px;
+	padding-left: 1px;
+	padding-right: 1px;
+}
+.button{
+	padding: 0px;
+	width: 50px;
+	border-radius:6px;
+}
+</style>
 </head>
 <body>
 <form id='main_form' action="allOrder.action" method="post">
@@ -30,12 +47,17 @@ String ordermway = request.getParameter("ordermway");
 <div>到:</div><div id="divDate2"  class="date"></div>
 模糊查询:<input type="text" class="ordermcode_query" name="ordermcode" value="${requestScope.order.ordermcode }">
 <input class="button" type="button" value="查询" onclick="subfor()">
-<input class="button" type="button" value="导出报表" onclick="report()">
-<input class="button" type="button" value="打印" onclick="return doprint()">
-<input class="button" type="button" value="详情" onclick="orderDetail()">
+<input class="button" type="button" value="导出" onclick="report()">
+<input class="button" type="button" value="打印" onclick="doprint('打印')">
+<input class="button" type="button" value="详情" onclick="doprint('详情')">
+<input style="background-image: url('');background-color: #83CD1F;" class="button" type="button" value="确认" onclick="doprint('状态','已确认');">
+<input style="background-image: url('');background-color: #DAD52B;" class="button" type="button" value="发货" onclick="doprint('状态','已发货');">
+<input style="background-image: url('');background-color: #1D6BE9;" class="button" type="button" value="完成" onclick="doprint('状态','已完成');">
+<input style="background-image: url('');background-color: #D33E2C;" class="button" type="button" value="删除" 
+onclick="del('editOrder.action?ordermid=${requestScope.order.ordermid }&ordermcompany=${sessionScope.company.companyid }','删除')">
 </div>
 <br />
-<table class="bordered" style="width: 1250px;margin-left: 6px;">
+<table class="bordered" style="margin-left: 6px;">
     <thead>
 
     <tr>
@@ -43,11 +65,11 @@ String ordermway = request.getParameter("ordermway");
         <th>序号</th>
 		<th>订单编号</th>
 		<th>支付方式</th>
-		<th>种类数</th>
+		<th>种类</th>
 		<th>下单金额</th>
 		<th>实际金额</th>
-		<th>订单状态</th>
-		<th>下单时间</th>
+		<th style="width:29px;">状态</th>
+		<th style="width:118px;">下单时间</th>
 		<th>修改时间</th>
 		<th>客户名称</th>
 		<th>联系人</th>
@@ -144,26 +166,8 @@ function checkCondition(){
 		$("#pagenow").val('${requestScope.pageCount }');
 	}
 }
-//详情
-function orderDetail(){
-	var count = 0;
-	var itemid;
-	$("[type='checkbox']").each(function(i,item){
-		if(item.checked==true){
-			itemid = $(item).attr("id");
-			count++;
-		}
-	});
-	if(count > 0 && count < 2){
-		window.location.href = "orderDetail.action?ordermid="+itemid+"&ordermcompany=${sessionScope.company.companyid }";
-	} else if(count == 0){
-		alert("请选择订单");
-	} else {
-		alert("只能选择一个订单");
-	}
-}
 //打印
-function doprint(){
+function doprint(msg,statue){
 	var count = 0;
 	var itemid;
 	$("[type='checkbox']").each(function(i,item){
@@ -173,7 +177,13 @@ function doprint(){
 		}
 	});
 	if(count > 0 && count < 2){
-		window.open("printOrder.action?ordermid="+itemid+"&ordermcompany=${sessionScope.company.companyid }");
+		if(msg == '打印'){
+			window.open("printOrder.action?ordermid="+itemid+"&ordermcompany=${sessionScope.company.companyid }");
+		} else if(msg == '详情'){
+			window.location.href = "orderDetail.action?ordermid="+itemid+"&ordermcompany=${sessionScope.company.companyid }";
+		} else if(msg == '状态'){
+			
+		}
 	} else if(count == 0){
 		alert("请选择订单");
 	} else {
@@ -227,6 +237,18 @@ function fenye(targetPage){
 	$("#pagenow").val(targetPage);
 	checkCondition();
 	document.forms[0].submit();
+}
+//修改订单状态
+function updateStatue(statue){
+	if(confirm("是否修改订单状态")){
+		window.parent.main.location.href = 
+			"deliveryGoods.action?ordermid="
+					+ordermid
+					+"&ordermcompany="
+					+ordermcompany
+					+"&ordermstatue="
+					+statue;
+	}
 }
 </script>
 </body>

@@ -104,6 +104,7 @@ onclick="del('editOrder.action?ordermid=${requestScope.order.ordermid }&ordermco
 <script type="text/javascript">
 var ordermid = '<%=ordermid%>';
 var ordermcompany = '<%=ordermcompany%>';
+//修改订单状态
 function updateStatue(statue){
 	if(confirm("是否修改订单状态")){
 		window.parent.main.location.href = 
@@ -115,6 +116,7 @@ function updateStatue(statue){
 					+statue;
 	}
 }
+//删除商品
 function delegoods(){
 	var orderdids = $("[name='orderdids']");
 	var count = 0;

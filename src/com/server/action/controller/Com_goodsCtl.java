@@ -326,7 +326,9 @@ public class Com_goodsCtl {
 		goodsCon.setCreatetime(DateUtils.getDateTime());
 		goodsCon.setGoodsid(CommonUtil.getNewId());
 		goodsMapper.insertSelective(goodsCon);
-		model.addAttribute("goodsCon", goodsCon);
+		//model.addAttribute("goodsCon", goodsCon);
+		model.addAttribute("editPriGoods", goodsCon);
+		model.addAttribute("message", "添加商品");
 		return "forward:/companySys/goodsPrices.jsp";
 	}
 	//修改商品页面

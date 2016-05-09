@@ -119,7 +119,7 @@ h1 .title_goodsinfo span{
 			<tr><td colspan="3"><p><span>单位:<input size="4" type="text" id="pricesunit" name="pricesunit" value="${requestScope.editPriGoods.pricesList[0].pricesunit }">
 			<!-- 套装单位:<input size="4" type="text" id="pricesunit2" name="pricesunit2" value="${requestScope.editPriGoods.pricesList[0].pricesunit2 }"> --></span></p> </td></tr>
 			<tr><td colspan="3"><p style="margin-top: 0px;"><span>餐饮客户价格 :&nbsp;&nbsp;&nbsp;&nbsp;
-			价格启用:<input type="checkbox" name="creator" 
+			价格启用:<input type="checkbox" name="creator"
 			<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price">
 				<c:if test="${price.pricesclass == '3' && price.priceslevel == 3 && price.creator == '启用'}">checked</c:if>
 			</c:forEach>
@@ -229,6 +229,11 @@ h1 .title_goodsinfo span{
 	</div>
 	<script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript">
+	$(function(){
+		if('${requestScope.message}' == '添加商品'){
+			$("[name='creator']")[0].attr("checked","checked")
+		}
+	});
 	function addData(){
 		//window.location.reload();
 		//return;

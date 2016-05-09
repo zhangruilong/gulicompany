@@ -64,14 +64,13 @@ $(function(){
 //点击结算时执行的方法
 function nextpage(){
 	setscompany();		//设置供应商信息
-	if(customer.customerid != null && customer.customerid != ''){
-		window.location.href = "doBuy.action?addresscustomer="+customer.customerid+"&addressture=1";
-	} else {
-		$(".cd-popup").addClass("is-visible");
-	}
+	window.location.href = "doBuy.action?addresscustomer="+customer.customerid+"&addressture=1";
 }
 //检查客户是否可以购买秒杀商品
 function checkCusSecKill(){
+	if(!customer.customerid || customer.customerid == ''){		//判断是否注册
+		$(".cd-popup").addClass("is-visible");
+	}
 	var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));
 	var outGoodsName = '';
 	$.post('queryCusSecKillOrderd.action',{'orderm.ordermcustomer':customer.customerid},function(data){
