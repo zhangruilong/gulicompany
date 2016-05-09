@@ -176,7 +176,7 @@ Ext.onReady(function() {
 			columnWidth : 1,
 			layout : 'form',
 			items : [ {
-				xtype : 'numberfield',
+				xtype : 'textfield',
 				fieldLabel : '手机',
 				id : 'Customercustomerphone',
 				name : 'customerphone',
