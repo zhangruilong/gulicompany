@@ -54,7 +54,7 @@ String ordermway = request.getParameter("ordermway");
 <input style="background-image: url('');background-color: #DAD52B;" class="button" type="button" value="发货" onclick="doprint('状态','已发货');">
 <input style="background-image: url('');background-color: #1D6BE9;" class="button" type="button" value="完成" onclick="doprint('状态','已完成');">
 <input style="background-image: url('');background-color: #D33E2C;" class="button" type="button" value="删除" 
-onclick="del('editOrder.action?ordermid=${requestScope.order.ordermid }&ordermcompany=${sessionScope.company.companyid }','删除')">
+onclick="doprint('删除')">
 </div>
 <br />
 <table class="bordered" style="margin-left: 6px;">
@@ -87,7 +87,7 @@ onclick="del('editOrder.action?ordermid=${requestScope.order.ordermid }&ordermco
 			<td>${order.ordermnum}</td>
 			<td>${order.ordermmoney}</td>
 			<td>${order.ordermrightmoney}</td>
-			<td>${order.ordermstatue}</td>
+			<td class="td_orderm_statue">${order.ordermstatue}</td>
 			<td>${order.ordermtime }</td>
 			<td>${order.updtime}</td>
 			<td>${order.customershop}</td>
@@ -166,7 +166,7 @@ function checkCondition(){
 		$("#pagenow").val('${requestScope.pageCount }');
 	}
 }
-//打印
+//打印,详情,状态,删除
 function doprint(msg,statue){
 	var count = 0;
 	var itemid;
@@ -182,7 +182,29 @@ function doprint(msg,statue){
 		} else if(msg == '详情'){
 			window.location.href = "orderDetail.action?ordermid="+itemid+"&ordermcompany=${sessionScope.company.companyid }";
 		} else if(msg == '状态'){
-			
+			if(confirm("是否修改订单状态")){
+				$.post('updateStatue.action',{
+					"ordermid":itemid,
+					"ordermstatue":statue
+				},function(data){
+					if(data == '1'){
+						alert("修改成功!");
+						$("#"+itemid).parent().nextAll(".td_orderm_statue").text(statue);
+					}
+				});
+			}
+		} else if(msg == '删除'){
+			if(confirm("是否删除订单")){
+				$.post('updateStatue.action',{
+					"ordermid":itemid,
+					"ordermstatue":"已删除"
+				},function(data){
+					if(data == '1'){
+						alert("删除成功!");
+						window.location.reload();
+					}
+				});
+			}
 		}
 	} else if(count == 0){
 		alert("请选择订单");

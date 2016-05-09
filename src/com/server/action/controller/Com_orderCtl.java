@@ -86,8 +86,9 @@ public class Com_orderCtl {
 	}
 	//修改订单状态2
 	@RequestMapping("/companySys/updateStatue")
-	public @ResponseBody void updateStatue( Orderm order){
-		ordermMapper.updateByPrimaryKeySelective(order);
+	public @ResponseBody Integer updateStatue( Orderm order){
+		Integer num = ordermMapper.updateByPrimaryKeySelective(order);
+		return num;
 	}
 /*--------------------------订单详情-----------------------------*/
 	//订单详情

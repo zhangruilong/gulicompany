@@ -95,7 +95,6 @@
 		//window.localStorage.setItem("openid","222222222");
 		//openid
 		if(!window.localStorage.getItem("openid")||"null"==window.localStorage.getItem("openid")){
-			alert(window.localStorage.getItem("openid"));
 			getOpenid();
 			window.localStorage.setItem("openid",getParamValue("openid"));		//得到openid
 		}

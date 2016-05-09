@@ -230,8 +230,9 @@ h1 .title_goodsinfo span{
 	<script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript">
 	$(function(){
+		alert('${requestScope.message}'+" == 添加商品");
 		if('${requestScope.message}' == '添加商品'){
-			$("[name='creator']")[0].attr("checked","checked")
+			$("[name='creator']").first().attr("checked",true);
 		}
 	});
 	function addData(){
