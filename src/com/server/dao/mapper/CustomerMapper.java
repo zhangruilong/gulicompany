@@ -2,9 +2,14 @@ package com.server.dao.mapper;
 
 import java.util.List;
 
+import com.server.pojo.entity.Ccustomer;
 import com.server.pojo.entity.Customer;
 
 public interface CustomerMapper {
+	/**
+	 * 根据客户关系中的供应商和查询条件查询客户(导出报表时使用)
+	 */
+	List<Customer> selectCustomerByGuanxi(Ccustomer ccustomer);
 	/**
 	 * 根据openid查询客户
 	 */

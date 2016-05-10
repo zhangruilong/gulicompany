@@ -64,6 +64,28 @@
     CUSTOMERCITY, CUSTOMERXIAN, CUSTOMERADDRESS, CUSTOMERTYPE, CUSTOMERLEVEL, OPENID, 
     CUSTOMERDETAIL, CUSTOMERSTATUE, CREATETIME, UPDTIME
   </sql>
+  <!-- 据客户关系中的供应商和查询条件查询客户(导出报表时使用) -->
+  <select id="selectCustomerByGuanxi" resultMap="BaseResultMap" parameterType="com.server.pojo.entity.Ccustomer" >
+    select c.* from customer c
+	left join ccustomer cc
+	on cc.ccustomercustomer = c.customerid
+	where cc.ccustomercompany = #{ccustomercompany}
+	<if test="customer != null">
+		<if test="customer.customertype != null and customer.customertype != ''">
+			and c.customertype = #{customer.customertype}
+		</if>
+		<if test="customer.customercode != null and customer.customercode != ''">
+			and (c.customercode like '%${customer.customercode}%'
+				or c.customername like '%${customer.customercode}%'
+				or c.customerphone like '%${customer.customercode}%'
+				or c.customershop like '%${customer.customercode}%'
+				or c.customercity like '%${customer.customercode}%'
+				or c.customerxian like '%${customer.customercode}%'
+				or c.customeraddress like '%${customer.customercode}%'
+			)
+		</if>
+	</if>
+  </select>
   <!-- 根据openid查询客户 -->
   <select id="selectByOpenid" resultMap="BaseResultMap" parameterType="com.server.pojo.entity.Customer" >
     select 

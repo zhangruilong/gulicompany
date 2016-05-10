@@ -22,7 +22,11 @@ String customertype = request.getParameter("customer.customertype");
 <input type="hidden" name="ccustomercompany" value="${requestScope.ccustomerCon.ccustomercompany }">
 <input type="hidden" name="customer.customertype" value="${requestScope.ccustomerCon.customer.customertype }">
 <div class="nowposition">当前位置：客户管理》全部客户</div>
-<br />
+<div class="navigation">
+查询条件:&nbsp;&nbsp;<input type="text" id="customercode" name="customer.customercode" value="${requestScope.ccustomerCon.customer.customercode }">
+<input class="button" type="button" value="查询" onclick="subcustomerfor()">
+<input class="button" type="button" value="导出" onclick="reportCustomer()">
+</div>
 <table class="bordered">
     <thead>
     <tr>
@@ -111,15 +115,36 @@ $(function(){
 })
 //检查查询条件是否变化
 function checkCondition(){
+	if($("#customercode").val() != '${requestScope.ccustomerCon.customer.customercode }'){
+		$("#pagenow").val('1');
+	}
 	if(parseInt($("#pagenow").val()) > '${requestScope.pageCount }' ){
 		$("#pagenow").val('${requestScope.pageCount }');
 	}
+}
+//提交查询条件
+function subcustomerfor(){
+	$("#customercode").val($.trim($("#customercode").val()));
+	checkCondition();
+	document.forms[0].submit();
 }
 //分页
 function fenye(targetPage){
 	$("#pagenow").val(targetPage);
 	checkCondition()
 	document.forms[0].submit();
+}
+//导出
+function reportCustomer(){
+	/* $.post("exportCustomerReport.action",{
+		"ccustomercompany":"${requestScope.ccustomerCon.ccustomercompany }",
+		"customer.customertype":"${requestScope.ccustomerCon.customer.customertype }",
+		"customer.customercode":"${requestScope.ccustomerCon.customer.customercode }"
+		}); */
+	window.location.href ="exportCustomerReport.action?"+
+			"ccustomercompany=${requestScope.ccustomerCon.ccustomercompany }"+
+			"&customer.customertype=${requestScope.ccustomerCon.customer.customertype }"+
+			"&customer.customercode=${requestScope.ccustomerCon.customer.customercode }";
 }
 </script>
 </body>

@@ -1,8 +1,11 @@
 package com.server.action.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +17,9 @@ import com.server.dao.mapper.CcustomerMapper;
 import com.server.dao.mapper.CustomerMapper;
 import com.server.pojo.entity.Ccustomer;
 import com.server.pojo.entity.Customer;
+import com.server.pojo.entity.Orderd;
 import com.system.tools.util.DateUtils;
+import com.system.tools.util.FileUtil;
 
 /**
  * 供应商后台管理系统-客户管理
@@ -70,4 +75,28 @@ public class Com_customerCtl {
 		ccustomerMapper.updateByPrimaryKeySelective(ccustomer);
 		return map;
 	}
+	//导出报表
+	@RequestMapping("/companySys/exportCustomerReport")
+	@ResponseBody
+	public void exportCustomerReport(HttpServletResponse response,Ccustomer ccustomerCon) throws Exception{
+		ArrayList<Customer> list = (ArrayList<Customer>) customerMapper.selectCustomerByGuanxi(ccustomerCon);
+		String[] heads = {"客户编码","客户姓名","手机","店铺","城市","县","街道地址","类型","等级","创建时间","修改时间"};				//表头
+		String[] discard = {"customerid","customerpsw","openid","customerdetail","customerstatue","orderm","collectList"};			//要忽略的字段名
+		String name = "客户统计报表";							//文件名称
+		FileUtil.expExcel(response, list, heads, discard, name);
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

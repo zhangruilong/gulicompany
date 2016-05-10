@@ -70,6 +70,7 @@ function nextpage(){
 function checkCusSecKill(){
 	if(!customer.customerid || customer.customerid == ''){		//判断是否注册
 		$(".cd-popup").addClass("is-visible");
+		return ;
 	}
 	var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));
 	var outGoodsName = '';
