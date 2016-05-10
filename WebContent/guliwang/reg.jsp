@@ -53,18 +53,13 @@
 	<div class="reg-wrapper reg-dianpu-info">
 		<ul>
 			<li>
-			<!-- <span>所在城市</span> <select id="city" name="customercity" style="width:25%;margin-left: 39%;">
-    		<option value="">请选择城市</option>
-    		<c:forEach items="${requestScope.cityList }" var="c">
-				<option>${c.cityname }</option>
-			</c:forEach></select><i></i> -->
 			<span>所在城市</span>
 			<input onclick="input_sele_city()" id="customercity" name="customercity" type="text" style="width:220px; background-color:#fff;"/> <i></i>
          <div id="divList" style="display: none; position: absolute ;width: 30%;left:60%; top:10%; border: 1px solid black; overflow: hidden; position: absolute; background-color:#FFFFFF; "> 
                 <table width="100%" border="0" cellpadding="0" cellspacing="0"> 
                     <tr> 
                         <td> 
-                               <div id="cusCityDiv"  style="overflow: auto; padding-left:0; width: 100%; background-color: red; ">
+                               <div id="cusCityDiv"  style="overflow: auto; padding-left:0; width: 100%; background-color: #F2F2F2;height: 82px; ">
                                	<ul>
                                		<c:forEach items="${requestScope.cityList }" var="cyty">
                                			<li>${cyty.cityname }</li>
@@ -76,16 +71,14 @@
                 </table>   
           </div> 
 			</li>
-        <li><span>所在区域</span> <select  id="xian" name="customerxian" style="width:24%;margin-left: 40%;display:inline-block;color: black;">
-        	<option value="">请选择地区</option>
-			</select><i></i>
-			<span>所在城市</span>
-			<input onclick="input_sele_city()" id="customercity" name="customercity" type="text" style="width:220px; background-color:#fff;"/> <i></i>
-         <div id="divList" style="display: none; position: absolute ;width: 30%;left:60%; top:10%; border: 1px solid black; overflow: hidden; position: absolute; background-color:#FFFFFF; "> 
+        <li>
+			<span>所在地区</span>
+			<input onclick="" id="customerxian" name="customerxian" type="text" style="width:220px; background-color:#fff;"/> <i></i>
+         <div id="xianList" style="display: none; position: absolute ;width: 30%;left:60%; top:20%; border: 1px solid black; overflow: hidden; position: absolute; background-color:#FFFFFF; "> 
                 <table width="100%" border="0" cellpadding="0" cellspacing="0"> 
                     <tr> 
                         <td> 
-                               <div id="contentDiv"  style="overflow: auto; padding-left:0; width: 100%; background-color: red; ">
+                               <div id="cusXianDiv"  style="overflow: auto; padding-left:0; width: 100%; background-color: #F2F2F2;height: 82px; ">
                                	<ul>
                                	</ul>
                                </div> 
@@ -94,34 +87,6 @@
                 </table>   
           </div> 
 		</li>
-			<!-- <li><span>所在城市</span> 
-			<span style="position:absolute;overflow:hidden;margin-left: 170px;"> 
-			<select id="city" style="width:160%;">
-				<option></option>
-				<c:forEach items="${requestScope.cityList }" var="cyty">
-					<option>${cyty.cityname }</option>
-				</c:forEach>
-			</select>
-			</span><i></i>
-			<span style="position:absolute;display: block;">
-				<input onclick="input_sele_city()" id="customercity" name="customercity" type="text" 
-				placeholder="请输入城市" style="width:118px;margin-left: 228%;">
-			</span>
-			</li> -->
-			<!-- <li><span>服务区域</span> 
-			<span style="position:absolute;overflow:hidden;margin-left: 170px;"> 
-			<select id="xian" style="width:170%;">
-				<option></option>
-			</select>
-			<span class="float_select_quyu">
-				<a>海盐县</a>
-			</span>
-			</span><i></i> 
-			<span style="position:absolute;display: block;">
-				<input id="customerxian" name="customerxian" type="text"  id="customerxian"
-				placeholder="请输入地区" style="width:118px;margin-left: 228%;">
-			</span>
-			</li> -->
 			<li><span>店铺名称</span> <input name="customershop" type="text" id="customershop"
 				placeholder="请输入店铺名称"></li>
 			<li><span>店铺地址</span> <input name="customeraddress" type="text" id="customeraddress"
@@ -148,48 +113,16 @@
 </form>
 <script type="text/javascript">
 var customercity = '';
+var divListTop = $(".reg-wrapper ul li").innerHeight(); //divList的top值
+var xianListTop = divListTop*2;	//xianList的top值
+$("#divList").css("top",divListTop + "px");
+$("#xianList").css("top",xianListTop + "px");
 	$(function(){
 		//防止openid 为 字符串"null"
 		if(!window.localStorage.getItem("openid") || window.localStorage.getItem("openid")== 'null' || window.localStorage.getItem("openid") == ''){
-			//$(".meg").text("请先清理缓存");
-			//$(".cd-popup").addClass("is-visible");
 			window.location.href = "index.jsp";
 			return;
 		}
-		$("#customercity").change(function(){
-			customercity = $("#customercity").val();
-			//document.getElementById('customercity').value=document.getElementById('city').options[document.getElementById('city').selectedIndex].value;
-			//$("#city").val("");
-			Ext.Ajax.request({
-				url : "querycity.action",
-				method : "post",
-				params : {
-					"cityname" : customercity
-				},
-				success : function(resp,opts) {
-					var result = resp.responseText;
-					var $result = Ext.util.JSON.decode(result);
-					$("#xian").empty();			//清空select组件内的原始值
-					var $option = $('<option value="">请选择地区</option>');
-					$("#xian").append($option);
-					for ( var i = 0; i < $result.length; i++) {
-						var city = $result[i];
-						$option = $("<option>"+city.cityname+"</option>");
-						$("#xian").append($option);
-					}
-				},
-				failure : function(resp,opts) {
-					Ext.Msg.alert('提示', '网络出现问题，请稍后再试');
-				}
-			});
-		});   
-		
-		/* $("#xian").change(function(){
-			var xian = $("#xian").val();
-			$("#xian").val("");
-			$("#customerxian").val(xian);
-		}); */
-		
 		$(".cd-popup").on("click",function(event){		//绑定点击事件
 				$(this).removeClass("is-visible");	//移除'is-visible' class
 		});
@@ -238,37 +171,29 @@ var customercity = '';
 		});
 	}
 ////////////////////////////////////////////这是下拉列表菜单的js///////////////////////////////////////////////////////
-var oRegion = document.getElementById("customercity");     //需要弹出下拉列表的文本框 
+	   var oRegion = document.getElementById("customercity");     //需要弹出下拉列表的文本框 
        var oDivList = document.getElementById("divList");         //要弹出的下拉列表
        var contentD = document.getElementById("contentDiv") ;
-       //var oClose = document.getElementById("tdClose");   //关闭div的单元格，也可使用按钮实现 
-       //var QueryCode ="COPY_aibsm.enums.sm.receive.support_row" ;
+       var customerxianObj = $("#customerxian");
+       var xianListObj = $("#xianList");
        var bNoAdjusted = true;  //控制div是否已经显示的变量
        var html = "" ; 
        var all_html ="" ;
        var colOptions = "" ;
-       /* $(document).ready(function(){
-              //oRegion.style.background="url(/bomc3/jx/boms/busBackup/select2.jpg)  right -3px no-repeat";
-              //oRegion.style.backgroundColor="#fff" ;
-              getJsonListFromCode(QueryCode,function(data){
-                      if(data!=null&&data!=""){           // 存在查询结果 ;
-                           $.each(data,function(i,e){
-                                   all_html +="<li style='text-align:left; padding-left:5px;'>"+e.VALUE+"</li>" ;
-                           }) ;
-                     }
-              },'') ;
-       }) ; */
+       
      //关闭下拉框
        $(document).click(function (e) {          
           var target_id = $(e.target).attr('id') ;             // 获取点击dom元素id ;
           if(target_id!=oRegion.id){
                   oDivList.style.display = "none";//隐藏div，实现关闭下拉框的效果 ;
-                 //oRegion.style.background="url(/bomc3/jx/boms/busBackup/select2.jpg)  right -3px no-repeat";
-                  //oRegion.style.backgroundColor="#fff" ;
+          }
+          if(target_id!= customerxianObj.attr("id")){
+        	  xianListObj.css("display","none");
           }
        }) ;
        $(function(){
-    	   $("#contentDiv ul li").click(function(){
+	     //城市的选项被点击时的事件
+    	   $("#cusCityDiv ul li").click(function(){
     		   $(oRegion).val($(this).text());
     		   customercity = $(this).text();
     		   Ext.Ajax.request({
@@ -280,13 +205,10 @@ var oRegion = document.getElementById("customercity");     //需要弹出下拉�
    				success : function(resp,opts) {
    					var result = resp.responseText;
    					var $result = Ext.util.JSON.decode(result);
-   					$("#xian").empty();			//清空select组件内的原始值
-   					var $option = $('<option value="">请选择地区</option>');
-   					$("#xian").append($option);
    					for ( var i = 0; i < $result.length; i++) {
    						var city = $result[i];
-   						$option = $("<option>"+city.cityname+"</option>");
-   						$("#xian").append($option);
+   						$option = $("<li onclick='cityclick(this)'>"+city.cityname+"</li>");
+   						$("#cusXianDiv ul").append($option);
    					}
    				},
    				failure : function(resp,opts) {
@@ -294,30 +216,18 @@ var oRegion = document.getElementById("customercity");     //需要弹出下拉�
    				}
    			});
     	   });
+	     
        });
-       //设置下列选择项的一些事件 
-       function setEvent(colOptions){
-              for (var i=0; i<colOptions.length; i++) 
-              { 
-                  colOptions[i].onclick = function()//为列表项添加单击事件 
-                  { 
-                      oRegion.value = this.innerText;     //显示选择的文本；
-                      oRegion.style.backgroundColor="#219DEF" ;
-                      oDivList.style.display = "none";  
-                  }; 
-                  colOptions[i].onmouseover = function()//为列表项添加鼠标移动事件 
-                  { 
-                      this.style.backgroundColor = "#219DEF"; 
-                  }; 
-                  colOptions[i].onmouseout = function()  //为列表项添加鼠标移走事件 
-                  { 
-                      this.style.backgroundColor = ""; 
-                  }; 
-              } 
-       }
+	     /* $("#cusXianDiv ul li").click(function(){
+	    	 alert("lok");
+	    	 alert($(this).text());
+	    	 customerxianObj.val($(this).text());
+	     }); */
+	   function cityclick(obj){
+		   customerxianObj.val($(obj).text());
+	   }
        //文本获得焦点时的事件 (弹出下拉框)
        oRegion.onfocus = function() { 
-           //oRegion.style.background="url(/bomc3/jx/boms/busBackup/select.jpg)  right -3px no-repeat";
            oRegion.style.backgroundColor="white" ;
            oDivList.style.display = "block";
            if (bNoAdjusted) //控制div是否已经显示的变量 
@@ -329,38 +239,10 @@ var oRegion = document.getElementById("customercity");     //需要弹出下拉�
                oDivList.style.posLeft = oRegion.offsetLeft +1 ;               // 设定与左边的位置;
            } 
        }; 
-      
-       // 文本内容改变时监听事件 ;
-       /* oRegion.onpropertychange = function(){
-               contentD.innerHTML ="" ; // 情况div中所有li元素;
-               html ="" ;
-               InitializeDIV( oRegion.value) ;
-       }
-       function InitializeDIV(value){
-              var sql ="" ;
-              if(value!=""){
-                     html+= "<ul><li style='text-align:left; padding-left:3px;'>按"+'"'+"<font style='color :red;'>"+value+"</font>"+'"'+"检索:</li>";
-                     sql += 'value='+value ;
-              }else{
-                html+= "<ul><li style='text-align:left; padding-left:3px;'>请输入检索条件:"+"</li>";
-                     sql ="" ;
-              }
-              getJsonListFromCodeSync(QueryCode,function(data){
-                      if(data!=null&&data!=""){           // 存在查询结果 ;
-                           $.each(data,function(i,e){
-                                   html+="<li style='text-align:left; padding-left:3px;'>"+e.VALUE+"</li>" ;
-                           }) ;
-                      }else{         // 没有查询结果;
-                                  html ="" ;
-                                  html+= "<ul><li style='text-align:left; padding-left:3px;'>无法匹配:"+'"'+"<font style='color :red;'>"+value+"</font>"+'"'+"</li>";
-                                  html += all_html ;
-                      }
-                      html+="</ul>" ;
-              },sql) ;
-              contentD.innerHTML = html ;
-              colOptions = $("#contentDiv li") ; //所有列表元素
-              setEvent(colOptions) ;
-       } */
+       //县的文本获得焦点的事件
+       customerxianObj.focus(function(){
+    	   $("#xianList").css("display","block");
+       });
 </script>
 </body>
 </html>
