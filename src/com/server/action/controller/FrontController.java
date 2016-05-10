@@ -7,14 +7,12 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.server.dao.mapper.AddressMapper;
 import com.server.dao.mapper.CityMapper;
 import com.server.dao.mapper.CompanyMapper;
-import com.server.dao.mapper.CustomerMapper;
 import com.server.dao.mapper.GivegoodsMapper;
 import com.server.dao.mapper.GoodsMapper;
 import com.server.dao.mapper.OrderdMapper;
@@ -24,10 +22,8 @@ import com.server.pojo.entity.Address;
 import com.server.pojo.entity.City;
 import com.server.pojo.entity.Company;
 import com.server.pojo.entity.Givegoods;
-import com.server.pojo.entity.Goods;
 import com.server.pojo.entity.GoodsVo;
 import com.server.pojo.entity.Orderd;
-import com.server.pojo.entity.Orderm;
 import com.system.tools.util.DateUtils;
 /**
  * 首页

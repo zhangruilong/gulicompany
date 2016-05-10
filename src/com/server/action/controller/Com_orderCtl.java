@@ -1,9 +1,6 @@
 package com.server.action.controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -186,12 +183,6 @@ public class Com_orderCtl {
 	@RequestMapping("/companySys/exportReport")
 	@ResponseBody
 	public void exportReport(HttpServletResponse response,String staTime,String endTime,String companyid,String condition) throws Exception{
-		/*if(staTime != null && !staTime.equals("") && staTime.length() <19){
-			staTime = staTime + " 00:00:00";
-		}
-		if(endTime != null && !endTime.equals("") && endTime.length() <19){
-			endTime = endTime + " 23:59:59";
-		}*/
 		ArrayList<Orderd> list = (ArrayList<Orderd>) orderdMapper.selectByTime(staTime, endTime, companyid,condition);
 		String[] heads = {"商品编码","商品名称","规格","商品单价","单位","数量","商品总价","实际金额"};				//表头
 		String[] discard = {"orderdid","orderdorderm","orderddetail","orderdclass","orderdtype","orderm"};			//要忽略的字段名
@@ -209,12 +200,6 @@ public class Com_orderCtl {
 	@RequestMapping("/companySys/exportOrderReport")
 	@ResponseBody
 	public void exportOrderReport(HttpServletResponse response,String staTime,String endTime,Orderm order) throws Exception{
-		/*if(staTime != null && !staTime.equals("") && staTime.length() <19){
-			staTime = staTime + " 00:00:00";
-		}
-		if(endTime != null && !endTime.equals("") && endTime.length() <19){
-			endTime = endTime + " 23:59:59";
-		}*/
 		ArrayList<Ordermview> ordermList = (ArrayList<Ordermview>)ordermMapper.selectByCompany(staTime, endTime,order);
 		String[] heads = {"订单编号","种类数","下单金额","实际金额","支付方式","订单状态","下单时间","联系人","手机","地址","修改时间","客户名称"};				//表头
 		String[] discard = {"ordermid","ordermcustomer","ordermcompany","ordermdetail","updor","ordermemp","orderdList","orderdCustomer"};			//要忽略的字段名
