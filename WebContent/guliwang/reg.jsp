@@ -45,6 +45,8 @@
 	list-style: none;
 	
 }
+.reg-wrapper ul li input{
+}
 </style>
 </head>
 
@@ -54,7 +56,7 @@
 		<ul>
 			<li>
 			<span>所在城市</span>
-			<input onclick="input_sele_city()" id="customercity" name="customercity" type="text" style="width:220px; background-color:#fff;"/> <i></i>
+			<input onclick="input_sele_city()" placeholder="所在城市" id="customercity" name="customercity" type="text" style="background-color:#fff;"/>
          <div id="divList" style="display: none; position: absolute ;width: 30%;left:60%; top:10%; border: 1px solid black; overflow: hidden; position: absolute; background-color:#FFFFFF; "> 
                 <table width="100%" border="0" cellpadding="0" cellspacing="0"> 
                     <tr> 
@@ -73,7 +75,7 @@
 			</li>
         <li>
 			<span>所在地区</span>
-			<input onclick="" id="customerxian" name="customerxian" type="text" style="width:220px; background-color:#fff;"/> <i></i>
+			<input onclick="" placeholder="所在地区" id="customerxian" name="customerxian" type="text" style="background-color:#fff;"/>
          <div id="xianList" style="display: none; position: absolute ;width: 30%;left:60%; top:20%; border: 1px solid black; overflow: hidden; position: absolute; background-color:#FFFFFF; "> 
                 <table width="100%" border="0" cellpadding="0" cellspacing="0"> 
                     <tr> 
