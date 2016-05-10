@@ -230,7 +230,6 @@ h1 .title_goodsinfo span{
 	<script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript">
 	$(function(){
-		alert('${requestScope.message}'+" == 添加商品");
 		if('${requestScope.message}' == '添加商品'){
 			$("[name='creator']").first().attr("checked",true);
 		}
@@ -320,7 +319,7 @@ h1 .title_goodsinfo span{
 			'creator':creator
 		},function(data){
 			alert('价格已更新！');
-			window.location.href = 'allGoods.action?goodscompany=${requestScope.goodsCon.goodscompany }'+
+			window.location.href = 'allGoods.action?goodscompany=${sessionScope.company.companyid }'+
 					'&goodscode=${requestScope.goodsCon.goodscode }&goodsstatue=${requestScope.goodsCon.goodsstatue }'+
 					'&goodsid=${requestScope.goodsCon.goodsid }&pagenow=${requestScope.pagenow }';
 		});
