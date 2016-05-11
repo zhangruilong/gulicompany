@@ -1,14 +1,9 @@
 package com.server.action.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +17,6 @@ import com.server.dao.mapper.GoodsclassMapper;
 import com.server.dao.mapper.PricesMapper;
 import com.server.dao.mapper.ScantMapper;
 import com.server.dao.mapper.TimegoodsMapper;
-import com.server.pojo.entity.Company;
 import com.server.pojo.entity.Givegoods;
 import com.server.pojo.entity.Goods;
 import com.server.pojo.entity.Goodsclass;

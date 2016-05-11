@@ -17,7 +17,6 @@ import com.server.dao.mapper.CcustomerMapper;
 import com.server.dao.mapper.CustomerMapper;
 import com.server.pojo.entity.Ccustomer;
 import com.server.pojo.entity.Customer;
-import com.server.pojo.entity.Orderd;
 import com.system.tools.util.DateUtils;
 import com.system.tools.util.FileUtil;
 
