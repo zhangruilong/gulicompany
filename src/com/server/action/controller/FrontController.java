@@ -57,15 +57,6 @@ public class FrontController {
 		List<City> cities = cityMapper.selectByCityparent(parentCity.getCityid());	//根据父类城市ID查询得到地区集合
 		pageInfo.put("cityList", cities);
 		pageInfo.put("parentCity", parentCity);
-		/*//根据 '地区' 查询该地区的 '经销商' 和该经销商的 '促销商品'
-		List<Company> companyList = companyMapper.selectCompanyByCondition(companyCondition);	//条件中包含城市名
-		pageInfo.put("companyList", companyList);
-		//查询到客户的所有秒杀品的订单详情
-		List<Orderd> cusOrderdList = null;
-		if(customerid != null){
-			cusOrderdList = orderdMapper.selectOrderdByCustomerMiaosha(customerid);
-		}
-		pageInfo.put("cusOrderdList", cusOrderdList);*/
 		pageInfo.put("companyCondition", companyCondition);
 		return pageInfo;
 	}
@@ -150,18 +141,24 @@ public class FrontController {
 			if(orderd.getOrderdtype().equals("商品")){
 				GoodsVo goodsVo = new GoodsVo();
 				goodsVo.setType("商品");
-				goodsVo.setGoods(goodsMapper.selectByGoods(orderd.getOrderdcode()).get(0));
-				goodsVoList.add(goodsVo);
+				if(goodsMapper.selectByGoods(orderd.getOrderdcode()) != null && goodsMapper.selectByGoods(orderd.getOrderdcode()).size() >0){
+					goodsVo.setGoods(goodsMapper.selectByGoods(orderd.getOrderdcode()).get(0));
+					goodsVoList.add(goodsVo);
+				}
 			} else if(orderd.getOrderdtype().equals("秒杀")){
 				GoodsVo goodsVo = new GoodsVo();
 				goodsVo.setType("秒杀");
-				goodsVo.setTimegoods(timegoodsMapper.selectByCode(orderd.getOrderdcode()).get(0));
-				goodsVoList.add(goodsVo);
+				if(timegoodsMapper.selectByCode(orderd.getOrderdcode()) != null && timegoodsMapper.selectByCode(orderd.getOrderdcode()).size() >0){
+					goodsVo.setTimegoods(timegoodsMapper.selectByCode(orderd.getOrderdcode()).get(0));
+					goodsVoList.add(goodsVo);
+				}
 			} else {
 				GoodsVo goodsVo = new GoodsVo();
 				goodsVo.setType("买赠");
-				goodsVo.setGivegoods(givegoodsMapper.selectByCode(orderd.getOrderdcode()).get(0));
-				goodsVoList.add(goodsVo);
+				if(givegoodsMapper.selectByCode(orderd.getOrderdcode()) != null && givegoodsMapper.selectByCode(orderd.getOrderdcode()).size() >0){
+					goodsVo.setGivegoods(givegoodsMapper.selectByCode(orderd.getOrderdcode()).get(0));
+					goodsVoList.add(goodsVo);
+				}
 			}
 		}
 		return goodsVoList;
@@ -178,15 +175,6 @@ public class FrontController {
 		List<City> cities = cityMapper.selectByCityparent(parentCity.getCityid());	//根据父类城市ID查询得到地区集合
 		pageInfo.put("cityList", cities);
 		pageInfo.put("parentCity", parentCity);
-		/*//根据 '地区' 查询该地区的 '经销商' 和该经销商的 '促销商品'
-		List<Company> companyList = companyMapper.selectCompanyByCondition(companyCondition);	//条件中包含城市名
-		pageInfo.put("companyList", companyList);
-		//查询到客户的所有秒杀品的订单详情
-		List<Orderd> cusOrderdList = null;
-		if(customerid != null){
-			cusOrderdList = orderdMapper.selectOrderdByCustomerMiaosha(customerid);
-		}
-		pageInfo.put("cusOrderdList", cusOrderdList);*/
 		pageInfo.put("companyCondition", companyCondition);
 		return pageInfo;
 	}
@@ -270,18 +258,24 @@ public class FrontController {
 			if(orderd.getOrderdtype().equals("商品")){
 				GoodsVo goodsVo = new GoodsVo();
 				goodsVo.setType("商品");
-				goodsVo.setGoods(goodsMapper.selectByGoods(orderd.getOrderdcode()).get(0));
-				goodsVoList.add(goodsVo);
+				if(goodsMapper.selectByGoods(orderd.getOrderdcode()) != null && goodsMapper.selectByGoods(orderd.getOrderdcode()).size() >0){
+					goodsVo.setGoods(goodsMapper.selectByGoods(orderd.getOrderdcode()).get(0));
+					goodsVoList.add(goodsVo);
+				}
 			} else if(orderd.getOrderdtype().equals("秒杀")){
 				GoodsVo goodsVo = new GoodsVo();
 				goodsVo.setType("秒杀");
-				goodsVo.setTimegoods(timegoodsMapper.selectByCode(orderd.getOrderdcode()).get(0));
-				goodsVoList.add(goodsVo);
+				if(timegoodsMapper.selectByCode(orderd.getOrderdcode()) != null && timegoodsMapper.selectByCode(orderd.getOrderdcode()).size() >0){
+					goodsVo.setTimegoods(timegoodsMapper.selectByCode(orderd.getOrderdcode()).get(0));
+					goodsVoList.add(goodsVo);
+				}
 			} else {
 				GoodsVo goodsVo = new GoodsVo();
 				goodsVo.setType("买赠");
-				goodsVo.setGivegoods(givegoodsMapper.selectByCode(orderd.getOrderdcode()).get(0));
-				goodsVoList.add(goodsVo);
+				if(givegoodsMapper.selectByCode(orderd.getOrderdcode()) != null && givegoodsMapper.selectByCode(orderd.getOrderdcode()).size() >0){
+					goodsVo.setGivegoods(givegoodsMapper.selectByCode(orderd.getOrderdcode()).get(0));
+					goodsVoList.add(goodsVo);
+				}
 			}
 		}
 		return goodsVoList;
