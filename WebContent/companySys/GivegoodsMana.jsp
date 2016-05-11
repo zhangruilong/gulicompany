@@ -215,6 +215,7 @@ function goodsPageTo(pageCountGoods){
 }
 //弹出添加买赠商品的窗口
 function addgivegoods(){
+	$(".elegant-aero [type!='button']").val("");
 	$(".cd-popup").addClass("is-visible");	//弹出窗口
 	/* $.getJSON("getallGoodclass.action",function(data){
 		$.each(data,function(i,item){

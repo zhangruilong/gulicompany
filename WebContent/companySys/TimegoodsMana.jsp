@@ -231,6 +231,7 @@ function addtimegoods(){
 }
 //关闭添加秒杀商品窗口
 function close_popup(){
+	$(".elegant-aero [type!='button']").val("");
 	$(".cd-popup").removeClass("is-visible");	//移除'is-visible' class
 }
 //关闭商品选择窗口

@@ -237,6 +237,7 @@ function setgoodsprices(){
 }
 //添加商品窗口
 function addgoods(){
+	$("#popup_form [type!='button']").val("");
 	$(".cd-popup").addClass("is-visible");	//弹出窗口
 	$.getJSON("getallGoodclass.action",function(data){
 		$.each(data,function(i,item){
