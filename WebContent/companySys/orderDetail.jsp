@@ -75,7 +75,7 @@ onclick="del('editOrder.action?ordermid=${requestScope.order.ordermid }&ordermco
 			<td>${orderd.orderdnum}</td>
 			<td>${orderd.orderdmoney}</td>
 			<td>${orderd.orderdrightmoney}</td>
-			<td><a href="doeditOrder.action?orderdid=${orderd.orderdid}&ordermcompany=${sessionScope.company.companyid }&ordermid=${requestScope.order.ordermid }">修改</a></td>
+			<td><a href="doeditOrder.action?orderdid=${orderd.orderdid}&ordermcompany=${requestScope.order.ordermcompany }&ordermid=${requestScope.order.ordermid }">修改</a></td>
 		</tr>
 	</pg:item>
 	</c:forEach>
@@ -101,11 +101,11 @@ onclick="del('editOrder.action?ordermid=${requestScope.order.ordermid }&ordermco
 </form>
 <script type="text/javascript">
 var ordermid = '<%=ordermid%>';
-var ordermcompany = '<%=ordermcompany%>';
+var ordermcompany = '${requestScope.order.ordermcompany }';
 //修改订单状态
 function updateStatue(statue){
 	if(confirm("是否修改订单状态")){
-		window.parent.main.location.href = 
+		window.location.href = 
 			"deliveryGoods.action?ordermid="
 					+ordermid
 					+"&ordermcompany="
