@@ -24,7 +24,7 @@
 <body>
 	<div class="elegant-aero">
 		<form action="" method="post" class="STYLE-NAME">
-		<input type="hidden" name="givegoodscompany" value="${requestScope.givegoodsCon.givegoodscompany }">
+		<input type="hidden" name="givegoodscompany" value="${requestScope.editGiveGoods.givegoodscompany }">
 			<h1>买赠商品信息</h1>
 			<label><span>编码 :</span><input id="givegoodscode" type="text"
 				name="givegoodscode" value="${requestScope.editGiveGoods.givegoodscode }" placeholder="编码" /></label>
@@ -80,7 +80,7 @@ function saveEdit(){
 		$.post('editGiveGoods.action',JSON.parse(data),function(data){
 			if(data == 'ok'){
 				alert('修改成功');
-				window.location.href = 'allGiveGoods.action?givegoodscompany=${requestScope.givegoodsCon.givegoodscompany }&pagenow=${requestScope.pagenow}';
+				window.location.href = 'allGiveGoods.action?givegoodscompany=${requestScope.editGiveGoods.givegoodscompany }&pagenow=${requestScope.pagenow}';
 			} else {
 				alert('修改失败');
 			}

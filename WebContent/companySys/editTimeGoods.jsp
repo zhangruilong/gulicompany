@@ -24,7 +24,7 @@
 <body>
 	<div class="elegant-aero">
 		<form action="" method="post" class="STYLE-NAME">
-		<input type="hidden" name="timegoodscompany" value="${requestScope.timegoodsCon.timegoodscompany }">
+		<input type="hidden" name="timegoodscompany" value="${requestScope.editTimeGoods.timegoodscompany }">
 			<h1>秒杀商品信息</h1>
 			<label><span>编码 :</span><input id="timegoodscode" type="text"
 				name="timegoodscode" value="${requestScope.editTimeGoods.timegoodscode }" placeholder="编码" /></label>
@@ -78,7 +78,7 @@ function saveEdit(){
 		$.post('editTimeGoods.action',JSON.parse(data),function(data){
 			if(data == 'ok'){
 				alert('修改成功');
-				window.location.href = 'allTimeGoods.action?timegoodscompany=${sessionScope.company.companyid}&pagenow=${requestScope.pagenow}';
+				window.location.href = 'allTimeGoods.action?timegoodscompany=${requestScope.editTimeGoods.timegoodscompany }&pagenow=${requestScope.pagenow}';
 			} else {
 				alert('修改失败');
 			}
