@@ -22,10 +22,8 @@ String ordermcompany = request.getParameter("ordermcompany");
 <body>
 <form action="deleOrderd.action" method="post">
  <pg:pager maxPageItems="10" url="orderDetail.action">
- <pg:param name="ordermcompany" value="${sessionScope.company.companyid }"/>
  <pg:param name="ordermid" value="${requestScope.order.ordermid }"/>
  <pg:param name="orderdids"/>
- <input type="hidden" name="ordermcompany" value="${sessionScope.company.companyid }">
  <input type="hidden" name="ordermid" value="${requestScope.order.ordermid }">
  <input type="hidden" name="ordermrightmoney" value="${requestScope.order.ordermrightmoney }">
  <input type="hidden" name="ordermmoney" value="${requestScope.order.ordermmoney }">
@@ -38,7 +36,7 @@ String ordermcompany = request.getParameter("ordermcompany");
 <input class="button" type="button" value="订单发货" onclick="updateStatue('已发货');">
 <input class="button" type="button" value="完成订单" onclick="updateStatue('已完成');">
 <input class="button" type="button" value="删除订单" 
-onclick="del('editOrder.action?ordermid=${requestScope.order.ordermid }&ordermcompany=${sessionScope.company.companyid }','删除')">
+onclick="del('editOrder.action?ordermid=${requestScope.order.ordermid }&ordermcompany=${requestScope.order.ordermcompany }','删除')">
 <input class="button" type="button" value="删除商品" onclick="delegoods()">
 </p>
 <table class="bordered">

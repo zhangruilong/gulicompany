@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/";
 %>
@@ -23,7 +24,7 @@ body{
 </style>
 </head>
 
-<body style="width:700px;height:400px;">
+<body style="width:740px;height:400px;">
 <OBJECT classid="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2" height="0" id="WindowPrint" 
 name="WindowPrint" width="0"></OBJECT>
 
@@ -37,15 +38,15 @@ window.print()
 <div>
 	<table width="100%" cellspacing="0" cellpadding="0" style="border-collapse: collapse;border-bottom:solid 1px black;">
 		<tr>
-			<td colspan="6" style="text-align: center;font-size: 33px;font-family: 黑体;border-left: hidden;border-top: hidden;border-bottom: hidden;">《谷粒网物流配送单》</td>
+			<td colspan="6" style="text-align: center;font-size: 33px;font-family: 黑体;border-left: hidden;border-top: hidden;border-bottom: hidden;">《${requestScope.printCompany.companyshop }》</td>
 		</tr>
 		<tr style="height: 40px;">
-			<td width="10%" style="text-align: center;font-family: 黑体;font-size: 12px;border-left: hidden;border-top: hidden;border-right: hidden;">订单编号：</td>
-			<td width="25%" style="font-family: 黑体;border-left: hidden;border-top: hidden;">${requestScope.order.ordermcode }</td>
-			<td width="10%" style="text-align: center;font-family: 黑体;font-size: 12px;border-left: hidden;border-top: hidden;border-right: hidden;">供货商：</td>
-			<td width="25%" style="font-family: 黑体;border-left: hidden;border-top: hidden;">${requestScope.printCompany.companyshop }</td>
-			<td width="10%" style="text-align: center;font-family: 黑体;font-size: 12px;border-left: hidden;border-top: hidden;border-right: hidden;">联系电话：</td>
-			<td width="25%" style="font-family: 黑体;border-left: hidden;border-top: hidden;">${requestScope.printCompany.companyphone }</td>
+			<td width="9%" style="text-align: center;font-family: 黑体;font-size: 12px;border-left: hidden;border-top: hidden;border-right: hidden;">订单编号：</td>
+			<td width="19%" style="font-size: 12px;font-family: 黑体;border-left: hidden;border-top: hidden;">${requestScope.order.ordermcode }</td>
+			<td width="9%" style="text-align: center;font-family: 黑体;font-size: 12px;border-left: hidden;border-top: hidden;border-right: hidden;">联系地址：</td>
+			<td width="41%" style="font-size: 12px;font-family: 黑体;border-left: hidden;border-top: hidden;">${requestScope.printCompany.companyaddress }</td>
+			<td width="9%" style="text-align: center;font-family: 黑体;font-size: 12px;border-left: hidden;border-top: hidden;border-right: hidden;">联系电话：</td>
+			<td width="13%" style="font-size: 12px;font-family: 黑体;border-left: hidden;border-top: hidden;">${requestScope.printCompany.companyphone }</td>
 		</tr>
 	</table>
 	<table width="100%" border="0" cellspacing="0" cellpadding="3">
@@ -60,8 +61,8 @@ window.print()
 		<tr>
 			<td align="right" style="font-size: 12px;">联系地址：</td>
 			<td colspan="3">${requestScope.order.ordermaddress }</td>
-			<td align="right" style="background-color: #80ffff; text-align: left;font-size: 12px;">订单备注：</td>
-			<td colspan="2" style="background-color: #80ffff;">${requestScope.order.ordermdetail }</td>
+			<td align="right" style="font-size: 12px;">订单日期：</td>
+			<td colspan="2" style=""><fmt:formatDate value="<%=new Date() %>" type="date"/></td>
 		</tr>
 	</table>
 	
@@ -69,14 +70,14 @@ window.print()
 	<tr>
 		<td width="35" align="center" style="font-family: 黑体;font-size: 12px;">序号</td>
 		<td width="79" align="center" style="font-family: 黑体;font-size: 12px;">商品编号</td>
-		<td width="170" style="font-family: 黑体;font-size: 12px;">商品名称</td>
-		<td width="114" align="center" style="font-family: 黑体;font-size: 12px;">规格</td>
-		<td width="40" align="center" style="font-family: 黑体;font-size: 12px;">单位</td>
-		<td width="62" style="font-family: 黑体;font-size: 12px;">数量</td>
+		<td width="198" style="font-family: 黑体;font-size: 12px;">商品名称</td>
+		<td width="120" align="center" style="font-family: 黑体;font-size: 12px;">规格</td>
+		<td width="30" align="center" style="font-family: 黑体;font-size: 12px;">单位</td>
+		<td width="30" style="font-family: 黑体;font-size: 12px;">数量</td>
 		<td width="40" align="center" style="font-family: 黑体;font-size: 12px;">价格</td>
 		<td width="57" style="font-family: 黑体;font-size: 12px;">下单金额</td>
 		<td width="57" style="font-family: 黑体;font-size: 12px;">实际金额</td>
-		<td width="110" align="center" style="font-family: 黑体;font-size: 12px;background-color: #80ffff;">备注</td>
+		<td width="180" align="center" style="font-family: 黑体;font-size: 12px;">备注</td>
 	</tr>
 	<c:forEach items="${requestScope.order.orderdList }" var="orderDetail" varStatus="sta">
 		<tr>
@@ -121,6 +122,7 @@ window.print()
 		<td style="width: 24%;font-size: 12px;">审核员:<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
 	</tr>
 	</table>
+	<div style="font-size: 12px;">★ 本订单及系统由谷粒网提供支持</div>
 </div>
 
 <input type="button" name="Btn_printPreviw" value="打印" 
