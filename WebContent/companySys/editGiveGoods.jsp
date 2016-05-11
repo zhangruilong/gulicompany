@@ -80,7 +80,7 @@ function saveEdit(){
 		$.post('editGiveGoods.action',JSON.parse(data),function(data){
 			if(data == 'ok'){
 				alert('修改成功');
-				window.location.href = 'allGiveGoods.action?givegoodscompany=${sessionScope.company.companyid}&pagenow=${requestScope.pagenow}';
+				window.location.href = 'allGiveGoods.action?givegoodscompany=${requestScope.givegoodsCon.givegoodscompany }&pagenow=${requestScope.pagenow}';
 			} else {
 				alert('修改失败');
 			}
