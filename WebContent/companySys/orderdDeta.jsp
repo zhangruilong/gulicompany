@@ -13,7 +13,7 @@
 	<div class="elegant-aero">
 		<form action="editOrderd.action" method="post" class="STYLE-NAME">
 		<input type="hidden" name="orderdid" value="${requestScope.orderd.orderdid }">
-		<input type="hidden" name="ordermcompany" value="${sessionScope.company.companyid }">
+		<input type="hidden" name="ordermcompany" value="${requestScope.orderd.ordermcompany }">
  		<input type="hidden" name="ordermid" value="${requestScope.order.ordermid }">
  		<input type="hidden" id="diffOrderdmoney" name="diffOrderdmoney" value="">
  		<input type="hidden" id="diffOrderdrightmoney" name="diffOrderdrightmoney" value="">

@@ -319,7 +319,7 @@ h1 .title_goodsinfo span{
 			'creator':creator
 		},function(data){
 			alert('价格已更新！');
-			window.location.href = 'allGoods.action?goodscompany=${sessionScope.company.companyid }'+
+			window.location.href = 'allGoods.action?goodscompany=${requestScope.editPriGoods.goodscompany }'+
 					'&goodscode=${requestScope.goodsCon.goodscode }&goodsstatue=${requestScope.goodsCon.goodsstatue }'+
 					'&goodsid=${requestScope.goodsCon.goodsid }&pagenow=${requestScope.pagenow }';
 		});
