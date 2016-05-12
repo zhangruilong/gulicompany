@@ -312,9 +312,11 @@ function popup_formSub(){
 	var count = 0;
 	$(".elegant-aero [type='text']").add(".elegant-aero [type='number']").each(function(i,item){
 		if($(item).val() == null || $(item).val() == '' ){
-			alert($(item).attr('placeholder') + '不能为空');
-			count++;
-			return false;
+			if($(item).attr('placeholder') != '顺序'){
+				alert($(item).attr('placeholder') + '不能为空');
+				count++;
+				return false;
+			}
 		} else {
 			data += '"'+$(item).attr("name") + '":"' + $(item).val() + '",';
 		}

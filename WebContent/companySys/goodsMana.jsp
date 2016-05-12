@@ -120,8 +120,8 @@ String goodsstatue = request.getParameter("goodsstatue");
 				name="goodsname" placeholder="商品名称" /></label>
 			<label><span>规格 :</span><input id="goodsunits" type="text"
 				name="goodsunits" placeholder="规格" /></label>
-			<label><span>描述 :</span><input id="goodsdetail" type="text"
-				name="goodsdetail" placeholder="描述" /></label>
+			<!-- <label><span>描述 :</span><input id="goodsdetail" type="text"
+				name="goodsdetail" placeholder="描述" /></label> -->
 			<label><span>小类名称 :</span>
 			<select name="goodsclass" id="goodsclass">
 				<option value="">请选择</option>
@@ -131,8 +131,8 @@ String goodsstatue = request.getParameter("goodsstatue");
 				name="goodsimage" placeholder="描述" /></label>
 			<label><span>品牌 :</span><input id="goodsbrand" type="text"
 				name="goodsbrand" placeholder="品牌" /></label>
-			<label><span>种类 :</span><input id="goodstype" type="text"
-				name="goodstype" placeholder="种类" /></label>
+			<!-- <label><span>种类 :</span><input id="goodstype" type="text"
+				name="goodstype" placeholder="种类" /></label> -->
 			<label><span>顺序 :</span><input id="goodsorder" type="number"
 				name="goodsorder" placeholder="顺序" /></label>
 			<p><label><input type="button"
@@ -313,9 +313,11 @@ function popup_formSub(){
 	var count = 0;
 	$(".elegant-aero [type='text']").add(".elegant-aero [type='number']").each(function(i,item){
 		if($(item).val() == null || $(item).val() == '' ){
-			alert($(item).attr('placeholder') + '不能为空');
-			count++;
-			return false;
+			if($(item).attr('placeholder') != '品牌' && $(item).attr('placeholder') != '顺序'){
+				alert($(item).attr('placeholder') + '不能为空');
+				count++;
+				return false;
+			}
 		}
 	});
 	if(count == 0){

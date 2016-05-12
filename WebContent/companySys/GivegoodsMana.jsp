@@ -298,12 +298,7 @@ function seleScant(givegoodscode,givegoodsname,givegoodsunits,givegoodsimage){
 //提交添加商品的表单
 function popup_formSub(){
 	var data = '{';
-	/* if($("#givegoodsclass").val() == null || $("#givegoodsclass").val() == "" ){
-		alert("小类名称不能为空");
-		return;
-	} else { */
 		data += '"givegoodsclass":"买赠商品",';
-	/* } */
 	if($(".elegant-aero textarea").val() == null || $(".elegant-aero textarea").val() == ""){
 		alert("买赠描述不能为空");
 		return;
@@ -313,9 +308,11 @@ function popup_formSub(){
 	var count = 0;
 	$(".elegant-aero [type='text']").add(".elegant-aero [type='number']").each(function(i,item){
 		if($(item).val() == null || $(item).val() == '' ){
-			alert($(item).attr('placeholder') + '不能为空');
-			count++;
-			return false;
+			if($(item).attr('placeholder') != '顺序'){
+				alert($(item).attr('placeholder') + '不能为空');
+				count++;
+				return false;
+			}
 		} else {
 			data += '"'+$(item).attr("name") + '":"' + $(item).val() + '",';
 		}

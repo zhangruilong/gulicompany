@@ -68,9 +68,11 @@ function saveEdit(){
 	data += '"givegoodsstatue":"' +$("[name='givegoodsstatue']").val() +'",';
 	$(".elegant-aero [type='text']").add(".elegant-aero [type='number']").each(function(i,item){
 		if($(item).val() == null || $(item).val() == '' ){
-			alert($(item).attr('placeholder') + '不能为空');
-			count++;
-			return false;
+			if($(item).attr('placeholder') != '顺序' && $(item).attr('placeholder') != '图片路径'){
+				alert($(item).attr('placeholder') + '不能为空');
+				count++;
+				return false;
+			}
 		} else {
 			data += '"'+$(item).attr("name") + '":"' + $(item).val() + '",';
 		}

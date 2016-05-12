@@ -31,8 +31,8 @@
 				name="goodsname" placeholder="商品名称" /></label>
 			<label><span>规格 :</span><input id="goodsunits" type="text" value="${requestScope.editGoods.goodsunits }"
 				name="goodsunits" placeholder="规格" /></label>
-			<label><span>描述 :</span><input id="goodsdetail" type="text" value="${requestScope.editGoods.goodsdetail }"
-				name="goodsdetail" placeholder="描述" /></label>
+			<!-- <label><span>描述 :</span><input id="goodsdetail" type="text" value="${requestScope.editGoods.goodsdetail }"
+				name="goodsdetail" placeholder="描述" /></label> -->
 			<label><span>小类名称 :</span>
 			<select name="goodsclass" id="goodsclass">
 				<option value="">请选择</option>
@@ -42,8 +42,8 @@
 				name="goodsimage" placeholder="描述" /></label>
 			<label><span>品牌 :</span><input id="goodsbrand" type="text" value="${requestScope.editGoods.goodsbrand }"
 				name="goodsbrand" placeholder="品牌" /></label>
-			<label><span>种类 :</span><input id="goodstype" type="text" value="${requestScope.editGoods.goodstype }"
-				name="goodstype" placeholder="种类" /></label>
+			<!-- <label><span>种类 :</span><input id="goodstype" type="text" value="${requestScope.editGoods.goodstype }"
+				name="goodstype" placeholder="种类" /></label> -->
 			<label><span>顺序 :</span><input id="goodsorder" type="number" value="${requestScope.editGoods.goodsorder }"
 				name="goodsorder" placeholder="顺序" /></label>
 			<p><input type="button"
@@ -78,13 +78,11 @@ function saveEdit(){
 	}
 	data += '"timegoodsstatue":"' +$("[name='timegoodsstatue']").val() +'",';
 	$(".elegant-aero [type='text']").add(".elegant-aero [type='number']").each(function(i,item){
-		if($(item).attr('placeholder') != '描述'){
-			if($(item).val() == null || $(item).val() == '' ){
+		if($(item).val() == null || $(item).val() == '' ){
+			if($(item).attr('placeholder') != '品牌' && $(item).attr('placeholder') != '顺序'){
 				alert($(item).attr('placeholder') + '不能为空');
 				count++;
 				return false;
-			} else {
-				data += '"'+$(item).attr("name") + '":"' + $(item).val() + '",';
 			}
 		} else {
 			data += '"'+$(item).attr("name") + '":"' + $(item).val() + '",';
