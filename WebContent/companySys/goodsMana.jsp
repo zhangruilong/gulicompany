@@ -110,9 +110,9 @@ String goodsstatue = request.getParameter("goodsstatue");
 <!--弹框-->
 <div class="cd-popup" role="alert">
 	<div class="elegant-aero">
-		<form id="popup_form" action="addGoods.action" method="post" class="STYLE-NAME">
-		<input type="hidden" name="creator" value="${sessionScope.company.companyshop }">
-		<input type="hidden" name="goodscompany" value="${sessionScope.company.companyid }">
+		<form id="popup_form" action="addGoods.action?creator=${sessionScope.company.companyshop }&goodscompany=${sessionScope.company.companyid }" method="post" class="STYLE-NAME">
+		<!-- <input type="hidden" name="creator" value="${sessionScope.company.companyshop }">
+		<input type="hidden" name="goodscompany" value="${sessionScope.company.companyid }"> -->
 			<h1>添加商品</h1>
 			<label><span>商品编码 :</span><input id="addgoodscode" type="text"
 				name="goodscode" placeholder="商品编码" /></label>
@@ -128,7 +128,7 @@ String goodsstatue = request.getParameter("goodsstatue");
 			</select>
 			</label>
 			<label><span>图片路径 :</span><input id="goodsimage" type="text"
-				name="goodsimage" placeholder="描述" /></label>
+				name="goodsimage" placeholder="图片路径" /></label>
 			<label><span>品牌 :</span><input id="goodsbrand" type="text"
 				name="goodsbrand" placeholder="品牌" /></label>
 			<!-- <label><span>种类 :</span><input id="goodstype" type="text"
@@ -313,7 +313,7 @@ function popup_formSub(){
 	var count = 0;
 	$(".elegant-aero [type='text']").add(".elegant-aero [type='number']").each(function(i,item){
 		if($(item).val() == null || $(item).val() == '' ){
-			if($(item).attr('placeholder') != '品牌' && $(item).attr('placeholder') != '顺序'){
+			if($(item).attr('placeholder') != '品牌' && $(item).attr('placeholder') != '顺序'  && $(item).attr('placeholder') != '图片路径' ){
 				alert($(item).attr('placeholder') + '不能为空');
 				count++;
 				return false;
