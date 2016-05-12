@@ -110,9 +110,6 @@ h1 .title_goodsinfo span{
 			<span>商品名称:&nbsp;</span>${requestScope.editPriGoods.goodsname }&nbsp;&nbsp;
 			<span>编码:&nbsp;</span>${requestScope.editPriGoods.goodscode }&nbsp;&nbsp;
 			<span>规格:&nbsp;</span>${requestScope.editPriGoods.goodsunits }
-			<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price">
-				<c:if test="${price.pricesclass == '3' && price.priceslevel == 3 && price.creator == '启用'}">checked</c:if>
-			</c:forEach>
 			</div>
 			</h1>
 			<table>
