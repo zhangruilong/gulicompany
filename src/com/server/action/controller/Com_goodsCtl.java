@@ -108,6 +108,27 @@ public class Com_goodsCtl {
 		model.addAttribute("count", count);
 		return "forward:/companySys/GivegoodsMana.jsp";
 	}
+	//全部餐饮商品
+	@RequestMapping("/companySys/allCanyinGoods")
+	public String allCanyinGoods(Model model,Goods goodsCon,Integer pagenow){
+		if(pagenow == null){
+			pagenow = 1;
+		}
+		Integer count = goodsMapper.selectAllCanyinGoodsCount(goodsCon);	//总信息条数
+		Integer pageCount;		//总页数
+		if(count % 10 ==0){
+			pageCount = count / 10;
+		} else {
+			pageCount = (count / 10) +1;
+		}
+		List<Goods> goodsList = goodsMapper.selectAllCanyinGoods(goodsCon,pagenow,10);
+		model.addAttribute("goodsList", goodsList);
+		model.addAttribute("goodsCon", goodsCon);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("pagenow", pagenow);
+		model.addAttribute("count", count);
+		return "forward:/companySys/canyinGoodsMana.jsp";
+	}
 	//到商品价格页面
 	@RequestMapping("/companySys/doGoodsPrices")
 	public String doGoodsPrices(Model model,Goods goodsCon,Integer pagenow){

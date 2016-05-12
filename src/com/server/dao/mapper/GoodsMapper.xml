@@ -48,6 +48,68 @@
     GOODSIMAGE, GOODSSTATUE, CREATETIME, UPDTIME, CREATOR, UPDOR, GOODSBRAND, GOODSTYPE, 
     GOODSORDER
   </sql>
+  <!-- 查询全部餐饮商品(信息条数) -->
+  <select id="selectAllCanyinGoodsCount" resultType="int">
+	select
+		count(distinct goods.goodsid) 
+	from goods
+	 left join goodsclass gc
+    on gc.goodsclassid = goods.goodsclass
+    left join prices p 
+    on p.pricesgoods = goods.goodsid
+    where goods.goodscompany = #{goodscompany} 
+    and p.pricesclass = '3' 
+    and p.creator = '启用'
+    <if test="goodsstatue != null and goodsstatue != ''">
+    	and goods.goodsstatue = #{goodsstatue}
+    </if>
+    <if test="goodscode != null and goodscode != ''">
+			and
+			(goods.GOODSCODE like '%${goodscode}%' or
+			goods.GOODSNAME like '%${goodscode}%' or
+			goods.GOODSUNITS like '%${goodscode}%' or
+			goods.GOODSCLASS like '%${goodscode}%' or
+			goods.GOODSSTATUE like '%${goodscode}%' or
+			goods.CREATOR like '%${goodscode}%' or
+			goods.UPDOR like '%${goodscode}%' or
+			gc.goodsclassname like '%${goodscode}%')
+		</if>
+  </select>
+  <!-- 查询全部餐饮商品 -->
+  <select id="selectAllCanyinGoods" resultMap="BaseResultMap">
+	select * from 
+	(select A.*, ROWNUM RN from (
+		select
+    distinct goods.*,
+    gc.goodsclassname,
+    gc.goodsclassid
+    from goods
+    left join goodsclass gc
+    on gc.goodsclassid = goods.goodsclass
+    left join prices p 
+    on p.pricesgoods = goods.goodsid
+    where goods.goodscompany = #{goods.goodscompany} 
+    and p.pricesclass = '3' 
+    and p.creator = '启用'
+    <if test="goods.goodsstatue != null and goods.goodsstatue != ''">
+    	and goods.goodsstatue = #{goods.goodsstatue}
+    </if>
+    <if test="goods.goodscode != null and goods.goodscode != ''">
+			and
+			(goods.GOODSCODE like '%${goods.goodscode}%' or
+			goods.GOODSNAME like '%${goods.goodscode}%' or
+			goods.GOODSUNITS like '%${goods.goodscode}%' or
+			goods.GOODSCLASS like '%${goods.goodscode}%' or
+			goods.GOODSSTATUE like '%${goods.goodscode}%' or
+			goods.CREATOR like '%${goods.goodscode}%' or
+			goods.UPDOR like '%${goods.goodscode}%' or
+			gc.goodsclassname like '%${goods.goodscode}%')
+	</if>
+	order by goods.createtime desc
+ ) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) ) 
+where RN &gt; ((#{nowpage}-1)*#{pagesize})
+    
+  </select>
   <!-- 根据编码查询商品 -->
   <select id="selectByGoods" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
