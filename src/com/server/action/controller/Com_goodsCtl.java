@@ -316,6 +316,9 @@ public class Com_goodsCtl {
 	//添加商品
 	@RequestMapping("/companySys/addGoods")
 	public String addGoods(Model model,Goods goodsCon){
+		if(goodsCon.getGoodsorder() == null){
+			goodsCon.setGoodsorder(0);
+		}
 		goodsCon.setGoodsstatue("下架");
 		goodsCon.setCreatetime(DateUtils.getDateTime());
 		goodsCon.setGoodsid(CommonUtil.getNewId());
@@ -379,6 +382,9 @@ public class Com_goodsCtl {
 	@ResponseBody
 	public Map<String, Object> addTimeGoods(Timegoods timegoods){
 		Map<String, Object> map = new HashMap<String, Object>();
+		if(timegoods.getTimegoodsseq() == null){
+			timegoods.setTimegoodsseq(0);
+		}
 		timegoods.setTimegoodsid(CommonUtil.getNewId());
 		timegoods.setCreatetime(DateUtils.getDateTime());
 		timegoods.setSurplusnum(timegoods.getAllnum());
@@ -391,6 +397,9 @@ public class Com_goodsCtl {
 	@ResponseBody
 	public Map<String, Object> addGiveGoods(Givegoods givegoods){
 		Map<String, Object> map = new HashMap<String, Object>();
+		if(givegoods.getGivegoodsseq() == null){
+			givegoods.setGivegoodsseq(0);
+		}
 		givegoods.setGivegoodsid(CommonUtil.getNewId());
 		givegoods.setCreatetime(DateUtils.getDateTime());
 		givegoods.setGivegoodsstatue("启用");
