@@ -100,6 +100,11 @@ Company company = (Company)session.getAttribute("company");
 			        +"<span class='nav__item-text'>买赠商品</span>"
 			        +"</a>   "
 			        +"</li>"
+			        +"<li class='nav__item'>"
+			        +"<a href=allCanyinGoods.action?goodscompany="+'<%=company.getCompanyid() %>'+"  target='main' class='nav__item-link'>"
+			        +"<span class='nav__item-text'>餐饮商品</span>"
+			        +"</a>   "
+			        +"</li>"
 			        +"</ul>");
 			window.parent.main.location.href = "allGoods.action?goodscompany="+'<%=company.getCompanyid() %>';
 		}

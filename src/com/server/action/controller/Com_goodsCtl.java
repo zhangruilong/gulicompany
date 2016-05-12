@@ -108,6 +108,27 @@ public class Com_goodsCtl {
 		model.addAttribute("count", count);
 		return "forward:/companySys/GivegoodsMana.jsp";
 	}
+	//全部餐饮商品
+	@RequestMapping("/companySys/allCanyinGoods")
+	public String allCanyinGoods(Model model,Goods goodsCon,Integer pagenow){
+		if(pagenow == null){
+			pagenow = 1;
+		}
+		Integer count = goodsMapper.selectAllCanyinGoodsCount(goodsCon);	//总信息条数
+		Integer pageCount;		//总页数
+		if(count % 10 ==0){
+			pageCount = count / 10;
+		} else {
+			pageCount = (count / 10) +1;
+		}
+		List<Goods> goodsList = goodsMapper.selectAllCanyinGoods(goodsCon,pagenow,10);
+		model.addAttribute("goodsList", goodsList);
+		model.addAttribute("goodsCon", goodsCon);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("pagenow", pagenow);
+		model.addAttribute("count", count);
+		return "forward:/companySys/canyinGoodsMana.jsp";
+	}
 	//到商品价格页面
 	@RequestMapping("/companySys/doGoodsPrices")
 	public String doGoodsPrices(Model model,Goods goodsCon,Integer pagenow){
@@ -316,6 +337,9 @@ public class Com_goodsCtl {
 	//添加商品
 	@RequestMapping("/companySys/addGoods")
 	public String addGoods(Model model,Goods goodsCon){
+		if(goodsCon.getGoodsorder() == null){
+			goodsCon.setGoodsorder(0);
+		}
 		goodsCon.setGoodsstatue("下架");
 		goodsCon.setCreatetime(DateUtils.getDateTime());
 		goodsCon.setGoodsid(CommonUtil.getNewId());
@@ -379,6 +403,9 @@ public class Com_goodsCtl {
 	@ResponseBody
 	public Map<String, Object> addTimeGoods(Timegoods timegoods){
 		Map<String, Object> map = new HashMap<String, Object>();
+		if(timegoods.getTimegoodsseq() == null){
+			timegoods.setTimegoodsseq(0);
+		}
 		timegoods.setTimegoodsid(CommonUtil.getNewId());
 		timegoods.setCreatetime(DateUtils.getDateTime());
 		timegoods.setSurplusnum(timegoods.getAllnum());
@@ -391,6 +418,9 @@ public class Com_goodsCtl {
 	@ResponseBody
 	public Map<String, Object> addGiveGoods(Givegoods givegoods){
 		Map<String, Object> map = new HashMap<String, Object>();
+		if(givegoods.getGivegoodsseq() == null){
+			givegoods.setGivegoodsseq(0);
+		}
 		givegoods.setGivegoodsid(CommonUtil.getNewId());
 		givegoods.setCreatetime(DateUtils.getDateTime());
 		givegoods.setGivegoodsstatue("启用");

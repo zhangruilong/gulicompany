@@ -12,6 +12,15 @@ import com.server.pojo.entity.Goods;
  */
 public interface GoodsMapper {
 	/**
+	 * 查询全部餐饮商品(信息条数)
+	 */
+	Integer selectAllCanyinGoodsCount(Goods goods);
+	/**
+	 * 查询全部餐饮商品
+	 */
+	List<Goods> selectAllCanyinGoods(@Param("goods") Goods goods,
+    		@Param("nowpage") Integer nowpage,@Param("pagesize") Integer pagesize);
+	/**
 	 * 根据编码查询商品
 	 */
 	List<Goods> selectByGoods(String goodscode);

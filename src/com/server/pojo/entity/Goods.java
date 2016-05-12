@@ -66,7 +66,7 @@ public class Goods
 
    private String goodstype;			//种类
 
-   private BigDecimal goodsorder;		//顺序
+   private Integer goodsorder;		//顺序
    /**
     * 关联价格(一对多)
     */
@@ -343,11 +343,11 @@ public class Goods
 		this.goodstype = goodstype;
 	}
 
-	public BigDecimal getGoodsorder() {
+	public Integer getGoodsorder() {
 		return goodsorder;
 	}
 
-	public void setGoodsorder(BigDecimal goodsorder) {
+	public void setGoodsorder(Integer goodsorder) {
 		this.goodsorder = goodsorder;
 	}
 
