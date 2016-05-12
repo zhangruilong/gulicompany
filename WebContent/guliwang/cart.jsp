@@ -30,7 +30,7 @@
 	<div class="cd-popup-container">
 		<div class="cd-buttons">
         	<h1>谷粒网提示</h1>
-			<p class="popup_msg">还未注册,是否现在注册?</p>
+			<p class="popup_msg">尚无账号，立即注册？</p>
             <a href="#" class="cd-popup-close">取消</a><a class="popup_queding" href="doReg.action">确定</a>
 		</div>
 	</div>

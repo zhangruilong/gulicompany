@@ -32,8 +32,8 @@
 	<div class="cd-popup-container">
 		<div class="cd-buttons">
         	<h1>谷粒网提示</h1>
-			<p class="meg">操作成功!</p>
-            <a class="cd-popup-close">确定</a>
+			<p class="popup_msg">尚无账号，立即注册？</p>
+            <a href="#" class="cd-popup-close">取消</a><a class="popup_queding" href="doReg.action">确定</a>
 		</div>
 	</div>
 </div>
@@ -44,6 +44,13 @@ var customer = JSON.parse(window.localStorage.getItem("customer"));
 var xian = '${param.xian}';
 var givegoodscode = '${param.givegoodscode}';
 $(function(){ 
+	$(".cd-popup").on("click",function(event){		//绑定点击事件
+		if($(event.target).is(".cd-popup-close") || $(event.target).is(".cd-popup-container")){
+			//如果点击的是'取消'或者除'确定'外的其他地方
+			$(this).removeClass("is-visible");	//移除'is-visible' class
+			
+		}
+	});
 	//购物车图标上的数量
 	if(!window.localStorage.getItem("cartnum")){
 		window.localStorage.setItem("cartnum",0);
@@ -53,7 +60,6 @@ $(function(){
 	}else{
 		$("#totalnum").text(window.localStorage.getItem("cartnum"));
 	}
-	//页面信息
 	//页面信息
 	if(xian == ''){
 		xian = customer.customerxian
@@ -117,8 +123,8 @@ function judgePurchase(
 		givegoodsnum
 		) {
 	var customer = JSON.parse(window.localStorage.getItem("customer"));
-	if(!customer.customerid){
-		alert("购买前需注册");
+	if(!customer.customerid || customer.customerid == ''){
+		$(".cd-popup").addClass("is-visible");
 		return;
 	}
 	$.getJSON('judgePurchaseGiveGoods.action',{

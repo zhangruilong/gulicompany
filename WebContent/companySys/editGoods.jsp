@@ -39,7 +39,7 @@
 			</select>
 			</label>
 			<label><span>图片路径 :</span><input id="goodsimage" type="text" value="${requestScope.editGoods.goodsimage }"
-				name="goodsimage" placeholder="描述" /></label>
+				name="goodsimage" placeholder="图片路径" /></label>
 			<label><span>品牌 :</span><input id="goodsbrand" type="text" value="${requestScope.editGoods.goodsbrand }"
 				name="goodsbrand" placeholder="品牌" /></label>
 			<!-- <label><span>种类 :</span><input id="goodstype" type="text" value="${requestScope.editGoods.goodstype }"
@@ -60,7 +60,6 @@ $(function(){
 			var opt = '<option ';
 			if(item.goodsclassname == '${requestScope.editGoods.gClass.goodsclassname}'){
 				opt += ' selected="selected" value="'+item.goodsclassid+'">'+item.goodsclassname+'</option>';
-				alert('${requestScope.editGoods.gClass.goodsclassname}' + '小类名称是:' +item.goodsclassname);
 			} else {
 				opt += 'value="'+item.goodsclassid+'">'+item.goodsclassname+'</option>';
 			}
@@ -79,7 +78,7 @@ function saveEdit(){
 	data += '"timegoodsstatue":"' +$("[name='timegoodsstatue']").val() +'",';
 	$(".elegant-aero [type='text']").add(".elegant-aero [type='number']").each(function(i,item){
 		if($(item).val() == null || $(item).val() == '' ){
-			if($(item).attr('placeholder') != '品牌' && $(item).attr('placeholder') != '顺序'){
+			if($(item).attr('placeholder') != '品牌' && $(item).attr('placeholder') != '顺序'&& $(item).attr('placeholder') != '图片路径'){
 				alert($(item).attr('placeholder') + '不能为空');
 				count++;
 				return false;
@@ -93,9 +92,15 @@ function saveEdit(){
 		$.post('editGoods.action',JSON.parse(data),function(data){
 			if(data == 'ok'){
 				alert('修改成功');
-				window.location.href = 'allGoods.action?goodscompany=${sessionScope.company.companyid}&'+
-						'pagenow=${requestScope.pagenow}&goodscode=${requestScope.goodsCon.goodscode}&'+
-						'goodsstatue=${requestScope.goodsCon.goodsstatue}';
+				if('${param.pagefor}' == 'canyinGoodsPage'){
+					window.location.href = 'allCanyinGoods.action?goodscompany=${sessionScope.company.companyid}&'+
+					'pagenow=${requestScope.pagenow}&goodscode=${requestScope.goodsCon.goodscode}&'+
+					'goodsstatue=${requestScope.goodsCon.goodsstatue}';
+				} else {
+					window.location.href = 'allGoods.action?goodscompany=${sessionScope.company.companyid}&'+
+					'pagenow=${requestScope.pagenow}&goodscode=${requestScope.goodsCon.goodscode}&'+
+					'goodsstatue=${requestScope.goodsCon.goodsstatue}';
+				}
 			} else {
 				alert('修改失败');
 			}

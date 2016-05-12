@@ -228,7 +228,7 @@ h1 .title_goodsinfo span{
 	<script type="text/javascript">
 	$(function(){
 		if('${requestScope.message}' == '添加商品'){
-			$("[name='creator']").first().attr("checked",true);
+			$("[name='creator']").attr("checked",true);
 		}
 	});
 	function addData(){
@@ -316,9 +316,15 @@ h1 .title_goodsinfo span{
 			'creator':creator
 		},function(data){
 			alert('价格已更新！');
-			window.location.href = 'allGoods.action?goodscompany=${requestScope.editPriGoods.goodscompany }'+
-					'&goodscode=${requestScope.goodsCon.goodscode }&goodsstatue=${requestScope.goodsCon.goodsstatue }'+
-					'&goodsid=${requestScope.goodsCon.goodsid }&pagenow=${requestScope.pagenow }';
+			if('${param.pagefor}' == 'canyinGoodsPage'){
+				window.location.href = 'allCanyinGoods.action?goodscompany=${requestScope.editPriGoods.goodscompany }'+
+				'&goodscode=${requestScope.goodsCon.goodscode }&goodsstatue=${requestScope.goodsCon.goodsstatue }'+
+				'&goodsid=${requestScope.goodsCon.goodsid }&pagenow=${requestScope.pagenow }';
+			} else {
+				window.location.href = 'allGoods.action?goodscompany=${requestScope.editPriGoods.goodscompany }'+
+						'&goodscode=${requestScope.goodsCon.goodscode }&goodsstatue=${requestScope.goodsCon.goodsstatue }'+
+						'&goodsid=${requestScope.goodsCon.goodsid }&pagenow=${requestScope.pagenow }';
+			}
 		});
 	}
 	

@@ -67,7 +67,7 @@ input:focus{ outline:none}
 	<div class="cd-popup-container">
 		<div class="cd-buttons">
         	<h1>谷粒网提示</h1>
-			<p class="meg">是否注册?</p>
+			<p class="meg">尚无账号，立即注册？</p>
             <a href="#" class="cd-popup-close">取消</a><a class="ok" href="doReg.action" style="display: inline-block;">确定</a>
 		</div>
 	</div>

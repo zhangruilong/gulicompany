@@ -19,6 +19,7 @@
 <link href="css/base.css" type="text/css" rel="stylesheet">
 <link href="css/layout.css" type="text/css" rel="stylesheet">
 <link rel="stylesheet" href="css/swipe.css" type="text/css" />
+<link href="css/dig.css" type="text/css" rel="stylesheet">
 <style type="text/css">
 	.home-search-wrapper .citydrop img{
 		margin-top: 10px;
@@ -85,6 +86,16 @@
 			</ul>
 		</div>
 	</div>
+	<!--弹框-->
+<div class="cd-popup" role="alert">
+	<div class="cd-popup-container">
+		<div class="cd-buttons">
+        	<h1>谷粒网提示</h1>
+			<p class="popup_msg">尚无账号，立即注册？</p>
+            <a href="#" class="cd-popup-close">取消</a><a class="popup_queding" href="doReg.action">确定</a>
+		</div>
+	</div>
+</div>
 	<script src="js/jquery-1.8.3.min.js"></script>
 	<script src="js/jquery-dropdown.js"></script>
 	<script type="text/javascript">
@@ -94,6 +105,13 @@
 	$(function(){ 
 		//window.localStorage.setItem("openid","222222222");
 		//openid
+		$(".cd-popup").on("click",function(event){		//绑定点击事件
+			if($(event.target).is(".cd-popup-close") || $(event.target).is(".cd-popup-container")){
+				//如果点击的是'取消'或者除'确定'外的其他地方
+				$(this).removeClass("is-visible");	//移除'is-visible' class
+				
+			}
+		});
 		if(!window.localStorage.getItem("openid")||"null"==window.localStorage.getItem("openid")){
 			getOpenid();
 			window.localStorage.setItem("openid",getParamValue("openid"));		//得到openid
@@ -140,6 +158,9 @@
 	}
 	//得到客户信息
 	function initCustomer(data){			//将customer(客户信息放入缓存)
+		if(data.root[0].customerid == null || data.root[0].customerid == '' ){
+			$(".cd-popup").addClass("is-visible");
+		}
 		window.localStorage.setItem("customer",JSON.stringify(data.root[0]));
 		$.getJSON("doGuliwangIndex.action",{"city.cityname":data.root[0].customerxian,"cityname":data.root[0].customercity},initIndexPage,null);
 	}

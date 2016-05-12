@@ -27,7 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 查询条件:&nbsp;&nbsp;<input type="text" id="goodscode" name="goodscode" value="${requestScope.goodsCon.goodscode }">
 <input class="button" type="button" value="查询" onclick="subgoodsfor()">
 <input class="button" type="button" value="价格设置" onclick="setgoodsprices()">
-<input class="button" type="button" value="添加商品" onclick="addgoods()">
+<!-- <input class="button" type="button" value="添加商品" onclick="addgoods()"> -->
 <input class="button" type="button" value="修改" onclick="editgoods()">
 <input class="button" type="button" value="刷新" onclick="javascript:window.location.reload()">
 </div>
@@ -196,7 +196,7 @@ function editgoods(){
 		}
 	});
 	if(count > 0 && count < 2){
-		$('#main_form').attr('action','doEditGoods.action');
+		$('#main_form').attr('action','doEditGoods.action?pagefor=canyinGoodsPage');
 		$("[name='goodsid']").val(itemid);
 		$('#main_form').submit();
 	} else if(count == 0){
@@ -217,7 +217,7 @@ function setgoodsprices(){
 	});
 	if(count > 0 && count < 2){
 		//window.location.href = "doGoodsPrices.action?goodsid="+itemid+"&pagenow=${requestScope.pagenow}";
-		$('#main_form').attr('action','doGoodsPrices.action');
+		$('#main_form').attr('action','doGoodsPrices.action?pagefor=canyinGoodsPage');
 		$('.setPricesGoodsId').val(itemid);
 		$('#main_form').submit();
 	} else if(count == 0){
