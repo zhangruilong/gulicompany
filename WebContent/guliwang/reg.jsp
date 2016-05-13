@@ -43,7 +43,6 @@
 }
 #cusCityDiv ul li{
 	list-style: none;
-	
 }
 .reg-wrapper ul li input{
 }
