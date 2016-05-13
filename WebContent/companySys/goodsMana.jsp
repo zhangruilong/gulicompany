@@ -42,6 +42,8 @@ String goodsstatue = request.getParameter("goodsstatue");
 		<th>规格</th>
 		<th>类别</th>
 		<th>状态</th>
+		<th>品牌</th>
+		<th>顺序</th>
 		<th>创建时间</th>
 		<th>创建人</th>
 		<th>修改时间</th>
@@ -61,6 +63,8 @@ String goodsstatue = request.getParameter("goodsstatue");
 			<a class="edit_goodsStatus${goods.goodsid}" onclick="goodsStatusEdit('${goods.goodsid}')" >
 			${goods.goodsstatue}</a>
 			</td>
+			<td>${goods.goodsbrand}</td>
+			<td>${goods.goodsorder}</td>
 			<td>${goods.createtime}</td>
 			<td>${goods.creator}</td>
 			<td>${goods.updtime}</td>
