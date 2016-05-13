@@ -56,11 +56,11 @@
 			<li>
 			<span>所在城市</span>
 			<input onclick="input_sele_city()" placeholder="所在城市" id="customercity" name="customercity" type="text" style="background-color:#fff;"/>
-         <div id="divList" style="display: none; position: absolute ;width: 30%;left:60%; top:10%; border: 1px solid black; overflow: hidden; position: absolute; background-color:#FFFFFF; "> 
+         <div id="divList" style="display: none; position: absolute ;width: 50%;left:50%;height:30%; top:10%; border: 1px solid black; overflow: auto; position: absolute; background-color:#FFFFFF; "> 
                 <table width="100%" border="0" cellpadding="0" cellspacing="0"> 
                     <tr> 
                         <td> 
-                               <div id="cusCityDiv"  style="overflow: auto; padding-left:0; width: 100%; background-color: #F2F2F2;height: 82px; ">
+                               <div id="cusCityDiv"  style="overflow: auto; padding-left:0; width: 100%; background-color: #F2F2F2;height: 100%; ">
                                	<ul>
                                		<c:forEach items="${requestScope.cityList }" var="cyty">
                                			<li>${cyty.cityname }</li>
@@ -75,11 +75,11 @@
         <li>
 			<span>所在地区</span>
 			<input onclick="" placeholder="所在地区" id="customerxian" name="customerxian" type="text" style="background-color:#fff;"/>
-         <div id="xianList" style="display: none; position: absolute ;width: 30%;left:60%; top:20%; border: 1px solid black; overflow: hidden; position: absolute; background-color:#FFFFFF; "> 
+         <div id="xianList" style="display: none; position: absolute ;width: 50%;height:30%; left:50%; top:20%; border: 1px solid black; overflow: auto; position: absolute; background-color:#FFFFFF; "> 
                 <table width="100%" border="0" cellpadding="0" cellspacing="0"> 
                     <tr> 
                         <td> 
-                               <div id="cusXianDiv"  style="overflow: auto; padding-left:0; width: 100%; background-color: #F2F2F2;height: 82px; ">
+                               <div id="cusXianDiv"  style="overflow: auto; padding-left:0; width: 100%; background-color: #F2F2F2;height: 100%; ">
                                	<ul>
                                	</ul>
                                </div> 
@@ -116,6 +116,7 @@
 var customercity = '';
 var divListTop = $(".reg-wrapper ul li").innerHeight(); //divList的top值
 var xianListTop = divListTop*2;	//xianList的top值
+//var cusCityDivHeight = 
 $("#divList").css("top",divListTop + "px");
 $("#xianList").css("top",xianListTop + "px");
 	$(function(){
@@ -206,6 +207,7 @@ $("#xianList").css("top",xianListTop + "px");
    				success : function(resp,opts) {
    					var result = resp.responseText;
    					var $result = Ext.util.JSON.decode(result);
+   					$("#cusXianDiv").html("<ul></ul>");
    					for ( var i = 0; i < $result.length; i++) {
    						var city = $result[i];
    						$option = $("<li onclick='cityclick(this)'>"+city.cityname+"</li>");
