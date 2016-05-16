@@ -28,14 +28,17 @@ public class BuyController {
 	//到结算页面
 	@RequestMapping("/guliwang/doBuy")
 	public String doBuy(Model model,Address address){
-		if(address.getAddressid() == null){
+		if(address == null || address.getAddresscustomer() == null){
+			model.addAttribute("nullInfo", "y");
+			return "forward:/guliwang/cart.jsp";
+		} else if(address.getAddresscustomer() != null && address.getAddressid() == null ){
 			List<Address> addList = addressMapper.selectDefAddress(address);
 			if(addList != null && addList.size() != 0){
 				address = addList.get(0);
 			} else {
 				address = addressMapper.selectByCondition(address.getAddresscustomer()).get(0);
 			}
-		} else {
+		} else if(address.getAddressid() != null) {
 			address = addressMapper.selectByPrimaryKey(address.getAddressid());
 		}
 		model.addAttribute("address", address);

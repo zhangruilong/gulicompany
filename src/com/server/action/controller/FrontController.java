@@ -116,8 +116,11 @@ public class FrontController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		Address record = new Address();
 		String msg = "";
-		record.setAddresscustomer(orderd.getOrderm().getOrdermcustomer());
-		List<Address> addressList = addressMapper.selectDefAddress(record);
+		List<Address> addressList = null;
+		if(orderd != null && orderd.getOrderm() != null && orderd.getOrderm().getOrdermcustomer() != null){
+			record.setAddresscustomer(orderd.getOrderm().getOrdermcustomer());
+			addressList = addressMapper.selectDefAddress(record);
+		}
 		if(addressList == null || addressList.size() == 0){
 			msg = "no";
 		}

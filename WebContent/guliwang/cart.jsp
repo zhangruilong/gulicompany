@@ -39,6 +39,15 @@
 <script> 
 var customer = JSON.parse(window.localStorage.getItem("customer"));
 $(function(){
+	if('${requestScope.nullInfo}' == 'y'){
+		$(".popup_msg").text("网络问题请重试。");
+		$(".popup_queding").attr("href","index.jsp");
+		$(".cd-popup").addClass("is-visible");
+		setTimeout(function () {  
+	        window.location.href = "index.jsp";
+	    }, 500);
+		return;
+	}
 	if(!window.localStorage.getItem("totalnum")){
 		window.localStorage.setItem("totalnum",0);
 		$("#totalnum").text(0);
@@ -63,8 +72,10 @@ $(function(){
 });
 //点击结算时执行的方法
 function nextpage(){
-	setscompany();		//设置供应商信息
-	window.location.href = "doBuy.action?addresscustomer="+customer.customerid+"&addressture=1";
+	if(customer.customerid){
+		setscompany();		//设置供应商信息
+		window.location.href = "doBuy.action?addresscustomer="+customer.customerid+"&addressture=1";
+	}
 }
 //检查客户是否可以购买秒杀商品
 function checkCusSecKill(){

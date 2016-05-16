@@ -95,7 +95,11 @@ $(function(){
 		}
 	});
 	$("#result_img").on("click",function(){
-		window.location.href = 'uploadimg.jsp';
+		if(customer.customerid){
+			window.location.href = 'uploadimg.jsp';
+		} else {
+			$(".cd-popup").addClass("is-visible");
+		}
 	})
 })
 
