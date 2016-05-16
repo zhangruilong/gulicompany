@@ -19,6 +19,12 @@
 .button{
 	margin-left: 40px;
 }
+.elegant-aero p span{
+	font-weight: bold;
+}
+.elegant-aero p input[type="checkbox"]{
+	vertical-align:middle
+}
 </style>
 </head>
 <body>
@@ -26,6 +32,14 @@
 		<form action="" method="post" class="STYLE-NAME">
 		<input type="hidden" name="givegoodscompany" value="${requestScope.editGiveGoods.givegoodscompany }">
 			<h1>买赠商品信息</h1>
+			<p><span>客户范围 :</span>
+			餐饮客户:
+			<input type="checkbox" name="givegoodsscope" value="1" />
+			商超客户 :
+			<input type="checkbox" name="givegoodsscope" value="2" />
+			组织单位客户 :
+			<input type="checkbox" name="givegoodsscope" value="3" />
+			</p>
 			<label><span>编码 :</span><input id="givegoodscode" type="text"
 				name="givegoodscode" value="${requestScope.editGiveGoods.givegoodscode }" placeholder="编码" /></label>
 			<label><span>名称 :</span><input id="givegoodsname" type="text"
@@ -66,6 +80,13 @@ function saveEdit(){
 		data += '"givegoodsdetail":"' +$("[name='givegoodsdetail']").val() +'",';
 	}
 	data += '"givegoodsstatue":"' +$("[name='givegoodsstatue']").val() +'",';
+	var givegoodsscope = '';
+	$("input [name='givegoodsscope']").each(function(i,item){
+		if(item.checked == true){
+			givegoodsscope += $(item.val());
+		}
+	});
+	data += '"givegoodsscope":"' + givegoodsscope +'",';
 	$(".elegant-aero [type='text']").add(".elegant-aero [type='number']").each(function(i,item){
 		if($(item).val() == null || $(item).val() == '' ){
 			if($(item).attr('placeholder') != '顺序' && $(item).attr('placeholder') != '图片路径'){
