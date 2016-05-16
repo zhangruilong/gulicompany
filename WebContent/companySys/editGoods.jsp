@@ -82,6 +82,8 @@ function saveEdit(){
 				alert($(item).attr('placeholder') + '不能为空');
 				count++;
 				return false;
+			} else {
+				data += '"'+$(item).attr("name") + '":"' + $(item).val() + '",';
 			}
 		} else {
 			data += '"'+$(item).attr("name") + '":"' + $(item).val() + '",';
