@@ -43,6 +43,23 @@
 	font-weight: bold;
 }
 
+.elegant-aero p {
+	display: block;
+	height: 30px;
+	line-height: 15px;
+	margin: 2px 0px 10px 0px;
+	padding: 10px 0px 0px 5px;
+}
+
+.elegant-aero p span {
+	float: left;
+	width: 19.7%;
+	text-align: right;
+	padding-right: 15px;
+	font-weight: bold;
+	margin-top: 2px;
+}
+
 .elegant-aero input[type="number"], .elegant-aero input[type="text"], .elegant-aero input[type="password"],
 	.elegant-aero textarea, .elegant-aero select {
 	color: #888;

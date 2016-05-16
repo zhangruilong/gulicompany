@@ -19,9 +19,6 @@
 .button{
 	margin-left: 40px;
 }
-.elegant-aero p span{
-	font-weight: bold;
-}
 .elegant-aero p input[type="checkbox"]{
 	vertical-align:middle
 }
@@ -34,11 +31,11 @@
 			<h1>买赠商品信息</h1>
 			<p><span>客户范围 :</span>
 			餐饮客户:
-			<input type="checkbox" name="givegoodsscope" value="1" />
+			<input type="checkbox" name="givegoodsscope" value="1" ${fn:contains(requestScope.editGiveGoods.givegoodsscope,'1')?'checked':'' }/>
 			商超客户 :
-			<input type="checkbox" name="givegoodsscope" value="2" />
+			<input type="checkbox" name="givegoodsscope" value="2" ${fn:contains(requestScope.editGiveGoods.givegoodsscope,'2')?'checked':'' }/>
 			组织单位客户 :
-			<input type="checkbox" name="givegoodsscope" value="3" />
+			<input type="checkbox" name="givegoodsscope" value="3" ${fn:contains(requestScope.editGiveGoods.givegoodsscope,'3')?'checked':'' }/>
 			</p>
 			<label><span>编码 :</span><input id="givegoodscode" type="text"
 				name="givegoodscode" value="${requestScope.editGiveGoods.givegoodscode }" placeholder="编码" /></label>
@@ -81,9 +78,9 @@ function saveEdit(){
 	}
 	data += '"givegoodsstatue":"' +$("[name='givegoodsstatue']").val() +'",';
 	var givegoodsscope = '';
-	$("input [name='givegoodsscope']").each(function(i,item){
+	$("input[name='givegoodsscope']").each(function(i,item){
 		if(item.checked == true){
-			givegoodsscope += $(item.val());
+			givegoodsscope += $(item).val();
 		}
 	});
 	data += '"givegoodsscope":"' + givegoodsscope +'",';

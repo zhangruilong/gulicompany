@@ -17,6 +17,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <style type="text/css">
 .elegant-aero{
 	margin-top: 0;
+	overflow: auto;
 }
 .fenyelan_input{
 	width: 22px;
@@ -30,6 +31,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	margin-top:1%;
 	width: 60%;
 	background-color: #FBF1E5;
+}
+.elegant-aero p input[type="checkbox"]{
+	vertical-align:middle
 }
 </style>
 </head>
@@ -124,6 +128,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="cd-popup" role="alert">
 	<div class="elegant-aero">
 			<h1>添加秒杀商品</h1>
+			<p><span>客户范围 :</span>
+			餐饮客户:
+			<input type="checkbox" name="timegoodsscope" value="1" checked/>
+			商超客户 :
+			<input type="checkbox" name="timegoodsscope" value="2" checked/>
+			组织单位客户 :
+			<input type="checkbox" name="timegoodsscope" value="3" checked/>
+			</p>
 			<input type="hidden" id="timegoodsimage" value="">
 			<label><span>编码 :</span><input id="timegoodscode" type="text"
 				name="timegoodscode" placeholder="编码" /></label>
@@ -303,12 +315,7 @@ function seleScant(timegoodscode,timegoodsname,timegoodsunits,timegoodsimage){
 //提交添加商品的表单
 function popup_formSub(){
 	var data = '{';
-	/* if($("#timegoodsclass").val() == "" || $("#timegoodsclass").val() == null){
-		alert("小类名称不能为空");
-		return;
-	} else { */
-		data += '"timegoodsclass":"秒杀商品",';
-	/* } */
+	data += '"timegoodsclass":"秒杀商品",';
 	var count = 0;
 	$(".elegant-aero [type='text']").add(".elegant-aero [type='number']").each(function(i,item){
 		if($(item).val() == null || $(item).val() == '' ){
@@ -321,6 +328,13 @@ function popup_formSub(){
 			data += '"'+$(item).attr("name") + '":"' + $(item).val() + '",';
 		}
 	});
+	var timegoodsscope = '';
+	$("input[name='timegoodsscope']").each(function(i,item){
+		if(item.checked==true){
+			timegoodsscope += $(item).val();
+		}
+	});
+	data += '"timegoodsscope":"' + timegoodsscope +'",';
 	if(count == 0){
 		data += '"timegoodsimage":"'+$("#timegoodsimage").val()+'","timegoodscompany":"${requestScope.timegoodsCon.timegoodscompany }","creator":"${sessionScope.company.companyshop }"}';
 		$.getJSON('addTimeGoods.action',JSON.parse(data),function(){

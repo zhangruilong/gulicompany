@@ -1,4 +1,5 @@
 .cd-popup,.cd-popup2{
+	overflow: auto;
 	position:fixed;
 	left:0;
 	top:0;
@@ -57,7 +58,7 @@
 	width: 20%;
 	text-align: right;
 	padding-right: 15px;
-	margin-top: 10px;
+	margin-top: 6px;
 	font-weight: bold;
 }
 
@@ -72,9 +73,9 @@
 	-webkit-box-shadow: inset 0px 1px 6px #ECF3F5;
 	box-shadow: inset 0px 1px 6px #ECF3F5;
 	font: 200 12px/25px Arial, Helvetica, sans-serif;
-	height: 30px;
+	height: 25px;
 	line-height: 15px;
-	margin: 2px 6px 16px 0px;
+	margin: 2px 6px 5px 0px;
 }
 
 .elegant-aero textarea {
@@ -92,6 +93,23 @@
 	text-indent: 0.01px;
 	text-overflow: '';
 	width: 70%;
+}
+
+.elegant-aero p {
+	display: block;
+	height: 25px;
+	line-height: 15px;
+	margin: 2px 0px 5px 0px;
+	padding: 10px 0px 0px 5px;
+}
+
+.elegant-aero p span {
+	float: left;
+	width: 19.7%;
+	text-align: right;
+	padding-right: 15px;
+	font-weight: bold;
+	margin-top: 5px;
 }
 
 .elegant-aero .popup_button {

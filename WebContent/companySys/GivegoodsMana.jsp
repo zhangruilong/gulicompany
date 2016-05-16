@@ -31,6 +31,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	width: 60%;
 	background-color: #FBF1E5;
 }
+.elegant-aero p input[type="checkbox"]{
+	vertical-align:middle
+}
 </style>
 </head>
 <body>
@@ -123,6 +126,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="elegant-aero">
 			<h1>添加买赠商品</h1>
 			<input type="hidden" id="givegoodsimage" value="">
+			<p><span>客户范围 :</span>
+			餐饮客户:
+			<input type="checkbox" name="givegoodsscope" value="1" checked/>
+			商超客户 :
+			<input type="checkbox" name="givegoodsscope" value="2" checked/>
+			组织单位客户 :
+			<input type="checkbox" name="givegoodsscope" value="3" checked/>
+			</p>
 			<label><span>编码 :</span><input id="givegoodscode" type="text"
 				name="givegoodscode" placeholder="编码" /></label>
 			<label><span>名称 :</span><input id="givegoodsname" type="text"
@@ -317,6 +328,13 @@ function popup_formSub(){
 			data += '"'+$(item).attr("name") + '":"' + $(item).val() + '",';
 		}
 	});
+	var givegoodsscope = '';
+	$("input[name='givegoodsscope']").each(function(i,item){
+		if(item.checked == true){
+			givegoodsscope += $(item).val();
+		}
+	});
+	data += '"givegoodsscope":"' + givegoodsscope +'",';
 	if(count == 0){
 		data += '"givegoodsimage":"'+$("#givegoodsimage").val()+'","givegoodscompany":"${requestScope.givegoodsCon.givegoodscompany }","creator":"${sessionScope.company.companyshop }"}';
 		$.getJSON('addGiveGoods.action',JSON.parse(data),function(){

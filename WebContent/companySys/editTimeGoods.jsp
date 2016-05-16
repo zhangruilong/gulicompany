@@ -34,11 +34,11 @@
 			<h1>秒杀商品信息</h1>
 			<p><span>客户范围 :</span>
 			餐饮客户:
-			<input type="checkbox" name="timegoodsscope" value="1" />
+			<input type="checkbox" name="timegoodsscope" value="1" ${fn:contains(requestScope.editTimeGoods.timegoodsscope,'1')?'checked':'' }/>
 			商超客户 :
-			<input type="checkbox" name="timegoodsscope" value="2" />
+			<input type="checkbox" name="timegoodsscope" value="2" ${fn:contains(requestScope.editTimeGoods.timegoodsscope,'2')?'checked':'' }/>
 			组织单位客户 :
-			<input type="checkbox" name="timegoodsscope" value="3" />
+			<input type="checkbox" name="timegoodsscope" value="3" ${fn:contains(requestScope.editTimeGoods.timegoodsscope,'3')?'checked':'' }/>
 			</p>
 			<label><span>编码 :</span><input id="timegoodscode" type="text"
 				name="timegoodscode" value="${requestScope.editTimeGoods.timegoodscode }" placeholder="编码" /></label>
@@ -79,9 +79,9 @@ function saveEdit(){
 	var count = 0;
 	data += '"timegoodsstatue":"' +$("[name='timegoodsstatue']").val() +'",';
 	var timegoodsscope = '';
-	$("input [name='timegoodsscope']").each(function(i,item){
-		if(item.checked == true){
-			timegoodsscope += $(item.val());
+	$("input[name='timegoodsscope']").each(function(i,item){
+		if(item.checked==true){
+			timegoodsscope += $(item).val();
 		}
 	});
 	data += '"timegoodsscope":"' + timegoodsscope +'",';

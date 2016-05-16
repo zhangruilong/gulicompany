@@ -131,6 +131,9 @@
       <if test="timegoodsseq != null" >
         TIMEGOODSSEQ,
       </if>
+      <if test="timegoodsscope != null" >
+        TIMEGOODSSCOPE,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="timegoodsid != null" >
@@ -186,6 +189,9 @@
       </if>
       <if test="timegoodsseq != null" >
         #{timegoodsseq,jdbcType=DECIMAL},
+      </if>
+      <if test="timegoodsscope != null" >
+        #{timegoodsscope,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -243,6 +249,9 @@
       </if>
       <if test="timegoodsseq != null" >
         TIMEGOODSSEQ = #{timegoodsseq,jdbcType=DECIMAL},
+      </if>
+      <if test="timegoodsscope != null" >
+        TIMEGOODSSCOPE = #{timegoodsscope,jdbcType=VARCHAR},
       </if>
     </set>
     where TIMEGOODSID = #{timegoodsid,jdbcType=VARCHAR}

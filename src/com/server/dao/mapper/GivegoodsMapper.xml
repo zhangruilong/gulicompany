@@ -155,6 +155,9 @@
       <if test="givegoodsseq != null" >
         GIVEGOODSSEQ,
       </if>
+      <if test="givegoodsscope != null" >
+        GIVEGOODSSCOPE,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="givegoodsid != null" >
@@ -202,6 +205,9 @@
       <if test="givegoodsseq != null" >
         #{givegoodsseq,jdbcType=DECIMAL},
       </if>
+      <if test="givegoodsscope != null" >
+        #{givegoodsscope,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.server.pojo.entity.Givegoods" >
@@ -248,6 +254,9 @@
       </if>
       <if test="givegoodsseq != null" >
         GIVEGOODSSEQ = #{givegoodsseq,jdbcType=DECIMAL},
+      </if>
+      <if test="givegoodsscope != null" >
+        GIVEGOODSSCOPE = #{givegoodsscope,jdbcType=VARCHAR},
       </if>
     </set>
     where GIVEGOODSID = #{givegoodsid,jdbcType=VARCHAR}
