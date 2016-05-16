@@ -72,14 +72,12 @@ $(function(){
 });
 //点击结算时执行的方法
 function nextpage(){
-	if(customer.customerid){
-		setscompany();		//设置供应商信息
-		window.location.href = "doBuy.action?addresscustomer="+customer.customerid+"&addressture=1";
-	}
+	setscompany();		//设置供应商信息
+	window.location.href = "doBuy.action?addresscustomer="+customer.customerid+"&addressture=1";
 }
 //检查客户是否可以购买秒杀商品
 function checkCusSecKill(){
-	if(!customer.customerid || customer.customerid == ''){		//判断是否注册
+	if(!customer.customerid || customer.customerid == 'null' || typeof(customer.customerid) == 'undefined'){		//判断是否注册
 		$(".cd-popup").addClass("is-visible");
 		return ;
 	}

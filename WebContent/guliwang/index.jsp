@@ -158,7 +158,7 @@
 	}
 	//得到客户信息
 	function initCustomer(data){			//将customer(客户信息放入缓存)
-		if(data.root[0].customerid == null || data.root[0].customerid == '' ){
+		if(data.root[0].customerid == null || data.root[0].customerid == '' || typeof(data.root[0].customerid) == 'undefined'){
 			$(".cd-popup").addClass("is-visible");
 		}
 		window.localStorage.setItem("customer",JSON.stringify(data.root[0]));
@@ -189,8 +189,8 @@
 			timegoodsnum
 			) {
 		var customer = JSON.parse(window.localStorage.getItem("customer"));
-		if(!customer.customerid){
-			alert("购买前需注册");
+		if(!customer.customerid || typeof(customer.customerid) == 'undefined'){
+			$(".cd-popup").addClass("is-visible");
 			return;
 		}
 		$.getJSON('judgePurchase.action',{

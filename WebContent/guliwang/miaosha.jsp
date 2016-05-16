@@ -134,7 +134,7 @@ function judgePurchase(
 		timegoodsnum
 		) {
 	var customer = JSON.parse(window.localStorage.getItem("customer"));
-	if(!customer.customerid || customer.customerid == ''){
+	if(!customer.customerid || customer.customerid == 'null' || typeof(customer.customerid) == 'undefined'){
 		$(".cd-popup").addClass("is-visible");
 		return;
 	}

@@ -100,7 +100,7 @@ function thisMonthHotGoods(obj){
 }
 //页面信息
 function pageInfo(staTime,endTime){
-	if(xian){
+	if(xian && typeof(xian) != 'undefined'){
 		$.getJSON("hotTodayGoods.action",{
 			"cityname":xian,
 			"staTime":staTime,

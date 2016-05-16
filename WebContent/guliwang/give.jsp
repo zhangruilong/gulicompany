@@ -122,7 +122,7 @@ function judgePurchase(
 		givegoodsunits,
 		givegoodsnum
 		) {
-	if(!customer.customerid || customer.customerid == ''){
+	if(!customer.customerid || customer.customerid == '' || typeof(customer.customerid) == 'undefined'){
 		$(".cd-popup").addClass("is-visible");
 		return;
 	}
