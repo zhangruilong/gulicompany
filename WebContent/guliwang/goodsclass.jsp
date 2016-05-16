@@ -22,8 +22,8 @@
 <body>
 <div class="gl-box">
 	<div class="home-search-wrapper">
-        <span class="citydrop"><span id="curgoodsclass">大米</span> <em><img src="images/dropbg.png" ></em></span> 
-        <div class="menu">
+        <span class="citydrop on"><span id="curgoodsclass">大米</span> <em><img src="images/dropbg.png" ></em></span> 
+        <div class="menu" style="display: block; height: 92%;">
             <div class="menu-tags home-city-drop">
                 <div class="fenlei-tit">食材谱</div>
                 <div class="wrapper">
@@ -49,7 +49,7 @@
         	<li><a href="index.jsp"><em class="ion-home"></em>首页</a></li>
             <li class="active"><a href="goodsclass.jsp"><em class="ion-bag"></em>商城</a></li>
             <li><a href="order.jsp"><em class="ion-clipboard"></em>订单</a></li>
-            <li><a href="customerlist.jsp"><em class="ion-android-person"></em>客户</a></li>
+            <li><a href="mine.jsp"><em class="ion-android-person"></em>我的</a></li>
     </ul>
 </div>
 <!--弹框-->
@@ -68,9 +68,11 @@
 var basePath = '<%=basePath%>';
 var searchdishesvalue = '<%=searchdishesvalue%>';
 var searchclassesvalue = '<%=searchclassesvalue%>';
-var emp = JSON.parse(window.localStorage.getItem("emp"));
-var customer = JSON.parse(window.localStorage.getItem("customeremp"));
+var openid = window.localStorage.getItem("openid");
+var customer = JSON.parse(window.localStorage.getItem("customer"));
 $(function(){ 
+	getJson(basePath+"CustomerAction.do",{method:"selCustomer",
+		wheresql : "openid='"+openid+"'"},initCustomer,null);		//得到openid
 	if(!window.localStorage.getItem("totalnum")){
 		window.localStorage.setItem("totalnum",0);
 	}
@@ -88,23 +90,27 @@ $(function(){
 	//通过ajax查询大类
 	getJson(basePath+"GoodsclassAction.do",{method:"mselAll",wheresql:"goodsclassparent='root' and goodsclassstatue='启用'"},initGoodsclass,null);
 	if(searchdishesvalue!="null"&&searchdishesvalue!=""){
-		getJson(basePath+"GoodsviewAction.do",{method:"mselAll",query:searchdishesvalue,companyid:emp.empcompany,customerid:customer.customerid,customertype:customer.customertype,customerlevel:customer.customerlevel},initDishes,null);
+		getJson(basePath+"GoodsviewAction.do",{method:"mselAll",query:searchdishesvalue,customerid:customer.customerid,customertype:customer.customertype,customerlevel:customer.customerlevel},initDishes,null);
 	}else if(searchclassesvalue!="null"&&searchclassesvalue!=""){
 		$("#curgoodsclass").html(searchclassesvalue);
-		getJson(basePath+"GoodsviewAction.do",{method:"mselAll",companyid:emp.empcompany,customerid:customer.customerid,customertype:customer.customertype,customerlevel:customer.customerlevel,goodsclassname:searchclassesvalue},initDishes,null);
+		getJson(basePath+"GoodsviewAction.do",{method:"mselAll",customerid:customer.customerid,customertype:customer.customertype,customerlevel:customer.customerlevel,goodsclassname:searchclassesvalue},initDishes,null);
 	}else{
-		getJson(basePath+"GoodsviewAction.do",{method:"mselAll",companyid:emp.empcompany,customerid:customer.customerid,customertype:customer.customertype,customerlevel:customer.customerlevel,goodsclassname:"大米"},initDishes,null);
+		getJson(basePath+"GoodsviewAction.do",{method:"mselAll",customerid:customer.customerid,customertype:customer.customertype,customerlevel:customer.customerlevel,goodsclassname:"大米"},initDishes,null);
 	}
 	$(".cd-popup").on("click",function(event){		//绑定点击事件
 		$(this).removeClass("is-visible");	//移除'is-visible' class
 	});
 })
+function initCustomer(data){			//将customer(客户信息放入缓存)
+	window.localStorage.setItem("customer",JSON.stringify(data.root[0]));
+	customer = data.root[0];
+}
 function entersearch(){
     var event = window.event || arguments.callee.caller.arguments[0];
     if (event.keyCode == 13)
     {
     	searchdishesvalue = $("#searchdishes").val();
-    	getJson(basePath+"GoodsviewAction.do",{method:"mselAll",query:searchdishesvalue,companyid:emp.empcompany,customerid:customer.customerid,customertype:customer.customertype,customerlevel:customer.customerlevel},initDishes,null);
+    	getJson(basePath+"GoodsviewAction.do",{method:"mselAll",customerid:customer.customerid,query:searchdishesvalue,customertype:customer.customertype,customerlevel:customer.customerlevel},initDishes,null);
     }
 }
 /* $(".citydrop").click(function(){ 
@@ -125,7 +131,7 @@ function initGoodsclass(data){																								//初始化商品大小类
 		$(this).click(function(){
 			$(this).addClass('active').siblings().removeClass('active');	//当前元素被点击时添加 class 'active' 同时把其他同级元素 去除  class 'active'
 			//ajax查询小类并初始化
-			getJson(basePath+"GoodsclassAction.do",{method:"mselAll",wheresql:"goodsclassparent = '"+$(this).attr('name')+"'"},initGoodsclassright,null);
+			getJson(basePath+"GoodsclassAction.do",{method:"mselAll",wheresql:"goodsclassparent = '"+$(this).attr('name')+"' and goodsclassstatue='启用'"},initGoodsclassright,null);
 		})
 	});
 }
@@ -142,17 +148,17 @@ function initDishes(data){
  	 $.each(data.root, function(i, item) {
  		var jsonitem = JSON.stringify(item);
  		$(".home-hot-commodity").append('<li>'+
- 				'<span class="fl"><img src="../'+item.goodsimage+
+ 	         	'<span class="fl"><img src="../'+item.goodsimage+
  	         	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span> '+
- 	             '<h1>'+item.goodsname+'<span>('+item.goodsunits+')</span></h1>'+
+ 	         	'<h1>'+item.goodsname+'<span>('+item.goodsunits+')</span></h1>'+
  	           '  <div class="block"> '+
- 	             	'<span>'+
- 	                 '    <input type="radio" id="'+item.goodsid+'radio1" name="'+item.goodsid+'radio" class="regular-radio" checked />'+
- 	                 '    <label for="'+item.goodsid+'radio1">单品价:<font class="font-oringe">￥'+item.pricesprice+'</font>/'+item.pricesunit+'</label>'+
- 	               '  </span>'+
  	               '  <span>'+
  	                   '  <input type="radio" id="'+item.goodsid+'radio2" name="'+item.goodsid+'radio" class="regular-radio" />'+
  	               '      <label for="'+item.goodsid+'radio2">套装价:<font class="font-oringe">￥'+item.pricesprice2+'</font>/'+item.pricesunit2+'</label>'+
+ 	               '  </span>'+
+ 	             	'<span>'+
+ 	                 '    <input type="radio" id="'+item.goodsid+'radio1" name="'+item.goodsid+'radio" class="regular-radio" checked />'+
+ 	                '    <label for="'+item.goodsid+'radio1">售价:<font class="font-oringe">￥'+item.pricesprice+'</font>/'+item.pricesunit+'</label>'+
  	               '  </span>'+
  	            ' </div>'+
  	           '  <div class="stock-num" name="'+item.goodsid+'">'+
@@ -165,7 +171,7 @@ function initDishes(data){
 					   +'\',\''+item.goodscode+'\',\''+item.goodsclassname
 					   +'\',\''+item.goodscompany+'\',\''+item.companyshop+'\',\''+item.companydetail
 					   +'\')"></span>'+
-					   '<span hidden="ture">'+jsonitem+'</span>'+
+				   '<span hidden="ture">'+jsonitem+'</span>'+
  	               '  <span hidden="ture" class="jian min" onclick="subnum(this,'+item.pricesprice2
 				   +')"></span>'+
  	                ' <input readonly="readonly" hidden="ture" class="text_box shuliang" name="taozhuan" type="text" value="'+
@@ -175,7 +181,7 @@ function initDishes(data){
 					   +'\',\''+item.goodscode+'\',\''+item.goodsclassname
 					   +'\',\''+item.goodscompany+'\',\''+item.companyshop+'\',\''+item.companydetail
 					   +'\')"></span>'+
-					   '<span hidden="ture">'+jsonitem+'</span>'+
+					'<span hidden="ture">'+jsonitem+'</span>'+
  	                ' <input type="checkbox" id="'+item.goodsid+'checkbox" class="chk_1" '+item.goodsdetail+'>'+
  	            		'<label for="'+item.goodsid+'checkbox" onclick="checkedgoods(\''+item.goodsid+'\');"></label>'+
  	             '</div>'+
@@ -292,7 +298,7 @@ function addnum(obj,pricesprice,goodsname,pricesunit,goodsunits,goodscode,goodsc
 		mdishes.goodsunits = goodsunits;
 		mdishes.orderdetnum = num + 1;
 		mdishes.goodsimage = item.goodsimage;
-		
+		mdishes.orderdtype = '商品';
 		sdishes.push(mdishes);
 		//种类数
 		var tnum = parseInt(window.localStorage.getItem("totalnum"));
@@ -308,7 +314,7 @@ function addnum(obj,pricesprice,goodsname,pricesunit,goodsunits,goodscode,goodsc
 		});
 	}
 	window.localStorage.setItem("sdishes",JSON.stringify(sdishes));
-
+	
 	var cartnum = parseInt(window.localStorage.getItem("cartnum"));
 	$("#totalnum").text(cartnum+1);
 	window.localStorage.setItem("cartnum",cartnum+1);
@@ -349,10 +355,11 @@ function subnum(obj,pricesprice){
 			});
 		}
 		window.localStorage.setItem("sdishes",JSON.stringify(sdishes));
+		var cartnum = parseInt(window.localStorage.getItem("cartnum"));
+		$("#totalnum").text(cartnum-1);
+		window.localStorage.setItem("cartnum",cartnum-1);
 	}
-	var cartnum = parseInt(window.localStorage.getItem("cartnum"));
-	$("#totalnum").text(cartnum-1);
-	window.localStorage.setItem("cartnum",cartnum-1);
+	
 }
 
 function nextpage(){

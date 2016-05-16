@@ -47,7 +47,7 @@
 <div class="personal-center-nav">
     <ul>
         	<li><a href="index.jsp"><em class="ion-home"></em>首页</a></li>
-            <li class="active"><a href="goods.jsp"><em class="ion-bag"></em>商城</a></li>
+            <li class="active"><a href="goodsclass.jsp"><em class="ion-bag"></em>商城</a></li>
             <li><a href="order.jsp"><em class="ion-clipboard"></em>订单</a></li>
             <li><a href="mine.jsp"><em class="ion-android-person"></em>我的</a></li>
     </ul>
