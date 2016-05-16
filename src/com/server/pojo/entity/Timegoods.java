@@ -83,21 +83,44 @@ public class Timegoods
     * 小类
     */
    private Goodsclass timeGoodsClass;
-   
+   /**
+    * 客户范围
+    */
+   private String timegoodsscope;
 	//属性方法	
-   
+   /**
+    * 小类
+    */
    public Goodsclass getTimeGoodsClass() {
 	   return timeGoodsClass;
    }
-   
-   public Integer getTimegoodsseq() {
+   /**
+    * 客户范围
+    */
+   public String getTimegoodsscope() {
+		return timegoodsscope;
+	}
+   /**
+    * 客户范围
+    */
+	public void setTimegoodsscope(String timegoodsscope) {
+		this.timegoodsscope = timegoodsscope;
+	}
+	/**
+    * 顺序
+    */
+	public Integer getTimegoodsseq() {
 		return timegoodsseq;
 	}
-	
+	/**
+    * 顺序
+    */
 	public void setTimegoodsseq(Integer timegoodsseq) {
 		this.timegoodsseq = timegoodsseq;
 	}
-
+	/**
+    * 小类
+    */
 	public void setTimeGoodsClass(Goodsclass timeGoodsClass) {
 	   this.timeGoodsClass = timeGoodsClass;
    }
@@ -355,19 +378,27 @@ public class Timegoods
 	{
 		return this.creator;
 	}	   
-	
+	/**
+    * 全部限量
+    */
 	public Integer getAllnum() {
 		return allnum;
 	}
-
+	/**
+    * 全部限量
+    */
 	public void setAllnum(Integer allnum) {
 		this.allnum = allnum;
 	}
-
+	/**
+    * 剩余数量
+    */
 	public Integer getSurplusnum() {
 		return surplusnum;
 	}
-
+	/**
+    * 剩余数量
+    */
 	public void setSurplusnum(Integer surplusnum) {
 		this.surplusnum = surplusnum;
 	}

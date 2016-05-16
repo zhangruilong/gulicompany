@@ -17,6 +17,7 @@
     <result column="CREATETIME" property="createtime" jdbcType="VARCHAR" />
     <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
     <result column="GIVEGOODSSEQ" property="givegoodsseq" jdbcType="DECIMAL" />
+    <result column="GIVEGOODSSCOPE" property="givegoodsscope" jdbcType="VARCHAR" />
     <!-- 供应商 -->
     <association property="givegoodcompany" javaType="com.server.pojo.entity.Company">
     	<id column="COMPANYID" property="companyid" jdbcType="VARCHAR" />
@@ -55,7 +56,7 @@
   <sql id="Base_Column_List" >
     GIVEGOODSID, GIVEGOODSCOMPANY, GIVEGOODSCODE, GIVEGOODSNAME, GIVEGOODSDETAIL, GIVEGOODSUNITS, 
     GIVEGOODSUNIT, GIVEGOODSPRICE, GIVEGOODSNUM, GIVEGOODSCLASS, GIVEGOODSIMAGE, GIVEGOODSSTATUE, 
-    CREATETIME, CREATOR,GIVEGOODSSEQ
+    CREATETIME, CREATOR, GIVEGOODSSEQ, GIVEGOODSSCOPE
   </sql>
   <!-- 根据编码查询 -->
   <select id="selectByCode" resultMap="BaseResultMap" parameterType="java.lang.String" >

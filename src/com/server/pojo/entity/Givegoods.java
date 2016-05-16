@@ -28,6 +28,8 @@ public class Givegoods {
     private String createtime;
 
     private String creator;
+    
+    private String givegoodsscope;
 
     private Company givegoodcompany;
     
@@ -35,6 +37,14 @@ public class Givegoods {
 
     private Integer givegoodsseq;
     
+	public String getGivegoodsscope() {
+		return givegoodsscope;
+	}
+
+	public void setGivegoodsscope(String givegoodsscope) {
+		this.givegoodsscope = givegoodsscope;
+	}
+
 	public Integer getGivegoodsseq() {
 		return givegoodsseq;
 	}
