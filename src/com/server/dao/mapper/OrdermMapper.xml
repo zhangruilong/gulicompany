@@ -60,6 +60,16 @@
     ORDERMWAY, ORDERMSTATUE, ORDERMDETAIL, ORDERMTIME, ORDERMCONNECT, ORDERMPHONE, ORDERMADDRESS, 
     UPDTIME, UPDOR, ORDERMEMP
   </sql>
+  <!-- 查询最新的一条订单信息 -->
+  <select id="selectNewestOrderm" resultMap="BaseResultMap">
+  	SELECT * FROM (
+	select om.*,c.customershop from orderm om 
+	left join customer c 
+	on c.customerid = om.ordermcustomer
+	where om.ordermcompany = #{ordermcompany,jdbcType=VARCHAR}
+	order by om.ordermtime desc
+	) WHERE ROWNUM = 1
+  </select>
   <!-- 根据ordermcustomer和orderdcode(商品编码)查询订单中的数量总和 -->
   <select id="selectOrderByCustomerGoods" resultType="int">
   	select 
