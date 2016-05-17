@@ -157,19 +157,43 @@ $("#xianList").css("top",xianListTop + "px");
 			$(".cd-popup").addClass("is-visible");	//弹出窗口
 			return;
 		}
-		$.getJSON("reg.action",{
-			"openid":window.localStorage.getItem("openid"),
-			"customercity":$("[name='customercity']").val(),
-			"customerphone":$("#customerphone").val(),
-			"customerxian":$("[name='customerxian']").val(),
-			"customershop":$("#customershop").val(),
-			"customername":$("#customername").val(),
-			"customeraddress":$("#customeraddress").val()
-		},function(data){
-			window.localStorage.setItem("customer",JSON.stringify(data));
-			$(".meg").text("注册成功！");
-			$(".cd-buttons a").attr("href","index.jsp");
-			$(".cd-popup").addClass("is-visible");	//弹出窗口
+		$.ajax({
+			url: "reg.action",
+			data: {
+				"openid":window.localStorage.getItem("openid"),
+				"customercity":$("[name='customercity']").val(),
+				"customerphone":$("#customerphone").val(),
+				"customerxian":$("[name='customerxian']").val(),
+				"customershop":$("#customershop").val(),
+				"customername":$("#customername").val(),
+				"customeraddress":$("#customeraddress").val()
+			},
+			dataType:"json",
+			success: function(data) {
+				alert(JSON.stringify(data));
+				window.localStorage.setItem("customer",JSON.stringify(data));
+				$(".meg").text("注册成功！");
+				$(".cd-buttons a").attr("href","index.jsp");
+				$(document).click(function(){
+					window.location.href = "index.jsp";
+				});
+				$(".cd-popup").addClass("is-visible");	//弹出窗口
+			},
+			error:function(data) {
+				alert(JSON.stringify(data));
+				alert(data.responseText);
+				if(data.responseText == 'no'){
+					$(".meg").text("您的手机已经注册过了");
+					$(".cd-buttons a").attr("href","index.jsp");
+					$(document).click(function(){
+						window.location.href = "index.jsp";
+					});
+					$(".cd-popup").addClass("is-visible");	//弹出窗口
+				} else {
+					alert("网络出现问题,请稍后再试");
+					window.location.href = "index.jsp";
+				}
+			}
 		});
 	}
 ////////////////////////////////////////////这是下拉列表菜单的js///////////////////////////////////////////////////////

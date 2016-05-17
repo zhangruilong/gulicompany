@@ -7,6 +7,10 @@ import com.server.pojo.entity.Customer;
 
 public interface CustomerMapper {
 	/**
+	 * 检查用户是否已经注册过了
+	 */
+	Integer selectCustomerIsReg(Customer customer);
+	/**
 	 * 根据客户关系中的供应商和查询条件查询客户(导出报表时使用)
 	 */
 	List<Customer> selectCustomerByGuanxi(Ccustomer ccustomer);
