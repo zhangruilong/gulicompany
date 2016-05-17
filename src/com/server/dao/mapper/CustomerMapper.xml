@@ -89,9 +89,7 @@
   <!-- 检查用户是否已经注册过了 -->
   <select id="selectCustomerIsReg" resultType="int" parameterType="com.server.pojo.entity.Customer" >
   select count(*) from customer c 
-  where c.customerphone = #{customerphone}
-  and c.customername = #{customername}
-  and c.customershop = #{customershop}
+  where c.OPENID = #{openid}
   </select>
   <!-- 根据openid查询客户 -->
   <select id="selectByOpenid" resultMap="BaseResultMap" parameterType="com.server.pojo.entity.Customer" >

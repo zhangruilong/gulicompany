@@ -170,7 +170,6 @@ $("#xianList").css("top",xianListTop + "px");
 			},
 			dataType:"json",
 			success: function(data) {
-				alert(JSON.stringify(data));
 				window.localStorage.setItem("customer",JSON.stringify(data));
 				$(".meg").text("注册成功！");
 				$(".cd-buttons a").attr("href","index.jsp");
@@ -180,8 +179,6 @@ $("#xianList").css("top",xianListTop + "px");
 				$(".cd-popup").addClass("is-visible");	//弹出窗口
 			},
 			error:function(data) {
-				alert(JSON.stringify(data));
-				alert(data.responseText);
 				if(data.responseText == 'no'){
 					$(".meg").text("您的手机已经注册过了");
 					$(".cd-buttons a").attr("href","index.jsp");
