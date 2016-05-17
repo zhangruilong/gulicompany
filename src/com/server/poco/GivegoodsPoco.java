@@ -22,22 +22,23 @@ public class GivegoodsPoco
     * 实体中文字段
     */
    public static String[] CHINESENAME = {
-   		"买赠ID",
+   		"促销品ID",
 	 	"经销商ID",
 	 	"编码",
 	 	"名称",
 	 	"描述",
 	 	"规格",
 	 	"单位",
-	 	"售价",
+	 	"原价",
 	 	"现价",
-	 	"个人限购",
-	 	"小类",
+	 	"限量",
+	 	"小类名称",
 	 	"图片",
 	 	"状态",
 	 	"创建时间",
 	 	"创建人",
 	 	"顺序",
+	 	"客户范围",
 	};
 	/**
 	 * 实体英文字段
@@ -59,6 +60,7 @@ public class GivegoodsPoco
 	 	"createtime",
 	 	"creator",
 	 	"givegoodsseq",
+	 	"givegoodsscope",
    };
    /**
     * 实体排序
@@ -83,6 +85,7 @@ public class GivegoodsPoco
 	 	"createtime",
 	 	"creator",
 	 	"givegoodsseq",
+	 	"givegoodsscope",
    };
 }
 

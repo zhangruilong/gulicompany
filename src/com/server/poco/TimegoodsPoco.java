@@ -1,7 +1,7 @@
 package com.server.poco;
 
 /**
- * 促销品 实体类的常量
+ * 秒杀 实体类的常量
  *@author ZhangRuiLong
  */
 public class TimegoodsPoco
@@ -9,7 +9,7 @@ public class TimegoodsPoco
    /**
     * 实体中文名
     */
-   public static String NAME = "促销品";
+   public static String NAME = "秒杀";
    /**
     * 实体表名
     */
@@ -40,6 +40,7 @@ public class TimegoodsPoco
 	 	"全部限量",
 	 	"剩余数量",
 	 	"顺序",
+	 	"客户范围",
 	};
 	/**
 	 * 实体英文字段
@@ -63,6 +64,7 @@ public class TimegoodsPoco
 	 	"allnum",
 	 	"surplusnum",
 	 	"timegoodsseq",
+	 	"timegoodsscope",
    };
    /**
     * 实体排序
@@ -89,6 +91,7 @@ public class TimegoodsPoco
 	 	"allnum",
 	 	"surplusnum",
 	 	"timegoodsseq",
+	 	"timegoodsscope",
    };
 }
 

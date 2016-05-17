@@ -18,13 +18,14 @@ Ext.onReady(function() {
 	        			    ,'createtime' 
 	        			    ,'creator' 
 	        			    ,'givegoodsseq' 
+	        			    ,'givegoodsscope' 
 	        			      ];// 全部字段
 	var Givegoodskeycolumn = [ 'givegoodsid' ];// 主键
 	var Givegoodsstore = dataStore(Givegoodsfields, basePath + Givegoodsaction + "?method=selQuery");// 定义Givegoodsstore
 	var Givegoodssm = new Ext.grid.CheckboxSelectionModel();// grid复选框模式
 	var Givegoodscm = new Ext.grid.ColumnModel({// 定义columnModel
 		columns : [ new Ext.grid.RowNumberer(), Givegoodssm, {// 改
-			header : '买赠ID',
+			header : '促销品ID',
 			dataIndex : 'givegoodsid',
 			hidden : true
 		}
@@ -71,7 +72,7 @@ Ext.onReady(function() {
 			sortable : true
 		}
 		, {
-			header : '售价',
+			header : '原价',
 			dataIndex : 'givegoodsprice',
 			align : 'center',
 			width : 80,
@@ -85,14 +86,14 @@ Ext.onReady(function() {
 			sortable : true
 		}
 		, {
-			header : '个人限购',
+			header : '限量',
 			dataIndex : 'givegoodsnum',
 			align : 'center',
 			width : 80,
 			sortable : true
 		}
 		, {
-			header : '小类',
+			header : '小类名称',
 			dataIndex : 'givegoodsclass',
 			align : 'center',
 			width : 80,
@@ -129,6 +130,13 @@ Ext.onReady(function() {
 		, {
 			header : '顺序',
 			dataIndex : 'givegoodsseq',
+			align : 'center',
+			width : 80,
+			sortable : true
+		}
+		, {
+			header : '客户范围',
+			dataIndex : 'givegoodsscope',
 			align : 'center',
 			width : 80,
 			sortable : true
@@ -225,7 +233,7 @@ Ext.onReady(function() {
 			layout : 'form',
 			items : [ {
 				xtype : 'textfield',
-				fieldLabel : '售价',
+				fieldLabel : '原价',
 				id : 'Givegoodsgivegoodsprice',
 				name : 'givegoodsprice',
 				maxLength : 100,
@@ -249,7 +257,7 @@ Ext.onReady(function() {
 			layout : 'form',
 			items : [ {
 				xtype : 'textfield',
-				fieldLabel : '个人限购',
+				fieldLabel : '限量',
 				id : 'Givegoodsgivegoodsnum',
 				name : 'givegoodsnum',
 				maxLength : 100,
@@ -261,7 +269,7 @@ Ext.onReady(function() {
 			layout : 'form',
 			items : [ {
 				xtype : 'textfield',
-				fieldLabel : '小类',
+				fieldLabel : '小类名称',
 				id : 'Givegoodsgivegoodsclass',
 				name : 'givegoodsclass',
 				maxLength : 100,
@@ -324,6 +332,18 @@ Ext.onReady(function() {
 				fieldLabel : '顺序',
 				id : 'Givegoodsgivegoodsseq',
 				name : 'givegoodsseq',
+				maxLength : 100,
+				anchor : '95%'
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'form',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '客户范围',
+				id : 'Givegoodsgivegoodsscope',
+				name : 'givegoodsscope',
 				maxLength : 100,
 				anchor : '95%'
 			} ]

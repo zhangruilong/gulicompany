@@ -2,7 +2,7 @@ package com.server.pojo;
 
 import java.sql.Date;
 /**
- * 促销品 实体类
+ * 秒杀 实体类
  *@author ZhangRuiLong
  */
 public class Timegoods
@@ -79,6 +79,10 @@ public class Timegoods
     * 顺序
     */
    private int timegoodsseq;   
+   /**
+    * 客户范围
+    */
+   private String timegoodsscope;   
     //属性方法	    
      /**
 	 *设置主键"促销品ID"属性
@@ -385,6 +389,23 @@ public class Timegoods
 	{
 		return this.timegoodsseq;
 	}	   
+
+	/**
+	 *设置"客户范围"属性
+	 *@param timegoodsscope 实体的Timegoodsscope属性
+	 */
+	public void setTimegoodsscope(String timegoodsscope)
+	{
+		this.timegoodsscope = timegoodsscope;
+	}
+	
+	/**
+	 *获取"客户范围"属性
+	 */
+	public String getTimegoodsscope()
+	{
+		return this.timegoodsscope;
+	}	   
 	public Timegoods() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -408,6 +429,7 @@ public class Timegoods
 	 	,int allnum
 	 	,int surplusnum
 	 	,int timegoodsseq
+	 	,String timegoodsscope
 		 ){
 		super();
 		this.timegoodsid = timegoodsid;
@@ -428,6 +450,7 @@ public class Timegoods
 	 	this.allnum = allnum;
 	 	this.surplusnum = surplusnum;
 	 	this.timegoodsseq = timegoodsseq;
+	 	this.timegoodsscope = timegoodsscope;
 	}
 }
 

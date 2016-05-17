@@ -8,7 +8,7 @@ import java.sql.Date;
 public class Givegoods
 {
    /**
-    * 买赠ID,主键
+    * 促销品ID,主键
     */
    private String givegoodsid; 
    /**
@@ -36,7 +36,7 @@ public class Givegoods
     */
    private String givegoodsunit;   
    /**
-    * 售价
+    * 原价
     */
    private String givegoodsprice;   
    /**
@@ -44,11 +44,11 @@ public class Givegoods
     */
    private String givegoodsorgprice;   
    /**
-    * 个人限购
+    * 限量
     */
    private int givegoodsnum;   
    /**
-    * 小类
+    * 小类名称
     */
    private String givegoodsclass;   
    /**
@@ -71,9 +71,13 @@ public class Givegoods
     * 顺序
     */
    private int givegoodsseq;   
+   /**
+    * 客户范围
+    */
+   private String givegoodsscope;   
     //属性方法	    
      /**
-	 *设置主键"买赠ID"属性
+	 *设置主键"促销品ID"属性
 	 *@param givegoodsid 实体的Givegoodsid属性
 	 */
 	public void setGivegoodsid(String givegoodsid)
@@ -82,7 +86,7 @@ public class Givegoods
 	}
 	
 	/**
-	 *获取主键"买赠ID"属性
+	 *获取主键"促销品ID"属性
 	 */
 	public String getGivegoodsid()
 	{
@@ -192,7 +196,7 @@ public class Givegoods
 	}	   
 
 	/**
-	 *设置"售价"属性
+	 *设置"原价"属性
 	 *@param givegoodsprice 实体的Givegoodsprice属性
 	 */
 	public void setGivegoodsprice(String givegoodsprice)
@@ -201,7 +205,7 @@ public class Givegoods
 	}
 	
 	/**
-	 *获取"售价"属性
+	 *获取"原价"属性
 	 */
 	public String getGivegoodsprice()
 	{
@@ -226,7 +230,7 @@ public class Givegoods
 	}	   
 
 	/**
-	 *设置"个人限购"属性
+	 *设置"限量"属性
 	 *@param givegoodsnum 实体的Givegoodsnum属性
 	 */
 	public void setGivegoodsnum(int givegoodsnum)
@@ -235,7 +239,7 @@ public class Givegoods
 	}
 	
 	/**
-	 *获取"个人限购"属性
+	 *获取"限量"属性
 	 */
 	public int getGivegoodsnum()
 	{
@@ -243,7 +247,7 @@ public class Givegoods
 	}	   
 
 	/**
-	 *设置"小类"属性
+	 *设置"小类名称"属性
 	 *@param givegoodsclass 实体的Givegoodsclass属性
 	 */
 	public void setGivegoodsclass(String givegoodsclass)
@@ -252,7 +256,7 @@ public class Givegoods
 	}
 	
 	/**
-	 *获取"小类"属性
+	 *获取"小类名称"属性
 	 */
 	public String getGivegoodsclass()
 	{
@@ -343,6 +347,23 @@ public class Givegoods
 	{
 		return this.givegoodsseq;
 	}	   
+
+	/**
+	 *设置"客户范围"属性
+	 *@param givegoodsscope 实体的Givegoodsscope属性
+	 */
+	public void setGivegoodsscope(String givegoodsscope)
+	{
+		this.givegoodsscope = givegoodsscope;
+	}
+	
+	/**
+	 *获取"客户范围"属性
+	 */
+	public String getGivegoodsscope()
+	{
+		return this.givegoodsscope;
+	}	   
 	public Givegoods() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -364,6 +385,7 @@ public class Givegoods
 	 	,String createtime
 	 	,String creator
 	 	,int givegoodsseq
+	 	,String givegoodsscope
 		 ){
 		super();
 		this.givegoodsid = givegoodsid;
@@ -382,6 +404,7 @@ public class Givegoods
 	 	this.createtime = createtime;
 	 	this.creator = creator;
 	 	this.givegoodsseq = givegoodsseq;
+	 	this.givegoodsscope = givegoodsscope;
 	}
 }
 

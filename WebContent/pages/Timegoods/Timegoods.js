@@ -1,5 +1,5 @@
 Ext.onReady(function() {
-	var Timegoodsclassify = "促销品";
+	var Timegoodsclassify = "秒杀";
 	var Timegoodstitle = "当前位置:业务管理》" + Timegoodsclassify;
 	var Timegoodsaction = "TimegoodsAction.do";
 	var Timegoodsfields = ['timegoodsid'
@@ -20,6 +20,7 @@ Ext.onReady(function() {
 	        			    ,'allnum' 
 	        			    ,'surplusnum' 
 	        			    ,'timegoodsseq' 
+	        			    ,'timegoodsscope' 
 	        			      ];// 全部字段
 	var Timegoodskeycolumn = [ 'timegoodsid' ];// 主键
 	var Timegoodsstore = dataStore(Timegoodsfields, basePath + Timegoodsaction + "?method=selQuery");// 定义Timegoodsstore
@@ -145,6 +146,13 @@ Ext.onReady(function() {
 		, {
 			header : '顺序',
 			dataIndex : 'timegoodsseq',
+			align : 'center',
+			width : 80,
+			sortable : true
+		}
+		, {
+			header : '客户范围',
+			dataIndex : 'timegoodsscope',
 			align : 'center',
 			width : 80,
 			sortable : true
@@ -364,6 +372,18 @@ Ext.onReady(function() {
 				fieldLabel : '顺序',
 				id : 'Timegoodstimegoodsseq',
 				name : 'timegoodsseq',
+				maxLength : 100,
+				anchor : '95%'
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'form',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '客户范围',
+				id : 'Timegoodstimegoodsscope',
+				name : 'timegoodsscope',
 				maxLength : 100,
 				anchor : '95%'
 			} ]
