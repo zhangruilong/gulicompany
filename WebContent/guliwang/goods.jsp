@@ -232,6 +232,7 @@ function checkedgoods(goodsid){
 		}
 	});
 }
+//初始化加减号的数字
 function getcurrennumdanpin(dishesid){
 	//订单
 	if(window.localStorage.getItem("sdishes")==null){
@@ -266,6 +267,7 @@ function getcurrennumtaozhuan(dishesid){
 		return orderdetnum;
 	}
 }
+//加号
 function addnum(obj,pricesprice,goodsname,pricesunit,goodsunits,goodscode,goodsclassname,goodscompany,companyshop,companydetail){
 	var item = JSON.parse($(obj).next().text());
 	//总价
@@ -319,6 +321,7 @@ function addnum(obj,pricesprice,goodsname,pricesunit,goodsunits,goodscode,goodsc
 	$("#totalnum").text(cartnum+1);
 	window.localStorage.setItem("cartnum",cartnum+1);
 }
+//减号
 function subnum(obj,pricesprice){
 	var numt = $(obj).next(); 
 	var num = parseInt(numt.val());

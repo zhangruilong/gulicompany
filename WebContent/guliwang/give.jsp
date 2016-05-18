@@ -92,7 +92,7 @@ function initMiaoshaPage(data){
          	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span>'+
 			'<h1>'+item1.givegoodsname+
 				'<span>（'+item1.givegoodsunits+'）</span>'+
-			'</h1><span style="font-size: 16px;">'+item1.givegoodsdetail+'</span><br> <span> <strong>￥'+item1.givegoodsprice+'/'+item1.givegoodsunit+
+			'</h1><div class="block"> <span style="font-size: 16px;">'+item1.givegoodsdetail+'</span><br> <span> <strong>￥'+item1.givegoodsprice+'/'+item1.givegoodsunit+
 			'</strong> ';
 		if(data.cusOrderdList != null && data.cusOrderdList.length != 0){
 			var itemGoodsCount = 0;
@@ -105,8 +105,14 @@ function initMiaoshaPage(data){
 		} else {
 			liObj += '<font>限购'+item1.givegoodsnum+item1.givegoodsunit+'</font><br/>';
 		}
-		
-		$(".home-hot-commodity").append(liObj+'</span></a></li>');
+		liObj+='</span></div></a>';
+		liObj += '<div class="stock-num">'+
+            '<span id="min" class="jian min"></span>'+
+            '<input class="text_box shuliang" name="" type="text" value="0" readonly> '+
+            '<span id="add" class="jia add"></span>'+
+        	'</div>';
+        liObj += '</li>';
+		$(".home-hot-commodity").append(liObj);
 	});
 }
 //判断是否到达限购数量
@@ -246,6 +252,121 @@ function chuancan(
 function docart(obj){
 	if (window.localStorage.getItem("sdishes") == null || window.localStorage.getItem("sdishes") == "[]") {				//判断有没有购物车
 		$(obj).attr("href","cartnothing.html");
+	}
+}
+//加号
+function addnum(obj,pricesprice,goodsname,pricesunit,goodsunits,goodscode,goodsclassname,goodscompany,companyshop,companydetail){
+	var item = JSON.parse($(obj).next().text());
+	//总价
+	var tmoney = parseFloat(window.localStorage.getItem("totalmoney"));
+	var newtmoney = (tmoney+pricesprice).toFixed(2);
+	window.localStorage.setItem("totalmoney",newtmoney);
+	//数量
+	var numt = $(obj).prev(); 
+	var num = parseInt(numt.val());
+	numt.val(num+1);
+	//订单
+	if(window.localStorage.getItem("sdishes")==null){
+		window.localStorage.setItem("sdishes","[]");
+	}
+	var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));
+	if(num == 0){
+		$("#totalnum").show();
+		//新增订单
+		var mdishes = new Object();
+		mdishes.goodsid = $(obj).parent().attr('name');
+		mdishes.goodsdetail = $(obj).prev().attr('name');
+		mdishes.goodscompany = goodscompany;
+		mdishes.companyshop = companyshop;
+		mdishes.companydetail = companydetail;
+		mdishes.goodsclassname = goodsclassname;
+		mdishes.goodscode = goodscode;
+		mdishes.pricesprice = pricesprice;
+		mdishes.pricesunit = pricesunit;
+		mdishes.goodsname = goodsname;
+		mdishes.goodsunits = goodsunits;
+		mdishes.orderdetnum = num + 1;
+		mdishes.goodsimage = item.goodsimage;
+		mdishes.orderdtype = '商品';
+		sdishes.push(mdishes);
+		//种类数
+		var tnum = parseInt(window.localStorage.getItem("totalnum"));
+		window.localStorage.setItem("totalnum",tnum+1);
+	}else{
+		//修改订单
+		$.each(sdishes, function(i, item) {
+			if(item.goodsid==$(obj).parent().attr('name')
+					&&item.goodsdetail==$(obj).prev().attr('name')){
+				item.orderdetnum = item.orderdetnum + 1;
+				return false;
+			}
+		});
+	}
+	window.localStorage.setItem("sdishes",JSON.stringify(sdishes));
+	
+	var cartnum = parseInt(window.localStorage.getItem("cartnum"));
+	$("#totalnum").text(cartnum+1);
+	window.localStorage.setItem("cartnum",cartnum+1);
+}
+//减号
+function subnum(obj,pricesprice){
+	var numt = $(obj).next(); 
+	var num = parseInt(numt.val());
+	if(num > 0){
+		//总价
+		var tmoney = parseFloat(window.localStorage.getItem("totalmoney"));
+		var newtmoney = (tmoney-pricesprice).toFixed(2);
+		window.localStorage.setItem("totalmoney",newtmoney);
+		//数量
+		numt.val(num-1);
+		//订单
+		var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));
+		if(num == 1){
+			//删除订单
+			$.each(sdishes,function(i,item){
+				if(item.goodsid==$(obj).parent().attr('name')){
+					sdishes.splice(i,1);
+					return false;
+				};
+			});
+			//种类数
+			var tnum = parseInt(window.localStorage.getItem("totalnum"));
+			window.localStorage.setItem("totalnum",tnum-1);
+			if(tnum == 1)
+			$("#totalnum").hide();
+		}else{
+			//修改订单
+			$.each(sdishes, function(i, item) {
+				if(item.goodsid==$(obj).parent().attr('name')
+						&&item.goodsdetail==$(obj).next().attr('name')){
+					item.orderdetnum = item.orderdetnum - 1;
+					return false;
+				}
+			});
+		}
+		window.localStorage.setItem("sdishes",JSON.stringify(sdishes));
+		var cartnum = parseInt(window.localStorage.getItem("cartnum"));
+		$("#totalnum").text(cartnum-1);
+		window.localStorage.setItem("cartnum",cartnum-1);
+	}
+	
+}
+//初始化加减号的数字
+function getcurrennumdanpin(dishesid){
+	//订单
+	if(window.localStorage.getItem("sdishes")==null){
+		return 0;
+	}else{
+		var orderdetnum = 0;
+		var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));
+		$.each(sdishes, function(i, item) {
+			if(item.goodsid==dishesid
+					&&item.goodsdetail=="danpin"){
+				orderdetnum = item.orderdetnum;
+				return false;
+			}
+		});
+		return orderdetnum;
 	}
 }
 </script>
