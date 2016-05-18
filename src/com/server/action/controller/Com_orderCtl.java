@@ -98,7 +98,9 @@ public class Com_orderCtl {
 	@RequestMapping("/companySys/orderDetail")
 	public String orderDetail(Model model,Orderm order){
 		order = ordermMapper.selectByPrimaryKey(order.getOrdermid());
+		Customer coddd = customerMapper.selectByPrimaryKey(order.getOrdermcustomer());
 		model.addAttribute("order", order);
+		model.addAttribute("cusFoODInfo", coddd);
 		return "forward:/companySys/orderDetail.jsp";
 	}
 	//删除订单详情

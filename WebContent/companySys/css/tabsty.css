@@ -126,6 +126,7 @@ table {
 .navigation .date{
 	margin: 3px 5px 0px 5px;
 }
+
 .nowposition {
 	background: url("../images/orderImg/nowposition.png") no-repeat;
 	background-size:1400px 40px;
@@ -133,6 +134,7 @@ table {
 	line-height: 40px;
 	padding: 0px 0px 0px 30px;
 }
+
 .scant_a{
 	color: blue;
 	cursor:pointer;

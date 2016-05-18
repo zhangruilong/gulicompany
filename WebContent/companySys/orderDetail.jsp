@@ -17,7 +17,15 @@ String ordermcompany = request.getParameter("ordermcompany");
 
 <link href="css/tabsty.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
-
+<style type="text/css">
+.navigation{
+	width: 100%;
+	margin: 12px 0px 12px 0px;
+}
+.navigation tr td{
+	font-size: 12px;
+}
+</style>
 </head>
 <body>
 <form action="deleOrderd.action" method="post">
@@ -29,16 +37,30 @@ String ordermcompany = request.getParameter("ordermcompany");
  <input type="hidden" name="ordermmoney" value="${requestScope.order.ordermmoney }">
  <input type="hidden" name="ordermnum" value="${requestScope.order.ordermnum }">
 <div class="nowposition">订单管理》订单详情</div>
-<p class="navigation">
+<table class="navigation">
+<tr>
+<td>
 <span>订单编号:${requestScope.order.ordermcode }&nbsp;&nbsp;&nbsp;&nbsp;</span>
 <span>订单状态 : ${requestScope.order.ordermstatue }&nbsp;&nbsp;&nbsp;&nbsp;</span>
+</td>
+<td rowspan="2">
 <input class="button" type="button" value="确认订单" onclick="updateStatue('已确认');">
 <input class="button" type="button" value="订单发货" onclick="updateStatue('已发货');">
 <input class="button" type="button" value="完成订单" onclick="updateStatue('已完成');">
 <input class="button" type="button" value="删除订单" 
 onclick="del('editOrder.action?ordermid=${requestScope.order.ordermid }&ordermcompany=${requestScope.order.ordermcompany }','删除')">
 <input class="button" type="button" value="删除商品" onclick="delegoods()">
-</p>
+</td>
+</tr>
+<tr>
+<td>
+<span>客户信息： ${requestScope.cusFoODInfo.customershop }&nbsp;&nbsp;</span>
+<span>${requestScope.cusFoODInfo.customername }&nbsp;&nbsp;</span>
+<span>${requestScope.cusFoODInfo.customerphone }&nbsp;&nbsp;</span>
+<span>${requestScope.cusFoODInfo.customercity }${requestScope.cusFoODInfo.customerxian }${requestScope.cusFoODInfo.customeraddress }</span>
+</td>
+</tr>
+</table>
 <table class="bordered">
     <thead>
     <tr>

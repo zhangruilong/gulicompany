@@ -75,6 +75,7 @@ onclick="doprint('删除')">
 		<th>联系人</th>
 		<th>手机</th>
 		<th>地址</th>
+		<th>业务员</th>
     </tr>
     </thead>
     <c:if test="${fn:length(requestScope.allOrder) != 0 }">
@@ -94,6 +95,7 @@ onclick="doprint('删除')">
 			<td>${order.ordermconnect}</td>
 			<td>${order.ordermphone}</td>
 			<td>${order.ordermaddress}</td>
+			<td>${order.ordermemp}</td>
 		</tr>
 	</c:forEach>
 	</c:if>

@@ -43,7 +43,7 @@ public interface OrdermMapper {
      */
     int insertSelective(Orderm record);
     /**
-     * 根据主键查询
+     * 根据主键查询订单、订单详情、客户信息和业务员
      */
     Orderm selectByPrimaryKey(String ordermid);
     /**
