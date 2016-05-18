@@ -106,6 +106,7 @@ function buy(){
 	var scompany = JSON.parse(window.localStorage.getItem("scompany"));
 	$.each(scompany, function(y, mcompany) {
 		var ordermjson = '[{"ordermcustomer":"' + customer.customerid
+				+ '","ordermemp":"补单'
 				+ '","ordermcompany":"' + mcompany.ordermcompany 
 				+ '","ordermnum":"' + mcompany.ordermnum
 				+ '","ordermmoney":"' + mcompany.ordermmoney

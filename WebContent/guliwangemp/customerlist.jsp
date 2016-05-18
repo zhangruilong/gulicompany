@@ -25,11 +25,11 @@
         <input type="text" placeholder="请输入客户名称" onkeydown="entersearch(this);">
     </div>
     <ul id="customerlist">
-    	<li><span hidden="ture">2121</span>
+    	<!-- <li><span hidden="ture">2121</span>
     	<a class="cd-popup-trigger"><h2>大福超市</h2><span>王大宝 15865456465</span></a></li>
         <li><a class="cd-popup-trigger"><h2>大福超市</h2><span>王大宝 15865456465</span></a></li>
         <li><a class="cd-popup-trigger"><h2>大福超市</h2><span>王大宝 15865456465</span></a></li>
-        <li><a class="cd-popup-trigger"><h2>大福超市</h2><span>王大宝 15865456465</span></a></li>
+        <li><a class="cd-popup-trigger"><h2>大福超市</h2><span>王大宝 15865456465</span></a></li> -->
     </ul>
 </div>
 
@@ -39,7 +39,7 @@
 		<div class="cd-buttons">
         	<h1>谷粒网提示</h1>
 			<p>您确定要为其补单吗?</p>
-            <a href="#" class="cd-popup-close">取消</a><a href="goods.jsp">确定</a>
+            <a href="#" class="cd-popup-close">取消</a><a href="goodsclass.jsp">确定</a>
 		</div>
 	</div>
 </div>
