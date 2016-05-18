@@ -26,10 +26,10 @@
     </div>
     <ul id="customerlist">
     	<li><span hidden="ture">2121</span>
-    	<a class="cd-popup-trigger"><img src="images/mendian.jpg" > <h2>大福超市</h2><span>王大宝 15865456465</span></a></li>
-        <li><a class="cd-popup-trigger"><img src="images/mendian.jpg" > <h2>大福超市</h2><span>王大宝 15865456465</span></a></li>
-        <li><a class="cd-popup-trigger"><img src="images/mendian.jpg" > <h2>大福超市</h2><span>王大宝 15865456465</span></a></li>
-        <li><a class="cd-popup-trigger"><img src="images/mendian.jpg" > <h2>大福超市</h2><span>王大宝 15865456465</span></a></li>
+    	<a class="cd-popup-trigger"><h2>大福超市</h2><span>王大宝 15865456465</span></a></li>
+        <li><a class="cd-popup-trigger"><h2>大福超市</h2><span>王大宝 15865456465</span></a></li>
+        <li><a class="cd-popup-trigger"><h2>大福超市</h2><span>王大宝 15865456465</span></a></li>
+        <li><a class="cd-popup-trigger"><h2>大福超市</h2><span>王大宝 15865456465</span></a></li>
     </ul>
 </div>
 
@@ -52,7 +52,7 @@ $(function(){
 function initData(data){
     $("#customerlist").html("");
 	 $.each(data.root, function(i, item) {
-		$("#customerlist").append('<li><a class="cd-popup-trigger"><img src="images/mendian.jpg" > <h2>'+
+		$("#customerlist").append('<li><a class="cd-popup-trigger"><h2>'+
 				item.customershop+'</h2><span>'+
 				item.customername+' '+
 				item.customerphone+'</span></a><span style="display: none;">'+
