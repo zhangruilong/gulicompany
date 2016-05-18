@@ -115,6 +115,7 @@ function clearlocalstore(){
 	localStorage.removeItem("totalmoney");
 	localStorage.removeItem("cartnum");
 	alert("清除缓存成功！");
+	window.location.href = "index.jsp";
 }
 function tiaozhuan(url){
 	if(!window.localStorage.getItem("openid") || window.localStorage.getItem("openid") == 'null'){
@@ -134,7 +135,7 @@ function notOnLine(){
 			$(".cd-popup-close").text("取消");
 			$(".meg").text("是否注册?");
 			$(".ok").css("display","inline-block");
-			},1000);
+			},200);
 	});
 	$(".cd-popup").addClass("is-visible");
 }

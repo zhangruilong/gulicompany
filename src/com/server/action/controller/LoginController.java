@@ -59,7 +59,13 @@ public class LoginController {
 	//注册用户
 	@RequestMapping(value="/guliwang/reg" ,produces = "application/json")
 	@ResponseBody
-	public Customer reg(Customer customer,String addressphone){
+	public Object reg(Customer customer,String addressphone){
+		//检查客户是否注册
+		Integer cusNum = customerMapper.selectCustomerIsReg(customer);
+		if(cusNum != 0){
+			return "no";
+		}
+		//添加新客户
 		String newCusId = CommonUtil.getNewId();
 		
 		customer.setCustomerid(newCusId);		//设置新id

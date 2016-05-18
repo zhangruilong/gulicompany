@@ -128,11 +128,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<input type="hidden" id="givegoodsimage" value="">
 			<p><span>客户范围 :</span>
 			餐饮客户:
-			<input type="checkbox" name="givegoodsscope" value="1" checked/>
+			<input type="checkbox" name="givegoodsscope" code="1" checked="checked"/>
 			商超客户 :
-			<input type="checkbox" name="givegoodsscope" value="2" checked/>
+			<input type="checkbox" name="givegoodsscope" code="2" checked="checked"/>
 			组织单位客户 :
-			<input type="checkbox" name="givegoodsscope" value="3" checked/>
+			<input type="checkbox" name="givegoodsscope" code="3" checked="checked"/>
 			</p>
 			<label><span>编码 :</span><input id="givegoodscode" type="text"
 				name="givegoodscode" placeholder="编码" /></label>
@@ -329,9 +329,9 @@ function popup_formSub(){
 		}
 	});
 	var givegoodsscope = '';
-	$("input[name='givegoodsscope']").each(function(i,item){
+	$(".elegant-aero [name='givegoodsscope']").each(function(i,item){
 		if(item.checked == true){
-			givegoodsscope += $(item).val();
+			givegoodsscope += $(item).attr("code");
 		}
 	});
 	data += '"givegoodsscope":"' + givegoodsscope +'",';
@@ -351,7 +351,7 @@ function queryGooods(){
 function editGiveGoods(){
 	var count = 0;
 	var itemid;
-	$("[type='checkbox']").each(function(i,item){
+	$(".bordered [type='checkbox']").each(function(i,item){
 		if(item.checked==true){
 			itemid = $(item).attr("id");
 			count++;
@@ -363,16 +363,16 @@ function editGiveGoods(){
 		$('[name="givegoodsid"]').val(itemid);
 		$('#main_form').submit();
 	} else if(count == 0){
-		alert("请选择秒杀商品");
+		alert("请选择买赠商品");
 	} else {
-		alert("只能选择一个秒杀商品");
+		alert("只能选择一个买赠商品");
 	}
 }
 //删除买赠商品
 function removeGiveGoods(){
 	var count = 0;
 	var itemid;
-	$("[type='checkbox']").each(function(i,item){
+	$(".bordered [type='checkbox']").each(function(i,item){
 		if(item.checked==true){
 			itemid = $(item).attr("id");
 			count++;
@@ -390,9 +390,9 @@ function removeGiveGoods(){
 			});
 		}
 	} else if(count == 0){
-		alert("请选择秒杀商品");
+		alert("请选择买赠商品");
 	} else {
-		alert("只能选择一个秒杀商品");
+		alert("只能选择一个买赠商品");
 	}
 }
 </script>

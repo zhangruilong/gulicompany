@@ -28,13 +28,14 @@ Company company = (Company)session.getAttribute("company");
 			<li onclick="doOrder()">订单管理</li>
 		</ul>
 	</div>
+	<div class="haveNewOrderm"><audio id="tishiyin" src="MP3/tishi.mp3"></audio></div>
 	<div class="help"><a href=editPas.jsp  target='main' >修改密码</a>|<a href=loginOut.action  target='_parent' >退出</a>|<a>帮助</a></div>
 	</div>
 	<div class="sysname">供应商后台管理系统</div>
 	<script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript">
+	var tishiyin = $("#tishiyin")[0];
 	$(function(){
-		
 		window.parent.main.location.href = "allOrder.action?ordermcompany="+'<%=company.getCompanyid() %>';
 		$(".mokuai ul li").each(function(i,item){
 			if(i == 4){
@@ -45,7 +46,39 @@ Company company = (Company)session.getAttribute("company");
 				$(this).siblings().removeClass("select_mokuai");
 			});
 		});
+		$.post("queryNewestOrderm.action",{"ordermcompany":'${sessionScope.company.companyid}'},function(data){
+			$(".haveNewOrderm").html(
+				data.ordermcode+'&nbsp;'
+				+data.ordermmoney+'&nbsp;'
+				+data.ordermconnect+'&nbsp;'
+				+data.orderdCustomer.customershop+'&nbsp;'
+				+'<span name="ordermtime">'+data.ordermtime+'</span>'
+			);
+		});
+		//显示最新订单信息
+		window.setInterval(showNewestOrderm,10000);
 	})
+	function showNewestOrderm(){
+		$.post("queryNewestOrderm.action",{"ordermcompany":'${sessionScope.company.companyid}'},function(data){
+			if($("[name='ordermtime']").text() != data.ordermtime){
+				$(".haveNewOrderm").html(
+					'有新的订单!&nbsp;'+data.ordermcode+'&nbsp;'
+					+'<span name="ordermtime">'+data.ordermtime+'</span>&nbsp;'
+					+data.orderdCustomer.customershop+'&nbsp;'
+					+data.ordermconnect+'&nbsp;'
+					+data.ordermmoney
+				);
+				/* $(".haveNewOrderm").append('<audio autoplay="autoplay"><source src="tishi.wav"' 
+						+ 'type="audio/wav"/><!--<source src="MP3/tishi.mp3" type="audio/mpeg"/>--></audio>'); */
+				
+				play();
+			}
+		});
+	}
+	function play() {
+		tishiyin.play();
+	}
+
 		function doOrder(){
 			var menu_body = $(window.parent.leftFrame.menu);
 			menu_body.html("<ul class='nav'>"

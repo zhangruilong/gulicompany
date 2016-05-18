@@ -9,6 +9,10 @@ import com.server.pojo.entity.Ordermview;
 
 public interface OrdermMapper {
 	/**
+	 * 查询最新的一条订单信息
+	 */
+	Orderm selectNewestOrderm(@Param("ordermcompany") String ordermcompany);
+	/**
 	 * 根据ordermcustomer和orderdcode(商品编码)查询订单
 	 */
 	Integer selectOrderByCustomerGoods(@Param("ordermcustomer") String ordermcustomer,

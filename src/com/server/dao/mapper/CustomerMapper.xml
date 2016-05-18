@@ -86,10 +86,15 @@
 		</if>
 	</if>
   </select>
+  <!-- 检查用户是否已经注册过了 -->
+  <select id="selectCustomerIsReg" resultType="int" parameterType="com.server.pojo.entity.Customer" >
+  select count(*) from customer c 
+  where c.OPENID = #{openid}
+  </select>
   <!-- 根据openid查询客户 -->
   <select id="selectByOpenid" resultMap="BaseResultMap" parameterType="com.server.pojo.entity.Customer" >
     select 
-    <include refid="Base_Column_List"/>
+    *
     from CUSTOMER
     where OPENID = #{openid}
   </select>

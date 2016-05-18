@@ -60,9 +60,12 @@ $(function(){
 	}else{
 		$("#totalnum").text(window.localStorage.getItem("cartnum"));
 	}
+	/* if(!customer.customerxian || typeof(customer.customerxian) == 'undefined'){
+		window.location.href = 'index.jsp';
+	} */
 	//页面信息
-	if(xian == ''){
-		xian = customer.customerxian
+	if(!xian){
+		xian = customer.customerxian;
 	}
 	$.getJSON("maizengPage.action",{"givegoodcompany.city.cityname":xian,"givegoodscode":givegoodscode},initMiaoshaPage);
 });

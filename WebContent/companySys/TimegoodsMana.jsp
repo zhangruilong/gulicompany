@@ -351,7 +351,7 @@ function queryGooods(){
 function editTimeGoods(){
 	var count = 0;
 	var itemid;
-	$("[type='checkbox']").each(function(i,item){
+	$(".bordered [type='checkbox']").each(function(i,item){
 		if(item.checked==true){
 			itemid = $(item).attr("id");
 			count++;
@@ -372,7 +372,7 @@ function editTimeGoods(){
 function removeTimeGoods(){
 	var count = 0;
 	var itemid;
-	$("[type='checkbox']").each(function(i,item){
+	$(".bordered [type='checkbox']").each(function(i,item){
 		if(item.checked==true){
 			itemid = $(item).attr("id");
 			count++;

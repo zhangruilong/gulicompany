@@ -38,6 +38,12 @@ public class Com_orderCtl {
 	private CompanyMapper companyMapper;
 	@Autowired
 	private CustomerMapper customerMapper;
+	//查询最新的一条订单
+	@RequestMapping("/companySys/queryNewestOrderm")
+	public @ResponseBody Orderm queryNewestOrderm(String ordermcompany){
+		Orderm orderm = ordermMapper.selectNewestOrderm(ordermcompany);
+		return orderm;
+	}
 	//全部订单
 	@RequestMapping("/companySys/allOrder")
 	public String allOrder(Model model,String staTime,String endTime,Orderm order,Integer pagenow){
