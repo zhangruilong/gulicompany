@@ -60,7 +60,7 @@
 				$(this).removeClass("is-visible");	//移除'is-visible' class
 		});
 	})
-	function reg(){
+	/* function reg(){
 		var customerpsw = $("[name='customerpsw']").val();
 		var repwd = $("[name='repwd']").val();
 		var count = 0;
@@ -83,7 +83,7 @@
 			return;
 		}
 		document.forms[0].submit();
-	}
+	} */
 	
 </script>
 </head>

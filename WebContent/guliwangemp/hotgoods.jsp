@@ -64,7 +64,7 @@ String dateString = formatter.format(currentTime);
 <script src="js/jquery-dropdown.js"></script>
 <script src="js/getDate.js"></script>
 <script type="text/javascript">
-var customer = JSON.parse(window.localStorage.getItem("customer"));
+var customer = JSON.parse(window.localStorage.getItem("customeremp"));
 var xian = '${param.xian}';
 var dateString = '<%=dateString%>';
 $(function(){ 
@@ -101,13 +101,13 @@ function thisMonthHotGoods(obj){
 //页面信息
 function pageInfo(staTime,endTime){
 	if(xian && typeof(xian) != 'undefined'){
-		$.getJSON("hotTodayGoods.action",{
+		$.getJSON("hotTodayGoodsEmp.action",{
 			"cityname":xian,
 			"staTime":staTime,
 			"endTime":endTime
 			},initMiaoshaPage);
 	} else {
-		$.getJSON("hotTodayGoods.action",{
+		$.getJSON("hotTodayGoodsEmp.action",{
 			"cityname":customer.customerxian,
 			"staTime":staTime,
 			"endTime":endTime
@@ -158,6 +158,7 @@ function docart(obj){
 		$(obj).attr("href","cartnothing.html");
 	}
 }
+
 </script>
 </body>
 </html>
