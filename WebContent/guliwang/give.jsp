@@ -272,8 +272,6 @@ function addnum(obj,pricesprice,goodsname,pricesunit,goodsunits,goodscode,goodsc
 			return;
 		}
 		var restNum = parseInt(item.givegoodsnum) - num;
-		//alert('item1.timegoodsnum: '+item1.timegoodsnum+'   item1.orderdetnum: '+item1.orderdetnum);
-		//alert(restNum);
 		if(data){
 			$.each(data.giveGoodsList,function(i,item2){
 				if(item2.orderdcode == item.givegoodscode){
