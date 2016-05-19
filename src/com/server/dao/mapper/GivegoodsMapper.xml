@@ -95,6 +95,9 @@
 	<if test="givegoodscode != null and givegoodscode != ''">
 		and g.givegoodscode = #{givegoodscode}
 	</if>
+	<if test="givegoodsscope != null and givegoodsscope != ''">
+		and g.givegoodsscope like '%${givegoodsscope}%'
+	</if>
 	order by g.givegoodsseq
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >

@@ -34,11 +34,11 @@
 			<h1>秒杀商品信息</h1>
 			<p><span>客户范围 :</span>
 			餐饮客户:
-			<input type="checkbox" name="timegoodsscope" value="1" ${fn:contains(requestScope.editTimeGoods.timegoodsscope,'1')?'checked':'' }/>
+			<input type="checkbox" name="timegoodsscope" value="3" ${fn:contains(requestScope.editTimeGoods.timegoodsscope,'3')?'checked':'' }/>
 			商超客户 :
 			<input type="checkbox" name="timegoodsscope" value="2" ${fn:contains(requestScope.editTimeGoods.timegoodsscope,'2')?'checked':'' }/>
 			组织单位客户 :
-			<input type="checkbox" name="timegoodsscope" value="3" ${fn:contains(requestScope.editTimeGoods.timegoodsscope,'3')?'checked':'' }/>
+			<input type="checkbox" name="timegoodsscope" value="1" ${fn:contains(requestScope.editTimeGoods.timegoodsscope,'1')?'checked':'' }/>
 			</p>
 			<label><span>编码 :</span><input id="timegoodscode" type="text"
 				name="timegoodscode" value="${requestScope.editTimeGoods.timegoodscode }" placeholder="编码" /></label>

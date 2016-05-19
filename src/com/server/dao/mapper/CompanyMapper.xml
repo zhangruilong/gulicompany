@@ -82,7 +82,7 @@
     COMPANYID, COMPANYCODE, USERNAME, COMPANYPHONE, COMPANYSHOP, COMPANYCITY, COMPANYADDRESS, 
     COMPANYDETAIL, COMPANYSTATUE, LOGINNAME, PASSWORD, CREATETIME, UPDTIME
   </sql>
-  <!-- 根据条件查询经销商 -->
+  <!-- 根据 '地区' 查询该地区的 '经销商' 和该经销商的 '秒杀商品' -->
   <select id="selectCompanyByCondition" resultMap="BaseResultMap" parameterType="com.server.pojo.entity.Company" >
     select
 	  company.companyid,
@@ -108,6 +108,9 @@
   	<if test="timegoodsList != null">
   		<if test="timegoodsList[0].timegoodscode != null and timegoodsList[0].timegoodscode != ''">
   			and timegoods.timegoodscode = #{timegoodsList[0].timegoodscode}
+  		</if>
+  		<if test="timegoodsList[0].timegoodsscope != null and timegoodsList[0].timegoodsscope != ''">
+  			and timegoods.timegoodsscope like '%${timegoodsList[0].timegoodsscope}%'
   		</if>
   	</if>
   	order by timegoods.timegoodsseq

@@ -130,11 +130,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<h1>添加秒杀商品</h1>
 			<p><span>客户范围 :</span>
 			餐饮客户:
-			<input type="checkbox" name="timegoodsscope" value="1" checked/>
+			<input type="checkbox" name="timegoodsscope" value="3" checked/>
 			商超客户 :
 			<input type="checkbox" name="timegoodsscope" value="2" checked/>
 			组织单位客户 :
-			<input type="checkbox" name="timegoodsscope" value="3" checked/>
+			<input type="checkbox" name="timegoodsscope" value="1" checked/>
 			</p>
 			<input type="hidden" id="timegoodsimage" value="">
 			<label><span>编码 :</span><input id="timegoodscode" type="text"

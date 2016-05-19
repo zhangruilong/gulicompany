@@ -10,7 +10,7 @@ public interface CompanyMapper {
      */
     Company selectLogin(Company record);
 	/**
-	 * 根据条件查询经销商
+	 * 根据 '地区' 查询该地区的 '经销商' 和该经销商的 '秒杀商品'
 	 */
 	List<Company> selectCompanyByCondition(Company company);
 	/**

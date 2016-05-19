@@ -128,11 +128,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<input type="hidden" id="givegoodsimage" value="">
 			<p><span>客户范围 :</span>
 			餐饮客户:
-			<input type="checkbox" name="givegoodsscope" code="1" checked="checked"/>
+			<input type="checkbox" name="givegoodsscope" code="3" checked="checked"/>
 			商超客户 :
 			<input type="checkbox" name="givegoodsscope" code="2" checked="checked"/>
 			组织单位客户 :
-			<input type="checkbox" name="givegoodsscope" code="3" checked="checked"/>
+			<input type="checkbox" name="givegoodsscope" code="1" checked="checked"/>
 			</p>
 			<label><span>编码 :</span><input id="givegoodscode" type="text"
 				name="givegoodscode" placeholder="编码" /></label>

@@ -31,11 +31,11 @@
 			<h1>买赠商品信息</h1>
 			<p><span>客户范围 :</span>
 			餐饮客户:
-			<input type="checkbox" name="givegoodsscope" value="1" ${fn:contains(requestScope.editGiveGoods.givegoodsscope,'1')?'checked':'' }/>
+			<input type="checkbox" name="givegoodsscope" value="3" ${fn:contains(requestScope.editGiveGoods.givegoodsscope,'3')?'checked':'' }/>
 			商超客户 :
 			<input type="checkbox" name="givegoodsscope" value="2" ${fn:contains(requestScope.editGiveGoods.givegoodsscope,'2')?'checked':'' }/>
 			组织单位客户 :
-			<input type="checkbox" name="givegoodsscope" value="3" ${fn:contains(requestScope.editGiveGoods.givegoodsscope,'3')?'checked':'' }/>
+			<input type="checkbox" name="givegoodsscope" value="1" ${fn:contains(requestScope.editGiveGoods.givegoodsscope,'1')?'checked':'' }/>
 			</p>
 			<label><span>编码 :</span><input id="givegoodscode" type="text"
 				name="givegoodscode" value="${requestScope.editGiveGoods.givegoodscode }" placeholder="编码" /></label>
