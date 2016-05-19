@@ -62,7 +62,7 @@ color:#fff !important;
 .personal-center-nav { width: 100%; position: fixed; bottom: 0; padding: 1% 0; background-color: #f9f9f9 }
 .personal-center-nav li { float: left; width: 25%; text-align: center }
 .personal-center-nav li a { width: 40%; margin: auto; display: block; font-size: .6em }
-.personal-center-nav li em { display: block; width: 68%; margin: auto; height: 26px; font-size: 2.4em }
+.personal-center-nav li em { display: block; width: 68%; margin: auto; padding-top: 5px; font-size: 2em }
 .personal-center-nav .active a { color: #2c77e6 }
 /*.personal-center-nav li.active .nav-home:before{ content:'\f3a0'; font-size:20px }
 .personal-center-nav li .nav-shopping{background-position:-22px 0}
