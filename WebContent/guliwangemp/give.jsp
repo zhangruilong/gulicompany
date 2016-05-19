@@ -44,6 +44,13 @@ var customer = JSON.parse(window.localStorage.getItem("customeremp"));
 var xian = '${param.xian}';
 var givegoodscode = '${param.givegoodscode}';
 $(function(){ 
+	$(".cd-popup").on("click",function(event){		//绑定点击事件
+		if($(event.target).is(".cd-popup-close") || $(event.target).is(".cd-popup-container")){
+			//如果点击的是'取消'或者除'确定'外的其他地方
+			$(this).removeClass("is-visible");	//移除'is-visible' class
+			
+		}
+	});
 	//购物车图标上的数量
 	if(!window.localStorage.getItem("cartnum")){
 		window.localStorage.setItem("cartnum",0);
@@ -54,11 +61,10 @@ $(function(){
 		$("#totalnum").text(window.localStorage.getItem("cartnum"));
 	}
 	//页面信息
-	//页面信息
-	if(xian == ''){
-		xian = customer.customerxian
+	if(!xian){
+		xian = customer.customerxian;
 	}
-	$.getJSON("maizengPageEmp.action",{"givegoodcompany.city.cityname":xian,"givegoodscode":givegoodscode},initMiaoshaPage);
+	$.getJSON("maizengPageEmp.action",{"givegoodcompany.city.cityname":xian,"givegoodscode":givegoodscode,"givegoodsscope":customer.customertype},initMiaoshaPage);
 });
 //初始化页面
 function initMiaoshaPage(data){
@@ -83,7 +89,7 @@ function initMiaoshaPage(data){
          	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span>'+
 			'<h1>'+item1.givegoodsname+
 				'<span>（'+item1.givegoodsunits+'）</span>'+
-			'</h1><span style="font-size: 16px;">'+item1.givegoodsdetail+'</span><br> <span> <strong>￥'+item1.givegoodsprice+'/'+item1.givegoodsunit+
+			'</h1><div class="block"> <span style="font-size: 16px;">'+item1.givegoodsdetail+'</span><br> <span> <strong>￥'+item1.givegoodsprice+'/'+item1.givegoodsunit+
 			'</strong> ';
 		if(data.cusOrderdList != null && data.cusOrderdList.length != 0){
 			var itemGoodsCount = 0;
@@ -96,8 +102,20 @@ function initMiaoshaPage(data){
 		} else {
 			liObj += '<font>限购'+item1.givegoodsnum+item1.givegoodsunit+'</font><br/>';
 		}
-		
-		$(".home-hot-commodity").append(liObj+'</span></a></li>');
+		liObj+='</span></div></a>';
+		liObj += '<div class="stock-num" name="'+item1.givegoodsid+'">'+
+            '<span class="jian min"  onclick="subnum(this,'+item1.givegoodsprice+')"></span>'+
+            '<input readonly="readonly" class="text_box shuliang" name="danpin" type="text" value="'+
+             getcurrennumdanpin(item1.givegoodsid)+'"> '+
+            ' <span class="jia add" onclick="addnum(this,'+item1.givegoodsprice
+			   +',\''+item1.givegoodsname+'\',\''+item1.givegoodsunit+'\',\''+item1.givegoodsunits
+			   +'\',\''+item1.givegoodscode+'\',\''+item1.givegoodsclass
+			   +'\',\''+item1.givegoodscompany+'\',\''+item1.givegoodcompany.companyphone+'\',\''+item1.givegoodcompany.companydetail
+			   +'\')"></span>'+
+			   '<span hidden="ture">'+JSON.stringify(item1)+'</span>'+
+        	'</div>';
+        liObj += '</li>';
+		$(".home-hot-commodity").append(liObj);
 	});
 }
 //判断是否到达限购数量
@@ -116,9 +134,8 @@ function judgePurchase(
 		givegoodsunits,
 		givegoodsnum
 		) {
-	var customer = JSON.parse(window.localStorage.getItem("customeremp"));
-	if(!customer.customerid){
-		alert("购买前需注册");
+	if(!customer.customerid || customer.customerid == '' || typeof(customer.customerid) == 'undefined'){
+		$(".cd-popup").addClass("is-visible");
 		return;
 	}
 	$.getJSON('judgePurchaseGiveGoodsEmp.action',{
@@ -238,6 +255,155 @@ function chuancan(
 function docart(obj){
 	if (window.localStorage.getItem("sdishes") == null || window.localStorage.getItem("sdishes") == "[]") {				//判断有没有购物车
 		$(obj).attr("href","cartnothing.html");
+	}
+}
+//加号
+function addnum(obj,pricesprice,goodsname,pricesunit,goodsunits,goodscode,goodsclassname,goodscompany,companyshop,companydetail){
+	var item = JSON.parse($(obj).next().text());				//得到商品信息
+	//数量
+	var numt = $(obj).prev(); 							//得到加号前面一个元素(input元素)
+	var num = parseInt(numt.val());						//得到input的值,商品数
+	$.post('queryCusSecKillOrderdEmp.action',{'orderm.ordermcustomer':customer.customerid},function(data){
+		var count = 0;
+		if(data.msg == 'no'){
+			$(".popup_msg").text("还没有收货地址,请先添加收货地址。");
+			$(".popup_queding").attr("href","mine.jsp");
+			$(".cd-popup").addClass("is-visible");
+			return;
+		}
+		var restNum = parseInt(item.givegoodsnum) - num;
+		//alert('item1.timegoodsnum: '+item1.timegoodsnum+'   item1.orderdetnum: '+item1.orderdetnum);
+		//alert(restNum);
+		if(data){
+			$.each(data.giveGoodsList,function(i,item2){
+				if(item2.orderdcode == item.givegoodscode){
+					restNum -= parseInt(item2.orderdnum);
+				}
+			});
+		}
+		
+		if(restNum <= 0){		//买的商品数量超过了限购数量
+			count++;
+		}
+		if(count > 0){
+			alert('您购买的商品超过了限购数量。');
+		} else {
+			if(!window.localStorage.getItem("totalmoney")){
+				window.localStorage.setItem("totalmoney","0")
+			}
+			//总价
+			var tmoney = parseFloat(window.localStorage.getItem("totalmoney"));		//总价
+			var newtmoney = (tmoney+pricesprice).toFixed(2);						//总价加上商品价格得到新价格
+			window.localStorage.setItem("totalmoney",newtmoney);					//设置总价格到缓存
+			
+			numt.val(num+1);									//input的值加一
+			//订单
+			if(window.localStorage.getItem("sdishes")==null){
+				window.localStorage.setItem("sdishes","[]");
+			}
+			sdishes = JSON.parse(window.localStorage.getItem("sdishes"));	//得到现有订单
+			if(num == 0){					
+				//如果数量是0
+				$("#totalnum").show();
+				//新增订单
+				var mdishes = new Object();
+				mdishes.goodsid = $(obj).parent().attr('name');
+				mdishes.goodsdetail = $(obj).prev().attr('name');
+				mdishes.goodscompany = goodscompany;
+				mdishes.companyshop = companyshop;
+				mdishes.companydetail = companydetail;
+				mdishes.goodsclassname = goodsclassname;
+				mdishes.goodscode = goodscode;
+				mdishes.pricesprice = pricesprice;
+				mdishes.pricesunit = pricesunit;
+				mdishes.goodsname = goodsname;
+				mdishes.goodsunits = goodsunits;
+				mdishes.orderdetnum = num + 1;
+				mdishes.goodsimage = item.givegoodsimage;
+				mdishes.orderdtype = '买赠';
+				mdishes.timegoodsnum = item.givegoodsnum;
+				sdishes.push(mdishes);
+				//种类数
+				var tnum = parseInt(window.localStorage.getItem("totalnum"));
+				window.localStorage.setItem("totalnum",tnum+1);
+			}else{							
+				//如果数量不是0
+				//修改订单
+				$.each(sdishes, function(i, item3) {
+					if(item3.goodsid==$(obj).parent().attr('name')
+							&&item3.goodsdetail==$(obj).prev().attr('name')){
+						item3.orderdetnum = item3.orderdetnum + 1;
+						return false;
+					}
+				});
+			}
+			window.localStorage.setItem("sdishes",JSON.stringify(sdishes));
+			
+			var cartnum = parseInt(window.localStorage.getItem("cartnum"));
+			$("#totalnum").text(cartnum+1);
+			window.localStorage.setItem("cartnum",cartnum+1);
+		}
+	},'json');
+}
+//减号
+function subnum(obj,pricesprice){
+	var numt = $(obj).next(); 			//得到减号后面一个元素(input元素)
+	var num = parseInt(numt.val());		//数量
+	if(num > 0){
+		//总价
+		var tmoney = parseFloat(window.localStorage.getItem("totalmoney"));
+		var newtmoney = (tmoney-pricesprice).toFixed(2);
+		window.localStorage.setItem("totalmoney",newtmoney);
+		//数量
+		numt.val(num-1);
+		//订单
+		var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));
+		if(num == 1){
+			//删除订单
+			$.each(sdishes,function(i,item){
+				if(item.goodsid==$(obj).parent().attr('name')){
+					sdishes.splice(i,1);
+					return false;
+				};
+			});
+			//种类数
+			var tnum = parseInt(window.localStorage.getItem("totalnum"));
+			window.localStorage.setItem("totalnum",tnum-1);
+			if(tnum == 1)
+			$("#totalnum").hide();
+		}else{
+			//修改订单
+			$.each(sdishes, function(i, item) {
+				if(item.goodsid==$(obj).parent().attr('name')
+						&&item.goodsdetail==$(obj).next().attr('name')){
+					item.orderdetnum = item.orderdetnum - 1;
+					return false;
+				}
+			});
+		}
+		window.localStorage.setItem("sdishes",JSON.stringify(sdishes));
+		var cartnum = parseInt(window.localStorage.getItem("cartnum"));
+		$("#totalnum").text(cartnum-1);
+		window.localStorage.setItem("cartnum",cartnum-1);
+	}
+	
+}
+//初始化加减号的数字
+function getcurrennumdanpin(dishesid){
+	//订单
+	if(window.localStorage.getItem("sdishes")==null){
+		return 0;
+	}else{
+		var orderdetnum = 0;
+		var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));
+		$.each(sdishes, function(i, item) {
+			if(item.goodsid==dishesid
+					&&item.goodsdetail=="danpin"){
+				orderdetnum = item.orderdetnum;
+				return false;
+			}
+		});
+		return orderdetnum;
 	}
 }
 </script>
