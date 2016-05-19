@@ -22,8 +22,10 @@ import com.server.pojo.entity.Address;
 import com.server.pojo.entity.City;
 import com.server.pojo.entity.Company;
 import com.server.pojo.entity.Givegoods;
+import com.server.pojo.entity.Goods;
 import com.server.pojo.entity.GoodsVo;
 import com.server.pojo.entity.Orderd;
+import com.server.pojo.entity.Timegoods;
 import com.system.tools.util.DateUtils;
 /**
  * 首页
@@ -282,6 +284,27 @@ public class FrontController {
 			}
 		}
 		return goodsVoList;
+	}
+	//商品详情
+	@RequestMapping(value="/guliwangemp/goodsDetail")
+	@ResponseBody
+	public Goods goodsDetail(Goods detGoods){
+		detGoods = goodsMapper.selectByPrimaryKey(detGoods.getGoodsid());
+		return detGoods;
+	}
+	//买赠商品详情
+	@RequestMapping(value="/guliwangemp/giveGoodsDetail")
+	@ResponseBody
+	public Givegoods giveGoodsDetail(Givegoods detGoods){
+		detGoods = givegoodsMapper.selectByPrimaryKey(detGoods.getGivegoodsid());
+		return detGoods;
+	}
+	//秒杀商品详情
+	@RequestMapping(value="/guliwangemp/timeGoodsDetail")
+	@ResponseBody
+	public Timegoods timeGoodsDetail(Timegoods detGoods){
+		detGoods = timegoodsMapper.selectByPrimaryKey(detGoods.getTimegoodsid());
+		return detGoods;
 	}
 }
 
