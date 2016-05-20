@@ -29,13 +29,13 @@
 		<form action="" method="post" class="STYLE-NAME">
 		<input type="hidden" name="givegoodscompany" value="${requestScope.editGiveGoods.givegoodscompany }">
 			<h1>买赠商品信息</h1>
-			<p><span>客户范围 :</span>
-			餐饮客户:
+			<p><span>客户范围 :</span>&nbsp;&nbsp;&nbsp;
 			<input type="checkbox" name="givegoodsscope" value="3" ${fn:contains(requestScope.editGiveGoods.givegoodsscope,'3')?'checked':'' }/>
-			商超客户 :
+			餐饮客户&nbsp;&nbsp;&nbsp;
 			<input type="checkbox" name="givegoodsscope" value="2" ${fn:contains(requestScope.editGiveGoods.givegoodsscope,'2')?'checked':'' }/>
-			组织单位客户 :
+			商超客户 &nbsp;&nbsp;&nbsp;
 			<input type="checkbox" name="givegoodsscope" value="1" ${fn:contains(requestScope.editGiveGoods.givegoodsscope,'1')?'checked':'' }/>
+			组织单位客户 
 			</p>
 			<label><span>编码 :</span><input id="givegoodscode" type="text"
 				name="givegoodscode" value="${requestScope.editGiveGoods.givegoodscode }" placeholder="编码" /></label>

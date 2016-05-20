@@ -43,7 +43,7 @@ String ordermcompany = request.getParameter("ordermcompany");
 <span>订单编号:${requestScope.order.ordermcode }&nbsp;&nbsp;&nbsp;&nbsp;</span>
 <span>订单状态 : ${requestScope.order.ordermstatue }&nbsp;&nbsp;&nbsp;&nbsp;</span>
 </td>
-<td rowspan="2">
+<td rowspan="2" align="left" width="63%">
 <input class="button" type="button" value="确认订单" onclick="updateStatue('已确认');">
 <input class="button" type="button" value="订单发货" onclick="updateStatue('已发货');">
 <input class="button" type="button" value="完成订单" onclick="updateStatue('已完成');">
