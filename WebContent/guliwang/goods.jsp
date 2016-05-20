@@ -120,7 +120,7 @@ function entersearch(){
 function initGoodsclass(data){																								//初始化商品大小类
 	 $("#fenlei-left").html("");
 	 $.each(data.root, function(i, item) {				//遍历 data 中的 root 
-		if(i==0){
+		if(item.goodsclassid==window.localStorage.getItem("goodsclassparent")){
 			$("#fenlei-left").append('<li class="active" name="'+item.goodsclassid+'"><a href="#"><img src="'+item.goodsclassdetail+'" > '+item.goodsclassname+'</a></li>');
 			getJson(basePath+"GoodsclassAction.do",{method:"mselAll",wheresql:"goodsclassparent = '"+item.goodsclassid+"' and goodsclassstatue='启用'"},initGoodsclassright,null);
 		}else{
@@ -132,16 +132,27 @@ function initGoodsclass(data){																								//初始化商品大小类
 			$(this).addClass('active').siblings().removeClass('active');	//当前元素被点击时添加 class 'active' 同时把其他同级元素 去除  class 'active'
 			//ajax查询小类并初始化
 			getJson(basePath+"GoodsclassAction.do",{method:"mselAll",wheresql:"goodsclassparent = '"+$(this).attr('name')+"' and goodsclassstatue='启用'"},initGoodsclassright,null);
+			window.localStorage.setItem("goodsclassparent",$(this).attr('name'));
 		})
 	});
 }
 //小类
-function initGoodsclassright(data){																						//大小类右边
+function initGoodsclassright(data){																							//大小类右边
 	 $(".fenlei-right").html("");
 	 $.each(data.root, function(i, item) {
-		$(".fenlei-right").append('<a href="goods.jsp?searchclasses='+item.goodsclassname+'">'+item.goodsclassname+'</a>');
+		 if(item.goodsclassname==window.localStorage.getItem("goodsclassname")){
+			 $(".fenlei-right").append('<a href="#" style="background-color:#2c77e6; color:#fff" onclick="gotogoods(\''+item.goodsclassname+'\')">'+item.goodsclassname+'</a>');
+		}else{
+			$(".fenlei-right").append('<a href="#" onclick="gotogoods(\''+item.goodsclassname+'\')">'+item.goodsclassname+'</a>');
+		}
     });
 }
+
+function gotogoods(goodsclassname){
+	window.localStorage.setItem("goodsclassname",goodsclassname);
+	window.location.href = "goods.jsp?searchclasses="+goodsclassname;
+}
+
 //商品
 function initDishes(data){
      $(".home-hot-commodity").html("");

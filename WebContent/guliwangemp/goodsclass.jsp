@@ -87,14 +87,14 @@ $(function(){
 	}
 	//通过ajax查询大类
 	getJson(basePath+"GoodsclassAction.do",{method:"mselAll",wheresql:"goodsclassparent='root' and goodsclassstatue='启用'"},initGoodsclass,null);
-	if(searchdishesvalue!="null"&&searchdishesvalue!=""){
+	/* if(searchdishesvalue!="null"&&searchdishesvalue!=""){
 		getJson(basePath+"GoodsviewAction.do",{method:"mselAll",query:searchdishesvalue,companyid:emp.empcompany,customerid:customer.customerid,customertype:customer.customertype,customerlevel:customer.customerlevel},initDishes,null);
 	}else if(searchclassesvalue!="null"&&searchclassesvalue!=""){
 		$("#curgoodsclass").html(searchclassesvalue);
 		getJson(basePath+"GoodsviewAction.do",{method:"mselAll",companyid:emp.empcompany,customerid:customer.customerid,customertype:customer.customertype,customerlevel:customer.customerlevel,goodsclassname:searchclassesvalue},initDishes,null);
 	}else{
 		getJson(basePath+"GoodsviewAction.do",{method:"mselAll",companyid:emp.empcompany,customerid:customer.customerid,customertype:customer.customertype,customerlevel:customer.customerlevel,goodsclassname:"大米"},initDishes,null);
-	}
+	} */
 	$(".cd-popup").on("click",function(event){		//绑定点击事件
 		$(this).removeClass("is-visible");	//移除'is-visible' class
 	});
@@ -104,7 +104,7 @@ function entersearch(){
     if (event.keyCode == 13)
     {
     	searchdishesvalue = $("#searchdishes").val();
-    	getJson(basePath+"GoodsviewAction.do",{method:"mselAll",query:searchdishesvalue,companyid:emp.empcompany,customerid:customer.customerid,customertype:customer.customertype,customerlevel:customer.customerlevel},initDishes,null);
+		window.location.href = 'goods.jsp?searchdishes=' + searchdishesvalue;
     }
 }
 /* $(".citydrop").click(function(){ 
