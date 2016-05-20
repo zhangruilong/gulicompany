@@ -80,7 +80,7 @@ $(function(){
 	if(!window.localStorage.getItem("cartnum")){
 		window.localStorage.setItem("cartnum",0);
 	}else if(window.localStorage.getItem("cartnum")==0){
-		$("#totalnum").hide(0.);
+		$("#totalnum").hide();
 		$("#totalnum").text(0);
 	}else{
 		$("#totalnum").text(window.localStorage.getItem("cartnum"));
@@ -88,12 +88,12 @@ $(function(){
 	//通过ajax查询大类
 	getJson(basePath+"GoodsclassAction.do",{method:"mselAll",wheresql:"goodsclassparent='root' and goodsclassstatue='启用'"},initGoodsclass,null);
 	if(searchdishesvalue!="null"&&searchdishesvalue!=""){
-		getJson(basePath+"GoodsviewAction.do",{method:"mselAll",query:searchdishesvalue,customerid:customer.customerid,customertype:customer.customertype,customerlevel:customer.customerlevel},initDishes,null);
+		getJson(basePath+"GoodsviewAction.do",{method:"mselAll",query:searchdishesvalue,companyid:emp.empcompany,customerid:customer.customerid,customertype:customer.customertype,customerlevel:customer.customerlevel},initDishes,null);
 	}else if(searchclassesvalue!="null"&&searchclassesvalue!=""){
 		$("#curgoodsclass").html(searchclassesvalue);
-		getJson(basePath+"GoodsviewAction.do",{method:"mselAll",customerid:customer.customerid,customertype:customer.customertype,customerlevel:customer.customerlevel,goodsclassname:searchclassesvalue},initDishes,null);
+		getJson(basePath+"GoodsviewAction.do",{method:"mselAll",companyid:emp.empcompany,customerid:customer.customerid,customertype:customer.customertype,customerlevel:customer.customerlevel,goodsclassname:searchclassesvalue},initDishes,null);
 	}else{
-		getJson(basePath+"GoodsviewAction.do",{method:"mselAll",customerid:customer.customerid,customertype:customer.customertype,customerlevel:customer.customerlevel,goodsclassname:"大米"},initDishes,null);
+		getJson(basePath+"GoodsviewAction.do",{method:"mselAll",companyid:emp.empcompany,customerid:customer.customerid,customertype:customer.customertype,customerlevel:customer.customerlevel,goodsclassname:"大米"},initDishes,null);
 	}
 	$(".cd-popup").on("click",function(event){		//绑定点击事件
 		$(this).removeClass("is-visible");	//移除'is-visible' class

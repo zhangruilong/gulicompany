@@ -23,7 +23,7 @@
 	</div>
 	<div class="add-admin">
 		<c:forEach items="${requestScope.addressList }" var="address">
-			<a href="doBuy.action?addressid=${address.addressid }"><span>${address.addressconnect }</span><span>  ${address.addressphone } </span><span class="sign"></span>${address.addressture == 1?'[默认]':'' }收货地址: ${address.addressaddress } </a>
+			<a href="doBuy.action?addressid=${address.addressid }&addresscustomer=${address.addresscustomer }"><span>${address.addressconnect }</span><span>  ${address.addressphone } </span><span class="sign"></span>${address.addressture == 1?'[默认]':'' }收货地址:${address.addressaddress } </a>
 		</c:forEach>
     </div>
 </div>

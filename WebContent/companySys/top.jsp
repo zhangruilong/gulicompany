@@ -54,7 +54,8 @@ Company company = (Company)session.getAttribute("company");
 					+data.ordermmoney+'&nbsp;'
 					+data.ordermconnect+'&nbsp;'
 					+data.orderdCustomer.customershop+'&nbsp;'
-					+'<span name="ordermtime">'+data.ordermtime+'</span>'
+					+'<span>'+data.ordermtime+'</span>'
+					+'<span name="ordermtime" hidden="true">'+data.ordermtime+'</span>'
 				);
 			}
 		});
@@ -63,18 +64,20 @@ Company company = (Company)session.getAttribute("company");
 	})
 	function showNewestOrderm(){
 		$.post("queryNewestOrderm.action",{"ordermcompany":'${sessionScope.company.companyid}'},function(data){
-			$(".haveNewOrderm").html("");
+			if($("[name='ordermtime']").text() != data.ordermtime){
+				play();
+			}
 			if(data.ordermstatue == '已下单'){
 				$(".haveNewOrderm").html(
 					'有新的订单!&nbsp;'+data.ordermcode+'&nbsp;'
-					+'<span name="ordermtime">'+data.ordermtime+'</span>&nbsp;'
-					+data.orderdCustomer.customershop+'&nbsp;'
+					+data.ordermmoney+'&nbsp;'
 					+data.ordermconnect+'&nbsp;'
-					+data.ordermmoney
+					+data.orderdCustomer.customershop+'&nbsp;'
+					+'<span>'+data.ordermtime+'</span>&nbsp;'
+					+'<span name="ordermtime" hidden="true">'+data.ordermtime+'</span>'
 				);
-				if($("[name='ordermtime']").text() != data.ordermtime){
-					play();
-				}
+			} else {
+				$(".haveNewOrderm").html('<span name="ordermtime" hidden="true">'+data.ordermtime+'</span>');
 			}
 		});
 	}
