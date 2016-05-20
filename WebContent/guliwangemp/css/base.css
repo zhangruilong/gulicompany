@@ -16,7 +16,6 @@ img{max-width:100%}
 .pdl-b8{ padding-left:8%}
 
 
-
 @font-face {
     font-family: 'icomoon';
     src:    url('../fonts/icomoon.eot?fcf7lz');
@@ -67,3 +66,4 @@ img{max-width:100%}
 .icon-wode2:before {
     content: "\e907";
 }
+

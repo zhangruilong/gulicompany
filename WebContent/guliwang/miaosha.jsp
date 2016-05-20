@@ -74,22 +74,7 @@ function initMiaoshaPage(data){
 	$(".home-hot-commodity").html("");
 	$.each(data.companyList,function(i,item1){
 		$.each(item1.timegoodsList,function(j,item2){
-			var liObj = '<li><a '+
-			'onclick="judgePurchase(\''+
-			item2.timegoodsid +'\',\''+
-			item2.timegoodsdetail +'\',\''+
-			item2.timegoodscompany +'\',\''+
-			item1.companyshop +'\',\''+
-			item1.companydetail +'\',\''+
-			item2.timegoodsclass +'\',\''+
-			item2.timegoodscode +'\',\''+
-			item2.timegoodsorgprice +'\',\''+
-			item2.timegoodsunit +'\',\''+
-			item2.timegoodsname +'\',\''+
-			item2.timegoodsimage +'\',\''+
-			item2.timegoodsunits +'\',\''+
-			item2.timegoodsnum+'\');" '+
-			'> <span class="fl"> <img src="../'+item2.timegoodsimage+
+			var liObj = '<li><a href="goodsDetail.jsp?type=秒杀&goods='+JSON.stringify(item2)+'"> <span class="fl"> <img src="../'+item2.timegoodsimage+
 	         	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span>'+
 				'<h1>'+item2.timegoodsname+
 					'<span>（'+item2.timegoodsunits+'）</span>'+

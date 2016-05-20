@@ -70,7 +70,7 @@ var searchdishesvalue = '<%=searchdishesvalue%>';
 var searchclassesvalue = '<%=searchclassesvalue%>';
 var openid = window.localStorage.getItem("openid");
 var customer = JSON.parse(window.localStorage.getItem("customer"));
-$(function(){ 
+$(function(){
 	getJson(basePath+"CustomerAction.do",{method:"selCustomer",
 		wheresql : "openid='"+openid+"'"},initCustomer,null);		//得到openid
 	if(!window.localStorage.getItem("totalnum")){
@@ -136,7 +136,7 @@ function initGoodsclass(data){																								//初始化商品大小类
 	});
 }
 //小类
-function initGoodsclassright(data){																							//大小类右边
+function initGoodsclassright(data){																						//大小类右边
 	 $(".fenlei-right").html("");
 	 $.each(data.root, function(i, item) {
 		$(".fenlei-right").append('<a href="goods.jsp?searchclasses='+item.goodsclassname+'">'+item.goodsclassname+'</a>');
@@ -147,7 +147,7 @@ function initDishes(data){
      $(".home-hot-commodity").html("");
  	 $.each(data.root, function(i, item) {
  		var jsonitem = JSON.stringify(item);
- 		$(".home-hot-commodity").append('<li>'+
+ 		$(".home-hot-commodity").append('<li><a href="goodsDetail.jsp?type=商品&goods='+jsonitem+'">'+
  	         	'<span class="fl"><img src="../'+item.goodsimage+
  	         	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span> '+
  	         	'<h1>'+item.goodsname+'<span>('+item.goodsunits+')</span></h1>'+
@@ -160,7 +160,7 @@ function initDishes(data){
  	                 '    <input type="radio" id="'+item.goodsid+'radio1" name="'+item.goodsid+'radio" class="regular-radio" checked />'+
  	                '    <label for="'+item.goodsid+'radio1">售价:<font class="font-oringe">￥'+item.pricesprice+'</font>/'+item.pricesunit+'</label>'+
  	               '  </span>'+
- 	            ' </div>'+
+ 	            ' </div></a>'+
  	           '  <div class="stock-num" name="'+item.goodsid+'">'+
  	                ' <span class="jian min" onclick="subnum(this,'+item.pricesprice
 					   +')"></span>'+

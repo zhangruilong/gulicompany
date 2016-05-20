@@ -46,6 +46,13 @@
 <script type="text/javascript">
 var customer = JSON.parse(window.localStorage.getItem("customer"));
 $(function(){
+	var type = '${param.type}';
+	var goods = JSON.parse('${param.goods}');
+	if(type=='商品'){
+		
+	} else if(type=='秒杀'){
+	} else if(type=='买赠'){
+	}
 });
 </script>
 </body>

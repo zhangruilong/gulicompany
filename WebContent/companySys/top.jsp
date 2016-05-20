@@ -47,20 +47,24 @@ Company company = (Company)session.getAttribute("company");
 			});
 		});
 		$.post("queryNewestOrderm.action",{"ordermcompany":'${sessionScope.company.companyid}'},function(data){
-			$(".haveNewOrderm").html(
-				data.ordermcode+'&nbsp;'
-				+data.ordermmoney+'&nbsp;'
-				+data.ordermconnect+'&nbsp;'
-				+data.orderdCustomer.customershop+'&nbsp;'
-				+'<span name="ordermtime">'+data.ordermtime+'</span>'
-			);
+			
+			if(data.ordermstatue == '已下单'){
+				$(".haveNewOrderm").html(
+					data.ordermcode+'&nbsp;'
+					+data.ordermmoney+'&nbsp;'
+					+data.ordermconnect+'&nbsp;'
+					+data.orderdCustomer.customershop+'&nbsp;'
+					+'<span name="ordermtime">'+data.ordermtime+'</span>'
+				);
+			}
 		});
 		//显示最新订单信息
 		window.setInterval(showNewestOrderm,10000);
 	})
 	function showNewestOrderm(){
 		$.post("queryNewestOrderm.action",{"ordermcompany":'${sessionScope.company.companyid}'},function(data){
-			if($("[name='ordermtime']").text() != data.ordermtime){
+			$(".haveNewOrderm").html("");
+			if(data.ordermstatue == '已下单'){
 				$(".haveNewOrderm").html(
 					'有新的订单!&nbsp;'+data.ordermcode+'&nbsp;'
 					+'<span name="ordermtime">'+data.ordermtime+'</span>&nbsp;'
@@ -68,10 +72,9 @@ Company company = (Company)session.getAttribute("company");
 					+data.ordermconnect+'&nbsp;'
 					+data.ordermmoney
 				);
-				/* $(".haveNewOrderm").append('<audio autoplay="autoplay"><source src="tishi.wav"' 
-						+ 'type="audio/wav"/><!--<source src="MP3/tishi.mp3" type="audio/mpeg"/>--></audio>'); */
-				
-				play();
+				if($("[name='ordermtime']").text() != data.ordermtime){
+					play();
+				}
 			}
 		});
 	}
