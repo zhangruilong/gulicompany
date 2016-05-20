@@ -82,7 +82,7 @@ jQuery(document).ready(function($){
 });
 var customer =  JSON.parse(window.localStorage.getItem("customeremp"));
 $(function(){
-	$(".shouhuo-wrap a").attr("href","doAddressMana.action?customerId="+customer.customerid+"&message=foBuy");
+	$(".shouhuo-wrap a").attr("href","doEmpAddressMana.action?customerId="+customer.customerid+"&message=foBuy");
 	if(!window.localStorage.getItem("totalmoney")){
 		window.localStorage.setItem("totalmoney",0);
 		$("#totalmoney").text(0);
