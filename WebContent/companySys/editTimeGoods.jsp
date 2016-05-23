@@ -58,6 +58,8 @@
 				name="timegoodsnum" value="${requestScope.editTimeGoods.timegoodsnum }" placeholder="个人限量" /></label>
 			<label><span>全部限量 :</span><input id="allnum" type="number"
 				name="allnum" value="${requestScope.editTimeGoods.allnum }" placeholder="全部限量" /></label>
+			<label><span>剩余数量 :</span><input id="surplusnum" type="number"
+				name="surplusnum" value="${requestScope.editTimeGoods.surplusnum }" placeholder="剩余数量" /></label>
 			<label><span>顺序 :</span><input id="timegoodsseq" type="number"
 				name="timegoodsseq" value="${requestScope.editTimeGoods.timegoodsseq }" placeholder="顺序" /></label>
 			<label><span>图片路径 :</span><input id="timegoodsimage" type="text"

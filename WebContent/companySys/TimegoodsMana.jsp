@@ -15,6 +15,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link href="css/dig.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="../sysjs/jquery.min.js"></script>
 <style type="text/css">
+.bordered tr td {
+	padding: 5px;
+	padding-left: 3px;
+	padding-right: 3px;
+}
+.bordered tr th{
+	padding: 5px;
+	padding-left: 1px;
+	padding-right: 1px;
+}
 .elegant-aero{
 	margin-top: 0;
 	overflow: auto;
@@ -60,6 +70,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<th>原价</th>
 		<th>现价</th>
 		<th>限量</th>
+		<th>全部限量</th>
+		<th>剩余数量</th>
+		<th>已售出</th>
 		<th>状态</th>
 		<th>顺序</th>
 		<th>创建时间</th>
@@ -78,6 +91,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td>${timegoods.timegoodsprice}</td>
 			<td>${timegoods.timegoodsorgprice}</td>
 			<td>${timegoods.timegoodsnum}</td>
+			<td>${timegoods.allnum}</td>
+			<td>${timegoods.surplusnum}</td>
+			<td>${timegoods.allnum - timegoods.surplusnum}</td>
 			<td>${timegoods.timegoodsstatue}</td>
 			<td>${timegoods.timegoodsseq}</td>
 			<td>${timegoods.createtime}</td>
@@ -86,10 +102,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</c:forEach>
 	</c:if>
 	<c:if test="${fn:length(requestScope.timegoodsList)==0 }">
-		<tr><td colspan="14" align="center" style="font-size: 20px;color: red;"> 没有信息</td></tr>
+		<tr><td colspan="18" align="center" style="font-size: 20px;color: red;"> 没有信息</td></tr>
 	</c:if>
     	<tr>
-		 <td colspan="14" align="center">
+		 <td colspan="18" align="center">
 		 <c:if test="${requestScope.pagenow > 1 }">
 		 	<a onclick="fenye('1')">第一页</a>
 		 </c:if>
