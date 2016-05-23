@@ -286,21 +286,21 @@ public class FrontController {
 		return goodsVoList;
 	}
 	//商品详情
-	@RequestMapping(value="/guliwangemp/goodsDetail")
+	@RequestMapping(value="/guliwang/goodsDetail")
 	@ResponseBody
 	public Goods goodsDetail(Goods detGoods){
 		detGoods = goodsMapper.selectByPrimaryKey(detGoods.getGoodsid());
 		return detGoods;
 	}
 	//买赠商品详情
-	@RequestMapping(value="/guliwangemp/giveGoodsDetail")
+	@RequestMapping(value="/guliwang/giveGoodsDetail")
 	@ResponseBody
 	public Givegoods giveGoodsDetail(Givegoods detGoods){
 		detGoods = givegoodsMapper.selectByPrimaryKey(detGoods.getGivegoodsid());
 		return detGoods;
 	}
 	//秒杀商品详情
-	@RequestMapping(value="/guliwangemp/timeGoodsDetail")
+	@RequestMapping(value="/guliwang/timeGoodsDetail")
 	@ResponseBody
 	public Timegoods timeGoodsDetail(Timegoods detGoods){
 		detGoods = timegoodsMapper.selectByPrimaryKey(detGoods.getTimegoodsid());

@@ -74,7 +74,7 @@ function initMiaoshaPage(data){
 	$(".home-hot-commodity").html("");
 	$.each(data.companyList,function(i,item1){
 		$.each(item1.timegoodsList,function(j,item2){
-			var liObj = '<li><a href="goodsDetail.jsp?type=秒杀&goods='+JSON.stringify(item2)+'"> <span class="fl"> <img src="../'+item2.timegoodsimage+
+			var liObj = '<li><a href="goodsDetail.jsp?type=秒杀&goods='+item2.timegoodsid+'"> <span class="fl"> <img src="../'+item2.timegoodsimage+
 	         	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span>'+
 				'<h1>'+item2.timegoodsname+
 					'<span>（'+item2.timegoodsunits+'）</span>'+

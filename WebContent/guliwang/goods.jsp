@@ -158,7 +158,9 @@ function initDishes(data){
      $(".home-hot-commodity").html("");
  	 $.each(data.root, function(i, item) {
  		var jsonitem = JSON.stringify(item);
- 		$(".home-hot-commodity").append('<li><a href="goodsDetail.jsp?type=商品&goods='+jsonitem+'">'+
+ 		//var goods = jsonitem.replace(/\"/g,'\\"');
+ 		//alert(goods);
+ 		$(".home-hot-commodity").append('<li><a href="goodsDetail.jsp?type=商品&goodsid='+item.goodsid+'&pricesprice='+item.pricesprice+'">'+
  	         	'<span class="fl"><img src="../'+item.goodsimage+
  	         	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span> '+
  	         	'<h1>'+item.goodsname+'<span>('+item.goodsunits+')</span></h1>'+

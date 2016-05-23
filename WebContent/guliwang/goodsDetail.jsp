@@ -17,21 +17,20 @@
 <body>
 <div class="goods-detail-wrapper">
 	<ul>
-    	<li><span><img id="goods_top_img" alt="" src=""></span></li>
-        <li></li>
-        <li></li>
+    	<li><span><img id="goods_det_img1" alt="" src=""></span></li>
+        <li id="gdw_t_li2"></li>
+        <li id="gdw_t_li3"></li>
     </ul>
 </div>
-<div class="goods-detail-wrapper">
-	<ul>
-    	<li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
+<div class="goods-detail-wrapper" style="margin: 0;border: 0px;">
+	<ul class="gd-lower-liebiao">
+    	<li>商品编码<span></span></li>
+        <li>规格<span></span></li>
+        <li>品牌<span></span></li>
+        <li>种类<span></span></li>
     </ul>
 </div>
+<div><img id="goods_det_img2" alt="" src=""></div>
 <!--弹框-->
 <div class="cd-popup" role="alert">
 	<div class="cd-popup-container">
@@ -47,11 +46,24 @@
 var customer = JSON.parse(window.localStorage.getItem("customer"));
 $(function(){
 	var type = '${param.type}';
-	var goods = JSON.parse('${param.goods}');
 	if(type=='商品'){
-		
+		$.post("goodsDetail.action",{"goodsid":"${param.goodsid}"},function(data){
+			$("#goods_det_img1").attr("src",'../'+data.goodsimage);
+			$("#goods_det_img2").attr("src",'../'+data.goodsimage);
+			$("#gdw_t_li2").html(data.goodsname+'<span>（'+data.goodsunits+'）</span>'+
+					'<input type="checkbox" id="'+data.goodsid+'checkbox" class="chk_1" '+data.goodsdetail+'>'+
+	            	'<label for="'+data.goodsid+'checkbox" onclick="checkedgoods(\''+data.goodsid+'\');"></label>');
+			$("#gdw_t_li3").html('<span>￥${param.pricesprice}</span>');
+			$(".gd-lower-liebiao span:eq(1)").text(data.goodscode);
+		});
 	} else if(type=='秒杀'){
+		$.post("timeGoodsDetail.action",{"timegoodsid":"${param.goodsid}"},function(data){
+			
+		});
 	} else if(type=='买赠'){
+		$.post("giveGoodsDetail.action",{"givegoodsid":"${param.goodsid}"},function(data){
+			
+		});
 	}
 });
 </script>

@@ -70,7 +70,7 @@ $(function(){
 function initMiaoshaPage(data){
 	$(".home-hot-commodity").html("");
 	$.each(data.giveList,function(i,item1){
-		var liObj = '<li><a href="goodsDetail.jsp?type=买赠&goods='+JSON.stringify(item1)+'"> <span class="fl"> <img src="../'+item1.givegoodsimage+
+		var liObj = '<li><a href="goodsDetail.jsp?type=买赠&goods='+item1.givegoodsid+'"> <span class="fl"> <img src="../'+item1.givegoodsimage+
          	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span>'+
 			'<h1>'+item1.givegoodsname+
 				'<span>（'+item1.givegoodsunits+'）</span>'+
