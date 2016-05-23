@@ -77,11 +77,11 @@
 	    </div>
 		<div class="personal-center-nav">
     	<ul>
-        	<li><a href="index.jsp">
+        	<li class="active"><a href="index.jsp">
         	<em class="icon-shouye1"></em>首页</a></li>
             <li><a href="goodsclass.jsp"><em class="icon-fenlei1"></em>商城</a></li>
-            <li><a href="cart.jsp"><em class="icon-gwc1"></em>购物车</a></li>
-            <li class="active"><a href="mine.jsp"><em class="icon-wode2"></em>我的</a></li>
+            <li><a onclick="docart(this)" href="cart.jsp"><em class="icon-gwc1"></em>购物车</a></li>
+            <li><a href="mine.jsp"><em class="icon-wode2"></em>我的</a></li>
         </ul>
     </div>
 	</div>

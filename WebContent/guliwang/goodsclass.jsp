@@ -37,7 +37,7 @@
             </div>
         </div>
         <input id="searchdishes" type="text" placeholder="请输入食材名称" onkeydown="entersearch()"/>
-        <a href="cart.jsp" class="gwc"><img src="images/gwc.png" ><em id="totalnum">0</em></a>
+        <a onclick="docart(this)" href="cart.jsp" class="gwc"><img src="images/gwc.png" ><em id="totalnum">0</em></a>
     </div>
     <div class="goods-wrapper">
         <ul class="home-hot-commodity">
@@ -48,9 +48,9 @@
     	<ul>
         	<li><a href="index.jsp">
         	<em class="icon-shouye1"></em>首页</a></li>
-            <li><a href="goodsclass.jsp"><em class="icon-fenlei1"></em>商城</a></li>
-            <li><a href="cart.jsp"><em class="icon-gwc1"></em>购物车</a></li>
-            <li class="active"><a href="mine.jsp"><em class="icon-wode2"></em>我的</a></li>
+            <li class="active"><a href="goodsclass.jsp"><em class="icon-fenlei1"></em>商城</a></li>
+            <li><a onclick="docart(this)" href="cart.jsp"><em class="icon-gwc1"></em>购物车</a></li>
+            <li><a href="mine.jsp"><em class="icon-wode2"></em>我的</a></li>
         </ul>
     </div>
 <!--弹框-->
@@ -371,7 +371,12 @@ function subnum(obj,pricesprice){
 	}
 	
 }
-
+//到购物车页面
+function docart(obj){
+	if (window.localStorage.getItem("sdishes") == null || window.localStorage.getItem("sdishes") == "[]") {				//判断有没有购物车
+		$(obj).attr("href","cartnothing.html");
+	}
+}
 function nextpage(){
 	if(window.localStorage.getItem("totalnum")==0)
 		window.location.href = "cartnothing.html";
