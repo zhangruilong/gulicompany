@@ -57,8 +57,8 @@
 	<div class="cd-popup-container">
 		<div class="cd-buttons">
         	<h1>谷粒网提示</h1>
-			<p class="meg">操作成功!</p>
-            <a class="cd-popup-close">确定</a>
+			<p class="meg">尚无账号，立即注册？</p>
+            <a class="cd-popup-close">取消</a><a class="ok" href="doReg.action" style="display: inline-block;">确定</a>
 		</div>
 	</div>
 </div>
@@ -160,11 +160,11 @@ function initDishes(data){
  		var jsonitem = JSON.stringify(item);
  		//var goods = jsonitem.replace(/\"/g,'\\"');
  		//alert(goods);
- 		$(".home-hot-commodity").append('<li><a href="goodsDetail.jsp?type=商品&goodsid='+item.goodsid+'&pricesprice='+item.pricesprice+'">'+
- 	         	'<span class="fl"><img src="../'+item.goodsimage+
+ 		$(".home-hot-commodity").append('<li>'+
+ 	         	'<span onclick="gotogoodsDetail(\''+item.pricesprice+'\',\''+ encodeURI(jsonitem)+ '\');" class="fl"><img src="../'+item.goodsimage+
  	         	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span> '+
- 	         	'<h1>'+item.goodsname+'<span>('+item.goodsunits+')</span></h1>'+
- 	           '  <div class="block"> '+
+ 	         	'<h1 onclick="gotogoodsDetail(\''+item.pricesprice+'\',\''+ encodeURI(jsonitem)+ '\');">'+item.goodsname+'<span>('+item.goodsunits+')</span></h1>'+
+ 	           '  <div class="block" onclick="gotogoodsDetail(\''+item.pricesprice+'\',\''+ encodeURI(jsonitem)+ '\');"> '+
  	               '  <span>'+
  	                   '  <input type="radio" id="'+item.goodsid+'radio2" name="'+item.goodsid+'radio" class="regular-radio" />'+
  	               '      <label for="'+item.goodsid+'radio2">套装价:<font class="font-oringe">￥'+item.pricesprice2+'</font>/'+item.pricesunit2+'</label>'+
@@ -173,7 +173,7 @@ function initDishes(data){
  	                 '    <input type="radio" id="'+item.goodsid+'radio1" name="'+item.goodsid+'radio" class="regular-radio" checked />'+
  	                '    <label for="'+item.goodsid+'radio1">售价:<font class="font-oringe">￥'+item.pricesprice+'</font>/'+item.pricesunit+'</label>'+
  	               '  </span>'+
- 	            ' </div></a>'+
+ 	            ' </div>'+
  	           '  <div class="stock-num" name="'+item.goodsid+'">'+
  	                ' <span class="jian min" onclick="subnum(this,'+item.pricesprice
 					   +')"></span>'+
@@ -214,8 +214,21 @@ function initDishes(data){
 		t2.next().toggle();
 	})
 }
+//到商品详情页
+function gotogoodsDetail(pricesprice,jsonitem){
+	window.location.href = 'goodsDetail.jsp?type=商品&pricesprice='+pricesprice+'&goods='+jsonitem;
+}
 //收藏商品
 function checkedgoods(goodsid){
+	if(!customer.customerid || typeof(customer.customerid) == 'undefined'){
+		$("#"+goodsid+"checkbox").prop("checked",false);
+		$("#"+goodsid+"checkbox").attr("checked","");
+		$(".cd-buttons .meg").text("尚无账号，立即注册？");
+		$(".cd-buttons .ok").css("display","inline-block");
+		$(".cd-popup-close").text("取消");
+		$(".cd-popup").addClass("is-visible");
+		return;
+	}
 	var url = 'CollectAction.do?method=';
 	if($("#"+goodsid+"checkbox").is(':checked')){
 		url +='delAllByGoodsid';
@@ -234,6 +247,9 @@ function checkedgoods(goodsid){
 			if(respText.success == false) 
 				alert(respText.msg);
 			else {
+				$(".cd-buttons .meg").text("操作成功!");
+				$(".cd-buttons .ok").css("display","none");
+				$(".cd-popup-close").text("确定");
 				$(".cd-popup").addClass("is-visible");	//弹出窗口
 				setTimeout(function () {  
 					$(".cd-popup").removeClass("is-visible");	//一秒钟后关闭弹窗

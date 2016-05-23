@@ -61,12 +61,18 @@ public class Goods
     * 修改人
     */
    private String updor;   
-   
-   private String goodsbrand;			//品牌
-
-   private String goodstype;			//种类
-
-   private Integer goodsorder;		//顺序
+   /**
+    * 品牌
+    */
+   private String goodsbrand;
+   /**
+    * 种类
+    */
+   private String goodstype;
+   /**
+    * 顺序
+    */
+   private Integer goodsorder;
    /**
     * 关联价格(一对多)
     */

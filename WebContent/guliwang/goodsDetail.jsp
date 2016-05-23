@@ -1,5 +1,8 @@
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/";
+ %>
 <!doctype html> 
 <html>
 <head>
@@ -12,22 +15,39 @@
 <link href="css/base.css" type="text/css" rel="stylesheet">
 <link href="css/layout.css" type="text/css" rel="stylesheet">
 <link href="css/dig.css" type="text/css" rel="stylesheet">
+<style type="text/css">
+#gdw_t_li3{color: #F86B4F;font-size: 24px;}
+#gdw_t_li2{border:0;height: 45px;}
+#goods_ti{width: 80%;}
+.goods-detail-wrapper ul li{width: 100%;}
+.chk_1 + label{
+	width: 13px;
+	height: 13px;
+	background-position:center;
+}
+.chk_1:checked + label{
+	background-position:center;
+}
+</style>
 </head>
 
 <body>
 <div class="goods-detail-wrapper">
 	<ul>
     	<li><span><img id="goods_det_img1" alt="" src=""></span></li>
-        <li id="gdw_t_li2"></li>
+        <li id="gdw_t_li2">
+        	<span id="goods_ti"></span>
+        	<span class="gdw_tli2span_collect"><br>收藏</span>
+        </li>
         <li id="gdw_t_li3"></li>
     </ul>
 </div>
 <div class="goods-detail-wrapper" style="margin: 0;border: 0px;">
 	<ul class="gd-lower-liebiao">
-    	<li>商品编码<span></span></li>
+    	<li>商品详情</li>
         <li>规格<span></span></li>
         <li>品牌<span></span></li>
-        <li>种类<span></span></li>
+        <li>编号<span></span></li>
     </ul>
 </div>
 <div><img id="goods_det_img2" alt="" src=""></div>
@@ -43,29 +63,71 @@
 </div>
 <script src="js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
+var basePath = '<%=basePath%>';
 var customer = JSON.parse(window.localStorage.getItem("customer"));
 $(function(){
 	var type = '${param.type}';
-	if(type=='商品'){
-		$.post("goodsDetail.action",{"goodsid":"${param.goodsid}"},function(data){
-			$("#goods_det_img1").attr("src",'../'+data.goodsimage);
-			$("#goods_det_img2").attr("src",'../'+data.goodsimage);
-			$("#gdw_t_li2").html(data.goodsname+'<span>（'+data.goodsunits+'）</span>'+
-					'<input type="checkbox" id="'+data.goodsid+'checkbox" class="chk_1" '+data.goodsdetail+'>'+
-	            	'<label for="'+data.goodsid+'checkbox" onclick="checkedgoods(\''+data.goodsid+'\');"></label>');
-			$("#gdw_t_li3").html('<span>￥${param.pricesprice}</span>');
-			$(".gd-lower-liebiao span:eq(1)").text(data.goodscode);
-		});
-	} else if(type=='秒杀'){
-		$.post("timeGoodsDetail.action",{"timegoodsid":"${param.goodsid}"},function(data){
-			
-		});
-	} else if(type=='买赠'){
-		$.post("giveGoodsDetail.action",{"givegoodsid":"${param.goodsid}"},function(data){
-			
-		});
-	}
+	var data = JSON.parse('${param.goods}');
+	$("#goods_det_img1").attr("src",'../'+data.goodsimage);
+	$("#goods_det_img2").attr("src",'../'+data.goodsimage);
+    $("#goods_ti").html(data.goodsname+'<span>（'+data.goodsunits+'）</span>');
+	$("#gdw_t_li3").html('<span>￥${param.pricesprice}</span>');
+	$(".gd-lower-liebiao span:eq(0)").text(data.goodsunits);
+	$(".gd-lower-liebiao span:eq(1)").text(data.goodsbrand);
+	$(".gd-lower-liebiao span:eq(2)").text(data.goodscode);
+	$(".gdw_tli2span_collect").prepend(' <input type="checkbox" id="'+data.goodsid+'checkbox" class="chk_1" '+data.goodsdetail+'>'+
+     		'<label for="'+data.goodsid+'checkbox" onclick="checkedgoods(\''+data.goodsid+'\');"></label>');
+	//弹窗
+	$(".cd-popup").on("click",function(event){		//绑定点击事件
+		if($(event.target).is(".cd-popup-close") || $(event.target).is(".cd-popup-container")){
+			//如果点击的是'取消'或者除'确定'外的其他地方
+			$(this).removeClass("is-visible");	//移除'is-visible' class
+		}
+	});
 });
+//收藏商品
+function checkedgoods(goodsid){
+	if(!customer.customerid || typeof(customer.customerid) == 'undefined'){
+		$("#"+goodsid+"checkbox").prop("checked",false);
+		$("#"+goodsid+"checkbox").attr("checked","");
+		$(".cd-buttons .meg").text("尚无账号，立即注册？");
+		$(".cd-buttons .ok").css("display","inline-block");
+		$(".cd-popup-close").text("取消");
+		$(".cd-popup").addClass("is-visible");
+		return;
+	}
+	var url = 'CollectAction.do?method=';
+	if($("#"+goodsid+"checkbox").is(':checked')){
+		url +='delAllByGoodsid';
+	}else{
+		url +='insAll';
+	}
+	var json = '[{"collectgoods":"' + goodsid + 
+		'","collectcustomer":"' + customer.customerid + '"}]';
+	$.ajax({
+		url : url,
+		data : {
+			json : json
+		},
+		success : function(resp) {
+			var respText = eval('('+resp+')'); 
+			if(respText.success == false) 
+				alert(respText.msg);
+			else {
+				$(".cd-buttons .meg").text("操作成功!");
+				$(".cd-buttons .ok").css("display","none");
+				$(".cd-popup-close").text("确定");
+				$(".cd-popup").addClass("is-visible");	//弹出窗口
+				setTimeout(function () {  
+					$(".cd-popup").removeClass("is-visible");	//一秒钟后关闭弹窗
+			    }, 1000);
+			}
+		},
+		error : function(resp) {
+			alert('网络出现问题，请稍后再试');
+		}
+	});
+}
 </script>
 </body>
 </html>

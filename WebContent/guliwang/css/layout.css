@@ -40,6 +40,9 @@ color:#fff !important;
 .goods-detail-wrapper{background-color:#fff; border-bottom:solid 1px #ddd; border-top:solid 1px #ddd; margin-bottom:4%}
 .goods-detail-wrapper li{ border-bottom:solid 1px #ddd; margin-left:4%; padding:4% 0; overflow:hidden}
 .goods-detail-wrapper li:last-child{ border:none}
+.gd-lower-liebiao span{position: absolute; left: 30%;}
+.gdw_tli2span_collect{display:block; float: right;padding: 0% 6% 0% 3%;font-size: 18px;color:#6B6B6B; text-align: center;border-left: 1px solid #A9A9A9;}
+.gdw_tli2span_collect img{margin-bottom: 10px;}
 /*地址管理*/
 .add-admin { position: relative }
 .add-admin a { position: relative; margin-bottom: 4%; font-size: .8em; color: #666; background-color: #fff; display: block; padding: 4% }
