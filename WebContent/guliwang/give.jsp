@@ -68,17 +68,20 @@ $(function(){
 });
 //到商品详情页
 function gotogoodsDetail(pricesprice,jsonitem){
-	window.location.href = 'goodsDetail.jsp?type=商品&pricesprice='+pricesprice+'&goods='+jsonitem;
+	window.location.href = 'goodsDetail.jsp?type=买赠&pricesprice='+pricesprice+'&goods='+jsonitem;
 }
 //初始化页面
 function initMiaoshaPage(data){
 	$(".home-hot-commodity").html("");
 	$.each(data.giveList,function(i,item1){
-		var liObj = '<li><a href="goodsDetail.jsp?type=买赠&goods='+item1.givegoodsid+'"> <span class="fl"> <img src="../'+item1.givegoodsimage+
+		var jsonitem = JSON.stringify(item1);
+		var liObj = '<li><span onclick="gotogoodsDetail(\''+item1.givegoodsprice+'\',\''
+			+ encodeURI(jsonitem)+ '\');" class="fl"> <img src="../'+item1.givegoodsimage+
          	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span>'+
-			'<h1>'+item1.givegoodsname+
+			'<h1 onclick="gotogoodsDetail(\''+item1.givegoodsprice+'\',\''+ encodeURI(jsonitem)+ '\');">'+item1.givegoodsname+
 				'<span>（'+item1.givegoodsunits+'）</span>'+
-			'</h1><div class="block"> <span style="font-size: 16px;">'+item1.givegoodsdetail+'</span><br> <span> <strong>￥'+item1.givegoodsprice+'/'+item1.givegoodsunit+
+			'</h1><div onclick="gotogoodsDetail(\''+item1.givegoodsprice+'\',\''+ encodeURI(jsonitem)+ '\');" class="block"> <span style="font-size: 16px;">'
+			+item1.givegoodsdetail+'</span><br> <span> <strong>￥'+item1.givegoodsprice+'/'+item1.givegoodsunit+
 			'</strong> ';
 		if(data.cusOrderdList != null && data.cusOrderdList.length != 0){
 			var itemGoodsCount = 0;
@@ -91,7 +94,7 @@ function initMiaoshaPage(data){
 		} else {
 			liObj += '<font>限购'+item1.givegoodsnum+item1.givegoodsunit+'</font><br/>';
 		}
-		liObj+='</span></div></a>';
+		liObj+='</span></div>';
 		liObj += '<div class="stock-num" name="'+item1.givegoodsid+'">'+
             '<span class="jian min"  onclick="subnum(this,'+item1.givegoodsprice+')"></span>'+
             '<input readonly="readonly" class="text_box shuliang" name="danpin" type="text" value="'+

@@ -71,7 +71,7 @@ $(function(){
 });
 //到商品详情页
 function gotogoodsDetail(pricesprice,jsonitem){
-	window.location.href = 'goodsDetail.jsp?type=商品&pricesprice='+pricesprice+'&goods='+jsonitem;
+	window.location.href = 'goodsDetail.jsp?type=秒杀&pricesprice='+pricesprice+'&goods='+jsonitem;
 }
 //初始化页面
 function initMiaoshaPage(data){
