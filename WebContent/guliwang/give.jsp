@@ -61,7 +61,7 @@ $(function(){
 		$("#totalnum").text(window.localStorage.getItem("cartnum"));
 	}
 	//页面信息
-	if(!xian){
+	if(!xian || xian==''){
 		xian = customer.customerxian;
 	}
 	$.getJSON("maizengPage.action",{"givegoodcompany.city.cityname":xian,"givegoodscode":givegoodscode,"givegoodsscope":customer.customertype},initMiaoshaPage);
