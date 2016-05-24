@@ -104,13 +104,15 @@ function pageInfo(staTime,endTime){
 		$.getJSON("hotTodayGoodsEmp.action",{
 			"cityname":xian,
 			"staTime":staTime,
-			"endTime":endTime
+			"endTime":endTime,
+			"customertype":customer.customertype
 			},initMiaoshaPage);
 	} else {
 		$.getJSON("hotTodayGoodsEmp.action",{
 			"cityname":customer.customerxian,
 			"staTime":staTime,
-			"endTime":endTime
+			"endTime":endTime,
+			"customertype":customer.customertype
 			},initMiaoshaPage);
 	}
 }

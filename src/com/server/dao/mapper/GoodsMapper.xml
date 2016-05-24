@@ -122,6 +122,8 @@ where RN &gt; ((#{nowpage}-1)*#{pagesize})
 	left outer join goodsclass
 	on goods.goodsclass = goodsclass.goodsclassid
     where goods.GOODSCODE = #{goodscode}
+    and prices.pricesclass = #{customertype}
+    and prices.creator = '启用'
   </select>
   <!-- 查询信息总条数 -->
   <select id="selectByConditionCount" resultType="int">

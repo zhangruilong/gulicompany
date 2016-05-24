@@ -139,15 +139,15 @@ public class FrontController {
 	//热销商品
 	@RequestMapping(value="/guliwang/hotTodayGoods")
 	@ResponseBody
-	public List<GoodsVo> hotTodayGoods(String cityname,String staTime,String endTime){
+	public List<GoodsVo> hotTodayGoods(String cityname,String staTime,String endTime,String customertype){
 		List<Orderd> orderdList = orderdMapper.selectHotGoodsCodeAndType(staTime, endTime,cityname);
 		List<GoodsVo> goodsVoList = new ArrayList<GoodsVo>();
 		for (Orderd orderd : orderdList) {
 			if(orderd.getOrderdtype().equals("商品")){
 				GoodsVo goodsVo = new GoodsVo();
 				goodsVo.setType("商品");
-				if(goodsMapper.selectByGoods(orderd.getOrderdcode()) != null && goodsMapper.selectByGoods(orderd.getOrderdcode()).size() >0){
-					goodsVo.setGoods(goodsMapper.selectByGoods(orderd.getOrderdcode()).get(0));
+				if(goodsMapper.selectByGoods(orderd.getOrderdcode(),customertype) != null && goodsMapper.selectByGoods(orderd.getOrderdcode(),customertype).size() >0){
+					goodsVo.setGoods(goodsMapper.selectByGoods(orderd.getOrderdcode(),customertype).get(0));
 					goodsVoList.add(goodsVo);
 				}
 			} else if(orderd.getOrderdtype().equals("秒杀")){
@@ -256,15 +256,15 @@ public class FrontController {
 	//热销商品
 	@RequestMapping(value="/guliwangemp/hotTodayGoodsEmp")
 	@ResponseBody
-	public List<GoodsVo> hotTodayGoodsEmp(String cityname,String staTime,String endTime){
+	public List<GoodsVo> hotTodayGoodsEmp(String cityname,String staTime,String endTime,String customertype){
 		List<Orderd> orderdList = orderdMapper.selectHotGoodsCodeAndType(staTime, endTime,cityname);
 		List<GoodsVo> goodsVoList = new ArrayList<GoodsVo>();
 		for (Orderd orderd : orderdList) {
 			if(orderd.getOrderdtype().equals("商品")){
 				GoodsVo goodsVo = new GoodsVo();
 				goodsVo.setType("商品");
-				if(goodsMapper.selectByGoods(orderd.getOrderdcode()) != null && goodsMapper.selectByGoods(orderd.getOrderdcode()).size() >0){
-					goodsVo.setGoods(goodsMapper.selectByGoods(orderd.getOrderdcode()).get(0));
+				if(goodsMapper.selectByGoods(orderd.getOrderdcode(),customertype) != null && goodsMapper.selectByGoods(orderd.getOrderdcode(),customertype).size() >0){
+					goodsVo.setGoods(goodsMapper.selectByGoods(orderd.getOrderdcode(),customertype).get(0));
 					goodsVoList.add(goodsVo);
 				}
 			} else if(orderd.getOrderdtype().equals("秒杀")){

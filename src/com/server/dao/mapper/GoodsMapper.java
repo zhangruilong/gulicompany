@@ -23,7 +23,7 @@ public interface GoodsMapper {
 	/**
 	 * 根据编码查询商品
 	 */
-	List<Goods> selectByGoods(String goodscode);
+	List<Goods> selectByGoods(@Param("goodscode") String goodscode,@Param("customertype") String customertype);
 	/**
 	 * 查询信息总条数
 	 */
