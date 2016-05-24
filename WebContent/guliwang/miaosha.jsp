@@ -79,11 +79,12 @@ function initMiaoshaPage(data){
 	$.each(data.companyList,function(i,item1){
 		$.each(item1.timegoodsList,function(j,item2){
 			var jsonitem = JSON.stringify(item2);
-			var liObj = '<li><a href="goodsDetail.jsp?type=秒杀&goods='+item2.timegoodsid+'"> <span class="fl"> <img src="../'+item2.timegoodsimage+
+			var liObj = '<li><span onclick="gotogoodsDetail(\''+item2.timegoodsorgprice+
+				'\',\''+encodeURI(jsonitem)+'\')" class="fl"> <img src="../'+item2.timegoodsimage+
 	         	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span>'+
-				'<h1>'+item2.timegoodsname+
+				'<h1 onclick="gotogoodsDetail(\''+item2.timegoodsorgprice+'\',\''+ encodeURI(jsonitem)+ '\');">'+item2.timegoodsname+
 					'<span>（'+item2.timegoodsunits+'）</span>'+
-				'</h1> <span> <strong>￥'+item2.timegoodsorgprice+'/'+item2.timegoodsunit+
+				'</h1> <span onclick="gotogoodsDetail(\''+item2.timegoodsorgprice+'\',\''+ encodeURI(jsonitem)+ '\');"> <strong>￥'+item2.timegoodsorgprice+'/'+item2.timegoodsunit+
 				'</strong> <em>￥'+item2.timegoodsprice+'/'+item2.timegoodsunit+'</em>';
 			if(data.cusOrderdList != null && data.cusOrderdList.length != 0){
 				var itemGoodsCount = 0;
@@ -102,7 +103,7 @@ function initMiaoshaPage(data){
 					liObj += '<font>限量'+item2.allnum+'箱，还剩'+item2.surplusnum+'箱</font>';
 				}
 			}
-			liObj+='</span></div></a>';
+			liObj+='</span>';
 			liObj += '<div class="stock-num" name="'+item2.timegoodsid+'">'+
 	            '<span class="jian min"  onclick="subnum(this,'+item2.timegoodsprice+')"></span>'+
 	            '<input readonly="readonly" class="text_box shuliang" name="danpin" type="text" value="'+
@@ -136,7 +137,7 @@ function judgePurchase(
 		timegoodsnum
 		) {
 	var customer = JSON.parse(window.localStorage.getItem("customer"));
-	if(!customer.customerid || customer.customerid == 'null' || typeof(customer.customerid) == 'undefined'){
+	if(!customer.customerid || customer.customerid == '' || typeof(customer.customerid) == 'undefined'){
 		$(".cd-popup").addClass("is-visible");
 		return;
 	}

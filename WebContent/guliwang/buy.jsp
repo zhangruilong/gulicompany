@@ -141,7 +141,7 @@ function buy(){
 				timegoodssum += item.orderdnum + ',';
 			}
 		});
-		if(timegoodsids && timegoodssum && typeof(timegoodsids) != 'undefined' && typeof(timegoodssum) != 'undefined' ){
+		if(timegoodsids && timegoodssum && timegoodsids != '' && timegoodssum != '' ){
 			$.post('editRestAmount.action',
 				{'timegoodsids':timegoodsids,'timegoodssum':timegoodssum},
 				function(data){
