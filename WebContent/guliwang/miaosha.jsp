@@ -69,11 +69,16 @@ $(function(){
 	}
 	$.getJSON("miaoshaPage.action",{"city.cityname":xian,"timegoodsList[0].timegoodscode":timegoodscode,"timegoodsList[0].timegoodsscope":customer.customertype},initMiaoshaPage);
 });
+//到商品详情页
+function gotogoodsDetail(pricesprice,jsonitem){
+	window.location.href = 'goodsDetail.jsp?type=商品&pricesprice='+pricesprice+'&goods='+jsonitem;
+}
 //初始化页面
 function initMiaoshaPage(data){
 	$(".home-hot-commodity").html("");
 	$.each(data.companyList,function(i,item1){
 		$.each(item1.timegoodsList,function(j,item2){
+			var jsonitem = JSON.stringify(item2);
 			var liObj = '<li><a href="goodsDetail.jsp?type=秒杀&goods='+item2.timegoodsid+'"> <span class="fl"> <img src="../'+item2.timegoodsimage+
 	         	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span>'+
 				'<h1>'+item2.timegoodsname+

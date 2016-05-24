@@ -66,6 +66,10 @@ $(function(){
 	}
 	$.getJSON("maizengPage.action",{"givegoodcompany.city.cityname":xian,"givegoodscode":givegoodscode,"givegoodsscope":customer.customertype},initMiaoshaPage);
 });
+//到商品详情页
+function gotogoodsDetail(pricesprice,jsonitem){
+	window.location.href = 'goodsDetail.jsp?type=商品&pricesprice='+pricesprice+'&goods='+jsonitem;
+}
 //初始化页面
 function initMiaoshaPage(data){
 	$(".home-hot-commodity").html("");
