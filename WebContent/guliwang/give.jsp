@@ -102,7 +102,7 @@ function initMiaoshaPage(data){
             ' <span class="jia add" onclick="addnum(this,'+item1.givegoodsprice
 			   +',\''+item1.givegoodsname+'\',\''+item1.givegoodsunit+'\',\''+item1.givegoodsunits
 			   +'\',\''+item1.givegoodscode+'\',\''+item1.givegoodsclass
-			   +'\',\''+item1.givegoodscompany+'\',\''+item1.givegoodcompany.companyphone+'\',\''+item1.givegoodcompany.companydetail
+			   +'\',\''+item1.givegoodscompany+'\',\''+item1.givegoodcompany.companyshop+'\',\''+item1.givegoodcompany.companydetail
 			   +'\')"></span>'+
 			   '<span hidden="ture">'+JSON.stringify(item1)+'</span>'+
         	'</div>';
