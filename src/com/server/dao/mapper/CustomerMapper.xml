@@ -119,11 +119,7 @@
   <select id="selectCollectGoodsById" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     customer.customerid,
-    goods.goodsid,
-    goods.goodscode,
-    goods.goodsname,
-    goods.goodsunits,
-    goods.goodsimage,
+    goods.*,
     collect.collectid
   from 
     customer 

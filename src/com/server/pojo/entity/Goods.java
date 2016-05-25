@@ -82,6 +82,10 @@ public class Goods
     */
    private Goodsclass gClass;
    /**
+    * 供应商
+    */
+   private Company goodsCompany;
+   /**
     * 商品的供应商和客户的关系等级
     */
    private String cclevel;
@@ -332,29 +336,53 @@ public class Goods
 	public void setgClass(Goodsclass gClass) {
 		this.gClass = gClass;
 	}
-
+	/**
+    * 品牌
+    */
 	public String getGoodsbrand() {
 		return goodsbrand;
 	}
-
+	/**
+    * 品牌
+    */
 	public void setGoodsbrand(String goodsbrand) {
 		this.goodsbrand = goodsbrand;
 	}
-
+	/**
+	    * 种类
+	    */
 	public String getGoodstype() {
 		return goodstype;
 	}
-
+	/**
+    * 种类
+    */
 	public void setGoodstype(String goodstype) {
 		this.goodstype = goodstype;
 	}
-
+	/**
+	    * 顺序
+	    */
 	public Integer getGoodsorder() {
 		return goodsorder;
 	}
-
+	/**
+	    * 顺序
+	    */
 	public void setGoodsorder(Integer goodsorder) {
 		this.goodsorder = goodsorder;
+	}
+	/**
+    * 供应商
+    */
+	public Company getGoodsCompany() {
+		return goodsCompany;
+	}
+	/**
+    * 供应商
+    */
+	public void setGoodsCompany(Company goodsCompany) {
+		this.goodsCompany = goodsCompany;
 	}
 
 	public Goods() {
