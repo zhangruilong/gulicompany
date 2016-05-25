@@ -75,23 +75,8 @@ input:checked ~ input:active {
 		<div class="wapper-nav"><a onclick="javascript:window.history.go(-1)" class='goback'></a>
 	我的收藏<a id="cwn_a_xiadan" onclick="xiadan()">下单</a><a id="cwn_a_bianji" onclick="editToDel()">编辑</a></div>
 		</div>
-		<!-- <input type="hidden" value="${requestScope.customerCollect.customerid }" name="comid"/> -->
 		<div class="shoucang-wrap">
 			<ul>
-				<!-- <c:forEach items="${requestScope.customerCollect.collectList }" var="collect">
-					<li name="${collect.collectid }"><a name="${collect.goods.goodsid }" href="goods.jsp?searchdishes=${collect.goods.goodscode }"><span class="fl">
-					<img src="../${collect.goods.goodsimage }" alt="" onerror="javascript:this.src='images/default.jpg'"/></span>
-						<h1>${collect.goods.goodsname }<span>（${collect.goods.goodsunits }）</span>
-							</h1>
-							<p>
-										<font>&nbsp;</font>
-									</p>
-									<p>
-										<font>&nbsp;</font>
-									</p>
-						</a>
-					</li>
-				</c:forEach> -->
 			</ul>
 		</div>
 	</form>
@@ -100,13 +85,13 @@ input:checked ~ input:active {
 <script type="text/javascript">
 var customer = JSON.parse(window.localStorage.getItem("customer"));
 $(function(){
-	$.post("cusCollectInfo.action",{"comid":customer.customerid},function(data){
-		if(data.collectList != ''){
+	$.post("cusCollectInfo.action",{"comid":customer.customerid,"pricesclass":customer.customertype},function(data){
+		if(typeof(data.collectList) != 'undefined'){
 			$.each(data.collectList,function(i,item){
 				var jsonitem = JSON.stringify(item.goods);
-				$(".shoucang-wrap").append(
+				$(".shoucang-wrap ul").append(
 					'<li name="'+item.collectid+'"><span hidden="true">'+jsonitem+'</span>'+
-					'<a name="'+item.goods.goodsid+'" href="goods.jsp?searchdishes='+item.goods.goodscode+'"><span class="fl">'+
+					'<a name="'+item.goods.goodsid+'" ><span class="fl">'+
 					'<img src="../'+item.goods.goodsimage+'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span>'+
 						'<h1>'+item.goods.goodsname+'<span>（'+item.goods.goodsunits+'）</span>'+
 							'</h1>'+
@@ -128,12 +113,14 @@ $(function(){
 	function xiadan(){
 		$("#cwn_a_xiadan").text("保存");
 		$("#cwn_a_xiadan").attr("onclick","collectDoCart()");
+		$("li input").remove();
 		$.each($("li"),function(i,item){
 			$(item).prepend("<input style='background-color:whit;' type='checkbox' value='"+$(item).attr("name")+"' name='collectids'>");
 		})
 	}
 	//加入购物车
 	function collectDoCart(){
+		
 		var goods = JSON.parse('[]');
 		$.each($("[type='checkbox']"),function(i,item){
 			if(item.checked){
@@ -143,31 +130,32 @@ $(function(){
 		if(goods.length >0){
 			$.each(goods,function(i,item){
 				if (window.localStorage.getItem("sdishes") == null || window.localStorage.getItem("sdishes") == "[]") {				//判断有没有购物车
+					//alert("没有购物车");
 					//没有购物车
 					window.localStorage.setItem("sdishes", "[]");						//创建一个购物车
 					var sdishes = JSON.parse(window.localStorage.getItem("sdishes")); 	//将缓存中的sdishes(字符串)转换为json对象
 					//新增订单
 					var mdishes = new Object();
-					mdishes.goodsid = timegoodsid;
-					mdishes.goodsdetail = timegoodsdetail;
-					mdishes.goodscompany = timegoodscompany;
-					mdishes.companyshop = companyshop;
-					mdishes.companydetail = companydetail;
-					mdishes.goodsclassname = timegoodsclass;
-					mdishes.goodscode = timegoodscode;
-					mdishes.pricesprice = timegoodsorgprice;
-					mdishes.pricesunit = timegoodsunit;
-					mdishes.goodsname = timegoodsname;
-					mdishes.goodsimage = timegoodsimage;
-					mdishes.orderdtype = '秒杀';
-					mdishes.timegoodsnum = timegoodsnum;
-					mdishes.goodsunits = timegoodsunits;
+					mdishes.goodsid = item.goodsid;
+					mdishes.goodsdetail = item.goodsdetail;
+					mdishes.goodscompany = item.goodscompany;
+					mdishes.companyshop = item.goodsCompany.companyshop;
+					mdishes.companydetail = item.goodsCompany.companydetail;
+					mdishes.goodsclassname = item.goodsclass;
+					mdishes.goodscode = item.goodscode;
+					mdishes.pricesprice = item.pricesList[0].pricesprice;
+					mdishes.pricesunit = item.pricesList[0].pricesunit;
+					mdishes.goodsname = item.goodsname;
+					mdishes.goodsimage = item.goodsimage;
+					mdishes.orderdtype = '商品';
+					mdishes.timegoodsnum = item.goodsnum;
+					mdishes.goodsunits = item.goodsunits;
 					mdishes.orderdetnum = 1;
 					sdishes.push(mdishes); 											//往json对象中添加一个新的元素(订单)
 					window.localStorage.setItem("sdishes", JSON.stringify(sdishes));
 					
 					window.localStorage.setItem("totalnum", 1); 					//设置缓存中的种类数量等于一 
-					window.localStorage.setItem("totalmoney", timegoodsorgprice);	//总金额等于商品价
+					window.localStorage.setItem("totalmoney", item.pricesList[0].pricesprice);	//总金额等于商品价
 					var cartnum = parseInt(window.localStorage.getItem("cartnum"));
 					window.localStorage.setItem("cartnum",cartnum+1);
 					window.location.href = "cart.jsp";
@@ -176,36 +164,36 @@ $(function(){
 					//有购物车
 					var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));	//将缓存中的sdishes(字符串)转换为json对象
 					var tnum = parseInt(window.localStorage.getItem("totalnum"));		//取出商品的总类数
-					$.each(sdishes,function(i,item) {								//遍历购物车中的商品
+					$.each(sdishes,function(j,item1) {								//遍历购物车中的商品
 						//i是增量,item是迭代出来的元素.i从0开始
-						if( item.goodsid == timegoodsid){
+						if( item1.goodsid == item.goodsid){
+							//alert( item1.goodsid +" 等于 "+ item.goodsid);
 							//如果商品id相同
-							window.location.href = "cart.jsp";
 							return false;
-						} else if(i == (tnum-1)){
+						} else if(j == (tnum-1)){
 							//如果最后一次进入时goodsid不相同
 							//新增订单
 							var mdishes = new Object();
-							mdishes.goodsid = timegoodsid;
-							mdishes.goodsdetail = timegoodsdetail;
-							mdishes.goodscompany = timegoodscompany;
-							mdishes.companyshop = companyshop;
-							mdishes.companydetail = companydetail;
-							mdishes.goodsclassname = timegoodsclass;
-							mdishes.goodscode = timegoodscode;
-							mdishes.pricesprice = timegoodsorgprice;
-							mdishes.pricesunit = timegoodsunit;
-							mdishes.goodsname = timegoodsname;
-							mdishes.goodsimage = timegoodsimage;
-							mdishes.orderdtype = '秒杀';
-							mdishes.timegoodsnum = timegoodsnum;
-							mdishes.goodsunits = timegoodsunits;
+							mdishes.goodsid = item.goodsid;
+							mdishes.goodsdetail = item.goodsdetail;
+							mdishes.goodscompany = item.goodscompany;
+							mdishes.companyshop = item.goodsCompany.companyshop;
+							mdishes.companydetail = item.goodsCompany.companydetail;
+							mdishes.goodsclassname = item.goodsclass;
+							mdishes.goodscode = item.goodscode;
+							mdishes.pricesprice = item.pricesList[0].pricesprice;
+							mdishes.pricesunit = item.pricesList[0].pricesunit;
+							mdishes.goodsname = item.goodsname;
+							mdishes.goodsimage = item.goodsimage;
+							mdishes.orderdtype = '商品';
+							mdishes.timegoodsnum = item.goodsnum;
+							mdishes.goodsunits = item.goodsunits;
 							mdishes.orderdetnum = 1;
 							sdishes.push(mdishes); 												//往json对象中添加一个新的元素(订单)
 							window.localStorage.setItem("sdishes", JSON.stringify(sdishes));
 							window.localStorage.setItem("totalnum", tnum + 1);					//商品种类数加一
 							var tmoney = parseFloat(window.localStorage.getItem("totalmoney")); //从缓存中取出总金额
-							var newtmoney = (tmoney+parseFloat(timegoodsorgprice)).toFixed(2);
+							var newtmoney = (tmoney+parseFloat(item.pricesList[0].pricesprice)).toFixed(2);
 							window.localStorage.setItem("totalmoney",newtmoney);	
 							var cartnum = parseInt(window.localStorage.getItem("cartnum"));
 							window.localStorage.setItem("cartnum",cartnum+1);
@@ -214,12 +202,17 @@ $(function(){
 					})
 				}
 			})
+		} else {
+			$("#cwn_a_xiadan").text("下单");
+			$("#cwn_a_xiadan").attr("onclick","xiadan()");
+			$("li input").remove();
 		}
 	}
 	//修改
 	function editToDel(){
 		$("#cwn_a_bianji").text("删除");
 		$("#cwn_a_bianji").attr("onclick","delCollects()");
+		$("li input").remove();
 		$.each($("li"),function(i,item){
 			$(item).prepend("<input style='background-color:whit;' type='checkbox' value='"+$(item).attr("name")+"' name='collectids'>");
 		})

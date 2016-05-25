@@ -2,6 +2,8 @@ package com.server.dao.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.server.pojo.entity.Ccustomer;
 import com.server.pojo.entity.Customer;
 
@@ -29,7 +31,7 @@ public interface CustomerMapper {
 	/**
 	 * 根据客户id查询收藏的商品
 	 */
-	Customer selectCollectGoodsById(String customerid);
+	Customer selectCollectGoodsById(@Param("customerid") String customerid,@Param("pricesclass") String pricesclass);
 	/**
 	 * 根据主键删除
 	 */

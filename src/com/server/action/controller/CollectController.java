@@ -21,22 +21,11 @@ public class CollectController {
 	private CustomerMapper customerMapper;
 	@Autowired
 	private CollectMapper collectMapper;
-	//到收藏页面
-	@RequestMapping("/guliwang/doCollPageddddd")
-	public String doCollPageddddd(Model model,String comid){
-		Customer customer = customerMapper.selectCollectGoodsById(comid);	//根据客户id查询收藏商品
-		if(customer.getCollectList().size() == 0){
-			return "/guliwang/collectnothing.html";
-		} else {
-			model.addAttribute("customerCollect", customer);
-			return "forward:/guliwang/collect.jsp";
-		}
-	}
 	//收藏页
 	@RequestMapping("/guliwang/cusCollectInfo")
 	@ResponseBody
-	public Customer cusCollectInfo(Model model,String comid){
-		Customer customer = customerMapper.selectCollectGoodsById(comid);	//根据客户id查询收藏商品
+	public Customer cusCollectInfo(Model model,String comid,String pricesclass){
+		Customer customer = customerMapper.selectCollectGoodsById(comid,pricesclass);	//根据客户id查询收藏商品
 		return customer;
 	}
 	//删除收藏品
@@ -47,6 +36,6 @@ public class CollectController {
 				collectMapper.deleteByPrimaryKey(str);
 			}
 		}
-		return "forward:doCollPageddddd.action";
+		return "forward:collect.jsp";
 	}
 }
