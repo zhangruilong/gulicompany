@@ -173,7 +173,39 @@ public class FrontController {
 		}
 		return goodsVoList;
 	}
-	
+	//根据订单详情得到订单商品
+	@RequestMapping(value="/guliwang/queryREgoumaiGoods")
+	@ResponseBody
+	public List<GoodsVo> queryREgoumaiGoods(String orderdcodes,String orderdtypes,String customertype){
+		List<GoodsVo> goodsVoList = new ArrayList<GoodsVo>();
+		String[] orderdcodeArr = orderdcodes.split(",");
+		String[] orderdtypeArr = orderdtypes.split(",");
+		for (int i = 0; i < orderdtypeArr.length; i++) {
+			if(orderdtypeArr[i].equals("商品")){
+				GoodsVo goodsVo = new GoodsVo();
+				goodsVo.setType("商品");
+				if(goodsMapper.selectByGoods(orderdcodeArr[i],customertype) != null && goodsMapper.selectByGoods(orderdcodeArr[i],customertype).size() >0){
+					goodsVo.setGoods(goodsMapper.selectByGoods(orderdcodeArr[i],customertype).get(0));
+					goodsVoList.add(goodsVo);
+				}
+			} else if(orderdtypeArr[i].equals("秒杀")){
+				GoodsVo goodsVo = new GoodsVo();
+				goodsVo.setType("秒杀");
+				if(timegoodsMapper.selectByCode(orderdcodeArr[i]) != null && timegoodsMapper.selectByCode(orderdcodeArr[i]).size() >0){
+					goodsVo.setTimegoods(timegoodsMapper.selectByCode(orderdcodeArr[i]).get(0));
+					goodsVoList.add(goodsVo);
+				}
+			} else if(orderdtypeArr[i].equals("买赠")){
+				GoodsVo goodsVo = new GoodsVo();
+				goodsVo.setType("买赠");
+				if(givegoodsMapper.selectByCode(orderdcodeArr[i]) != null && givegoodsMapper.selectByCode(orderdcodeArr[i]).size() >0){
+					goodsVo.setGivegoods(givegoodsMapper.selectByCode(orderdcodeArr[i]).get(0));
+					goodsVoList.add(goodsVo);
+				}
+			}
+		}
+		return goodsVoList;
+	}
 ////////////////////////////////////////////////// EMP补单页面  /////////////////////////////////////////////////////////////////////////////////
 	
 	//查询首页所需的数据( EMP )
