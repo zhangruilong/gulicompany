@@ -55,8 +55,13 @@ public class FrontController {
 	@ResponseBody
 	public Map<String, Object> doGuliwangIndex(Company companyCondition,City parentCity){
 		Map<String, Object> pageInfo = new HashMap<String, Object>();
-		parentCity = cityMapper.selectByCitynameOrKey(parentCity).get(0);				//根据父类城市名称或主键查询得到父类城市
-		List<City> cities = cityMapper.selectByCityparent(parentCity.getCityid());	//根据父类城市ID查询得到地区集合
+		List<City> cities = null;
+		if(cityMapper.selectByCitynameOrKey(parentCity) != null && cityMapper.selectByCitynameOrKey(parentCity).size() > 0){
+			parentCity = cityMapper.selectByCitynameOrKey(parentCity).get(0);				//根据父类城市名称或主键查询得到父类城市
+			cities = cityMapper.selectByCityparent(parentCity.getCityid());	//根据父类城市ID查询得到地区集合
+		} else {
+			cities = cityMapper.selectByCityparent("16");	//根据父类城市ID查询得到地区集合
+		}
 		pageInfo.put("cityList", cities);
 		pageInfo.put("parentCity", parentCity);
 		pageInfo.put("companyCondition", companyCondition);
@@ -285,7 +290,7 @@ public class FrontController {
 		}
 		return goodsVoList;
 	}
-	//商品详情
+	/*//商品详情
 	@RequestMapping(value="/guliwang/goodsDetail")
 	@ResponseBody
 	public Goods goodsDetail(Goods detGoods){
@@ -305,7 +310,7 @@ public class FrontController {
 	public Timegoods timeGoodsDetail(Timegoods detGoods){
 		detGoods = timegoodsMapper.selectByPrimaryKey(detGoods.getTimegoodsid());
 		return detGoods;
-	}
+	}*/
 }
 
 
