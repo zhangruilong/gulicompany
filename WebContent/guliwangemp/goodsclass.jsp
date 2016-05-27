@@ -142,17 +142,17 @@ function initDishes(data){
  	 $.each(data.root, function(i, item) {
  		var jsonitem = JSON.stringify(item);
  		$(".home-hot-commodity").append('<li>'+
- 				'<span class="fl"><img src="../'+item.goodsimage+
+ 	         	'<span class="fl"><img src="../'+item.goodsimage+
  	         	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span> '+
- 	             '<h1>'+item.goodsname+'<span>('+item.goodsunits+')</span></h1>'+
+ 	         	'<h1>'+item.goodsname+'<span>('+item.goodsunits+')</span></h1>'+
  	           '  <div class="block"> '+
- 	             	'<span>'+
- 	                 '    <input type="radio" id="'+item.goodsid+'radio1" name="'+item.goodsid+'radio" class="regular-radio" checked />'+
- 	                 '    <label for="'+item.goodsid+'radio1">单品价:<font class="font-oringe">￥'+item.pricesprice+'</font>/'+item.pricesunit+'</label>'+
- 	               '  </span>'+
  	               '  <span>'+
  	                   '  <input type="radio" id="'+item.goodsid+'radio2" name="'+item.goodsid+'radio" class="regular-radio" />'+
  	               '      <label for="'+item.goodsid+'radio2">套装价:<font class="font-oringe">￥'+item.pricesprice2+'</font>/'+item.pricesunit2+'</label>'+
+ 	               '  </span>'+
+ 	             	'<span>'+
+ 	                 '    <input type="radio" id="'+item.goodsid+'radio1" name="'+item.goodsid+'radio" class="regular-radio" checked />'+
+ 	                '    <label for="'+item.goodsid+'radio1">售价:<font class="font-oringe">￥'+item.pricesprice+'</font>/'+item.pricesunit+'</label>'+
  	               '  </span>'+
  	            ' </div>'+
  	           '  <div class="stock-num" name="'+item.goodsid+'">'+
@@ -165,7 +165,7 @@ function initDishes(data){
 					   +'\',\''+item.goodscode+'\',\''+item.goodsclassname
 					   +'\',\''+item.goodscompany+'\',\''+item.companyshop+'\',\''+item.companydetail
 					   +'\')"></span>'+
-					   '<span hidden="ture">'+jsonitem+'</span>'+
+				   '<span hidden="ture">'+jsonitem+'</span>'+
  	               '  <span hidden="ture" class="jian min" onclick="subnum(this,'+item.pricesprice2
 				   +')"></span>'+
  	                ' <input readonly="readonly" hidden="ture" class="text_box shuliang" name="taozhuan" type="text" value="'+
@@ -175,7 +175,7 @@ function initDishes(data){
 					   +'\',\''+item.goodscode+'\',\''+item.goodsclassname
 					   +'\',\''+item.goodscompany+'\',\''+item.companyshop+'\',\''+item.companydetail
 					   +'\')"></span>'+
-					   '<span hidden="ture">'+jsonitem+'</span>'+
+					'<span hidden="ture">'+jsonitem+'</span>'+
  	                ' <input type="checkbox" id="'+item.goodsid+'checkbox" class="chk_1" '+item.goodsdetail+'>'+
  	            		'<label for="'+item.goodsid+'checkbox" onclick="checkedgoods(\''+item.goodsid+'\');"></label>'+
  	             '</div>'+
@@ -292,7 +292,7 @@ function addnum(obj,pricesprice,goodsname,pricesunit,goodsunits,goodscode,goodsc
 		mdishes.goodsunits = goodsunits;
 		mdishes.orderdetnum = num + 1;
 		mdishes.goodsimage = item.goodsimage;
-		
+		mdishes.orderdtype = '商品';
 		sdishes.push(mdishes);
 		//种类数
 		var tnum = parseInt(window.localStorage.getItem("totalnum"));
@@ -308,7 +308,7 @@ function addnum(obj,pricesprice,goodsname,pricesunit,goodsunits,goodscode,goodsc
 		});
 	}
 	window.localStorage.setItem("sdishes",JSON.stringify(sdishes));
-
+	
 	var cartnum = parseInt(window.localStorage.getItem("cartnum"));
 	$("#totalnum").text(cartnum+1);
 	window.localStorage.setItem("cartnum",cartnum+1);
@@ -349,17 +349,28 @@ function subnum(obj,pricesprice){
 			});
 		}
 		window.localStorage.setItem("sdishes",JSON.stringify(sdishes));
+		var cartnum = parseInt(window.localStorage.getItem("cartnum"));
+		$("#totalnum").text(cartnum-1);
+		window.localStorage.setItem("cartnum",cartnum-1);
 	}
-	var cartnum = parseInt(window.localStorage.getItem("cartnum"));
-	$("#totalnum").text(cartnum-1);
-	window.localStorage.setItem("cartnum",cartnum-1);
+	
 }
-
+//到购物车页面
+function docart(obj){
+	if (window.localStorage.getItem("sdishes") == null || window.localStorage.getItem("sdishes") == "[]") {				//判断有没有购物车
+		$(obj).attr("href","cartnothing.html");
+	}
+}
 function nextpage(){
 	if(window.localStorage.getItem("totalnum")==0)
 		window.location.href = "cartnothing.html";
 	else
 		window.location.href = "cart.jsp";
+}
+
+function gotogoods(goodsclassname){
+	window.localStorage.setItem("goodsclassname",goodsclassname);
+	window.location.href = "goods.jsp?searchclasses="+goodsclassname;
 }
 
 function testJsonp(data){

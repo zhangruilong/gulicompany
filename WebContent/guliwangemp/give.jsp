@@ -32,8 +32,8 @@
 	<div class="cd-popup-container">
 		<div class="cd-buttons">
         	<h1>谷粒网提示</h1>
-			<p class="meg">操作成功!</p>
-            <a class="cd-popup-close">确定</a>
+			<p class="popup_msg">尚无账号，立即注册？</p>
+            <a class="cd-popup-close">取消</a><a class="popup_queding" href="doReg.action">确定</a>
 		</div>
 	</div>
 </div>
@@ -61,35 +61,27 @@ $(function(){
 		$("#totalnum").text(window.localStorage.getItem("cartnum"));
 	}
 	//页面信息
-	if(!xian){
+	if(!xian || xian==''){
 		xian = customer.customerxian;
 	}
-	$.getJSON("maizengPageEmp.action",{"givegoodcompany.city.cityname":xian,"givegoodscode":givegoodscode,"givegoodsscope":customer.customertype},initMiaoshaPage);
+	$.getJSON("maizengPage.action",{"givegoodcompany.city.cityname":xian,"givegoodscode":givegoodscode,"givegoodsscope":customer.customertype},initMiaoshaPage);
 });
+//到商品详情页
+function gotogoodsDetail(pricesprice,jsonitem){
+	window.location.href = 'goodsDetail.jsp?type=买赠&pricesprice='+pricesprice+'&goods='+jsonitem;
+}
 //初始化页面
 function initMiaoshaPage(data){
 	$(".home-hot-commodity").html("");
 	$.each(data.giveList,function(i,item1){
-		var liObj = '<li><a '+
-		'onclick="judgePurchase(\''+
-		item1.givegoodsid +'\',\''+
-		item1.givegoodsdetail +'\',\''+
-		item1.givegoodscompany +'\',\''+
-		item1.givegoodcompany.companyphone +'\',\''+
-		item1.givegoodcompany.companydetail +'\',\''+
-		item1.givegoodsclass +'\',\''+
-		item1.givegoodscode +'\',\''+
-		item1.givegoodsprice +'\',\''+
-		item1.givegoodsunit +'\',\''+
-		item1.givegoodsname +'\',\''+
-		item1.givegoodsimage +'\',\''+
-		item1.givegoodsunits +'\',\''+
-		item1.givegoodsnum+'\');" '+
-		'> <span class="fl"> <img src="../'+item1.givegoodsimage+
+		var jsonitem = JSON.stringify(item1);
+		var liObj = '<li><span onclick="gotogoodsDetail(\''+item1.givegoodsprice+'\',\''
+			+ encodeURI(jsonitem)+ '\');" class="fl"> <img src="../'+item1.givegoodsimage+
          	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span>'+
-			'<h1>'+item1.givegoodsname+
+			'<h1 onclick="gotogoodsDetail(\''+item1.givegoodsprice+'\',\''+ encodeURI(jsonitem)+ '\');">'+item1.givegoodsname+
 				'<span>（'+item1.givegoodsunits+'）</span>'+
-			'</h1><div class="block"> <span style="font-size: 16px;">'+item1.givegoodsdetail+'</span><br> <span> <strong>￥'+item1.givegoodsprice+'/'+item1.givegoodsunit+
+			'</h1><div onclick="gotogoodsDetail(\''+item1.givegoodsprice+'\',\''+ encodeURI(jsonitem)+ '\');" class="block"> <span style="font-size: 16px;">'
+			+item1.givegoodsdetail+'</span><br> <span> <strong>￥'+item1.givegoodsprice+'/'+item1.givegoodsunit+
 			'</strong> ';
 		if(data.cusOrderdList != null && data.cusOrderdList.length != 0){
 			var itemGoodsCount = 0;
@@ -102,7 +94,7 @@ function initMiaoshaPage(data){
 		} else {
 			liObj += '<font>限购'+item1.givegoodsnum+item1.givegoodsunit+'</font><br/>';
 		}
-		liObj+='</span></div></a>';
+		liObj+='</span></div>';
 		liObj += '<div class="stock-num" name="'+item1.givegoodsid+'">'+
             '<span class="jian min"  onclick="subnum(this,'+item1.givegoodsprice+')"></span>'+
             '<input readonly="readonly" class="text_box shuliang" name="danpin" type="text" value="'+
@@ -110,7 +102,7 @@ function initMiaoshaPage(data){
             ' <span class="jia add" onclick="addnum(this,'+item1.givegoodsprice
 			   +',\''+item1.givegoodsname+'\',\''+item1.givegoodsunit+'\',\''+item1.givegoodsunits
 			   +'\',\''+item1.givegoodscode+'\',\''+item1.givegoodsclass
-			   +'\',\''+item1.givegoodscompany+'\',\''+item1.givegoodcompany.companyphone+'\',\''+item1.givegoodcompany.companydetail
+			   +'\',\''+item1.givegoodscompany+'\',\''+item1.givegoodcompany.companyshop+'\',\''+item1.givegoodcompany.companydetail
 			   +'\')"></span>'+
 			   '<span hidden="ture">'+JSON.stringify(item1)+'</span>'+
         	'</div>';
@@ -138,7 +130,7 @@ function judgePurchase(
 		$(".cd-popup").addClass("is-visible");
 		return;
 	}
-	$.getJSON('judgePurchaseGiveGoodsEmp.action',{
+	$.getJSON('judgePurchaseGiveGoods.action',{
 		'givegoodsnum':givegoodsnum,
 		'givegoodscode':givegoodscode,
 		'customerid':customer.customerid
@@ -263,7 +255,7 @@ function addnum(obj,pricesprice,goodsname,pricesunit,goodsunits,goodscode,goodsc
 	//数量
 	var numt = $(obj).prev(); 							//得到加号前面一个元素(input元素)
 	var num = parseInt(numt.val());						//得到input的值,商品数
-	$.post('queryCusSecKillOrderdEmp.action',{'orderm.ordermcustomer':customer.customerid},function(data){
+	$.post('queryCusSecKillOrderd.action',{'orderm.ordermcustomer':customer.customerid},function(data){
 		var count = 0;
 		if(data.msg == 'no'){
 			$(".popup_msg").text("还没有收货地址,请先添加收货地址。");
