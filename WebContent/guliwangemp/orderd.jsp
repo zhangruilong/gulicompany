@@ -58,7 +58,7 @@ function regoumai(){
 	//orderdcodes = orderdcodes.substring(0,orderdcodes.length-1);
 	//orderdtypes = orderdtypes.substring(0,orderdtypes.length-1);
 	$.ajax({
-		url: "queryREgoumaiGoods.action",
+		url: "queryREgoumaiGoodsEmp.action",
 		async:true,
 		data: {"orderdcodes":orderdcodes,"orderdtypes":orderdtypes,"customertype":customer.customertype,"customerlevel":customer.customerlevel},
 		dataType:"json",

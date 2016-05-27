@@ -67,7 +67,7 @@ $(function(){
 	if(xian == ''){
 		xian = customer.customerxian
 	}
-	$.getJSON("miaoshaPage.action",{"city.cityname":xian,"timegoodsList[0].timegoodscode":timegoodscode,"timegoodsList[0].timegoodsscope":customer.customertype},initMiaoshaPage);
+	$.getJSON("miaoshaPageEmp.action",{"city.cityname":xian,"timegoodsList[0].timegoodscode":timegoodscode,"timegoodsList[0].timegoodsscope":customer.customertype},initMiaoshaPage);
 });
 //到商品详情页
 function gotogoodsDetail(pricesprice,jsonitem){
@@ -141,7 +141,7 @@ function judgePurchase(
 		$(".cd-popup").addClass("is-visible");
 		return;
 	}
-	$.getJSON('judgePurchase.action',{
+	$.getJSON('judgePurchaseEmp.action',{
 		'timegoodsnum':timegoodsnum,
 		'timegoodscode':timegoodscode,
 		'customerid':customer.customerid
@@ -266,7 +266,7 @@ function addnum(obj,pricesprice,goodsname,pricesunit,goodsunits,goodscode,goodsc
 	//数量
 	var numt = $(obj).prev(); 							//得到加号前面一个元素(input元素)
 	var num = parseInt(numt.val());						//得到input的值,商品数
-	$.post('queryCusSecKillOrderd.action',{'orderm.ordermcustomer':customer.customerid},function(data){
+	$.post('queryCusSecKillOrderdEmp.action',{'orderm.ordermcustomer':customer.customerid},function(data){
 		var count = 0;
 		if(data.msg == 'no'){
 			$(".popup_msg").text("还没有收货地址,请先添加收货地址。");
@@ -415,7 +415,7 @@ function checkCusSecKill(){
 	}
 	var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));
 	var outGoodsName = '';
-	$.post('queryCusSecKillOrderd.action',{'orderm.ordermcustomer':customer.customerid},function(data){
+	$.post('queryCusSecKillOrderdEmp.action',{'orderm.ordermcustomer':customer.customerid},function(data){
 		var count = 0;
 		if(data.msg == 'no'){																						//判断是否有地址
 			$(".popup_msg").text("还没有收货地址,请先添加收货地址。");

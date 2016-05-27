@@ -101,7 +101,7 @@ function thisMonthHotGoods(obj){
 //页面信息
 function pageInfo(staTime,endTime){
 	if(xian && typeof(xian) != 'undefined'){
-		$.getJSON("hotTodayGoods.action",{
+		$.getJSON("hotTodayGoodsEmp.action",{
 			"cityname":xian,
 			"staTime":staTime,
 			"endTime":endTime,
@@ -109,7 +109,7 @@ function pageInfo(staTime,endTime){
 			"customerlevel":customer.customerlevel
 			},initMiaoshaPage);
 	} else {
-		$.getJSON("hotTodayGoods.action",{
+		$.getJSON("hotTodayGoodsEmp.action",{
 			"cityname":customer.customerxian,
 			"staTime":staTime,
 			"endTime":endTime,
