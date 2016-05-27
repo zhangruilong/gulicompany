@@ -105,14 +105,16 @@ function pageInfo(staTime,endTime){
 			"cityname":xian,
 			"staTime":staTime,
 			"endTime":endTime,
-			"customertype":customer.customertype
+			"customertype":customer.customertype,
+			"customerlevel":customer.customerlevel
 			},initMiaoshaPage);
 	} else {
 		$.getJSON("hotTodayGoodsEmp.action",{
 			"cityname":customer.customerxian,
 			"staTime":staTime,
 			"endTime":endTime,
-			"customertype":customer.customertype
+			"customertype":customer.customertype,
+			"customerlevel":customer.customerlevel
 			},initMiaoshaPage);
 	}
 }

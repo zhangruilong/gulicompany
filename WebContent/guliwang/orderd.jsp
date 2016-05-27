@@ -60,7 +60,7 @@ function regoumai(){
 	$.ajax({
 		url: "queryREgoumaiGoods.action",
 		async:true,
-		data: {"orderdcodes":orderdcodes,"orderdtypes":orderdtypes,"customertype":customer.customertype},
+		data: {"orderdcodes":orderdcodes,"orderdtypes":orderdtypes,"customertype":customer.customertype,"customerlevel":customer.customerlevel},
 		dataType:"json",
 		success: function(data) {
 			/* 
@@ -144,6 +144,7 @@ function regoumai(){
 						if(data[i].type == '商品'){
 							if( item1.goodsid == item.goodsid){
 								//如果商品id相同
+								return false;
 							} else if(j == (tnum-1)){
 								//如果最后一次进入时goodsid不相同
 								//新增订单
@@ -174,6 +175,7 @@ function regoumai(){
 						} else if(data[i].type == '秒杀'){
 							if( item1.goodsid == item.timegoods.timegoodsid){
 								//如果商品id相同
+								return false;
 							} else if(j == (tnum-1)){
 								//如果最后一次进入时goodsid不相同
 								//新增订单
@@ -205,6 +207,7 @@ function regoumai(){
 						} else if(data[i].type == '买赠'){
 							if( item1.goodsid == item.givegoods.givegoodsid){
 								//如果商品id相同
+								return false;
 							} else if(j == (tnum-1)){
 								//如果最后一次进入时goodsid不相同
 								//新增订单

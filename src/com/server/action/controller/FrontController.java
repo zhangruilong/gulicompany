@@ -142,15 +142,15 @@ public class FrontController {
 	//热销商品
 	@RequestMapping(value="/guliwang/hotTodayGoods")
 	@ResponseBody
-	public List<GoodsVo> hotTodayGoods(String cityname,String staTime,String endTime,String customertype){
+	public List<GoodsVo> hotTodayGoods(String cityname,String staTime,String endTime,String customertype,String customerlevel){
 		List<Orderd> orderdList = orderdMapper.selectHotGoodsCodeAndType(staTime, endTime,cityname);
 		List<GoodsVo> goodsVoList = new ArrayList<GoodsVo>();
 		for (Orderd orderd : orderdList) {
 			if(orderd.getOrderdtype().equals("商品")){
 				GoodsVo goodsVo = new GoodsVo();
 				goodsVo.setType("商品");
-				if(goodsMapper.selectByGoods(orderd.getOrderdcode(),customertype) != null && goodsMapper.selectByGoods(orderd.getOrderdcode(),customertype).size() >0){
-					goodsVo.setGoods(goodsMapper.selectByGoods(orderd.getOrderdcode(),customertype).get(0));
+				if(goodsMapper.selectByGoods(orderd.getOrderdcode(),customertype,customerlevel) != null && goodsMapper.selectByGoods(orderd.getOrderdcode(),customertype,customerlevel).size() >0){
+					goodsVo.setGoods(goodsMapper.selectByGoods(orderd.getOrderdcode(),customertype,customerlevel).get(0));
 					goodsVoList.add(goodsVo);
 				}
 			} else if(orderd.getOrderdtype().equals("秒杀")){
@@ -174,7 +174,7 @@ public class FrontController {
 	//根据订单详情得到订单商品
 	@RequestMapping(value="/guliwang/queryREgoumaiGoods")
 	@ResponseBody
-	public List<GoodsVo> queryREgoumaiGoods(String orderdcodes,String orderdtypes,String customertype){
+	public List<GoodsVo> queryREgoumaiGoods(String orderdcodes,String orderdtypes,String customertype,String customerlevel){
 		List<GoodsVo> goodsVoList = new ArrayList<GoodsVo>();
 		String[] orderdcodeArr = orderdcodes.split(",");
 		String[] orderdtypeArr = orderdtypes.split(",");
@@ -182,8 +182,8 @@ public class FrontController {
 			if(orderdtypeArr[i].equals("商品")){
 				GoodsVo goodsVo = new GoodsVo();
 				goodsVo.setType("商品");
-				if(goodsMapper.selectByGoods(orderdcodeArr[i],customertype) != null && goodsMapper.selectByGoods(orderdcodeArr[i],customertype).size() >0){
-					goodsVo.setGoods(goodsMapper.selectByGoods(orderdcodeArr[i],customertype).get(0));
+				if(goodsMapper.selectByGoods(orderdcodeArr[i],customertype,customerlevel) != null && goodsMapper.selectByGoods(orderdcodeArr[i],customertype,customerlevel).size() >0){
+					goodsVo.setGoods(goodsMapper.selectByGoods(orderdcodeArr[i],customertype,customerlevel).get(0));
 					goodsVoList.add(goodsVo);
 				}
 			} else if(orderdtypeArr[i].equals("秒杀")){
@@ -291,15 +291,15 @@ public class FrontController {
 	//热销商品
 	@RequestMapping(value="/guliwangemp/hotTodayGoodsEmp")
 	@ResponseBody
-	public List<GoodsVo> hotTodayGoodsEmp(String cityname,String staTime,String endTime,String customertype){
+	public List<GoodsVo> hotTodayGoodsEmp(String cityname,String staTime,String endTime,String customertype,String customerlevel){
 		List<Orderd> orderdList = orderdMapper.selectHotGoodsCodeAndType(staTime, endTime,cityname);
 		List<GoodsVo> goodsVoList = new ArrayList<GoodsVo>();
 		for (Orderd orderd : orderdList) {
 			if(orderd.getOrderdtype().equals("商品")){
 				GoodsVo goodsVo = new GoodsVo();
 				goodsVo.setType("商品");
-				if(goodsMapper.selectByGoods(orderd.getOrderdcode(),customertype) != null && goodsMapper.selectByGoods(orderd.getOrderdcode(),customertype).size() >0){
-					goodsVo.setGoods(goodsMapper.selectByGoods(orderd.getOrderdcode(),customertype).get(0));
+				if(goodsMapper.selectByGoods(orderd.getOrderdcode(),customertype,customerlevel) != null && goodsMapper.selectByGoods(orderd.getOrderdcode(),customertype,customerlevel).size() >0){
+					goodsVo.setGoods(goodsMapper.selectByGoods(orderd.getOrderdcode(),customertype,customerlevel).get(0));
 					goodsVoList.add(goodsVo);
 				}
 			} else if(orderd.getOrderdtype().equals("秒杀")){
