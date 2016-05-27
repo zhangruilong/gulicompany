@@ -119,7 +119,7 @@ function regoumai(){
 						mdishes.companydetail = $(".order-detail-info p").last().text();
 						mdishes.goodsclassname = item.givegoods.givegoodsclass;
 						mdishes.goodscode = item.givegoods.givegoodscode;
-						mdishes.pricesprice = item.givegoods.givegoodsorgprice;
+						mdishes.pricesprice = item.givegoods.givegoodsprice;
 						mdishes.pricesunit = item.givegoods.givegoodsunit;
 						mdishes.goodsname = item.givegoods.givegoodsname;
 						mdishes.goodsimage = item.givegoods.givegoodsimage;
@@ -127,7 +127,7 @@ function regoumai(){
 						mdishes.goodsunits = item.givegoods.givegoodsunits;
 						mdishes.orderdetnum = orderds[i].orderdnum;
 						mdishes.timegoodsnum = item.givegoods.givegoodsnum;
-						money = (parseFloat(item.givegoods.givegoodsorgprice) * parseFloat(orderds[i].orderdnum)).toFixed(2);
+						money = (parseFloat(item.givegoods.givegoodsprice) * parseFloat(orderds[i].orderdnum)).toFixed(2);
 					}
 					sdishes.push(mdishes); 											//往json对象中添加一个新的元素(订单)
 					window.localStorage.setItem("sdishes", JSON.stringify(sdishes));
@@ -144,7 +144,6 @@ function regoumai(){
 						if(data[i].type == '商品'){
 							if( item1.goodsid == item.goodsid){
 								//如果商品id相同
-								return false;
 							} else if(j == (tnum-1)){
 								//如果最后一次进入时goodsid不相同
 								//新增订单
@@ -175,7 +174,6 @@ function regoumai(){
 						} else if(data[i].type == '秒杀'){
 							if( item1.goodsid == item.timegoods.timegoodsid){
 								//如果商品id相同
-								return false;
 							} else if(j == (tnum-1)){
 								//如果最后一次进入时goodsid不相同
 								//新增订单
@@ -205,9 +203,8 @@ function regoumai(){
 								window.localStorage.setItem("cartnum",cartnum+parseInt(orderds[i].orderdnum));
 							}
 						} else if(data[i].type == '买赠'){
-							if( item1.goodsid == item.timegoods.timegoodsid){
+							if( item1.goodsid == item.givegoods.givegoodsid){
 								//如果商品id相同
-								return false;
 							} else if(j == (tnum-1)){
 								//如果最后一次进入时goodsid不相同
 								//新增订单
@@ -219,7 +216,7 @@ function regoumai(){
 								mdishes.companydetail = $(".order-detail-info p").last().text();
 								mdishes.goodsclassname = item.givegoods.givegoodsclass;
 								mdishes.goodscode = item.givegoods.givegoodscode;
-								mdishes.pricesprice = item.givegoods.givegoodsorgprice;
+								mdishes.pricesprice = item.givegoods.givegoodsprice;
 								mdishes.pricesunit = item.givegoods.givegoodsunit;
 								mdishes.goodsname = item.givegoods.givegoodsname;
 								mdishes.goodsimage = item.givegoods.givegoodsimage;
@@ -231,7 +228,7 @@ function regoumai(){
 								window.localStorage.setItem("sdishes", JSON.stringify(sdishes));
 								window.localStorage.setItem("totalnum", tnum + 1);					//商品种类数加一
 								var tmoney = parseFloat(window.localStorage.getItem("totalmoney")); //从缓存中取出总金额
-								var newtmoney = ( tmoney + parseFloat(item.givegoods.givegoodsorgprice) * parseFloat(orderds[i].orderdnum) ).toFixed(2);
+								var newtmoney = ( tmoney + parseFloat(item.givegoods.givegoodsprice) * parseFloat(orderds[i].orderdnum) ).toFixed(2);
 								window.localStorage.setItem("totalmoney",newtmoney);	
 								var cartnum = parseInt(window.localStorage.getItem("cartnum"));
 								window.localStorage.setItem("cartnum",cartnum+parseInt(orderds[i].orderdnum));

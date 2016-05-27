@@ -105,10 +105,10 @@ function initMiaoshaPage(data){
 			}
 			liObj+='</span>';
 			liObj += '<div class="stock-num" name="'+item2.timegoodsid+'">'+
-	            '<span class="jian min"  onclick="subnum(this,'+item2.timegoodsprice+')"></span>'+
+	            '<span class="jian min"  onclick="subnum(this,'+item2.timegoodsorgprice+')"></span>'+
 	            '<input readonly="readonly" class="text_box shuliang" name="danpin" type="text" value="'+
 	             getcurrennumdanpin(item2.timegoodsid)+'"> '+
-	            ' <span class="jia add" onclick="addnum(this,'+item2.timegoodsprice
+	            ' <span class="jia add" onclick="addnum(this,'+item2.timegoodsorgprice
 				   +',\''+item2.timegoodsname+'\',\''+item2.timegoodsunit+'\',\''+item2.timegoodsunits
 				   +'\',\''+item2.timegoodscode+'\',\''+item2.timegoodsclass
 				   +'\',\''+item2.timegoodscompany+'\',\''+item1.companyshop+'\',\''+item1.companydetail
