@@ -263,9 +263,7 @@ function docart(obj){
 //加号
 function addnum(obj,pricesprice,goodsname,pricesunit,goodsunits,goodscode,goodsclassname,goodscompany,companyshop,companydetail){
 	var item = JSON.parse($(obj).next().text());				//得到商品信息
-	//数量
-	var numt = $(obj).prev(); 							//得到加号前面一个元素(input元素)
-	var num = parseInt(numt.val());						//得到input的值,商品数
+	
 	$.post('queryCusSecKillOrderd.action',{'orderm.ordermcustomer':customer.customerid},function(data){
 		var count = 0;
 		if(data.msg == 'no'){
@@ -296,10 +294,12 @@ function addnum(obj,pricesprice,goodsname,pricesunit,goodsunits,goodscode,goodsc
 			var tmoney = parseFloat(window.localStorage.getItem("totalmoney"));		//总价
 			var newtmoney = (tmoney+pricesprice).toFixed(2);						//总价加上商品价格得到新价格
 			window.localStorage.setItem("totalmoney",newtmoney);					//设置总价格到缓存
-			
+			//数量
+			var numt = $(obj).prev(); 							//得到加号前面一个元素(input元素)
+			var num = parseInt(numt.val());						//得到input的值,商品数
 			numt.val(num+1);									//input的值加一
 			//订单
-			if(window.localStorage.getItem("sdishes")==null){
+			if(window.localStorage.getItem("sdishes")==null || !window.localStorage.getItem("sdishes")){
 				window.localStorage.setItem("sdishes","[]");
 			}
 			sdishes = JSON.parse(window.localStorage.getItem("sdishes"));	//得到现有订单
