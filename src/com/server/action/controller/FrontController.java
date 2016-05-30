@@ -321,7 +321,7 @@ public class FrontController {
 		return goodsVoList;
 	}
 	//根据订单详情得到订单商品
-		@RequestMapping(value="/guliwang/queryREgoumaiGoodsEmp")
+		@RequestMapping(value="/guliwangemp/queryREgoumaiGoodsEmp")
 		@ResponseBody
 		public List<GoodsVo> queryREgoumaiGoodsEmp(String orderdcodes,String orderdtypes,String customertype,String customerlevel){
 			List<GoodsVo> goodsVoList = new ArrayList<GoodsVo>();
