@@ -111,12 +111,19 @@ $(function(){
 })
 	//下单
 	function xiadan(){
-		$("#cwn_a_xiadan").text("保存");
+		$("#cwn_a_xiadan").text("确定");
+		$("#cwn_a_bianji").text("取消");
 		$("#cwn_a_xiadan").attr("onclick","collectDoCart()");
-		$("li input").remove();
+		$("#cwn_a_bianji").attr("onclick","cancel()");
 		$.each($("li"),function(i,item){
 			$(item).prepend("<input style='background-color:whit;' type='checkbox' value='"+$(item).attr("name")+"' name='collectids'>");
 		})
+	}
+	//取消
+	function cancel(){
+		$("li input").remove();
+		$(".wapper-nav").html('<a onclick="javascript:window.history.go(-1)" class="goback"></a>'+
+				'我的收藏<a id="cwn_a_xiadan" onclick="xiadan()">下单</a><a id="cwn_a_bianji" onclick="editToDel()">编辑</a>');
 	}
 	//加入购物车
 	function collectDoCart(){
@@ -127,7 +134,7 @@ $(function(){
 				goods.push(JSON.parse($(item).next().text()));
 			}
 		})
-		if(goods.length >0){
+		if(parseInt(goods.length) >0){
 			$.each(goods,function(i,item){
 				if (window.localStorage.getItem("sdishes") == null || window.localStorage.getItem("sdishes") == "[]") {				//判断有没有购物车
 					//没有购物车
@@ -194,36 +201,43 @@ $(function(){
 							window.localStorage.setItem("totalmoney",newtmoney);	
 							var cartnum = parseInt(window.localStorage.getItem("cartnum"));
 							window.localStorage.setItem("cartnum",cartnum+1);
+							window.location.href = "cart.jsp";
 						}	
 					})
 				}
 			})
 		} else {
-			$("#cwn_a_xiadan").text("下单");
-			$("#cwn_a_xiadan").attr("onclick","xiadan()");
-			$("li input").remove();
+			cancel();
 		}
-		window.location.href = "cart.jsp";
 	}
 	//修改
 	function editToDel(){
-		$("#cwn_a_bianji").text("删除");
-		$("#cwn_a_bianji").attr("onclick","delCollects()");
-		$("li input").remove();
+		$("#cwn_a_xiadan").text("删除");
+		$("#cwn_a_bianji").text("取消");
+		$("#cwn_a_xiadan").attr("onclick","delCollects()");
+		$("#cwn_a_bianji").attr("onclick","cancel()");
 		$.each($("li"),function(i,item){
 			$(item).prepend("<input style='background-color:whit;' type='checkbox' value='"+$(item).attr("name")+"' name='collectids'>");
 		})
 	}
 	//删除收藏
 	function delCollects(){
+		var collectids = '';
 		$.each($("[type='checkbox']"),function(i,item){
 			if(item.checked){
-				document.forms[0].submit(); 
+				collectids += $(item).val()+',';
 			}
-		})
-		$(".wapper-nav").html("<a onclick='javascript:window.history.go(-1)' class='goback'></a>"+
-				"我的收藏<a id='cwn_a_xiadan' onclick='xiadan()'>下单</a><a id='cwn_a_bianji' onclick='editToDel()'>编辑</a>");
-		$("li input").remove();
+		});
+		if(collectids.length > 0){
+			$.post("delCollect.action",{"collectids":collectids},function(data){
+				if(data == 'no'){
+					alert("删除失败!");
+				}
+				window.location.reload();
+			});
+		} else {
+			cancel();
+		}
 	}
 </script>
 </body>

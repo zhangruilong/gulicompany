@@ -30,12 +30,16 @@ public class CollectController {
 	}
 	//删除收藏品
 	@RequestMapping("/guliwang/delCollect")
-	public String delCollect(String[] collectids,String comid){
-		if(collectids != null && collectids.length != 0){
-			for (String str : collectids) {
+	@ResponseBody
+	public String delCollect(String collectids){
+		if(collectids != null){
+			String[] collectidsArr = collectids.split(",");
+			for (String str : collectidsArr) {
 				collectMapper.deleteByPrimaryKey(str);
 			}
+			return "ok";
+		} else {
+			return "no";
 		}
-		return "forward:collect.jsp";
 	}
 }
