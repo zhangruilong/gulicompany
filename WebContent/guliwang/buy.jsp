@@ -58,7 +58,7 @@
 		<div class="cd-buttons">
         	<h1>谷粒网提示</h1>
 			<p class="meg">您确定要货到付款?</p>
-            <a href="#" class="cd-popup-close">取消</a><a class="cd-popup-ok" onclick="buy();">确定</a>
+            <a href="#" class="cd-popup-close">取消</a><a class="cd-popup-ok" onclick="buy(this);">确定</a>
 		</div>
 	</div>
 </div>
@@ -101,7 +101,8 @@ function initDishes(data){
         	  '<font class="font-oringe">'+item.ordermmoney+'元</font></li>');
      });
 }
-function buy(){
+function buy(obj){
+	$(obj).attr('onclick','');//禁用按钮
 	//将购物车写入订单表
 	var scompany = JSON.parse(window.localStorage.getItem("scompany"));
 	$.each(scompany, function(y, mcompany) {
@@ -181,6 +182,7 @@ function saveOrder(ordermjson,orderdetjson){
 			}
 		},
 		error : function(resp) {
+			$(obj).attr('onclick','buy(this);');//禁用按钮
 			alert('网络出现问题，请稍后再试');
 		}
 	});
