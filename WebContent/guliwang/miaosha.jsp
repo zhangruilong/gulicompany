@@ -70,8 +70,8 @@ $(function(){
 	$.getJSON("miaoshaPage.action",{"city.cityname":xian,"timegoodsList[0].timegoodscode":timegoodscode,"timegoodsList[0].timegoodsscope":customer.customertype},initMiaoshaPage);
 });
 //到商品详情页
-function gotogoodsDetail(pricesprice,jsonitem){
-	window.location.href = 'goodsDetail.jsp?type=秒杀&pricesprice='+pricesprice+'&goods='+jsonitem;
+function gotogoodsDetail(companyshop,companydetail,jsonitem){
+	window.location.href = 'goodsDetail.jsp?type=秒杀&companyshop='+companyshop+'&companydetail='+companydetail+'&goods='+jsonitem;
 }
 //初始化页面
 function initMiaoshaPage(data){
@@ -79,13 +79,13 @@ function initMiaoshaPage(data){
 	$.each(data.companyList,function(i,item1){
 		$.each(item1.timegoodsList,function(j,item2){
 			var jsonitem = JSON.stringify(item2);
-			var liObj = '<li><span onclick="gotogoodsDetail(\''+item2.timegoodsorgprice+
-				'\',\''+encodeURI(jsonitem)+'\')" class="fl"> <img src="../'+item2.timegoodsimage+
-	         	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span>'+
-				'<h1 onclick="gotogoodsDetail(\''+item2.timegoodsorgprice+'\',\''+ encodeURI(jsonitem)+ '\');">'+item2.timegoodsname+
-					'<span>（'+item2.timegoodsunits+'）</span>'+
-				'</h1> <span onclick="gotogoodsDetail(\''+item2.timegoodsorgprice+'\',\''+ encodeURI(jsonitem)+ '\');"> <strong>￥'+item2.timegoodsorgprice+'/'+item2.timegoodsunit+
-				'</strong> <em>￥'+item2.timegoodsprice+'/'+item2.timegoodsunit+'</em>';
+			var liObj = '<li><span onclick="gotogoodsDetail(\''+item1.companyshop+'\',\''+item1.companydetail+
+			'\',\''+encodeURI(jsonitem)+'\')" class="fl"> <img src="../'+item2.timegoodsimage+
+         	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span>'+
+			'<h1 onclick="gotogoodsDetail(\''+item2.timegoodsorgprice+'\',\''+ encodeURI(jsonitem)+ '\');">'+item2.timegoodsname+
+				'<span>（'+item2.timegoodsunits+'）</span>'+
+			'</h1> <span onclick="gotogoodsDetail(\''+item2.timegoodsorgprice+'\',\''+ encodeURI(jsonitem)+ '\');"> <strong>￥'+item2.timegoodsorgprice+'/'+item2.timegoodsunit+
+			'</strong> <em>￥'+item2.timegoodsprice+'/'+item2.timegoodsunit+'</em>';
 			if(data.cusOrderdList != null && data.cusOrderdList.length != 0){
 				var itemGoodsCount = 0;
 				$.each(data.cusOrderdList,function(k,item3){
@@ -263,7 +263,6 @@ function docart(obj){
 //加号
 function addnum(obj,pricesprice,goodsname,pricesunit,goodsunits,goodscode,goodsclassname,goodscompany,companyshop,companydetail){
 	var item = JSON.parse($(obj).next().text());				//得到商品信息
-	
 	$.post('queryCusSecKillOrderd.action',{'orderm.ordermcustomer':customer.customerid},function(data){
 		var count = 0;
 		if(data.msg == 'no'){
@@ -272,6 +271,9 @@ function addnum(obj,pricesprice,goodsname,pricesunit,goodsunits,goodscode,goodsc
 			$(".cd-popup").addClass("is-visible");
 			return;
 		}
+		//数量
+		var numt = $(obj).prev(); 
+		var num = parseInt(numt.val());
 		var restNum = parseInt(item.timegoodsnum) - num;
 		if(data){
 			$.each(data.miaoshaList,function(i,item2){

@@ -19,6 +19,7 @@
 #gdw_t_li3{color: #F86B4F;font-size: 24px;}
 #gdw_t_li2{border:0;height: 45px;}
 #goods_ti{width: 80%;}
+#goods_det_img2{margin-top: 15px;}
 .goods-detail-wrapper ul li{width: 100%;}
 .chk_1 + label{
 	width: 13px;
@@ -47,7 +48,7 @@
     	<li>商品详情</li>
         <li>规格<span></span></li>
         <li>品牌<span></span></li>
-        <li>编号<span></span></li>
+        <li>种类<span></span></li>
     </ul>
 </div>
 <div><img id="goods_det_img2" alt="" src=""></div>
@@ -84,16 +85,12 @@ $(function(){
 	    $("#goods_ti").html(data.timegoodsname+'<span>（'+data.timegoodsunits+'）</span>');
 		$("#gdw_t_li3").html('<span>￥${param.pricesprice}</span>');
 		$(".gd-lower-liebiao span:eq(0)").text(data.timegoodsunits);
-		/* $(".gd-lower-liebiao span:eq(1)").text(data.timegoodsbrand);
-		$(".gd-lower-liebiao span:eq(2)").text(data.timegoodscode); */
 	} else if(type == '买赠'){
 		$("#goods_det_img1").attr("src",'../'+data.givegoodsimage);
 		$("#goods_det_img2").attr("src",basePath+'guliwang/images/jifenhuodong.jpg');
 	    $("#goods_ti").html(data.givegoodsname+'<span>（'+data.givegoodsunits+'）</span>');
 		$("#gdw_t_li3").html('<span>￥${param.pricesprice}</span>');
 		$(".gd-lower-liebiao span:eq(0)").text(data.givegoodsunits);
-		/* $(".gd-lower-liebiao span:eq(1)").text(data.givegoodsbrand);
-		$(".gd-lower-liebiao span:eq(2)").text(data.givegoodscode); */
 	}
 	//弹窗
 	$(".cd-popup").on("click",function(event){		//绑定点击事件

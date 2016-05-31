@@ -162,10 +162,10 @@ function initDishes(data){
  		//var goods = jsonitem.replace(/\"/g,'\\"');
  		//alert(goods);
  		$(".home-hot-commodity").append('<li>'+
- 	         	'<span onclick="gotogoodsDetail(\''+item.pricesprice+'\',\''+ encodeURI(jsonitem)+ '\');" class="fl"><img src="../'+item.goodsimage+
+ 	         	'<span onclick="gotogoodsDetail(\''+ encodeURI(jsonitem)+ '\');" class="fl"><img src="../'+item.goodsimage+
  	         	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span> '+
- 	         	'<h1 onclick="gotogoodsDetail(\''+item.pricesprice+'\',\''+ encodeURI(jsonitem)+ '\');">'+item.goodsname+'<span>('+item.goodsunits+')</span></h1>'+
- 	           '  <div class="block" onclick="gotogoodsDetail(\''+item.pricesprice+'\',\''+ encodeURI(jsonitem)+ '\');"> '+
+ 	         	'<h1 onclick="gotogoodsDetail(\''+encodeURI(jsonitem)+ '\');">'+item.goodsname+'<span>('+item.goodsunits+')</span></h1>'+
+ 	           '  <div class="block" onclick="gotogoodsDetail(\''+encodeURI(jsonitem)+ '\');"> '+
  	               '  <span>'+
  	                   '  <input type="radio" id="'+item.goodsid+'radio2" name="'+item.goodsid+'radio" class="regular-radio" />'+
  	               '      <label for="'+item.goodsid+'radio2">套装价:<font class="font-oringe">￥'+item.pricesprice2+'</font>/'+item.pricesunit2+'</label>'+
@@ -216,8 +216,8 @@ function initDishes(data){
 	})
 }
 //到商品详情页
-function gotogoodsDetail(pricesprice,jsonitem){
-	window.location.href = 'goodsDetail.jsp?type=商品&pricesprice='+pricesprice+'&goods='+jsonitem;
+function gotogoodsDetail(jsonitem){
+	window.location.href = 'goodsDetail.jsp?type=商品&goods='+jsonitem;
 }
 //收藏商品
 function checkedgoods(goodsid){
