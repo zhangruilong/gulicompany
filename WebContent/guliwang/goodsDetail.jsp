@@ -55,7 +55,6 @@
 <div><img id="goods_det_img2" alt="" src=""></div>
 <div class="goodsdetail_float">
 	<div class="gdf_gwc_div" onclick="docart()"><img src="images/gwc.png"><em id="totalnum">0</em></div>
-	<!-- <a onclick="docart(this)" href="cart.jsp" class="gwc"><span class="gwc_img"><img style="margin-top: 5px;" width="30" height="30" src="images/gwc.png"><em id="totalnum">0</em></span></a> -->
 </div>
 <!--弹框-->
 <div class="cd-popup" role="alert">

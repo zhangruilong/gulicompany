@@ -162,6 +162,7 @@ function buy(){
 }
 //保存订单和订单详情
 function saveOrder(ordermjson,orderdetjson){
+	alert("saveOrder");
 	$.ajax({
 		url : 'OrdermAction.do?method=addOrder',
 		data : {
@@ -178,6 +179,7 @@ function saveOrder(ordermjson,orderdetjson){
 				window.localStorage.setItem("totalmoney", 0);
 				window.localStorage.setItem("cartnum", 0);
 				alert("下单成功！");
+				window.location.href = "order.jsp";
 			}
 		},
 		error : function(resp) {
