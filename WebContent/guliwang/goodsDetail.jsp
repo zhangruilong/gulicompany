@@ -88,7 +88,7 @@ $(function(){
 	            '<span class="jian min"  onclick="subnum(this,'+data.pricesprice+')"></span>'+
 	            '<input readonly="readonly" class="text_box shuliang" name="danpin" type="text" value="'+
 	             getcurrennumdanpin(data.goodsid)+'"> '+
-	            ' <span class="jia add" onclick="addtimegoodsnum(this,'+data.pricesprice
+	            ' <span class="jia add" onclick="addnum(this,'+data.pricesprice
 				   +',\''+data.goodsname+'\',\''+data.pricesunit+'\',\''+data.goodsunits
 				   +'\',\''+data.goodscode+'\',\''+data.goodsclass
 				   +'\',\''+data.goodscompany+'\',\''+data.companyshop+'\',\''+data.companydetail

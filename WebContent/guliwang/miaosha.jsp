@@ -82,9 +82,9 @@ function initMiaoshaPage(data){
 			var liObj = '<li><span onclick="gotogoodsDetail(\''+item1.companyshop+'\',\''+item1.companydetail+
 			'\',\''+encodeURI(jsonitem)+'\')" class="fl"> <img src="../'+item2.timegoodsimage+
          	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span>'+
-			'<h1 onclick="gotogoodsDetail(\''+item2.timegoodsorgprice+'\',\''+ encodeURI(jsonitem)+ '\');">'+item2.timegoodsname+
+			'<h1 onclick="gotogoodsDetail(\''+item1.companyshop+'\',\''+item1.companydetail+'\',\''+ encodeURI(jsonitem)+ '\');">'+item2.timegoodsname+
 				'<span>（'+item2.timegoodsunits+'）</span>'+
-			'</h1> <span onclick="gotogoodsDetail(\''+item2.timegoodsorgprice+'\',\''+ encodeURI(jsonitem)+ '\');"> <strong>￥'+item2.timegoodsorgprice+'/'+item2.timegoodsunit+
+			'</h1> <span onclick="gotogoodsDetail(\''+item1.companyshop+'\',\''+item1.companydetail+'\',\''+ encodeURI(jsonitem)+ '\');"> <strong>￥'+item2.timegoodsorgprice+'/'+item2.timegoodsunit+
 			'</strong> <em>￥'+item2.timegoodsprice+'/'+item2.timegoodsunit+'</em>';
 			if(data.cusOrderdList != null && data.cusOrderdList.length != 0){
 				var itemGoodsCount = 0;
