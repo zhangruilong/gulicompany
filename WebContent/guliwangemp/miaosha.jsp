@@ -13,9 +13,8 @@
 <link href="css/layout.css" type="text/css" rel="stylesheet">
 <link href="css/dig.css" type="text/css" rel="stylesheet">
 <style type="text/css">
-.goods-wrapper .home-hot-commodity li a{
-	padding: 0;
-}
+.goods-wrapper .home-hot-commodity li a{padding: 0;}
+.stock-num{width: 50%;}
 </style>
 </head>
 <body>

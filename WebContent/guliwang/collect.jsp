@@ -53,7 +53,7 @@ input:checked {
 	<form action="delCollect.action" method="post">
 	<div class="gl-box">
 		<div class="wapper-nav"><a onclick="javascript:window.history.go(-1)" class='goback'></a>
-	我的收藏<a id="cwn_a_xiadan" onclick="xiadan()"><img src=""></a><a id="cwn_a_bianji" onclick="editToDel()"><img src=""></a></div>
+	我的收藏<a id="cwn_a_xiadan" onclick="xiadan()">下单</a><a id="cwn_a_bianji" onclick="editToDel()">编辑</a></div>
 		</div>
 		<div class="shoucang-wrap">
 			<ul>

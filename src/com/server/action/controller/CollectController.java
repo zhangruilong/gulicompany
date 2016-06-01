@@ -42,4 +42,26 @@ public class CollectController {
 			return "no";
 		}
 	}
+	///////////////////////////////////////////////EMP////////////////////////////////////////////////////
+	//收藏页
+	@RequestMapping("/guliwangemp/cusCollectInfoEmp")
+	@ResponseBody
+	public Customer cusCollectInfoEmp(Model model,String comid,String pricesclass){
+		Customer customer = customerMapper.selectCollectGoodsById(comid,pricesclass);	//根据客户id查询收藏商品
+		return customer;
+	}
+	//删除收藏品
+	@RequestMapping("/guliwangemp/delCollectEmp")
+	@ResponseBody
+	public String delCollectEmp(String collectids){
+		if(collectids != null){
+			String[] collectidsArr = collectids.split(",");
+			for (String str : collectidsArr) {
+				collectMapper.deleteByPrimaryKey(str);
+			}
+			return "ok";
+		} else {
+			return "no";
+		}
+	}
 }

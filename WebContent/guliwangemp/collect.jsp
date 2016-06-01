@@ -1,3 +1,4 @@
+<%@page import="com.server.pojo.entity.Customer"%>
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -19,7 +20,6 @@
 <link href="css/base.css" type="text/css" rel="stylesheet">
 <link href="css/layout.css" type="text/css" rel="stylesheet">
 <style type="text/css">
-
 input {
 	float: left;
 	
@@ -32,57 +32,19 @@ input {
   cursor: pointer;
   vertical-align: middle;
   box-shadow: hsla(0,0%,100%,.15) 0 1px 1px, inset hsla(0,0%,0%,.5) 0 0 0 1px;
-  background-color: hsla(0,0%,0%,.2);
-  background-image: -webkit-radial-gradient( hsla(200,100%,90%,1) 0%, hsla(200,100%,70%,1) 15%, hsla(200,100%,60%,.3) 28%, hsla(200,100%,30%,0) 70% );
+  background-color: white;
   background-repeat: no-repeat;
-  -webkit-transition: background-position .15s cubic-bezier(.8, 0, 1, 1),
-    -webkit-transform .25s cubic-bezier(.8, 0, 1, 1);
-}
-input:checked {
-  -webkit-transition: background-position .2s .15s cubic-bezier(0, 0, .2, 1),
-    -webkit-transform .25s cubic-bezier(0, 0, .2, 1);
-}
-input:active {
-  -webkit-transform: scale(1.5);
-  -webkit-transition: -webkit-transform .1s cubic-bezier(0, 0, .2, 1);
 }
 
 
 
 /* The up/down direction logic */
 
-input,
-input:active {
-  background-position: 0 24px;
-}
 input:checked {
-  background-position: 0 0;
+  background: url(images/price-rd.png) no-repeat;
 }
-input:checked ~ input,
-input:checked ~ input:active {
-  background-position: 0 -24px;
-}
-.p-a{
-	float: left;
-	width: 20%;
-	position: relative; 
-	background-color: #2c77e6; 
-	height: 30px; 
-	line-height: 30px; 
-	color: #fff ; 
-	text-align: center ;
-}
-.p-a a{
-	position: static;
-	height: 50px; 
-	line-height: 20px; 
-	text-align: center ;
-	font-size: 20px;
-}
-
-
-.pp{
-	width: 80%;
+#cwn_a_xiadan{
+	right: 16%;
 }
 </style>
 </head>
@@ -90,61 +52,173 @@ input:checked ~ input:active {
 <body>
 	<form action="delCollect.action" method="post">
 	<div class="gl-box">
-		<div class="wapper-nav"><p class="p-a"><a href="mine.jsp" >&lt;返回</a></p>
-	<p class="pp">我的收藏</p><a onclick="editToDel()">编辑</a></div>
+		<div class="wapper-nav"><a onclick="javascript:window.history.go(-1)" class='goback'></a>
+	我的收藏<a id="cwn_a_xiadan" onclick="xiadan()">下单</a><a id="cwn_a_bianji" onclick="editToDel()">编辑</a></div>
 		</div>
-		<input type="hidden" value="${requestScope.customerCollect.customerid }" name="comid"/>
 		<div class="shoucang-wrap">
 			<ul>
-				<c:forEach items="${requestScope.customerCollect.collectList }" var="collect">
-					<li name="${collect.collectid }"><a><span class="fl"><img 
-								src="images/pic1.jpg"></span>
-						<h1>${collect.goods.goodsname }<span>（${collect.goods.goodsunits }）</span>
-							</h1>
-							<c:forEach items="${collect.goods.pricesList }" var="price">
-								<c:if test="${price.pricesclass == requestScope.customerCollect.customertype && price.priceslevel == collect.goods.cclevel }">
-									<p>
-										单品价:<font>￥${price.pricesprice } </font>/${price.pricesunit }
-									</p>
-									<p>
-										套装价:<font>￥${price.pricesprice2 }</font>/${price.pricesunit2 }
-									</p>
-								</c:if>
-								<c:if test="${collect.goods.cclevel == null && price.priceslevel == 3 && price.pricesclass == '餐饮客户'}">
-									<p>
-										单品价:<font>￥${price.pricesprice } </font>/${price.pricesunit }
-									</p>
-									<p>
-										套装价:<font>￥${price.pricesprice2 }</font>/${price.pricesunit2 }
-									</p>
-								</c:if>
-							</c:forEach>
-						</a>
-					</li>
-				</c:forEach>
 			</ul>
 		</div>
-	</div>
 	</form>
 <script src="js/jquery-1.8.3.min.js"></script>
 <script src="js/jquery-dropdown.js"></script>
 <script type="text/javascript">
-	function editToDel(){
-		$(".wapper-nav").html("<p class='p-a'><a href='mine.jsp' >&lt;返回</a></p>"+
-				"<p class='pp'>我的收藏</p><a onclick='delCollects()'>删除</a>");
+var customer = JSON.parse(window.localStorage.getItem("customeremp"));
+$(function(){
+	$.post("cusCollectInfo.action",{"comid":customer.customerid,"pricesclass":customer.customertype},function(data){
+		if(typeof(data.collectList) != 'undefined'){
+			$.each(data.collectList,function(i,item){
+				var jsonitem = JSON.stringify(item.goods);
+				$(".shoucang-wrap ul").append(
+					'<li name="'+item.collectid+'"><span hidden="true">'+jsonitem+'</span>'+
+					'<a name="'+item.goods.goodsid+'" ><span class="fl">'+
+					'<img src="../'+item.goods.goodsimage+'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span>'+
+						'<h1>'+item.goods.goodsname+'<span>（'+item.goods.goodsunits+'）</span>'+
+							'</h1>'+
+							'<p>'+
+										'<font>&nbsp;</font>'+
+									'</p>'+
+									'<p>'+
+										'<font>&nbsp;</font>'+
+									'</p>'+
+						'</a>'+
+					'</li>');
+			})
+		} else {
+			window.location.href = 'collectnothing.html';
+		}
+	});
+})
+	//下单
+	function xiadan(){
+		$("#cwn_a_xiadan").text("确定");
+		$("#cwn_a_bianji").text("取消");
+		$("#cwn_a_xiadan").attr("onclick","collectDoCart()");
+		$("#cwn_a_bianji").attr("onclick","cancel()");
 		$.each($("li"),function(i,item){
-			$(item).prepend("<input type='checkbox' value='"+$(item).attr("name")+"' name='collectids'>");
+			//$(item).prepend( '<input type="checkbox" class="regular-radio" />');
+			$(item).prepend("<input style='background-color:whit;' type='checkbox' value='"+$(item).attr("name")+"' name='collectids'>");
 		})
 	}
-	
-	function delCollects(){
+	//取消
+	function cancel(){
+		$("li input").remove();
+		$(".wapper-nav").html('<a onclick="javascript:window.history.go(-1)" class="goback"></a>'+
+				'我的收藏<a id="cwn_a_xiadan" onclick="xiadan()">下单</a><a id="cwn_a_bianji" onclick="editToDel()">编辑</a>');
+	}
+	//加入购物车
+	function collectDoCart(){
+		
+		var goods = JSON.parse('[]');
 		$.each($("[type='checkbox']"),function(i,item){
 			if(item.checked){
-				document.forms[0].submit(); 
-			}else if(i+1 == $("[type='checkbox']").length){
-				window.location.reload();
+				goods.push(JSON.parse($(item).next().text()));
 			}
 		})
+		if(parseInt(goods.length) >0){
+			$.each(goods,function(i,item){
+				if (window.localStorage.getItem("sdishes") == null || window.localStorage.getItem("sdishes") == "[]") {				//判断有没有购物车
+					//没有购物车
+					window.localStorage.setItem("sdishes", "[]");						//创建一个购物车
+					var sdishes = JSON.parse(window.localStorage.getItem("sdishes")); 	//将缓存中的sdishes(字符串)转换为json对象
+					//新增订单
+					var mdishes = new Object();
+					mdishes.goodsid = item.goodsid;
+					mdishes.goodsdetail = item.goodsdetail;
+					mdishes.goodscompany = item.goodscompany;
+					mdishes.companyshop = item.goodsCompany.companyshop;
+					mdishes.companydetail = item.goodsCompany.companydetail;
+					mdishes.goodsclassname = item.goodsclass;
+					mdishes.goodscode = item.goodscode;
+					mdishes.pricesprice = item.pricesList[0].pricesprice;
+					mdishes.pricesunit = item.pricesList[0].pricesunit;
+					mdishes.goodsname = item.goodsname;
+					mdishes.goodsimage = item.goodsimage;
+					mdishes.orderdtype = '商品';
+					mdishes.timegoodsnum = item.goodsnum;
+					mdishes.goodsunits = item.goodsunits;
+					mdishes.orderdetnum = 1;
+					sdishes.push(mdishes); 											//往json对象中添加一个新的元素(订单)
+					window.localStorage.setItem("sdishes", JSON.stringify(sdishes));
+					
+					window.localStorage.setItem("totalnum", 1); 					//设置缓存中的种类数量等于一 
+					window.localStorage.setItem("totalmoney", item.pricesList[0].pricesprice);	//总金额等于商品价
+					var cartnum = parseInt(window.localStorage.getItem("cartnum"));
+					window.localStorage.setItem("cartnum",cartnum+1);
+				} else {
+					
+					//有购物车
+					var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));	//将缓存中的sdishes(字符串)转换为json对象
+					var tnum = parseInt(window.localStorage.getItem("totalnum"));		//取出商品的总类数
+					$.each(sdishes,function(j,item1) {								//遍历购物车中的商品
+						//i是增量,item是迭代出来的元素.i从0开始
+						if( item1.goodsid == item.goodsid){
+							//如果商品id相同
+							return false;
+						} else if(j == (tnum-1)){
+							//如果最后一次进入时goodsid不相同
+							//新增订单
+							var mdishes = new Object();
+							mdishes.goodsid = item.goodsid;
+							mdishes.goodsdetail = item.goodsdetail;
+							mdishes.goodscompany = item.goodscompany;
+							mdishes.companyshop = item.goodsCompany.companyshop;
+							mdishes.companydetail = item.goodsCompany.companydetail;
+							mdishes.goodsclassname = item.goodsclass;
+							mdishes.goodscode = item.goodscode;
+							mdishes.pricesprice = item.pricesList[0].pricesprice;
+							mdishes.pricesunit = item.pricesList[0].pricesunit;
+							mdishes.goodsname = item.goodsname;
+							mdishes.goodsimage = item.goodsimage;
+							mdishes.orderdtype = '商品';
+							mdishes.timegoodsnum = item.goodsnum;
+							mdishes.goodsunits = item.goodsunits;
+							mdishes.orderdetnum = 1;
+							sdishes.push(mdishes); 												//往json对象中添加一个新的元素(订单)
+							window.localStorage.setItem("sdishes", JSON.stringify(sdishes));
+							window.localStorage.setItem("totalnum", tnum + 1);					//商品种类数加一
+							var tmoney = parseFloat(window.localStorage.getItem("totalmoney")); //从缓存中取出总金额
+							var newtmoney = (tmoney+parseFloat(item.pricesList[0].pricesprice)).toFixed(2);
+							window.localStorage.setItem("totalmoney",newtmoney);	
+							var cartnum = parseInt(window.localStorage.getItem("cartnum"));
+							window.localStorage.setItem("cartnum",cartnum+1);
+							window.location.href = "cart.jsp";
+						}	
+					})
+				}
+			})
+		} else {
+			cancel();
+		}
+	}
+	//修改
+	function editToDel(){
+		$("#cwn_a_xiadan").text("删除");
+		$("#cwn_a_bianji").text("取消");
+		$("#cwn_a_xiadan").attr("onclick","delCollects()");
+		$("#cwn_a_bianji").attr("onclick","cancel()");
+		$.each($("li"),function(i,item){
+			$(item).prepend("<input style='background-color:whit;' type='checkbox' value='"+$(item).attr("name")+"' name='collectids'>");
+		})
+	}
+	//删除收藏
+	function delCollects(){
+		var collectids = '';
+		$.each($("[type='checkbox']"),function(i,item){
+			if(item.checked){
+				collectids += $(item).val()+',';
+			}
+		});
+		if(collectids.length > 0){
+			$.post("delCollect.action",{"collectids":collectids},function(data){
+				if(data == 'no'){
+					alert("删除失败!");
+				}
+				window.location.reload();
+			});
+		} else {
+			cancel();
+		}
 	}
 </script>
 </body>

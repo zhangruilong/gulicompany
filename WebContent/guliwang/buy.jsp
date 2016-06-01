@@ -162,7 +162,6 @@ function buy(){
 }
 //保存订单和订单详情
 function saveOrder(ordermjson,orderdetjson){
-	alert("saveOrder");
 	$.ajax({
 		url : 'OrdermAction.do?method=addOrder',
 		data : {

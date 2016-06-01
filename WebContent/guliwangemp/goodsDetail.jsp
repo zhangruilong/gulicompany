@@ -158,7 +158,7 @@ function docart(){
 function addtimegoodsnum(obj,pricesprice,goodsname,pricesunit,goodsunits,goodscode,goodsclassname,goodscompany,companyshop,companydetail){
 	var item = JSON.parse($(obj).next().text());				//得到商品信息
 	
-	$.post('queryCusSecKillOrderd.action',{'orderm.ordermcustomer':customer.customerid},function(data){
+	$.post('queryCusSecKillOrderdEmp.action',{'orderm.ordermcustomer':customer.customerid},function(data){
 		var count = 0;
 		if(data.msg == 'no'){
 			$(".popup_msg").text("还没有收货地址,请先添加收货地址。");
@@ -247,7 +247,7 @@ function addtimegoodsnum(obj,pricesprice,goodsname,pricesunit,goodsunits,goodsco
 function addgivegoodsnum(obj,pricesprice,goodsname,pricesunit,goodsunits,goodscode,goodsclassname,goodscompany,companyshop,companydetail){
 	var item = JSON.parse($(obj).next().text());				//得到商品信息
 	
-	$.post('queryCusSecKillOrderd.action',{'orderm.ordermcustomer':customer.customerid},function(data){
+	$.post('queryCusSecKillOrderdEmp.action',{'orderm.ordermcustomer':customer.customerid},function(data){
 		var count = 0;
 		if(data.msg == 'no'){
 			$(".popup_msg").text("还没有收货地址,请先添加收货地址。");

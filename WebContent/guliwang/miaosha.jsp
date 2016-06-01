@@ -13,9 +13,8 @@
 <link href="css/layout.css" type="text/css" rel="stylesheet">
 <link href="css/dig.css" type="text/css" rel="stylesheet">
 <style type="text/css">
-.goods-wrapper .home-hot-commodity li a{
-	padding: 0;
-}
+.goods-wrapper .home-hot-commodity li a{padding: 0;}
+.stock-num{width: 50%;}
 </style>
 </head>
 <body>
@@ -23,7 +22,7 @@
 	<!-- <div class="home-search-wrapper"><a onclick='javascript:history.go(-1);' class='goback'></a>
 	<span>秒杀商品</span><a href="cart.jsp" class="gwc"><img src="images/gwc.png" ><em id="totalnum">0</em></a></div> -->
     <div class="wapper-nav"><a onclick='javascript:history.go(-1);' class='goback'></a>
-	秒杀商品<a onclick="docart(this)" href="cart.jsp" class="gwc"><img src="images/gwc.png" ><em id="totalnum">0</em></a></div>
+	秒杀商品<a onclick="docart(this)" href="cart.jsp" class="gwc"><em id="totalnum">0</em></a></div>
     <div class="goods-wrapper">
         <ul class="home-hot-commodity">
         </ul>
