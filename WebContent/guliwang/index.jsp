@@ -48,7 +48,7 @@
 				</div>
 			</div>
 			<input id="searchdishes" type="text" placeholder="请输入食材名称" onkeydown="submitSearch(this)" />
-			<a onclick="docart(this)" href="cart.jsp" class="gwc"><img src="images/gwc.png"><em id="totalnum">0</em></a>
+			<a onclick="docart(this)" href="cart.jsp" class="gwc"><!-- <img src="images/gwc.png"> --><em id="totalnum">0</em></a>
 		</div>
 		<div class="home-hot-wrap">
 <div class="addWrap">
@@ -64,7 +64,12 @@
     <li class=""></li>
   </ul>
 </div>
-			<div class="home-hot">特惠商品抢购区</div>
+			<div class="home-hot">
+			<span onclick="dohrefJump('goodsclass.jsp')"><img src="images/index_fenlei.png"></span>
+			<span onclick="dohrefJump('order.jsp')"><img src="images/index_dingdan.png"></span>
+			<span onclick="dohrefJump('collect.jsp')"><img src="images/index_goumai.png"></span>
+			<span onclick="dopinpaizhuanqu()"><img src="images/index_pinpai.png"></span>
+			</div>
 			<ul class="home-hot-commodity">
 			</ul>
 		</div>
@@ -154,6 +159,15 @@
 	  } catch (ex) {
 	    return(null);
 	  }
+	}
+	//跳转
+	function dohrefJump(url){
+		window.location.href = url;
+	}
+	//到品牌专区
+	function dopinpaizhuanqu(){
+		window.localStorage.setItem("goodsclassparent",'G14630381061319233');
+		dohrefJump('goodsclass.jsp');
 	}
 	//得到客户信息
 	function initCustomer(data){			//将customer(客户信息放入缓存)

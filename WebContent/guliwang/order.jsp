@@ -21,11 +21,13 @@
 <div class="gl-box">
 </div>
 <div class="personal-center-nav">
-    <ul>
-        	<li><a href="index.jsp"><em class="ion-home"></em>首页</a></li>
-            <li><a href="goodsclass.jsp"><em class="ion-bag"></em>商城</a></li>
+    <ul>	
+    		<li><a href="index.jsp">
+        	<em class="icon-shouye1"></em>首页</a></li>
+            <li><a href="goodsclass.jsp"><em class="icon-fenlei1"></em>商城</a></li>
             <li class="active"><a href="order.jsp"><em class="ion-clipboard"></em>订单</a></li>
-            <li><a href="mine.jsp"><em class="ion-android-person"></em>我的</a></li>
+            <li><a href="mine.jsp"><em class="icon-wode1"></em>我的</a></li>
+            
     </ul>
 </div>
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>

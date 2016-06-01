@@ -25,7 +25,7 @@
         <span class="citydrop on"><span id="curgoodsclass">大米</span> <em><img src="images/dropbg.png" ></em></span> 
         <div class="menu" style="display: block; height: 92%;">
             <div class="menu-tags home-city-drop">
-                <div class="fenlei-tit">食材谱</div>
+                <div class="fenlei-tit">商品分类</div>
                 <div class="wrapper">
                 	<div class="fenlei-left">
                     	<ul id="fenlei-left">

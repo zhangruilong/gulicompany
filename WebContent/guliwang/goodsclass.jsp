@@ -25,7 +25,7 @@
         <span class="citydrop on"><span id="curgoodsclass">大米</span> <em><img src="images/dropbg.png" ></em></span> 
         <div class="menu" style="display: block; height: 92%;">
             <div class="menu-tags home-city-drop">
-                <div class="fenlei-tit">食材谱</div>
+                <div class="fenlei-tit">商品分类</div>
                 <div class="wrapper">
                 	<div class="fenlei-left">
                     	<ul id="fenlei-left">
@@ -48,9 +48,9 @@
     	<ul>
         	<li><a href="index.jsp">
         	<em class="icon-shouye1"></em>首页</a></li>
-            <li class="active"><a href="goodsclass.jsp"><em class="icon-fenlei1"></em>商城</a></li>
+            <li class="active"><a href="goodsclass.jsp"><em class="icon-fenlei2"></em>商城</a></li>
             <li><a onclick="docart(this)" href="cart.jsp"><em class="icon-gwc1"></em>购物车</a></li>
-            <li><a href="mine.jsp"><em class="icon-wode2"></em>我的</a></li>
+            <li><a href="mine.jsp"><em class="icon-wode1"></em>我的</a></li>
         </ul>
     </div>
 <!--弹框-->
