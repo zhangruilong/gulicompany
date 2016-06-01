@@ -19,6 +19,7 @@
 <link href="css/base.css" type="text/css" rel="stylesheet">
 <link href="css/layout.css" type="text/css" rel="stylesheet">
 <link rel="stylesheet" href="css/swipe.css" type="text/css" />
+<link href="css/dig.css" type="text/css" rel="stylesheet">
 <style type="text/css">
 	.home-search-wrapper .citydrop img{
 		margin-top: 10px;
@@ -47,7 +48,7 @@
 				</div>
 			</div>
 			<input id="searchdishes" type="text" placeholder="请输入食材名称" onkeydown="submitSearch(this)" />
-			<a onclick="docart(this)" href="cart.jsp" class="gwc"><img src="images/gwc.png"><em id="totalnum">0</em></a>
+			<a onclick="docart(this)" href="cart.jsp" class="gwc"><!-- <img src="images/gwc.png"> --><em id="totalnum">0</em></a>
 		</div>
 		<div class="home-hot-wrap">
 <div class="addWrap">
@@ -63,27 +64,42 @@
     <li class=""></li>
   </ul>
 </div>
-			<div class="home-hot">特惠商品抢购区</div>
+			<div class="home-hot">
+			<span onclick="dohrefJump('goodsclass.jsp')"><img src="images/index_fenlei.png"></span>
+			<span onclick="dohrefJump('order.jsp')"><img src="images/index_dingdan.png"></span>
+			<span onclick="dohrefJump('collect.jsp')"><img src="images/index_goumai.png"></span>
+			<span onclick="dopinpaizhuanqu()"><img src="images/index_pinpai.png"></span>
+			</div>
 			<ul class="home-hot-commodity">
 			</ul>
 		</div>
 		
-		<div class="" style="padding-top: 10px;">
+		<div class="" style="padding-top: 10px;margin-bottom: 15%;">
 			
 	        <a id="a_myshop" onclick="" href="miaosha.jsp?xian=${param.xian }"><img alt="秒杀商品" src="images/index_miaosha.jpg"></a>
 	        <a id="a_mycollect" onclick="" href="give.jsp?xian=${param.xian }"><img alt="买赠商品" src="images/index_maizeng.jpg"></a>
 	        <a onclick="" href="hotgoods.jsp?xian=${param.xian }"><img alt="热销商品" src="images/index_rexiao.jpg"></a>
 	    </div>
 		<div class="personal-center-nav">
-			<ul>
+    	<ul>
         	<li class="active"><a href="index.jsp">
-        	<em class="icon-shouye1"></em>首页</a></li>
+        	<em class="icon-shouye2"></em>首页</a></li>
             <li><a href="goodsclass.jsp"><em class="icon-fenlei1"></em>商城</a></li>
             <li><a onclick="docart(this)" href="cart.jsp"><em class="icon-gwc1"></em>购物车</a></li>
-            <li><a href="customerlist.jsp"><em class="ion-android-person"></em>客户</a></li>
+            <li><a href="mine.jsp"><em class="icon-wode1"></em>我的</a></li>
         </ul>
+    </div>
+	</div>
+	<!--弹框-->
+<div class="cd-popup" role="alert">
+	<div class="cd-popup-container">
+		<div class="cd-buttons">
+        	<h1>谷粒网提示</h1>
+			<p class="popup_msg">尚无账号，立即注册？</p>
+            <a class="cd-popup-close">取消</a><a class="popup_queding" href="doReg.action">确定</a>
 		</div>
 	</div>
+</div>
 	<script src="js/jquery-1.8.3.min.js"></script>
 	<script src="js/jquery-dropdown.js"></script>
 	<script type="text/javascript">
@@ -116,46 +132,15 @@
 		$.each(data.cityList,function(i,item){
 			$("#citys-menu").append('<li><a href="index.jsp?xian='+item.cityname+'&city='+item.cityparent+'">'+ item.cityname +'</a></li>');									//得到地区
 		});
-		/* $.each(data.companyList,function(i,item1){
-			$.each(item1.timegoodsList,function(j,item2){
-			var liObj = '<li><a '+
-			'onclick="judgePurchase(\''+
-			item2.timegoodsid +'\',\''+
-			item2.timegoodsdetail +'\',\''+
-			item2.timegoodscompany +'\',\''+
-			item1.companyshop +'\',\''+
-			item1.companydetail +'\',\''+
-			item2.timegoodsclass +'\',\''+
-			item2.timegoodscode +'\',\''+
-			item2.timegoodsorgprice +'\',\''+
-			item2.timegoodsunit +'\',\''+
-			item2.timegoodsname +'\',\''+
-			item2.timegoodsimage +'\',\''+
-			item2.timegoodsunits +'\',\''+
-			item2.timegoodsnum+'\');" '+
-			'> <span class="fl"> <img src="../'+item2.timegoodsimage+
-	         	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span>'+
-				'<h1>'+item2.timegoodsname+
-					'<span>（'+item2.timegoodsunits+'）</span>'+
-				'</h1> <span> <strong>￥'+item2.timegoodsorgprice+'/'+item2.timegoodsunit+
-				'</strong> <em>￥'+item2.timegoodsprice+'/'+item2.timegoodsunit+'</em>';
-			if(data.cusOrderdList != null && data.cusOrderdList.length != 0){
-				var itemGoodsCount = 0;
-				$.each(data.cusOrderdList,function(k,item3){
-					if(item3.orderdcode == timegoodscode){
-						itemGoodsCount += item3.orderdnum
-					}
-				});
-				liObj += '<font>限购'+(item2.timegoodsnum - itemGoodsCount)+item2.timegoodsunit+'</font><br/>'
-							+'<font>限量'+item2.allnum+'箱还剩'+item2.surplusnum+'箱</font>';
-			} else {
-				liObj += '<font>限购'+item2.timegoodsnum+item2.timegoodsunit+'</font><br/>'
-							+'<font>限量'+item2.allnum+'箱还剩'+item2.surplusnum+'箱</font>';
-			}
-			
-			$(".home-hot-commodity").append(liObj+'</span></a></li>');
-			});
-		}); */
+	}
+	//跳转
+	function dohrefJump(url){
+		window.location.href = url;
+	}
+	//到品牌专区
+	function dopinpaizhuanqu(){
+		window.localStorage.setItem("goodsclassparent",'G14630381061319233');
+		dohrefJump('goodsclass.jsp');
 	}
 	//判断是否到达限购数量
 	function judgePurchase(
@@ -174,8 +159,8 @@
 			timegoodsnum
 			) {
 		var customer = JSON.parse(window.localStorage.getItem("customer"));
-		if(!customer.customerid){
-			alert("购买前需注册");
+		if(!customer.customerid || typeof(customer.customerid) == 'undefined'){
+			$(".cd-popup").addClass("is-visible");
 			return;
 		}
 		$.getJSON('judgePurchase.action',{

@@ -160,15 +160,6 @@
 	    return(null);
 	  }
 	}
-	//跳转
-	function dohrefJump(url){
-		window.location.href = url;
-	}
-	//到品牌专区
-	function dopinpaizhuanqu(){
-		window.localStorage.setItem("goodsclassparent",'G14630381061319233');
-		dohrefJump('goodsclass.jsp');
-	}
 	//得到客户信息
 	function initCustomer(data){			//将customer(客户信息放入缓存)
 		if(data.root[0].customerid == null || data.root[0].customerid == '' || typeof(data.root[0].customerid) == 'undefined'){
@@ -184,6 +175,15 @@
 		$.each(data.cityList,function(i,item){
 			$("#citys-menu").append('<li><a href="index.jsp?xian='+item.cityname+'&city='+item.cityparent+'">'+ item.cityname +'</a></li>');									//得到地区
 		});
+	}
+	//跳转
+	function dohrefJump(url){
+		window.location.href = url;
+	}
+	//到品牌专区
+	function dopinpaizhuanqu(){
+		window.localStorage.setItem("goodsclassparent",'G14630381061319233');
+		dohrefJump('goodsclass.jsp');
 	}
 	//判断是否到达限购数量
 	function judgePurchase(

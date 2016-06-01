@@ -20,7 +20,6 @@
 <link href="css/base.css" type="text/css" rel="stylesheet">
 <link href="css/layout.css" type="text/css" rel="stylesheet">
 <style type="text/css">
-
 input {
 	float: left;
 	
@@ -34,34 +33,15 @@ input {
   vertical-align: middle;
   box-shadow: hsla(0,0%,100%,.15) 0 1px 1px, inset hsla(0,0%,0%,.5) 0 0 0 1px;
   background-color: white;
-  background-image: -webkit-radial-gradient( red 0%, red 15%, red 28%, hsla(200,100%,30%,0) 70% );
   background-repeat: no-repeat;
-  -webkit-transition: background-position .15s cubic-bezier(.8, 0, 1, 1),
-    -webkit-transform .25s cubic-bezier(.8, 0, 1, 1);
-}
-input:checked {
-  -webkit-transition: background-position .2s .15s cubic-bezier(0, 0, .2, 1),
-    -webkit-transform .25s cubic-bezier(0, 0, .2, 1);
-}
-input:active {
-  -webkit-transform: scale(1.5);
-  -webkit-transition: -webkit-transform .1s cubic-bezier(0, 0, .2, 1);
 }
 
 
 
 /* The up/down direction logic */
 
-input,
-input:active {
-  background-position: 0 24px;
-}
 input:checked {
-  background-position: 0 0;
-}
-input:checked ~ input,
-input:checked ~ input:active {
-  background-position: 0 -24px;
+  background: url(images/price-rd.png) no-repeat;
 }
 #cwn_a_xiadan{
 	right: 16%;
@@ -73,7 +53,7 @@ input:checked ~ input:active {
 	<form action="delCollect.action" method="post">
 	<div class="gl-box">
 		<div class="wapper-nav"><a onclick="javascript:window.history.go(-1)" class='goback'></a>
-	我的收藏<a id="cwn_a_xiadan" onclick="xiadan()">下单</a><a id="cwn_a_bianji" onclick="editToDel()">编辑</a></div>
+	我的收藏<a id="cwn_a_xiadan" onclick="xiadan()"><img src=""></a><a id="cwn_a_bianji" onclick="editToDel()"><img src=""></a></div>
 		</div>
 		<div class="shoucang-wrap">
 			<ul>
@@ -116,6 +96,7 @@ $(function(){
 		$("#cwn_a_xiadan").attr("onclick","collectDoCart()");
 		$("#cwn_a_bianji").attr("onclick","cancel()");
 		$.each($("li"),function(i,item){
+			//$(item).prepend( '<input type="checkbox" class="regular-radio" />');
 			$(item).prepend("<input style='background-color:whit;' type='checkbox' value='"+$(item).attr("name")+"' name='collectids'>");
 		})
 	}

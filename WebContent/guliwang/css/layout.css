@@ -107,8 +107,8 @@ color:#fff !important;
 .home-search-wrapper .gwc:before{content:"\e902"}
 .home-search-wrapper .gwc em{ position:absolute; right:-30%; top:-10%; width:14px; height:14px;line-height:14px; text-align:center;  border-radius:50px; background-color:#F00; color:#fff; font-size:.3em; font-style:normal; border:red solid 1px}
 .home-search-wrapper a img { width: 100%; margin-top: 3px }
-.home-hot-wrap .home-hot { width: 100%;padding: 2% 0% 1% 18%; background: url(../images/hot.png) no-repeat left; background-size: 8%; background-position: 4% 6px; border-bottom: solid 1px #eee }
-.home-hot-wrap .home-hot span{margin-right: 5%;}
+.home-hot-wrap .home-hot { width: 100%;padding: 2% 0% 1% 14%; background: url(../images/hot.png) no-repeat left; background-size: 8%; background-position: 4% 6px; border-bottom: solid 1px #eee }
+.home-hot-wrap .home-hot span{margin: 0% 5% 0% 5%;}
 .home-hot-wrap .home-hot span img{max-width: 10%;max-height: 50%;}
 .home-hot-wrap .home-hot-commodity li { overflow: hidden; margin-left: 4%; position:relative; border-bottom:solid 1px #eee }
 .home-hot-wrap .home-hot-commodity li a, .goods-wrapper .home-hot-commodity li a { display: block; padding: 4% 4% 4% 0; position: relative; overflow: hidden }
