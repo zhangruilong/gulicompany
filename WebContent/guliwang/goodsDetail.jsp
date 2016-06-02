@@ -91,7 +91,7 @@ $(function(){
 	        	'</div>');
 		$(".gd-lower-liebiao span:eq(0)").text(data.goodsunits);
 		$(".gd-lower-liebiao span:eq(1)").text(data.goodsbrand);
-		$(".gd-lower-liebiao span:eq(2)").text(data.goodscode);
+		$(".gd-lower-liebiao span:eq(2)").text(data.goodstype);
 		$("#gdw_t_li2").append(' <span class="gdw_t_li3_cc"><input type="checkbox" id="'+data.goodsid+'checkbox" class="chk_1" '+data.goodsdetail+'>'+
 	     		'<label for="'+data.goodsid+'checkbox" onclick="checkedgoods(\''+data.goodsid+'\');"></label></span>');
 	} else if (type == '秒杀'){

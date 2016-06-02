@@ -58,8 +58,9 @@ color:#fff !important;
 .goods-detail-wrapper .gdw_t_li_stock_num .jia,.goods-detail-wrapper .gdw_t_li_stock_num .jian,.goods-detail-wrapper .gdw_t_li_stock_num .shuliang{width: 32%;}
 .gdw_t_li3_cc{position:relative;bottom:-25px;float:right; margin-right: 7%;width: 44px;text-align: center;}
 /*秒杀商品*/
-.miaosha_li_price_div{float: left;margin: 2% 2% 2% 2%;}
+.miaosha_li_price_div{float: left;margin: 10% 0% 0% 0%;}
 .miaosha_li_price_div strong{color: #f64320}
+.miaosha_li_price_div em{ color: #666;font-style: normal; text-decoration: line-through; font-size: .6em }
 /*买赠商品*/
 .home-hot-commodity .block .givegoods_li_priceANDunit{float: left;}
 /*地址管理*/
@@ -206,7 +207,7 @@ color:#fff !important;
 .cart-wrapper li .jian:before,.goods-wrapper .home-hot-commodity li .jian:before{ content:'\f2f4';font-size:.8em;line-height:1.2em}
 .cart-wrapper li .shuliang, .goods-wrapper .home-hot-commodity li .shuliang { position: relative; float: left; width: 30px; height: 24px; float: left; margin: 0; border: none; border-top: 1px #ccc solid; border-bottom: solid 1px #ccc; text-align: center; padding: 1px 0; background-color:#fff }
 /*商品*/
-.goods-wrapper .home-hot-commodity li h1 { margin: 2% 0 }
+.goods-wrapper .home-hot-commodity li h1 { margin: 2% 0 0% 0 }
 .stock-num { position: relative; margin: 0% 4% 0% 0%; float: right; width: 65% }
 .block .regular-radio:checked + label { border: none; font-size: 1.4em }
 .block span { display: block }
