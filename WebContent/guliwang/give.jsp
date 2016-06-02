@@ -14,7 +14,7 @@
 <link href="css/dig.css" type="text/css" rel="stylesheet">
 <style type="text/css">
 .goods-wrapper .home-hot-commodity li a{padding: 0;}
-.stock-num{width: 50%;}
+.stock-num{width: 90px;}
 </style>
 </head>
 <body>
@@ -80,7 +80,7 @@ function initMiaoshaPage(data){
 			'<h1 onclick="gotogoodsDetail(\''+encodeURI(jsonitem)+ '\');">'+item1.givegoodsname+
 				'<span>（'+item1.givegoodsunits+'）</span>'+
 			'</h1><div onclick="gotogoodsDetail(\''+encodeURI(jsonitem)+ '\');" class="block"> <span style="font-size: 16px;">'
-			+item1.givegoodsdetail+'</span><br> <span> <strong>￥'+item1.givegoodsprice+'/'+item1.givegoodsunit+
+			+item1.givegoodsdetail+'</span><br> <span class="givegoods_li_priceANDunit"> <strong>￥'+item1.givegoodsprice+'/'+item1.givegoodsunit+
 			'</strong> ';
 		if(data.cusOrderdList != null && data.cusOrderdList.length != 0){
 			var itemGoodsCount = 0;
@@ -93,7 +93,7 @@ function initMiaoshaPage(data){
 		} else {
 			liObj += '<font>限购'+item1.givegoodsnum+item1.givegoodsunit+'</font><br/>';
 		}
-		liObj+='</span></div>';
+		liObj+='</span><span hidden="ture" style="display:none;">'+JSON.stringify(item1)+'</span>';
 		liObj += '<div class="stock-num" name="'+item1.givegoodsid+'">'+
             '<span class="jian min"  onclick="subnum(this,'+item1.givegoodsprice+')"></span>'+
             '<input readonly="readonly" class="text_box shuliang" name="danpin" type="text" value="'+
@@ -103,8 +103,7 @@ function initMiaoshaPage(data){
 			   +'\',\''+item1.givegoodscode+'\',\''+item1.givegoodsclass
 			   +'\',\''+item1.givegoodscompany+'\',\''+item1.givegoodcompany.companyshop+'\',\''+item1.givegoodcompany.companydetail
 			   +'\')"></span>'+
-			   '<span hidden="ture">'+JSON.stringify(item1)+'</span>'+
-        	'</div>';
+        	'</div></div>';
         liObj += '</li>';
 		$(".home-hot-commodity").append(liObj);
 	});

@@ -14,7 +14,7 @@
 <link href="css/dig.css" type="text/css" rel="stylesheet">
 <style type="text/css">
 .goods-wrapper .home-hot-commodity li a{padding: 0;}
-.stock-num{width: 50%;}
+.stock-num{width: 30%;}
 </style>
 </head>
 <body>
@@ -83,8 +83,8 @@ function initMiaoshaPage(data){
          	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span>'+
 			'<h1 onclick="gotogoodsDetail(\''+item1.companyshop+'\',\''+item1.companydetail+'\',\''+ encodeURI(jsonitem)+ '\');">'+item2.timegoodsname+
 				'<span>（'+item2.timegoodsunits+'）</span>'+
-			'</h1> <span onclick="gotogoodsDetail(\''+item1.companyshop+'\',\''+item1.companydetail+'\',\''+ encodeURI(jsonitem)+ '\');"> <strong>￥'+item2.timegoodsorgprice+'/'+item2.timegoodsunit+
-			'</strong> <em>￥'+item2.timegoodsprice+'/'+item2.timegoodsunit+'</em>';
+			'</h1> <span onclick="gotogoodsDetail(\''+item1.companyshop+'\',\''+item1.companydetail+'\',\''+ encodeURI(jsonitem)+ '\');">'+
+			' <em>￥'+item2.timegoodsprice+'/'+item2.timegoodsunit+'</em>';
 			if(data.cusOrderdList != null && data.cusOrderdList.length != 0){
 				var itemGoodsCount = 0;
 				$.each(data.cusOrderdList,function(k,item3){
@@ -97,13 +97,14 @@ function initMiaoshaPage(data){
 					liObj += '<font>限量'+item2.allnum+item2.timegoodsunit+'，还剩'+item2.surplusnum+item2.timegoodsunit+'</font>';
 				}
 			} else {
-				liObj += '<font>限购'+item2.timegoodsnum+item2.timegoodsunit+'</font><br/>';
+				liObj += '<font>限购'+item2.timegoodsnum+item2.timegoodsunit+'</font>';
 				if(item2.allnum != '-1'){
 					liObj += '<font>限量'+item2.allnum+item2.timegoodsunit+'，还剩'+item2.surplusnum+item2.timegoodsunit+'</font>';
 				}
 			}
-			liObj+='</span>';
-			liObj += '<div class="stock-num" name="'+item2.timegoodsid+'">'+
+			liObj+='</span><br>';
+			liObj += '<div class="miaosha_li_price_div"><strong>￥'+item2.timegoodsorgprice+'/'+item2.timegoodsunit+'</strong></div>'+
+				'<div class="stock-num" name="'+item2.timegoodsid+'">'+
 	            '<span class="jian min"  onclick="subnum(this,'+item2.timegoodsorgprice+')"></span>'+
 	            '<input readonly="readonly" class="text_box shuliang" name="danpin" type="text" value="'+
 	             getcurrennumdanpin(item2.timegoodsid)+'"> '+

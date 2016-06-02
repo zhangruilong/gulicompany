@@ -22,7 +22,7 @@
 <body>
 <div class="gl-box">
 	<div class="home-search-wrapper">
-        <span class="citydrop on"><span id="curgoodsclass">大米</span> <em><img src="images/dropbg.png" ></em></span> 
+        <span class="citydrop on"><span id="curgoodsclass">大米</span> <em></em></span> 
         <div class="menu" style="display: block; height: 92%;">
             <div class="menu-tags home-city-drop">
                 <div class="fenlei-tit">商品分类</div>
