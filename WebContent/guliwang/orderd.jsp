@@ -55,19 +55,12 @@ function regoumai(){
 		orderdcodes += item.orderdcode + ",";
 		orderdtypes += item.orderdtype + ",";
 	});
-	//orderdcodes = orderdcodes.substring(0,orderdcodes.length-1);
-	//orderdtypes = orderdtypes.substring(0,orderdtypes.length-1);
 	$.ajax({
 		url: "queryREgoumaiGoods.action",
 		async:true,
 		data: {"orderdcodes":orderdcodes,"orderdtypes":orderdtypes,"customertype":customer.customertype,"customerlevel":customer.customerlevel},
 		dataType:"json",
 		success: function(data) {
-			/* 
-			alert(data[0].goods.goodscode);
-			alert(JSON.stringify(orderds[0]));
-			return;
-			*/
 			$.each(data,function(i,item){
 				if (window.localStorage.getItem("sdishes") == null || window.localStorage.getItem("sdishes") == "[]") {				//判断有没有购物车
 					//没有购物车

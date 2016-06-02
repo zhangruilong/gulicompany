@@ -110,10 +110,11 @@ color:#fff !important;
 .home-search-wrapper .gwc {display: block;font-family: 'icomoon' !important;font-size: 1.3em; width: 7%; position:relative; float: right; height: 26px; padding-top: 4px; display: inline-block; text-align: right }
 .home-search-wrapper .gwc:before{content:"\e902"}
 .home-search-wrapper .gwc em{ position:absolute; right:-32%; top:-10%; width:14px; height:14px;line-height:14px; text-align:center;  border-radius:50px; background-color:#F00; color:#fff; font-size:.3em; font-style:normal; border:red solid 1px}
-.home-search-wrapper a img { width: 100%; margin-top: 3px }
-.home-hot-wrap .home-hot { width: 100%;padding: 2% 0% 1% 14%; background: url(../images/hot.png) no-repeat left; background-size: 8%; background-position: 4% 6px; border-bottom: solid 1px #eee }
-.home-hot-wrap .home-hot span{margin: 0% 5% 0% 5%;}
-.home-hot-wrap .home-hot span img{max-width: 10%;max-height: 50%;}
+.home-search-wrapper a img { width: 100%; margin-top: 3px; }
+.home-hot-wrap .home-hot { width: 90%; background-size: 8%; background-position: 4% 6px; margin: 15px 5% 15px 5%; }
+.home-hot-wrap .home-hot .index_xiaotubiao1{width: 25%;float: left;text-align: center;}
+.home-hot-wrap .home-hot .index_xiaotubiao1 img{max-width: 50%;max-height: 50%;display: block;margin: 0 auto;}
+.home-hot-wrap .home-hot .index_xiaotubiao1 span{font-family: "晴圆等宽";font-size: 12px;display: block;margin: 6px 6px 0px 6px;}
 .home-hot-wrap .home-hot-commodity li { overflow: hidden; margin-left: 4%; position:relative; border-bottom:solid 1px #eee }
 .home-hot-wrap .home-hot-commodity li a, .goods-wrapper .home-hot-commodity li a { display: block; padding: 4% 4% 4% 0; position: relative; overflow: hidden }
 .home-hot-wrap .home-hot-commodity li a h1, .goods-wrapper .home-hot-commodity li h1 { font-size: 1em; font-weight: normal; margin: 4% 0 }
@@ -244,7 +245,7 @@ color:#fff !important;
 .bgcol{ height:100%; background-color:#fff}
 /*订单详情*/
 .order-detail-info { background-color: #2c77e6; color: #fff; padding: 4%; line-height: 1.8em }
-.order-detail-wrapper { border-bottom: solid 1px #ddd; border-top: solid 1px #ddd; background-color: #fff; margin-top: 4%; margin-bottom: 56px; }
+.order-detail-wrapper { border-bottom: solid 1px #ddd; border-top: solid 1px #ddd; background-color: #fff; margin: 4% 0% 16% 0%; }
 .order-detail-wrapper li { overflow: hidden; padding: 4% 0; border-bottom: solid 1px #ddd; margin-left: 4% }
 .order-detail-wrapper li span:first-child { width: 40%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis }
 .order-detail-wrapper li span:nth-child(2) { width: 25%; color: #888 }

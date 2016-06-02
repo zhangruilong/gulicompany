@@ -17,12 +17,16 @@
 <link href="css/base.css" type="text/css" rel="stylesheet">
 <link href="css/layout.css" type="text/css" rel="stylesheet">
 <link href="css/dig.css" type="text/css" rel="stylesheet">
+<style type="text/css">
+.stock-num{float: left;width: 60%;}
+.goods-wrapper .home-hot-commodity li span{margin: 5% 0% 5% 0%;}
+</style>
 </head>
 
 <body>
 <div class="gl-box">
 	<div class="home-search-wrapper">
-        <span class="citydrop on"><span id="curgoodsclass">大米</span> <em><img src="images/dropbg.png" ></em></span> 
+        <span class="citydrop on"><span id="curgoodsclass">大米</span> <em><img src="images/dropbg.png"></em></span> 
         <div class="menu" style="display: block; height: 92%;">
             <div class="menu-tags home-city-drop">
                 <div class="fenlei-tit">商品分类</div>
@@ -37,7 +41,7 @@
             </div>
         </div>
         <input id="searchdishes" type="text" placeholder="请输入食材名称" onkeydown="entersearch()"/>
-        <a href="cart.jsp" class="gwc"><img src="images/gwc.png" ><em id="totalnum">0</em></a>
+        <a onclick="docart(this)" href="cart.jsp" class="gwc"><em id="totalnum">0</em></a>
     </div>
     <div class="goods-wrapper">
         <ul class="home-hot-commodity">
@@ -45,14 +49,14 @@
     </div>
 </div>
 <div class="personal-center-nav">
-    <ul>
+    	<ul>
         	<li><a href="index.jsp">
         	<em class="icon-shouye1"></em>首页</a></li>
             <li class="active"><a href="goodsclass.jsp"><em class="icon-fenlei2"></em>商城</a></li>
             <li><a onclick="docart(this)" href="cart.jsp"><em class="icon-gwc1"></em>购物车</a></li>
-            <li><a href="customerlist.jsp"><em class="icon-wode1"></em>客户</a></li>
+            <li class="active"><a href="customerlist.jsp"><em class="ion-android-person"></em>客户</a></li>
         </ul>
-</div>
+    </div>
 <!--弹框-->
 <div class="cd-popup" role="alert">
 	<div class="cd-popup-container">
@@ -88,14 +92,6 @@ $(function(){
 	}
 	//通过ajax查询大类
 	getJson(basePath+"GoodsclassAction.do",{method:"mselAll",wheresql:"goodsclassparent='root' and goodsclassstatue='启用'"},initGoodsclass,null);
-	/* if(searchdishesvalue!="null"&&searchdishesvalue!=""){
-		getJson(basePath+"GoodsviewAction.do",{method:"mselAll",query:searchdishesvalue,companyid:emp.empcompany,customerid:customer.customerid,customertype:customer.customertype,customerlevel:customer.customerlevel},initDishes,null);
-	}else if(searchclassesvalue!="null"&&searchclassesvalue!=""){
-		$("#curgoodsclass").html(searchclassesvalue);
-		getJson(basePath+"GoodsviewAction.do",{method:"mselAll",companyid:emp.empcompany,customerid:customer.customerid,customertype:customer.customertype,customerlevel:customer.customerlevel,goodsclassname:searchclassesvalue},initDishes,null);
-	}else{
-		getJson(basePath+"GoodsviewAction.do",{method:"mselAll",companyid:emp.empcompany,customerid:customer.customerid,customertype:customer.customertype,customerlevel:customer.customerlevel,goodsclassname:"大米"},initDishes,null);
-	} */
 	$(".cd-popup").on("click",function(event){		//绑定点击事件
 		$(this).removeClass("is-visible");	//移除'is-visible' class
 	});
@@ -108,14 +104,11 @@ function entersearch(){
 		window.location.href = 'goods.jsp?searchdishes=' + searchdishesvalue;
     }
 }
-/* $(".citydrop").click(function(){ 
-	getJson(basePath+"GoodsclassAction.do",{method:"mselAll",wheresql:"goodsclassparent='root'"},initGoodsclass,null);
-})  */
 //商品大小类
 function initGoodsclass(data){																								//初始化商品大小类
 	 $("#fenlei-left").html("");
 	 $.each(data.root, function(i, item) {				//遍历 data 中的 root 
-		if(i==0){
+		if(item.goodsclassid==window.localStorage.getItem("goodsclassparent")){
 			$("#fenlei-left").append('<li class="active" name="'+item.goodsclassid+'"><a href="#"><img src="'+item.goodsclassdetail+'" > '+item.goodsclassname+'</a></li>');
 			getJson(basePath+"GoodsclassAction.do",{method:"mselAll",wheresql:"goodsclassparent = '"+item.goodsclassid+"' and goodsclassstatue='启用'"},initGoodsclassright,null);
 		}else{
@@ -126,7 +119,8 @@ function initGoodsclass(data){																								//初始化商品大小类
 		$(this).click(function(){
 			$(this).addClass('active').siblings().removeClass('active');	//当前元素被点击时添加 class 'active' 同时把其他同级元素 去除  class 'active'
 			//ajax查询小类并初始化
-			getJson(basePath+"GoodsclassAction.do",{method:"mselAll",wheresql:"goodsclassparent = '"+$(this).attr('name')+"'"},initGoodsclassright,null);
+			getJson(basePath+"GoodsclassAction.do",{method:"mselAll",wheresql:"goodsclassparent = '"+$(this).attr('name')+"' and goodsclassstatue='启用'"},initGoodsclassright,null);
+			window.localStorage.setItem("goodsclassparent",$(this).attr('name'));
 		})
 	});
 }
@@ -134,7 +128,11 @@ function initGoodsclass(data){																								//初始化商品大小类
 function initGoodsclassright(data){																							//大小类右边
 	 $(".fenlei-right").html("");
 	 $.each(data.root, function(i, item) {
-		$(".fenlei-right").append('<a href="goods.jsp?searchclasses='+item.goodsclassname+'">'+item.goodsclassname+'</a>');
+		 if(item.goodsclassname==window.localStorage.getItem("goodsclassname")){
+			 $(".fenlei-right").append('<a href="#" style="background-color:#2c77e6; color:#fff" onclick="gotogoods(\''+item.goodsclassname+'\')">'+item.goodsclassname+'</a>');
+		}else{
+			$(".fenlei-right").append('<a href="#" onclick="gotogoods(\''+item.goodsclassname+'\')">'+item.goodsclassname+'</a>');
+		}
     });
 }
 //商品

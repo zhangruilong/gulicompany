@@ -31,7 +31,7 @@ input {
   border-radius: 12px;
   cursor: pointer;
   vertical-align: middle;
-  box-shadow: hsla(0,0%,100%,.15) 0 1px 1px, inset hsla(0,0%,0%,.5) 0 0 0 1px;
+  box-shadow: inset hsla(0,0%,0%,1) 0 0 0 1px;
   background-color: white;
   background-repeat: no-repeat;
 }
@@ -41,6 +41,7 @@ input {
 /* The up/down direction logic */
 
 input:checked {
+	box-shadow: inset hsla(0,0%,0%,1) 0 0 0 0px;
   background: url(images/price-rd.png) no-repeat;
 }
 #cwn_a_xiadan{
@@ -96,8 +97,7 @@ $(function(){
 		$("#cwn_a_xiadan").attr("onclick","collectDoCart()");
 		$("#cwn_a_bianji").attr("onclick","cancel()");
 		$.each($("li"),function(i,item){
-			//$(item).prepend( '<input type="checkbox" class="regular-radio" />');
-			$(item).prepend("<input style='background-color:whit;' type='checkbox' value='"+$(item).attr("name")+"' name='collectids'>");
+			$(item).prepend("<input type='checkbox' value='"+$(item).attr("name")+"' name='collectids'>");
 		})
 	}
 	//取消
@@ -182,11 +182,11 @@ $(function(){
 							window.localStorage.setItem("totalmoney",newtmoney);	
 							var cartnum = parseInt(window.localStorage.getItem("cartnum"));
 							window.localStorage.setItem("cartnum",cartnum+1);
-							window.location.href = "cart.jsp";
 						}	
 					})
 				}
 			})
+			window.location.href = "cart.jsp";
 		} else {
 			cancel();
 		}

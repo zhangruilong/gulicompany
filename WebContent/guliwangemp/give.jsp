@@ -14,7 +14,7 @@
 <link href="css/dig.css" type="text/css" rel="stylesheet">
 <style type="text/css">
 .goods-wrapper .home-hot-commodity li a{padding: 0;}
-.stock-num{width: 50%;}
+.stock-num{width: 90px;}
 </style>
 </head>
 <body>
@@ -66,21 +66,21 @@ $(function(){
 	$.getJSON("maizengPageEmp.action",{"givegoodcompany.city.cityname":xian,"givegoodscode":givegoodscode,"givegoodsscope":customer.customertype},initMiaoshaPage);
 });
 //到商品详情页
-function gotogoodsDetail(pricesprice,jsonitem){
-	window.location.href = 'goodsDetail.jsp?type=买赠&pricesprice='+pricesprice+'&goods='+jsonitem;
+function gotogoodsDetail(jsonitem){
+	window.location.href = 'goodsDetail.jsp?type=买赠&goods='+jsonitem;
 }
 //初始化页面
 function initMiaoshaPage(data){
 	$(".home-hot-commodity").html("");
 	$.each(data.giveList,function(i,item1){
 		var jsonitem = JSON.stringify(item1);
-		var liObj = '<li><span onclick="gotogoodsDetail(\''+item1.givegoodsprice+'\',\''
+		var liObj = '<li><span onclick="gotogoodsDetail(\''
 			+ encodeURI(jsonitem)+ '\');" class="fl"> <img src="../'+item1.givegoodsimage+
          	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span>'+
-			'<h1 onclick="gotogoodsDetail(\''+item1.givegoodsprice+'\',\''+ encodeURI(jsonitem)+ '\');">'+item1.givegoodsname+
+			'<h1 onclick="gotogoodsDetail(\''+encodeURI(jsonitem)+ '\');">'+item1.givegoodsname+
 				'<span>（'+item1.givegoodsunits+'）</span>'+
-			'</h1><div onclick="gotogoodsDetail(\''+item1.givegoodsprice+'\',\''+ encodeURI(jsonitem)+ '\');" class="block"> <span style="font-size: 16px;">'
-			+item1.givegoodsdetail+'</span><br> <span> <strong>￥'+item1.givegoodsprice+'/'+item1.givegoodsunit+
+			'</h1><div onclick="gotogoodsDetail(\''+encodeURI(jsonitem)+ '\');" class="block"> <span style="font-size: 16px;">'
+			+item1.givegoodsdetail+'</span><br> <span class="givegoods_li_priceANDunit"> <strong>￥'+item1.givegoodsprice+'/'+item1.givegoodsunit+
 			'</strong> ';
 		if(data.cusOrderdList != null && data.cusOrderdList.length != 0){
 			var itemGoodsCount = 0;
@@ -93,7 +93,7 @@ function initMiaoshaPage(data){
 		} else {
 			liObj += '<font>限购'+item1.givegoodsnum+item1.givegoodsunit+'</font><br/>';
 		}
-		liObj+='</span></div>';
+		liObj+='</span><span hidden="ture" style="display:none;">'+JSON.stringify(item1)+'</span>';
 		liObj += '<div class="stock-num" name="'+item1.givegoodsid+'">'+
             '<span class="jian min"  onclick="subnum(this,'+item1.givegoodsprice+')"></span>'+
             '<input readonly="readonly" class="text_box shuliang" name="danpin" type="text" value="'+
@@ -103,8 +103,7 @@ function initMiaoshaPage(data){
 			   +'\',\''+item1.givegoodscode+'\',\''+item1.givegoodsclass
 			   +'\',\''+item1.givegoodscompany+'\',\''+item1.givegoodcompany.companyshop+'\',\''+item1.givegoodcompany.companydetail
 			   +'\')"></span>'+
-			   '<span hidden="ture">'+JSON.stringify(item1)+'</span>'+
-        	'</div>';
+        	'</div></div>';
         liObj += '</li>';
 		$(".home-hot-commodity").append(liObj);
 	});
@@ -250,10 +249,8 @@ function docart(obj){
 }
 //加号
 function addnum(obj,pricesprice,goodsname,pricesunit,goodsunits,goodscode,goodsclassname,goodscompany,companyshop,companydetail){
-	var item = JSON.parse($(obj).next().text());				//得到商品信息
-	//数量
-	var numt = $(obj).prev(); 							//得到加号前面一个元素(input元素)
-	var num = parseInt(numt.val());						//得到input的值,商品数
+	var item = JSON.parse($(obj).parent().prev().text());				//得到商品信息
+	
 	$.post('queryCusSecKillOrderdEmp.action',{'orderm.ordermcustomer':customer.customerid},function(data){
 		var count = 0;
 		if(data.msg == 'no'){
@@ -262,6 +259,9 @@ function addnum(obj,pricesprice,goodsname,pricesunit,goodsunits,goodscode,goodsc
 			$(".cd-popup").addClass("is-visible");
 			return;
 		}
+		//数量
+		var numt = $(obj).prev(); 
+		var num = parseInt(numt.val());
 		var restNum = parseInt(item.givegoodsnum) - num;
 		if(data){
 			$.each(data.giveGoodsList,function(i,item2){
@@ -284,10 +284,12 @@ function addnum(obj,pricesprice,goodsname,pricesunit,goodsunits,goodscode,goodsc
 			var tmoney = parseFloat(window.localStorage.getItem("totalmoney"));		//总价
 			var newtmoney = (tmoney+pricesprice).toFixed(2);						//总价加上商品价格得到新价格
 			window.localStorage.setItem("totalmoney",newtmoney);					//设置总价格到缓存
-			
+			//数量
+			var numt = $(obj).prev(); 							//得到加号前面一个元素(input元素)
+			var num = parseInt(numt.val());						//得到input的值,商品数
 			numt.val(num+1);									//input的值加一
 			//订单
-			if(window.localStorage.getItem("sdishes")==null){
+			if(window.localStorage.getItem("sdishes")==null || !window.localStorage.getItem("sdishes")){
 				window.localStorage.setItem("sdishes","[]");
 			}
 			sdishes = JSON.parse(window.localStorage.getItem("sdishes"));	//得到现有订单

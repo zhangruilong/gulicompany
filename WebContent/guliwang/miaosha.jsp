@@ -91,14 +91,14 @@ function initMiaoshaPage(data){
 						itemGoodsCount += item3.orderdnum
 					}
 				});
-				liObj += '<font>限购'+(item2.timegoodsnum - itemGoodsCount)+item2.timegoodsunit+'</font><br/>';
+				liObj += '<font>每日限购'+(item2.timegoodsnum - itemGoodsCount)+item2.timegoodsunit+'</font><br/>';
 				if(item2.allnum != '-1'){
-					liObj += '<font>，限量'+item2.allnum+item2.timegoodsunit+'，还剩'+item2.surplusnum+item2.timegoodsunit+'</font>';
+					liObj += '<font>，总限量'+item2.allnum+item2.timegoodsunit+'，还剩'+item2.surplusnum+item2.timegoodsunit+'</font>';
 				}
 			} else {
-				liObj += '<font>限购'+item2.timegoodsnum+item2.timegoodsunit+'</font>';
+				liObj += '<font>每日限购'+item2.timegoodsnum+item2.timegoodsunit+'</font>';
 				if(item2.allnum != '-1'){
-					liObj += '<font>，限量'+item2.allnum+item2.timegoodsunit+'，还剩'+item2.surplusnum+item2.timegoodsunit+'</font>';
+					liObj += '<font>，总限量'+item2.allnum+item2.timegoodsunit+'，还剩'+item2.surplusnum+item2.timegoodsunit+'</font>';
 				}
 			}
 			liObj+='</span><br>';

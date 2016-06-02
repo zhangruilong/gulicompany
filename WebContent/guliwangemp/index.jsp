@@ -65,10 +65,14 @@
   </ul>
 </div>
 			<div class="home-hot">
-			<span onclick="dohrefJump('goodsclass.jsp')"><img src="images/index_fenlei.png"></span>
-			<span onclick="dohrefJump('order.jsp')"><img src="images/index_dingdan.png"></span>
-			<span onclick="dohrefJump('collect.jsp')"><img src="images/index_goumai.png"></span>
-			<span onclick="dopinpaizhuanqu()"><img src="images/index_pinpai.png"></span>
+				<div class="index_xiaotubiao1" onclick="dohrefJump('goodsclass.jsp')"><img src="images/index_fenlei.png">
+				<span>商品分类</span></div>
+				<div class="index_xiaotubiao1" onclick="dohrefJump('order.jsp')"><img src="images/index_dingdan.png">
+				<span>我的订单</span></div>
+				<div class="index_xiaotubiao1" onclick="dohrefJump('collect.jsp')"><img src="images/index_goumai.png">
+				<span>我的收藏</span></div>
+				<div class="index_xiaotubiao1" onclick="dopinpaizhuanqu()"><img src="images/index_pinpai.png">
+				<span>品牌推荐</span></div>
 			</div>
 			<ul class="home-hot-commodity">
 			</ul>
@@ -86,7 +90,7 @@
         	<em class="icon-shouye2"></em>首页</a></li>
             <li><a href="goodsclass.jsp"><em class="icon-fenlei1"></em>商城</a></li>
             <li><a onclick="docart(this)" href="cart.jsp"><em class="icon-gwc1"></em>购物车</a></li>
-            <li><a href="customerlist.jsp"><em class="icon-wode1"></em>客户</a></li>
+            <li class="active"><a href="customerlist.jsp"><em class="ion-android-person"></em>客户</a></li>
         </ul>
     </div>
 	</div>
@@ -163,7 +167,7 @@
 			$(".cd-popup").addClass("is-visible");
 			return;
 		}
-		$.getJSON('judgePurchaseEmp.action',{
+		$.getJSON('judgePurchase.action',{
 			'timegoodsnum':timegoodsnum,
 			'timegoodscode':timegoodscode,
 			'customerid':customer.customerid

@@ -14,7 +14,7 @@
 <link href="css/dig.css" type="text/css" rel="stylesheet">
 <style type="text/css">
 .goods-wrapper .home-hot-commodity li a{padding: 0;}
-.stock-num{width: 50%;}
+.stock-num{width: 30%;margin: 9% 0% 0% 0%;}
 </style>
 </head>
 <body>
@@ -22,7 +22,7 @@
 	<!-- <div class="home-search-wrapper"><a onclick='javascript:history.go(-1);' class='goback'></a>
 	<span>秒杀商品</span><a href="cart.jsp" class="gwc"><img src="images/gwc.png" ><em id="totalnum">0</em></a></div> -->
     <div class="wapper-nav"><a onclick='javascript:history.go(-1);' class='goback'></a>
-	秒杀商品<a onclick="docart(this)" href="cart.jsp" class="gwc"><img src="images/gwc.png" ><em id="totalnum">0</em></a></div>
+	秒杀商品<a onclick="docart(this)" href="cart.jsp" class="gwc"><em id="totalnum">0</em></a></div>
     <div class="goods-wrapper">
         <ul class="home-hot-commodity">
         </ul>
@@ -66,11 +66,11 @@ $(function(){
 	if(xian == ''){
 		xian = customer.customerxian
 	}
-	$.getJSON("miaoshaPageEmp.action",{"city.cityname":xian,"timegoodsList[0].timegoodscode":timegoodscode,"timegoodsList[0].timegoodsscope":customer.customertype},initMiaoshaPage);
+	$.getJSON("miaoshaPage.action",{"city.cityname":xian,"timegoodsList[0].timegoodscode":timegoodscode,"timegoodsList[0].timegoodsscope":customer.customertype},initMiaoshaPage);
 });
 //到商品详情页
-function gotogoodsDetail(pricesprice,jsonitem){
-	window.location.href = 'goodsDetail.jsp?type=秒杀&pricesprice='+pricesprice+'&goods='+jsonitem;
+function gotogoodsDetail(companyshop,companydetail,jsonitem){
+	window.location.href = 'goodsDetail.jsp?type=秒杀&companyshop='+companyshop+'&companydetail='+companydetail+'&goods='+jsonitem;
 }
 //初始化页面
 function initMiaoshaPage(data){
@@ -78,13 +78,12 @@ function initMiaoshaPage(data){
 	$.each(data.companyList,function(i,item1){
 		$.each(item1.timegoodsList,function(j,item2){
 			var jsonitem = JSON.stringify(item2);
-			var liObj = '<li><span onclick="gotogoodsDetail(\''+item2.timegoodsorgprice+
-				'\',\''+encodeURI(jsonitem)+'\')" class="fl"> <img src="../'+item2.timegoodsimage+
-	         	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span>'+
-				'<h1 onclick="gotogoodsDetail(\''+item2.timegoodsorgprice+'\',\''+ encodeURI(jsonitem)+ '\');">'+item2.timegoodsname+
-					'<span>（'+item2.timegoodsunits+'）</span>'+
-				'</h1> <span onclick="gotogoodsDetail(\''+item2.timegoodsorgprice+'\',\''+ encodeURI(jsonitem)+ '\');"> <strong>￥'+item2.timegoodsorgprice+'/'+item2.timegoodsunit+
-				'</strong> <em>￥'+item2.timegoodsprice+'/'+item2.timegoodsunit+'</em>';
+			var liObj = '<li><span onclick="gotogoodsDetail(\''+item1.companyshop+'\',\''+item1.companydetail+
+			'\',\''+encodeURI(jsonitem)+'\')" class="fl"> <img src="../'+item2.timegoodsimage+
+         	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span>'+
+			'<h1 onclick="gotogoodsDetail(\''+item1.companyshop+'\',\''+item1.companydetail+'\',\''+ encodeURI(jsonitem)+ '\');">'+item2.timegoodsname+
+				'<span>（'+item2.timegoodsunits+'）</span>'+
+			'</h1> <span style="" onclick="gotogoodsDetail(\''+item1.companyshop+'\',\''+item1.companydetail+'\',\''+ encodeURI(jsonitem)+ '\');">';
 			if(data.cusOrderdList != null && data.cusOrderdList.length != 0){
 				var itemGoodsCount = 0;
 				$.each(data.cusOrderdList,function(k,item3){
@@ -92,18 +91,20 @@ function initMiaoshaPage(data){
 						itemGoodsCount += item3.orderdnum
 					}
 				});
-				liObj += '<font>限购'+(item2.timegoodsnum - itemGoodsCount)+item2.timegoodsunit+'</font><br/>';
+				liObj += '<font>每日限购'+(item2.timegoodsnum - itemGoodsCount)+item2.timegoodsunit+'</font><br/>';
 				if(item2.allnum != '-1'){
-					liObj += '<font>限量'+item2.allnum+item2.timegoodsunit+'，还剩'+item2.surplusnum+item2.timegoodsunit+'</font>';
+					liObj += '<font>，总限量'+item2.allnum+item2.timegoodsunit+'，还剩'+item2.surplusnum+item2.timegoodsunit+'</font>';
 				}
 			} else {
-				liObj += '<font>限购'+item2.timegoodsnum+item2.timegoodsunit+'</font><br/>';
+				liObj += '<font>每日限购'+item2.timegoodsnum+item2.timegoodsunit+'</font>';
 				if(item2.allnum != '-1'){
-					liObj += '<font>限量'+item2.allnum+item2.timegoodsunit+'，还剩'+item2.surplusnum+item2.timegoodsunit+'</font>';
+					liObj += '<font>，总限量'+item2.allnum+item2.timegoodsunit+'，还剩'+item2.surplusnum+item2.timegoodsunit+'</font>';
 				}
 			}
-			liObj+='</span>';
-			liObj += '<div class="stock-num" name="'+item2.timegoodsid+'">'+
+			liObj+='</span><br>';
+			liObj += '<div class="miaosha_li_price_div"><strong>￥'+item2.timegoodsorgprice+'/'+item2.timegoodsunit+'</strong>'+
+			' <em>￥'+item2.timegoodsprice+'</em></div>'+
+				'<div class="stock-num" name="'+item2.timegoodsid+'">'+
 	            '<span class="jian min"  onclick="subnum(this,'+item2.timegoodsorgprice+')"></span>'+
 	            '<input readonly="readonly" class="text_box shuliang" name="danpin" type="text" value="'+
 	             getcurrennumdanpin(item2.timegoodsid)+'"> '+
@@ -140,7 +141,7 @@ function judgePurchase(
 		$(".cd-popup").addClass("is-visible");
 		return;
 	}
-	$.getJSON('judgePurchaseEmp.action',{
+	$.getJSON('judgePurchase.action',{
 		'timegoodsnum':timegoodsnum,
 		'timegoodscode':timegoodscode,
 		'customerid':customer.customerid
@@ -262,10 +263,7 @@ function docart(obj){
 //加号
 function addnum(obj,pricesprice,goodsname,pricesunit,goodsunits,goodscode,goodsclassname,goodscompany,companyshop,companydetail){
 	var item = JSON.parse($(obj).next().text());				//得到商品信息
-	//数量
-	var numt = $(obj).prev(); 							//得到加号前面一个元素(input元素)
-	var num = parseInt(numt.val());						//得到input的值,商品数
-	$.post('queryCusSecKillOrderdEmp.action',{'orderm.ordermcustomer':customer.customerid},function(data){
+	$.post('queryCusSecKillOrderd.action',{'orderm.ordermcustomer':customer.customerid},function(data){
 		var count = 0;
 		if(data.msg == 'no'){
 			$(".popup_msg").text("还没有收货地址,请先添加收货地址。");
@@ -273,6 +271,9 @@ function addnum(obj,pricesprice,goodsname,pricesunit,goodsunits,goodscode,goodsc
 			$(".cd-popup").addClass("is-visible");
 			return;
 		}
+		//数量
+		var numt = $(obj).prev(); 
+		var num = parseInt(numt.val());
 		var restNum = parseInt(item.timegoodsnum) - num;
 		if(data){
 			$.each(data.miaoshaList,function(i,item2){
@@ -295,10 +296,12 @@ function addnum(obj,pricesprice,goodsname,pricesunit,goodsunits,goodscode,goodsc
 			var tmoney = parseFloat(window.localStorage.getItem("totalmoney"));		//总价
 			var newtmoney = (tmoney+pricesprice).toFixed(2);						//总价加上商品价格得到新价格
 			window.localStorage.setItem("totalmoney",newtmoney);					//设置总价格到缓存
-			
+			//数量
+			var numt = $(obj).prev(); 							//得到加号前面一个元素(input元素)
+			var num = parseInt(numt.val());						//得到input的值,商品数
 			numt.val(num+1);									//input的值加一
 			//订单
-			if(window.localStorage.getItem("sdishes")==null){
+			if(window.localStorage.getItem("sdishes")==null || !window.localStorage.getItem("sdishes")){
 				window.localStorage.setItem("sdishes","[]");
 			}
 			sdishes = JSON.parse(window.localStorage.getItem("sdishes"));	//得到现有订单
@@ -414,7 +417,7 @@ function checkCusSecKill(){
 	}
 	var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));
 	var outGoodsName = '';
-	$.post('queryCusSecKillOrderdEmp.action',{'orderm.ordermcustomer':customer.customerid},function(data){
+	$.post('queryCusSecKillOrderd.action',{'orderm.ordermcustomer':customer.customerid},function(data){
 		var count = 0;
 		if(data.msg == 'no'){																						//判断是否有地址
 			$(".popup_msg").text("还没有收货地址,请先添加收货地址。");

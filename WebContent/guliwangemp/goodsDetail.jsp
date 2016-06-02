@@ -91,16 +91,15 @@ $(function(){
 	        	'</div>');
 		$(".gd-lower-liebiao span:eq(0)").text(data.goodsunits);
 		$(".gd-lower-liebiao span:eq(1)").text(data.goodsbrand);
-		$(".gd-lower-liebiao span:eq(2)").text(data.goodscode);
+		$(".gd-lower-liebiao span:eq(2)").text(data.goodstype);
 		$("#gdw_t_li2").append(' <span class="gdw_t_li3_cc"><input type="checkbox" id="'+data.goodsid+'checkbox" class="chk_1" '+data.goodsdetail+'>'+
-	     		'<label for="'+data.goodsid+'checkbox" onclick="checkedgoods(\''+data.goodsid+'\');"></label>收藏</span>');
+	     		'<label for="'+data.goodsid+'checkbox" onclick="checkedgoods(\''+data.goodsid+'\');"></label></span>');
 	} else if (type == '秒杀'){
 		$("#goods_det_img1").attr("src",'../'+data.timegoodsimage);
 		$("#goods_det_img2").attr("src",basePath+'guliwang/images/jifenhuodong.jpg');
 		$("#gdw_t_li2").html('<span class="goods_ti_gn">'+data.timegoodsname+'（'+data.timegoodsunits+'）</span>');
 		$("#gdw_t_li2").append('<span class="gdw_t_li3_pri">￥'+data.timegoodsorgprice+'/'+data.timegoodsunit+'</span>');
-		$(".gd-lower-liebiao span:eq(0)").text(data.timegoodsunits);
-		$(".goodsdetail_float").append('<div class="gdw_t_li_stock_num" name="'+data.timegoodsid+'">'+
+		$("#gdw_t_li2").append('<div class="gdw_t_li_stock_num" name="'+data.timegoodsid+'">'+
 	            '<span class="jian min"  onclick="subnum(this,'+data.timegoodsorgprice+')"></span>'+
 	            '<input readonly="readonly" class="text_box shuliang" name="danpin" type="text" value="'+
 	             getcurrennumdanpin(data.timegoodsid)+'"> '+
@@ -111,13 +110,13 @@ $(function(){
 				   +'\')"></span>'+
 				   '<span hidden="ture">'+JSON.stringify(data)+'</span>'+
 	        	'</div>');
+		$(".gd-lower-liebiao span:eq(0)").text(data.timegoodsunits);
 	} else if(type == '买赠'){
 		$("#goods_det_img1").attr("src",'../'+data.givegoodsimage);
 		$("#goods_det_img2").attr("src",basePath+'guliwang/images/jifenhuodong.jpg');
 		$("#gdw_t_li2").html('<span class="goods_ti_gn">'+data.givegoodsname+'（'+data.givegoodsunits+'）<br><span style="color: #666;">'+data.givegoodsdetail+'</span></span>');
 		$("#gdw_t_li2").append('<span class="gdw_t_li3_pri">￥'+data.givegoodsprice+'/'+data.givegoodsunit+'</span>');
-		$(".gd-lower-liebiao span:eq(0)").text(data.givegoodsunits);
-		$(".goodsdetail_float").append('<div class="gdw_t_li_stock_num" name="'+data.givegoodsid+'">'+
+		$("#gdw_t_li2").append('<div class="gdw_t_li_stock_num" name="'+data.givegoodsid+'">'+
 	            '<span class="jian min"  onclick="subnum(this,'+data.givegoodsprice+')"></span>'+
 	            '<input readonly="readonly" class="text_box shuliang" name="danpin" type="text" value="'+
 	             getcurrennumdanpin(data.givegoodsid)+'"> '+
@@ -128,6 +127,7 @@ $(function(){
 				   +'\')"></span>'+
 				   '<span hidden="ture">'+JSON.stringify(data)+'</span>'+
 	        	'</div>');
+		$(".gd-lower-liebiao span:eq(0)").text(data.givegoodsunits);
 	}
 	//弹窗
 	$(".cd-popup").on("click",function(event){		//绑定点击事件

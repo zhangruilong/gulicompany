@@ -17,12 +17,16 @@
 <link href="css/base.css" type="text/css" rel="stylesheet">
 <link href="css/layout.css" type="text/css" rel="stylesheet">
 <link href="css/dig.css" type="text/css" rel="stylesheet">
+<style type="text/css">
+.stock-num{float: left;width: 60%;}
+.goods-wrapper .home-hot-commodity li span{margin: 5% 0% 5% 0%;}
+</style>
 </head>
 
 <body>
 <div class="gl-box">
 	<div class="home-search-wrapper">
-        <span class="citydrop"><span id="curgoodsclass">大米</span> <em><img src="images/dropbg.png" ></em></span> 
+        <span class="citydrop"><span id="curgoodsclass">大米</span> <em><img src="images/dropbg.png"></em></span> 
         <div class="menu">
             <div class="menu-tags home-city-drop">
                 <div class="fenlei-tit">食材谱</div>
@@ -37,7 +41,7 @@
             </div>
         </div>
         <input id="searchdishes" type="text" placeholder="请输入食材名称" onkeydown="entersearch()"/>
-        <a href="cart.jsp" class="gwc"><img src="images/gwc.png" ><em id="totalnum">0</em></a>
+        <a onclick="docart(this)" href="cart.jsp" class="gwc"><em id="totalnum">0</em></a>
     </div>
     <div class="goods-wrapper">
         <ul class="home-hot-commodity">
@@ -45,21 +49,21 @@
     </div>
 </div>
 <div class="personal-center-nav">
-    <ul>
+    	<ul>
         	<li><a href="index.jsp">
         	<em class="icon-shouye1"></em>首页</a></li>
             <li class="active"><a href="goodsclass.jsp"><em class="icon-fenlei2"></em>商城</a></li>
             <li><a onclick="docart(this)" href="cart.jsp"><em class="icon-gwc1"></em>购物车</a></li>
-            <li><a href="customerlist.jsp"><em class="icon-wode1"></em>客户</a></li>
+            <li class="active"><a href="customerlist.jsp"><em class="ion-android-person"></em>客户</a></li>
         </ul>
-</div>
+    </div>
 <!--弹框-->
 <div class="cd-popup" role="alert">
 	<div class="cd-popup-container">
 		<div class="cd-buttons">
         	<h1>谷粒网提示</h1>
-			<p class="meg">操作成功!</p>
-            <a class="cd-popup-close">确定</a>
+			<p class="meg">尚无账号，立即注册？</p>
+            <a class="cd-popup-close">取消</a><a class="ok" href="doReg.action" style="display: inline-block;">确定</a>
 		</div>
 	</div>
 </div>
@@ -112,14 +116,11 @@ function entersearch(){
     	getJson(basePath+"GoodsviewAction.do",{method:"mselAll",customerid:customer.customerid,query:searchdishesvalue,customertype:customer.customertype,customerlevel:customer.customerlevel},initDishes,null);
     }
 }
-/* $(".citydrop").click(function(){ 
-	getJson(basePath+"GoodsclassAction.do",{method:"mselAll",wheresql:"goodsclassparent='root'"},initGoodsclass,null);
-})  */
 //商品大小类
 function initGoodsclass(data){																								//初始化商品大小类
 	 $("#fenlei-left").html("");
 	 $.each(data.root, function(i, item) {				//遍历 data 中的 root 
-		if(i==0){
+		if(item.goodsclassid==window.localStorage.getItem("goodsclassparent")){
 			$("#fenlei-left").append('<li class="active" name="'+item.goodsclassid+'"><a href="#"><img src="'+item.goodsclassdetail+'" > '+item.goodsclassname+'</a></li>');
 			getJson(basePath+"GoodsclassAction.do",{method:"mselAll",wheresql:"goodsclassparent = '"+item.goodsclassid+"' and goodsclassstatue='启用'"},initGoodsclassright,null);
 		}else{
@@ -131,16 +132,27 @@ function initGoodsclass(data){																								//初始化商品大小类
 			$(this).addClass('active').siblings().removeClass('active');	//当前元素被点击时添加 class 'active' 同时把其他同级元素 去除  class 'active'
 			//ajax查询小类并初始化
 			getJson(basePath+"GoodsclassAction.do",{method:"mselAll",wheresql:"goodsclassparent = '"+$(this).attr('name')+"' and goodsclassstatue='启用'"},initGoodsclassright,null);
+			window.localStorage.setItem("goodsclassparent",$(this).attr('name'));
 		})
 	});
 }
 //小类
-function initGoodsclassright(data){																						//大小类右边
+function initGoodsclassright(data){																							//大小类右边
 	 $(".fenlei-right").html("");
 	 $.each(data.root, function(i, item) {
-		$(".fenlei-right").append('<a href="goods.jsp?searchclasses='+item.goodsclassname+'">'+item.goodsclassname+'</a>');
+		 if(item.goodsclassname==window.localStorage.getItem("goodsclassname")){
+			 $(".fenlei-right").append('<a href="#" style="background-color:#2c77e6; color:#fff" onclick="gotogoods(\''+item.goodsclassname+'\')">'+item.goodsclassname+'</a>');
+		}else{
+			$(".fenlei-right").append('<a href="#" onclick="gotogoods(\''+item.goodsclassname+'\')">'+item.goodsclassname+'</a>');
+		}
     });
 }
+
+function gotogoods(goodsclassname){
+	window.localStorage.setItem("goodsclassname",goodsclassname);
+	window.location.href = "goods.jsp?searchclasses="+goodsclassname;
+}
+
 //商品
 function initDishes(data){
      $(".home-hot-commodity").html("");
@@ -149,10 +161,10 @@ function initDishes(data){
  		//var goods = jsonitem.replace(/\"/g,'\\"');
  		//alert(goods);
  		$(".home-hot-commodity").append('<li>'+
- 	         	'<span onclick="gotogoodsDetail(\''+item.pricesprice+'\',\''+ encodeURI(jsonitem)+ '\');" class="fl"><img src="../'+item.goodsimage+
+ 	         	'<span onclick="gotogoodsDetail(\''+ encodeURI(jsonitem)+ '\');" class="fl"><img src="../'+item.goodsimage+
  	         	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span> '+
- 	         	'<h1 onclick="gotogoodsDetail(\''+item.pricesprice+'\',\''+ encodeURI(jsonitem)+ '\');">'+item.goodsname+'<span>('+item.goodsunits+')</span></h1>'+
- 	           '  <div class="block" onclick="gotogoodsDetail(\''+item.pricesprice+'\',\''+ encodeURI(jsonitem)+ '\');"> '+
+ 	         	'<h1 onclick="gotogoodsDetail(\''+encodeURI(jsonitem)+ '\');">'+item.goodsname+'<span>('+item.goodsunits+')</span></h1>'+
+ 	           '  <div class="block" onclick="gotogoodsDetail(\''+encodeURI(jsonitem)+ '\');"> '+
  	               '  <span>'+
  	                   '  <input type="radio" id="'+item.goodsid+'radio2" name="'+item.goodsid+'radio" class="regular-radio" />'+
  	               '      <label for="'+item.goodsid+'radio2">套装价:<font class="font-oringe">￥'+item.pricesprice2+'</font>/'+item.pricesunit2+'</label>'+
@@ -203,8 +215,8 @@ function initDishes(data){
 	})
 }
 //到商品详情页
-function gotogoodsDetail(pricesprice,jsonitem){
-	window.location.href = 'goodsDetail.jsp?type=商品&pricesprice='+pricesprice+'&goods='+jsonitem;
+function gotogoodsDetail(jsonitem){
+	window.location.href = 'goodsDetail.jsp?type=商品&goods='+jsonitem;
 }
 //收藏商品
 function checkedgoods(goodsid){
@@ -240,8 +252,8 @@ function checkedgoods(goodsid){
 				$(".cd-popup-close").text("确定");
 				$(".cd-popup").addClass("is-visible");	//弹出窗口
 				setTimeout(function () {  
-					$(".cd-popup").removeClass("is-visible");	//一秒钟后关闭弹窗
-			    }, 1000);
+					window.location.reload();	//一秒钟后关闭弹窗
+			    }, 800);
 			}
 		},
 		error : function(resp) {

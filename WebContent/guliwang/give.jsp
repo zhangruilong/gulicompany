@@ -79,7 +79,7 @@ function initMiaoshaPage(data){
          	'" alt="" onerror="javascript:this.src=\'images/default.jpg\'"/></span>'+
 			'<h1 onclick="gotogoodsDetail(\''+encodeURI(jsonitem)+ '\');">'+item1.givegoodsname+
 				'<span>（'+item1.givegoodsunits+'）</span>'+
-			'</h1><div onclick="gotogoodsDetail(\''+encodeURI(jsonitem)+ '\');" class="block"> <span style="font-size: 16px;">'
+			'</h1><div class="block"> <span onclick="gotogoodsDetail(\''+encodeURI(jsonitem)+ '\');" style="font-size: 16px;">'
 			+item1.givegoodsdetail+'</span><br> <span class="givegoods_li_priceANDunit"> <strong>￥'+item1.givegoodsprice+'/'+item1.givegoodsunit+
 			'</strong> ';
 		if(data.cusOrderdList != null && data.cusOrderdList.length != 0){
@@ -93,7 +93,7 @@ function initMiaoshaPage(data){
 		} else {
 			liObj += '<font>限购'+item1.givegoodsnum+item1.givegoodsunit+'</font><br/>';
 		}
-		liObj+='</span><span hidden="ture" style="display:none;">'+JSON.stringify(item1)+'</span>';
+		liObj += '</span><span hidden="ture" style="display:none;">'+JSON.stringify(item1)+'</span>';
 		liObj += '<div class="stock-num" name="'+item1.givegoodsid+'">'+
             '<span class="jian min"  onclick="subnum(this,'+item1.givegoodsprice+')"></span>'+
             '<input readonly="readonly" class="text_box shuliang" name="danpin" type="text" value="'+
@@ -249,7 +249,7 @@ function docart(obj){
 }
 //加号
 function addnum(obj,pricesprice,goodsname,pricesunit,goodsunits,goodscode,goodsclassname,goodscompany,companyshop,companydetail){
-	var item = JSON.parse($(obj).next().text());				//得到商品信息
+	var item = JSON.parse($(obj).parent().prev().text());				//得到商品信息
 	
 	$.post('queryCusSecKillOrderd.action',{'orderm.ordermcustomer':customer.customerid},function(data){
 		var count = 0;

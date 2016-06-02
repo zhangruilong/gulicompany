@@ -17,12 +17,16 @@
 <link href="css/base.css" type="text/css" rel="stylesheet">
 <link href="css/layout.css" type="text/css" rel="stylesheet">
 <link href="css/dig.css" type="text/css" rel="stylesheet">
+<style type="text/css">
+.stock-num{float: left;width: 60%;}
+.goods-wrapper .home-hot-commodity li span{margin: 5% 0% 5% 0%;}
+</style>
 </head>
 
 <body>
 <div class="gl-box">
 	<div class="home-search-wrapper">
-        <span class="citydrop on"><span id="curgoodsclass">大米</span> <em></em></span> 
+        <span class="citydrop on"><span id="curgoodsclass">大米</span> <em><img src="images/dropbg.png"></em></span> 
         <div class="menu" style="display: block; height: 92%;">
             <div class="menu-tags home-city-drop">
                 <div class="fenlei-tit">商品分类</div>
@@ -37,7 +41,7 @@
             </div>
         </div>
         <input id="searchdishes" type="text" placeholder="请输入食材名称" onkeydown="entersearch()"/>
-        <a onclick="docart(this)" href="cart.jsp" class="gwc"><img src="images/gwc.png" ><em id="totalnum">0</em></a>
+        <a onclick="docart(this)" href="cart.jsp" class="gwc"><em id="totalnum">0</em></a>
     </div>
     <div class="goods-wrapper">
         <ul class="home-hot-commodity">

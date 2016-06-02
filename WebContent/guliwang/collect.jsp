@@ -182,11 +182,11 @@ $(function(){
 							window.localStorage.setItem("totalmoney",newtmoney);	
 							var cartnum = parseInt(window.localStorage.getItem("cartnum"));
 							window.localStorage.setItem("cartnum",cartnum+1);
-							window.location.href = "cart.jsp";
 						}	
 					})
 				}
 			})
+			window.location.href = "cart.jsp";
 		} else {
 			cancel();
 		}
