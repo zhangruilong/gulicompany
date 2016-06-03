@@ -31,7 +31,7 @@ input {
   border-radius: 12px;
   cursor: pointer;
   vertical-align: middle;
-  box-shadow: inset hsla(0,0%,0%,1) 0 0 0 1px;
+  border: 1px solid black;
   background-color: white;
   background-repeat: no-repeat;
 }
@@ -41,8 +41,9 @@ input {
 /* The up/down direction logic */
 
 input:checked {
-	box-shadow: inset hsla(0,0%,0%,1) 0 0 0 0px;
+  border: 1px solid red;
   background: url(images/price-rd.png) no-repeat;
+  background-size: 26px 26px;
 }
 #cwn_a_xiadan{
 	right: 16%;
@@ -66,7 +67,7 @@ input:checked {
 <script type="text/javascript">
 var customer = JSON.parse(window.localStorage.getItem("customeremp"));
 $(function(){
-	$.post("cusCollectInfo.action",{"comid":customer.customerid,"pricesclass":customer.customertype},function(data){
+	$.post("cusCollectInfoEmp.action",{"comid":customer.customerid,"pricesclass":customer.customertype},function(data){
 		if(typeof(data.collectList) != 'undefined'){
 			$.each(data.collectList,function(i,item){
 				var jsonitem = JSON.stringify(item.goods);
@@ -210,7 +211,7 @@ $(function(){
 			}
 		});
 		if(collectids.length > 0){
-			$.post("delCollect.action",{"collectids":collectids},function(data){
+			$.post("delCollectEmp.action",{"collectids":collectids},function(data){
 				if(data == 'no'){
 					alert("删除失败!");
 				}

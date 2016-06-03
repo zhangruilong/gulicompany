@@ -41,8 +41,9 @@ input {
 /* The up/down direction logic */
 
 input:checked {
-	box-shadow: inset hsla(0,0%,0%,1) 0 0 0 0px;
+	box-shadow: none;
   background: url(images/price-rd.png) no-repeat;
+  background-size: 26px 26px;
 }
 #cwn_a_xiadan{
 	right: 16%;

@@ -1,4 +1,3 @@
-
 <!doctype html> 
 <html>
 <head>
@@ -55,64 +54,6 @@ jQuery(document).ready(function($){
 		}
 	});
 });
-$(function(){
-	var emp = JSON.parse(window.localStorage.getItem("emp"));
-	getJson(basePath+"CustomerAction.do",{method:"selAll"},initData,null);
-});
-function initData(data){
-    $(".home-hot-commodity").html("");
-	 $.each(data.root, function(i, item) {
-		$(".home-hot-commodity").append('<li>'+
-	         	'<span class="fl"><img src="images/pic2.jpg" ></span> '+
-	             '<h1>'+item.goodsname+'<span>('+item.goodsunits+')</span></h1>'+
-	           '  <div class="block"> '+
-	             	'<span>'+
-	                 '    <input type="radio" id="'+item.goodsid+'radio1" name="'+item.goodsid+'radio" class="regular-radio" checked />'+
-	                 '    <label for="'+item.goodsid+'radio1">单品价:<font class="font-oringe">￥'+item.pricesprice+'</font>/'+item.pricesunit+'</label>'+
-	               '  </span>'+
-	               '  <span>'+
-	                   '  <input type="radio" id="'+item.goodsid+'radio2" name="'+item.goodsid+'radio" class="regular-radio" />'+
-	               '      <label for="'+item.goodsid+'radio2">套装价:<font class="font-oringe">￥'+item.pricesprice2+'</font>/'+item.pricesunit2+'</label>'+
-	               '  </span>'+
-	            ' </div>'+
-	           '  <div class="stock-num" name="'+item.goodsid+'">'+
-	                ' <span class="jian min" onclick="subnum(this,'+item.pricesprice
-					   +')"></span>'+
-	                 '<input readonly="readonly" class="text_box shuliang" name="danpin" type="text" value="'+
-	                 getcurrennumdanpin(item.goodsid)+'"> '+
-	                ' <span class="jia add" onclick="addnum(this,'+item.pricesprice
-					   +',\''+item.goodsname+'\',\''+item.pricesunit+'\',\''+item.goodsunits
-					   +'\',\''+item.goodscode+'\',\''+item.goodsclassname
-					   +'\',\''+item.goodscompany+'\',\''+item.companyshop+'\',\''+item.companydetail
-					   +'\')"></span>'+
-	               '  <span hidden="ture" class="jian min" onclick="subnum(this,'+item.pricesprice2
-				   +')"></span>'+
-	                ' <input readonly="readonly" hidden="ture" class="text_box shuliang" name="taozhuan" type="text" value="'+
-	                getcurrennumtaozhuan(item.goodsid)+'"> '+
-	                ' <span hidden="ture" class="jia add" onclick="addnum(this,'+item.pricesprice2
-					   +',\''+item.goodsname+'\',\''+item.pricesunit2+'\',\''+item.goodsunits
-					   +'\',\''+item.goodscode+'\',\''+item.goodsclassname
-					   +'\',\''+item.goodscompany+'\',\''+item.companyshop+'\',\''+item.companydetail
-					   +'\')"></span>'+
-	                ' <input type="checkbox" id="'+item.goodsid+'checkbox" class="chk_1" '+item.goodsdetail+'>'+
-	            		'<label for="'+item.goodsid+'checkbox" onclick="checkedgoods(\''+item.goodsid+'\');"></label>'+
-	             '</div>'+
-	         '</li>');
-			if(item.pricesunit2==null||item.pricesunit2==''||item.pricesunit2==undefined){
-				$("#"+item.goodsid+"radio2").parent().css("display","none");
-			}
-    });
-	$(".regular-radio").change(function(){ 
-		var t = $(this).parent().parent().next().find('input[name*=danpin]');
-		t.toggle();
-		t.prev().toggle();
-		t.next().toggle();
-		var t2 = $(this).parent().parent().next().find('input[name*=taozhuan]');
-		t2.toggle();
-		t2.prev().toggle();
-		t2.next().toggle();
-	})
-}
 </script>
 </body>
 </html>

@@ -40,7 +40,7 @@
                 </div>
             </div>
         </div>
-        <input id="searchdishes" type="text" placeholder="请输入食材名称" onkeydown="entersearch()"/>
+        <input id="searchdishes" type="text" placeholder="请输入商品名称" onkeydown="entersearch()"/>
         <a onclick="docart(this)" href="cart.jsp" class="gwc"><em id="totalnum">0</em></a>
     </div>
     <div class="goods-wrapper">

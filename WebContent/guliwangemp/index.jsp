@@ -167,7 +167,7 @@
 			$(".cd-popup").addClass("is-visible");
 			return;
 		}
-		$.getJSON('judgePurchase.action',{
+		$.getJSON('judgePurchaseEmp.action',{
 			'timegoodsnum':timegoodsnum,
 			'timegoodscode':timegoodscode,
 			'customerid':customer.customerid
