@@ -257,8 +257,8 @@ function checkedgoods(goodsid){
 				$(".cd-popup-close").text("确定");
 				$(".cd-popup").addClass("is-visible");	//弹出窗口
 				setTimeout(function () {  
-					window.location.reload();	//一秒钟后关闭弹窗
-			    }, 800);
+					$(".cd-popup").removeClass("is-visible");	//一秒钟后关闭弹窗
+			    }, 1000);
 			}
 		},
 		error : function(resp) {

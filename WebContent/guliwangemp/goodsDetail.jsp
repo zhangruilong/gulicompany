@@ -111,6 +111,7 @@ $(function(){
 				   '<span hidden="ture">'+JSON.stringify(data)+'</span>'+
 	        	'</div>');
 		$(".gd-lower-liebiao span:eq(0)").text(data.timegoodsunits);
+		$(".gd-lower-liebiao span:eq(2)").text(data.timegoodsclass);
 	} else if(type == '买赠'){
 		$("#goods_det_img1").attr("src",'../'+data.givegoodsimage);
 		$("#goods_det_img2").attr("src",basePath+'guliwang/images/jifenhuodong.jpg');
@@ -128,6 +129,7 @@ $(function(){
 				   '<span hidden="ture">'+JSON.stringify(data)+'</span>'+
 	        	'</div>');
 		$(".gd-lower-liebiao span:eq(0)").text(data.givegoodsunits);
+		$(".gd-lower-liebiao span:eq(2)").text(data.givegoodsclass);
 	}
 	//弹窗
 	$(".cd-popup").on("click",function(event){		//绑定点击事件

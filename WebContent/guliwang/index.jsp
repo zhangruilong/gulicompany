@@ -47,7 +47,7 @@
 					</ul>
 				</div>
 			</div>
-			<input id="searchdishes" type="text" placeholder="请输入食材名称" onkeydown="submitSearch(this)" />
+			<input id="searchdishes" type="text" placeholder="请输入商品名称" onkeydown="submitSearch(this)" />
 			<a onclick="docart(this)" href="cart.jsp" class="gwc"><!-- <img src="images/gwc.png"> --><em id="totalnum">0</em></a>
 		</div>
 		<div class="home-hot-wrap">
@@ -111,7 +111,7 @@
 	var xian = '${param.xian}';
 	var city = '${param.city}';
 	$(function(){ 
-		//window.localStorage.setItem("openid","oDFe9wtBY93e1UlaFngmmeVh5cQU");
+		window.localStorage.setItem("openid","oDFe9wtBY93e1UlaFngmmeVh5cQU");
 		//openid
 		$(".cd-popup").on("click",function(event){		//绑定点击事件
 			if($(event.target).is(".cd-popup-close") || $(event.target).is(".cd-popup-container")){

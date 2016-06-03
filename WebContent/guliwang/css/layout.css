@@ -82,7 +82,7 @@ color:#fff !important;
 .personal-center a { position: relative; background-color: #fff; display: block; margin-left: 4%; padding: 4% 0; border-bottom:solid 1px #eee }
 .personal-center a:last-child{ border: none }
 .personal-center .sign { height: 14px; float: right; margin-right: 8%; display: inline-block }
-.personal-center-nav { width: 100%; position: fixed; bottom: 0; padding: 1% 0; background-color: #f9f9f9 }
+.personal-center-nav { width: 100%; position: fixed; bottom: 0; padding: 1% 0; background-color: #f9f9f9;height: 45px; }
 .personal-center-nav li { float: left; width: 25%; text-align: center }
 .personal-center-nav li a { width: 40%; margin: auto; display: block; font-size: .6em }
 .personal-center-nav li em { display: block; width: 68%; margin: auto; padding-top: 5px; font-size: 2em }

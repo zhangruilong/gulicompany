@@ -26,9 +26,9 @@ input {
   -webkit-appearance: none; /* remove default */
   display: block;
   margin: 38px 10px 10px 10px;
-  width: 24px;
-  height: 24px;
-  border-radius: 12px;
+  width: 26px;
+  height: 26px;
+  border-radius: 13px;
   cursor: pointer;
   vertical-align: middle;
   box-shadow: inset hsla(0,0%,0%,1) 0 0 0 1px;
@@ -43,7 +43,7 @@ input {
 input:checked {
 	box-shadow: none;
   background: url(images/price-rd.png) no-repeat;
-  background-size: 26px 26px;
+  background-size: 24px 24px;
 }
 #cwn_a_xiadan{
 	right: 16%;
@@ -125,7 +125,7 @@ $(function(){
 					//新增订单
 					var mdishes = new Object();
 					mdishes.goodsid = item.goodsid;
-					mdishes.goodsdetail = item.goodsdetail;
+					mdishes.goodsdetail = 'danpin';
 					mdishes.goodscompany = item.goodscompany;
 					mdishes.companyshop = item.goodsCompany.companyshop;
 					mdishes.companydetail = item.goodsCompany.companydetail;
@@ -161,7 +161,7 @@ $(function(){
 							//新增订单
 							var mdishes = new Object();
 							mdishes.goodsid = item.goodsid;
-							mdishes.goodsdetail = item.goodsdetail;
+							mdishes.goodsdetail = 'danpin';
 							mdishes.goodscompany = item.goodscompany;
 							mdishes.companyshop = item.goodsCompany.companyshop;
 							mdishes.companydetail = item.goodsCompany.companydetail;
