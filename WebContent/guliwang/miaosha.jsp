@@ -117,6 +117,7 @@ function initMiaoshaPage(data){
 	        	'</div>';
 	        liObj += '</li>';
 			$(".home-hot-commodity").append(liObj);
+			alert(item1.companydetail);
 		});
 	});
 }
