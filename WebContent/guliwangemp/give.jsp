@@ -96,7 +96,7 @@ function initMiaoshaPage(data){
 		liObj += '</span><span hidden="ture" style="display:none;">'+JSON.stringify(item1)+'</span>';
 		liObj += '<div class="stock-num" name="'+item1.givegoodsid+'">'+
             '<span class="jian min"  onclick="subnum(this,'+item1.givegoodsprice+')"></span>'+
-            '<input readonly="readonly" class="text_box shuliang" name="danpin" type="text" value="'+
+            '<input readonly="readonly" class="text_box shuliang" name="'+item1.givegoodsdetail+'" type="text" value="'+
              getcurrennumdanpin(item1.givegoodsid)+'"> '+
             ' <span class="jia add" onclick="addnum(this,'+item1.givegoodsprice
 			   +',\''+item1.givegoodsname+'\',\''+item1.givegoodsunit+'\',\''+item1.givegoodsunits

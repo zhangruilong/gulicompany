@@ -78,6 +78,7 @@ window.print()
 		<td width="53" style="font-family: 黑体;font-size: 12px;">下单金额</td>
 		<td width="53" style="font-family: 黑体;font-size: 12px;">实际金额</td>
 		<td width="143" align="center" style="font-family: 黑体;font-size: 12px;">备注</td>
+		<!-- <td width="143" align="center" style="font-family: 黑体;font-size: 12px;">备注</td> -->
 	</tr>
 	<c:forEach items="${requestScope.order.orderdList }" var="orderDetail" varStatus="sta">
 		<tr>

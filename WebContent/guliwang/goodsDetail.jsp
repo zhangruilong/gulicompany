@@ -119,7 +119,7 @@ $(function(){
 		$("#gdw_t_li2").append('<span class="gdw_t_li3_pri">￥'+data.givegoodsprice+'/'+data.givegoodsunit+'</span>');
 		$("#gdw_t_li2").append('<div class="gdw_t_li_stock_num" name="'+data.givegoodsid+'">'+
 	            '<span class="jian min"  onclick="subnum(this,'+data.givegoodsprice+')"></span>'+
-	            '<input readonly="readonly" class="text_box shuliang" name="danpin" type="text" value="'+
+	            '<input readonly="readonly" class="text_box shuliang" name="'+data.givegoodsdetail+'" type="text" value="'+
 	             getcurrennumdanpin(data.givegoodsid)+'"> '+
 	            ' <span class="jia add" onclick="addgivegoodsnum(this,'+data.givegoodsprice
 				   +',\''+data.givegoodsname+'\',\''+data.givegoodsunit+'\',\''+data.givegoodsunits
