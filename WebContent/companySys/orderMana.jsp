@@ -19,16 +19,6 @@ String ordermway = request.getParameter("ordermway");
 <script type="text/javascript" src="<%=basePath%>ExtJS/ext-all.js"></script>
 <script type="text/javascript" src="<%=basePath%>ExtJS/ext-lang-zh_CN.js" charset="GBK"></script>
 <style type="text/css">
-.bordered tr td {
-	padding: 5px;
-	padding-left: 3px;
-	padding-right: 3px;
-}
-.bordered tr th{
-	padding: 5px;
-	padding-left: 1px;
-	padding-right: 1px;
-}
 .button{
 	padding: 0px;
 	width: 50px;

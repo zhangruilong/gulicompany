@@ -136,11 +136,6 @@ function fenye(targetPage){
 }
 //导出
 function reportCustomer(){
-	/* $.post("exportCustomerReport.action",{
-		"ccustomercompany":"${requestScope.ccustomerCon.ccustomercompany }",
-		"customer.customertype":"${requestScope.ccustomerCon.customer.customertype }",
-		"customer.customercode":"${requestScope.ccustomerCon.customer.customercode }"
-		}); */
 	window.location.href ="exportCustomerReport.action?"+
 			"ccustomercompany=${requestScope.ccustomerCon.ccustomercompany }"+
 			"&customer.customertype=${requestScope.ccustomerCon.customer.customertype }"+

@@ -50,7 +50,11 @@ public class Com_customerCtl {
 		model.addAttribute("pageCount", pageCount);
 		model.addAttribute("pagenow", pagenow);
 		model.addAttribute("count", count);
-		return "forward:/companySys/customerMana.jsp";
+		if(ccustomerCon.getCreator() != null && ccustomerCon.getCreator().equals("1")){
+			return "forward:/companySys/largeCusMana.jsp";
+		} else {
+			return "forward:/companySys/customerMana.jsp";
+		}
 	}
 	//修改客户信息页面
 	@RequestMapping(value="/companySys/queryCcusAndCus",produces="application/json")

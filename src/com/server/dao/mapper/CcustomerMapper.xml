@@ -55,6 +55,9 @@
 				)
 			</if>
 		</if>
+		<if test="ccustomer.creator != null and ccustomer.creator != ''">
+			and ccustomer.creator = #{ccustomer.creator}
+		</if>
   </select>
   <!-- 根据供应商查询客户关系 -->
   <select id="selectCusByCom" resultMap="BaseResultMap">
@@ -83,6 +86,9 @@
 					or customer.customeraddress like '%${ccustomer.customer.customercode}%'
 				)
 			</if>
+		</if>
+		<if test="ccustomer.creator != null and ccustomer.creator != ''">
+			and ccustomer.creator = #{ccustomer.creator}
 		</if>
 		order by customer.customerid desc
 		) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) ) 

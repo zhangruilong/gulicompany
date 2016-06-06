@@ -101,6 +101,9 @@
 			)
 		</if>
 	</if>
+	<if test="creator != null and creator != ''">
+		and cc.creator = #{creator}
+	</if>
   </select>
   <!-- 检查用户是否已经注册过了 -->
   <select id="selectCustomerIsReg" resultType="int" parameterType="com.server.pojo.entity.Customer" >

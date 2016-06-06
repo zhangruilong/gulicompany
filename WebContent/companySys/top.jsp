@@ -60,7 +60,7 @@ Company company = (Company)session.getAttribute("company");
 			}
 		});
 		//显示最新订单信息
-		window.setInterval(showNewestOrderm,10000);
+		//window.setInterval(showNewestOrderm,10000);
 	})
 	function showNewestOrderm(){
 		$.post("queryNewestOrderm.action",{"ordermcompany":'${sessionScope.company.companyid}'},function(data){
@@ -168,6 +168,11 @@ Company company = (Company)session.getAttribute("company");
 			        +"<li class='nav__item'>"
 			        +"<a href=allCustomer.action?ccustomercompany="+'<%=company.getCompanyid() %>'+"&customer.customertype=1  target='main' class='nav__item-link'>"
 			        +"<span class='nav__item-text'>组织单位客户</span>"
+			        +"</a>   "
+			        +"</li>"
+			        +"<li class='nav__item'>"
+			        +"<a href=allCustomer.action?ccustomercompany="+'<%=company.getCompanyid() %>'+"&creator=1  target='main' class='nav__item-link'>"
+			        +"<span class='nav__item-text'>大客户</span>"
 			        +"</a>   "
 			        +"</li>"
 			        +"</ul>");

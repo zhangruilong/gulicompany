@@ -45,6 +45,7 @@ table {
     border-top: 1px solid #ccc;
     padding: 8px;
     text-align: center;    
+    padding: 5px 3px 5px 3px;
 }
 
 
@@ -139,9 +140,6 @@ table {
 	color: blue;
 	cursor:pointer;
 }
-
-
-
 
 
 
