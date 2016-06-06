@@ -263,6 +263,10 @@ function docart(obj){
 }
 //加号
 function addnum(obj,pricesprice,goodsname,pricesunit,goodsunits,goodscode,goodsclassname,goodscompany,companyshop,companydetail){
+	if(!customer.customerid || customer.customerid == '' || typeof(customer.customerid) == 'undefined'){
+		$(".cd-popup").addClass("is-visible");
+		return;
+	}
 	var item = JSON.parse($(obj).next().text());				//得到商品信息
 	$.post('queryCusSecKillOrderd.action',{'orderm.ordermcustomer':customer.customerid},function(data){
 		var count = 0;
