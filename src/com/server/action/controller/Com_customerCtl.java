@@ -13,8 +13,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.server.dao.mapper.AddressMapper;
 import com.server.dao.mapper.CcustomerMapper;
 import com.server.dao.mapper.CustomerMapper;
+import com.server.pojo.entity.Address;
 import com.server.pojo.entity.Ccustomer;
 import com.server.pojo.entity.Customer;
 import com.system.tools.util.DateUtils;
@@ -31,6 +33,8 @@ public class Com_customerCtl {
 	private CcustomerMapper ccustomerMapper;
 	@Autowired
 	private CustomerMapper customerMapper;
+	@Autowired
+	private AddressMapper addressMapper;
 	//全部客户
 	@RequestMapping(value="/companySys/allCustomer")
 	public String allCustomer(Model model,Ccustomer ccustomerCon,Integer pagenow){
@@ -59,11 +63,10 @@ public class Com_customerCtl {
 	//修改客户信息页面
 	@RequestMapping(value="/companySys/queryCcusAndCus",produces="application/json")
 	@ResponseBody
-	public Map<String,Object> queryCcusAndCus(String customerid,String ccustomerid){
+	public Map<String,Object> queryCcusAndCus(String ccustomerid){
 		Map<String,Object> map = new HashMap<String, Object>();
-		Customer customer = customerMapper.selectByPrimaryKey(customerid);
-		Ccustomer ccustomer = ccustomerMapper.selectByPrimaryKey(ccustomerid);
-		map.put("editCus", customer);
+		Ccustomer ccustomer = ccustomerMapper.selectCCusAndCusById(ccustomerid);
+		map.put("editCus", ccustomer.getCustomer());
 		map.put("editCcus", ccustomer);
 		return map;
 	}
@@ -87,6 +90,19 @@ public class Com_customerCtl {
 		String[] discard = {"customerid","customerpsw","openid","customerdetail","customerstatue","orderm","collectList"};			//要忽略的字段名
 		String name = "客户统计报表";							//文件名称
 		FileUtil.expExcel(response, list, heads, discard, name);
+	}
+	//大客户下单页信息
+	@RequestMapping("/companySys/largeCusXiaDanInfo")
+	@ResponseBody
+	public Map<String, Object> largeCusXiaDanInfo(String ccustomerid,Address address){
+		Map<String, Object> map = new HashMap<String, Object>();
+		Ccustomer largeCCus = ccustomerMapper.selectCCusAndCusById(ccustomerid);
+		List<Address> addressList = addressMapper.selectDefAddress(address);
+		if(addressList != null && addressList.size()>0){
+			map.put("cusAddress", addressList.get(0));
+		}
+		map.put("largeCCus", largeCCus);
+		return map;
 	}
 }
 

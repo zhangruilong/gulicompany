@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.server.dao.mapper.LargecuspriceMapper" >
+  <resultMap id="BaseResultMap" type="com.server.pojo.entity.Largecusprice" >
+    <id column="LARGECUSPRICEID" property="largecuspriceid" jdbcType="VARCHAR" />
+    <result column="LARGECUSPRICECOMPANY" property="largecuspricecompany" jdbcType="VARCHAR" />
+    <result column="LARGECUSPRICECUSTOMER" property="largecuspricecustomer" jdbcType="VARCHAR" />
+    <result column="LARGECUSPRICEGOODS" property="largecuspricegoods" jdbcType="VARCHAR" />
+    <result column="LARGECUSPRICEPRICE" property="largecuspriceprice" jdbcType="VARCHAR" />
+    <result column="LARGECUSPRICEDETAIL" property="largecuspricedetail" jdbcType="VARCHAR" />
+    <result column="LARGECUSPRICECREATETIME" property="largecuspricecreatetime" jdbcType="VARCHAR" />
+    <result column="LARGECUSPRICECREATOR" property="largecuspricecreator" jdbcType="VARCHAR" />
+    <result column="LARGECUSPRICEPRICE2" property="largecuspriceprice2" jdbcType="VARCHAR" />
+    <result column="LARGECUSPRICEUNIT" property="largecuspriceunit" jdbcType="VARCHAR" />
+    <result column="LARGECUSPRICEUNIT2" property="largecuspriceunit2" jdbcType="VARCHAR" />
+  </resultMap>
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from LARGECUSPRICE
+    where LARGECUSPRICEID = #{largecuspriceid,jdbcType=VARCHAR}
+  </delete>
+  <!-- 选择性添加 -->
+  <insert id="insertSelective" parameterType="com.server.pojo.entity.Largecusprice" >
+    insert into LARGECUSPRICE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="largecuspriceid != null" >
+        LARGECUSPRICEID,
+      </if>
+      <if test="largecuspricecompany != null" >
+        LARGECUSPRICECOMPANY,
+      </if>
+      <if test="largecuspricecustomer != null" >
+        LARGECUSPRICECUSTOMER,
+      </if>
+      <if test="largecuspricegoods != null" >
+        LARGECUSPRICEGOODS,
+      </if>
+      <if test="largecuspriceprice != null" >
+        LARGECUSPRICEPRICE,
+      </if>
+      <if test="largecuspricedetail != null" >
+        LARGECUSPRICEDETAIL,
+      </if>
+      <if test="largecuspricecreatetime != null" >
+        LARGECUSPRICECREATETIME,
+      </if>
+      <if test="largecuspricecreator != null" >
+        LARGECUSPRICECREATOR,
+      </if>
+      <if test="largecuspriceprice2 != null" >
+        LARGECUSPRICEPRICE2,
+      </if>
+      <if test="largecuspriceunit != null" >
+        LARGECUSPRICEUNIT,
+      </if>
+      <if test="largecuspriceunit2 != null" >
+        LARGECUSPRICEUNIT2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="largecuspriceid != null" >
+        #{largecuspriceid,jdbcType=VARCHAR},
+      </if>
+      <if test="largecuspricecompany != null" >
+        #{largecuspricecompany,jdbcType=VARCHAR},
+      </if>
+      <if test="largecuspricecustomer != null" >
+        #{largecuspricecustomer,jdbcType=VARCHAR},
+      </if>
+      <if test="largecuspricegoods != null" >
+        #{largecuspricegoods,jdbcType=VARCHAR},
+      </if>
+      <if test="largecuspriceprice != null" >
+        #{largecuspriceprice,jdbcType=VARCHAR},
+      </if>
+      <if test="largecuspricedetail != null" >
+        #{largecuspricedetail,jdbcType=VARCHAR},
+      </if>
+      <if test="largecuspricecreatetime != null" >
+        #{largecuspricecreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="largecuspricecreator != null" >
+        #{largecuspricecreator,jdbcType=VARCHAR},
+      </if>
+      <if test="largecuspriceprice2 != null" >
+        #{largecuspriceprice2,jdbcType=VARCHAR},
+      </if>
+      <if test="largecuspriceunit != null" >
+        #{largecuspriceunit,jdbcType=VARCHAR},
+      </if>
+      <if test="largecuspriceunit2 != null" >
+        #{largecuspriceunit2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <!-- 根据主键选择性修改 -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.server.pojo.entity.Largecusprice" >
+    update LARGECUSPRICE
+    <set >
+      <if test="largecuspricecompany != null" >
+        LARGECUSPRICECOMPANY = #{largecuspricecompany,jdbcType=VARCHAR},
+      </if>
+      <if test="largecuspricecustomer != null" >
+        LARGECUSPRICECUSTOMER = #{largecuspricecustomer,jdbcType=VARCHAR},
+      </if>
+      <if test="largecuspricegoods != null" >
+        LARGECUSPRICEGOODS = #{largecuspricegoods,jdbcType=VARCHAR},
+      </if>
+      <if test="largecuspriceprice != null" >
+        LARGECUSPRICEPRICE = #{largecuspriceprice,jdbcType=VARCHAR},
+      </if>
+      <if test="largecuspricedetail != null" >
+        LARGECUSPRICEDETAIL = #{largecuspricedetail,jdbcType=VARCHAR},
+      </if>
+      <if test="largecuspricecreatetime != null" >
+        LARGECUSPRICECREATETIME = #{largecuspricecreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="largecuspricecreator != null" >
+        LARGECUSPRICECREATOR = #{largecuspricecreator,jdbcType=VARCHAR},
+      </if>
+      <if test="largecuspriceprice2 != null" >
+        LARGECUSPRICEPRICE2 = #{largecuspriceprice2,jdbcType=VARCHAR},
+      </if>
+      <if test="largecuspriceunit != null" >
+        LARGECUSPRICEUNIT = #{largecuspriceunit,jdbcType=VARCHAR},
+      </if>
+      <if test="largecuspriceunit2 != null" >
+        LARGECUSPRICEUNIT2 = #{largecuspriceunit2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where LARGECUSPRICEID = #{largecuspriceid,jdbcType=VARCHAR}
+  </update>
+</mapper>

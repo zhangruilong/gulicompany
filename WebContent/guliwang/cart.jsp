@@ -260,8 +260,6 @@ function addnum(obj,dishesprice,goodscode,goodsclassname){
 			var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));
 			//修改订单
 			$.each(sdishes, function(i, item) {
-					alert(item.goodsdetail +" == " +$(obj).prev().attr('name'));
-					alert(item.goodsdetail==$(obj).prev().attr('name'));
 				if(item.goodsid==$(obj).parent().attr('name')
 						&&item.goodsdetail==$(obj).prev().attr('name')){
 					item.orderdetnum = item.orderdetnum + 1;

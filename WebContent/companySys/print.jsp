@@ -38,7 +38,7 @@ window.print()
 <div>
 	<table width="100%" cellspacing="0" cellpadding="0" style="border-collapse: collapse;border-bottom:solid 1px black;">
 		<tr>
-			<td colspan="6" style="text-align: center;font-size: 33px;font-family: 黑体;border-left: hidden;border-top: hidden;border-bottom: hidden;">《${requestScope.printCompany.companyshop }》</td>
+			<td colspan="6" style="text-align: center;font-size: 33px;font-family: 黑体;border-left: hidden;border-top: hidden;border-bottom: hidden;">${requestScope.printCompany.companyshop }销售单</td>
 		</tr>
 		<tr style="height: 40px;">
 			<td width="9%" style="text-align: center;font-family: 黑体;font-size: 12px;border-left: hidden;border-top: hidden;border-right: hidden;">订单编号：</td>

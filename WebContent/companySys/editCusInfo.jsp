@@ -15,7 +15,7 @@
 <script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
 $(function(){
-	$.getJSON("queryCcusAndCus.action",{"customerid":"${param.customerid}","ccustomerid":"${param.ccustomerid}"},initEditCus,null);
+	$.getJSON("queryCcusAndCus.action",{"ccustomerid":"${param.ccustomerid}"},initEditCus,null);
 });
 function initEditCus(data){
 	$("#customertype option").each(function(i,item){

@@ -8,6 +8,10 @@ import com.server.pojo.entity.Ccustomer;
 
 public interface CcustomerMapper {
 	/**
+	 * 根据关系id查询关系和客户信息
+	 */
+	Ccustomer selectCCusAndCusById(String ccustomerid);
+	/**
 	 * 根据供应商查询客户关系(数量)
 	 */
 	Integer selectCusByComCount(@Param("ccustomer") Ccustomer ccustomer);

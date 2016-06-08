@@ -31,6 +31,14 @@
   <sql id="Base_Column_List" >
     CCUSTOMERID, CCUSTOMERCOMPANY, CCUSTOMERCUSTOMER, CCUSTOMERDETAIL, CREATETIME, CREATOR
   </sql>
+  <!-- 根据关系id查询关系和客户信息 -->
+  <select id="selectCCusAndCusById" resultMap="BaseResultMap" parameterType="java.lang.String">
+  select cc.*,c.* 
+	from ccustomer cc
+	left outer join customer c
+	on c.customerid = cc.ccustomercustomer
+	where cc.ccustomerid = #{ccustomerid}
+  </select>
   <!-- 根据供应商查询客户关系(数量) -->
   <select id="selectCusByComCount" resultType="int">
     select 

@@ -117,7 +117,6 @@ function initMiaoshaPage(data){
 	        	'</div>';
 	        liObj += '</li>';
 			$(".home-hot-commodity").append(liObj);
-			alert(item1.companydetail);
 		});
 	});
 }
@@ -431,7 +430,6 @@ function checkCusSecKill(){
 			return;
 		}
 		$.each(sdishes,function(i,item1){													//遍历购物车现有商品
-			alert(item1.orderdtype);
 			if(item1.orderdtype == '秒杀'){						
 				//如果是限购商品
 				var restNum = parseInt(item1.timegoodsnum) - parseInt(item1.orderdetnum);

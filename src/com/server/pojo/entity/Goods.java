@@ -89,6 +89,10 @@ public class Goods
     * 商品的供应商和客户的关系等级
     */
    private String cclevel;
+   /**
+    * 供应商和大客户的特殊价格
+    */
+   private List<Largecusprice> largecuspriceList;
     //属性方法	    
      /**
 	 *设置主键"商品ID"属性
@@ -383,6 +387,18 @@ public class Goods
     */
 	public void setGoodsCompany(Company goodsCompany) {
 		this.goodsCompany = goodsCompany;
+	}
+	/**
+	 * 特殊价格
+	 */
+	public List<Largecusprice> getLargecuspriceList() {
+		return largecuspriceList;
+	}
+	/**
+	 * 特殊价格
+	 */
+	public void setLargecuspriceList(List<Largecusprice> largecuspriceList) {
+		this.largecuspriceList = largecuspriceList;
 	}
 
 	public Goods() {

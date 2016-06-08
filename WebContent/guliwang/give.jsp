@@ -393,7 +393,7 @@ function getcurrennumdanpin(dishesid){
 		var sdishes = JSON.parse(window.localStorage.getItem("sdishes"));
 		$.each(sdishes, function(i, item) {
 			if(item.goodsid==dishesid
-					&&item.goodsdetail=="danpin"){
+					&&item.goodsclassname=="买赠商品"){
 				orderdetnum = item.orderdetnum;
 				return false;
 			}

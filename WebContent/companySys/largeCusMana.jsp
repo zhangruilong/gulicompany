@@ -38,7 +38,7 @@ String customertype = request.getParameter("customer.customertype");
 		<th>联系人</th>
 		<th>手机</th>
 		<th>客户类型</th>
-		<th>价格层级</th>
+		<th>价格等级</th>
 		<th>修改时间</th>
 		<th>操作</th>
     </tr>
@@ -56,7 +56,7 @@ String customertype = request.getParameter("customer.customertype");
 			<td>${ccustomer.ccustomerdetail}</td>
 			<td>${ccustomer.customer.updtime}</td>
 			<td>
-				<a href="editCusInfo.jsp?customerid=${ccustomer.customer.customerid}&ccustomerid=${ccustomer.ccustomerid}">修改</a>/
+				<a href="editCusInfo.jsp?ccustomerid=${ccustomer.ccustomerid}">修改</a>/
 				<a href="largeCusXiaDan.jsp?customerid=${ccustomer.customer.customerid}&ccustomerid=${ccustomer.ccustomerid}">下单</a>
 			</td>
 		</tr>

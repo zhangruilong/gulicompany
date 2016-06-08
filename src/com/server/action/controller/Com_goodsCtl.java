@@ -427,6 +427,28 @@ public class Com_goodsCtl {
 		givegoodsMapper.insertSelective(givegoods);
 		return map;
 	}
+	//添加大客户订单时所需商品
+	@RequestMapping(value="/companySys/getlargeCusGoods",produces = "application/json")
+	@ResponseBody
+	public Map<String,Object> getlargeCusGoods(Goods goodsCon,Integer pagenowGoods){
+		Map<String,Object> map = new HashMap<String, Object>();
+		if(pagenowGoods == null){
+			pagenowGoods = 1;
+		}
+		Integer countGoods = goodsMapper.selectlagerCusGoodsCount(goodsCon);	//总信息条数
+		Integer pageCountGoods;		//总页数
+		if(countGoods % 10 ==0){
+			pageCountGoods = countGoods / 10;
+		} else {
+			pageCountGoods = (countGoods / 10) +1;
+		}
+		List<Goods> goodsList = goodsMapper.selectlagerCusGoods(goodsCon, pagenowGoods, 10);
+		map.put("pageCountGoods", pageCountGoods);
+		map.put("countGoods", countGoods);
+		map.put("pagenowGoods", pagenowGoods);
+		map.put("goodsList", goodsList);
+		return map;
+	}
 }
 
 

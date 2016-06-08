@@ -12,6 +12,15 @@ import com.server.pojo.entity.Goods;
  */
 public interface GoodsMapper {
 	/**
+	 * 大客户商品和价格(信息条数)
+	 */
+	Integer selectlagerCusGoodsCount(Goods goods);
+	/**
+	 * 大客户商品和价格
+	 */
+	List<Goods> selectlagerCusGoods(@Param("goods") Goods goods,
+    		@Param("nowpage") Integer nowpage,@Param("pagesize") Integer pagesize);
+	/**
 	 * 查询全部餐饮商品(信息条数)
 	 */
 	Integer selectAllCanyinGoodsCount(Goods goods);

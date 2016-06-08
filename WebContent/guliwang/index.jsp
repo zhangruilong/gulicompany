@@ -111,7 +111,7 @@
 	var xian = '${param.xian}';
 	var city = '${param.city}';
 	$(function(){ 
-		window.localStorage.setItem("openid","oDFe9wtBY93e1UlaFngmmeVh5cQU");
+		//window.localStorage.setItem("openid","oDFe9wtBY93e1UlaFngmmeVh5cQU");
 		//openid
 		$(".cd-popup").on("click",function(event){		//绑定点击事件
 			if($(event.target).is(".cd-popup-close") || $(event.target).is(".cd-popup-container")){
