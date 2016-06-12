@@ -56,6 +56,7 @@
 			地址:<span></span>
 		</div>
 		<input type="button" value="商品" onclick="selectGoods();" class="LCF_button">
+		
 		<table class="bordered">
 			<tr>
 				<th>序号</th>
@@ -71,17 +72,12 @@
 				<th>操作</th>
 			</tr>
 			<tr>
-				<td>&nbsp;&nbsp;</td>
-				<td>&nbsp;&nbsp;</td>
-				<td>&nbsp;&nbsp;</td>
-				<td>&nbsp;&nbsp;</td>
-				<td>&nbsp;&nbsp;</td>
-				<td>&nbsp;&nbsp;</td>
-				<td>&nbsp;&nbsp;</td>
-				<td>&nbsp;&nbsp;</td>
-				<td>&nbsp;&nbsp;</td>
-				<td>&nbsp;&nbsp;</td>
-				<td>&nbsp;&nbsp;</td>
+				<td name="ord_info_td" colspan="15"><div class="LCXD_OrdermInfo">
+					种类数:<span>0</span>
+					下单金额:<span>0</span>
+					实际金额:<span>0</span>
+					支付方式:<span>货到付款</span>
+				</div></td>
 			</tr>
 		</table>
 		<span>&nbsp;</span> <input type="button" class="LCF_button" value="保存" onclick="saveOrder()"/> 
@@ -130,6 +126,8 @@
 var customerid = '${param.customerid}';
 $(function(){
 	$.post("largeCusXiaDanInfo.action",{"ccustomerid":"${param.ccustomerid}","addresscustomer":"${param.customerid}"},function(data){
+		var strJSON = JSON.stringify(data);
+		$(".tt_cusInfo").append('<span hidden="true">'+strJSON+'</span>');
 		//客户信息
 		$(".tt_cusInfo span:eq(0)").text(data.largeCCus.customer.customershop);
 		if(data.largeCCus.customer.customertype == 1){
@@ -151,23 +149,43 @@ $(function(){
 		}
 		
 	})
+	$(".LCXD_OrdermInfo span").dblclick(function(){
+		$(this).attr("contentEditable","true");
+		$(this).css("background-color","white");
+	})
+	$(".LCXD_OrdermInfo span").blur(function(){
+		$(this).attr("contentEditable","false");
+		$(this).css("background-color","transparent");
+	});
 	tabEdit();			//绑定双击事件可编辑
 });
 //绑定双击事件可编辑
 function tabEdit(){
-	$(".largeCus_form td").dblclick(function(){
+	$(".largeCus_form td[name!='ord_info_td'][name!='odd_num']").dblclick(function(){
 		$(this).attr("contentEditable","true");
 		$(this).css("background-color","white");
 	});
-	$(".largeCus_form td").blur(function(){
+	$(".largeCus_form td[name!='odd_num']").blur(function(){
 		$(this).attr("contentEditable","false");
 		$(this).css("background-color","transparent");
+	});
+	$(".largeCus_form td[name='odd_num']").blur(function(){
+		var pric = $(this).prev().prev().text();
+		alert(pric);
+		$(this).attr("contentEditable","false");
+		$(this).css("background-color","transparent");
+		$(this).next()
 	});
 }
 //保存订单
 function saveOrder(){
+	var orderCCus = JSON.parse($(".tt_cusInfo span[hidden='true']").text());
 	$.post("largeCusOrderSave.action",{
-		""
+		"ordermcustomer":customerid,
+		"ordermcompany":orderCCus.ccustomercompany,
+		"ordermnum":$(".LCXD_CusAddress span:eq(0)").text(),
+		"ordermmoney":$(".LCXD_CusAddress span:eq(1)").text(),
+		"ordermrightmoney":$(".LCXD_CusAddress span:eq(2)").text()
 	});
 }
 //选择商品
@@ -189,6 +207,7 @@ function loadGoodsData(pagenowGoods){
 	$.post("getlargeCusGoods.action",{"goodscompany":"${param.ccustomercompany}","pagenowGoods":pagenowGoods},function(data){
 		$("#goods_LCXD tr:gt(0)").remove();
 		$.each(data.goodsList,function(i,item){
+			var strJSON = JSON.stringify(item);
 			var price = 0;													//商品价格
 			var unit = '';													//商品单位
 			if(!item.largecuspriceList && item.largecuspriceList.length != 0){
@@ -211,7 +230,8 @@ function loadGoodsData(pagenowGoods){
 							'\',\''+item.goodsunits+
 							'\',\''+price+
 							'\',\''+unit+
-					'\')">选择</a></td></td>'+
+							'\','+'this'+
+					')">选择</a><span hidden="true">'+strJSON+'</span></td></td>'+
 				'</tr>');
 		});
 		var goodsfenye = '<tr><td colspan="7">';
@@ -237,38 +257,43 @@ function loadGoodsData(pagenowGoods){
 //自动改变商品序号
 function goodsAutoSort(){
 	$.each($(".largeCus_form table tr"),function(i,item){
-		$(item).children("td:eq(0)").text(i);
+		if(i < $(".largeCus_form table tr").length-1){
+			$(item).children("td:eq(0)").text(i);
+		}
 	});
 }
 //选择商品
-function seleGoods(goodscode,orderdtype,goodsname,goodsunits,price,unit){
-	var rowNum = 0;
-	var rowNumStr = $(".largeCus_form table tr").last().children("td:eq(0)").text();
-	if($.trim(rowNumStr)){
-		rowNum = parseInt($(".largeCus_form table tr").last().children("td:eq(0)").text());
-	} else {
-		$(".largeCus_form table tr:eq(1)").remove();
-	}
-	$(".largeCus_form table").append('<tr>'+
-			'<td>'+(rowNum+1)+'</td>'+
+function seleGoods(goodscode,orderdtype,goodsname,goodsunits,price,unit,obj){
+	var seleStrJson = $(obj).next().text();
+	
+	$(".largeCus_form table tr:eq(0)").after('<tr>'+
+			'<td>'+'</td>'+
 			'<td>'+goodscode+'</td>'+
 			'<td>'+orderdtype+'</td>'+
 			'<td>'+goodsname+'</td>'+
 			'<td>'+goodsunits+'</td>'+
 			'<td>'+price+'</td>'+
 			'<td>'+unit+'</td>'+
-			'<td>1</td>'+
+			'<td name="odd_num">1</td>'+
 			'<td>'+price+'</td>'+
 			'<td>'+price+'</td>'+
-			'<td><a onclick="deleteRows(this)">删除</a></td>'+
+			'<td><a onclick="deleteRows(this)">删除</a><span hidden="true">'+seleStrJson+'</span></td>'+
 		'</tr>');
-	closeCdPopup();
-	tabEdit();
+	$(".LCXD_OrdermInfo span:eq(0)").text(parseInt($(".LCXD_OrdermInfo span:eq(0)").text())+1);
+	$(".LCXD_OrdermInfo span:eq(1)").text((parseFloat($(".LCXD_OrdermInfo span:eq(1)").text())+parseFloat(price)).toFixed(2));
+	$(".LCXD_OrdermInfo span:eq(2)").text((parseFloat($(".LCXD_OrdermInfo span:eq(2)").text())+parseFloat(price)).toFixed(2));
+	goodsAutoSort();								//自动编号
+	closeCdPopup();				
+	tabEdit();										//绑定事件
 }
 //删除订单商品
 function deleteRows(obj){
+	var price = parseFloat($(obj).parent().prev().text());
+	$(".LCXD_OrdermInfo span:eq(0)").text(parseInt($(".LCXD_OrdermInfo span:eq(0)").text())-1);		//商品种类数减一
+	$(".LCXD_OrdermInfo span:eq(1)").text((parseFloat($(".LCXD_OrdermInfo span:eq(1)").text())-price).toFixed(2));
+	$(".LCXD_OrdermInfo span:eq(2)").text((parseFloat($(".LCXD_OrdermInfo span:eq(2)").text())-price).toFixed(2));
 	$(obj).parent().parent().remove();
-	goodsAutoSort();
+	goodsAutoSort();								//自动编号
 }
 //显示地址
 function showCusAddress(){

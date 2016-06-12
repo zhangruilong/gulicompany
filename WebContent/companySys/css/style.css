@@ -286,7 +286,8 @@ box-shadow: inset 0px 1px 6px #ECF3F5;font: 200 12px/25px Arial, Helvetica, sans
 .largeCus_form h1 .tt_cusInfo span{font-weight: bold;margin: 0px 10px 0px 4px;}
 .largeCus_form .LCXD_CusAddress{margin: 10px 10px 10px 10px;}
 .largeCus_form .LCXD_CusAddress span{font-weight: bold;margin: 0px 10px 0px 4px;}
-
+.largeCus_form .LCXD_OrdermInfo{margin: 5px 5px 5px 15px;}
+.largeCus_form .LCXD_OrdermInfo span{font-weight: bold;margin: 0px 10px 0px 4px;}
 
 
 

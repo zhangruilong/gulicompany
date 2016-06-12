@@ -306,8 +306,8 @@ h1 .title_goodsinfo span{
 		});
 		$.getJSON("addGoodsPrices.action",{
 			"pricesid":pricesid,
-			"pricesprice":pricesprice,
-			"pricesprice2":pricesprice2,
+			"strpricesprice":pricesprice,
+			"strpricesprice2":pricesprice2,
 			"goodsid":'${requestScope.editPriGoods.goodsid }',
 			"pricesgoods":'${requestScope.editPriGoods.goodsid }',
 			"goodscompany":'${requestScope.editPriGoods.goodscompany }',

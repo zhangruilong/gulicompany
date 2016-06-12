@@ -201,11 +201,11 @@ public class Com_goodsCtl {
 	//设置商品价格
 	@RequestMapping("/companySys/addGoodsPrices")
 	@ResponseBody
-	public Map<String, Object> addGoodsPrices(Goods editPriGoods,Prices prices){
+	public Map<String, Object> addGoodsPrices(Goods editPriGoods,Prices prices,String strpricesprice,String strpricesprice2){
 		Map<String, Object> map = new HashMap<String, Object>();
 		Goods updateGoods = goodsMapper.selectByPrimaryKey(editPriGoods.getGoodsid());
-		String[] priceStrs = prices.getPricesprice().split(",");
-		String[] price2Strs = prices.getPricesprice2().split(",");
+		String[] priceStrs = strpricesprice.split(",");
+		String[] price2Strs = strpricesprice2.split(",");
 		String[] creator = prices.getCreator().split(",");
 		prices.setPricesprice2(null);
 		if(updateGoods.getPricesList() == null || updateGoods.getPricesList().size() < 9){
@@ -213,7 +213,7 @@ public class Com_goodsCtl {
 			for (int i = 0; i < priceStrs.length; i++) {
 				for (int j = 0; j < price2Strs.length; j++) {
 					if(i == j){
-						prices.setPricesprice2(price2Strs[j]);				//套装价
+						prices.setPricesprice2(Float.valueOf(price2Strs[j]) );				//套装价
 					}
 				} 
 				if(creator[i/3].equals("1")){
@@ -221,7 +221,7 @@ public class Com_goodsCtl {
 				} else if (creator[i/3].equals("0")){
 					prices.setCreator("禁用");					//价格状态设置为禁用
 				}
-				prices.setPricesprice(priceStrs[i]);				//单价
+				prices.setPricesprice(Float.valueOf(priceStrs[i]));				//单价
 				if(i < 3){
 					prices.setPricesclass("3");				//分类
 				} else if(i>=3 && i<6){
@@ -242,8 +242,8 @@ public class Com_goodsCtl {
 					for (int j = 0; j < price2Strs.length; j++) {
 						for (int k = 0; k < pricesIds.length; k++) {
 							if(i == j && i==k){
-								prices.setPricesprice(priceStrs[i]);				//单价
-								prices.setPricesprice2(price2Strs[j]);				//套装价
+								prices.setPricesprice(Float.valueOf(priceStrs[i]));				//单价
+								prices.setPricesprice2(Float.valueOf(price2Strs[j]));				//套装价
 								if(i < 3){
 									prices.setPricesclass("3");				//分类
 								} else if(i>=3 && i<6){
@@ -268,7 +268,7 @@ public class Com_goodsCtl {
 				for (int i = 0; i < priceStrs.length; i++) {
 					for (int k = 0; k < pricesIds.length; k++) {
 						if(i==k){
-							prices.setPricesprice(priceStrs[i]);				//单价
+							prices.setPricesprice(Float.valueOf(priceStrs[i]));				//单价
 							if(i < 3){
 								prices.setPricesclass("3");				//分类
 							} else if(i>=3 && i<6){

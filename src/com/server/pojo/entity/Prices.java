@@ -26,7 +26,7 @@ public class Prices
    /**
     * 单品价
     */
-   private String pricesprice;   
+   private Float pricesprice;   
    /**
     * 单品单位
     */
@@ -34,7 +34,7 @@ public class Prices
    /**
     * 套装价
     */
-   private String pricesprice2;   
+   private Float pricesprice2;   
    /**
     * 套装单位
     */
@@ -128,7 +128,7 @@ public class Prices
 	 *设置"单品价"属性
 	 *@param pricesprice 实体的Pricesprice属性
 	 */
-	public void setPricesprice(String pricesprice)
+	public void setPricesprice(Float pricesprice)
 	{
 		this.pricesprice = pricesprice;
 	}
@@ -136,7 +136,7 @@ public class Prices
 	/**
 	 *获取"单品价"属性
 	 */
-	public String getPricesprice()
+	public Float getPricesprice()
 	{
 		return this.pricesprice;
 	}	   
@@ -162,7 +162,7 @@ public class Prices
 	 *设置"套装价"属性
 	 *@param pricesprice2 实体的Pricesprice2属性
 	 */
-	public void setPricesprice2(String pricesprice2)
+	public void setPricesprice2(Float pricesprice2)
 	{
 		this.pricesprice2 = pricesprice2;
 	}
@@ -170,7 +170,7 @@ public class Prices
 	/**
 	 *获取"套装价"属性
 	 */
-	public String getPricesprice2()
+	public Float getPricesprice2()
 	{
 		return this.pricesprice2;
 	}	   
@@ -268,9 +268,9 @@ public class Prices
 	 	,String pricesgoods
 	 	,String pricesclass
 	 	,int priceslevel
-	 	,String pricesprice
+	 	,Float pricesprice
 	 	,String pricesunit
-	 	,String pricesprice2
+	 	,Float pricesprice2
 	 	,String pricesunit2
 	 	,String createtime
 	 	,String updtime
