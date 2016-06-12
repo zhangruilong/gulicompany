@@ -75,9 +75,9 @@ public class BaseDao {
 		            }else if(c == int.class){  
 		                method.invoke(obj, rs.getInt(fieldname));  
 		            }else if(c == float.class){  
-		                method.invoke(obj, rs.getInt(fieldname));  
+		                method.invoke(obj, rs.getFloat(fieldname));  
 		            }else if(c == double.class){  
-		                method.invoke(obj, rs.getInt(fieldname));  
+		                method.invoke(obj, rs.getDouble(fieldname));  
 		            }else if(c == java.sql.Date.class){  
 		                method.invoke(obj, rs.getDate(fieldname));  
 		            }else if(c == boolean.class){  
