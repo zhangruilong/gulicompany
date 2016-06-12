@@ -185,7 +185,12 @@ function saveOrder(){
 		"ordermcompany":orderCCus.ccustomercompany,
 		"ordermnum":$(".LCXD_CusAddress span:eq(0)").text(),
 		"ordermmoney":$(".LCXD_CusAddress span:eq(1)").text(),
-		"ordermrightmoney":$(".LCXD_CusAddress span:eq(2)").text()
+		"ordermrightmoney":$(".LCXD_CusAddress span:eq(2)").text(),
+		"ordermway":$(".LCXD_CusAddress span:eq(3)").text(),
+		"ordermstatue":'已下单',
+		"ordermconnect":$(".LCXD_CusAddress span:eq(0)").text(),
+		"ordermphone":$(".LCXD_CusAddress span:eq(1)").text(),
+		"ordermaddress":$(".LCXD_CusAddress span:eq(2)").text()
 	});
 }
 //选择商品
