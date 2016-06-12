@@ -38,7 +38,7 @@ public class Orderd
    /**
     * 价格
     */
-   private String orderdprice;   
+   private Float orderdprice;   
    /**
     * 单位
     */
@@ -187,7 +187,7 @@ public class Orderd
 	 *设置"价格"属性
 	 *@param orderdprice 实体的Orderdprice属性
 	 */
-	public void setOrderdprice(String orderdprice)
+	public void setOrderdprice(Float orderdprice)
 	{
 		this.orderdprice = orderdprice;
 	}
@@ -195,7 +195,7 @@ public class Orderd
 	/**
 	 *获取"价格"属性
 	 */
-	public String getOrderdprice()
+	public Float getOrderdprice()
 	{
 		return this.orderdprice;
 	}	   
@@ -305,7 +305,7 @@ public class Orderd
 	 	,String orderdname
 	 	,String orderddetail
 	 	,String orderdunits
-	 	,String orderdprice
+	 	,Float orderdprice
 	 	,String orderdunit
 	 	,String orderdclass
 	 	,int orderdnum

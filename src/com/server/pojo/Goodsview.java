@@ -130,7 +130,7 @@ public class Goodsview
    /**
     * pricesprice
     */
-   private String pricesprice;   
+   private float pricesprice;   
    /**
     * pricesunit
     */
@@ -138,7 +138,7 @@ public class Goodsview
    /**
     * pricesprice2
     */
-   private String pricesprice2;   
+   private float pricesprice2;   
    /**
     * pricesunit2
     */
@@ -658,7 +658,7 @@ public class Goodsview
 	 *设置"pricesprice"属性
 	 *@param pricesprice 实体的Pricesprice属性
 	 */
-	public void setPricesprice(String pricesprice)
+	public void setPricesprice(float pricesprice)
 	{
 		this.pricesprice = pricesprice;
 	}
@@ -666,7 +666,7 @@ public class Goodsview
 	/**
 	 *获取"pricesprice"属性
 	 */
-	public String getPricesprice()
+	public float getPricesprice()
 	{
 		return this.pricesprice;
 	}	   
@@ -692,7 +692,7 @@ public class Goodsview
 	 *设置"pricesprice2"属性
 	 *@param pricesprice2 实体的Pricesprice2属性
 	 */
-	public void setPricesprice2(String pricesprice2)
+	public void setPricesprice2(float pricesprice2)
 	{
 		this.pricesprice2 = pricesprice2;
 	}
@@ -700,7 +700,7 @@ public class Goodsview
 	/**
 	 *获取"pricesprice2"属性
 	 */
-	public String getPricesprice2()
+	public float getPricesprice2()
 	{
 		return this.pricesprice2;
 	}	   
@@ -756,9 +756,9 @@ public class Goodsview
 	 	,String pricesid
 	 	,String pricesclass
 	 	,int priceslevel
-	 	,String pricesprice
+	 	,float pricesprice
 	 	,String pricesunit
-	 	,String pricesprice2
+	 	,float pricesprice2
 	 	,String pricesunit2
 		 ){
 		super();

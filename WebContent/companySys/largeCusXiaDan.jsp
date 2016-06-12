@@ -161,17 +161,17 @@ $(function(){
 });
 //绑定双击事件可编辑
 function tabEdit(){
-	$(".largeCus_form td[name!='ord_info_td'][name!='odd_num']").dblclick(function(){
+	$(".largeCus_form td[name!='ord_info_td']").dblclick(function(){
 		$(this).attr("contentEditable","true");
 		$(this).css("background-color","white");
 	});
-	$(".largeCus_form td[name!='odd_num']").blur(function(){
+	$(".largeCus_form td[name!='odd_num'][name!='odd_num']").blur(function(){
 		$(this).attr("contentEditable","false");
 		$(this).css("background-color","transparent");
 	});
 	$(".largeCus_form td[name='odd_num']").blur(function(){
-		var pric = $(this).prev().prev().text();
-		alert(pric);
+		var pric = parseFloat($(this).prev().prev().text()).toFixed(2);
+		var num = parseFloat($(this).text()).toFixed(2);
 		$(this).attr("contentEditable","false");
 		$(this).css("background-color","transparent");
 		$(this).next()

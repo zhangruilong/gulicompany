@@ -180,10 +180,10 @@ Company company = (Company)session.getAttribute("company");
 			        +"</a>   "
 			        +"</li>"
 			        +"<li class='nav__item'>"
-			        +"<a href=allCustomer.action?ccustomercompany="+'<%=company.getCompanyid() %>'+"&creator=1  target='main' class='nav__item-link'>"
+			        /*+"<a href=allCustomer.action?ccustomercompany="+'<%=company.getCompanyid() %>'+"&creator=1  target='main' class='nav__item-link'>"
 			        +"<span class='nav__item-text'>大客户</span>"
 			        +"</a>   "
-			        +"</li>"
+			        +"</li>"*/
 			        +"</ul>");
 			window.parent.main.location.href = "allCustomer.action?ccustomercompany="+'<%=company.getCompanyid() %>';
 		}
