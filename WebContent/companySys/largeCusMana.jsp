@@ -57,7 +57,7 @@ String customertype = request.getParameter("customer.customertype");
 			<td>${ccustomer.customer.updtime}</td>
 			<td>
 				<a href="editCusInfo.jsp?ccustomerid=${ccustomer.ccustomerid}">修改</a>/
-				<a href="largeCusXiaDan.jsp?customerid=${ccustomer.customer.customerid}&ccustomerid=${ccustomer.ccustomerid}">下单</a>
+				<a href="largeCusXiaDan.jsp?customerid=${ccustomer.customer.customerid}&ccustomerid=${ccustomer.ccustomerid}&ccustomercompany=${requestScope.ccustomerCon.ccustomercompany }">下单</a>
 			</td>
 		</tr>
 	</c:forEach>

@@ -34,6 +34,10 @@ Company company = (Company)session.getAttribute("company");
 	<div class="sysname">供应商后台管理系统</div>
 	<script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript">
+	var timer1;
+	window.onbeforeunload = function(){			//关闭浏览器时执行的方法
+		clearInterval(timer1);
+	};
 	var tishiyin = $("#tishiyin")[0];
 	$(function(){
 		window.parent.main.location.href = "allOrder.action?ordermcompany="+'<%=company.getCompanyid() %>';
@@ -60,9 +64,14 @@ Company company = (Company)session.getAttribute("company");
 			}
 		});
 		//显示最新订单信息
-		//window.setInterval(showNewestOrderm,10000);
+		//timer1 = setInterval(showNewestOrderm,10000);
+		
 	})
 	function showNewestOrderm(){
+		//clearInterval(timer1);
+		if('${sessionScope.company.companyid}' == ''){
+			window.prent.location.href = 'login.jsp';
+		}
 		$.post("queryNewestOrderm.action",{"ordermcompany":'${sessionScope.company.companyid}'},function(data){
 			if($("[name='ordermtime']").text() != data.ordermtime){
 				play();

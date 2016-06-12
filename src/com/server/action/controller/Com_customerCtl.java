@@ -104,6 +104,13 @@ public class Com_customerCtl {
 		map.put("largeCCus", largeCCus);
 		return map;
 	}
+	//得到客户全部地址
+	@RequestMapping("/companySys/queryLargeCusAllAddress")
+	@ResponseBody
+	public List<Address> queryLargeCusAllAddress(String customerid){
+		List<Address> addressList = addressMapper.selectByCondition(customerid);
+		return addressList;
+	}
 }
 
 

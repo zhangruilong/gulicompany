@@ -78,9 +78,7 @@
   </sql>
   <!-- 大客户商品和价格(信息条数) -->
   <select id="selectlagerCusGoodsCount" resultType="int">
-	select * from 
-	(select A.*, ROWNUM RN from (
-	select count(distinct goods.goodsid) 
+	select count(distinct goodsid) 
 	from goods g
 	left outer join goodsclass gc
 	on g.goodsclass = gc.goodsclassid
@@ -91,20 +89,18 @@
 	where g.goodsstatue = '上架'
 	and p.pricesclass = '1'
 	and p.priceslevel = '1'
-	and (lcp.largecuspricecompany = #{goods.goodscompany} or lcp.largecuspricecompany is null )
-	<if test="goods.goodscode != null and goods.goodscode != ''">
+	and (lcp.largecuspricecompany = #{goodscompany} or lcp.largecuspricecompany is null )
+	<if test="goodscode != null and goodscode != ''">
 			and
-			(g.GOODSCODE like '%${goods.goodscode}%' or
-			g.GOODSNAME like '%${goods.goodscode}%' or
-			g.GOODSUNITS like '%${goods.goodscode}%' or
-			g.GOODSCLASS like '%${goods.goodscode}%' or
-			g.GOODSSTATUE like '%${goods.goodscode}%' or
-			g.CREATOR like '%${goods.goodscode}%' or
-			g.UPDOR like '%${goods.goodscode}%' or
-			gc.goodsclassname like '%${goods.goodscode}%')
+			(g.GOODSCODE like '%${goodscode}%' or
+			g.GOODSNAME like '%${goodscode}%' or
+			g.GOODSUNITS like '%${goodscode}%' or
+			g.GOODSCLASS like '%${goodscode}%' or
+			g.GOODSSTATUE like '%${goodscode}%' or
+			g.CREATOR like '%${goodscode}%' or
+			g.UPDOR like '%${goodscode}%' or
+			gc.goodsclassname like '%${goodscode}%')
 	</if>
-	) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) ) 
-	where RN &gt; ((#{nowpage}-1)*#{pagesize})
   </select>
   <!-- 大客户商品和价格 -->
   <select id="selectlagerCusGoods" resultMap="BaseResultMap">

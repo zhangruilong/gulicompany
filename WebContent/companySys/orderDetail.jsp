@@ -91,7 +91,7 @@ onclick="del('editOrder.action?ordermid=${requestScope.order.ordermid }&ordermco
 			<td>${orderd.orderdunits}</td>
 			<td>${orderd.orderdtype}</td>
 			<td>${orderd.orderdclass}</td>
-			<td>${orderd.orderddetail}</td>
+			<td>${ orderd.orderdtype == '买赠'?orderd.orderddetail:'' }</td>
 			<td>${orderd.orderdprice}</td>
 			<td>${orderd.orderdunit}</td>
 			<td>${orderd.orderdnum}</td>

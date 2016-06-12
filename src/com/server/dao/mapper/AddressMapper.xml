@@ -15,7 +15,7 @@
   <!-- 查询默认地址(条件查询) -->
   <select id="selectDefAddress" resultMap="BaseResultMap" parameterType="com.server.pojo.entity.Address" >
     select 
-    <include refid="Base_Column_List" />
+    *
     from ADDRESS where addresscustomer = #{addresscustomer}
     <if test="addressture != null and addressture != ''">
     	and addressture = #{addressture}
@@ -26,16 +26,16 @@
   	update address set address.addressture = #{addressture} where address.addresscustomer = #{addresscustomer}
   	
   </update>
-  <!-- 根据条件查询 -->
+  <!-- 根据条件查询(默认地址在最上面) -->
   <select id="selectByCondition" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
-    <include refid="Base_Column_List" />
+    *
     from ADDRESS  where addresscustomer = #{customerId} order by addressture desc
   </select>
   <!-- 根据主键查询 -->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
-    <include refid="Base_Column_List" />
+    	*
     from ADDRESS
     where ADDRESSID = #{addressid,jdbcType=VARCHAR}
   </select>

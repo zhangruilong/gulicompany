@@ -268,7 +268,7 @@ function closeCdPopup2(){
 }
 //弹出商品窗口
 function dobiaopin(){
-	$(".cd-popup2").addClass("is-visible");	//弹出标品窗口
+	$(".cd-popup2").addClass("is-visible");	//弹出商品窗口
 	loadGoodsData(1);
 }
 //加载商品数据

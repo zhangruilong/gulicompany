@@ -18,7 +18,7 @@ public interface AddressMapper {
 	 */
 	void updateCusAllAddress(Address record);
 	/**
-	 * 根据客户id查询
+	 * 根据条件查询(默认地址在最上面)
 	 */
 	List<Address> selectByCondition(String customerId);
 	/**
