@@ -108,7 +108,7 @@
 	(select A.*, ROWNUM RN from (
 	select 
 	distinct g.*,p.pricesid,p.pricesprice,p.pricesunit,p.pricesprice2,p.pricesunit2,lcp.largecuspriceprice
-	,lcp.largecuspriceunit,lcp.largecuspriceunit2,lcp.largecuspriceprice2,lcp.largecuspriceid
+	,lcp.largecuspriceunit,lcp.largecuspriceunit2,lcp.largecuspriceprice2,lcp.largecuspriceid,gc.goodsclassname
 	from goods g
 	left outer join goodsclass gc
 	on g.goodsclass = gc.goodsclassid

@@ -221,4 +221,11 @@ public class Com_orderCtl {
 		}
 		FileUtil.expExcel(response, ordermList, heads, discard, name);
 	}
+	//大客户添加订单
+	@RequestMapping("/companySys/largeCusOrderSave")
+	@ResponseBody
+	public Integer largeCusOrderSave(Orderm orderm){
+		System.out.println(orderm);
+		return null;
+	}
 }

@@ -58,7 +58,7 @@
 		<input type="button" value="商品" onclick="selectGoods();" class="LCF_button">
 		
 		<table class="bordered">
-			<tr>
+			<tr name="ordLi_tr1">
 				<th>序号</th>
 				<th>编码</th>
 				<th>类型</th>
@@ -71,7 +71,7 @@
 				<th>实际金额</th>
 				<th>操作</th>
 			</tr>
-			<tr>
+			<tr name="ord_info_tr">
 				<td name="ord_info_td" colspan="15"><div class="LCXD_OrdermInfo">
 					种类数:<span>0</span>
 					下单金额:<span>0</span>
@@ -180,17 +180,40 @@ function tabEdit(){
 //保存订单
 function saveOrder(){
 	var orderCCus = JSON.parse($(".tt_cusInfo span[hidden='true']").text());
-	$.post("largeCusOrderSave.action",{
-		"ordermcustomer":customerid,
-		"ordermcompany":orderCCus.ccustomercompany,
-		"ordermnum":$(".LCXD_CusAddress span:eq(0)").text(),
-		"ordermmoney":$(".LCXD_CusAddress span:eq(1)").text(),
-		"ordermrightmoney":$(".LCXD_CusAddress span:eq(2)").text(),
-		"ordermway":$(".LCXD_CusAddress span:eq(3)").text(),
-		"ordermstatue":'已下单',
-		"ordermconnect":$(".LCXD_CusAddress span:eq(0)").text(),
-		"ordermphone":$(".LCXD_CusAddress span:eq(1)").text(),
-		"ordermaddress":$(".LCXD_CusAddress span:eq(2)").text()
+	var orderdListStr = "";
+	$(".largeCus_form tr[name!='ordLi_tr1'][name!='ord_info_tr']").each(function(i,item){
+		var goodsJson = JSON.parse($(item).find("td span[hidden='true']").text());
+		orderdListStr += '"orderdList['+i+'].orderdid":"'+i
+			+ '","orderdList['+i+'].orderdcode":"' + goodsJson.goodscode
+			+ '","orderdList['+i+'].orderdtype":"' + $(item).find("td:eq(2)").text()
+			+ '","orderdList['+i+'].orderdname":"' + goodsJson.goodsname
+			+ '","orderdList['+i+'].orderddetail":"' + goodsJson.goodsdetail
+			+ '","orderdList['+i+'].orderdunits":"' + goodsJson.goodsunits
+			+ '","orderdList['+i+'].orderdprice":"' + goodsJson.pricesList[0].pricesprice
+			+ '","orderdList['+i+'].orderdunit":"' + goodsJson.pricesList[0].pricesunit
+			+ '","orderdList['+i+'].orderdclass":"' + goodsJson.gClass.goodsclassname
+			+ '","orderdList['+i+'].orderdnum":"' + $(item).find("td:eq(7)").text()
+			+ '","orderdList['+i+'].orderdmoney":"' + $(item).find("td:eq(8)").text()
+			+ '","orderdList['+i+'].orderdrightmoney":"' + $(item).find("td:eq(9)").text()
+			+'",';
+	});
+	orderdListStr = orderdListStr.substr(0, orderdListStr.length - 1);
+	var data = '{'+
+			'"ordermcustomer":"' + customerid
+			+ '","ordermcompany":"' + orderCCus.ccustomercompany
+			+ '","ordermnum":"' + $(".LCXD_CusAddress span:eq(0)").text()
+			+ '","ordermmoney":"' + $(".LCXD_CusAddress span:eq(1)").text()
+			+ '","ordermrightmoney":"' + $(".LCXD_CusAddress span:eq(2)").text()
+			+ '","ordermway":"' + $(".LCXD_CusAddress span:eq(3)").text()
+			+ '","ordermstatue":"' + '已下单'
+			+ '","ordermconnect":"' + $(".LCXD_CusAddress span:eq(0)").text()
+			+ '","ordermphone":"' + $(".LCXD_CusAddress span:eq(1)").text()
+			+ '","ordermaddress":"' + $(".LCXD_CusAddress span:eq(2)").text()
+			+ '",'+orderdListStr
+		+'}';
+	alert(data);
+	$.post("largeCusOrderSave.action",JSON.parse(data),function(data){
+		
 	});
 }
 //选择商品
