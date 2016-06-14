@@ -126,7 +126,6 @@
 			g.GOODSNAME like '%${goods.goodscode}%' or
 			g.GOODSUNITS like '%${goods.goodscode}%' or
 			g.GOODSCLASS like '%${goods.goodscode}%' or
-			g.GOODSSTATUE like '%${goods.goodscode}%' or
 			g.CREATOR like '%${goods.goodscode}%' or
 			g.UPDOR like '%${goods.goodscode}%' or
 			gc.goodsclassname like '%${goods.goodscode}%')

@@ -13,7 +13,7 @@
     <result column="LARGECUSPRICEPRICE2" property="largecuspriceprice2" jdbcType="VARCHAR" />
     <result column="LARGECUSPRICEUNIT" property="largecuspriceunit" jdbcType="VARCHAR" />
     <result column="LARGECUSPRICEUNIT2" property="largecuspriceunit2" jdbcType="VARCHAR" />
-    <association property="LargecuspriceGoods" javaType="com.server.pojo.entity.Goods">
+    <association property="lcpGoods" javaType="com.server.pojo.entity.Goods">
     	<id column="GOODSID" property="goodsid" jdbcType="VARCHAR" />
 	    <result column="GOODSCOMPANY" property="goodscompany" jdbcType="VARCHAR" />
 	    <result column="GOODSCODE" property="goodscode" jdbcType="VARCHAR" />
@@ -30,6 +30,15 @@
 	    <result column="GOODSBRAND" property="goodsbrand" jdbcType="VARCHAR" />
 	    <result column="GOODSTYPE" property="goodstype" jdbcType="VARCHAR" />
 	    <result column="GOODSORDER" property="goodsorder" jdbcType="DECIMAL" />
+	    <!-- 商品类别 -->
+	    <association property="gClass" javaType="com.server.pojo.entity.Goodsclass">
+	    	<id column="GOODSCLASS" property="goodsclassid" jdbcType="VARCHAR" />
+		    <result column="GOODSCLASSCODE" property="goodsclasscode" jdbcType="VARCHAR" />
+		    <result column="GOODSCLASSNAME" property="goodsclassname" jdbcType="VARCHAR" />
+		    <result column="GOODSCLASSPARENT" property="goodsclassparent" jdbcType="VARCHAR" />
+		    <result column="GOODSCLASSDETAIL" property="goodsclassdetail" jdbcType="VARCHAR" />
+		    <result column="GOODSCLASSSTATUE" property="goodsclassstatue" jdbcType="VARCHAR" />
+	    </association>
     </association>
   </resultMap>
   <select id="selectLargeCusPriceGoodsCount"  resultType="int">
@@ -43,12 +52,27 @@
   <select id="selectLargeCusPriceGoods"  resultMap="BaseResultMap">
   select * from 
 	(select A.*, ROWNUM RN from (
-  	select lcp.* 
+  	select * 
 	from largecusprice lcp 
 	left join goods g
 	on g.goodsid = lcp.largecuspricegoods
-	where lcp.largecuspricecompany = #{largecuspricecompany} 
-	and lcp.largecuspricecustomer = #{largecuspricecustomer}
+	left outer join goodsclass gc
+	on g.goodsclass = gc.goodsclassid
+	where lcp.largecuspricecompany = #{largecusprice.largecuspricecompany} 
+	and lcp.largecuspricecustomer = #{largecusprice.largecuspricecustomer}
+	<if test="largecusprice.largecuspriceprice">
+		and (lcp.largecuspriceprice like '%${largecusprice.largecuspriceprice}%'
+		or lcp.largecuspricedetail like '%${largecusprice.largecuspriceprice}%'
+		or lcp.largecuspricecreatetime like '%${largecusprice.largecuspriceprice}%'
+		or lcp.largecuspricecreator like '%${largecusprice.largecuspriceprice}%'
+		or lcp.largecuspriceunit like '%${largecusprice.largecuspriceprice}%'
+		or lcp.largecuspriceprice2 like '%${largecusprice.largecuspriceprice}%'
+		or lcp.largecuspriceunit2 like '%${largecusprice.largecuspriceprice}%'
+		or g.GOODSCODE like '%${largecusprice.largecuspriceprice}%'
+		or g.GOODSNAME like '%${largecusprice.largecuspriceprice}%'
+		or g.GOODSCLASS like '%${largecusprice.largecuspriceprice}%'
+		)
+	</if>
 	 ) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) ) 
 where RN &gt; ((#{nowpage}-1)*#{pagesize})
   </select>

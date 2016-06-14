@@ -1,5 +1,7 @@
 package com.server.pojo.entity;
 
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+
 public class Largecusprice {
     private String largecuspriceid;
 
@@ -14,7 +16,9 @@ public class Largecusprice {
     private String largecuspricedetail;
 
     private String largecuspricecreatetime;
-
+	/**
+	 * 修改时间
+	 */
     private String largecuspricecreator;
 
     private String largecuspriceprice2;
@@ -23,7 +27,7 @@ public class Largecusprice {
 
     private String largecuspriceunit2;
 
-    private Goods LargecuspriceGoods;
+    private Goods lcpGoods;
     
     public String getLargecuspriceid() {
         return largecuspriceid;
@@ -80,11 +84,15 @@ public class Largecusprice {
     public void setLargecuspricecreatetime(String largecuspricecreatetime) {
         this.largecuspricecreatetime = largecuspricecreatetime == null ? null : largecuspricecreatetime.trim();
     }
-
+    /**
+	 * 修改时间
+	 */
     public String getLargecuspricecreator() {
         return largecuspricecreator;
     }
-
+    /**
+	 * 修改时间
+	 */
     public void setLargecuspricecreator(String largecuspricecreator) {
         this.largecuspricecreator = largecuspricecreator == null ? null : largecuspricecreator.trim();
     }
@@ -113,13 +121,13 @@ public class Largecusprice {
         this.largecuspriceunit2 = largecuspriceunit2 == null ? null : largecuspriceunit2.trim();
     }
 
-	public Goods getLargecuspriceGoods() {
-		return LargecuspriceGoods;
+	public Goods getLcpGoods() {
+		return lcpGoods;
 	}
 
-	public void setLargecuspriceGoods(Goods largecuspriceGoods) {
-		LargecuspriceGoods = largecuspriceGoods;
+	public void setLcpGoods(Goods lcpGoods) {
+		this.lcpGoods = lcpGoods;
 	}
-    
+
     
 }

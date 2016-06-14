@@ -60,7 +60,7 @@ String customertype = request.getParameter("customer.customertype");
 				<a href="editCusInfo.jsp?ccustomerid=${ccustomer.ccustomerid}&pagenow=${requestScope.pagenow }&fo=largeCus">修改</a>/
 				<a href="largeCusXiaDan.jsp?customerid=${ccustomer.customer.customerid}&ccustomerid=${ccustomer.ccustomerid}&ccustomercompany=${requestScope.ccustomerCon.ccustomercompany }">下单</a>
 			</td>
-			<td><a href="#">详情</a></td>
+			<td><a href="largeCusGoodsMana.jsp?customerid=${ccustomer.ccustomerid}&companyid=${requestScope.ccustomerCon.ccustomercompany }">详情</a></td>
 		</tr>
 	</c:forEach>
 	</c:if>
