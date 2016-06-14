@@ -8,7 +8,7 @@ import java.sql.Date;
 public class Givegoods
 {
    /**
-    * 促销品ID,主键
+    * 买赠ID,主键
     */
    private String givegoodsid; 
    /**
@@ -36,19 +36,15 @@ public class Givegoods
     */
    private String givegoodsunit;   
    /**
-    * 原价
+    * 售价
     */
    private String givegoodsprice;   
    /**
-    * 现价
-    */
-   private String givegoodsorgprice;   
-   /**
-    * 限量
+    * 个人限购
     */
    private int givegoodsnum;   
    /**
-    * 小类名称
+    * 小类
     */
    private String givegoodsclass;   
    /**
@@ -77,7 +73,7 @@ public class Givegoods
    private String givegoodsscope;   
     //属性方法	    
      /**
-	 *设置主键"促销品ID"属性
+	 *设置主键"买赠ID"属性
 	 *@param givegoodsid 实体的Givegoodsid属性
 	 */
 	public void setGivegoodsid(String givegoodsid)
@@ -86,7 +82,7 @@ public class Givegoods
 	}
 	
 	/**
-	 *获取主键"促销品ID"属性
+	 *获取主键"买赠ID"属性
 	 */
 	public String getGivegoodsid()
 	{
@@ -196,7 +192,7 @@ public class Givegoods
 	}	   
 
 	/**
-	 *设置"原价"属性
+	 *设置"售价"属性
 	 *@param givegoodsprice 实体的Givegoodsprice属性
 	 */
 	public void setGivegoodsprice(String givegoodsprice)
@@ -205,7 +201,7 @@ public class Givegoods
 	}
 	
 	/**
-	 *获取"原价"属性
+	 *获取"售价"属性
 	 */
 	public String getGivegoodsprice()
 	{
@@ -213,24 +209,7 @@ public class Givegoods
 	}	   
 
 	/**
-	 *设置"现价"属性
-	 *@param givegoodsorgprice 实体的Givegoodsorgprice属性
-	 */
-	public void setGivegoodsorgprice(String givegoodsorgprice)
-	{
-		this.givegoodsorgprice = givegoodsorgprice;
-	}
-	
-	/**
-	 *获取"现价"属性
-	 */
-	public String getGivegoodsorgprice()
-	{
-		return this.givegoodsorgprice;
-	}	   
-
-	/**
-	 *设置"限量"属性
+	 *设置"个人限购"属性
 	 *@param givegoodsnum 实体的Givegoodsnum属性
 	 */
 	public void setGivegoodsnum(int givegoodsnum)
@@ -239,7 +218,7 @@ public class Givegoods
 	}
 	
 	/**
-	 *获取"限量"属性
+	 *获取"个人限购"属性
 	 */
 	public int getGivegoodsnum()
 	{
@@ -247,7 +226,7 @@ public class Givegoods
 	}	   
 
 	/**
-	 *设置"小类名称"属性
+	 *设置"小类"属性
 	 *@param givegoodsclass 实体的Givegoodsclass属性
 	 */
 	public void setGivegoodsclass(String givegoodsclass)
@@ -256,7 +235,7 @@ public class Givegoods
 	}
 	
 	/**
-	 *获取"小类名称"属性
+	 *获取"小类"属性
 	 */
 	public String getGivegoodsclass()
 	{
@@ -377,7 +356,6 @@ public class Givegoods
 	 	,String givegoodsunits
 	 	,String givegoodsunit
 	 	,String givegoodsprice
-	 	,String givegoodsorgprice
 	 	,int givegoodsnum
 	 	,String givegoodsclass
 	 	,String givegoodsimage
@@ -396,7 +374,6 @@ public class Givegoods
 	 	this.givegoodsunits = givegoodsunits;
 	 	this.givegoodsunit = givegoodsunit;
 	 	this.givegoodsprice = givegoodsprice;
-	 	this.givegoodsorgprice = givegoodsorgprice;
 	 	this.givegoodsnum = givegoodsnum;
 	 	this.givegoodsclass = givegoodsclass;
 	 	this.givegoodsimage = givegoodsimage;

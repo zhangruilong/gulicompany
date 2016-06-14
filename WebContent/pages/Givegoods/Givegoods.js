@@ -10,7 +10,6 @@ Ext.onReady(function() {
 	        			    ,'givegoodsunits' 
 	        			    ,'givegoodsunit' 
 	        			    ,'givegoodsprice' 
-	        			    ,'givegoodsorgprice' 
 	        			    ,'givegoodsnum' 
 	        			    ,'givegoodsclass' 
 	        			    ,'givegoodsimage' 
@@ -25,7 +24,7 @@ Ext.onReady(function() {
 	var Givegoodssm = new Ext.grid.CheckboxSelectionModel();// grid复选框模式
 	var Givegoodscm = new Ext.grid.ColumnModel({// 定义columnModel
 		columns : [ new Ext.grid.RowNumberer(), Givegoodssm, {// 改
-			header : '促销品ID',
+			header : '买赠ID',
 			dataIndex : 'givegoodsid',
 			hidden : true
 		}
@@ -72,28 +71,21 @@ Ext.onReady(function() {
 			sortable : true
 		}
 		, {
-			header : '原价',
+			header : '售价',
 			dataIndex : 'givegoodsprice',
 			align : 'center',
 			width : 80,
 			sortable : true
 		}
 		, {
-			header : '现价',
-			dataIndex : 'givegoodsorgprice',
-			align : 'center',
-			width : 80,
-			sortable : true
-		}
-		, {
-			header : '限量',
+			header : '个人限购',
 			dataIndex : 'givegoodsnum',
 			align : 'center',
 			width : 80,
 			sortable : true
 		}
 		, {
-			header : '小类名称',
+			header : '小类',
 			dataIndex : 'givegoodsclass',
 			align : 'center',
 			width : 80,
@@ -233,7 +225,7 @@ Ext.onReady(function() {
 			layout : 'form',
 			items : [ {
 				xtype : 'textfield',
-				fieldLabel : '原价',
+				fieldLabel : '售价',
 				id : 'Givegoodsgivegoodsprice',
 				name : 'givegoodsprice',
 				maxLength : 100,
@@ -245,19 +237,7 @@ Ext.onReady(function() {
 			layout : 'form',
 			items : [ {
 				xtype : 'textfield',
-				fieldLabel : '现价',
-				id : 'Givegoodsgivegoodsorgprice',
-				name : 'givegoodsorgprice',
-				maxLength : 100,
-				anchor : '95%'
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'form',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '限量',
+				fieldLabel : '个人限购',
 				id : 'Givegoodsgivegoodsnum',
 				name : 'givegoodsnum',
 				maxLength : 100,
@@ -269,7 +249,7 @@ Ext.onReady(function() {
 			layout : 'form',
 			items : [ {
 				xtype : 'textfield',
-				fieldLabel : '小类名称',
+				fieldLabel : '小类',
 				id : 'Givegoodsgivegoodsclass',
 				name : 'givegoodsclass',
 				maxLength : 100,
