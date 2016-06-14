@@ -23,7 +23,7 @@ String customertype = request.getParameter("customer.customertype");
 <div class="navigation">
 查询条件:&nbsp;&nbsp;<input type="text" id="largecuspriceprice" name="largecuspriceprice" value="">
 <input class="button" type="button" value="查询" onclick="initLargePG(1)">
-<input class="button" type="button" value="查询" onclick="initLargePG(1)">
+<input class="button" type="button" value="" onclick="initLargePG(1)">
 <input type="checkbox" name="priceGoods_cb">
 </div>
 <table class="bordered" id="LGC_PGtable">
