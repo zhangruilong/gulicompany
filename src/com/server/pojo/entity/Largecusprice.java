@@ -23,6 +23,8 @@ public class Largecusprice {
 
     private String largecuspriceunit2;
 
+    private Goods LargecuspriceGoods;
+    
     public String getLargecuspriceid() {
         return largecuspriceid;
     }
@@ -110,4 +112,14 @@ public class Largecusprice {
     public void setLargecuspriceunit2(String largecuspriceunit2) {
         this.largecuspriceunit2 = largecuspriceunit2 == null ? null : largecuspriceunit2.trim();
     }
+
+	public Goods getLargecuspriceGoods() {
+		return LargecuspriceGoods;
+	}
+
+	public void setLargecuspriceGoods(Goods largecuspriceGoods) {
+		LargecuspriceGoods = largecuspriceGoods;
+	}
+    
+    
 }

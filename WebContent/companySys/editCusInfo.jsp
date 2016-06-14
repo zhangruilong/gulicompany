@@ -35,7 +35,11 @@ function saveCus(){
 }
 function saveafert(data){
 	alert("保存成功");
-	window.location.href = "allCustomer.action?ccustomercompany=${sessionScope.company.companyid}";
+	if('${param.fo}' == 'largeCus'){
+		window.location.href = "allCustomer.action?ccustomercompany=${sessionScope.company.companyid}&creator=1&pagenow=${param.pagenow}";
+	} else {
+		window.location.href = "allCustomer.action?ccustomercompany=${sessionScope.company.companyid}&pagenow=${param.pagenow}";
+	}
 }
 </script>
 </head>
@@ -48,7 +52,7 @@ function saveafert(data){
 				<option value="2">商超客户</option>
 				<option value="1">组织单位客户</option>
 			</select>
-			</label> <label> <span>价格层级 :</span> <input id="ccustomerdetail" type="text"
+			</label> <label> <span>价格层级 :</span> <input id="ccustomerdetail" type="number"
 				name="ccustomerdetail" placeholder="价格层级"
 				value="" />
 			</label> <label> <span>&nbsp;</span> <input type="button"

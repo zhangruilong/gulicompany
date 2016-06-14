@@ -41,6 +41,7 @@ String customertype = request.getParameter("customer.customertype");
 		<th>价格等级</th>
 		<th>修改时间</th>
 		<th>操作</th>
+		<th>关联商品</th>
     </tr>
     </thead>
     <c:if test="${fn:length(requestScope.ccustomerList) != 0 }">
@@ -56,17 +57,18 @@ String customertype = request.getParameter("customer.customertype");
 			<td>${ccustomer.ccustomerdetail}</td>
 			<td>${ccustomer.customer.updtime}</td>
 			<td>
-				<a href="editCusInfo.jsp?ccustomerid=${ccustomer.ccustomerid}">修改</a>/
+				<a href="editCusInfo.jsp?ccustomerid=${ccustomer.ccustomerid}&pagenow=${requestScope.pagenow }&fo=largeCus">修改</a>/
 				<a href="largeCusXiaDan.jsp?customerid=${ccustomer.customer.customerid}&ccustomerid=${ccustomer.ccustomerid}&ccustomercompany=${requestScope.ccustomerCon.ccustomercompany }">下单</a>
 			</td>
+			<td><a href="#">详情</a></td>
 		</tr>
 	</c:forEach>
 	</c:if>
 	<c:if test="${fn:length(requestScope.ccustomerList)==0 }">
-		<tr><td colspan="10" align="center" style="font-size: 20px;color: red;"> 没有信息</td></tr>
+		<tr><td colspan="11" align="center" style="font-size: 20px;color: red;"> 没有信息</td></tr>
 	</c:if>
     	<tr>
-		 <td colspan="10" align="center">
+		 <td colspan="11" align="center">
 		 <c:if test="${requestScope.pagenow > 1 }">
 		 	<a onclick="fenye('1')">第一页</a>
 		 </c:if>

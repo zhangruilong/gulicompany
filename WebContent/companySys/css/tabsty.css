@@ -89,7 +89,7 @@ table {
 .bordered tr:last-child td:last-child {
     -moz-border-radius: 0 0 6px 0;
     -webkit-border-radius: 0 0 6px 0;
-    border-radius: 0 0 6px 0;
+    border-radius: 0 0 6px 6px;
 }
 .bordered td a{
 	text-decoration:none;

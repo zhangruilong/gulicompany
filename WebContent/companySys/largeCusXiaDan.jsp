@@ -8,6 +8,7 @@
 <link href="../companySys/css/tabsty.css" rel="stylesheet" type="text/css" >
 <link href="css/dig.css" rel="stylesheet" type="text/css">
 <style type="text/css">
+.bordered{margin: 15px 0px 15px 10px;}
 .bordered tr td {
 	padding: 5px;
 	padding-left: 3px;
@@ -76,7 +77,7 @@
 					种类数:<span>0</span>
 					下单金额:<span>0</span>
 					实际金额:<span>0</span>
-					支付方式:<span>货到付款</span>
+					支付方式:<span name="OdInfo_ZFFS">货到付款</span>
 				</div></td>
 			</tr>
 		</table>
@@ -148,73 +149,139 @@ $(function(){
 			$(".LCXD_CusAddress span:eq(2)").text(data.cusAddress.addressaddress);
 		}
 		
-	})
+	});
 	$(".LCXD_OrdermInfo span").dblclick(function(){
 		$(this).attr("contentEditable","true");
 		$(this).css("background-color","white");
-	})
+		$(this).focus();
+	});
 	$(".LCXD_OrdermInfo span").blur(function(){
+		var numb = parseFloat($(this).text());
+		if($(this).attr("name") != "OdInfo_ZFFS" && isNaN(numb)){
+			alert("只能输入数字");
+			$(this).text("0000");
+		}
 		$(this).attr("contentEditable","false");
 		$(this).css("background-color","transparent");
 	});
 	tabEdit();			//绑定双击事件可编辑
 });
+//得到下单金额和实际金额
+function showXDMoneyAndSJMoney(){
+	var xdMoney = 0;
+	var sjMoney = 0;
+	$(".largeCus_form td[name='xd_money']").each(function(i,item){
+		xdMoney += parseFloat($(item).text());
+	});
+	$(".largeCus_form td[name='sj_money']").each(function(i,item){
+		sjMoney += parseFloat($(item).text());
+	});
+	$(".LCXD_OrdermInfo span:eq(1)").text(xdMoney.toFixed(2));
+	$(".LCXD_OrdermInfo span:eq(2)").text(sjMoney.toFixed(2))
+}
 //绑定双击事件可编辑
 function tabEdit(){
 	$(".largeCus_form td[name!='ord_info_td']").dblclick(function(){
 		$(this).attr("contentEditable","true");
 		$(this).css("background-color","white");
+		$(this).focus();
 	});
-	$(".largeCus_form td[name!='odd_num'][name!='odd_num']").blur(function(){
+	$(".largeCus_form td[name!='odd_num']:not([name$='_money'])").blur(function(){
+		alert("这是不以 _money 结尾的元素");
 		$(this).attr("contentEditable","false");
 		$(this).css("background-color","transparent");
 	});
 	$(".largeCus_form td[name='odd_num']").blur(function(){
-		var pric = parseFloat($(this).prev().prev().text()).toFixed(2);
 		var num = parseFloat($(this).text()).toFixed(2);
+		if(isNaN(num)){
+			alert("只能输入数字");
+			$(this).text(1);
+			num = 1;
+		}
+		var pric = parseFloat($(this).prev().prev().text()).toFixed(2);
 		$(this).attr("contentEditable","false");
 		$(this).css("background-color","transparent");
-		$(this).next()
+		$(this).next().text(pric*num);
+		$(this).next().next().text(pric*num);
+		showXDMoneyAndSJMoney();
+		
 	});
+	
 }
 //保存订单
 function saveOrder(){
+	if($(".largeCus_form tr[name!='ordLi_tr1'][name!='ord_info_tr']").length == 0){
+		alert("至少要有一个订单商品");
+		return;
+	}
 	var orderCCus = JSON.parse($(".tt_cusInfo span[hidden='true']").text());
-	var orderdListStr = "";
+	var orderdListStr = "[";
 	$(".largeCus_form tr[name!='ordLi_tr1'][name!='ord_info_tr']").each(function(i,item){
 		var goodsJson = JSON.parse($(item).find("td span[hidden='true']").text());
-		orderdListStr += '"orderdList['+i+'].orderdid":"'+i
-			+ '","orderdList['+i+'].orderdcode":"' + goodsJson.goodscode
-			+ '","orderdList['+i+'].orderdtype":"' + $(item).find("td:eq(2)").text()
-			+ '","orderdList['+i+'].orderdname":"' + goodsJson.goodsname
-			+ '","orderdList['+i+'].orderddetail":"' + goodsJson.goodsdetail
-			+ '","orderdList['+i+'].orderdunits":"' + goodsJson.goodsunits
-			+ '","orderdList['+i+'].orderdprice":"' + goodsJson.pricesList[0].pricesprice
-			+ '","orderdList['+i+'].orderdunit":"' + goodsJson.pricesList[0].pricesunit
-			+ '","orderdList['+i+'].orderdclass":"' + goodsJson.gClass.goodsclassname
-			+ '","orderdList['+i+'].orderdnum":"' + $(item).find("td:eq(7)").text()
-			+ '","orderdList['+i+'].orderdmoney":"' + $(item).find("td:eq(8)").text()
-			+ '","orderdList['+i+'].orderdrightmoney":"' + $(item).find("td:eq(9)").text()
-			+'",';
+		orderdListStr += '{"orderdid":"'+i
+			+ '","orderdcode":"' + goodsJson.goodscode
+			+ '","orderdtype":"' + $(item).find("td:eq(2)").text()
+			+ '","orderdname":"' + goodsJson.goodsname
+			+ '","orderddetail":"' +'danpin'
+			+ '","orderdunits":"' + goodsJson.goodsunits
+			+ '","orderdprice":"' + goodsJson.pricesList[0].pricesprice
+			+ '","orderdunit":"' + goodsJson.pricesList[0].pricesunit
+			+ '","orderdclass":"' + goodsJson.gClass.goodsclassname
+			+ '","orderdnum":"' + $(item).find("td:eq(7)").text()
+			+ '","orderdmoney":"' + $(item).find("td:eq(8)").text()
+			+ '","orderdrightmoney":"' + $(item).find("td:eq(9)").text()
+			+'"},';
 	});
-	orderdListStr = orderdListStr.substr(0, orderdListStr.length - 1);
+	orderdListStr = orderdListStr.substr(0, orderdListStr.length - 1)+"]";
+	//orderdListStr = '[{"orderdid":"123"},{"orderdid":"13"}]';
 	var data = '{'+
 			'"ordermcustomer":"' + customerid
-			+ '","ordermcompany":"' + orderCCus.ccustomercompany
-			+ '","ordermnum":"' + $(".LCXD_CusAddress span:eq(0)").text()
-			+ '","ordermmoney":"' + $(".LCXD_CusAddress span:eq(1)").text()
-			+ '","ordermrightmoney":"' + $(".LCXD_CusAddress span:eq(2)").text()
-			+ '","ordermway":"' + $(".LCXD_CusAddress span:eq(3)").text()
+			+ '","ordermcompany":"' + orderCCus.largeCCus.ccustomercompany
+			+ '","ordermnum":"' + $(".LCXD_OrdermInfo span:eq(0)").text()
+			+ '","ordermmoney":"' + $(".LCXD_OrdermInfo span:eq(1)").text()
+			+ '","ordermrightmoney":"' + $(".LCXD_OrdermInfo span:eq(2)").text()
+			+ '","ordermway":"' + $(".LCXD_OrdermInfo span:eq(3)").text()
 			+ '","ordermstatue":"' + '已下单'
 			+ '","ordermconnect":"' + $(".LCXD_CusAddress span:eq(0)").text()
 			+ '","ordermphone":"' + $(".LCXD_CusAddress span:eq(1)").text()
 			+ '","ordermaddress":"' + $(".LCXD_CusAddress span:eq(2)").text()
-			+ '",'+orderdListStr
+			+ '","orderdList":' + orderdListStr
+			+ ''
 		+'}';
-	alert(data);
-	$.post("largeCusOrderSave.action",JSON.parse(data),function(data){
-		
-	});
+	var dataJson = {"ordermcustomer":customerid}; 
+	/* $.post("largeCusOrderSave.action",{"ordermcustomer":customerid,orderdListStr},function(data){
+		alert(data);
+	}); */
+	/* var ordermArray = new Array();
+	ordermArray.push({orderdid:"1"});
+	ordermArray.push({orderdid:"2"}); */
+	$.ajax({
+        url: "largeCusOrdermSave.action",
+        type: "POST",
+        //contentType : 'application/json;charset=utf-8', //设置请求头信息
+         //dataType:"json",
+        /* data: {
+        	"ordermcustomer":customerid,
+        	"ordermcompany":orderCCus.largeCCus.ccustomercompany,
+        	"ordermnum":$(".LCXD_OrdermInfo span:eq(0)").text(),
+        	"ordermmoney":$(".LCXD_OrdermInfo span:eq(1)").text(),
+        	"ordermrightmoney":$(".LCXD_OrdermInfo span:eq(2)").text(),
+        	"ordermway":$(".LCXD_OrdermInfo span:eq(3)").text(),
+        	"ordermstatue":'已下单',
+        	"ordermconnect":$(".LCXD_CusAddress span:eq(0)").text(),
+        	"ordermphone":$(".LCXD_CusAddress span:eq(1)").text(),
+        	"ordermaddress":$(".LCXD_CusAddress span:eq(2)").text(),
+        	"orderdList":[{"orderdid":"123"},{"orderdid":"321"}]
+        }, */
+        data: {json:data},
+        success: function(data){
+            alert("下单成功!");
+            history.go(-1);
+        },
+        error: function(res){
+            alert(res.responseText);
+        }
+    });
 }
 //选择商品
 function selectGoods(){
@@ -303,8 +370,8 @@ function seleGoods(goodscode,orderdtype,goodsname,goodsunits,price,unit,obj){
 			'<td>'+price+'</td>'+
 			'<td>'+unit+'</td>'+
 			'<td name="odd_num">1</td>'+
-			'<td>'+price+'</td>'+
-			'<td>'+price+'</td>'+
+			'<td name="xd_money">'+price+'</td>'+
+			'<td name="sj_money">'+price+'</td>'+
 			'<td><a onclick="deleteRows(this)">删除</a><span hidden="true">'+seleStrJson+'</span></td>'+
 		'</tr>');
 	$(".LCXD_OrdermInfo span:eq(0)").text(parseInt($(".LCXD_OrdermInfo span:eq(0)").text())+1);

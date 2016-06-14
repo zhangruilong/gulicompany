@@ -3,12 +3,15 @@ package com.server.action.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.server.dao.mapper.CompanyMapper;
@@ -21,6 +24,10 @@ import com.server.pojo.entity.Orderd;
 import com.server.pojo.entity.OrderdStatistics;
 import com.server.pojo.entity.Orderm;
 import com.server.pojo.entity.Ordermview;
+import com.system.pojo.System_attach;
+import com.system.tools.CommonConst;
+import com.system.tools.util.CommonUtil;
+import com.system.tools.util.DateUtils;
 import com.system.tools.util.FileUtil;
 
 /**
@@ -222,10 +229,43 @@ public class Com_orderCtl {
 		FileUtil.expExcel(response, ordermList, heads, discard, name);
 	}
 	//大客户添加订单
-	@RequestMapping("/companySys/largeCusOrderSave")
+	@RequestMapping(value="/companySys/largeCusOrdermSave")
 	@ResponseBody
-	public Integer largeCusOrderSave(Orderm orderm){
-		System.out.println(orderm);
-		return null;
+	public String largeCusOrdermSave(HttpServletRequest request){
+		Orderm orderm = new Orderm();
+		String json = request.getParameter("json");
+		System.out.println("json : " + json);
+		java.lang.reflect.Type TYPE = new com.google.gson.reflect.TypeToken<Orderm>() {}.getType();
+		if(CommonUtil.isNotEmpty(json)) 
+			orderm = CommonConst.GSON.fromJson(json, TYPE);
+		
+		String ordermid = CommonUtil.getNewId();
+		orderm.setOrdermid(ordermid);
+		orderm.setOrdermtime(DateUtils.getDateTime());
+		orderm.setOrdermcode(ordermid);
+		ordermMapper.insertSelective(orderm);
+		for (Orderd insOD : orderm.getOrderdList()) {
+			insOD.setOrderdid(CommonUtil.getNewId());
+			insOD.setOrderdorderm(ordermid);
+			orderdMapper.insertSelective(insOD);
+		}
+		return "ok";
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

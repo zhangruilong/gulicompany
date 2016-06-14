@@ -13,7 +13,45 @@
     <result column="LARGECUSPRICEPRICE2" property="largecuspriceprice2" jdbcType="VARCHAR" />
     <result column="LARGECUSPRICEUNIT" property="largecuspriceunit" jdbcType="VARCHAR" />
     <result column="LARGECUSPRICEUNIT2" property="largecuspriceunit2" jdbcType="VARCHAR" />
+    <association property="LargecuspriceGoods" javaType="com.server.pojo.entity.Goods">
+    	<id column="GOODSID" property="goodsid" jdbcType="VARCHAR" />
+	    <result column="GOODSCOMPANY" property="goodscompany" jdbcType="VARCHAR" />
+	    <result column="GOODSCODE" property="goodscode" jdbcType="VARCHAR" />
+	    <result column="GOODSNAME" property="goodsname" jdbcType="VARCHAR" />
+	    <result column="GOODSDETAIL" property="goodsdetail" jdbcType="VARCHAR" />
+	    <result column="GOODSUNITS" property="goodsunits" jdbcType="VARCHAR" />
+	    <result column="GOODSCLASS" property="goodsclass" jdbcType="VARCHAR" />
+	    <result column="GOODSIMAGE" property="goodsimage" jdbcType="VARCHAR" />
+	    <result column="GOODSSTATUE" property="goodsstatue" jdbcType="VARCHAR" />
+	    <result column="CREATETIME" property="createtime" jdbcType="VARCHAR" />
+	    <result column="UPDTIME" property="updtime" jdbcType="VARCHAR" />
+	    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+	    <result column="UPDOR" property="updor" jdbcType="VARCHAR" />
+	    <result column="GOODSBRAND" property="goodsbrand" jdbcType="VARCHAR" />
+	    <result column="GOODSTYPE" property="goodstype" jdbcType="VARCHAR" />
+	    <result column="GOODSORDER" property="goodsorder" jdbcType="DECIMAL" />
+    </association>
   </resultMap>
+  <select id="selectLargeCusPriceGoodsCount"  resultType="int">
+  	select count(*)
+	from largecusprice lcp 
+	left join goods g
+	on g.goodsid = lcp.largecuspricegoods
+	where lcp.largecuspricecompany = #{largecuspricecompany} 
+	and lcp.largecuspricecustomer = #{largecuspricecustomer}
+  </select>
+  <select id="selectLargeCusPriceGoods"  resultMap="BaseResultMap">
+  select * from 
+	(select A.*, ROWNUM RN from (
+  	select lcp.* 
+	from largecusprice lcp 
+	left join goods g
+	on g.goodsid = lcp.largecuspricegoods
+	where lcp.largecuspricecompany = #{largecuspricecompany} 
+	and lcp.largecuspricecustomer = #{largecuspricecustomer}
+	 ) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) ) 
+where RN &gt; ((#{nowpage}-1)*#{pagesize})
+  </select>
   <!-- 根据主键删除 -->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from LARGECUSPRICE

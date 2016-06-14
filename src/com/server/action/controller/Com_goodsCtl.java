@@ -14,12 +14,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.server.dao.mapper.GivegoodsMapper;
 import com.server.dao.mapper.GoodsMapper;
 import com.server.dao.mapper.GoodsclassMapper;
+import com.server.dao.mapper.LargecuspriceMapper;
 import com.server.dao.mapper.PricesMapper;
 import com.server.dao.mapper.ScantMapper;
 import com.server.dao.mapper.TimegoodsMapper;
 import com.server.pojo.entity.Givegoods;
 import com.server.pojo.entity.Goods;
 import com.server.pojo.entity.Goodsclass;
+import com.server.pojo.entity.Largecusprice;
 import com.server.pojo.entity.Prices;
 import com.server.pojo.entity.Scant;
 import com.server.pojo.entity.Timegoods;
@@ -45,6 +47,8 @@ public class Com_goodsCtl {
 	private ScantMapper scantMapper;
 	@Autowired
 	private GivegoodsMapper givegoodsMapper;
+	@Autowired
+	private LargecuspriceMapper largecuspriceMapper;
 	//全部商品
 	@RequestMapping("/companySys/allGoods")
 	public String allGoods(Model model,Goods goodsCon,Integer pagenow){
@@ -447,6 +451,28 @@ public class Com_goodsCtl {
 		map.put("countGoods", countGoods);
 		map.put("pagenowGoods", pagenowGoods);
 		map.put("goodsList", goodsList);
+		return map;
+	}
+	//查询大客户的特殊价格商品
+	@RequestMapping(value="/companySys/querylargeCusPriceGoods")
+	@ResponseBody
+	public Map<String,Object> querylargeCusPriceGoods(Largecusprice largecusprice,Integer pagenow){
+		Map<String,Object> map = new HashMap<String, Object>();
+		if(pagenow == null){
+			pagenow = 1;
+		}
+		Integer count = largecuspriceMapper.selectLargeCusPriceGoodsCount(largecusprice);	//总信息条数
+		Integer pageCount;		//总页数
+		if(count % 10 ==0){
+			pageCount = count / 10;
+		} else {
+			pageCount = (count / 10) +1;
+		}
+		List<Largecusprice> largeCPList = largecuspriceMapper.selectLargeCusPriceGoods(largecusprice, pagenow, 10);
+		map.put("pageCount", pageCount);
+		map.put("count", count);
+		map.put("pagenow", pagenow);
+		map.put("largeCusPrice", largeCPList);
 		return map;
 	}
 }
