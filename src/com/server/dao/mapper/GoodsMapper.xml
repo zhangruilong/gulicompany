@@ -109,6 +109,7 @@
 	select 
 	distinct g.*,p.pricesid,p.pricesprice,p.pricesunit,p.pricesprice2,p.pricesunit2,lcp.largecuspriceprice
 	,lcp.largecuspriceunit,lcp.largecuspriceunit2,lcp.largecuspriceprice2,lcp.largecuspriceid,gc.goodsclassname
+	,lcp.largecuspricecreatetime
 	from goods g
 	left outer join goodsclass gc
 	on g.goodsclass = gc.goodsclassid
@@ -130,6 +131,7 @@
 			g.UPDOR like '%${goods.goodscode}%' or
 			gc.goodsclassname like '%${goods.goodscode}%')
 	</if>
+	order by g.createtime,lcp.largecuspricecreatetime desc nulls last
 	) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) ) 
 	where RN &gt; ((#{nowpage}-1)*#{pagesize})
   </select>

@@ -13,6 +13,7 @@
     <result column="LARGECUSPRICEPRICE2" property="largecuspriceprice2" jdbcType="VARCHAR" />
     <result column="LARGECUSPRICEUNIT" property="largecuspriceunit" jdbcType="VARCHAR" />
     <result column="LARGECUSPRICEUNIT2" property="largecuspriceunit2" jdbcType="VARCHAR" />
+    <!-- 商品 -->
     <association property="lcpGoods" javaType="com.server.pojo.entity.Goods">
     	<id column="GOODSID" property="goodsid" jdbcType="VARCHAR" />
 	    <result column="GOODSCOMPANY" property="goodscompany" jdbcType="VARCHAR" />
@@ -41,7 +42,13 @@
 	    </association>
     </association>
   </resultMap>
-  <select id="selectLargeCusPriceGoodsCount"  resultType="int">
+  <select id="selectCusBargainByGoodsId"  resultType="int">
+  select count(*) from largecusprice lcp 
+  	where lcp.largecuspricecompany = #{largecuspricecompany} 
+	and lcp.largecuspricecustomer = #{largecuspricecustomer}
+	and lcp.largecuspricegoods = #{largecuspricegoods}
+  </select>
+  <select id="selectLargeCusPriceGoodsCount" resultType="int">
   	select count(*)
 	from largecusprice lcp 
 	left join goods g
@@ -73,6 +80,7 @@
 		or g.GOODSCLASS like '%${largecusprice.largecuspriceprice}%'
 		)
 	</if>
+	order by lcp.largecuspricecreatetime desc
 	 ) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) ) 
 where RN &gt; ((#{nowpage}-1)*#{pagesize})
   </select>

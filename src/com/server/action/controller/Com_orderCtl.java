@@ -231,14 +231,7 @@ public class Com_orderCtl {
 	//大客户添加订单
 	@RequestMapping(value="/companySys/largeCusOrdermSave")
 	@ResponseBody
-	public String largeCusOrdermSave(HttpServletRequest request){
-		Orderm orderm = new Orderm();
-		String json = request.getParameter("json");
-		System.out.println("json : " + json);
-		java.lang.reflect.Type TYPE = new com.google.gson.reflect.TypeToken<Orderm>() {}.getType();
-		if(CommonUtil.isNotEmpty(json)) 
-			orderm = CommonConst.GSON.fromJson(json, TYPE);
-		
+	public String largeCusOrdermSave(@RequestBody Orderm orderm){
 		String ordermid = CommonUtil.getNewId();
 		orderm.setOrdermid(ordermid);
 		orderm.setOrdermtime(DateUtils.getDateTime());

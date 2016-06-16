@@ -8,6 +8,10 @@ import com.server.pojo.entity.Largecusprice;
 
 public interface LargecuspriceMapper {
 	/**
+	 * 判断客户是否已经有此特价商品
+	 */
+	Integer selectCusBargainByGoodsId(Largecusprice largecusprice);
+	/**
 	 * 根据客户id和供应商id查询客户的特殊价格商品(数量)
 	 */
 	Integer selectLargeCusPriceGoodsCount(Largecusprice largecusprice);

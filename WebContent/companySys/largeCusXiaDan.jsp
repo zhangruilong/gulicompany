@@ -249,31 +249,12 @@ function saveOrder(){
 			+ ''
 		+'}';
 	var dataJson = {"ordermcustomer":customerid}; 
-	/* $.post("largeCusOrderSave.action",{"ordermcustomer":customerid,orderdListStr},function(data){
-		alert(data);
-	}); */
-	/* var ordermArray = new Array();
-	ordermArray.push({orderdid:"1"});
-	ordermArray.push({orderdid:"2"}); */
 	$.ajax({
         url: "largeCusOrdermSave.action",
         type: "POST",
-        //contentType : 'application/json;charset=utf-8', //设置请求头信息
-         //dataType:"json",
-        /* data: {
-        	"ordermcustomer":customerid,
-        	"ordermcompany":orderCCus.largeCCus.ccustomercompany,
-        	"ordermnum":$(".LCXD_OrdermInfo span:eq(0)").text(),
-        	"ordermmoney":$(".LCXD_OrdermInfo span:eq(1)").text(),
-        	"ordermrightmoney":$(".LCXD_OrdermInfo span:eq(2)").text(),
-        	"ordermway":$(".LCXD_OrdermInfo span:eq(3)").text(),
-        	"ordermstatue":'已下单',
-        	"ordermconnect":$(".LCXD_CusAddress span:eq(0)").text(),
-        	"ordermphone":$(".LCXD_CusAddress span:eq(1)").text(),
-        	"ordermaddress":$(".LCXD_CusAddress span:eq(2)").text(),
-        	"orderdList":[{"orderdid":"123"},{"orderdid":"321"}]
-        }, */
-        data: {json:data},
+        contentType : 'application/json;charset=utf-8', //设置请求头信息
+        //dataType:"json",
+        data: data,
         success: function(data){
             alert("下单成功!");
             history.go(-1);

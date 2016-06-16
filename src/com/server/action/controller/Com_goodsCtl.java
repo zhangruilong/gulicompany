@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -474,6 +475,24 @@ public class Com_goodsCtl {
 		map.put("pagenow", pagenow);
 		map.put("largeCusPrice", largeCPList);
 		return map;
+	}
+	//添加大客户商品价格
+	@RequestMapping(value="/companySys/saveNewLargeCusGP")
+	@ResponseBody
+	public Integer saveNewLargeCusGP(Largecusprice newLargecusprice){
+		Integer num = largecuspriceMapper.selectCusBargainByGoodsId(newLargecusprice);
+		if(num>0){
+			return 0;
+		}
+		newLargecusprice.setLargecuspriceid(CommonUtil.getNewId());
+		newLargecusprice.setLargecuspricecreatetime(DateUtils.getDateTime());
+		return largecuspriceMapper.insertSelective(newLargecusprice);
+	}
+	//修改大客户商品价格
+	@RequestMapping(value="/companySys/editLargeGoodsPrice")
+	@ResponseBody
+	public Integer editLargeGoodsPrice(Largecusprice largecusprice){
+		return largecuspriceMapper.updateByPrimaryKeySelective(largecusprice);
 	}
 }
 

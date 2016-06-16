@@ -26,7 +26,6 @@ String customertype = request.getParameter("customer.customertype");
 <div class="navigation">
 查询条件:&nbsp;&nbsp;<input type="text" id="customercode" name="customer.customercode" value="${requestScope.ccustomerCon.customer.customercode }">
 <input class="button" type="button" value="查询" onclick="subcustomerfor()">
-<input class="button" type="button" value="导出" onclick="reportCustomer()">
 </div>
 <table class="bordered">
     <thead>
@@ -41,7 +40,7 @@ String customertype = request.getParameter("customer.customertype");
 		<th>价格等级</th>
 		<th>修改时间</th>
 		<th>操作</th>
-		<th>关联商品</th>
+		<th> </th>
     </tr>
     </thead>
     <c:if test="${fn:length(requestScope.ccustomerList) != 0 }">

@@ -228,13 +228,6 @@ function goodsPageTo(pageCountGoods){
 function addgivegoods(){
 	$(".elegant-aero [type!='button']").val("");
 	$(".cd-popup").addClass("is-visible");	//弹出窗口
-	/* $.getJSON("getallGoodclass.action",function(data){
-		$.each(data,function(i,item){
-			$("#givegoodsclass").append(
-				'<option value="'+item.goodsclassid+'">'+item.goodsclassname+'</option>'
-			)
-		});
-	}); */
 }
 //关闭添加秒杀商品窗口
 function close_popup(){
