@@ -1,7 +1,5 @@
 package com.server.pojo.entity;
 
-import org.codehaus.jackson.map.annotate.JsonSerialize;
-
 public class Largecusprice {
     private String largecuspriceid;
 

@@ -96,6 +96,7 @@ table {
 	color: blue;
 	cursor:pointer;
 }
+.bordered td .FY_a_noActive{color: black;cursor:default;}
 .bordered td{
 	/*background-color: white;*/
 }

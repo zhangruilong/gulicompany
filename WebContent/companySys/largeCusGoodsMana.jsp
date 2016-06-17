@@ -18,25 +18,11 @@ String customertype = request.getParameter("customer.customertype");
 <link href="css/tabsty.css" rel="stylesheet" type="text/css">
 <link href="css/dig.css" rel="stylesheet" type="text/css">
 <style type="text/css">
-.elegant-aero{
-	margin-top: 0;
-}
-.fenyelan_input{
-	width: 22px;
-	text-align: center;
-}
-.fenyelan_button{
-	width: 40px;height: 20px;font-size:8px; text-align: center;cursor:pointer;
-}
-.goods_select_popup{
-	margin:0px auto;
-	margin-top:1%;
-	width: 60%;
-	background-color: #FBF1E5;
-}
-.elegant-aero p input[type="checkbox"]{
-	vertical-align:middle
-}
+.elegant-aero{margin-top: 0;}
+.fenyelan_input{width: 22px;text-align: center;}
+.fenyelan_button{width: 40px;height: 20px;font-size:8px; text-align: center;cursor:pointer;}
+.goods_select_popup{margin:0px auto;margin-top:1%;width: 60%;background-color: #FBF1E5;}
+.elegant-aero p input[type="checkbox"]{vertical-align:middle}
 </style>
 </head>
 <body>
@@ -64,6 +50,18 @@ String customertype = request.getParameter("customer.customertype");
 		<th>修改时间</th>
     </tr>
     </thead>
+    <tr name="fenyelan">
+    	<td colspan="12">
+    		<a>第一页</a> 
+    		<a>上一页</a> 
+    		<span>当前第<span name="showNP"></span>页</span> 
+    		<a>下一页</a> 
+    		<a>最后一页</a> 
+    		<span>跳转到第<input class="fenyelan_input" size="1" type="text" id="pagenow" name="" value="">页</span>
+    		<input type="button" onclick="pageTo()" value="GO" class="fenyelan_button">
+    		<span>一共 <span name="showCount">这是第二个span </span> 条数据</span>
+    	</td>
+    </tr>
 </table>
 <!--弹框-->
 <div class="cd-popup" role="alert">
@@ -106,7 +104,6 @@ String customertype = request.getParameter("customer.customertype");
 			<th>商品编码</th>
 			<th>商品名称</th>
 			<th>规格</th>
-			<!-- <th>小类名称</th> -->
 			<th>点击选择</th>
 	    </tr>
 	    </thead>
@@ -124,7 +121,25 @@ $(function(){
 });
 //删除特价商品
 function deleteLCPgoods(){
-	
+	var count = 0;
+	var lcpIDs = new Array();
+	$(":checkbox[name='priceGoods_cb']").each(function(i,item){
+		if(item.checked){
+			count++;
+			lcpIDs.push($(item).val());
+		}
+	});
+	$.ajax({
+		url:"deleteLGPByIDs.action",
+		type:"POST",
+		data:{"lcpIDs":lcpIDs},
+		dataType:"json",
+		success:function(data){
+			alert("删除成功！");
+			initLargePG($("#pagenow").val());
+		},
+		error:function(){alert("未成功删除，请联系管理员。");}
+	});
 }
 //修改新特价商品
 function editLCPgoods(){
@@ -132,7 +147,7 @@ function editLCPgoods(){
 	var itemJson = '';
 	$(":checkbox[name='priceGoods_cb']").each(function(i,item){
 		if(item.checked){
-			count++
+			count++;
 			itemJson = $(item).next().text();
 		}
 	});
@@ -204,16 +219,16 @@ function saveNewGoodsPrice(){
 			"largecuspricegoods":$(".elegant-aero p label input[value='保存']").attr("name"),
 			"largecuspriceunit":$(".elegant-aero label:eq(3) input").val(),
 			"largecuspriceprice":$(".elegant-aero label:eq(4) input").val(),
-			"largecuspricedetail":$(".elegant-aero label:eq(5) input").val()
+			"largecuspricedetail":$(".elegant-aero label:eq(5) textarea").val()
 			},
 		success:function(data){
 			if(data > 0){
 				alert("添加成功！");
+				initLargePG(1);
+				close_popup();
 			} else {
 				alert("此特价商品已存在。")
 			}
-			initLargePG(1);
-			close_popup();
 		},
 		error:function(data){
 			alert("操作失败。");
@@ -316,12 +331,13 @@ function initLargePG(targetPage){
 		}
 	$.post("querylargeCusPriceGoods.action",data,function(data){
 		if(data.largeCusPrice.length == 0){
-			$("#LGC_PGtable").append('<tr><td colspan="11" align="center" style="font-size: 20px;color: red;"> 没有信息</td></tr>');
+			$("#LGC_PGtable tr:gt(0)[name!='fenyelan']").remove();
+			$("#LGC_PGtable tr[name='fenyelan']").before('<tr><td colspan="11" align="center" style="font-size: 20px;color: red;"> 没有信息</td></tr>');
 		} else {
-			$("#LGC_PGtable tr:gt(0)").remove();
+			$("#LGC_PGtable tr:gt(0)[name!='fenyelan']").remove();
 			$.each(data.largeCusPrice,function(i,item){
 				var strJSON = JSON.stringify(item);									//商品数据字符串
-				$("#LGC_PGtable").append('<tr>'+
+				$("#LGC_PGtable tr[name='fenyelan']").before('<tr>'+
 						'<td><input type="checkbox" name="priceGoods_cb" value="'+item.largecuspriceid+'"><span hidden="true">'+strJSON+'</span></td>'+
 						'<td>'+(i+1)+'</td>'+
 						'<td>'+item.lcpGoods.goodscode+'</td>'+
@@ -335,7 +351,7 @@ function initLargePG(targetPage){
 						'<td>'+ typeNullFoString(item.largecuspricecreator) +'</td>'+
 					'</tr>');
 			});
-			var goodsfenye = '<tr><td colspan="12">';
+			/* var goodsfenye = '<tr><td colspan="12">';
 			if(data.pagenow > 1){
 				goodsfenye += '<a onclick=fenye("1")>第一页</a><a onclick=fenye("'+(parseInt(data.pagenow)-1)+'")>上一页</a>';
 				
@@ -350,11 +366,47 @@ function initLargePG(targetPage){
 			}
 			goodsfenye += '<span>跳转到第<input class="fenyelan_input" size="1" type="text" id="pagenow" value="'+
 				data.pagenow+'">页</span>'+
-			 	'<input onclick=goodsPageTo("'+data.pageCount+'") type="button" value="GO" class="fenyelan_button">'+
+			 	'<input onclick=pageTo("'+data.pageCount+'") type="button" value="GO" class="fenyelan_button">'+
 		 		'<span>一共 '+data.count+' 条数据</span>';
-			$("#LGC_PGtable").append(goodsfenye);
+			$("#LGC_PGtable").append(goodsfenye); */
+		}
+		$("#LGC_PGtable tr[name='fenyelan'] span:eq(1)").text(data.pagenow);
+		$("#LGC_PGtable tr[name='fenyelan'] span:eq(4)").text(data.count);
+		$("#pagenow").val(data.pagenow);
+		$("#pagenow").attr("name",data.pageCount);
+		if(data.pagenow > 1){
+			$("#LGC_PGtable tr[name='fenyelan'] a:eq(0)").unbind("click");
+			$("#LGC_PGtable tr[name='fenyelan'] a:eq(1)").unbind("click");
+			$("#LGC_PGtable tr[name='fenyelan'] a:eq(0)").removeClass("FY_a_noActive");
+			$("#LGC_PGtable tr[name='fenyelan'] a:eq(1)").removeClass("FY_a_noActive");
+			$("#LGC_PGtable tr[name='fenyelan'] a:eq(0)").click(function(){fenye(1);});
+			$("#LGC_PGtable tr[name='fenyelan'] a:eq(1)").click(function(){fenye(parseInt(data.pagenow)-1);});
+		} else {
+			$("#LGC_PGtable tr[name='fenyelan'] a:eq(0)").addClass("FY_a_noActive");
+			$("#LGC_PGtable tr[name='fenyelan'] a:eq(1)").addClass("FY_a_noActive");
+			$("#LGC_PGtable tr[name='fenyelan'] a:eq(0)").unbind("click");
+			$("#LGC_PGtable tr[name='fenyelan'] a:eq(1)").unbind("click");
+		}
+		if(data.pagenow < data.pageCount){
+			$("#LGC_PGtable tr[name='fenyelan'] a:eq(2)").unbind("click");
+			$("#LGC_PGtable tr[name='fenyelan'] a:eq(3)").unbind("click");
+			$("#LGC_PGtable tr[name='fenyelan'] a:eq(2)").removeClass("FY_a_noActive");
+			$("#LGC_PGtable tr[name='fenyelan'] a:eq(3)").removeClass("FY_a_noActive");
+			$("#LGC_PGtable tr[name='fenyelan'] a:eq(2)").click(function(){fenye(parseInt(data.pagenow)+1);});
+			$("#LGC_PGtable tr[name='fenyelan'] a:eq(3)").click(function(){fenye(data.pageCount);});
+		} else {
+			$("#LGC_PGtable tr[name='fenyelan'] a:eq(2)").addClass("FY_a_noActive");
+			$("#LGC_PGtable tr[name='fenyelan'] a:eq(3)").addClass("FY_a_noActive");
+			$("#LGC_PGtable tr[name='fenyelan'] a:eq(2)").unbind("click");
+			$("#LGC_PGtable tr[name='fenyelan'] a:eq(3)").unbind("click");
 		}
 	});
+}
+function pageTo(){
+	if(parseInt($("#pagenow").val()) > parseInt($("#pagenow").attr("name"))){
+		$("#pagenow").val($("#pagenow").attr("name"));
+	}
+	initLargePG($("#pagenow").val());
 }
 //大客户特殊价格商品分页
 function fenye(targetPage){

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.server.dao.mapper.GivegoodsMapper;
@@ -217,7 +218,7 @@ public class Com_goodsCtl {
 			//如果没有价格
 			for (int i = 0; i < priceStrs.length; i++) {
 				for (int j = 0; j < price2Strs.length; j++) {
-					if(i == j){
+					if(i == j && !price2Strs[j].equals("")){
 						prices.setPricesprice2(Float.valueOf(price2Strs[j]) );				//套装价
 					}
 				} 
@@ -493,6 +494,15 @@ public class Com_goodsCtl {
 	@ResponseBody
 	public Integer editLargeGoodsPrice(Largecusprice largecusprice){
 		return largecuspriceMapper.updateByPrimaryKeySelective(largecusprice);
+	}
+	//删除大客户商品
+	@RequestMapping(value="/companySys/deleteLGPByIDs")
+	@ResponseBody
+	public String deleteLGPByIDs(@RequestParam("lcpIDs[]") String[] lcpIDs){
+		for (String lcpID : lcpIDs) {
+			largecuspriceMapper.deleteByPrimaryKey(lcpID);
+		}
+		return "";
 	}
 }
 

@@ -55,6 +55,19 @@
 	on g.goodsid = lcp.largecuspricegoods
 	where lcp.largecuspricecompany = #{largecuspricecompany} 
 	and lcp.largecuspricecustomer = #{largecuspricecustomer}
+	<if test="largecuspriceprice">
+		and (lcp.largecuspriceprice like '%${largecuspriceprice}%'
+		or lcp.largecuspricedetail like '%${largecuspriceprice}%'
+		or lcp.largecuspricecreatetime like '%${largecuspriceprice}%'
+		or lcp.largecuspricecreator like '%${largecuspriceprice}%'
+		or lcp.largecuspriceunit like '%${largecuspriceprice}%'
+		or lcp.largecuspriceprice2 like '%${largecuspriceprice}%'
+		or lcp.largecuspriceunit2 like '%${largecuspriceprice}%'
+		or g.GOODSCODE like '%${largecuspriceprice}%'
+		or g.GOODSNAME like '%${largecuspriceprice}%'
+		or g.GOODSCLASS like '%${largecuspriceprice}%'
+		)
+	</if>
   </select>
   <select id="selectLargeCusPriceGoods"  resultMap="BaseResultMap">
   select * from 

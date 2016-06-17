@@ -229,7 +229,7 @@ function addgivegoods(){
 	$(".elegant-aero [type!='button']").val("");
 	$(".cd-popup").addClass("is-visible");	//弹出窗口
 }
-//关闭添加秒杀商品窗口
+//关闭添加买赠商品窗口
 function close_popup(){
 	$(".cd-popup").removeClass("is-visible");	//移除'is-visible' class
 }

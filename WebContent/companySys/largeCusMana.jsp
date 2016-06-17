@@ -15,7 +15,7 @@ String customertype = request.getParameter("customer.customertype");
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript" src="../sysjs/jquery.min.js"></script>
 <link href="css/tabsty.css" rel="stylesheet" type="text/css">
-
+<link href="css/dig.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <form action="allCustomer.action" method="post" id="main_form">
@@ -26,6 +26,7 @@ String customertype = request.getParameter("customer.customertype");
 <div class="navigation">
 查询条件:&nbsp;&nbsp;<input type="text" id="customercode" name="customer.customercode" value="${requestScope.ccustomerCon.customer.customercode }">
 <input class="button" type="button" value="查询" onclick="subcustomerfor()">
+<!-- <input class="button" type="button" value="新增" onclick="addLargeCus()"> -->
 </div>
 <table class="bordered">
     <thead>
@@ -56,7 +57,7 @@ String customertype = request.getParameter("customer.customertype");
 			<td>${ccustomer.ccustomerdetail}</td>
 			<td>${ccustomer.customer.updtime}</td>
 			<td>
-				<a href="editCusInfo.jsp?ccustomerid=${ccustomer.ccustomerid}&pagenow=${requestScope.pagenow }&fo=largeCus">修改</a>/
+				<a href="editCusInfo.jsp?ccustomerid=${ccustomer.ccustomerid}&customerid=${ccustomer.customer.customerid}&pagenow=${requestScope.pagenow }&fo=largeCus">修改</a>/
 				<a href="largeCusXiaDan.jsp?customerid=${ccustomer.customer.customerid}&ccustomerid=${ccustomer.ccustomerid}&ccustomercompany=${requestScope.ccustomerCon.ccustomercompany }">下单</a>
 			</td>
 			<td><a href="largeCusGoodsMana.jsp?customerid=${ccustomer.ccustomerid}&companyid=${requestScope.ccustomerCon.ccustomercompany }">详情</a></td>
@@ -102,6 +103,36 @@ String customertype = request.getParameter("customer.customertype");
 	 </tr>       
 </table>
 </form>
+<!--弹框-->
+<div class="cd-popup" role="alert">
+	<div class="elegant-aero">
+			<h1>添加大客户</h1>
+			<label><span>编码 :</span><input id="givegoodscode" type="text"
+				name="givegoodscode" placeholder="编码" /></label>
+			<label><span>名称 :</span><input id="givegoodsname" type="text"
+				name="givegoodsname" placeholder="名称" /></label>
+			<label><span>规格 :</span><input id="givegoodsunits" type="text"
+				name="givegoodsunits" placeholder="规格" /></label>
+			<label><span>单位 :</span><input id="givegoodsunit" type="text"
+				name="givegoodsunit" placeholder="单位" /></label>
+			<label><span>售价 :</span><input id="givegoodsprice" type="number"
+				name="givegoodsprice" placeholder="售价" /></label>
+			<label><span>个人限量 :</span><input id="givegoodsnum" type="number"
+				name="givegoodsnum" placeholder="个人限量" /></label>
+			<label><span>顺序 :</span><input id="givegoodsseq" type="number"
+				name="givegoodsseq" placeholder="顺序" /></label>
+			<label><span>买赠描述 :</span><textarea name="givegoodsdetail"></textarea></label>
+			<p><label><input type="button"
+				class="popup_button" value="提交" onclick="popup_formSub()"/>
+			</label>
+			<label><input type="button"
+				class="popup_button" value="从商品中选择" onclick="dobiaopin()"/>
+			</label>
+			<label><input type="button"
+				class="popup_button" value="关闭窗口" onclick="close_popup()"/>
+			</label></p>
+	</div>
+</div>
 <script type="text/javascript">
 var customertype = '<%=customertype %>';
 $(function(){
@@ -109,6 +140,19 @@ $(function(){
 		checkCondition();
 	});
 })
+//添加新大客户
+function addLargeCus(){
+	
+}
+//关闭添加大客户窗口
+function close_popup(){
+	$(".cd-popup").removeClass("is-visible");	//移除'is-visible' class
+}
+//弹出添加大客户的窗口
+function addgivegoods(){
+	$(".elegant-aero [type!='button']").val("");
+	$(".cd-popup").addClass("is-visible");	//弹出窗口
+}
 //检查查询条件是否变化
 function checkCondition(){
 	if($("#customercode").val() != '${requestScope.ccustomerCon.customer.customercode }'){
