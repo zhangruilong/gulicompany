@@ -336,7 +336,7 @@ function popup_formSub(){
 	$(".elegant-aero [type='text']").add(".elegant-aero [type='number']").each(function(i,item){
 		if($(item).val() == null || $(item).val() == '' ){
 			if($(item).attr('placeholder') != '顺序'){
-				alert($(item).attr('placeholder') + '不能为空');
+				alert($(item).attr('placeholder') + '不能为空!');
 				count++;
 				return false;
 			}
@@ -354,7 +354,7 @@ function popup_formSub(){
 	if(count == 0){
 		data += '"timegoodsimage":"'+$("#timegoodsimage").val()+'","timegoodscompany":"${requestScope.timegoodsCon.timegoodscompany }","creator":"${sessionScope.company.companyshop }"}';
 		$.getJSON('addTimeGoods.action',JSON.parse(data),function(){
-			alert('添加成功');
+			alert('添加成功!');
 			fenye('1');
 		});
 	}
@@ -379,9 +379,9 @@ function editTimeGoods(){
 		$('[name="timegoodsid"]').val(itemid);
 		$('#main_form').submit();
 	} else if(count == 0){
-		alert("请选择秒杀商品");
+		alert("请选择秒杀商品!");
 	} else {
-		alert("只能选择一个秒杀商品");
+		alert("只能选择一个秒杀商品!");
 	}
 }
 //删除秒杀商品
@@ -398,17 +398,17 @@ function removeTimeGoods(){
 		if(confirm("是否删除")){
 			$.post('removeTimeGoods.action',{'timegoodsid':itemid},function(data){
 				if(data == 'ok'){
-					alert("删除成功");
+					alert("删除成功!");
 					window.location.reload();
 				} else {
-					alert("删除失败");
+					alert("要删除的秒杀商品不存在.");
 				}
 			});
 		}
 	} else if(count == 0){
-		alert("请选择秒杀商品");
+		alert("请选择秒杀商品!");
 	} else {
-		alert("只能选择一个秒杀商品");
+		alert("只能选择一个秒杀商品!");
 	}
 }
 </script>

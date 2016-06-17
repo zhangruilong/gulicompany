@@ -72,7 +72,7 @@ function saveEdit(){
 	var data = '{';
 	var count = 0;
 	if($("[name='givegoodsdetail']").val == null || $("[name='givegoodsdetail']").val == '' ){
-		alert("描述不能为空");
+		alert("描述不能为空!");
 	} else {
 		data += '"givegoodsdetail":"' +$("[name='givegoodsdetail']").val() +'",';
 	}
@@ -87,7 +87,7 @@ function saveEdit(){
 	$(".elegant-aero [type='text']").add(".elegant-aero [type='number']").each(function(i,item){
 		if($(item).val() == null || $(item).val() == '' ){
 			if($(item).attr('placeholder') != '顺序' && $(item).attr('placeholder') != '图片路径'){
-				alert($(item).attr('placeholder') + '不能为空');
+				alert($(item).attr('placeholder') + '不能为空!');
 				count++;
 				return false;
 			}
@@ -99,10 +99,10 @@ function saveEdit(){
 		data += '"givegoodsid":"${requestScope.editGiveGoods.givegoodsid }"}';
 		$.post('editGiveGoods.action',JSON.parse(data),function(data){
 			if(data == 'ok'){
-				alert('修改成功');
+				alert('修改成功!');
 				window.location.href = 'allGiveGoods.action?givegoodscompany=${requestScope.editGiveGoods.givegoodscompany }&pagenow=${requestScope.pagenow}';
 			} else {
-				alert('修改失败');
+				alert('要修改的买赠商品不存在!');
 			}
 		});
 	}

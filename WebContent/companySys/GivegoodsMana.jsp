@@ -304,7 +304,7 @@ function popup_formSub(){
 	var data = '{';
 		data += '"givegoodsclass":"买赠商品",';
 	if($(".elegant-aero textarea").val() == null || $(".elegant-aero textarea").val() == ""){
-		alert("买赠描述不能为空");
+		alert("买赠描述不能为空!");
 		return;
 	} else {
 		data += '"'+$(".elegant-aero textarea").attr("name") + '":"' + $(".elegant-aero textarea").val() + '",'
@@ -313,7 +313,7 @@ function popup_formSub(){
 	$(".elegant-aero [type='text']").add(".elegant-aero [type='number']").each(function(i,item){
 		if($(item).val() == null || $(item).val() == '' ){
 			if($(item).attr('placeholder') != '顺序'){
-				alert($(item).attr('placeholder') + '不能为空');
+				alert($(item).attr('placeholder') + '不能为空!');
 				count++;
 				return false;
 			}
@@ -331,7 +331,7 @@ function popup_formSub(){
 	if(count == 0){
 		data += '"givegoodsimage":"'+$("#givegoodsimage").val()+'","givegoodscompany":"${requestScope.givegoodsCon.givegoodscompany }","creator":"${sessionScope.company.companyshop }"}';
 		$.getJSON('addGiveGoods.action',JSON.parse(data),function(){
-			alert('添加成功');
+			alert('添加成功!');
 			document.forms[0].submit();
 		});
 	}
@@ -351,14 +351,13 @@ function editGiveGoods(){
 		}
 	});
 	if(count > 0 && count < 2){
-		//window.location.href = "doGoodsPrices.action?goodsid="+itemid+"&pagenow=${requestScope.pagenow}";
 		$('#main_form').attr('action','doEditGiveGoods.action');
 		$('[name="givegoodsid"]').val(itemid);
 		$('#main_form').submit();
 	} else if(count == 0){
-		alert("请选择买赠商品");
+		alert("请选择买赠商品!");
 	} else {
-		alert("只能选择一个买赠商品");
+		alert("只能选择一个买赠商品!");
 	}
 }
 //删除买赠商品
@@ -375,17 +374,17 @@ function removeGiveGoods(){
 		if(confirm("是否删除")){
 			$.post('removeGiveGoods.action',{'givegoodsid':itemid},function(data){
 				if(data == 'ok'){
-					alert("删除成功");
+					alert("删除成功!");
 					window.location.reload();
 				} else {
-					alert("删除失败");
+					alert("要删除的买赠商品不存在!");
 				}
 			});
 		}
 	} else if(count == 0){
-		alert("请选择买赠商品");
+		alert("请选择买赠商品!");
 	} else {
-		alert("只能选择一个买赠商品");
+		alert("只能选择一个买赠商品!");
 	}
 }
 </script>

@@ -187,7 +187,6 @@ function tabEdit(){
 		$(this).focus();
 	});
 	$(".largeCus_form td[name!='odd_num']:not([name$='_money'])").blur(function(){
-		alert("这是不以 _money 结尾的元素");
 		$(this).attr("contentEditable","false");
 		$(this).css("background-color","transparent");
 	});
