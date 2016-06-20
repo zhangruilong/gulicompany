@@ -153,12 +153,13 @@ function editLCPgoods(){
 	});
 	if(count == 1){
 		var lcgpItemJson = JSON.parse(itemJson);
+		$(".elegant-aero label:eq(7) input").attr("hidden","hidden");
 		$(".elegant-aero label:eq(0) input").val(lcgpItemJson.lcpGoods.goodscode);
 		$(".elegant-aero label:eq(1) input").val(lcgpItemJson.lcpGoods.goodsname);
 		$(".elegant-aero label:eq(2) input").val(lcgpItemJson.lcpGoods.goodsunits);
 		$(".elegant-aero label:eq(3) input").val(lcgpItemJson.largecuspriceunit);
 		$(".elegant-aero label:eq(4) input").val(lcgpItemJson.largecuspriceprice);
-		$(".elegant-aero label:eq(5) textarea").text(typeNullFoString(lcgpItemJson.largecuspricedetail));
+		$(".elegant-aero label:eq(5) textarea").val(typeNullFoString(lcgpItemJson.largecuspricedetail));
 		$(".elegant-aero p label input[value='保存']").parent().attr("name",lcgpItemJson.largecuspriceid);
 		$(".elegant-aero p label input[value='保存']").attr("onclick","saveEditLCPgoods()");
 		$(".cd-popup").addClass("is-visible");	//弹出窗口
@@ -178,7 +179,7 @@ function saveEditLCPgoods(){
 			"largecuspriceid":$(".elegant-aero p label input[value='保存']").parent().attr("name"),
 			"largecuspriceunit":$(".elegant-aero label:eq(3) input").val(),
 			"largecuspriceprice":$(".elegant-aero label:eq(4) input").val(),
-			"largecuspricedetail":$(".elegant-aero label:eq(5) textarea").text()
+			"largecuspricedetail":$(".elegant-aero label:eq(5) textarea").val()
 		},
 		success:function(data){
 			alert("修改成功");
@@ -237,6 +238,8 @@ function saveNewGoodsPrice(){
 }
 //添加大客户商品
 function addLCPgoods(){
+	$(".elegant-aero label:eq(7) input").removeAttr("hidden");
+	$(".elegant-aero p label input[value='保存']").attr("onclick","saveNewGoodsPrice()");
 	$(".elegant-aero [type!='button']").val("");
 	$(".elegant-aero textarea").text("");
 	$(".cd-popup").addClass("is-visible");	//弹出窗口

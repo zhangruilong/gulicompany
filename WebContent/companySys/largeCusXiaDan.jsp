@@ -285,7 +285,7 @@ function loadGoodsData(pagenowGoods){
 			var strJSON = JSON.stringify(item);
 			var price = 0;													//商品价格
 			var unit = '';													//商品单位
-			if(!item.largecuspriceList && item.largecuspriceList.length != 0){
+			if(item.largecuspriceList[0].largecuspriceprice){
 				price = item.largecuspriceList[0].largecuspriceprice;
 				unit = item.largecuspriceList[0].largecuspriceunit;
 			} else {

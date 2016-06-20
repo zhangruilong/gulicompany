@@ -493,6 +493,7 @@ public class Com_goodsCtl {
 	@RequestMapping(value="/companySys/editLargeGoodsPrice")
 	@ResponseBody
 	public Integer editLargeGoodsPrice(Largecusprice largecusprice){
+		largecusprice.setLargecuspricecreator(DateUtils.getDateTime());
 		return largecuspriceMapper.updateByPrimaryKeySelective(largecusprice);
 	}
 	//删除大客户商品

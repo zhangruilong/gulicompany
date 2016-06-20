@@ -69,6 +69,8 @@
 	    <result column="LARGECUSPRICECREATETIME" property="largecuspricecreatetime" jdbcType="VARCHAR" />
 	    <result column="LARGECUSPRICECREATOR" property="largecuspricecreator" jdbcType="VARCHAR" />
 	    <result column="LARGECUSPRICEPRICE2" property="largecuspriceprice2" jdbcType="VARCHAR" />
+	    <result column="LARGECUSPRICEUNIT" property="largecuspriceunit" jdbcType="VARCHAR" />
+	    <result column="LARGECUSPRICEUNIT2" property="largecuspriceunit2" jdbcType="VARCHAR" />
     </collection>
   </resultMap>
   <sql id="Base_Column_List" >
