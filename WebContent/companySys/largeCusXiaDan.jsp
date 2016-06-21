@@ -43,20 +43,20 @@
 </head>
 <body>
 	<div class="largeCus_form">
-		<h1>订单信息
+		<h1>开单信息
 			<div class="tt_cusInfo">
 				客户名称:<span></span>
 				类型:<span></span>
 				等级:<span></span>
 			</div>
 		</h1>
-		<input type="button" value="地址" class="LCF_button" onclick="showCusAddress()">
+		<input type="button" value="收货信息" class="LCF_button" onclick="showCusAddress()">
 		<div class="LCXD_CusAddress">
 			联系人:<span></span>
 			联系方式:<span></span>
 			地址:<span></span>
 		</div>
-		<input type="button" value="商品" onclick="selectGoods();" class="LCF_button">
+		<input type="button" value="选择商品" onclick="selectGoods();" class="LCF_button">
 		
 		<table class="bordered">
 			<tr name="ordLi_tr1">
@@ -81,7 +81,7 @@
 				</div></td>
 			</tr>
 		</table>
-		<span>&nbsp;</span> <input type="button" class="LCF_button" value="保存" onclick="saveOrder()"/> 
+		<span>&nbsp;</span> <input type="button" class="LCF_button" value="生成订单" onclick="saveOrder()"/> 
 			<input style="margin-left: 30px;" type="button" class="LCF_button" value="返回" onclick="javascript:window.history.back()"/>
 	</div>
 <!--弹框-->
@@ -203,9 +203,18 @@ function tabEdit(){
 		$(this).next().text(pric*num);
 		$(this).next().next().text(pric*num);
 		showXDMoneyAndSJMoney();
-		
 	});
-	
+	$(".largeCus_form td[name$='_money']").blur(function(){
+		var num = parseFloat($(this).text()).toFixed(2);
+		if(isNaN(num)){
+			alert("只能输入数字");
+			$(this).text(1);
+			$(this).focus();
+			return;
+		}
+		$(this).attr("contentEditable","false");
+		$(this).css("background-color","transparent");
+	});
 }
 //保存订单
 function saveOrder(){
@@ -247,7 +256,6 @@ function saveOrder(){
 			+ '","orderdList":' + orderdListStr
 			+ ''
 		+'}';
-	var dataJson = {"ordermcustomer":customerid}; 
 	$.ajax({
         url: "largeCusOrdermSave.action",
         type: "POST",
@@ -259,7 +267,7 @@ function saveOrder(){
             history.go(-1);
         },
         error: function(res){
-            alert(res.responseText);
+            alert("未知错误,请联系管理员.");
         }
     });
 }
@@ -279,13 +287,19 @@ function closeCdPopup(){
 }
 //加载商品数据
 function loadGoodsData(pagenowGoods){
-	$.post("getlargeCusGoods.action",{"goodscompany":"${param.ccustomercompany}","pagenowGoods":pagenowGoods},function(data){
+	var jsonDATA = JSON.parse($(".tt_cusInfo span:eq(3)").text());
+	$.post("getlargeCusGoods.action",{
+			"goodscompany":"${param.ccustomercompany}",
+			"pagenowGoods":pagenowGoods,
+			"pricesList[0].priceslevel":jsonDATA.largeCCus.ccustomerdetail,
+			"pricesList[0].pricesclass":jsonDATA.largeCCus.customer.customertype
+		},function(data){
 		$("#goods_LCXD tr:gt(0)").remove();
 		$.each(data.goodsList,function(i,item){
 			var strJSON = JSON.stringify(item);
 			var price = 0;													//商品价格
 			var unit = '';													//商品单位
-			if(item.largecuspriceList[0].largecuspriceprice){
+			if(item.largecuspriceList[0]){
 				price = item.largecuspriceList[0].largecuspriceprice;
 				unit = item.largecuspriceList[0].largecuspriceunit;
 			} else {

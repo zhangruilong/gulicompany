@@ -41,7 +41,7 @@ String customertype = request.getParameter("customer.customertype");
 		<th>价格等级</th>
 		<th>修改时间</th>
 		<th>操作</th>
-		<th> </th>
+		<th>特殊商品</th>
     </tr>
     </thead>
     <c:if test="${fn:length(requestScope.ccustomerList) != 0 }">
@@ -57,10 +57,10 @@ String customertype = request.getParameter("customer.customertype");
 			<td>${ccustomer.ccustomerdetail}</td>
 			<td>${ccustomer.customer.updtime}</td>
 			<td>
-				<a href="editCusInfo.jsp?ccustomerid=${ccustomer.ccustomerid}&customerid=${ccustomer.customer.customerid}&pagenow=${requestScope.pagenow }&fo=largeCus">修改</a>/
+				<!-- <a href="editCusInfo.jsp?ccustomerid=${ccustomer.ccustomerid}&customerid=${ccustomer.customer.customerid}&pagenow=${requestScope.pagenow }&fo=largeCus">修改</a>/ -->
 				<a href="largeCusXiaDan.jsp?customerid=${ccustomer.customer.customerid}&ccustomerid=${ccustomer.ccustomerid}&ccustomercompany=${requestScope.ccustomerCon.ccustomercompany }">下单</a>
 			</td>
-			<td><a href="largeCusGoodsMana.jsp?customerid=${ccustomer.ccustomerid}&companyid=${requestScope.ccustomerCon.ccustomercompany }">详情</a></td>
+			<td><a href="largeCusGoodsMana.jsp?customerid=${ccustomer.ccustomerid}&companyid=${requestScope.ccustomerCon.ccustomercompany }">详细</a></td>
 		</tr>
 	</c:forEach>
 	</c:if>

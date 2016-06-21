@@ -89,8 +89,8 @@
 	left outer join largecusprice lcp
 	on lcp.largecuspricegoods = g.goodsid
 	where g.goodsstatue = '上架'
-	and p.pricesclass = '1'
-	and p.priceslevel = '1'
+	and p.pricesclass = #{pricesList[0].pricesclass}
+	and p.priceslevel = #{pricesList[0].priceslevel}
 	and (lcp.largecuspricecompany = #{goodscompany} or lcp.largecuspricecompany is null )
 	<if test="goodscode != null and goodscode != ''">
 			and
@@ -120,8 +120,8 @@
 	left outer join largecusprice lcp
 	on lcp.largecuspricegoods = g.goodsid
 	where g.goodsstatue = '上架'
-	and p.pricesclass = '1'
-	and p.priceslevel = '1'
+	and p.pricesclass = #{goods.pricesList[0].pricesclass}
+	and p.priceslevel = #{goods.pricesList[0].priceslevel}
 	and (lcp.largecuspricecompany = #{goods.goodscompany} or lcp.largecuspricecompany is null )
 	<if test="goods.goodscode != null and goods.goodscode != ''">
 			and

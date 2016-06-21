@@ -59,7 +59,7 @@ String customertype = request.getParameter("customer.customertype");
     		<a>最后一页</a> 
     		<span>跳转到第<input class="fenyelan_input" size="1" type="text" id="pagenow" name="" value="">页</span>
     		<input type="button" onclick="pageTo()" value="GO" class="fenyelan_button">
-    		<span>一共 <span name="showCount">这是第二个span </span> 条数据</span>
+    		<span>一共 <span name="showCount"></span> 条数据</span>
     	</td>
     </tr>
 </table>
@@ -354,56 +354,42 @@ function initLargePG(targetPage){
 						'<td>'+ typeNullFoString(item.largecuspricecreator) +'</td>'+
 					'</tr>');
 			});
-			/* var goodsfenye = '<tr><td colspan="12">';
-			if(data.pagenow > 1){
-				goodsfenye += '<a onclick=fenye("1")>第一页</a><a onclick=fenye("'+(parseInt(data.pagenow)-1)+'")>上一页</a>';
-				
-			} else {
-				goodsfenye += '<span>第一页</span><span>上一页</span>';
-			}
-			goodsfenye += '<span>当前第'+data.pagenow+'页</span>';
-			if(data.pagenow < data.pageCount){
-				goodsfenye += '<a onclick=fenye("'+(parseInt(data.pagenow)+1)+'")>下一页</a><a onclick=fenye("'+data.pageCount+'")>最后一页</a>';
-			} else {
-				goodsfenye += '<span>下一页</span><span>最后一页&nbsp;</span>';
-			}
-			goodsfenye += '<span>跳转到第<input class="fenyelan_input" size="1" type="text" id="pagenow" value="'+
-				data.pagenow+'">页</span>'+
-			 	'<input onclick=pageTo("'+data.pageCount+'") type="button" value="GO" class="fenyelan_button">'+
-		 		'<span>一共 '+data.count+' 条数据</span>';
-			$("#LGC_PGtable").append(goodsfenye); */
-		}
-		$("#LGC_PGtable tr[name='fenyelan'] span:eq(1)").text(data.pagenow);
-		$("#LGC_PGtable tr[name='fenyelan'] span:eq(4)").text(data.count);
-		$("#pagenow").val(data.pagenow);
-		$("#pagenow").attr("name",data.pageCount);
-		if(data.pagenow > 1){
-			$("#LGC_PGtable tr[name='fenyelan'] a:eq(0)").unbind("click");
-			$("#LGC_PGtable tr[name='fenyelan'] a:eq(1)").unbind("click");
-			$("#LGC_PGtable tr[name='fenyelan'] a:eq(0)").removeClass("FY_a_noActive");
-			$("#LGC_PGtable tr[name='fenyelan'] a:eq(1)").removeClass("FY_a_noActive");
-			$("#LGC_PGtable tr[name='fenyelan'] a:eq(0)").click(function(){fenye(1);});
-			$("#LGC_PGtable tr[name='fenyelan'] a:eq(1)").click(function(){fenye(parseInt(data.pagenow)-1);});
-		} else {
-			$("#LGC_PGtable tr[name='fenyelan'] a:eq(0)").addClass("FY_a_noActive");
-			$("#LGC_PGtable tr[name='fenyelan'] a:eq(1)").addClass("FY_a_noActive");
-			$("#LGC_PGtable tr[name='fenyelan'] a:eq(0)").unbind("click");
-			$("#LGC_PGtable tr[name='fenyelan'] a:eq(1)").unbind("click");
-		}
-		if(data.pagenow < data.pageCount){
-			$("#LGC_PGtable tr[name='fenyelan'] a:eq(2)").unbind("click");
-			$("#LGC_PGtable tr[name='fenyelan'] a:eq(3)").unbind("click");
-			$("#LGC_PGtable tr[name='fenyelan'] a:eq(2)").removeClass("FY_a_noActive");
-			$("#LGC_PGtable tr[name='fenyelan'] a:eq(3)").removeClass("FY_a_noActive");
-			$("#LGC_PGtable tr[name='fenyelan'] a:eq(2)").click(function(){fenye(parseInt(data.pagenow)+1);});
-			$("#LGC_PGtable tr[name='fenyelan'] a:eq(3)").click(function(){fenye(data.pageCount);});
-		} else {
-			$("#LGC_PGtable tr[name='fenyelan'] a:eq(2)").addClass("FY_a_noActive");
-			$("#LGC_PGtable tr[name='fenyelan'] a:eq(3)").addClass("FY_a_noActive");
-			$("#LGC_PGtable tr[name='fenyelan'] a:eq(2)").unbind("click");
-			$("#LGC_PGtable tr[name='fenyelan'] a:eq(3)").unbind("click");
+			fenyelanInfo(data.pagenow,data.count,data.pageCount);
 		}
 	});
+}
+//分页栏信息
+function fenyelanInfo(pagenow,count,pageCount){
+	$("#LGC_PGtable tr[name='fenyelan'] span:eq(1)").text(pagenow);
+	$("#LGC_PGtable tr[name='fenyelan'] span:eq(4)").text(count);
+	$("#pagenow").val(pagenow);
+	$("#pagenow").attr("name",pageCount);
+	if(pagenow > 1){
+		$("#LGC_PGtable tr[name='fenyelan'] a:eq(0)").unbind("click");
+		$("#LGC_PGtable tr[name='fenyelan'] a:eq(1)").unbind("click");
+		$("#LGC_PGtable tr[name='fenyelan'] a:eq(0)").removeClass("FY_a_noActive");
+		$("#LGC_PGtable tr[name='fenyelan'] a:eq(1)").removeClass("FY_a_noActive");
+		$("#LGC_PGtable tr[name='fenyelan'] a:eq(0)").click(function(){fenye(1);});
+		$("#LGC_PGtable tr[name='fenyelan'] a:eq(1)").click(function(){fenye(parseInt(pagenow)-1);});
+	} else {
+		$("#LGC_PGtable tr[name='fenyelan'] a:eq(0)").addClass("FY_a_noActive");
+		$("#LGC_PGtable tr[name='fenyelan'] a:eq(1)").addClass("FY_a_noActive");
+		$("#LGC_PGtable tr[name='fenyelan'] a:eq(0)").unbind("click");
+		$("#LGC_PGtable tr[name='fenyelan'] a:eq(1)").unbind("click");
+	}
+	if(pagenow < pageCount){
+		$("#LGC_PGtable tr[name='fenyelan'] a:eq(2)").unbind("click");
+		$("#LGC_PGtable tr[name='fenyelan'] a:eq(3)").unbind("click");
+		$("#LGC_PGtable tr[name='fenyelan'] a:eq(2)").removeClass("FY_a_noActive");
+		$("#LGC_PGtable tr[name='fenyelan'] a:eq(3)").removeClass("FY_a_noActive");
+		$("#LGC_PGtable tr[name='fenyelan'] a:eq(2)").click(function(){fenye(parseInt(pagenow)+1);});
+		$("#LGC_PGtable tr[name='fenyelan'] a:eq(3)").click(function(){fenye(pageCount);});
+	} else {
+		$("#LGC_PGtable tr[name='fenyelan'] a:eq(2)").addClass("FY_a_noActive");
+		$("#LGC_PGtable tr[name='fenyelan'] a:eq(3)").addClass("FY_a_noActive");
+		$("#LGC_PGtable tr[name='fenyelan'] a:eq(2)").unbind("click");
+		$("#LGC_PGtable tr[name='fenyelan'] a:eq(3)").unbind("click");
+	}
 }
 function pageTo(){
 	if(parseInt($("#pagenow").val()) > parseInt($("#pagenow").attr("name"))){

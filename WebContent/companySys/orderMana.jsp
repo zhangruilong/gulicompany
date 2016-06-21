@@ -65,7 +65,7 @@ onclick="doprint('删除')">
 		<th>联系人</th>
 		<th>手机</th>
 		<th>地址</th>
-		<th>业务员</th>
+		<th>订单源</th>
     </tr>
     </thead>
     <c:if test="${fn:length(requestScope.allOrder) != 0 }">

@@ -53,7 +53,7 @@
 }
 
 
-.elegant-aero input[type="text"]{
+.elegant-aero input[type="text"],input[type="number"]{
 	color: #888;
 	padding: 0px 0px 0px 5px;
 	border: 1px solid #C5E2FF;
@@ -63,6 +63,7 @@
 	box-shadow: inset 0px 1px 6px #ECF3F5;
 	font: 200 12px/25px Arial, Helvetica, sans-serif;
 	height: 30px;
+	width: 63px;
 	line-height: 15px;
 	margin: 2px 6px 16px 0px;
 }
@@ -125,15 +126,15 @@ h1 .title_goodsinfo span{
 				
 				<td><label><span>售价等级3 :</span><input 
 				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '3' && price.priceslevel == 3}">${price.pricesprice }</c:if></c:forEach>" 
-				size="5" id="1" type="text" name="pricesprice" placeholder="售价" />
+				size="5" id="1" type="number" name="pricesprice" placeholder="售价" />
 				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit }</c:if></span></label></td>
 				<td><label><span>售价等级2 :</span><input 
 				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '3' && price.priceslevel == 2}">${price.pricesprice }</c:if></c:forEach>" 
-				size="5" id="2" type="text" name="pricesprice" placeholder="售价" />
+				size="5" id="2" type="number" name="pricesprice" placeholder="售价" />
 				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit }</c:if></span></label></td>
 				<td><label><span>售价等级1 :</span><input 
 				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '3' && price.priceslevel == 1}">${price.pricesprice }</c:if></c:forEach>" 
-				size="5" id="3" type="text" name="pricesprice" placeholder="售价" />
+				size="5" id="3" type="number" name="pricesprice" placeholder="售价" />
 				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit }</c:if></span></label></td>
 			</tr>
 			<!-- <tr>
@@ -159,15 +160,15 @@ h1 .title_goodsinfo span{
 			<tr>
 				<td><label><span>售价等级3 :</span><input 
 				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '2' && price.priceslevel == 3}">${price.pricesprice }</c:if></c:forEach>" 
-				size="5" id="4" type="text" name="pricesprice" placeholder="售价" />
+				size="5" id="4" type="number" name="pricesprice" placeholder="售价" />
 				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit }</c:if></span></label></td>
 				<td><label><span>售价等级2 :</span><input 
 				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '2' && price.priceslevel == 2}">${price.pricesprice }</c:if></c:forEach>" 
-				size="5" id="5" type="text" name="pricesprice" placeholder="售价" />
+				size="5" id="5" type="number" name="pricesprice" placeholder="售价" />
 				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit }</c:if></span></label></td>
 				<td><label><span>售价等级1 :</span><input 
 				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '2' && price.priceslevel == 1}">${price.pricesprice }</c:if></c:forEach>" 
-				size="5" id="6" type="text" name="pricesprice" placeholder="售价" />
+				size="5" id="6" type="number" name="pricesprice" placeholder="售价" />
 				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit }</c:if></span></label></td>
 			</tr>
 			<!--<tr>
@@ -193,15 +194,15 @@ h1 .title_goodsinfo span{
 			<tr>
 				<td><label><span>售价等级3 :</span><input 
 				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '1' && price.priceslevel == 3}">${price.pricesprice }</c:if></c:forEach>" 
-				size="5" id="7" type="text" name="pricesprice" placeholder="售价" />
+				size="5" id="7" type="number" name="pricesprice" placeholder="售价" />
 				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit }</c:if></span></label></td>
 				<td><label><span>售价等级2 :</span><input 
 				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '1' && price.priceslevel == 2}">${price.pricesprice }</c:if></c:forEach>" 
-				size="5" id="8" type="text" name="pricesprice" placeholder="售价" />
+				size="5" id="8" type="number" name="pricesprice" placeholder="售价" />
 				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit }</c:if></span></label></td>
 				<td><label><span>售价等级1 :</span><input 
 				value="<c:forEach items="${requestScope.editPriGoods.pricesList }" var="price"><c:if test="${price.pricesclass == '1' && price.priceslevel == 1}">${price.pricesprice }</c:if></c:forEach>" 
-				size="5" id="9" type="text" name="pricesprice" placeholder="售价" />
+				size="5" id="9" type="number" name="pricesprice" placeholder="售价" />
 				<span><c:if test="${requestScope.editPriGoods.pricesList[0].pricesunit !=null }">/${requestScope.editPriGoods.pricesList[0].pricesunit }</c:if></span></label></td>
 			 </tr>
 			<!-- <tr>
@@ -231,6 +232,7 @@ h1 .title_goodsinfo span{
 			$("[name='creator']").attr("checked",true);
 		}
 	});
+	//添加或修改价格(原)
 	function addData(){
 		//window.location.reload();
 		//return;
@@ -304,30 +306,131 @@ h1 .title_goodsinfo span{
 				}
 			}
 		});
-		$.getJSON("addGoodsPrices.action",{
-			"pricesid":pricesid,
-			"strpricesprice":pricesprice,
-			"strpricesprice2":pricesprice2,
-			"goodsid":'${requestScope.editPriGoods.goodsid }',
-			"pricesgoods":'${requestScope.editPriGoods.goodsid }',
-			"goodscompany":'${requestScope.editPriGoods.goodscompany }',
-			'pricesunit':$("#pricesunit").val(),
-			'pricesunit2':$("#pricesunit2").val(),
-			'creator':creator
-		},function(data){
-			alert('价格已更新！');
-			if('${param.pagefor}' == 'canyinGoodsPage'){
-				window.location.href = 'allCanyinGoods.action?goodscompany=${requestScope.editPriGoods.goodscompany }'+
-				'&goodscode=${requestScope.goodsCon.goodscode }&goodsstatue=${requestScope.goodsCon.goodsstatue }'+
-				'&goodsid=${requestScope.goodsCon.goodsid }&pagenow=${requestScope.pagenow }';
-			} else {
-				window.location.href = 'allGoods.action?goodscompany=${requestScope.editPriGoods.goodscompany }'+
-						'&goodscode=${requestScope.goodsCon.goodscode }&goodsstatue=${requestScope.goodsCon.goodsstatue }'+
-						'&goodsid=${requestScope.goodsCon.goodsid }&pagenow=${requestScope.pagenow }';
+		
+		$.ajax({
+				url:"addGoodsPrices.action",
+				data:{
+					"pricesid":pricesid,
+					"strpricesprice":pricesprice,
+					"strpricesprice2":pricesprice2,
+					"goodsid":'${requestScope.editPriGoods.goodsid }',
+					"pricesgoods":'${requestScope.editPriGoods.goodsid }',
+					"goodscompany":'${requestScope.editPriGoods.goodscompany }',
+					'pricesunit':$("#pricesunit").val(),
+					'pricesunit2':$("#pricesunit2").val(),
+					'creator':creator
+				},
+				success: function(data){
+						alert('价格已更新！');
+						if('${param.pagefor}' == 'canyinGoodsPage'){
+							window.location.href = 'allCanyinGoods.action?goodscompany=${requestScope.editPriGoods.goodscompany }'+
+							'&goodscode=${requestScope.goodsCon.goodscode }&goodsstatue=${requestScope.goodsCon.goodsstatue }'+
+							'&goodsid=${requestScope.goodsCon.goodsid }&pagenow=${requestScope.pagenow }';
+						} else {
+							window.location.href = 'allGoods.action?goodscompany=${requestScope.editPriGoods.goodscompany }'+
+									'&goodscode=${requestScope.goodsCon.goodscode }&goodsstatue=${requestScope.goodsCon.goodsstatue }'+
+									'&goodsid=${requestScope.goodsCon.goodsid }&pagenow=${requestScope.pagenow }';
+						}
+					},
+				error:function(){
+					
+				}
+		});
+	}
+	//添加或修改价格
+	function addOrEditPrice(){
+		var val1 = $("#1").val();
+		var val10 = $("#10").val();
+		var pricesunit = $("#pricesunit").val();		//单位
+		if(val1 == null || val1 == "" ){
+			alert("等级为 3 的餐饮客户价格不能为空.");
+			return;
+		}
+		if(pricesunit == null || pricesunit == "" ){
+			alert("单位不能为空");
+			return;
+		}
+		var allInput = $("input");
+		//设置默认价格
+		$.each(allInput,function(i,item){
+			var itemVal = $(item);
+					var itemId = itemVal.attr("id");
+				if((itemVal.val() == null || itemVal.val() == "") && parseInt(itemId) < 10){
+					var ofVal = $("#"+(itemId-1)).val();
+					itemVal.val(ofVal);
+				}
+				if(val10 != null && val10 != ""){
+					if((itemVal.val() == null || itemVal.val() == "") && parseInt(itemId) > 10){
+						var ofVal = $("#"+(itemId-1)).val();
+						itemVal.val(ofVal);
+					}
+				}
+		}); 
+		//添加价格参数
+		var pricesList = new Array();
+		$("[name='pricesprice']").each(function(i,item){
+			if(i < 3){
+				var pricesclass = '3';	
+			} else if(i>=3 && i<6){
+				var pricesclass = '2';
+			} else if(i>=6 && i<9){
+				var pricesclass = '1';
+			}
+			var priceslevel = 3-(i%3);
+			if(i < 3){
+				if($("[name='creator']")[0].checked){
+					var creator = '1';	
+				} else {
+					var creator = '0';	
+				}
+			} else if(i>=3 && i<6){
+				if($("[name='creator']")[1].checked){
+					var creator = '1';	
+				} else {
+					var creator = '0';	
+				}
+			} else if(i>=6 && i<9){
+				if($("[name='creator']")[2].checked){
+					var creator = '1';	
+				} else {
+					var creator = '0';	
+				}
+			}
+			var price = {
+					pricesid:$("[name='pricesid']").eq(i).val(),
+					pricesprice:$(item).val(),
+					pricesgoods:'${requestScope.editPriGoods.goodsid }',
+					pricesclass:pricesclass,
+					priceslevel:priceslevel,
+					pricesunit:pricesunit,
+					pricesprice2:$("[name='pricesprice2']").eq(i).val(),
+					pricesunit2:$("#pricesunit2").val(),
+					creator:creator,
+			}
+			pricesList.push(price);
+		});
+		if('${requestScope.editPriGoods.pricesList[0].pricesid != null }' == 'true' ){		//判断是添加商品价格还是修改商品价格
+			var isAdd = 'no';			//不是添加
+		} else {
+			var isAdd = 'yes';			//是添加
+		}
+		var data = {
+				goodsid:'${requestScope.editPriGoods.goodsid }',
+				pricesList:pricesList
+		};
+		$.ajax({
+			url : "setGoodsPrices.action?isAdd="+isAdd,
+			type : "post",
+			contentType : "application/json;charset=utf-8",
+			data : JSON.stringify(data),
+			success : function(data){
+				alert("操作成功!");
+			},
+			error : function(data){
+				alert('操作失败,要修改的商品价格不存在.');
 			}
 		});
 	}
-	
 	</script>
 </body>
 </html>
