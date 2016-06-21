@@ -88,7 +88,7 @@
 	on p.pricesgoods = g.goodsid
 	left outer join largecusprice lcp
 	on lcp.largecuspricegoods = g.goodsid
-	where g.goodsstatue = '上架'
+	where  (g.goodsstatue = '上架' or lcp.largecuspriceprice is not null)
 	and p.pricesclass = #{pricesList[0].pricesclass}
 	and p.priceslevel = #{pricesList[0].priceslevel}
 	and (lcp.largecuspricecompany = #{goodscompany} or lcp.largecuspricecompany is null )
@@ -119,7 +119,7 @@
 	on p.pricesgoods = g.goodsid
 	left outer join largecusprice lcp
 	on lcp.largecuspricegoods = g.goodsid
-	where g.goodsstatue = '上架'
+	where (g.goodsstatue = '上架' or lcp.largecuspriceprice is not null)
 	and p.pricesclass = #{goods.pricesList[0].pricesclass}
 	and p.priceslevel = #{goods.pricesList[0].priceslevel}
 	and (lcp.largecuspricecompany = #{goods.goodscompany} or lcp.largecuspricecompany is null )

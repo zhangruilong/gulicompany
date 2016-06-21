@@ -26,7 +26,7 @@ String customertype = request.getParameter("customer.customertype");
 </style>
 </head>
 <body>
-<div class="nowposition">当前位置：客户管理》特殊客户》特殊客户商品</div>
+<div class="nowposition">当前位置：客户管理》录单客户》特殊商品</div>
 <div class="navigation">
 查询条件:&nbsp;&nbsp;<input type="text" id="largecuspriceprice" name="largecuspriceprice" value="">
 <input class="button" type="button" value="查询" onclick="initLargePG(1)">

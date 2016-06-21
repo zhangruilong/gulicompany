@@ -22,7 +22,7 @@ String customertype = request.getParameter("customer.customertype");
 <input type="hidden" name="ccustomercompany" value="${requestScope.ccustomerCon.ccustomercompany }">
 <input type="hidden" name="customer.customertype" value="${requestScope.ccustomerCon.customer.customertype }">
 <input type="hidden" name="creator" value="${requestScope.ccustomerCon.creator }">
-<div class="nowposition">当前位置：客户管理》大客户</div>
+<div class="nowposition">当前位置：客户管理》录单客户</div>
 <div class="navigation">
 查询条件:&nbsp;&nbsp;<input type="text" id="customercode" name="customer.customercode" value="${requestScope.ccustomerCon.customer.customercode }">
 <input class="button" type="button" value="查询" onclick="subcustomerfor()">
@@ -58,7 +58,7 @@ String customertype = request.getParameter("customer.customertype");
 			<td>${ccustomer.customer.updtime}</td>
 			<td>
 				<!-- <a href="editCusInfo.jsp?ccustomerid=${ccustomer.ccustomerid}&customerid=${ccustomer.customer.customerid}&pagenow=${requestScope.pagenow }&fo=largeCus">修改</a>/ -->
-				<a href="largeCusXiaDan.jsp?customerid=${ccustomer.customer.customerid}&ccustomerid=${ccustomer.ccustomerid}&ccustomercompany=${requestScope.ccustomerCon.ccustomercompany }">下单</a>
+				<a href="largeCusXiaDan.jsp?customerid=${ccustomer.customer.customerid}&ccustomerid=${ccustomer.ccustomerid}&ccustomercompany=${requestScope.ccustomerCon.ccustomercompany }">录单</a>
 			</td>
 			<td><a href="largeCusGoodsMana.jsp?customerid=${ccustomer.ccustomerid}&companyid=${requestScope.ccustomerCon.ccustomercompany }">详细</a></td>
 		</tr>

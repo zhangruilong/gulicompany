@@ -43,7 +43,7 @@
 </head>
 <body>
 	<div class="largeCus_form">
-		<h1>开单信息
+		<h1>录单信息
 			<div class="tt_cusInfo">
 				客户名称:<span></span>
 				类型:<span></span>
@@ -89,7 +89,7 @@
 <div class="goods_select_popup">
 <div class="navigation">
 查询条件:&nbsp;&nbsp;<input type="text" id="goodscode" name="goodscode" value="">
-<input class="button" type="button" value="查询" onclick="queryGooods()">
+<input class="button" type="button" value="查询" onclick="loadGoodsData()">
 <input class="button" type="button" value="关闭" onclick="closeCdPopup()">
 </div>
 	<table class="bordered" id="goods_LCXD" style="margin: 0 auto">
@@ -250,6 +250,7 @@ function saveOrder(){
 			+ '","ordermrightmoney":"' + $(".LCXD_OrdermInfo span:eq(2)").text()
 			+ '","ordermway":"' + $(".LCXD_OrdermInfo span:eq(3)").text()
 			+ '","ordermstatue":"' + '已下单'
+			+ '","ordermemp":"' + '录单'
 			+ '","ordermconnect":"' + $(".LCXD_CusAddress span:eq(0)").text()
 			+ '","ordermphone":"' + $(".LCXD_CusAddress span:eq(1)").text()
 			+ '","ordermaddress":"' + $(".LCXD_CusAddress span:eq(2)").text()
@@ -263,7 +264,7 @@ function saveOrder(){
         //dataType:"json",
         data: data,
         success: function(data){
-            alert("下单成功!");
+            alert("录单成功!");
             history.go(-1);
         },
         error: function(res){
@@ -291,6 +292,7 @@ function loadGoodsData(pagenowGoods){
 	$.post("getlargeCusGoods.action",{
 			"goodscompany":"${param.ccustomercompany}",
 			"pagenowGoods":pagenowGoods,
+			'goodscode':$.trim($("#goodscode").val()),
 			"pricesList[0].priceslevel":jsonDATA.largeCCus.ccustomerdetail,
 			"pricesList[0].pricesclass":jsonDATA.largeCCus.customer.customertype
 		},function(data){

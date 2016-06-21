@@ -71,7 +71,7 @@ window.print()
 		<td width="29" align="center" style="font-family: 黑体;font-size: 12px;">序号</td>
 		<td width="95" align="center" style="font-family: 黑体;font-size: 12px;">商品编号</td>
 		<td width="" style="font-family: 黑体;font-size: 12px;">商品名称</td>
-		<td width="" align="center" style="font-family: 黑体;font-size: 12px;">规格</td>
+		<td width="79" align="center" style="font-family: 黑体;font-size: 12px;">规格</td>
 		<td width="30" align="center" style="font-family: 黑体;font-size: 12px;">单位</td>
 		<td width="30" style="font-family: 黑体;font-size: 12px;">数量</td>
 		<td width="40" align="center" style="font-family: 黑体;font-size: 12px;">价格</td>
