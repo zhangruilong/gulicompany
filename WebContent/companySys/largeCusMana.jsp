@@ -8,12 +8,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 String customertype = request.getParameter("customer.customertype");
 %>
 
-<!DOCTYPE>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
 <title></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script type="text/javascript" src="../sysjs/jquery.min.js"></script>
+<script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
 <link href="css/tabsty.css" rel="stylesheet" type="text/css">
 <link href="css/dig.css" rel="stylesheet" type="text/css">
 </head>
@@ -26,7 +26,7 @@ String customertype = request.getParameter("customer.customertype");
 <div class="navigation">
 查询条件:&nbsp;&nbsp;<input type="text" id="customercode" name="customer.customercode" value="${requestScope.ccustomerCon.customer.customercode }">
 <input class="button" type="button" value="查询" onclick="subcustomerfor()">
-<!-- <input class="button" type="button" value="新增" onclick="addLargeCus()"> -->
+<input class="button" type="button" value="新增" onclick="addLargeCus()">
 </div>
 <table class="bordered">
     <thead>
@@ -36,7 +36,7 @@ String customertype = request.getParameter("customer.customertype");
 		<th>名称</th>
 		<th>地址</th>
 		<th>联系人</th>
-		<th>手机</th>
+		<th>联系电话</th>
 		<th>客户类型</th>
 		<th>价格等级</th>
 		<th>修改时间</th>
@@ -103,27 +103,45 @@ String customertype = request.getParameter("customer.customertype");
 	 </tr>       
 </table>
 </form>
-<!--弹框-->
+<!--新增录单客户弹框-->
 <div class="cd-popup" role="alert">
-	<div class="elegant-aero">
-			<h1>添加大客户</h1>
-			<label><span>编码 :</span><input id="givegoodscode" type="text"
-				name="givegoodscode" placeholder="编码" /></label>
-			<label><span>名称 :</span><input id="givegoodsname" type="text"
-				name="givegoodsname" placeholder="名称" /></label>
-			<label><span>规格 :</span><input id="givegoodsunits" type="text"
-				name="givegoodsunits" placeholder="规格" /></label>
-			<label><span>单位 :</span><input id="givegoodsunit" type="text"
-				name="givegoodsunit" placeholder="单位" /></label>
-			<label><span>售价 :</span><input id="givegoodsprice" type="number"
-				name="givegoodsprice" placeholder="售价" /></label>
-			<label><span>个人限量 :</span><input id="givegoodsnum" type="number"
-				name="givegoodsnum" placeholder="个人限量" /></label>
-			<label><span>顺序 :</span><input id="givegoodsseq" type="number"
-				name="givegoodsseq" placeholder="顺序" /></label>
-			<label><span>买赠描述 :</span><textarea name="givegoodsdetail"></textarea></label>
+	<div class="elegant-aero" id="addLC_popupForm">
+			<h1>新增录单客户</h1>
+			<label><span>编码 :</span><input id="customer.customercode" type="text"
+				name="customer.customercode" placeholder="编码" /></label>
+			<label><span>名称 :</span><input id="customer.customershop" type="text"
+				name="customer.customershop" placeholder="名称" /></label>
+			<label><span>小类名称 :</span>
+			<select name="newLargeCus_CityName" id="newLargeCus_CityName">
+				<option>嘉兴市</option>
+			</select>
+			</label>
+			<label> <span>地区 :</span>
+			<select name="newLargeCus_xian" id="newLargeCus_xian">
+				<option>海盐县</option>
+				<option>秀洲区</option>
+				<option>嘉善县</option>
+				<option>南湖区</option>
+			</select>
+			</label>
+			<label><span>地址 :</span><input id="customer.customeraddress" type="text"
+				name="customer.customeraddress" placeholder="地址" /></label>
+			<label><span>联系人 :</span><input id="customer.customername" type="text"
+				name="customer.customername" placeholder="联系人" /></label>
+			<label><span>联系电话 :</span><input id="customer.customerphone" type="text"
+				name="customer.customerphone" placeholder="联系电话" /></label>
+			<label> <span>客户类型 :</span>
+			<select name="newLargeCus_tp" id="newLargeCus_tp">
+				<option value="3">餐饮客户</option>
+				<option value="2">商超客户</option>
+				<option value="1">组织单位客户</option>
+			</select>
+			</label>
+			<label><span>价格层级 :</span><input id="customer.customerlevel" type="number"
+				name="customer.customerlevel" placeholder="价格层级" /></label>
+			<!-- <label><span>买赠描述 :</span><textarea name="givegoodsdetail"></textarea></label> -->
 			<p><label><input type="button"
-				class="popup_button" value="提交" onclick="popup_formSub()"/>
+				class="popup_button" value="提交" onclick="saveLargeCus()"/>
 			</label>
 			<label><input type="button"
 				class="popup_button" value="从商品中选择" onclick="dobiaopin()"/>
@@ -139,19 +157,107 @@ $(function(){
 	$("#main_form").on("submit",function(){
 		checkCondition();
 	});
+	$("#addLC_popupForm select[name='newLargeCus_CityName']").on("change",function(){
+		var  myselect=document.getElementById("newLargeCus_CityName");			//根据城市复选框id得到城市复选框对象
+		var index=myselect.selectedIndex ;     									//得到被选择的option的下标
+		var cityName = myselect.options[index].text;							//根据下标得到文本内容
+		queryXian();
+	});
 })
-//添加新大客户
-function addLargeCus(){
-	
+//得到地区选项
+function queryXian(){
+	return ;
+	$.ajax({
+		url:"lcpQueryCity.action",
+		type:"post",
+		data:{
+			"cityname":16
+		},
+		success:function(data){
+			$.each(data,function(i,item){
+				$("#customer.customerxian").append('<option value="'+item.cityid+'">'+item.cityname+'</option>');
+			});
+		},
+		error:function(){
+			alert("查询失败,没有查询到任何地区.");
+		}
+	});
 }
-//关闭添加大客户窗口
+//添加新录单客户
+function addLargeCus(){
+	$(".elegant-aero [type!='button']").val("");
+	$(".cd-popup").addClass("is-visible");	//弹出窗口
+}
+//关闭添加录单客户窗口
 function close_popup(){
 	$(".cd-popup").removeClass("is-visible");	//移除'is-visible' class
 }
-//弹出添加大客户的窗口
-function addgivegoods(){
-	$(".elegant-aero [type!='button']").val("");
-	$(".cd-popup").addClass("is-visible");	//弹出窗口
+//保存新增的录单客户
+function saveLargeCus(){
+	var  myselect1=document.getElementById("newLargeCus_CityName");			//根据城市复选框id得到城市复选框对象
+	var index1=myselect1.selectedIndex ;     									//得到被选择的option的下标
+	
+	var cityName = myselect1.options[index1].text;							//根据下标得到文本内容
+	
+	var  myselect2=document.getElementById("newLargeCus_xian");				//根据城市复选框id得到城市复选框对象
+	var index2=myselect2.selectedIndex ;     									//得到被选择的option的下标
+	
+	var xian = myselect2.options[index2].text;								//根据下标得到文本内容
+	
+	var  myselect3=document.getElementById("newLargeCus_tp");				//根据城市复选框id得到城市复选框对象
+	var index3=myselect3.selectedIndex ;     									//得到被选择的option的下标
+	
+	var type = myselect3.options[index3].text;								//根据下标得到文本内容
+	if(!cityName){
+		alert("城市不能为空!");
+		return;
+	} 
+	if(!xian){
+		alert("地区不能为空!");
+		return;
+	}
+	if(!type){
+		alert("客户类型不能为空!");
+		return;
+	}
+	if(type == '组织单位客户'){
+		type = '1';
+	} else if(type == '商超客户'){
+		type = '2';
+	} else if(type == '餐饮客户'){
+		type = '3';
+	}
+	var count = 0;
+	$("#addLC_popupForm [name^='customer.']").each(function(i,item){
+		var val = $(item).val();
+		if( $.trim(val) == ''){
+			alert($(item).attr("placeholder")+'不能为空!');
+			count++;
+			return false;
+		}
+	});
+	if(count == 0){
+		$.ajax({
+			url:"saveLargeCus.action",
+			type:"post",
+			data:{
+				"customercode":$("#addLC_popupForm input:eq(0)").val(),
+				"customershop":$("#addLC_popupForm input:eq(1)").val(),
+				"customeraddress":$("#addLC_popupForm input:eq(2)").val(),
+				"customername":$("#addLC_popupForm input:eq(3)").val(),
+				"customerphone":$("#addLC_popupForm input:eq(4)").val(),
+				"customerlevel":$("#addLC_popupForm input:eq(5)").val(),
+				"customertype":type,
+				"customercity":cityName,
+				"customerxian":xian,
+			},
+			success:function(data){
+				alert("添加成功!");
+				window.location.reload();
+			},
+			error:function(){alert("添加新客户失败,请重新添加.")}
+		});
+	}
 }
 //检查查询条件是否变化
 function checkCondition(){

@@ -1,5 +1,7 @@
 package com.server.action.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +18,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.server.dao.mapper.AddressMapper;
+import com.server.dao.mapper.CcustomerMapper;
+import com.server.dao.mapper.CityMapper;
+import com.server.dao.mapper.CustomerMapper;
 import com.server.dao.mapper.GivegoodsMapper;
 import com.server.dao.mapper.GoodsMapper;
 import com.server.dao.mapper.GoodsclassMapper;
@@ -23,6 +29,10 @@ import com.server.dao.mapper.LargecuspriceMapper;
 import com.server.dao.mapper.PricesMapper;
 import com.server.dao.mapper.ScantMapper;
 import com.server.dao.mapper.TimegoodsMapper;
+import com.server.pojo.entity.Address;
+import com.server.pojo.entity.Ccustomer;
+import com.server.pojo.entity.City;
+import com.server.pojo.entity.Customer;
 import com.server.pojo.entity.Givegoods;
 import com.server.pojo.entity.Goods;
 import com.server.pojo.entity.Goodsclass;
@@ -54,6 +64,14 @@ public class Com_goodsCtl {
 	private GivegoodsMapper givegoodsMapper;
 	@Autowired
 	private LargecuspriceMapper largecuspriceMapper;
+	@Autowired
+	private CustomerMapper customerMapper;
+	@Autowired
+	private AddressMapper addressMapper;
+	@Autowired
+	private CcustomerMapper ccustomreMapper;
+	@Autowired
+	private CityMapper cityMapper;
 	//全部商品
 	@RequestMapping("/companySys/allGoods")
 	public String allGoods(Model model,Goods goodsCon,Integer pagenow){
@@ -514,6 +532,55 @@ public class Com_goodsCtl {
 			largecuspriceMapper.deleteByPrimaryKey(lcpID);
 		}
 		return "";
+	}
+	//添加大客户
+	@RequestMapping(value="/companySys/saveLargeCus")
+	@ResponseBody
+	public String saveLargeCus(Customer cus){
+		String newId = CommonUtil.getNewId();
+		String datatime = DateUtils.getDateTime();
+		cus.setCustomerid(newId);
+		cus.setCreatetime(datatime);
+		cus.setCustomerstatue("启用");
+		if(cus.getCustomercity() == null || cus.getCustomercity().equals("")){
+			cus.setCustomercity("嘉兴市");
+			cus.setCustomerxian("海盐县");
+			cus.setCustomertype("3");
+		}
+		if(cus.getCustomerlevel()>3|| cus.getCustomerlevel()<1){
+			cus.setCustomerlevel(3);
+		}
+		customerMapper.insertSelective(cus);
+		//添加新地址
+		Address address = new Address();
+		address.setAddressture(1);							//自动设为默认地址
+		address.setAddressid(newId);		//设置新id
+		address.setAddressaddress(cus.getCustomercity()+cus.getCustomerxian()+cus.getCustomeraddress());
+		address.setAddresscustomer(newId);				//客户id
+		address.setAddressphone(cus.getCustomerphone());
+		address.setAddressconnect(cus.getCustomername());
+		addressMapper.insertSelective(address);				//添加默认地址
+		//添加与唯一客户的关系
+		Ccustomer newccustomer = new Ccustomer();
+		newccustomer.setCcustomerid(newId);
+		newccustomer.setCcustomercompany("1");
+		newccustomer.setCcustomercustomer(newId);
+		newccustomer.setCcustomerdetail(cus.getCustomerlevel().toString());
+		newccustomer.setCreator("1");
+		newccustomer.setCreatetime(datatime);
+		ccustomreMapper.insertSelective(newccustomer);
+		return "";
+	}
+	//查询地区
+	@RequestMapping(value="/companySys/lcpQueryCity", produces="application/json")
+	@ResponseBody 
+	public List<City> lcpQueryCity(City cityNameOrKey){
+		List<City> cityList = null;
+		if(cityNameOrKey.getCityid() != null || cityNameOrKey.getCityname() != null ){
+			City parentCity = cityMapper.selectByCitynameOrKey(cityNameOrKey).get(0);
+			cityList = cityMapper.selectByCityparent(parentCity.getCityid());
+		}
+		return cityList;
 	}
 }
 

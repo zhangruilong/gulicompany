@@ -116,7 +116,6 @@
 var customercity = '';
 var divListTop = $(".reg-wrapper ul li").innerHeight(); //divList的top值
 var xianListTop = divListTop*2;	//xianList的top值
-//var cusCityDivHeight = 
 $("#divList").css("top",divListTop + "px");
 $("#xianList").css("top",xianListTop + "px");
 	$(function(){
@@ -143,7 +142,7 @@ $("#xianList").css("top",xianListTop + "px");
 			}
 		});
 		if(count > 0){
-			$(".meg").text(alt);		//修改弹窗信息
+			$(".meg").text(alt);			//修改弹窗信息
 			$(".cd-popup").addClass("is-visible");	//弹出窗口
 			return;
 		}
@@ -206,7 +205,7 @@ $("#xianList").css("top",xianListTop + "px");
        
      //关闭下拉框
        $(document).click(function (e) {          
-          var target_id = $(e.target).attr('id') ;             // 获取点击dom元素id ;
+          var target_id = $(e.target).attr('id');             // 获取点击dom元素id ;
           if(target_id!=oRegion.id){
                   oDivList.style.display = "none";//隐藏div，实现关闭下拉框的效果 ;
           }
