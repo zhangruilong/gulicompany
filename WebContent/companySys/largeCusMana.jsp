@@ -27,6 +27,7 @@ String customertype = request.getParameter("customer.customertype");
 查询条件:&nbsp;&nbsp;<input type="text" id="customercode" name="customer.customercode" value="${requestScope.ccustomerCon.customer.customercode }">
 <input class="button" type="button" value="查询" onclick="subcustomerfor()">
 <input class="button" type="button" value="新增" onclick="addLargeCus()">
+<!-- <input class="button" type="button" value="测试" onclick="testRP()"> -->
 </div>
 <table class="bordered">
     <thead>
@@ -164,6 +165,19 @@ $(function(){
 		queryXian();
 	});
 })
+//测试RP
+function testRP(){
+	$.ajax({
+		url:"testRP.action",
+		type:"post",
+		//contentType : 'application/json;charset=utf-8', //设置请求头信息
+		data:{"cus":{"customername":"测试NAME"}},
+		success:function(data){
+			alert("成功");
+		},
+		error:function(){alert("失败")}
+	});
+}
 //得到地区选项
 function queryXian(){
 	return ;
