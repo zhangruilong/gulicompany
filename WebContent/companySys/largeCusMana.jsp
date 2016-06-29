@@ -34,8 +34,8 @@ String customertype = request.getParameter("customer.customertype");
     <tr>
         <th>序号</th>
 		<th>客户编码</th>
-		<th>名称</th>
-		<th>地址</th>
+		<th>客户名称</th>
+		<th>客户地址</th>
 		<th>联系人</th>
 		<th>联系电话</th>
 		<th>客户类型</th>
@@ -110,14 +110,14 @@ String customertype = request.getParameter("customer.customertype");
 			<h1>新增录单客户</h1>
 			<label><span>编码 :</span><input id="customer.customercode" type="text"
 				name="customer.customercode" placeholder="编码" /></label>
-			<label><span>名称 :</span><input id="customer.customershop" type="text"
+			<label><span>客户名称 :</span><input id="customer.customershop" type="text"
 				name="customer.customershop" placeholder="名称" /></label>
-			<label><span>小类名称 :</span>
+			<label><span>所在城市 :</span>
 			<select name="newLargeCus_CityName" id="newLargeCus_CityName">
 				<option>嘉兴市</option>
 			</select>
 			</label>
-			<label> <span>地区 :</span>
+			<label> <span>所在地区 :</span>
 			<select name="newLargeCus_xian" id="newLargeCus_xian">
 				<option>海盐县</option>
 				<option>秀洲区</option>
