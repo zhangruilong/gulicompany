@@ -53,7 +53,7 @@
 				name="givegoodsnum" value="${requestScope.editGiveGoods.givegoodsnum }" placeholder="个人限量" /></label>
 			<label><span>顺序 :</span><input id="givegoodsseq" type="number"
 				name="givegoodsseq" value="${requestScope.editGiveGoods.givegoodsseq }" placeholder="顺序" /></label>
-			<label><span>图片路径 :</span><input id="givegoodsimage" type="number"
+			<label><span>图片路径 :</span><input id="givegoodsimage" type="text"
 				name="givegoodsimage" value="${requestScope.editGiveGoods.givegoodsimage }" placeholder="图片路径" /></label>
 			<label><span>状态 :</span><select name="givegoodsstatue">
 				<option ${requestScope.editGiveGoods.givegoodsstatue == '启用'?'selected':'' }>启用</option>

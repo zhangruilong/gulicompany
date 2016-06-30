@@ -533,13 +533,6 @@ public class Com_goodsCtl {
 		}
 		return "";
 	}
-	//testRP
-	@RequestMapping(value="/companySys/testRP")
-	@ResponseBody
-	public String testRP(@RequestParam(value="cus",required=false) Customer cus){
-		System.out.println(cus);
-		return "ok";
-	}
 	//添加大客户
 	@RequestMapping(value="/companySys/saveLargeCus")
 	@ResponseBody

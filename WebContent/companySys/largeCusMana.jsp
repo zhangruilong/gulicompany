@@ -27,7 +27,7 @@ String customertype = request.getParameter("customer.customertype");
 查询条件:&nbsp;&nbsp;<input type="text" id="customercode" name="customer.customercode" value="${requestScope.ccustomerCon.customer.customercode }">
 <input class="button" type="button" value="查询" onclick="subcustomerfor()">
 <input class="button" type="button" value="新增" onclick="addLargeCus()">
-<!-- <input class="button" type="button" value="测试" onclick="testRP()"> -->
+
 </div>
 <table class="bordered">
     <thead>
@@ -133,9 +133,9 @@ String customertype = request.getParameter("customer.customertype");
 				name="customer.customerphone" placeholder="联系电话" /></label>
 			<label> <span>客户类型 :</span>
 			<select name="newLargeCus_tp" id="newLargeCus_tp">
-				<option value="3">餐饮客户</option>
-				<option value="2">商超客户</option>
-				<option value="1">组织单位客户</option>
+				<option name="3">餐饮客户</option>
+				<option name="2">商超客户</option>
+				<option name="1">组织单位客户</option>
 			</select>
 			</label>
 			<label><span>价格层级 :</span><input id="customer.customerlevel" type="number"
@@ -165,19 +165,6 @@ $(function(){
 		queryXian();
 	});
 })
-//测试RP
-function testRP(){
-	$.ajax({
-		url:"testRP.action",
-		type:"post",
-		//contentType : 'application/json;charset=utf-8', //设置请求头信息
-		data:{"cus":{"customername":"测试NAME"}},
-		success:function(data){
-			alert("成功");
-		},
-		error:function(){alert("失败")}
-	});
-}
 //得到地区选项
 function queryXian(){
 	return ;
@@ -208,20 +195,19 @@ function close_popup(){
 }
 //保存新增的录单客户
 function saveLargeCus(){
-	var  myselect1=document.getElementById("newLargeCus_CityName");			//根据城市复选框id得到城市复选框对象
-	var index1=myselect1.selectedIndex ;     									//得到被选择的option的下标
+	var  myselect1=document.getElementById("newLargeCus_CityName");			
+	var index1=myselect1.selectedIndex ;     									
 	
-	var cityName = myselect1.options[index1].text;							//根据下标得到文本内容
+	var cityName = myselect1.options[index1].text;							
 	
-	var  myselect2=document.getElementById("newLargeCus_xian");				//根据城市复选框id得到城市复选框对象
-	var index2=myselect2.selectedIndex ;     									//得到被选择的option的下标
+	var  myselect2=document.getElementById("newLargeCus_xian");				
+	var index2=myselect2.selectedIndex ;     									
 	
-	var xian = myselect2.options[index2].text;								//根据下标得到文本内容
+	var xian = myselect2.options[index2].text;								
+	var  myselect3=document.getElementById("newLargeCus_tp");				
+	var index3=myselect3.selectedIndex ;     									
 	
-	var  myselect3=document.getElementById("newLargeCus_tp");				//根据城市复选框id得到城市复选框对象
-	var index3=myselect3.selectedIndex ;     									//得到被选择的option的下标
-	
-	var type = myselect3.options[index3].text;								//根据下标得到文本内容
+	var type = myselect3.options[index3].getAttribute("name");					
 	if(!cityName){
 		alert("城市不能为空!");
 		return;
@@ -233,13 +219,6 @@ function saveLargeCus(){
 	if(!type){
 		alert("客户类型不能为空!");
 		return;
-	}
-	if(type == '组织单位客户'){
-		type = '1';
-	} else if(type == '商超客户'){
-		type = '2';
-	} else if(type == '餐饮客户'){
-		type = '3';
 	}
 	var count = 0;
 	$("#addLC_popupForm [name^='customer.']").each(function(i,item){

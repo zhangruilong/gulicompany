@@ -64,7 +64,7 @@ Company company = (Company)session.getAttribute("company");
 			}
 		});
 		//显示最新订单信息
-		timer1 = setInterval(showNewestOrderm,10000);
+		//timer1 = setInterval(showNewestOrderm,10000);
 		
 	})
 	function showNewestOrderm(){
