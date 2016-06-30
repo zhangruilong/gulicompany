@@ -289,7 +289,7 @@
 				var tnum = parseInt(window.localStorage.getItem("totalnum"));		//取出商品的总类数
 				$.each(sdishes,function(i,item) {								//遍历购物车中的商品
 					//i是增量,item是迭代出来的元素.i从0开始
-					if( item.goodsid == timegoodsid){
+					if( item.goodsid == timegoodsid && item.goodsclassname == timegoodsclass){
 						//如果商品id相同
 						window.location.href = "cart.jsp";
 						return false;
