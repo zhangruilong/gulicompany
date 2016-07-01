@@ -134,7 +134,7 @@ function setscompany(){
 			$.each(scompany, function(y, item2) {
 				if(item2.ordermcompany == item.goodscompany){
 					item2.ordermnum += 1;
-					item2.ordermmoney = (parseInt(item2.ordermmoney) + item.pricesprice * item.orderdetnum).toFixed(2);
+					item2.ordermmoney = (parseFloat(item2.ordermmoney) + item.pricesprice * item.orderdetnum).toFixed(2);
 					return false;
 				}else if(y==scompany.length-1){
 					var mcompany = new Object();
