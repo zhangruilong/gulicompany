@@ -37,8 +37,6 @@ public class CcustomerAction extends BaseAction {
 	public void insAll(HttpServletRequest request, HttpServletResponse response){
 		json2cuss(request);
 		for(Ccustomer temp:cuss){
-			temp.setCreator(getCurrentUsername(request));
-			temp.setCreatetime(DateUtils.getDateTime());
 			temp.setCcustomerid(CommonUtil.getNewId());
 			result = DAO.insSingle(temp);
 		}
