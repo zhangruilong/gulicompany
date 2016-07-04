@@ -47,7 +47,7 @@ String ordermway = request.getParameter("ordermway");
 onclick="doprint('删除')">
 </div>
 <br />
-<table class="bordered" style="margin-left: 6px;">
+<table class="bordered" >
     <thead>
 
     <tr>

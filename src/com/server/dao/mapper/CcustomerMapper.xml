@@ -98,7 +98,7 @@
 		<if test="ccustomer.creator != null and ccustomer.creator != ''">
 			and ccustomer.creator = #{ccustomer.creator}
 		</if>
-		order by customer.customerid desc
+		order by ccustomer.ccustomerid desc
 		) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) ) 
 		where RN &gt; ((#{nowpage}-1)*#{pagesize})
   </select>

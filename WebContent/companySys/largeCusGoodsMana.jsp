@@ -17,6 +17,7 @@ String customertype = request.getParameter("customer.customertype");
 <script type="text/javascript" src="../companySys/js/common.js"></script>
 <link href="css/tabsty.css" rel="stylesheet" type="text/css">
 <link href="css/dig.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="<%=basePath%>ExtJS/resources/css/ext-all.css" />
 <style type="text/css">
 .elegant-aero{margin-top: 0;}
 .fenyelan_input{width: 22px;text-align: center;}

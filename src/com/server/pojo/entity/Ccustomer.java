@@ -24,7 +24,7 @@ public class Ccustomer
     */
    private String ccustomerdetail;   
    /**
-    * 创建时间
+    * 创建时间(客户经理)
     */
    private String createtime;   
    /**

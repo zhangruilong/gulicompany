@@ -38,8 +38,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<th>商品名称</th>
 		<th>规格</th>
 		<th>单位</th>
-		<th>数量</th>
 		<th>单价</th>
+		<th>数量</th>
 		<th>商品总价</th>
 		<th>实际金额</th>
 		<th>订单时间</th>
@@ -53,8 +53,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td>${orderd.orderdname}</td>
 			<td>${orderd.orderdunits}</td>
 			<td>${orderd.orderdunit}</td>
-			<td>${orderd.orderdnum}</td>
 			<td>${orderd.orderdprice}</td>
+			<td>${orderd.orderdnum}</td>
 			<td>${orderd.orderdmoney}</td>
 			<td>${orderd.orderdrightmoney}</td>
 			<td>${orderd.orderm.ordermtime}</td>

@@ -16,7 +16,7 @@ String goodsstatue = request.getParameter("goodsstatue");
 <script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
 <link href="css/tabsty.css" rel="stylesheet" type="text/css">
 <link href="css/dig.css" rel="stylesheet" type="text/css">
-
+<link rel="stylesheet" type="text/css" href="<%=basePath%>ExtJS/resources/css/ext-all.css" />
 </head>
 <body>
 <form id='main_form' action="allGoods.action" method="post">

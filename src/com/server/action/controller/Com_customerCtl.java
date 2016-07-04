@@ -11,14 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.server.dao.mapper.AddressMapper;
 import com.server.dao.mapper.CcustomerMapper;
 import com.server.dao.mapper.CustomerMapper;
+import com.server.dao.mapper.EmpMapper;
 import com.server.pojo.entity.Address;
 import com.server.pojo.entity.Ccustomer;
 import com.server.pojo.entity.Customer;
+import com.server.pojo.entity.Emp;
 import com.system.tools.util.DateUtils;
 import com.system.tools.util.FileUtil;
 
@@ -35,6 +38,8 @@ public class Com_customerCtl {
 	private CustomerMapper customerMapper;
 	@Autowired
 	private AddressMapper addressMapper;
+	@Autowired
+	private EmpMapper empMapper;
 	//全部客户
 	@RequestMapping(value="/companySys/allCustomer")
 	public String allCustomer(Model model,Ccustomer ccustomerCon,Integer pagenow){
@@ -66,6 +71,8 @@ public class Com_customerCtl {
 	public Map<String,Object> queryCcusAndCus(String ccustomerid){
 		Map<String,Object> map = new HashMap<String, Object>();
 		Ccustomer ccustomer = ccustomerMapper.selectCCusAndCusById(ccustomerid);
+		List<Emp> empList = empMapper.selectEmpByCompany(ccustomer.getCcustomercompany());
+		map.put("emps", empList);
 		map.put("editCus", ccustomer.getCustomer());
 		map.put("editCcus", ccustomer);
 		return map;
@@ -80,6 +87,14 @@ public class Com_customerCtl {
 		customerMapper.updateByPrimaryKeySelective(customer);
 		ccustomerMapper.updateByPrimaryKeySelective(ccustomer);
 		return map;
+	}
+	//删除客户信息
+	@RequestMapping(value="/companySys/deleteCCustomer")
+	@ResponseBody
+	public void deleteCCustomer(@RequestParam("ccustomerids[]") String[] ccustomerids){
+		for (String ccusid : ccustomerids) {
+			ccustomerMapper.deleteByPrimaryKey(ccusid);
+		}
 	}
 	//导出报表
 	@RequestMapping("/companySys/exportCustomerReport")

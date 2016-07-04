@@ -13,18 +13,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="css/tabsty.css" rel="stylesheet" type="text/css">
 <link href="css/dig.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="<%=basePath%>ExtJS/resources/css/ext-all.css" />
 <script type="text/javascript" src="../sysjs/jquery.min.js"></script>
 <style type="text/css">
-.bordered tr td {
-	padding: 5px;
-	padding-left: 3px;
-	padding-right: 3px;
-}
-.bordered tr th{
-	padding: 5px;
-	padding-left: 1px;
-	padding-right: 1px;
-}
 .elegant-aero{
 	margin-top: 0;
 	overflow: auto;

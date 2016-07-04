@@ -14,10 +14,40 @@
 <link href="css/formsty.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
+
+</script>
+</head>
+<body>
+	<div class="elegant-aero">
+			<h1>修改客户信息</h1>
+			<label> <span>客户类型 :</span>
+			<select name="customertype" id="customertype">
+				<option value="3">餐饮客户</option>
+				<option value="2">商超客户</option>
+				<option value="1">组织单位客户</option>
+			</select>
+			</label> 
+			<label> <span>价格层级 :</span> <input id="ccustomerdetail" type="number"
+				name="ccustomerdetail" placeholder="价格层级"
+				value="" />
+			</label> 
+			<label> <span>客户经理 :</span>
+			<select name="createtime">
+				<option>请选择客户经理</option>
+			</select>
+			</label>
+			<label> <span>&nbsp;</span> <input type="button"
+				class="button" value="保存" onclick="saveCus()"/>
+			</label>
+	</div>
+<script type="text/javascript">
 $(function(){
 	$.getJSON("queryCcusAndCus.action",{"ccustomerid":"${param.ccustomerid}"},initEditCus,null);
 });
 function initEditCus(data){
+	$.each(data.emps,function(i,item){
+		$("select[name='createtime']").append('<option>'+item.empdetail+'</option>');
+	});
 	$("#customertype option").each(function(i,item){
 		if($(item).val() == data.editCus.customertype){
 			$(item).attr("selected","selected");
@@ -42,22 +72,5 @@ function saveafert(data){
 	}
 }
 </script>
-</head>
-<body>
-	<div class="elegant-aero">
-			<h1>修改客户信息</h1>
-			<label> <span>客户类型 :</span>
-			<select name="customertype" id="customertype">
-				<option value="3">餐饮客户</option>
-				<option value="2">商超客户</option>
-				<option value="1">组织单位客户</option>
-			</select>
-			</label> <label> <span>价格层级 :</span> <input id="ccustomerdetail" type="number"
-				name="ccustomerdetail" placeholder="价格层级"
-				value="" />
-			</label> <label> <span>&nbsp;</span> <input type="button"
-				class="button" value="保存" onclick="saveCus()"/>
-			</label>
-	</div>
 </body>
 </html>

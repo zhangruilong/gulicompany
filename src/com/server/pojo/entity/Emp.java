@@ -28,7 +28,7 @@ public class Emp
     */
    private String password;   
    /**
-    * 描述
+    * 描述(姓名)
     */
    private String empdetail;   
    /**
@@ -130,7 +130,7 @@ public class Emp
 	}	   
 
 	/**
-	 *设置"描述"属性
+	 *设置"描述(姓名)"属性
 	 *@param empdetail 实体的Empdetail属性
 	 */
 	public void setEmpdetail(String empdetail)
@@ -139,7 +139,7 @@ public class Emp
 	}
 	
 	/**
-	 *获取"描述"属性
+	 *获取"描述(姓名)"属性
 	 */
 	public String getEmpdetail()
 	{

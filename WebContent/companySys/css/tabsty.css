@@ -25,7 +25,8 @@ table {
     -webkit-box-shadow: 0 1px 1px #ccc; 
     -moz-box-shadow: 0 1px 1px #ccc; 
     box-shadow: 0 1px 1px #ccc;         
-    margin: 0px 0px 0px 15px;
+    margin: 0px 0px 0px 6px;
+    white-space:nowrap;
 }
 .bordered tr{
 	background-color: white;
@@ -43,7 +44,6 @@ table {
 	font-size:13px;
     border-left: 1px solid #ccc;
     border-top: 1px solid #ccc;
-    padding: 8px;
     text-align: center;    
     padding: 5px 3px 5px 3px;
 }
