@@ -71,30 +71,38 @@ public class Com_customerCtl {
 	public Map<String,Object> queryCcusAndCus(String ccustomerid){
 		Map<String,Object> map = new HashMap<String, Object>();
 		Ccustomer ccustomer = ccustomerMapper.selectCCusAndCusById(ccustomerid);
+		Customer editCus = ccustomer.getCustomer();
 		List<Emp> empList = empMapper.selectEmpByCompany(ccustomer.getCcustomercompany());
 		map.put("emps", empList);
-		map.put("editCus", ccustomer.getCustomer());
+		map.put("editCus", editCus);
 		map.put("editCcus", ccustomer);
 		return map;
 	}
 	//修改客户信息
 	@RequestMapping(value="/companySys/editCcusAndCus",produces="application/json")
 	@ResponseBody
-	public Map<String,Object> editCcusAndCus(Customer customer,Ccustomer ccustomer){
+	public Map<String,Object> editCcusAndCus(Customer customer,Ccustomer ccustomer,String accountManager){
 		Map<String,Object> map = new HashMap<String, Object>();
 		customer.setCustomerlevel(Integer.parseInt(ccustomer.getCcustomerdetail()));
 		customer.setUpdtime(DateUtils.getDateTime());				//设置客户修改时间
+		ccustomer.setCreatetime(accountManager);
+		List<Address> addList = addressMapper.selectByCondition(customer.getCustomerid());
+		Address add = null;
+		if(addList != null && addList.size() >0){
+			add = addList.get(0);
+		} else {
+			add = new Address();
+			add.setAddressid(customer.getCustomerid());
+			add.setAddresscustomer(customer.getCustomerid());
+		}
+		add.setAddressaddress(customer.getCustomercity()+customer.getCustomerxian()+customer.getCustomeraddress());
+		add.setAddressconnect(customer.getCustomername());
+		add.setAddressphone(customer.getCustomerphone());
+		add.setAddressture(1);
+		addressMapper.updateByPrimaryKeySelective(add);
 		customerMapper.updateByPrimaryKeySelective(customer);
 		ccustomerMapper.updateByPrimaryKeySelective(ccustomer);
 		return map;
-	}
-	//删除客户信息
-	@RequestMapping(value="/companySys/deleteCCustomer")
-	@ResponseBody
-	public void deleteCCustomer(@RequestParam("ccustomerids[]") String[] ccustomerids){
-		for (String ccusid : ccustomerids) {
-			ccustomerMapper.deleteByPrimaryKey(ccusid);
-		}
 	}
 	//导出报表
 	@RequestMapping("/companySys/exportCustomerReport")

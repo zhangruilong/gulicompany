@@ -19,6 +19,7 @@
 </head>
 <body>
 	<div class="elegant-aero">
+	<input type="hidden" name="edit_cusid">
 			<h1>修改客户信息</h1>
 			<label> <span>客户类型 :</span>
 			<select name="customertype" id="customertype">
@@ -28,39 +29,82 @@
 			</select>
 			</label> 
 			<label> <span>价格层级 :</span> <input id="ccustomerdetail" type="number"
-				name="ccustomerdetail" placeholder="价格层级"
-				value="" />
-			</label> 
+				name="ccustomerdetail" placeholder="价格层级" value="" /></label> 
 			<label> <span>客户经理 :</span>
-			<select name="createtime">
-				<option>请选择客户经理</option>
+			<select name="accountManager">
+				<option value="">请选择客户经理</option>
 			</select>
 			</label>
+			
+			<label> <span>联系人 :</span> <input id="customername" type="text"
+				name="customername" placeholder="联系人" value="" /></label> 
+			<label> <span>联系电话 :</span> <input id="customerphone" type="text"
+				name="customerphone" placeholder="联系电话" value="" /></label> 
+			<label> <span>客户名称 :</span> <input id="customershop" type="text"
+				name="customershop" placeholder="客户名称" value="" /></label>
+			<label><span>状态 :</span><select name=customerstatue>
+				<option>启用</option>
+				<option>禁用</option>
+			</select></label>
+			<label><span>所在城市 :</span>
+			<select name="customercity">
+				<option>嘉兴市</option>
+			</select>
+			</label>
+			<label> <span>所在地区 :</span>
+			<select name="customerxian">
+				<option>海盐县</option>
+				<option>秀洲区</option>
+				<option>嘉善县</option>
+				<option>南湖区</option>
+			</select>
+			</label>
+			<label> <span>地址 :</span> <input id="customeraddress" type="text"
+				name="customeraddress" placeholder="地址" value="" /></label> 
 			<label> <span>&nbsp;</span> <input type="button"
 				class="button" value="保存" onclick="saveCus()"/>
 			</label>
 	</div>
+<script type="text/javascript" src="js/common.js"></script>
 <script type="text/javascript">
 $(function(){
 	$.getJSON("queryCcusAndCus.action",{"ccustomerid":"${param.ccustomerid}"},initEditCus,null);
 });
 function initEditCus(data){
 	$.each(data.emps,function(i,item){
-		$("select[name='createtime']").append('<option>'+item.empdetail+'</option>');
+		$("select[name='accountManager']").append('<option>'+item.empdetail+'</option>');
 	});
-	$("#customertype option").each(function(i,item){
-		if($(item).val() == data.editCus.customertype){
-			$(item).attr("selected","selected");
-		}
-	});
+	$("input:hidden[name='edit_cusid']").val(data.editCus.customerid);
+	
+	$("#customertype").val(data.editCus.customertype);
+	$("select[name='accountManager']").val(typeNullFoString(data.editCcus.createtime));
 	$("#ccustomerdetail").val(data.editCcus.ccustomerdetail);
+	$("#customerphone").val(data.editCus.customerphone);
+	$("#customername").val(data.editCus.customername);
+	$("#customershop").val(data.editCus.customershop);
+	$("select[name='customerstatue']").val(data.editCus.customerstatue);
+	$("select[name='customercity']").val(data.editCus.customercity);
+	$("select[name='customerxian']").val(data.editCus.customerxian);
+	$("#customeraddress").val(data.editCus.customeraddress);
 }
 function saveCus(){
+	/* $("select").each(function(i,item){
+		alert($(item).val());
+	}); */
+	alert($("select[name='accountManager']").val());
 	$.getJSON("editCcusAndCus.action",{
-		"customerid":"${param.customerid}",
+		"customerid":$("input:hidden[name='edit_cusid']").val(),
 		"customertype":$("#customertype").val(),
+		"accountManager":$("select[name='accountManager']").val(),
+		"customerphone":$("#customerphone").val(),
+		"customername":$("#customername").val(),
+		"customershop":$("#customershop").val(),
+		"customerstatue":$("select[name='customerstatue']").val(),
+		"customercity":$("select[name='customercity']").val(),
+		"customerxian":$("select[name='customerxian']").val(),
+		"customeraddress":$("#customeraddress").val(),
 		"ccustomerid":"${param.ccustomerid}",
-		"ccustomerdetail":$("#ccustomerdetail").val()
+		"ccustomerdetail":$("#ccustomerdetail").val(),
 		},saveafert,null);
 }
 function saveafert(data){
@@ -68,7 +112,8 @@ function saveafert(data){
 	if('${param.fo}' == 'largeCus'){
 		window.location.href = "allCustomer.action?ccustomercompany=${sessionScope.company.companyid}&creator=1&pagenow=${param.pagenow}";
 	} else {
-		window.location.href = "allCustomer.action?ccustomercompany=${sessionScope.company.companyid}&pagenow=${param.pagenow}";
+		window.location.href = "allCustomer.action?ccustomercompany=${sessionScope.company.companyid}&pagenow=${param.pagenow}"+
+				"&customercode=${param.customercode}";
 	}
 }
 </script>

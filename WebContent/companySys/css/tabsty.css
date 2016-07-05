@@ -25,7 +25,7 @@ table {
     -webkit-box-shadow: 0 1px 1px #ccc; 
     -moz-box-shadow: 0 1px 1px #ccc; 
     box-shadow: 0 1px 1px #ccc;         
-    margin: 0px 0px 0px 6px;
+    margin: 6px 0px 0px 6px;
     white-space:nowrap;
 }
 .bordered tr{
@@ -45,16 +45,14 @@ table {
     border-left: 1px solid #ccc;
     border-top: 1px solid #ccc;
     text-align: center;    
-    padding: 5px 3px 5px 3px;
+    padding: 7px 3px 7px 3px;
 }
-
 
 .bordered th {
     background-color: #FAB957;
     -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset; 
     -moz-box-shadow:0 1px 0 rgba(255,255,255,.8) inset;  
     box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;        
-   /* text-shadow: 0 1px 0 rgba(255,255,255,.5); */
     border-top: none;
 }
 
@@ -120,6 +118,7 @@ table {
 	padding: 0px 0px 5px 30px;
 	color: #848484;
 	border-bottom: 1px #848484 dashed;
+	white-space:nowrap;
 }
 .navigation div{
 	float:left; display:inline;

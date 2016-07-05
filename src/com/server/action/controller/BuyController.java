@@ -45,32 +45,40 @@ public class BuyController {
 		return "forward:/guliwang/buy.jsp";
 	}
 	
-	//修改秒杀商品的剩余数量
-	@RequestMapping("/guliwang/editRestAmount")
+	//检查秒杀商品的剩余数量
+	@RequestMapping("/guliwang/checkRestAmount")
 	@ResponseBody
-	public String editRestAmount(String timegoodsids,String timegoodssum){
+	public String checkRestAmount(String timegoodsids,String timegoodssum){
 		String[] timegoodsidsStr = timegoodsids.split(",");
 		String[] timegoodssumStr = timegoodssum.split(",");
 		String msg = "ok";
-		List<Timegoods> timegoodsList = new ArrayList<Timegoods>();
 		for (int i = 0; i < timegoodsidsStr.length; i++) {									//遍历是否有超过秒杀商品剩余数量的
 			Timegoods timegoods = timegoodsMapper.selectByPrimaryKey(timegoodsidsStr[i]);
-			timegoodsList.add(timegoods);
 			if(timegoods.getAllnum() != -1 && timegoods.getSurplusnum() - Integer.parseInt(timegoodssumStr[i]) < 0){
 				msg = "no";
 				break;
 			}
 		}
-		if(msg.equals("ok")){
+		return msg;
+	}
+	//检查秒杀商品的剩余数量
+		@RequestMapping("/guliwang/editRestAmount")
+		@ResponseBody
+		public String editRestAmount(String timegoodsids,String timegoodssum){
+			String[] timegoodsidsStr = timegoodsids.split(",");
+			String[] timegoodssumStr = timegoodssum.split(",");
+			List<Timegoods> timegoodsList = new ArrayList<Timegoods>();
+			for (int i = 0; i < timegoodsidsStr.length; i++) {									//遍历是否有超过秒杀商品剩余数量的
+				Timegoods timegoods = timegoodsMapper.selectByPrimaryKey(timegoodsidsStr[i]);
+				timegoodsList.add(timegoods);
+			}
 			for(int i = 0; i < timegoodsList.size() ; i++){
 				Timegoods timegoods = timegoodsList.get(i);
 				timegoods.setSurplusnum(timegoods.getSurplusnum() - Integer.parseInt(timegoodssumStr[i]));
 				timegoodsMapper.updateByPrimaryKeySelective(timegoods);
 			}
+			return null;
 		}
-		return msg;
-	}
-	
 //////////////////////////////////////////////////EMP补单页面  /////////////////////////////////////////////////////////////////////////////////
 	
 	//到结算页面

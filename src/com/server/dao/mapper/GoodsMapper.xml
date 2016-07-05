@@ -147,8 +147,12 @@
     left join prices p 
     on p.pricesgoods = goods.goodsid
     where goods.goodscompany = #{goodscompany} 
-    and p.pricesclass = '3' 
-    and p.creator = '启用'
+    <if test="pricesList != null">
+    	<if test="pricesList[0].pricesclass != null and pricesList[0].pricesclass != ''">
+	    	and p.pricesclass = #{pricesList[0].pricesclass}
+	    	and p.creator = '启用'
+	    </if>
+    </if>
     <if test="goodsstatue != null and goodsstatue != ''">
     	and goods.goodsstatue = #{goodsstatue}
     </if>
@@ -178,8 +182,12 @@
     left join prices p 
     on p.pricesgoods = goods.goodsid
     where goods.goodscompany = #{goods.goodscompany} 
-    and p.pricesclass = '3' 
-    and p.creator = '启用'
+    <if test="goods.pricesList != null">
+	    <if test="goods.pricesList[0].pricesclass != null and goods.pricesList[0].pricesclass != ''">
+	    	and p.pricesclass = #{goods.pricesList[0].pricesclass}
+	    	and p.creator = '启用'
+	    </if>
+	</if>
     <if test="goods.goodsstatue != null and goods.goodsstatue != ''">
     	and goods.goodsstatue = #{goods.goodsstatue}
     </if>
@@ -194,7 +202,7 @@
 			goods.UPDOR like '%${goods.goodscode}%' or
 			gc.goodsclassname like '%${goods.goodscode}%')
 	</if>
-	order by goods.createtime,goods.goodsid desc
+	 order by goods.createtime desc
  ) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) )
 where RN &gt; ((#{nowpage}-1)*#{pagesize})
     
@@ -264,7 +272,7 @@ where RN &gt; ((#{nowpage}-1)*#{pagesize})
 			goods.UPDOR like '%${goods.goodscode}%' or
 			goodsclass.goodsclassname like '%${goods.goodscode}%')
 	</if>
-	order by goods.createtime,goods.goodsid desc
+	order by goods.createtime desc
  ) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) ) 
 where RN &gt; ((#{nowpage}-1)*#{pagesize})
     

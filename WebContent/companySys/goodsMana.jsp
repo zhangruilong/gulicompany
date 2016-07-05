@@ -25,6 +25,13 @@ String goodsstatue = request.getParameter("goodsstatue");
  <input type="hidden" class="setPricesGoodsId" name="goodsid" value="">
 <div class="nowposition">当前位置：商品管理》全部商品</div>
 <div class="navigation">
+商品类别:&nbsp;&nbsp;
+<select name="pricesList[0].pricesclass">
+	<option value="" >全部商品</option>
+	<option value="3" ${goodsCon.pricesList[0].pricesclass== 3?'selected':''}>餐饮商品</option>
+	<option value="2" ${goodsCon.pricesList[0].pricesclass== 2?'selected':''}>商超商品</option>
+	<option value="1" ${goodsCon.pricesList[0].pricesclass== 1?'selected':''}>组织单位商品</option>
+</select>
 查询条件:&nbsp;&nbsp;<input type="text" id="goodscode" name="goodscode" value="${requestScope.goodsCon.goodscode }">
 <input class="button" type="button" value="查询" onclick="subgoodsfor()">
 <input class="button" type="button" value="价格设置" onclick="setgoodsprices()">

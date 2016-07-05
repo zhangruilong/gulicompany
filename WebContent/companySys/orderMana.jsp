@@ -46,7 +46,6 @@ String ordermway = request.getParameter("ordermway");
 <input style="background-image: url('');background-color: #D33E2C;" class="button" type="button" value="删除" 
 onclick="doprint('删除')">
 </div>
-<br />
 <table class="bordered" >
     <thead>
 

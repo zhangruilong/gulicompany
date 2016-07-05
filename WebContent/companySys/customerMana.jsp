@@ -26,7 +26,7 @@ String customertype = request.getParameter("customer.customertype");
 查询条件:&nbsp;&nbsp;<input type="text" id="customercode" name="customer.customercode" value="${requestScope.ccustomerCon.customer.customercode }">
 <input class="button" type="button" value="查询" onclick="subcustomerfor()">
 <input class="button" type="button" value="导出" onclick="reportCustomer()">
-<input class="button" type="button" value="删除" onclick="deleteCCus()">
+<input class="button" type="button" value="修改" onclick="updateCus()">
 </div>
 <table class="bordered" id="ccus_tab">
     <thead>
@@ -42,7 +42,6 @@ String customertype = request.getParameter("customer.customertype");
 		<th>价格层级</th>
 		<th>修改时间</th>
 		<th>客户经理</th>
-		<th>操作</th>
     </tr>
     </thead>
     <c:if test="${fn:length(requestScope.ccustomerList) != 0 }">
@@ -58,8 +57,7 @@ String customertype = request.getParameter("customer.customertype");
 			<td>${ccustomer.customer.customertype == 3?'餐饮客户':(ccustomer.customer.customertype == 2?'商超客户':'组织单位客户')}</td>
 			<td>${ccustomer.ccustomerdetail}</td>
 			<td>${ccustomer.customer.updtime}</td>
-			<td>${ccustomer.customer.createtime}</td>
-			<td><a href="editCusInfo.jsp?customerid=${ccustomer.customer.customerid}&ccustomerid=${ccustomer.ccustomerid}&pagenow=${requestScope.pagenow }">修改</a></td>
+			<td>${ccustomer.createtime}</td>
 		</tr>
 	</c:forEach>
 	</c:if>
@@ -118,28 +116,23 @@ $(function(){
 		checkCondition();
 	});
 })
-//删除客户关系
-function deleteCCus(){
-	var ccusids = new Array();
+//修改
+function updateCus(){
+	var ccusid = "";
+	var count = 0;
 	$("#ccus_tab :checkbox").each(function(i,item){
 		if(item.checked){
-			ccusids.push($(item).val());
-			alert($(item).val());
+			ccusid = $(item).val();
+			count++;
 		}
 	});
-	if(ccusids.length>0){
-		$.ajax({
-			url:"deleteCCustomer.action",
-			type:"post",
-			data:{ccustomerids:ccusids},
-			success:function(){
-				alert("删除成功!");
-				window.location.reload();
-			},
-			error:function(){alert("网络出现问题,请稍候再试!");}
-		});
+	if(count>0 && count<2){
+		window.location.href = "editCusInfo.jsp?ccustomerid="+ccusid+"&pagenow=${requestScope.pagenow }"
+				+"&customercode=${requestScope.ccustomerCon.customer.customercode }";
+	} else if(count == 0){
+		alert("请选择要修改的客户!");
 	} else {
-		alert("请选择要删除的商品。");
+		alert("只能选择一个客户!");
 	}
 }
 //检查查询条件是否变化

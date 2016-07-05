@@ -65,7 +65,7 @@
 		or lcp.largecuspriceunit2 like '%${largecuspriceprice}%'
 		or g.GOODSCODE like '%${largecuspriceprice}%'
 		or g.GOODSNAME like '%${largecuspriceprice}%'
-		or g.GOODSCLASS like '%${largecuspriceprice}%'
+		or gc.goodsclassname like '%${largecuspriceprice}%'
 		)
 	</if>
   </select>
@@ -90,7 +90,7 @@
 		or lcp.largecuspriceunit2 like '%${largecusprice.largecuspriceprice}%'
 		or g.GOODSCODE like '%${largecusprice.largecuspriceprice}%'
 		or g.GOODSNAME like '%${largecusprice.largecuspriceprice}%'
-		or g.GOODSCLASS like '%${largecusprice.largecuspriceprice}%'
+		or gc.goodsclassname like '%${largecusprice.largecuspriceprice}%'
 		)
 	</if>
 	order by lcp.largecuspricecreatetime desc

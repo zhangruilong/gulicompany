@@ -28,11 +28,12 @@ String customertype = request.getParameter("customer.customertype");
 查询条件:&nbsp;&nbsp;<input type="text" id="customercode" name="customer.customercode" value="${requestScope.ccustomerCon.customer.customercode }">
 <input class="button" type="button" value="查询" onclick="subcustomerfor()">
 <input class="button" type="button" value="新增" onclick="addLargeCus()">
-
+<input class="button" type="button" value="特殊商品" onclick="largeCusGoods()">
 </div>
-<table class="bordered">
+<table class="bordered" id="lgCus_tab">
     <thead>
     <tr>
+    	<th></th>
         <th>序号</th>
 		<th>客户编码</th>
 		<th>客户名称</th>
@@ -49,6 +50,7 @@ String customertype = request.getParameter("customer.customertype");
     <c:if test="${fn:length(requestScope.ccustomerList) != 0 }">
 	<c:forEach var="ccustomer" items="${requestScope.ccustomerList }" varStatus="ccustomerSta">
 		<tr>
+			<td><input type="checkbox" value="${ccustomer.ccustomerid}"></td>
 			<td><c:out value="${ccustomerSta.count}"></c:out></td>
 			<td>${ccustomer.customer.customercode}</td>
 			<td>${ccustomer.customer.customershop}</td>
@@ -166,6 +168,24 @@ $(function(){
 		queryXian();
 	});
 })
+//跳转到特殊商品详情页
+function largeCusGoods(){
+	var cusid = "";
+	var count = 0;
+	$("#lgCus_tab :checkbox").each(function(i,item){
+		if(item.checked){
+			cusid = $(item).val();
+			count++;
+		}
+	});
+	if(count>0 && count<2){
+		window.location.href = "largeCusGoodsMana.jsp?customerid="+cusid+"&companyid=${requestScope.ccustomerCon.ccustomercompany }";
+	} else if(count == 0){
+		alert("请选择一个客户!");
+	} else {
+		alert("只能选择一个客户!");
+	}
+}
 //得到地区选项
 function queryXian(){
 	return ;

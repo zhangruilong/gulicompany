@@ -74,7 +74,10 @@
     select 
 		ccustomer.ccustomerid,
 		ccustomer.ccustomerdetail,
-		customer.*
+		customer.customerid,customer.customercode,customer.customername,customer.customerphone,
+		customer.customerpsw,customer.customershop,customer.customercity,customer.customerxian,
+		customer.customeraddress,customer.customertype,customer.customerlevel,customer.openid,
+		customer.customerdetail,customer.customerstatue,customer.createtime as cuscreatetime,customer.updtime
 	from 
 		ccustomer 
 		left outer join customer 

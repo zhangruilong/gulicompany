@@ -143,11 +143,11 @@ function buy(){
 			}
 		});
 		if(timegoodsids && timegoodssum && timegoodsids != '' && timegoodssum != '' ){
-			$.post('editRestAmount.action',
+			$.post('checkRestAmount.action',
 				{'timegoodsids':timegoodsids,'timegoodssum':timegoodssum},
 				function(data){
 					if(data == 'ok'){
-						saveOrder(ordermjson,orderdetjson);
+						saveOrder(ordermjson,orderdetjson,timegoodsids,timegoodssum);
 					} else {
 						$(".meg").text("您购买的秒杀商品卖完了.......");
 						$(".cd-popup-ok").attr("onclick","javascript:window.location.href = 'cart.jsp'");
@@ -157,11 +157,10 @@ function buy(){
 		} else {
 			saveOrder(ordermjson,orderdetjson);
 		}
-		
      });
 }
 //保存订单和订单详情
-function saveOrder(ordermjson,orderdetjson){
+function saveOrder(ordermjson,orderdetjson,timegoodsids,timegoodssum){
 	$.ajax({
 		url : 'OrdermAction.do?method=addOrder',
 		data : {
@@ -170,9 +169,24 @@ function saveOrder(ordermjson,orderdetjson){
 		},
 		success : function(resp) {
 			var respText = eval('('+resp+')'); 
-			if(respText.success == false) 
+			if(respText.success == false) {
 				alert(respText.msg);
-			else {
+			} else if(timegoodsids && timegoodssum && timegoodsids != '' && timegoodssum != '' ){
+				$.ajax({
+					url:"editRestAmount.action",
+					type:"post",
+					data:{'timegoodsids':timegoodsids,'timegoodssum':timegoodssum},
+					success:function(data){
+						window.localStorage.setItem("sdishes", "[]");
+						window.localStorage.setItem("totalnum", 0);
+						window.localStorage.setItem("totalmoney", 0);
+						window.localStorage.setItem("cartnum", 0);
+						alert("下单成功！");
+						window.location.href = "order.jsp";
+					},
+					error:function(){}
+				});
+			} else {
 				window.localStorage.setItem("sdishes", "[]");
 				window.localStorage.setItem("totalnum", 0);
 				window.localStorage.setItem("totalmoney", 0);

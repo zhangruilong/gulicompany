@@ -84,13 +84,11 @@ public class LoginController {
 		address.setAddressconnect(customer.getCustomername());
 		addressMapper.insertSelective(address);				//添加默认地址
 		//添加与唯一客户的关系
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		Ccustomer newccustomer = new Ccustomer();
 		newccustomer.setCcustomerid(newCusId);
 		newccustomer.setCcustomercompany("1");
 		newccustomer.setCcustomercustomer(newCusId);
 		newccustomer.setCcustomerdetail("3");
-		newccustomer.setCreatetime(sdf.format(new Date()));
 		ccustomreMapper.insertSelective(newccustomer);
 		return customer;
 	}
