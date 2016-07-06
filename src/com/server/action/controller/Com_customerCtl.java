@@ -117,9 +117,11 @@ public class Com_customerCtl {
 	//大客户下单页信息
 	@RequestMapping("/companySys/largeCusXiaDanInfo")
 	@ResponseBody
-	public Map<String, Object> largeCusXiaDanInfo(String ccustomerid,Address address){
+	public Map<String, Object> largeCusXiaDanInfo(String ccustomerid){
 		Map<String, Object> map = new HashMap<String, Object>();
+		Address address = new Address();
 		Ccustomer largeCCus = ccustomerMapper.selectCCusAndCusById(ccustomerid);
+		address.setAddresscustomer(largeCCus.getCcustomercustomer());
 		List<Address> addressList = addressMapper.selectDefAddress(address);
 		if(addressList != null && addressList.size()>0){
 			map.put("cusAddress", addressList.get(0));

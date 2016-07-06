@@ -43,6 +43,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <input type="hidden" name="givegoodsid" value="">
 <div class="nowposition">当前位置：商品管理》买赠商品</div>
 <div class="navigation">
+查询条件:&nbsp;&nbsp;<input type="text" id="givegoodscode" name="givegoodscode" value="">
+<input class="button" type="button" value="查询" onclick="queryGivegoods()">
 <input class="button" type="button" value="添加" onclick="addgivegoods()">
 <input class="button" type="button" value="修改" onclick="editGiveGoods()">
 <input class="button" type="button" value="删除" onclick="removeGiveGoods()">

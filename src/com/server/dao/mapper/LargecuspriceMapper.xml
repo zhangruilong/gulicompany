@@ -53,9 +53,11 @@
 	from largecusprice lcp 
 	left join goods g
 	on g.goodsid = lcp.largecuspricegoods
+	left outer join goodsclass gc
+	on g.goodsclass = gc.goodsclassid
 	where lcp.largecuspricecompany = #{largecuspricecompany} 
 	and lcp.largecuspricecustomer = #{largecuspricecustomer}
-	<if test="largecuspriceprice">
+	<if test="largecuspriceprice != null and largecuspriceprice != ''">
 		and (lcp.largecuspriceprice like '%${largecuspriceprice}%'
 		or lcp.largecuspricedetail like '%${largecuspriceprice}%'
 		or lcp.largecuspricecreatetime like '%${largecuspriceprice}%'
@@ -80,7 +82,7 @@
 	on g.goodsclass = gc.goodsclassid
 	where lcp.largecuspricecompany = #{largecusprice.largecuspricecompany} 
 	and lcp.largecuspricecustomer = #{largecusprice.largecuspricecustomer}
-	<if test="largecusprice.largecuspriceprice">
+	<if test="largecusprice.largecuspriceprice != null and largecusprice.largecuspriceprice != ''">
 		and (lcp.largecuspriceprice like '%${largecusprice.largecuspriceprice}%'
 		or lcp.largecuspricedetail like '%${largecusprice.largecuspriceprice}%'
 		or lcp.largecuspricecreatetime like '%${largecusprice.largecuspriceprice}%'

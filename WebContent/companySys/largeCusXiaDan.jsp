@@ -43,7 +43,7 @@
 </head>
 <body>
 	<div class="largeCus_form">
-		<h1>录单信息
+			<h1>录单信息
 			<div class="tt_cusInfo">
 				客户名称:<span></span>
 				类型:<span></span>
@@ -124,10 +124,11 @@
 </div>
 <script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
-var customerid = '${param.customerid}';
+var customerid = '';
 $(function(){
 	$.post("largeCusXiaDanInfo.action",{"ccustomerid":"${param.ccustomerid}","addresscustomer":"${param.customerid}"},function(data){
 		var strJSON = JSON.stringify(data);
+		customerid = data.largeCCus.customer.customerid;
 		$(".tt_cusInfo").append('<span hidden="true">'+strJSON+'</span>');
 		//客户信息
 		$(".tt_cusInfo span:eq(0)").text(data.largeCCus.customer.customershop);
@@ -296,6 +297,7 @@ function loadGoodsData(pagenowGoods){
 			"pricesList[0].priceslevel":jsonDATA.largeCCus.ccustomerdetail,
 			"pricesList[0].pricesclass":jsonDATA.largeCCus.customer.customertype
 		},function(data){
+		
 		$("#goods_LCXD tr:gt(0)").remove();
 		$.each(data.goodsList,function(i,item){
 			var strJSON = JSON.stringify(item);

@@ -28,7 +28,8 @@ String customertype = request.getParameter("customer.customertype");
 查询条件:&nbsp;&nbsp;<input type="text" id="customercode" name="customer.customercode" value="${requestScope.ccustomerCon.customer.customercode }">
 <input class="button" type="button" value="查询" onclick="subcustomerfor()">
 <input class="button" type="button" value="新增" onclick="addLargeCus()">
-<input class="button" type="button" value="特殊商品" onclick="largeCusGoods()">
+<input class="button" type="button" value="特殊商品" onclick="largeCusGoods('1')">
+<input class="button" type="button" value="录单" onclick="largeCusGoods('2')">
 </div>
 <table class="bordered" id="lgCus_tab">
     <thead>
@@ -43,8 +44,6 @@ String customertype = request.getParameter("customer.customertype");
 		<th>客户类型</th>
 		<th>价格等级</th>
 		<th>修改时间</th>
-		<th>操作</th>
-		<th>特殊商品</th>
     </tr>
     </thead>
     <c:if test="${fn:length(requestScope.ccustomerList) != 0 }">
@@ -60,11 +59,6 @@ String customertype = request.getParameter("customer.customertype");
 			<td>${ccustomer.customer.customertype == 3?'餐饮客户':(ccustomer.customer.customertype == 2?'商超客户':'组织单位客户')}</td>
 			<td>${ccustomer.ccustomerdetail}</td>
 			<td>${ccustomer.customer.updtime}</td>
-			<td>
-				<!-- <a href="editCusInfo.jsp?ccustomerid=${ccustomer.ccustomerid}&customerid=${ccustomer.customer.customerid}&pagenow=${requestScope.pagenow }&fo=largeCus">修改</a>/ -->
-				<a href="largeCusXiaDan.jsp?customerid=${ccustomer.customer.customerid}&ccustomerid=${ccustomer.ccustomerid}&ccustomercompany=${requestScope.ccustomerCon.ccustomercompany }">录单</a>
-			</td>
-			<td><a href="largeCusGoodsMana.jsp?customerid=${ccustomer.ccustomerid}&companyid=${requestScope.ccustomerCon.ccustomercompany }">详细</a></td>
 		</tr>
 	</c:forEach>
 	</c:if>
@@ -168,8 +162,9 @@ $(function(){
 		queryXian();
 	});
 })
-//跳转到特殊商品详情页
-function largeCusGoods(){
+
+//跳转到特殊商品详情页或者跳转到录单页
+function largeCusGoods(option){
 	var cusid = "";
 	var count = 0;
 	$("#lgCus_tab :checkbox").each(function(i,item){
@@ -179,7 +174,11 @@ function largeCusGoods(){
 		}
 	});
 	if(count>0 && count<2){
-		window.location.href = "largeCusGoodsMana.jsp?customerid="+cusid+"&companyid=${requestScope.ccustomerCon.ccustomercompany }";
+		if(option == '1'){
+			window.location.href = "largeCusGoodsMana.jsp?customerid="+cusid+"&companyid=${requestScope.ccustomerCon.ccustomercompany }";
+		} else if(option == '2'){
+			window.location.href = "largeCusXiaDan.jsp?ccustomerid="+cusid+"&ccustomercompany=${requestScope.ccustomerCon.ccustomercompany }";
+		}
 	} else if(count == 0){
 		alert("请选择一个客户!");
 	} else {
