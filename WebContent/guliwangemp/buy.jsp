@@ -164,6 +164,7 @@ function buy(){
 function saveOrder(ordermjson,orderdetjson){
 	$.ajax({
 		url : 'OrdermAction.do?method=addOrder',
+		type:"post",
 		data : {
 			json : ordermjson,
 			orderdetjson : orderdetjson
