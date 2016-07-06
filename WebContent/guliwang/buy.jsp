@@ -163,6 +163,7 @@ function buy(){
 function saveOrder(ordermjson,orderdetjson,timegoodsids,timegoodssum){
 	$.ajax({
 		url : 'OrdermAction.do?method=addOrder',
+		type:"post",
 		data : {
 			json : ordermjson,
 			orderdetjson : orderdetjson
