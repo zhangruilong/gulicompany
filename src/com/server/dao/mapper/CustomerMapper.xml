@@ -80,6 +80,58 @@
     CUSTOMERCITY, CUSTOMERXIAN, CUSTOMERADDRESS, CUSTOMERTYPE, CUSTOMERLEVEL, OPENID, 
     CUSTOMERDETAIL, CUSTOMERSTATUE, CREATETIME, UPDTIME
   </sql>
+  <!-- 客户订单统计报表 -->
+  <select id="selectCusStatisticReport" resultType="com.server.pojo.entity.CustomerStatisticVO" >
+		select 
+		distinct c.customerid as customerid,c.customershop as customershop,c.customername as customername,
+		c.customerphone as customerphone,c.customercity as customercity,c.customerxian as customerxian,
+		c.customeraddress as customeraddress,c.createtime as createtime,cc.createtime as cccreatetime,
+		cc.ccustomerid as ccustomerid,
+		count(om.ordermid) as odm_num,
+		sum(om.ordermrightmoney) as odm_money
+		from customer c
+		left outer join ccustomer cc
+		on c.customerid = cc.ccustomercustomer
+		left outer join orderm om
+		on om.ordermcustomer = c.customerid
+		where cc.ccustomercompany = #{companyid}
+		<if test="staTime != null and staTime != ''">
+			and om.ordermtime &gt;= #{staTime}
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and om.ordermtime &lt;= #{endTime}
+		</if>
+		<if test="staCusQuery != null and staCusQuery !=''">
+			and (
+			cc.createtime like '%${staCusQuery}%' or
+			c.customershop like '%${staCusQuery}%'
+			)
+		</if>
+		group by c.customerid,c.customershop,c.customername,c.customerphone,c.customercity,c.customerxian,c.customeraddress,c.createtime,cc.createtime,cc.ccustomerid
+		order by cccreatetime,customerid desc  nulls last
+  </select>
+  <!-- 统计客户下单数量和实际金额的总和 -->
+  <select id="selectStatisticSum" resultType="com.server.pojo.entity.CustomerStatisticVO">
+		select   
+	         count(om.ordermid) as odm_num,
+	         sum(om.ordermrightmoney) as odm_money
+	  from customer c
+	  left outer join ccustomer cc on c.customerid = cc.ccustomercustomer
+	  left outer join orderm om on om.ordermcustomer = c.customerid
+		where cc.ccustomercompany = #{companyid}
+		<if test="staTime != null and staTime != ''">
+			and om.ordermtime &gt;= #{staTime}
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and om.ordermtime &lt;= #{endTime}
+		</if>
+		<if test="staCusQuery != null and staCusQuery !=''">
+			and (
+			cc.createtime like '%${staCusQuery}%' or
+			c.customershop like '%${staCusQuery}%'
+			)
+		</if>
+  </select>
   <!-- 客户统计数量 -->
   <select id="selectCusStatisticCount" resultType="int">
   		select 
@@ -103,7 +155,7 @@
 			)
 		</if>
   </select>
-  <!-- 客户统计 -->
+  <!-- 客户订单统计 -->
   <select id="selectCusStatistic" resultType="com.server.pojo.entity.CustomerStatisticVO" >
   	select * from 
 	(select A.*, ROWNUM RN from (
@@ -133,7 +185,7 @@
 			)
 		</if>
 		group by c.customerid,c.customershop,c.customername,c.customerphone,c.customercity,c.customerxian,c.customeraddress,c.createtime,cc.createtime,cc.ccustomerid
-		order by odm_money desc  nulls last
+		order by cccreatetime,customerid desc  nulls last
 	) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) ) 
 	where RN &gt; ((#{nowpage}-1)*#{pagesize})
   </select>

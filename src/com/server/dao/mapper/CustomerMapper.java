@@ -10,12 +10,22 @@ import com.server.pojo.entity.CustomerStatisticVO;
 
 public interface CustomerMapper {
 	/**
+	 * 客户订单统计报表
+	 */
+	List<CustomerStatisticVO> selectCusStatisticReport(@Param("companyid") String companyid,@Param("staCusQuery") String staCusQuery,
+			@Param("staTime") String staTime,@Param("endTime") String endTime);
+	/**
+	 * 统计客户下单数量和实际金额的总和
+	 */
+	CustomerStatisticVO selectStatisticSum(@Param("companyid") String companyid,@Param("staCusQuery") String staCusQuery,
+			@Param("staTime") String staTime,@Param("endTime") String endTime);
+	/**
 	 * 客户统计(数量)
 	 */
 	Integer selectCusStatisticCount(@Param("companyid") String companyid,@Param("staCusQuery") String staCusQuery,
 			@Param("staTime") String staTime,@Param("endTime") String endTime);
 	/**
-	 * 客户统计
+	 * 客户订单统计
 	 */
 	List<CustomerStatisticVO> selectCusStatistic(@Param("companyid") String companyid,@Param("staCusQuery") String staCusQuery,
 			@Param("nowpage") Integer nowpage,@Param("pagesize") Integer pagesize,

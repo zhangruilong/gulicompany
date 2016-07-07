@@ -57,8 +57,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</c:forEach>
 	<tr>
 		<td colspan="6">总计</td>
-		<td></td>
-		<td></td>
+		<td>${requestScope.total.odm_num }</td>
+		<td>${requestScope.total.odm_money }</td>
 	</tr>
 	</c:if>
 	<c:if test="${fn:length(requestScope.cusStaVoList)==0 }">
@@ -146,7 +146,7 @@ var md2;					//第二个日期对象
   }
 //导出报表
 function report(){
-	window.location.href ="exportReport.action?companyid=${sessionScope.company.companyid }"+
+	window.location.href ="exportCusStatisticReport.action?companyid=${sessionScope.company.companyid }"+
 	"&staTime=${requestScope.staTime }&endTime=${requestScope.endTime }&condition=${requestScope.condition }";
 }
 //查询

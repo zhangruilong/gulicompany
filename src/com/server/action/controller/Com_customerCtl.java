@@ -23,6 +23,7 @@ import com.server.pojo.entity.Ccustomer;
 import com.server.pojo.entity.Customer;
 import com.server.pojo.entity.CustomerStatisticVO;
 import com.server.pojo.entity.Emp;
+import com.server.pojo.entity.Orderd;
 import com.system.tools.util.DateUtils;
 import com.system.tools.util.FileUtil;
 
@@ -163,6 +164,8 @@ public class Com_customerCtl {
 			nowpage = pageCount;
 		}
 		List<CustomerStatisticVO> volist = customerMapper.selectCusStatistic(companyid,staCusQuery, nowpage, 10,staTime, endTime);
+		CustomerStatisticVO total = customerMapper.selectStatisticSum(companyid, staCusQuery, staTime, endTime);
+		model.addAttribute("total", total);
 		model.addAttribute("cusStaVoList", volist);
 		model.addAttribute("staCusQuery", staCusQuery);
 		model.addAttribute("staTime", staTime);
@@ -171,6 +174,25 @@ public class Com_customerCtl {
 		model.addAttribute("nowpage", nowpage);
 		model.addAttribute("count", count);
 		return "forward:cusStatistic.jsp";
+	}
+	//导出客户统计报表
+	@RequestMapping("/companySys/exportCusStatisticReport")
+	@ResponseBody
+	public void exportCusStatisticReport(HttpServletResponse response,String companyid,String staCusQuery,String staTime,String endTime) throws Exception{
+		ArrayList<CustomerStatisticVO> list = (ArrayList<CustomerStatisticVO>) customerMapper.selectCusStatisticReport(companyid, staCusQuery, staTime, endTime);
+		String[] heads = {"联系人","手机","店名","地址","订单数量","订单总额","客户经理"};								//表头
+		String[] discard = {"customerid","customercode","customerpsw","customercity","customerxian",
+					"customertype","customerlevel","openid","customerdetail",
+					"customerstatue","createtime","updtime","collectList",};			//要忽略的字段名
+		String name = "客户订单统计报表";																				//文件名称
+		if(!staTime.equals("") && !endTime.equals("")){
+			name = staTime + "日至" + endTime + "日的" + name;
+		} else if(staTime.equals("") && !endTime.equals("")){
+			name = endTime + "日之前的" + name;
+		} else if(endTime.equals("") && !staTime.equals("")){
+			name = staTime + "日之后的" + name;
+		}
+		FileUtil.expExcel(response, list, heads, discard, name);
 	}
 }
 
