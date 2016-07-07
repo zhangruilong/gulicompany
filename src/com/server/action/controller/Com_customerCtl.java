@@ -55,6 +55,9 @@ public class Com_customerCtl {
 		} else {
 			pageCount = (count / 10) +1;
 		}
+		if(pagenow > pageCount){
+			pagenow = pageCount;
+		}
 		List<Ccustomer> ccustomerList = ccustomerMapper.selectCusByCom(ccustomerCon,pagenow,10);
 		model.addAttribute("ccustomerList", ccustomerList);
 		model.addAttribute("ccustomerCon", ccustomerCon);

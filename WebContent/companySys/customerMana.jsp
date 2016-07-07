@@ -140,9 +140,6 @@ function checkCondition(){
 	if($("#customercode").val() != '${requestScope.ccustomerCon.customer.customercode }'){
 		$("#pagenow").val('1');
 	}
-	if(parseInt($("#pagenow").val()) > '${requestScope.pageCount }' ){
-		$("#pagenow").val('${requestScope.pageCount }');
-	}
 }
 //提交查询条件
 function subcustomerfor(){

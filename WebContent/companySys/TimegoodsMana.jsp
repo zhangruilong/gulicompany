@@ -232,21 +232,11 @@ function timegoodsjump(){
 //商品跳转到第X页
 function goodsPageTo(pageCountGoods){
 	var pagenowGoods = $("#pagenowGoods").val();
-	if(parseInt(pagenowGoods) > parseInt(pageCountGoods)){
-		pagenowGoods = pageCountGoods;
-	}
 	loadGoodsData(pagenowGoods);
 }
 //弹出添加秒杀商品的窗口
 function addtimegoods(){
 	$(".cd-popup").addClass("is-visible");	//弹出窗口
-	/* $.getJSON("getallGoodclass.action",function(data){
-		$.each(data,function(i,item){
-			$("#timegoodsclass").append(
-				'<option value="'+item.goodsclassid+'">'+item.goodsclassname+'</option>'
-			)
-		});
-	}); */
 }
 //关闭添加秒杀商品窗口
 function close_popup(){
