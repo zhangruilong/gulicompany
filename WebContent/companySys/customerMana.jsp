@@ -8,7 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 String customertype = request.getParameter("customer.customertype");
 %>
 
-<!DOCTYPE>
+<!DOCTYPE html >
 <html>
 <head>
 <title></title>

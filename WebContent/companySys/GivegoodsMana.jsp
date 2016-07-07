@@ -6,7 +6,7 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
-<!DOCTYPE>
+<!DOCTYPE HTML >
 <html>
 <head>
 <title></title>
@@ -43,8 +43,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <input type="hidden" name="givegoodsid" value="">
 <div class="nowposition">当前位置：商品管理》买赠商品</div>
 <div class="navigation">
-查询条件:&nbsp;&nbsp;<input type="text" id="givegoodscode" name="givegoodscode" value="">
-<input class="button" type="button" value="查询" onclick="queryGivegoods()">
+查询条件:&nbsp;&nbsp;<input type="text" id="query_Con" name="givegoodscode" value="${requestScope.givegoodsCon.givegoodscode }">
+<input class="button" type="button" value="查询" onclick="givegoodsjump()">
 <input class="button" type="button" value="添加" onclick="addgivegoods()">
 <input class="button" type="button" value="修改" onclick="editGiveGoods()">
 <input class="button" type="button" value="删除" onclick="removeGiveGoods()">
@@ -192,14 +192,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 <script type="text/javascript">
 $(function(){
-	$("#main_form").on("submit",function(){
+	$("#main_form").submit(function(){
 		checkCondition();
 	});
 })
 //检查查询条件是否变化
 function checkCondition(){
-	if(parseInt($("#pagenow").val()) > '${requestScope.pageCount }' ){
-		$("#pagenow").val('${requestScope.pageCount }');
+	if($("#query_Con").val() != '${requestScope.givegoodsCon.givegoodscode }'){
+		$("#pagenow").val(1);
 	}
 }
 //分页
@@ -214,17 +214,12 @@ function fenyeGoods(targetPage){
 }
 //买增商品跳转到第X页
 function givegoodsjump(){
-	if(parseInt($("#pagenow").val()) > '${requestScope.pageCount }' ){
-		$("#pagenow").val('${requestScope.pageCount }');
-	}
+	checkCondition();
 	document.forms[0].submit();
 }
 //跳转到第X页
 function goodsPageTo(pageCountGoods){
 	var pagenowGoods = $("#pagenowGoods").val();
-	if(parseInt(pagenowGoods) > parseInt(pageCountGoods)){
-		pagenowGoods = pageCountGoods;
-	}
 	loadGoodsData(pagenowGoods);
 }
 //弹出添加买赠商品的窗口

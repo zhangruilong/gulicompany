@@ -21,6 +21,7 @@ import com.server.dao.mapper.EmpMapper;
 import com.server.pojo.entity.Address;
 import com.server.pojo.entity.Ccustomer;
 import com.server.pojo.entity.Customer;
+import com.server.pojo.entity.CustomerStatisticVO;
 import com.server.pojo.entity.Emp;
 import com.system.tools.util.DateUtils;
 import com.system.tools.util.FileUtil;
@@ -135,6 +136,41 @@ public class Com_customerCtl {
 	public List<Address> queryLargeCusAllAddress(String customerid){
 		List<Address> addressList = addressMapper.selectByCondition(customerid);
 		return addressList;
+	}
+	//统计客户
+	@RequestMapping("/companySys/cusStatistic")
+	public String cusStatistic(Model model,String companyid,String staCusQuery,Integer nowpage,String staTime,String endTime){
+		if(staTime != null && !staTime.equals("") && staTime.length() <19){
+			staTime = staTime + " 00:00:00";
+		}
+		if(endTime != null && !endTime.equals("") && endTime.length() <19){
+			endTime = endTime + " 23:59:59";
+		} else if((staTime == null && endTime == null) || (staTime.equals("") && endTime.equals("")) ){		//如果开始和结束时间为null就设置为当天时间
+			staTime = DateUtils.getDate() + " 00:00:00";
+			endTime = DateUtils.getDate() + " 23:59:59";
+		}
+		if(nowpage == null){
+			nowpage = 1;
+		}
+		Integer count = customerMapper.selectCusStatisticCount(companyid, staCusQuery,staTime, endTime);	//总信息条数
+		Integer pageCount;		//总页数
+		if(count % 10 ==0){
+			pageCount = count / 10;
+		} else {
+			pageCount = (count / 10) +1;
+		}
+		if(nowpage > pageCount){
+			nowpage = pageCount;
+		}
+		List<CustomerStatisticVO> volist = customerMapper.selectCusStatistic(companyid,staCusQuery, nowpage, 10,staTime, endTime);
+		model.addAttribute("cusStaVoList", volist);
+		model.addAttribute("staCusQuery", staCusQuery);
+		model.addAttribute("staTime", staTime);
+		model.addAttribute("endTime", endTime);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("nowpage", nowpage);
+		model.addAttribute("count", count);
+		return "forward:cusStatistic.jsp";
 	}
 }
 

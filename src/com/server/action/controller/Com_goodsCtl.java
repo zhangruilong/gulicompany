@@ -85,6 +85,9 @@ public class Com_goodsCtl {
 		} else {
 			pageCount = (count / 10) +1;
 		}
+		if(pagenow > pageCount){
+			pagenow = pageCount;
+		}
 		List<Goods> goodsList = goodsMapper.selectAllCanyinGoods(goodsCon,pagenow,10);
 		model.addAttribute("goodsList", goodsList);
 		model.addAttribute("goodsCon", goodsCon);
@@ -105,6 +108,9 @@ public class Com_goodsCtl {
 			pageCount = count / 10;
 		} else {
 			pageCount = (count / 10) +1;
+		}
+		if(pagenow > pageCount){
+			pagenow = pageCount;
 		}
 		List<Goods> goodsList = goodsMapper.selectAllCanyinGoods(goodsCon,pagenow,10);
 		model.addAttribute("goodsList", goodsList);
@@ -127,6 +133,9 @@ public class Com_goodsCtl {
 		} else {
 			pageCount = (count / 10) +1;
 		}
+		if(pagenow > pageCount){
+			pagenow = pageCount;
+		}
 		List<Timegoods> timegoodsList = timegoodsMapper.selectByCondition(timegoodsCon,pagenow,10);
 		model.addAttribute("timegoodsList", timegoodsList);
 		model.addAttribute("timegoodsCon", timegoodsCon);
@@ -147,6 +156,9 @@ public class Com_goodsCtl {
 			pageCount = count / 10;
 		} else {
 			pageCount = (count / 10) +1;
+		}
+		if(pagenow > pageCount){
+			pagenow = pageCount;
 		}
 		List<Givegoods> givegoodsList = givegoodsMapper.selectByCondition(givegoodsCon,pagenow,10);
 		model.addAttribute("givegoodsList", givegoodsList);
@@ -322,13 +334,13 @@ public class Com_goodsCtl {
 		goodsMapper.updateByPrimaryKeySelective(updateGoods);
 		return map;
 	}
-	//修改商品价格2
-	@RequestMapping(value="/companySys/setGoodsPrices")
+	//修改商品价格
+	/*@RequestMapping(value="/companySys/setGoodsPrices")
 	@ResponseBody
 	public String setGoodsPrices(HttpServletRequest request,@RequestBody Goods editGoods){
 		String isAdd = request.getParameter("isAdd");
 		return isAdd;
-	}
+	}*/
 	//修改商品状态
 	@RequestMapping("/companySys/putaway")
 	@ResponseBody
@@ -361,6 +373,9 @@ public class Com_goodsCtl {
 			pageCountGoods = countGoods / 10;
 		} else {
 			pageCountGoods = (countGoods / 10) +1;
+		}
+		if(pagenowGoods > pageCountGoods){
+			pagenowGoods = pageCountGoods;
 		}
 		List<Goods> goodsList = goodsMapper.selectByCondition(goodsCon,pagenowGoods,10);
 		map.put("pageCountGoods", pageCountGoods);

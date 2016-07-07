@@ -232,7 +232,7 @@ h1 .title_goodsinfo span{
 			$("[name='creator']").attr("checked",true);
 		}
 	});
-	//添加或修改价格(原)
+	//添加或修改价格
 	function addData(){
 		//window.location.reload();
 		//return;
@@ -338,7 +338,7 @@ h1 .title_goodsinfo span{
 		});
 	}
 	//添加或修改价格
-	function addOrEditPrice(){
+	/* function addOrEditPrice(){
 		var val1 = $("#1").val();
 		var val10 = $("#10").val();
 		var pricesunit = $("#pricesunit").val();		//单位
@@ -365,7 +365,7 @@ h1 .title_goodsinfo span{
 						itemVal.val(ofVal);
 					}
 				}
-		}); 
+		});  */
 		//添加价格参数
 		var pricesList = new Array();
 		$("[name='pricesprice']").each(function(i,item){

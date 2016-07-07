@@ -41,7 +41,7 @@
 <script type="text/javascript">
 var basePath = '<%=basePath%>';
 var ordermid = '<%=ordermid%>';
-var customer = JSON.parse(window.localStorage.getItem("customer"));
+var customer = JSON.parse(window.localStorage.getItem("customeremp"));
 $(function(){ 
 	if(ordermid!="null"&&ordermid!=""){
 		getJson(basePath+"OrderdAction.do",{method:"selAll",wheresql:"orderdorderm='"+ordermid+"'"},initOrderd,null);
@@ -56,7 +56,7 @@ function regoumai(){
 		orderdtypes += item.orderdtype + ",";
 	});
 	$.ajax({
-		url: "queryREgoumaiGoods.action",
+		url: "queryREgoumaiGoodsEmp.action",
 		async:true,
 		data: {"orderdcodes":orderdcodes,"orderdtypes":orderdtypes,"customertype":customer.customertype,"customerlevel":customer.customerlevel},
 		dataType:"json",

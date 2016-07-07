@@ -179,6 +179,11 @@ Company company = (Company)session.getAttribute("company");
 			        +"<span class='nav__item-text'>录单客户</span>"
 			        +"</a>   "
 			        +"</li>"
+			        +"<li class='nav__item'>"
+			        +"<a href=cusStatistic.action?companyid="+'<%=company.getCompanyid() %>'+"  target='main' class='nav__item-link'>"
+			        +"<span class='nav__item-text'>客户信息统计</span>"
+			        +"</a>   "
+			        +"</li>"
 			        +"</ul>");
 			window.parent.main.location.href = "allCustomer.action?ccustomercompany="+'<%=company.getCompanyid() %>';
 		}

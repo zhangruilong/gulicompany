@@ -44,6 +44,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <input type="hidden" name="timegoodsid" value="">
 <div class="nowposition">当前位置：商品管理》秒杀商品</div>
 <div class="navigation">
+查询条件:&nbsp;&nbsp;<input type="text" id="query_TG" name="timegoodscode" value="${requestScope.timegoodsCon.timegoodscode }">
+<input class="button" type="button" value="查询" onclick="timegoodsjump()">
 <input class="button" type="button" value="添加" onclick="addtimegoods()">
 <input class="button" type="button" value="修改" onclick="editTimeGoods()">
 <input class="button" type="button" value="删除" onclick="removeTimeGoods()">
@@ -208,8 +210,8 @@ $(function(){
 })
 //检查查询条件是否变化
 function checkCondition(){
-	if(parseInt($("#pagenow").val()) > '${requestScope.pageCount }' ){
-		$("#pagenow").val('${requestScope.pageCount }');
+	if($("#query_TG").val() != '${requestScope.timegoodsCon.timegoodscode }'){
+		$("#pagenow").val(1);
 	}
 }
 //分页
@@ -224,9 +226,7 @@ function fenyeGoods(targetPage){
 }
 //秒杀商品跳转到第X页
 function timegoodsjump(){
-	if(parseInt($("#pagenow").val()) > '${requestScope.pageCount }' ){
-		$("#pagenow").val('${requestScope.pageCount }');
-	}
+	checkCondition();
 	document.forms[0].submit();
 }
 //商品跳转到第X页

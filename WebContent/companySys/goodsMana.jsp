@@ -8,7 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 String goodsstatue = request.getParameter("goodsstatue");
 %>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE HTML >
 <html>
 <head>
 <title></title>
@@ -194,9 +194,6 @@ $(function(){
 function checkCondition(){
 	if($("#goodscode").val() != '${requestScope.goodsCon.goodscode }'){
 		$("#pagenow").val('1');
-	}
-	if(parseInt($("#pagenow").val()) > '${requestScope.pageCount }' ){
-		$("#pagenow").val('${requestScope.pageCount }');
 	}
 }
 //提交查询条件

@@ -65,11 +65,20 @@
     where GIVEGOODSCODE = #{givegoodscode,jdbcType=VARCHAR}
   </select>
   <!-- 根据条件查询(数量) -->
-  <select id="selectByConditionCount" resultType="int" parameterType="com.server.pojo.entity.Givegoods" >
+  <select id="selectByConditionCount" resultType="int" parameterType="com.server.pojo.entity.Givegoods" >                                                 
     select 
     	count(*) 
-    from GIVEGOODS
+    from GIVEGOODS gg
     where GIVEGOODSCOMPANY = #{givegoodscompany}
+    <if test="givegoodscode != null and givegoodscode != ''">
+			and
+			(gg.GIVEGOODSCODE like '%${givegoodscode}%' or
+			gg.GIVEGOODSNAME like '%${givegoodscode}%' or
+			gg.GIVEGOODSDETAIL like '%${givegoodscode}%' or
+			gg.GIVEGOODSUNITS like '%${givegoodscode}%' or
+			gg.GIVEGOODSSTATUE like '%${givegoodscode}%' or
+			gg.CREATOR like '%${givegoodscode}%')
+	</if>
   </select>
   <!-- 根据条件查询 -->
   <select id="selectByCondition" resultMap="BaseResultMap">
@@ -77,8 +86,17 @@
 	(select A.*, ROWNUM RN from (
     select 
      *
-    from GIVEGOODS
+    from GIVEGOODS gg
     where givegoodscompany = #{givegoods.givegoodscompany}
+    <if test="givegoods.givegoodscode != null and givegoods.givegoodscode != ''">
+			and
+			(gg.GIVEGOODSCODE like '%${givegoods.givegoodscode}%' or
+			gg.GIVEGOODSNAME like '%${givegoods.givegoodscode}%' or
+			gg.GIVEGOODSDETAIL like '%${givegoods.givegoodscode}%' or
+			gg.GIVEGOODSUNITS like '%${givegoods.givegoodscode}%' or
+			gg.GIVEGOODSSTATUE like '%${givegoods.givegoodscode}%' or
+			gg.CREATOR like '%${givegoods.givegoodscode}%')
+	</if>
     ) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) ) 
 		where RN &gt; ((#{nowpage}-1)*#{pagesize})
   </select>

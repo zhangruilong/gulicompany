@@ -70,6 +70,9 @@ public class Com_orderCtl {
 		} else {
 			pageCount = (count / 10) +1;
 		}
+		if(pagenow > pageCount){
+			pagenow = pageCount;
+		}
 		List<Ordermview> ordermList = ordermMapper.selectByPage(staTime, endTime,order,pagenow,10);
 		model.addAttribute("allOrder", ordermList);
 		model.addAttribute("order", order);
@@ -180,6 +183,9 @@ public class Com_orderCtl {
 			pageCount = count / 10;
 		} else {
 			pageCount = (count / 10) +1;
+		}
+		if(pagenow > pageCount){
+			pagenow = pageCount;
 		}
 		List<Orderd> list = orderdMapper.selectByPage(staTime, endTime, companyid,condition,pagenow,10);					//查询数据
 		OrderdStatistics total = orderdMapper.selectOrderdStatistics(staTime, endTime, companyid, condition);	//数据统计

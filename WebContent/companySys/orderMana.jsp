@@ -153,9 +153,6 @@ function checkCondition(){
 	if($('#endTime').val() != '${requestScope.endTime }'){
 		$("#pagenow").val('1');
 	}
-	if(parseInt($("#pagenow").val()) > '${requestScope.pageCount }' ){
-		$("#pagenow").val('${requestScope.pageCount }');
-	}
 }
 //打印,详情,状态,删除
 function doprint(msg,statue){

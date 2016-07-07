@@ -179,9 +179,6 @@ function checkCondition(){
 	if($("#goodscode").val() != '${requestScope.goodsCon.goodscode }'){
 		$("#pagenow").val('1');
 	}
-	if(parseInt($("#pagenow").val()) > '${requestScope.pageCount }' ){
-		$("#pagenow").val('${requestScope.pageCount }');
-	}
 }
 //提交查询条件
 function subgoodsfor(){

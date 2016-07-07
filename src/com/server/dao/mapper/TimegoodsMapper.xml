@@ -47,8 +47,16 @@
   <select id="selectByConditionCount" resultType="int" parameterType="com.server.pojo.entity.Timegoods" >
     select 
     	count(*) 
-    from timegoods
+    from timegoods tg
     where timegoodscompany = #{timegoodscompany}
+    <if test="timegoodscode != null and timegoodscode != ''">
+			and
+			(tg.TIMEGOODSCODE like '%${timegoodscode}%' or
+			tg.TIMEGOODSNAME like '%${timegoodscode}%' or
+			tg.TIMEGOODSDETAIL like '%${timegoodscode}%' or
+			tg.TIMEGOODSUNITS like '%${timegoodscode}%' or
+			tg.TIMEGOODSSTATUE like '%${timegoodscode}%')
+	</if>
   </select>
   <!-- 根据条件查询 -->
   <select id="selectByCondition" resultMap="BaseResultMap">
@@ -56,8 +64,16 @@
 	(select A.*, ROWNUM RN from (
     select 
     *
-    from timegoods
+    from timegoods tg
     where timegoodscompany = #{timegoods.timegoodscompany}
+    <if test="timegoods.timegoodscode != null and timegoods.timegoodscode != ''">
+			and
+			(tg.TIMEGOODSCODE like '%${timegoods.timegoodscode}%' or
+			tg.TIMEGOODSNAME like '%${timegoods.timegoodscode}%' or
+			tg.TIMEGOODSDETAIL like '%${timegoods.timegoodscode}%' or
+			tg.TIMEGOODSUNITS like '%${timegoods.timegoodscode}%' or
+			tg.TIMEGOODSSTATUE like '%${timegoods.timegoodscode}%')
+	</if>
     ) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) ) 
 		where RN &gt; ((#{nowpage}-1)*#{pagesize})
   </select>
