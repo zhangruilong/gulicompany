@@ -13,6 +13,10 @@ Company company = (Company)session.getAttribute("company");
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>谷粒管理平台</title>
 <link href="../companySys/css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript">
+	
+</script>
 </head>
 <body class="top_body">
 	<div class="top">
@@ -32,7 +36,7 @@ Company company = (Company)session.getAttribute("company");
 	<div class="help"><a href=editPas.jsp  target='main' >修改密码</a>|<a href=loginOut.action  target='_parent' >退出</a>|<a>帮助</a></div>
 	</div>
 	<div class="sysname">供应商后台管理系统</div>
-	<script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
+
 	<script type="text/javascript">
 	var timer1;
 	window.onbeforeunload = function(){			//关闭浏览器时执行的方法
@@ -41,6 +45,7 @@ Company company = (Company)session.getAttribute("company");
 	var tishiyin = $("#tishiyin")[0];
 	$(function(){
 		window.parent.main.location.href = "allOrder.action?ordermcompany="+'<%=company.getCompanyid() %>';
+		
 		$(".mokuai ul li").each(function(i,item){
 			if(i == 4){
 				$(item).addClass("select_mokuai");
@@ -117,6 +122,11 @@ Company company = (Company)session.getAttribute("company");
 			        +"<span class='nav__item-text'>订单商品统计</span>"
 			        +"</a>   "
 			        +"</li>"
+			        +"<li class='nav__item'>"
+			        +"<a href=cusStatistic.action?companyid="+'<%=company.getCompanyid() %>'+"  target='main' class='nav__item-link'>"
+			        +"<span class='nav__item-text'>订单业务统计</span>"
+			        +"</a>   "
+			        +"</li>"
 			        +"</ul>");
 			window.parent.main.location.href = "allOrder.action?ordermcompany="+'<%=company.getCompanyid() %>';
 		}
@@ -177,11 +187,6 @@ Company company = (Company)session.getAttribute("company");
 			        +"<li class='nav__item'>"
 			        +"<a href=allCustomer.action?ccustomercompany="+'<%=company.getCompanyid() %>'+"&creator=1  target='main' class='nav__item-link'>"
 			        +"<span class='nav__item-text'>录单客户</span>"
-			        +"</a>   "
-			        +"</li>"
-			        +"<li class='nav__item'>"
-			        +"<a href=cusStatistic.action?companyid="+'<%=company.getCompanyid() %>'+"  target='main' class='nav__item-link'>"
-			        +"<span class='nav__item-text'>客户信息统计</span>"
 			        +"</a>   "
 			        +"</li>"
 			        +"</ul>");

@@ -79,6 +79,9 @@
 			gg.GIVEGOODSSTATUE like '%${givegoodscode}%' or
 			gg.CREATOR like '%${givegoodscode}%')
 	</if>
+	<if test="givegoodsscope != null and givegoodsscope != ''">
+		and gg.GIVEGOODSSCOPE like '%${givegoodsscope}%'
+	</if>
   </select>
   <!-- 根据条件查询 -->
   <select id="selectByCondition" resultMap="BaseResultMap">
@@ -96,6 +99,9 @@
 			gg.GIVEGOODSUNITS like '%${givegoods.givegoodscode}%' or
 			gg.GIVEGOODSSTATUE like '%${givegoods.givegoodscode}%' or
 			gg.CREATOR like '%${givegoods.givegoodscode}%')
+	</if>
+	<if test="givegoods.givegoodsscope != null and givegoods.givegoodsscope != ''">
+		and gg.GIVEGOODSSCOPE like '%${givegoods.givegoodsscope}%'
 	</if>
     ) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) ) 
 		where RN &gt; ((#{nowpage}-1)*#{pagesize})

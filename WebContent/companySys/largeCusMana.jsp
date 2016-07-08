@@ -44,6 +44,7 @@ String customertype = request.getParameter("customer.customertype");
 		<th>客户类型</th>
 		<th>价格等级</th>
 		<th>修改时间</th>
+		<th>客户经理</th>
     </tr>
     </thead>
     <c:if test="${fn:length(requestScope.ccustomerList) != 0 }">
@@ -59,6 +60,7 @@ String customertype = request.getParameter("customer.customertype");
 			<td>${ccustomer.customer.customertype == 3?'餐饮客户':(ccustomer.customer.customertype == 2?'商超客户':'组织单位客户')}</td>
 			<td>${ccustomer.ccustomerdetail}</td>
 			<td>${ccustomer.customer.updtime}</td>
+			<td>${ccustomer.createtime}</td>
 		</tr>
 	</c:forEach>
 	</c:if>

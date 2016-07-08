@@ -57,6 +57,9 @@
 			tg.TIMEGOODSUNITS like '%${timegoodscode}%' or
 			tg.TIMEGOODSSTATUE like '%${timegoodscode}%')
 	</if>
+	<if test="timegoodsscope != null and timegoodsscope != ''">
+		and tg.TIMEGOODSSCOPE like '%${timegoodsscope}%'
+	</if>
   </select>
   <!-- 根据条件查询 -->
   <select id="selectByCondition" resultMap="BaseResultMap">
@@ -73,6 +76,9 @@
 			tg.TIMEGOODSDETAIL like '%${timegoods.timegoodscode}%' or
 			tg.TIMEGOODSUNITS like '%${timegoods.timegoodscode}%' or
 			tg.TIMEGOODSSTATUE like '%${timegoods.timegoodscode}%')
+	</if>
+	<if test="timegoods.timegoodsscope != null and timegoods.timegoodsscope != ''">
+		and tg.TIMEGOODSSCOPE like '%${timegoods.timegoodsscope}%'
 	</if>
     ) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) ) 
 		where RN &gt; ((#{nowpage}-1)*#{pagesize})

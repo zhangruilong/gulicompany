@@ -33,6 +33,11 @@
           <span class="nav__item-text">订单商品统计</span>
         </a>   
       </li>
+      <li class='nav__item'>
+      	<a href=cusStatistic.action?companyid=<%=company.getCompanyid() %>  target='main' class='nav__item-link'>
+      		<span class='nav__item-text'>订单业务统计</span>
+      	</a>   
+      </li>
       </ul>
 </div>
 </body>

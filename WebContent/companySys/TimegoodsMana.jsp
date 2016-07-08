@@ -44,6 +44,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <input type="hidden" name="timegoodsid" value="">
 <div class="nowposition">当前位置：商品管理》秒杀商品</div>
 <div class="navigation">
+客户类型:&nbsp;&nbsp;
+<select name="timegoodsscope">
+	<option value="" >全部商品</option>
+	<option value="3" ${fn:contains(requestScope.timegoodsCon.timegoodsscope,'3')?'selected':''}>餐饮商品</option>
+	<option value="2" ${fn:contains(requestScope.timegoodsCon.timegoodsscope,'2')?'selected':''}>商超商品</option>
+	<option value="1" ${fn:contains(requestScope.timegoodsCon.timegoodsscope,'1')?'selected':''}>组织单位商品</option>
+</select>
 查询条件:&nbsp;&nbsp;<input type="text" id="query_TG" name="timegoodscode" value="${requestScope.timegoodsCon.timegoodscode }">
 <input class="button" type="button" value="查询" onclick="timegoodsjump()">
 <input class="button" type="button" value="添加" onclick="addtimegoods()">

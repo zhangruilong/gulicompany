@@ -43,6 +43,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <input type="hidden" name="givegoodsid" value="">
 <div class="nowposition">当前位置：商品管理》买赠商品</div>
 <div class="navigation">
+客户类型:&nbsp;&nbsp;
+<select name="givegoodsscope">
+	<option value="" >全部商品</option>
+	<option value="3" ${fn:contains(requestScope.givegoodsCon.givegoodsscope,'3')?'selected':''}>餐饮商品</option>
+	<option value="2" ${fn:contains(requestScope.givegoodsCon.givegoodsscope,'2')?'selected':''}>商超商品</option>
+	<option value="1" ${fn:contains(requestScope.givegoodsCon.givegoodsscope,'1')?'selected':''}>组织单位商品</option>
+</select>
 查询条件:&nbsp;&nbsp;<input type="text" id="query_Con" name="givegoodscode" value="${requestScope.givegoodsCon.givegoodscode }">
 <input class="button" type="button" value="查询" onclick="givegoodsjump()">
 <input class="button" type="button" value="添加" onclick="addgivegoods()">

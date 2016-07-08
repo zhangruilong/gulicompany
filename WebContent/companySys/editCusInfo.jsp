@@ -88,10 +88,6 @@ function initEditCus(data){
 	$("#customeraddress").val(data.editCus.customeraddress);
 }
 function saveCus(){
-	/* $("select").each(function(i,item){
-		alert($(item).val());
-	}); */
-	alert($("select[name='accountManager']").val());
 	$.getJSON("editCcusAndCus.action",{
 		"customerid":$("input:hidden[name='edit_cusid']").val(),
 		"customertype":$("#customertype").val(),

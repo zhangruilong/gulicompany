@@ -74,6 +74,7 @@
     select 
 		ccustomer.ccustomerid,
 		ccustomer.ccustomerdetail,
+		ccustomer.createtime,
 		customer.customerid,customer.customercode,customer.customername,customer.customerphone,
 		customer.customerpsw,customer.customershop,customer.customercity,customer.customerxian,
 		customer.customeraddress,customer.customertype,customer.customerlevel,customer.openid,
