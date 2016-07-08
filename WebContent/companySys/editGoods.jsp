@@ -97,11 +97,11 @@ function saveEdit(){
 				if('${param.pagefor}' == 'canyinGoodsPage'){
 					window.location.href = 'allCanyinGoods.action?goodscompany=${sessionScope.company.companyid}&'+
 					'pagenow=${requestScope.pagenow}&goodscode=${requestScope.goodsCon.goodscode}&'+
-					'goodsstatue=${requestScope.goodsCon.goodsstatue}';
+					'goodsstatue=${requestScope.goodsCon.goodsstatue}&pricesList[0].pricesclass=${requestScope.goodsCon.pricesList[0].pricesclass}';
 				} else {
 					window.location.href = 'allGoods.action?goodscompany=${sessionScope.company.companyid}&'+
 					'pagenow=${requestScope.pagenow}&goodscode=${requestScope.goodsCon.goodscode}&'+
-					'goodsstatue=${requestScope.goodsCon.goodsstatue}';
+					'goodsstatue=${requestScope.goodsCon.goodsstatue}&pricesList[0].pricesclass=${requestScope.goodsCon.pricesList[0].pricesclass}';
 				}
 			} else {
 				alert('修改失败');

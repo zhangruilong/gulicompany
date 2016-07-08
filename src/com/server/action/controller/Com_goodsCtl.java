@@ -182,6 +182,7 @@ public class Com_goodsCtl {
 	@RequestMapping("/companySys/doEditTimeGoods")
 	public String doEditTimeGoods(Model model,Timegoods timegoodsCon,Integer pagenow){
 		Timegoods editTimeGoods = timegoodsMapper.selectByPrimaryKey(timegoodsCon.getTimegoodsid());
+		model.addAttribute("timegoodsCon", timegoodsCon);
 		model.addAttribute("editTimeGoods", editTimeGoods);
 		model.addAttribute("pagenow", pagenow);
 		return "forward:/companySys/editTimeGoods.jsp";
@@ -213,6 +214,7 @@ public class Com_goodsCtl {
 	public String doEditGiveGoods(Model model,Givegoods givegoodsCon,Integer pagenow){
 		Givegoods editGiveGoods = givegoodsMapper.selectByPrimaryKey(givegoodsCon.getGivegoodsid());
 		model.addAttribute("editGiveGoods", editGiveGoods);
+		model.addAttribute("givegoodsCon", givegoodsCon);
 		model.addAttribute("pagenow", pagenow);
 		return "forward:/companySys/editGiveGoods.jsp";
 	}

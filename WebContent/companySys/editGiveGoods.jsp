@@ -101,7 +101,7 @@ function saveEdit(){
 			if(data == 'ok'){
 				alert('修改成功!');
 				window.location.href = 'allGiveGoods.action?givegoodscompany=${requestScope.editGiveGoods.givegoodscompany }'+
-						'&givegoodsscope=${requestScope.editGiveGoods.givegoodsscope }&pagenow=${requestScope.pagenow}';
+						'&givegoodsscope=${requestScope.givegoodsCon.givegoodsscope }&pagenow=${requestScope.pagenow}';
 			} else {
 				alert('要修改的买赠商品不存在!');
 			}

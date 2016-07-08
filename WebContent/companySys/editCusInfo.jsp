@@ -42,7 +42,7 @@
 				name="customername" placeholder="联系人" value="" /></label> 
 			<label> <span>联系电话 :</span> <input id="customerphone" type="text"
 				name="customerphone" placeholder="联系电话" value="" /></label> 
-			<label> <span>地址 :</span> <input id="customeraddress" type="text"
+			<label> <span>联系地址 :</span> <input id="customeraddress" type="text"
 				name="customeraddress" placeholder="地址" value="" /></label> 
 			<label><span>状态 :</span><select name=customerstatue>
 				<option>启用</option>
