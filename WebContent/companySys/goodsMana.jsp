@@ -25,7 +25,7 @@ String goodsstatue = request.getParameter("goodsstatue");
  <input type="hidden" class="setPricesGoodsId" name="goodsid" value="">
 <div class="nowposition">当前位置：商品管理》全部商品</div>
 <div class="navigation">
-客户类型:&nbsp;&nbsp;
+商品类型:&nbsp;&nbsp;
 <select name="pricesList[0].pricesclass">
 	<option value="" >全部商品</option>
 	<option value="3" ${goodsCon.pricesList[0].pricesclass== 3?'selected':''}>餐饮商品</option>

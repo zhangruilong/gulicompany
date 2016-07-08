@@ -103,7 +103,8 @@ function saveEdit(){
 		$.post('editTimeGoods.action',JSON.parse(data),function(data){
 			if(data == 'ok'){
 				alert('修改成功!');
-				window.location.href = 'allTimeGoods.action?timegoodscompany=${requestScope.editTimeGoods.timegoodscompany }&pagenow=${requestScope.pagenow}';
+				window.location.href = 'allTimeGoods.action?timegoodscompany=${requestScope.editTimeGoods.timegoodscompany }'+
+						'&timegoodsscope=${requestScope.editTimeGoods.timegoodsscope }&pagenow=${requestScope.pagenow}';
 			} else {
 				alert('要修改的秒杀商品不存在.');
 			}

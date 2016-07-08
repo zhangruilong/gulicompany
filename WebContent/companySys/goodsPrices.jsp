@@ -365,7 +365,7 @@ h1 .title_goodsinfo span{
 						itemVal.val(ofVal);
 					}
 				}
-		});  */
+		});
 		//添加价格参数
 		var pricesList = new Array();
 		$("[name='pricesprice']").each(function(i,item){
@@ -430,7 +430,7 @@ h1 .title_goodsinfo span{
 				alert('操作失败,要修改的商品价格不存在.');
 			}
 		});
-	}
+	}  */
 	</script>
 </body>
 </html>

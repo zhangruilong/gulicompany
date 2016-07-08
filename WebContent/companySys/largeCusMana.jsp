@@ -28,6 +28,7 @@ String customertype = request.getParameter("customer.customertype");
 查询条件:&nbsp;&nbsp;<input type="text" id="customercode" name="customer.customercode" value="${requestScope.ccustomerCon.customer.customercode }">
 <input class="button" type="button" value="查询" onclick="subcustomerfor()">
 <input class="button" type="button" value="新增" onclick="addLargeCus()">
+<input class="button" type="button" value="修改" onclick="largeCusGoods('3')">
 <input class="button" type="button" value="特殊商品" onclick="largeCusGoods('1')">
 <input class="button" type="button" value="录单" onclick="largeCusGoods('2')">
 </div>
@@ -50,7 +51,7 @@ String customertype = request.getParameter("customer.customertype");
     <c:if test="${fn:length(requestScope.ccustomerList) != 0 }">
 	<c:forEach var="ccustomer" items="${requestScope.ccustomerList }" varStatus="ccustomerSta">
 		<tr>
-			<td><input type="checkbox" value="${ccustomer.ccustomerid}"></td>
+			<td name="${ccustomer.customer.customerid}"><input type="checkbox" value="${ccustomer.ccustomerid}"></td>
 			<td><c:out value="${ccustomerSta.count}"></c:out></td>
 			<td>${ccustomer.customer.customercode}</td>
 			<td>${ccustomer.customer.customershop}</td>
@@ -167,19 +168,24 @@ $(function(){
 
 //跳转到特殊商品详情页或者跳转到录单页
 function largeCusGoods(option){
-	var cusid = "";
+	var ccusid = "";
+	var customerid = '';
 	var count = 0;
 	$("#lgCus_tab :checkbox").each(function(i,item){
 		if(item.checked){
-			cusid = $(item).val();
+			ccusid = $(item).val();
+			customerid = $(item).parent().attr("name");
 			count++;
 		}
 	});
 	if(count>0 && count<2){
 		if(option == '1'){
-			window.location.href = "largeCusGoodsMana.jsp?customerid="+cusid+"&companyid=${requestScope.ccustomerCon.ccustomercompany }";
+			window.location.href = "largeCusGoodsMana.jsp?customerid="+customerid+"&companyid=${requestScope.ccustomerCon.ccustomercompany }";
 		} else if(option == '2'){
-			window.location.href = "largeCusXiaDan.jsp?ccustomerid="+cusid+"&ccustomercompany=${requestScope.ccustomerCon.ccustomercompany }";
+			window.location.href = "largeCusXiaDan.jsp?ccustomerid="+ccusid+"&ccustomercompany=${requestScope.ccustomerCon.ccustomercompany }";
+		} else if(option == '3'){
+			window.location.href = "editCusInfo.jsp?ccustomerid="+ccusid+"&pagenow=${requestScope.pagenow }"
+			+"&customercode=${requestScope.ccustomerCon.customer.customercode }&fo=largeCus";
 		}
 	} else if(count == 0){
 		alert("请选择一个客户!");

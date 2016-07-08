@@ -36,31 +36,32 @@
 			</select>
 			</label>
 			
+			<label> <span>客户名称 :</span> <input id="customershop" type="text"
+				name="customershop" placeholder="客户名称" value="" /></label>
 			<label> <span>联系人 :</span> <input id="customername" type="text"
 				name="customername" placeholder="联系人" value="" /></label> 
 			<label> <span>联系电话 :</span> <input id="customerphone" type="text"
 				name="customerphone" placeholder="联系电话" value="" /></label> 
-			<label> <span>客户名称 :</span> <input id="customershop" type="text"
-				name="customershop" placeholder="客户名称" value="" /></label>
+			<label> <span>地址 :</span> <input id="customeraddress" type="text"
+				name="customeraddress" placeholder="地址" value="" /></label> 
 			<label><span>状态 :</span><select name=customerstatue>
 				<option>启用</option>
 				<option>禁用</option>
 			</select></label>
-			<label><span>所在城市 :</span>
+			<!-- <label><span>所在城市 :</span>
 			<select name="customercity">
 				<option>嘉兴市</option>
 			</select>
-			</label>
-			<label> <span>所在地区 :</span>
+			</label> -->
+			<!-- <label> <span>所在地区 :</span>
 			<select name="customerxian">
 				<option>海盐县</option>
 				<option>秀洲区</option>
 				<option>嘉善县</option>
 				<option>南湖区</option>
 			</select>
-			</label>
-			<label> <span>地址 :</span> <input id="customeraddress" type="text"
-				name="customeraddress" placeholder="地址" value="" /></label> 
+			</label> -->
+			
 			<label> <span>&nbsp;</span> <input type="button"
 				class="button" value="保存" onclick="saveCus()"/>
 			</label>
@@ -70,6 +71,7 @@
 $(function(){
 	$.getJSON("queryCcusAndCus.action",{"ccustomerid":"${param.ccustomerid}"},initEditCus,null);
 });
+//初始化页面信息
 function initEditCus(data){
 	$.each(data.emps,function(i,item){
 		$("select[name='accountManager']").append('<option>'+item.empdetail+'</option>');
@@ -83,10 +85,9 @@ function initEditCus(data){
 	$("#customername").val(data.editCus.customername);
 	$("#customershop").val(data.editCus.customershop);
 	$("select[name='customerstatue']").val(data.editCus.customerstatue);
-	$("select[name='customercity']").val(data.editCus.customercity);
-	$("select[name='customerxian']").val(data.editCus.customerxian);
 	$("#customeraddress").val(data.editCus.customeraddress);
 }
+//保存修改
 function saveCus(){
 	$.getJSON("editCcusAndCus.action",{
 		"customerid":$("input:hidden[name='edit_cusid']").val(),
@@ -96,20 +97,20 @@ function saveCus(){
 		"customername":$("#customername").val(),
 		"customershop":$("#customershop").val(),
 		"customerstatue":$("select[name='customerstatue']").val(),
-		"customercity":$("select[name='customercity']").val(),
-		"customerxian":$("select[name='customerxian']").val(),
 		"customeraddress":$("#customeraddress").val(),
 		"ccustomerid":"${param.ccustomerid}",
 		"ccustomerdetail":$("#ccustomerdetail").val(),
 		},saveafert,null);
 }
+//保存成功
 function saveafert(data){
 	alert("保存成功");
 	if('${param.fo}' == 'largeCus'){
-		window.location.href = "allCustomer.action?ccustomercompany=${sessionScope.company.companyid}&creator=1&pagenow=${param.pagenow}";
+		window.location.href = "allCustomer.action?ccustomercompany=${sessionScope.company.companyid}&creator=1&pagenow=${param.pagenow}"+
+		"&customer.customercode=${param.customercode}";
 	} else {
 		window.location.href = "allCustomer.action?ccustomercompany=${sessionScope.company.companyid}&pagenow=${param.pagenow}"+
-				"&customercode=${param.customercode}";
+				"&customer.customercode=${param.customercode}";
 	}
 }
 </script>
