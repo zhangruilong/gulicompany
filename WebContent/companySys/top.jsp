@@ -66,30 +66,30 @@ Company company = (Company)session.getAttribute("company");
 					+'<span>'+data.ordermtime+'</span>'
 					+'<span name="ordermtime" hidden="true">'+data.ordermtime+'</span>'
 				);
+			} else {
+				$(".haveNewOrderm").html('<span name="ordermtime" hidden="true">'+data.ordermtime+'</span>');
 			}
 		});
 		//显示最新订单信息
-		//timer1 = setInterval(showNewestOrderm,10000);
+		timer1 = setInterval(showNewestOrderm,10000);
 		
 	})
 	function showNewestOrderm(){
 		//clearInterval(timer1);
 		if('${sessionScope.company.companyid}' == ''){
 			window.prent.location.href = 'login.jsp';
-		}
+		}else
 		$.post("queryNewestOrderm.action",{"ordermcompany":'${sessionScope.company.companyid}'},function(data){
-			if($("[name='ordermtime']").text() != data.ordermtime){
+			if(data.ordermstatue == '已下单'&&$("[name='ordermtime']").text() != data.ordermtime){
 				play();
-			}
-			if(data.ordermstatue == '已下单'){
 				$(".haveNewOrderm").html(
-					'有新的订单!&nbsp;'+data.ordermcode+'&nbsp;'
-					+data.ordermmoney+'&nbsp;'
-					+data.ordermconnect+'&nbsp;'
-					+data.orderdCustomer.customershop+'&nbsp;'
-					+'<span>'+data.ordermtime+'</span>&nbsp;'
-					+'<span name="ordermtime" hidden="true">'+data.ordermtime+'</span>'
-				);
+						'有新的订单!&nbsp;'+data.ordermcode+'&nbsp;'
+						+data.ordermmoney+'&nbsp;'
+						+data.ordermconnect+'&nbsp;'
+						+data.orderdCustomer.customershop+'&nbsp;'
+						+'<span>'+data.ordermtime+'</span>&nbsp;'
+						+'<span name="ordermtime" hidden="true">'+data.ordermtime+'</span>'
+					);
 			} else {
 				$(".haveNewOrderm").html('<span name="ordermtime" hidden="true">'+data.ordermtime+'</span>');
 			}
