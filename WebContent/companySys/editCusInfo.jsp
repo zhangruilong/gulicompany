@@ -48,19 +48,19 @@
 				<option>启用</option>
 				<option>禁用</option>
 			</select></label>
-			<!-- <label><span>所在城市 :</span>
+			<label><span>所在城市 :</span>
 			<select name="customercity">
 				<option>嘉兴市</option>
 			</select>
-			</label> -->
-			<!-- <label> <span>所在地区 :</span>
+			</label>
+			<label> <span>所在地区 :</span>
 			<select name="customerxian">
 				<option>海盐县</option>
 				<option>秀洲区</option>
 				<option>嘉善县</option>
 				<option>南湖区</option>
 			</select>
-			</label> -->
+			</label>
 			
 			<label> <span>&nbsp;</span> <input type="button"
 				class="button" value="保存" onclick="saveCus()"/>
@@ -86,6 +86,8 @@ function initEditCus(data){
 	$("#customershop").val(data.editCus.customershop);
 	$("select[name='customerstatue']").val(data.editCus.customerstatue);
 	$("#customeraddress").val(data.editCus.customeraddress);
+	$("select[name='customercity']").val(data.editCus.customercity);
+	$("select[name='customerxian']").val(data.editCus.customerxian);
 }
 //保存修改
 function saveCus(){
@@ -98,6 +100,8 @@ function saveCus(){
 		"customershop":$("#customershop").val(),
 		"customerstatue":$("select[name='customerstatue']").val(),
 		"customeraddress":$("#customeraddress").val(),
+		"customercity":$("select[name='customercity']").val(),
+		"customerxian":$("select[name='customerxian']").val(),
 		"ccustomerid":"${param.ccustomerid}",
 		"ccustomerdetail":$("#ccustomerdetail").val(),
 		},saveafert,null);
