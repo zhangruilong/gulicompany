@@ -33,5 +33,13 @@
 	解析jsp解析，默认使用jstl标签，classpath下的得有jstl的包
 	 -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"></bean>
-
+<!--拦截器 -->
+	<mvc:interceptors>
+		<!--多个拦截器,顺序执行 -->
+		<!-- 登陆认证拦截器 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="com.server.interceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
 </beans>

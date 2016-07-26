@@ -96,6 +96,7 @@
 					or customer.customercity like '%${ccustomer.customer.customercode}%'
 					or customer.customerxian like '%${ccustomer.customer.customercode}%'
 					or customer.customeraddress like '%${ccustomer.customer.customercode}%'
+					or ccustomer.createtime like '%${ccustomer.customer.customercode}%'
 				)
 			</if>
 		</if>
