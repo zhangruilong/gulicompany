@@ -34,7 +34,15 @@ public class Scant
    /**
     * 图片
     */
-   private String scantimage;   
+   private String scantimage;  
+   /**
+    * 品牌
+    */
+   private String scantbrand;
+   /**
+    * 种类
+    */
+   private String scanttype;
    /**
     * 状态
     */
@@ -44,6 +52,7 @@ public class Scant
     */
    private Goodsclass goodsclass;
     //属性方法	    
+   
      /**
 	 *设置主键"标品ID"属性
 	 *@param scantid 实体的Scantid属性
@@ -52,7 +61,31 @@ public class Scant
 	{
 		this.scantid = scantid;
 	}
-	
+	/**
+    * 品牌
+    */
+	public String getScantbrand() {
+		return scantbrand;
+	}
+	/**
+    * 品牌
+    */
+	public void setScantbrand(String scantbrand) {
+		this.scantbrand = scantbrand;
+	}
+	/**
+    * 种类
+    */
+	public String getScanttype() {
+		return scanttype;
+	}
+	/**
+    * 种类
+    */
+	public void setScanttype(String scanttype) {
+		this.scanttype = scanttype;
+	}
+
 	/**
 	 *获取主键"标品ID"属性
 	 */

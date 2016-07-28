@@ -145,9 +145,6 @@ String customertype = request.getParameter("customer.customertype");
 				class="popup_button" value="提交" onclick="saveLargeCus()"/>
 			</label>
 			<label><input type="button"
-				class="popup_button" value="从商品中选择" onclick="dobiaopin()"/>
-			</label>
-			<label><input type="button"
 				class="popup_button" value="关闭窗口" onclick="close_popup()"/>
 			</label></p>
 	</div>
@@ -262,6 +259,7 @@ function saveLargeCus(){
 			url:"saveLargeCus.action",
 			type:"post",
 			data:{
+				"comid":'${requestScope.ccustomerCon.ccustomercompany }',
 				"customercode":$("#addLC_popupForm input:eq(0)").val(),
 				"customershop":$("#addLC_popupForm input:eq(1)").val(),
 				"customeraddress":$("#addLC_popupForm input:eq(2)").val(),

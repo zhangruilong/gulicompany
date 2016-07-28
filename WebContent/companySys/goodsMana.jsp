@@ -17,6 +17,19 @@ String goodsstatue = request.getParameter("goodsstatue");
 <link href="css/tabsty.css" rel="stylesheet" type="text/css">
 <link href="css/dig.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="<%=basePath%>ExtJS/resources/css/ext-all.css" />
+<style type="text/css">
+.fenyelan_input{
+	width: 22px;
+	text-align: center;
+}
+.goods_select_popup{
+	margin:0px auto;
+	padding:10px auto;
+	width:550px;
+	margin-top:1%;
+	background-color: #FBF1E5;
+}
+</style>
 </head>
 <body>
 <form id='main_form' action="allGoods.action" method="post">
@@ -111,7 +124,7 @@ String goodsstatue = request.getParameter("goodsstatue");
 		 <c:if test="${requestScope.pagenow == requestScope.pageCount }">
 		 	<span>最后一页&nbsp;</span>
 		 </c:if>
-		 	<span>跳转到第<input style="width: 22px;text-align: center;" size="1" type="text" id="pagenow" name="pagenow" value="${requestScope.pagenow }">页</span>
+		 	<span>跳转到第<input class="fenyelan_input" size="1" type="text" id="pagenow" name="pagenow" value="${requestScope.pagenow }">页</span>
 		 	<input type="submit" value="GO" style="width: 40px;height: 20px;font-size:8px; text-align: center;cursor:pointer;">
 		 	<span>一共 ${requestScope.count } 条数据</span>
 		 </td>
@@ -122,28 +135,23 @@ String goodsstatue = request.getParameter("goodsstatue");
 <div class="cd-popup" role="alert">
 	<div class="elegant-aero">
 		<form id="popup_form" action="addGoods.action?creator=${sessionScope.company.companyshop }&goodscompany=${sessionScope.company.companyid }" method="post" class="STYLE-NAME">
-		<!-- <input type="hidden" name="creator" value="${sessionScope.company.companyshop }">
-		<input type="hidden" name="goodscompany" value="${sessionScope.company.companyid }"> -->
+		<input type="hidden" id="goodsimage" name="goodsimage" value="">
 			<h1>添加商品</h1>
 			<label><span>商品编码 :</span><input id="addgoodscode" type="text"
-				name="goodscode" placeholder="商品编码" /></label>
+				name="goodscode" placeholder="商品编码" value="" /></label>
 			<label><span>商品名称 :</span><input id="goodsname" type="text"
 				name="goodsname" placeholder="商品名称" /></label>
 			<label><span>规格 :</span><input id="goodsunits" type="text"
 				name="goodsunits" placeholder="规格" /></label>
-			<!-- <label><span>描述 :</span><input id="goodsdetail" type="text"
-				name="goodsdetail" placeholder="描述" /></label> -->
 			<label><span>小类名称 :</span>
 			<select name="goodsclass" id="goodsclass">
 				<option value="">请选择</option>
 			</select>
 			</label>
-			<label><span>图片路径 :</span><input id="goodsimage" type="text"
-				name="goodsimage" placeholder="图片路径" /></label>
 			<label><span>品牌 :</span><input id="goodsbrand" type="text"
 				name="goodsbrand" placeholder="品牌" /></label>
-			<!-- <label><span>种类 :</span><input id="goodstype" type="text"
-				name="goodstype" placeholder="种类" /></label> -->
+			<label><span>种类 :</span><input id="goodstype" type="text"
+				name="goodstype" placeholder="种类" /></label>
 			<label><span>顺序 :</span><input id="goodsorder" type="number"
 				name="goodsorder" placeholder="顺序" /></label>
 			<p><label><input type="button"
@@ -160,6 +168,12 @@ String goodsstatue = request.getParameter("goodsstatue");
 </div>
 <!--弹框-->
 <div class="cd-popup2" role="alert">
+<div class="goods_select_popup">
+<div class="navigation">
+查询条件:&nbsp;&nbsp;<input type="text" id="scantcondition" name="" value="">
+<input class="button" type="button" value="查询" onclick="dobiaopin('1')">
+<input class="button" type="button" value="关闭" onclick="closeCdPopup2()">
+</div>
 	<table class="bordered" id="scant" style="margin: 5% auto 0 auto;">
 		<thead>
 	    <tr>
@@ -167,11 +181,13 @@ String goodsstatue = request.getParameter("goodsstatue");
 			<th>商品编码</th>
 			<th>商品名称</th>
 			<th>规格</th>
+			<th>品牌</th>
 			<th>小类名称</th>
 			<th>点击选择</th>
 	    </tr>
 	    </thead>
 	</table>
+</div>
 </div>
 <script type="text/javascript">
 var goodsstatue = '<%=goodsstatue %>';
@@ -233,7 +249,6 @@ function setgoodsprices(){
 		}
 	});
 	if(count > 0 && count < 2){
-		//window.location.href = "doGoodsPrices.action?goodsid="+itemid+"&pagenow=${requestScope.pagenow}";
 		$('#main_form').attr('action','doGoodsPrices.action');
 		$('.setPricesGoodsId').val(itemid);
 		$('#main_form').submit();
@@ -246,6 +261,7 @@ function setgoodsprices(){
 //添加商品窗口
 function addgoods(){
 	$("#popup_form [type!='button']").val("");
+	$("#addgoodscode").val('${sessionScope.company.companycode }');
 	$(".cd-popup").addClass("is-visible");	//弹出窗口
 	$.getJSON("getallGoodclass.action",function(data){
 		$.each(data,function(i,item){
@@ -259,23 +275,39 @@ function addgoods(){
 function close_popup(){
 	$(".cd-popup").removeClass("is-visible");	//移除'is-visible' class
 }
+//关闭标品选择窗口
+function closeCdPopup2(){
+	$(".cd-popup2").removeClass("is-visible");
+}
+//商品分页
+function fenyeScant(targetPage){
+	dobiaopin(targetPage);
+}
 //弹出标品窗口
-function dobiaopin(){
+function dobiaopin(pagenow){
 	$(".cd-popup2").addClass("is-visible");	//弹出标品窗口
-	$.getJSON("getallScant.action",function(data){
-		$("#scant td").remove();
+	var data = {
+			'nowpageScant':pagenow,
+			'scantcondition':$.trim($("#scantcondition").val())	
+	};
+	$.getJSON("getallScant.action",data,function(data){
+		$("#scant tr:gt(0)").remove();
 		$.each(data.Scantlist,function(i,item){
 			$("#scant").append(
 			'<tr><td>'+(i+1)+'</td>'+
 			'<td>'+item.scantcode+'</td>'+
 			'<td>'+item.scantname+'</td>'+
 			'<td>'+item.scantunits+'</td>'+
+			'<td>'+item.scantbrand+'</td>'+
 			'<td>'+item.goodsclass.goodsclassname+'</td>'+
 			'<td><a class="scant_a" onclick="seleScant(\''
 					+item.scantcode+
 					'\',\''+item.scantname+
 					'\',\''+item.scantunits+
 					'\',\''+item.goodsclass.goodsclassname+
+					'\',\''+item.scantimage+
+					'\',\''+item.scantbrand+
+					'\',\''+item.scanttype+
 					'\')">选择</a></td></tr>'
 			);
 		});
@@ -299,9 +331,13 @@ function dobiaopin(){
 		$("#scant").append(scantfenye);
 	});
 }
+//标品跳转到x页
+function scantPageTo(pageCount){
+	dobiaopin($("#nowpageScant").val());
+}
 //选择标品
-function seleScant(scantcode,scantname,scantunits,goodsclassname){
-	$("#addgoodscode").val(scantcode);
+function seleScant(scantcode,scantname,scantunits,goodsclassname,scantimage,scantbrand,scanttype){
+	$("#addgoodscode").val('${sessionScope.company.companycode }'+scantcode);
 	$("#goodsname").val(scantname);
 	$("#goodsunits").val(scantunits);
 	$("#goodsclass option").each(function(i,item){
@@ -309,6 +345,9 @@ function seleScant(scantcode,scantname,scantunits,goodsclassname){
 			$(item).attr("selected",true);
 		}
 	});
+	$("#goodsbrand").val(scantbrand);
+	$("#goodsimage").val(scantimage);
+	$("#goodstype").val(scanttype);
 	$(".cd-popup2").removeClass("is-visible");	//移除'is-visible' class
 	
 }
@@ -321,7 +360,7 @@ function popup_formSub(){
 	var count = 0;
 	$(".elegant-aero [type='text']").add(".elegant-aero [type='number']").each(function(i,item){
 		if($(item).val() == null || $(item).val() == '' ){
-			if($(item).attr('placeholder') != '品牌' && $(item).attr('placeholder') != '顺序'  && $(item).attr('placeholder') != '图片路径' ){
+			if($(item).attr('placeholder') != '品牌' && $(item).attr('placeholder') != '顺序'){
 				alert($(item).attr('placeholder') + '不能为空');
 				count++;
 				return false;

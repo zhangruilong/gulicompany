@@ -10,13 +10,12 @@ public interface ScantMapper {
 	/**
 	 * 查询全部 标品和小类名称(信息条数)
 	 */
-	Integer selectAllScantNum(@Param("nowpage") Integer nowpage,
-			@Param("pagesize") Integer pagesize);
+	Integer selectAllScantNum(@Param("scantcondition") String scantcondition);
 	/**
 	 * 查询全部 标品和小类名称
 	 */
 	List<Scant> selectAllScant(@Param("nowpage") Integer nowpage,
-			@Param("pagesize") Integer pagesize);
+			@Param("pagesize") Integer pagesize,@Param("scantcondition") String scantcondition);
 	/**
 	 * 根据主键删除
 	 */

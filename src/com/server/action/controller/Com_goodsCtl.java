@@ -336,13 +336,6 @@ public class Com_goodsCtl {
 		goodsMapper.updateByPrimaryKeySelective(updateGoods);
 		return map;
 	}
-	//修改商品价格
-	/*@RequestMapping(value="/companySys/setGoodsPrices")
-	@ResponseBody
-	public String setGoodsPrices(HttpServletRequest request,@RequestBody Goods editGoods){
-		String isAdd = request.getParameter("isAdd");
-		return isAdd;
-	}*/
 	//修改商品状态
 	@RequestMapping("/companySys/putaway")
 	@ResponseBody
@@ -424,19 +417,22 @@ public class Com_goodsCtl {
 	//查询标品
 	@RequestMapping(value="/companySys/getallScant",produces = "application/json")
 	@ResponseBody
-	public Map<String,Object> getallScant(Integer nowpageScant){
+	public Map<String,Object> getallScant(Integer nowpageScant,String scantcondition){
 		Map<String,Object> map = new HashMap<String, Object>();
 		if(nowpageScant == null){
 			nowpageScant = 1;
 		}
-		Integer countScant = scantMapper.selectAllScantNum(nowpageScant, 10);
+		Integer countScant = scantMapper.selectAllScantNum(scantcondition);
 		Integer pageCountScant;		//总页数
 		if(countScant % 10 ==0){
 			pageCountScant = countScant / 10;
 		} else {
 			pageCountScant = (countScant / 10) +1;
 		}
-		List<Scant> Scantlist = scantMapper.selectAllScant(nowpageScant,10);
+		if(nowpageScant > pageCountScant){
+			nowpageScant = pageCountScant;
+		}
+		List<Scant> Scantlist = scantMapper.selectAllScant(nowpageScant,10,scantcondition);
 		map.put("pageCountScant", pageCountScant);
 		map.put("countScant", countScant);
 		map.put("nowpageScant", nowpageScant);
@@ -554,13 +550,13 @@ public class Com_goodsCtl {
 	//添加大客户
 	@RequestMapping(value="/companySys/saveLargeCus")
 	@ResponseBody
-	public String saveLargeCus(Customer cus){
+	public String saveLargeCus(Customer cus,String comid){
 		String newId = CommonUtil.getNewId();
 		String datatime = DateUtils.getDateTime();
 		cus.setCustomerid(newId);
 		cus.setCreatetime(datatime);
 		cus.setCustomerstatue("启用");
-		if(cus.getCustomercity() == null || cus.getCustomercity().equals("")){
+		if(cus.getCustomercity() == null || cus.getCustomercity().equals("")){		//如果是
 			cus.setCustomercity("嘉兴市");
 			cus.setCustomerxian("海盐县");
 			cus.setCustomertype("3");
@@ -581,11 +577,10 @@ public class Com_goodsCtl {
 		//添加与唯一客户的关系
 		Ccustomer newccustomer = new Ccustomer();
 		newccustomer.setCcustomerid(newId);
-		newccustomer.setCcustomercompany("1");
+		newccustomer.setCcustomercompany(comid);
 		newccustomer.setCcustomercustomer(newId);
 		newccustomer.setCcustomerdetail(cus.getCustomerlevel().toString());
-		newccustomer.setCreator("1");
-		newccustomer.setCreatetime(datatime);
+		newccustomer.setCreator(comid);
 		ccustomreMapper.insertSelective(newccustomer);
 		return "";
 	}

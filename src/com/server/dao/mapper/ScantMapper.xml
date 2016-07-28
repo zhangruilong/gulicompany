@@ -9,6 +9,8 @@
     <result column="SCANTUNITS" property="scantunits" jdbcType="VARCHAR" />
     <result column="SCANTCLASS" property="scantclass" jdbcType="VARCHAR" />
     <result column="SCANTIMAGE" property="scantimage" jdbcType="VARCHAR" />
+    <result column="SCANTBRAND" property="scantbrand" jdbcType="VARCHAR" />
+    <result column="SCANTTYPE" property="scanttype" jdbcType="VARCHAR" />
     <result column="SCANTSTATUE" property="scantstatue" jdbcType="VARCHAR" />
     <association property="goodsclass" javaType="com.server.pojo.entity.Goodsclass">
     	<id column="GOODSCLASSID" property="goodsclassid" jdbcType="VARCHAR" />
@@ -19,20 +21,24 @@
 	    <result column="GOODSCLASSSTATUE" property="goodsclassstatue" jdbcType="VARCHAR" />
     </association>
   </resultMap>
-  <sql id="Base_Column_List" >
-    SCANTID, SCANTCODE, SCANTNAME, SCANTDETAIL, SCANTUNITS, SCANTCLASS, SCANTIMAGE, SCANTSTATUE
-  </sql>
   <!-- 查询全部 Scant和小类名称(信息条数)-->
   <select id="selectAllScantNum" resultType="int">
-  	select * from 
-	(select A.*, ROWNUM RN from (
     select 
     COUNT(*) 
     from SCANT
     left join goodsclass
     on scant.scantclass = goodsclass.goodsclassid
-     ) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) ) 
-	where RN &gt; ((#{nowpage}-1)*#{pagesize})
+    <where>
+	    <if test="scantcondition != null and scantcondition != ''">
+	    	and (
+	    		SCANT.SCANTCODE like '%${scantcondition}%' or
+	    		SCANT.SCANTNAME like '%${scantcondition}%' or
+	    		SCANT.SCANTDETAIL like '%${scantcondition}%' or
+	    		SCANT.SCANTUNITS like '%${scantcondition}%' or
+	    		goodsclass.GOODSCLASSNAME like '%${scantcondition}%'
+	    	)
+	    </if>
+    </where>
   </select>
   <!-- 查询全部 Scant和小类名称-->
   <select id="selectAllScant" resultMap="BaseResultMap">
@@ -45,13 +51,24 @@
     from SCANT
     left join goodsclass
     on scant.scantclass = goodsclass.goodsclassid
+    <where>
+	    <if test="scantcondition != null and scantcondition != ''">
+	    	and (
+	    		SCANT.SCANTCODE like '%${scantcondition}%' or
+	    		SCANT.SCANTNAME like '%${scantcondition}%' or
+	    		SCANT.SCANTDETAIL like '%${scantcondition}%' or
+	    		SCANT.SCANTUNITS like '%${scantcondition}%' or
+	    		goodsclass.GOODSCLASSNAME like '%${scantcondition}%'
+	    	)
+	    </if>
+    </where>
      ) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) ) 
 	where RN &gt; ((#{nowpage}-1)*#{pagesize})
   </select>
   <!-- 根据主键查询 -->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
-    <include refid="Base_Column_List" />
+    *
     from SCANT
     where SCANTID = #{scantid,jdbcType=VARCHAR}
   </select>

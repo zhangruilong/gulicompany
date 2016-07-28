@@ -202,7 +202,7 @@
 			goods.UPDOR like '%${goods.goodscode}%' or
 			gc.goodsclassname like '%${goods.goodscode}%')
 	</if>
-	 order by goods.createtime desc
+	 order by goods.goodsid
  ) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) )
 where RN &gt; ((#{nowpage}-1)*#{pagesize})
     
