@@ -48,20 +48,23 @@
 				<option>启用</option>
 				<option>禁用</option>
 			</select></label>
-			<label><span>所在城市 :</span>
+			<!-- <label><span>所在城市 :</span>
 			<select name="customercity">
 				<option>嘉兴市</option>
 			</select>
-			</label>
-			<label> <span>所在地区 :</span>
+			</label> -->
+			<label> <span>所在城市 :</span> <input id="customercity" type="text"
+				name="customercity" placeholder="所在城市" value="" /></label> 
+			<!-- <label> <span>所在地区 :</span>
 			<select name="customerxian">
 				<option>海盐县</option>
 				<option>秀洲区</option>
 				<option>嘉善县</option>
 				<option>南湖区</option>
 			</select>
-			</label>
-			
+			</label> -->
+			<label> <span>所在地区 :</span> <input id="customerxian" type="text"
+				name="customerxian" placeholder="所在地区" value="" /></label> 
 			<label> <span>&nbsp;</span> <input type="button"
 				class="button" value="保存" onclick="saveCus()"/>
 			</label>
@@ -86,11 +89,13 @@ function initEditCus(data){
 	$("#customershop").val(data.editCus.customershop);
 	$("select[name='customerstatue']").val(data.editCus.customerstatue);
 	$("#customeraddress").val(data.editCus.customeraddress);
-	$("select[name='customercity']").val(data.editCus.customercity);
-	$("select[name='customerxian']").val(data.editCus.customerxian);
+	$("[name='customercity']").val(data.editCus.customercity);
+	$("[name='customerxian']").val(data.editCus.customerxian);
 }
 //保存修改
 function saveCus(){
+	//alert($("select[name='customercity']").val());
+	//alert($("select[name='customerxian']").val());
 	$.getJSON("editCcusAndCus.action",{
 		"customerid":$("input:hidden[name='edit_cusid']").val(),
 		"customertype":$("#customertype").val(),
@@ -100,8 +105,8 @@ function saveCus(){
 		"customershop":$("#customershop").val(),
 		"customerstatue":$("select[name='customerstatue']").val(),
 		"customeraddress":$("#customeraddress").val(),
-		"customercity":$("select[name='customercity']").val(),
-		"customerxian":$("select[name='customerxian']").val(),
+		"customercity":$("[name='customercity']").val(),
+		"customerxian":$("[name='customerxian']").val(),
 		"ccustomerid":"${param.ccustomerid}",
 		"ccustomerdetail":$("#ccustomerdetail").val(),
 		},saveafert,null);
