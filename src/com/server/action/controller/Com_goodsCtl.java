@@ -556,11 +556,11 @@ public class Com_goodsCtl {
 		cus.setCustomerid(newId);
 		cus.setCreatetime(datatime);
 		cus.setCustomerstatue("启用");
-		if(cus.getCustomercity() == null || cus.getCustomercity().equals("")){		//如果是
+		/*if(cus.getCustomercity() == null || cus.getCustomercity().equals("")){		//如果是
 			cus.setCustomercity("嘉兴市");
 			cus.setCustomerxian("海盐县");
 			cus.setCustomertype("3");
-		}
+		}*/
 		if(cus.getCustomerlevel()>3|| cus.getCustomerlevel()<1){
 			cus.setCustomerlevel(3);
 		}
@@ -580,7 +580,7 @@ public class Com_goodsCtl {
 		newccustomer.setCcustomercompany(comid);
 		newccustomer.setCcustomercustomer(newId);
 		newccustomer.setCcustomerdetail(cus.getCustomerlevel().toString());
-		newccustomer.setCreator(comid);
+		newccustomer.setCreator("1");
 		ccustomreMapper.insertSelective(newccustomer);
 		return "";
 	}

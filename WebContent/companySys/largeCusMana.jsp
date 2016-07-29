@@ -211,7 +211,7 @@ function queryXian(){
 }
 //添加新录单客户
 function addLargeCus(){
-	$(".elegant-aero [type!='button']").val("");
+	$(".elegant-aero input[type!='button']").val("");
 	$(".cd-popup").addClass("is-visible");	//弹出窗口
 }
 //关闭添加录单客户窗口
