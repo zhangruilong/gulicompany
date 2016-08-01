@@ -19,6 +19,7 @@
     GOODSCLASSID,GOODSCLASSNAME
     from GOODSCLASS
     where GOODSCLASSPARENT != 'root'
+    and goodsclassstatue != '禁用'
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 

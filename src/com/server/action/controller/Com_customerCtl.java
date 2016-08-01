@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.server.dao.mapper.AddressMapper;
 import com.server.dao.mapper.CcustomerMapper;
+import com.server.dao.mapper.CityMapper;
 import com.server.dao.mapper.CustomerMapper;
 import com.server.dao.mapper.EmpMapper;
 import com.server.pojo.entity.Address;
 import com.server.pojo.entity.Ccustomer;
+import com.server.pojo.entity.City;
 import com.server.pojo.entity.Customer;
 import com.server.pojo.entity.CustomerStatisticVO;
 import com.server.pojo.entity.Emp;
@@ -42,6 +44,20 @@ public class Com_customerCtl {
 	private AddressMapper addressMapper;
 	@Autowired
 	private EmpMapper empMapper;
+	@Autowired
+	private CityMapper cityMapper;
+	//新增大客户时用到的city
+	@RequestMapping(value="/companySys/addLGCity")
+	@ResponseBody
+	public Map<String,Object> addLGCity(String cityid){
+		Map<String,Object> map = new HashMap<String, Object>();
+		City city = cityMapper.selectByPrimaryKey(cityid);
+		City cityparent = cityMapper.selectByPrimaryKey(city.getCityparent());
+		List<City> citylist = cityMapper.selectByCityparent(cityparent.getCityid());
+		map.put("city", cityparent);
+		map.put("xianlist", citylist);
+		return map;
+	}
 	//全部客户
 	@RequestMapping(value="/companySys/allCustomer")
 	public String allCustomer(Model model,Ccustomer ccustomerCon,Integer pagenow){

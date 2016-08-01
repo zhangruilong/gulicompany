@@ -114,15 +114,12 @@ String customertype = request.getParameter("customer.customertype");
 				name="customer.customershop" placeholder="名称" /></label>
 			<label><span>所在城市 :</span>
 			<select name="newLargeCus_CityName" id="newLargeCus_CityName">
-				<option>嘉兴市</option>
+				<option value="">请选择</option>
 			</select>
 			</label>
 			<label> <span>所在地区 :</span>
 			<select name="newLargeCus_xian" id="newLargeCus_xian">
-				<option>海盐县</option>
-				<option>秀洲区</option>
-				<option>嘉善县</option>
-				<option>南湖区</option>
+				<option value="">请选择</option>
 			</select>
 			</label>
 			<label><span>地址 :</span><input id="customer.customeraddress" type="text"
@@ -133,9 +130,10 @@ String customertype = request.getParameter("customer.customertype");
 				name="customer.customerphone" placeholder="联系电话" /></label>
 			<label> <span>客户类型 :</span>
 			<select name="newLargeCus_tp" id="newLargeCus_tp">
-				<option name="3">餐饮客户</option>
-				<option name="2">商超客户</option>
-				<option name="1">组织单位客户</option>
+				<option value="">请选择</option>
+				<option value="3">餐饮客户</option>
+				<option value="2">商超客户</option>
+				<option value="1">组织单位客户</option>
 			</select>
 			</label>
 			<label><span>价格层级 :</span><input id="customer.customerlevel" type="number"
@@ -144,13 +142,16 @@ String customertype = request.getParameter("customer.customertype");
 			<p><label><input type="button"
 				class="popup_button" value="提交" onclick="saveLargeCus()"/>
 			</label>
-			<label><input type="button"
-				class="popup_button" value="关闭窗口" onclick="close_popup()"/>
+			<label><input type="button" class="popup_button" value="关闭窗口" onclick="close_popup()"/>
 			</label></p>
 	</div>
 </div>
 <script type="text/javascript">
 var customertype = '<%=customertype %>';
+var comcity = '${sessionScope.company.companycity}'
+if(comcity == ''){
+	window.parent.location.reload();
+}
 $(function(){
 	$("#main_form").on("submit",function(){
 		checkCondition();
@@ -160,6 +161,23 @@ $(function(){
 		var index=myselect.selectedIndex ;     									//得到被选择的option的下标
 		var cityName = myselect.options[index].text;							//根据下标得到文本内容
 		queryXian();
+	});
+	$.ajax({
+		url:"addLGCity.action",
+		type:"post",
+		data:{
+			"cityid":comcity
+		},
+		success:function(data){
+			$("#newLargeCus_CityName").append('<option>'+data.city.cityname+'</option>');
+			$.each(data.xianlist,function(i,item){
+				$("#newLargeCus_xian").append('<option>'+item.cityname+'</option>');
+			});
+		},
+		error : function(resp) {
+			var respText = eval('('+resp+')');
+			alert(respText.msg);
+		}
 	});
 })
 
@@ -220,19 +238,19 @@ function close_popup(){
 }
 //保存新增的录单客户
 function saveLargeCus(){
-	var  myselect1=document.getElementById("newLargeCus_CityName");			
-	var index1=myselect1.selectedIndex ;     									
+	//var  myselect1=document.getElementById("newLargeCus_CityName");			
+	//var index1=myselect1.selectedIndex ;     									
 	
-	var cityName = myselect1.options[index1].text;							
+	var cityName = $("#newLargeCus_CityName").val();							
 	
-	var  myselect2=document.getElementById("newLargeCus_xian");				
-	var index2=myselect2.selectedIndex ;     									
+	//var  myselect2=document.getElementById("newLargeCus_xian");				
+	//var index2=myselect2.selectedIndex ;     									
 	
-	var xian = myselect2.options[index2].text;								
-	var  myselect3=document.getElementById("newLargeCus_tp");				
-	var index3=myselect3.selectedIndex ;     									
+	var xian = $("#newLargeCus_xian").val();								
+	//var  myselect3=document.getElementById("newLargeCus_tp");				
+	//var index3=myselect3.selectedIndex ;   									
 	
-	var type = myselect3.options[index3].getAttribute("name");					
+	var type = $("#newLargeCus_tp").val();					
 	if(!cityName){
 		alert("城市不能为空!");
 		return;
