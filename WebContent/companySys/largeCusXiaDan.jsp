@@ -191,8 +191,9 @@ function tabEdit(){
 		$(this).attr("contentEditable","false");
 		$(this).css("background-color","transparent");
 	});
+	//下单数量
 	$(".largeCus_form td[name='odd_num']").blur(function(){
-		var num = parseFloat($(this).text()).toFixed(2);
+		var num = parseInt($(this).text());
 		if(isNaN(num)){
 			alert("只能输入数字");
 			$(this).text(1);
@@ -205,16 +206,64 @@ function tabEdit(){
 		$(this).next().next().text(pric*num);
 		showXDMoneyAndSJMoney();
 	});
-	$(".largeCus_form td[name$='_money']").blur(function(){
-		var num = parseFloat($(this).text()).toFixed(2);
-		if(isNaN(num)){
+	//商品价格
+	$(".largeCus_form td[name='odd_price']").blur(function(){
+		var price = parseFloat($(this).text()).toFixed(2);
+		var numobj = $(this).next().next();			//数量
+		var monobj = numobj.next();					//下单金额
+		
+		if(isNaN(price)){
 			alert("只能输入数字");
-			$(this).text(1);
-			$(this).focus();
-			return;
+			if(monobj.text() && numobj.text()){
+				var orprice = parseFloat(monobj.text()) / parseInt(numobj.text());
+				$(this).text(orprice);
+			} else {
+				$(this).text("");
+			}
+		} else if(monobj.text() && numobj.text()){
+			monobj.text(price * parseFloat(numobj.text()));								//下单金额
+			showXDMoneyAndSJMoney();
 		}
 		$(this).attr("contentEditable","false");
 		$(this).css("background-color","transparent");
+	});
+	//实际金额
+	$(".largeCus_form td[name='sj_money']").blur(function(){
+		var sjmon = parseFloat($(this).text()).toFixed(2);				//实际金额
+		var numobj = $(this).prev().prev();									//数量
+		var price = numobj.prev().prev();									//价格
+		
+		if(isNaN(sjmon)){
+			alert("只能输入数字");
+			if(price.text() && numobj.text()){
+				var ormon = parseFloat(price.text()) * parseInt(numobj.text());
+				$(this).text(ormon);
+			} else {
+				$(this).text("");
+			}
+		}
+		$(this).attr("contentEditable","false");
+		$(this).css("background-color","transparent");
+		showXDMoneyAndSJMoney();
+	});
+	//下单金额
+	$(".largeCus_form td[name='xd_money']").blur(function(){
+		var xdmon = parseFloat($(this).text()).toFixed(2);				//下单金额
+		var numobj = $(this).prev();									//数量
+		var price = numobj.prev().prev();								//价格
+		
+		if(isNaN(xdmon)){
+			alert("只能输入数字");
+			if(price.text() && numobj.text()){
+				var ormon = parseFloat(price.text()) * parseInt(numobj.text());
+				$(this).text(ormon);
+			} else {
+				$(this).text("");
+			}
+		}
+		$(this).attr("contentEditable","false");
+		$(this).css("background-color","transparent");
+		showXDMoneyAndSJMoney();
 	});
 }
 //保存订单
@@ -365,7 +414,7 @@ function seleGoods(goodscode,orderdtype,goodsname,goodsunits,price,unit,obj){
 			'<td>'+orderdtype+'</td>'+
 			'<td>'+goodsname+'</td>'+
 			'<td>'+goodsunits+'</td>'+
-			'<td>'+price+'</td>'+
+			'<td name="odd_price">'+price+'</td>'+
 			'<td>'+unit+'</td>'+
 			'<td name="odd_num">1</td>'+
 			'<td name="xd_money">'+price+'</td>'+
