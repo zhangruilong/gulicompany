@@ -87,12 +87,14 @@ public class Com_orderCtl {
 	@RequestMapping("/companySys/editOrder")
 	public String editOrder(Model model,Orderm order){
 		order.setOrdermstatue("已删除");
+		order.setUpdtime(DateUtils.getDateTime());			//修改时间是删除时间
 		ordermMapper.updateByPrimaryKeySelective(order);
 		return "forward:allOrder.action";
 	}
 	//修改订单状态
 	@RequestMapping("/companySys/deliveryGoods")
 	public String deliveryGoods(Model model,Orderm order){
+		order.setUpdtime(DateUtils.getDateTime());			//修改时间
 		ordermMapper.updateByPrimaryKeySelective(order);
 		model.addAttribute("order", order);
 		return "forward:allOrder.action";
@@ -100,6 +102,7 @@ public class Com_orderCtl {
 	//修改订单状态2
 	@RequestMapping("/companySys/updateStatue")
 	public @ResponseBody Integer updateStatue( Orderm order){
+		order.setUpdtime(DateUtils.getDateTime());			//修改时间
 		Integer num = ordermMapper.updateByPrimaryKeySelective(order);
 		return num;
 	}
@@ -129,6 +132,7 @@ public class Com_orderCtl {
 		order.setOrdermmoney(money.toString());
 		order.setOrdermrightmoney(rightmoney.toString());
 		order.setOrdermnum(ordermnum);
+		order.setUpdtime(DateUtils.getDateTime());			//修改时间
 		ordermMapper.updateByPrimaryKeySelective(order);
 		return "forward:orderDetail.action";
 	}
@@ -148,6 +152,7 @@ public class Com_orderCtl {
 		Float nowOrderdrightmoney = Float.parseFloat(updateOrderm.getOrdermrightmoney()) - diffOrderdrightmoney;	//计算后的实际金额
 		updateOrderm.setOrdermmoney(nowOrdermmoney.toString());				
 		updateOrderm.setOrdermrightmoney(nowOrderdrightmoney.toString());
+		updateOrderm.setUpdtime(DateUtils.getDateTime());			//修改时间
 		ordermMapper.updateByPrimaryKeySelective(updateOrderm);										//修改下单金额和实际金额
 		orderdMapper.updateByPrimaryKeySelective(orderd);
 		model.addAttribute("orderd", orderd);

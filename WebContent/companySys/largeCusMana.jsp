@@ -266,7 +266,7 @@ function saveLargeCus(){
 	var count = 0;
 	$("#addLC_popupForm [name^='customer.']").each(function(i,item){
 		var val = $(item).val();
-		if( $.trim(val) == ''){
+		if( $.trim(val) == '' && $(item).attr('id') != 'customer.customercode'){
 			alert($(item).attr("placeholder")+'不能为空!');
 			count++;
 			return false;

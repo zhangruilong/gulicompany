@@ -288,7 +288,7 @@ function dobiaopin(pagenow){
 	$(".cd-popup2").addClass("is-visible");	//弹出标品窗口
 	var data = {
 			'nowpageScant':pagenow,
-			'scantcondition':$.trim($("#scantcondition").val())	
+			'scantcondition':$.trim($("#scantcondition").val())
 	};
 	$.getJSON("getallScant.action",data,function(data){
 		$("#scant tr:gt(0)").remove();
