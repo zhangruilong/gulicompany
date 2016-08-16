@@ -148,8 +148,8 @@ String customertype = request.getParameter("customer.customertype");
 </div>
 <script type="text/javascript">
 var customertype = '<%=customertype %>';
-var comcity = '${sessionScope.company.companycity}'
-if(comcity == ''){
+var cityid = '${sessionScope.company.companycity }';
+if(cityid == ''){
 	window.parent.location.reload();
 }
 $(function(){
@@ -162,17 +162,19 @@ $(function(){
 		var cityName = myselect.options[index].text;							//根据下标得到文本内容
 		queryXian();
 	});
+	var comServicEarea = '${sessionScope.company.createtime}';
+	var comSE = comServicEarea.split('/');
+	$.each(comSE,function(i,item){
+		$("#newLargeCus_xian").append('<option>'+item+'</option>');
+	});
 	$.ajax({
 		url:"addLGCity.action",
 		type:"post",
 		data:{
-			"cityid":comcity
+			"cityid":cityid
 		},
 		success:function(data){
 			$("#newLargeCus_CityName").append('<option>'+data.city.cityname+'</option>');
-			$.each(data.xianlist,function(i,item){
-				$("#newLargeCus_xian").append('<option>'+item.cityname+'</option>');
-			});
 		},
 		error : function(resp) {
 			var respText = eval('('+resp+')');

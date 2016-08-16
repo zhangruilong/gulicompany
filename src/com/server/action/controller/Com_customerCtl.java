@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.server.dao.mapper.AddressMapper;
@@ -25,7 +24,6 @@ import com.server.pojo.entity.City;
 import com.server.pojo.entity.Customer;
 import com.server.pojo.entity.CustomerStatisticVO;
 import com.server.pojo.entity.Emp;
-import com.server.pojo.entity.Orderd;
 import com.system.tools.util.DateUtils;
 import com.system.tools.util.FileUtil;
 
@@ -53,9 +51,7 @@ public class Com_customerCtl {
 		Map<String,Object> map = new HashMap<String, Object>();
 		City city = cityMapper.selectByPrimaryKey(cityid);
 		City cityparent = cityMapper.selectByPrimaryKey(city.getCityparent());
-		List<City> citylist = cityMapper.selectByCityparent(cityparent.getCityid());
 		map.put("city", cityparent);
-		map.put("xianlist", citylist);
 		return map;
 	}
 	//全部客户

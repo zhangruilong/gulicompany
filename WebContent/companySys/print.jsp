@@ -124,6 +124,9 @@ window.print()
 	</tr>
 	</table>
 	<div style="font-size: 12px;">★ 本订单及系统由谷粒网提供支持</div>
+	<c:if test="${requestScope.order.ordermdetail != null && requestScope.order.ordermdetail != '' }">
+		<div style="font-size: 12px;">买家留言:${requestScope.order.ordermdetail }</div>
+	</c:if>
 </div>
 
 <input type="button" name="Btn_printPreviw" value="打印" 
