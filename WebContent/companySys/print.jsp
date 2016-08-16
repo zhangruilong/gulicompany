@@ -123,10 +123,10 @@ window.print()
 		<td style="width: 24%;font-size: 12px;">审核员:<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
 	</tr>
 	</table>
-	<div style="font-size: 12px;">★ 本订单及系统由谷粒网提供支持</div>
 	<c:if test="${requestScope.order.ordermdetail != null && requestScope.order.ordermdetail != '' }">
-		<div style="font-size: 12px;">买家留言:${requestScope.order.ordermdetail }</div>
+		<div style="font-size: 12px;line-height: 30px;margin-left: 17px;">订单留言:${requestScope.order.ordermdetail }</div>
 	</c:if>
+	<div style="font-size: 12px;">★ 本订单及系统由谷粒网提供支持</div>
 </div>
 
 <input type="button" name="Btn_printPreviw" value="打印" 
