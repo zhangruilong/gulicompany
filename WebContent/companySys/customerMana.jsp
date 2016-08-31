@@ -26,7 +26,8 @@ String customertype = request.getParameter("customer.customertype");
 查询条件:&nbsp;&nbsp;<input type="text" id="customercode" name="customer.customercode" value="${requestScope.ccustomerCon.customer.customercode }">
 <input class="button" type="button" value="查询" onclick="subcustomerfor()">
 <input class="button" type="button" value="导出" onclick="reportCustomer()">
-<input class="button" type="button" value="修改" onclick="updateCus()">
+<input class="button" type="button" value="修改" onclick="cusOperation(0)">
+<input class="button" type="button" value="录单" onclick="cusOperation(1)">
 </div>
 <table class="bordered" id="ccus_tab">
     <thead>
@@ -116,8 +117,8 @@ $(function(){
 		checkCondition();
 	});
 })
-//修改
-function updateCus(){
+//客户操作(0:修改客户信息,1:为客户录单)
+function cusOperation(option){
 	var ccusid = "";
 	var count = 0;
 	$("#ccus_tab :checkbox").each(function(i,item){
@@ -127,10 +128,14 @@ function updateCus(){
 		}
 	});
 	if(count>0 && count<2){
-		window.location.href = "editCusInfo.jsp?ccustomerid="+ccusid+"&pagenow=${requestScope.pagenow }"
-				+"&customercode=${requestScope.ccustomerCon.customer.customercode }";
+		if(option == 0){
+			window.location.href = "editCusInfo.jsp?ccustomerid="+ccusid+"&pagenow=${requestScope.pagenow }"
+					+"&customercode=${requestScope.ccustomerCon.customer.customercode }";
+		} else if(option == 1){
+			window.location.href = 'largeCusXiaDan.jsp?ccustomerid='+ccusid+'&ccustomercompany=${sessionScope.company.companyid }';
+		}
 	} else if(count == 0){
-		alert("请选择要修改的客户!");
+		alert("请选择客户!");
 	} else {
 		alert("只能选择一个客户!");
 	}
