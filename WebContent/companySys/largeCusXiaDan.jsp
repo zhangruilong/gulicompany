@@ -187,7 +187,7 @@ function tabEdit(){
 		$(this).css("background-color","white");
 		$(this).focus();
 	});
-	$(".largeCus_form td[name!='odd_num']:not([name$='_money'])").blur(function(){
+	$(".largeCus_form td:not([name^='odd_']):not([name$='_money'])").blur(function(){
 		$(this).attr("contentEditable","false");
 		$(this).css("background-color","transparent");
 	});
@@ -211,7 +211,7 @@ function tabEdit(){
 		var price = parseFloat($(this).text()).toFixed(2);
 		var numobj = $(this).next().next();			//数量
 		var monobj = numobj.next();					//下单金额
-		
+		var sjmonobj = monobj.next();				//实际金额
 		if(isNaN(price)){
 			alert("只能输入数字");
 			if(monobj.text() && numobj.text()){
@@ -222,6 +222,7 @@ function tabEdit(){
 			}
 		} else if(monobj.text() && numobj.text()){
 			monobj.text(price * parseFloat(numobj.text()));								//下单金额
+			sjmonobj.text(price * parseFloat(numobj.text()));
 			showXDMoneyAndSJMoney();
 		}
 		$(this).attr("contentEditable","false");
@@ -282,7 +283,7 @@ function saveOrder(){
 			+ '","orderdname":"' + goodsJson.goodsname
 			+ '","orderddetail":"' +'danpin'
 			+ '","orderdunits":"' + goodsJson.goodsunits
-			+ '","orderdprice":"' + goodsJson.pricesList[0].pricesprice
+			+ '","orderdprice":"' + $(item).find("td:eq(5)").text()
 			+ '","orderdunit":"' + goodsJson.pricesList[0].pricesunit
 			+ '","orderdclass":"' + goodsJson.gClass.goodsclassname
 			+ '","orderdnum":"' + $(item).find("td:eq(7)").text()

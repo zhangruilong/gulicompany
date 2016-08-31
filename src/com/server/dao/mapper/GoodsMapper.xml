@@ -135,7 +135,7 @@
 			g.UPDOR like '%${goods.goodscode}%' or
 			gc.goodsclassname like '%${goods.goodscode}%')
 	</if>
-	order by g.createtime,lcp.largecuspricecreatetime desc nulls last
+	order by lcp.largecuspricecreatetime desc nulls last,g.createtime desc
 	) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) ) 
 	where RN &gt; ((#{nowpage}-1)*#{pagesize})
   </select>
