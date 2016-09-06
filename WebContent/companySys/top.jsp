@@ -186,7 +186,7 @@ Company company = (Company)session.getAttribute("company");
 			        +"</li>"
 			        +"<li class='nav__item'>"
 			        +"<a href=allCustomer.action?ccustomercompany="+'<%=company.getCompanyid() %>'+"&creator=1  target='main' class='nav__item-link'>"
-			        +"<span class='nav__item-text'>录单客户</span>"
+			        +"<span class='nav__item-text'>录入客户</span>"
 			        +"</a>   "
 			        +"</li>"
 			        +"</ul>");

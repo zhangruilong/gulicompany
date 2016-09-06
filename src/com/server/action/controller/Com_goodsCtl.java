@@ -471,7 +471,7 @@ public class Com_goodsCtl {
 	//添加大客户订单时所需商品
 	@RequestMapping(value="/companySys/getlargeCusGoods",produces = "application/json")
 	@ResponseBody
-	public Map<String,Object> getlargeCusGoods(Goods goodsCon,Integer pagenowGoods){
+	public Map<String,Object> getlargeCusGoods(Goods goodsCon,Integer pagenowGoods,String customerid){
 		Map<String,Object> map = new HashMap<String, Object>();
 		if(pagenowGoods == null){
 			pagenowGoods = 1;
@@ -483,7 +483,7 @@ public class Com_goodsCtl {
 		} else {
 			pageCountGoods = (countGoods / 10) +1;
 		}
-		List<Goods> goodsList = goodsMapper.selectlagerCusGoods(goodsCon, pagenowGoods, 10);
+		List<Goods> goodsList = goodsMapper.selectlagerCusGoods(goodsCon, pagenowGoods, 10,customerid);
 		map.put("pageCountGoods", pageCountGoods);
 		map.put("countGoods", countGoods);
 		map.put("pagenowGoods", pagenowGoods);

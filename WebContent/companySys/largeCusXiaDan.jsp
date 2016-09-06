@@ -340,12 +340,14 @@ function closeCdPopup(){
 //加载商品数据
 function loadGoodsData(pagenowGoods){
 	var jsonDATA = JSON.parse($(".tt_cusInfo span:eq(3)").text());
+	
 	$.post("getlargeCusGoods.action",{
 			"goodscompany":"${param.ccustomercompany}",
 			"pagenowGoods":pagenowGoods,
 			'goodscode':$.trim($("#goodscode").val()),
 			"pricesList[0].priceslevel":jsonDATA.largeCCus.ccustomerdetail,
-			"pricesList[0].pricesclass":jsonDATA.largeCCus.customer.customertype
+			"pricesList[0].pricesclass":jsonDATA.largeCCus.customer.customertype,
+			customerid:jsonDATA.largeCCus.customer.customerid
 		},function(data){
 		
 		$("#goods_LCXD tr:gt(0)").remove();

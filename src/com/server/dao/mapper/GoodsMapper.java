@@ -19,7 +19,7 @@ public interface GoodsMapper {
 	 * 大客户商品和价格
 	 */
 	List<Goods> selectlagerCusGoods(@Param("goods") Goods goods,
-    		@Param("nowpage") Integer nowpage,@Param("pagesize") Integer pagesize);
+    		@Param("nowpage") Integer nowpage,@Param("pagesize") Integer pagesize,@Param("customerid") String customerid);
 	/**
 	 * 查询全部餐饮商品(信息条数)
 	 */

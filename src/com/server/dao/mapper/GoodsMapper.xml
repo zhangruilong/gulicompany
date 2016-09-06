@@ -118,7 +118,7 @@
 	on g.goodsclass = gc.goodsclassid
 	left outer join prices p
 	on p.pricesgoods = g.goodsid
-	left outer join largecusprice lcp
+	left outer join (select * from largecusprice lag where lag.largecuspricecustomer = #{customerid} ) lcp
 	on lcp.largecuspricegoods = g.goodsid
 	where (g.goodsstatue = '上架' or lcp.largecuspriceprice is not null)
 	and g.goodscompany = #{goods.goodscompany}
