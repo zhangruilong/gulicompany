@@ -221,9 +221,9 @@ h1 .title_goodsinfo span{
 			</tr> -->
 			
 			</table>
-			<span>&nbsp;</span> <input id="edigp-bc" type="button" class="button" value="保存" onclick="addData()"/> 
+			<span>&nbsp;</span> <input id="edigp-bc" type="button" class="button" value="保存" onclick="addData('y')"/> 
+			<input style="margin-left: 30px;" type="button" class="button" value="保存并上架" id="edigp-bas" onclick="addData('n')"/>
 			<input style="margin-left: 30px;" type="button" class="button" value="返回" onclick="javascript:window.history.back()"/>
-			
 	</div>
 	<script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript">
@@ -232,8 +232,41 @@ h1 .title_goodsinfo span{
 			$("[name='creator']").attr("checked",true);
 		}
 	});
+	//保存并上架
+	function addAndShelves(){
+		$.ajax({
+			url:'putaway.action',
+			type:'post',
+			data:{
+				"goodsid":"${requestScope.editPriGoods.goodsid }",
+				"goodscompany":"${requestScope.editPriGoods.goodscompany }",
+				"goodsstatue":'上架'
+			},
+			success:function(data){
+				if(data.editResult == '修改成功！'){
+					alert('商品上架成功！');
+					if('${param.pagefor}' == 'canyinGoodsPage'){
+						window.location.href = 'allCanyinGoods.action?goodscompany=${requestScope.editPriGoods.goodscompany }'+
+						'&goodscode=${requestScope.goodsCon.goodscode }&goodsstatue=${requestScope.goodsCon.goodsstatue }'+
+						'&goodsid=${requestScope.goodsCon.goodsid }&pagenow=${requestScope.pagenow }';
+					} else {
+						window.location.href = 'allGoods.action?goodscompany=${requestScope.editPriGoods.goodscompany }'+
+								'&goodscode=${requestScope.goodsCon.goodscode }&goodsstatue=${requestScope.goodsCon.goodsstatue }'+
+								'&goodsid=${requestScope.goodsCon.goodsid }&pagenow=${requestScope.pagenow }';
+					}
+				} else {
+					alert('商品上架失败。');
+					$("#edigp-bas").attr(onclick,"addAndShelves()");
+				}
+			},
+			error:function(data){
+				alert('商品上架失败。');
+				$("#edigp-bas").attr(onclick,"addAndShelves()");
+			}
+		});
+	}
 	//添加或修改价格
-	function addData(){
+	function addData(isAct){
 		var val1 = $("#1").val();
 		var val10 = $("#10").val();
 		var pricesunit = $("#pricesunit").val();		//单位
@@ -320,21 +353,26 @@ h1 .title_goodsinfo span{
 				},
 				success: function(data){
 						alert('价格已更新！');
-						if('${param.pagefor}' == 'canyinGoodsPage'){
-							window.location.href = 'allCanyinGoods.action?goodscompany=${requestScope.editPriGoods.goodscompany }'+
-							'&goodscode=${requestScope.goodsCon.goodscode }&goodsstatue=${requestScope.goodsCon.goodsstatue }'+
-							'&goodsid=${requestScope.goodsCon.goodsid }&pagenow=${requestScope.pagenow }';
+						if(isAct=='y'){
+							if('${param.pagefor}' == 'canyinGoodsPage'){
+								window.location.href = 'allCanyinGoods.action?goodscompany=${requestScope.editPriGoods.goodscompany }'+
+								'&goodscode=${requestScope.goodsCon.goodscode }&goodsstatue=${requestScope.goodsCon.goodsstatue }'+
+								'&goodsid=${requestScope.goodsCon.goodsid }&pagenow=${requestScope.pagenow }';
+							} else {
+								window.location.href = 'allGoods.action?goodscompany=${requestScope.editPriGoods.goodscompany }'+
+										'&goodscode=${requestScope.goodsCon.goodscode }&goodsstatue=${requestScope.goodsCon.goodsstatue }'+
+										'&goodsid=${requestScope.goodsCon.goodsid }&pagenow=${requestScope.pagenow }';
+							}
 						} else {
-							window.location.href = 'allGoods.action?goodscompany=${requestScope.editPriGoods.goodscompany }'+
-									'&goodscode=${requestScope.goodsCon.goodscode }&goodsstatue=${requestScope.goodsCon.goodsstatue }'+
-									'&goodsid=${requestScope.goodsCon.goodsid }&pagenow=${requestScope.pagenow }';
+							addAndShelves();
 						}
 					},
 				error:function(){
-					alert("操作失败!");
+					alert("价格更新失败!");
 					$("#edigp-bc").attr(onclick,"addData()");
 				}
 		});
+		
 	}
 	</script>
 </body>
