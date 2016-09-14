@@ -9,6 +9,10 @@ import com.server.pojo.entity.Ordermview;
 
 public interface OrdermMapper {
 	/**
+	 * 查询订单总实际金额
+	 */
+	Integer selectOMrightMoney();
+	/**
 	 * 查询最新的一条订单信息
 	 */
 	Orderm selectNewestOrderm(@Param("ordermcompany") String ordermcompany);
