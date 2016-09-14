@@ -195,7 +195,9 @@
   </select>
   <!-- 据客户关系中的供应商和查询条件查询客户(导出报表时使用) -->
   <select id="selectCustomerByGuanxi" resultMap="BaseResultMap" parameterType="com.server.pojo.entity.Ccustomer" >
-    select c.* from customer c
+    select c.customerid,c.customercode,c.customername,c.customerphone,c.customershop,c.customercity,
+  	c.customerxian,c.customeraddress,c.customertype,cc.ccustomerdetail as customerlevel,
+  	c.createtime,c.updtime,cc.createtime as customerpsw from customer c
 	left join ccustomer cc
 	on cc.ccustomercustomer = c.customerid
 	where cc.ccustomercompany = #{ccustomercompany}
@@ -211,6 +213,7 @@
 				or c.customercity like '%${customer.customercode}%'
 				or c.customerxian like '%${customer.customercode}%'
 				or c.customeraddress like '%${customer.customercode}%'
+				or cc.createtime like '%${customer.customercode}%'
 			)
 		</if>
 	</if>
