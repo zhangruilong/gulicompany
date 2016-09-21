@@ -42,8 +42,8 @@
 				name="goodsimage" placeholder="图片路径" /></label>
 			<label><span>品牌 :</span><input id="goodsbrand" type="text" value="${requestScope.editGoods.goodsbrand }"
 				name="goodsbrand" placeholder="品牌" /></label>
-			<!-- <label><span>种类 :</span><input id="goodstype" type="text" value="${requestScope.editGoods.goodstype }"
-				name="goodstype" placeholder="种类" /></label> -->
+			<label><span>种类 :</span><input id="goodstype" type="text" value="${requestScope.editGoods.goodstype }"
+				name="goodstype" placeholder="种类" /></label>
 			<label><span>顺序 :</span><input id="goodsorder" type="number" value="${requestScope.editGoods.goodsorder }"
 				name="goodsorder" placeholder="顺序" /></label>
 			<p><input type="button"

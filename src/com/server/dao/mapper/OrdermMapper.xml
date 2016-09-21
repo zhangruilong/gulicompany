@@ -89,8 +89,17 @@
   	select * from 
 	(select A.*, ROWNUM RN from (
     select 
-    orderm.ORDERMID, orderm.ORDERMCUSTOMER, orderm.ORDERMCOMPANY, orderm.ORDERMCODE, orderm.ORDERMNUM, orderm.ORDERMMONEY, orderm.ORDERMRIGHTMONEY, 
-    orderm.ORDERMWAY, orderm.ORDERMSTATUE, orderm.ORDERMDETAIL, orderm.ORDERMTIME,
+    orderm.ORDERMID, 
+    orderm.ORDERMCUSTOMER, 
+    orderm.ORDERMCOMPANY, 
+    orderm.ORDERMCODE, 
+    orderm.ORDERMNUM, 
+    orderm.ORDERMMONEY, 
+    orderm.ORDERMRIGHTMONEY, 
+    orderm.ORDERMWAY, 
+    orderm.ORDERMSTATUE, 
+    orderm.ORDERMDETAIL, 
+    orderm.ORDERMTIME,
     orderm.ORDERMCONNECT, 
     orderm.ORDERMPHONE, 
     orderm.ORDERMADDRESS, 

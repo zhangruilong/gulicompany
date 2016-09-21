@@ -21,7 +21,6 @@
     where GOODSCLASSPARENT != 'root'
     and goodsclassstatue != '禁用'
     and GOODSCLASSPARENT != 'G14630381061319233'
-    and GOODSCLASSPARENT != 'G14630381061319232'
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 

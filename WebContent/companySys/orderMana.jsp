@@ -14,7 +14,7 @@ String ordermway = request.getParameter("ordermway");
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="css/tabsty.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="<%=basePath%>ExtJS/resources/css/ext-all.css" />
-<script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>ExtJS/adapter/ext/ext-base.js"></script>
 <script type="text/javascript" src="<%=basePath%>ExtJS/ext-all.js"></script>
 <script type="text/javascript" src="<%=basePath%>ExtJS/ext-lang-zh_CN.js" charset="GBK"></script>
