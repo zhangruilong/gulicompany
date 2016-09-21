@@ -76,7 +76,7 @@ function saveEdit(){
 		return;
 	}
 	data += '"timegoodsstatue":"' +$("[name='timegoodsstatue']").val() +'",';
-	$(".elegant-aero [type='text']").add(".elegant-aero [type='number']").each(function(i,item){
+	$(".elegant-aero [type='text'],select").add(".elegant-aero [type='number']").each(function(i,item){
 		if($(item).val() == null || $(item).val() == '' ){
 			if($(item).attr('placeholder') != '品牌' && $(item).attr('placeholder') != '顺序'&& $(item).attr('placeholder') != '图片路径'){
 				alert($(item).attr('placeholder') + '不能为空');
