@@ -20,11 +20,11 @@
 			<h1>修改订单商品
 				<span>商品名称 : ${requestScope.orderd.orderdname }&nbsp;&nbsp;&nbsp;&nbsp;单位 : ${requestScope.orderd.orderdunit }&nbsp;&nbsp;&nbsp;&nbsp;规格 : ${requestScope.orderd.orderdunits }</span>
 			</h1>
-			<label> <span>商品数量 :</span> <input id="orderdnum" type="text"
+			<label> <span>商品数量 :</span> <input id="orderdnum" type="number"
 				name="orderdnum" placeholder="商品数量" value="${requestScope.orderd.orderdnum }"/>
-			</label> <label> <span>下单金额 :</span> <input id="orderdmoney" type="text"
+			</label> <label> <span>下单金额 :</span> <input id="orderdmoney" type="number"
 				name="orderdmoney" placeholder="下单金额"  value="${requestScope.orderd.orderdmoney }"/>
-			</label> <label> <span>实际金额 :</span> <input id="orderdrightmoney" type="text"
+			</label> <label> <span>实际金额 :</span> <input id="orderdrightmoney" type="number"
 				name="orderdrightmoney" placeholder="实际金额"  value="${requestScope.orderd.orderdrightmoney }"/>
 			</label> <label> <span>&nbsp;</span> <input type="button"
 				class="button" value="保存修改" onclick="editMoney()"/>
@@ -32,30 +32,31 @@
 		</form>
 	</div>
 	<script type="text/javascript">
+	var money = '${requestScope.orderd.orderdprice }';							//价格
+	var orderdnum = $("#orderdnum").val();									//商品数量
+	var orderdmoney = $("#orderdmoney").val();								//下单金额
+	var orderdrightmoney = $("#orderdrightmoney").val();					//实际金额
 	$(function(){
-		var orderdnum = $("#orderdnum").val();
-		var orderdmoney = $("#orderdmoney").val();
-		var orderdrightmoney = $("#orderdrightmoney").val();
-		var money = parseInt(orderdmoney)/parseInt(orderdnum);
-		var rightmoney = parseInt(orderdrightmoney)/parseInt(orderdnum);
-		$("#orderdnum").change(function(){
+		$("#orderdnum").blur(function(){
 			//自动计算金额
-			orderdnum = $("#orderdnum").val();
-			orderdmoney = parseInt(orderdnum)*parseInt(money);
-			orderdrightmoney = parseInt(orderdnum)*parseInt(rightmoney);
+			var currNum = $("#orderdnum").val();									//得到当前输入的数量 
+			orderdnum = currNum;
+			orderdmoney = parseFloat(parseFloat(orderdnum)*parseFloat(money)).toFixed(2);					//下单金额和实际金额 相等
+			orderdrightmoney = orderdmoney;
 			$("#orderdmoney").val(orderdmoney);
 			$("#orderdrightmoney").val(orderdrightmoney);
 		});
 	})
+	//修改
 	function editMoney(){
-		var orderdmoney = $("#orderdmoney").val();
-		var orderdrightmoney = $("#orderdrightmoney").val();
+		orderdmoney = $("#orderdmoney").val();
+		orderdrightmoney = $("#orderdrightmoney").val();
 		var orderdmoney0 = '${requestScope.orderd.orderdmoney }';				//原来的下单金额
 		var orderdrightmoney0 = '${requestScope.orderd.orderdrightmoney }';		//原来的实际金额
-		var diffOrderdmoney = parseFloat(orderdmoney0) - parseFloat(orderdmoney);				//计算得到差价
-		var diffOrderdrightmoney = parseFloat(orderdrightmoney0) - parseFloat(orderdrightmoney);
-		$("#diffOrderdmoney").val(diffOrderdmoney);								//设置隐藏表单的值
-		$("#diffOrderdrightmoney").val(diffOrderdrightmoney);
+		var diffOrderdmoney = parseFloat(orderdmoney0).toFixed(2) - parseFloat(orderdmoney).toFixed(2);				//计算得到差价
+		var diffOrderdrightmoney = parseFloat(orderdrightmoney0).toFixed(2) - parseFloat(orderdrightmoney).toFixed(2);
+		$("#diffOrderdmoney").val(parseFloat(diffOrderdmoney).toFixed(2));								//设置隐藏表单的值
+		$("#diffOrderdrightmoney").val(parseFloat(diffOrderdrightmoney).toFixed(2));
 		//return;
 		document.forms[0].submit();												//提交表单
 	}
