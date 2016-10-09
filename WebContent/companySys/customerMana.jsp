@@ -28,6 +28,7 @@ String customertype = request.getParameter("customer.customertype");
 <input class="button" type="button" value="导出" onclick="reportCustomer()">
 <input class="button" type="button" value="修改" onclick="cusOperation(0)">
 <input class="button" type="button" value="录单" onclick="cusOperation(1)">
+<input class="button" type="button" value="特殊商品" onclick="cusOperation(2)">
 </div>
 <table class="bordered" id="ccus_tab">
     <thead>
@@ -48,7 +49,7 @@ String customertype = request.getParameter("customer.customertype");
     <c:if test="${fn:length(requestScope.ccustomerList) != 0 }">
 	<c:forEach var="ccustomer" items="${requestScope.ccustomerList }" varStatus="ccustomerSta">
 		<tr>
-			<td><input type="checkbox" value="${ccustomer.ccustomerid}"></td>
+			<td><input type="checkbox" name="${ccustomer.customer.customerid}" value="${ccustomer.ccustomerid}"></td>
 			<td><c:out value="${ccustomerSta.count}"></c:out></td>
 			<td>${ccustomer.customer.customercode}</td>
 			<td>${ccustomer.customer.customershop}</td>
@@ -117,13 +118,16 @@ $(function(){
 		checkCondition();
 	});
 })
-//客户操作(0:修改客户信息,1:为客户录单)
+//客户操作(0:修改客户信息,1:为客户录单,2:特殊商品)
 function cusOperation(option){
 	var ccusid = "";
+	var customerid = "";
 	var count = 0;
 	$("#ccus_tab :checkbox").each(function(i,item){
 		if(item.checked){
 			ccusid = $(item).val();
+			customerid = $(item).attr('name');
+			alert(customerid);
 			count++;
 		}
 	});
@@ -133,6 +137,8 @@ function cusOperation(option){
 					+"&customercode=${requestScope.ccustomerCon.customer.customercode }";
 		} else if(option == 1){
 			window.location.href = 'largeCusXiaDan.jsp?ccustomerid='+ccusid+'&ccustomercompany=${sessionScope.company.companyid }';
+		} else if(option==2){
+			window.location.href = "largeCusGoodsMana.jsp?customerid="+customerid+"&companyid=${sessionScope.company.companyid }";
 		}
 	} else if(count == 0){
 		alert("请选择客户!");

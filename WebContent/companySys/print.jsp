@@ -91,7 +91,7 @@ window.print()
 			<td align="right">${orderDetail.orderdprice }</td>
 			<td align="right">${orderDetail.orderdmoney }</td>
 			<td align="right">${orderDetail.orderdrightmoney }</td>
-			<td align="left" style="-webkit-text-size-adjust:none;font-size: 8px;">${ orderDetail.orderdtype == '买赠'?orderDetail.orderddetail:orderDetail.orderdtype }</td>
+			<td align="left" style="-webkit-text-size-adjust:none;font-size: 8px;">${ orderDetail.orderdtype == '买赠'?orderDetail.orderddetail:'' }${ orderDetail.orderdtype == '秒杀'?orderDetail.orderdtype:'' }</td>
 		</tr>
 	</c:forEach>
 	</table>
