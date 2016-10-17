@@ -25,7 +25,7 @@ Company company = (Company)session.getAttribute("company");
 	</div>
 	<div class="mokuai">
 		<ul>
-			<li>合作管理</li>
+			<li onclick="doFile()">合作管理</li>
 			<li onclick="doSys()">系统管理</li>
 			<li onclick="doCustomer()">客户管理</li>
 			<li onclick="doGoods()">商品管理</li>
@@ -98,7 +98,7 @@ Company company = (Company)session.getAttribute("company");
 	function play() {
 		tishiyin.play();
 	}
-
+		//订单管理
 		function doOrder(){
 			var menu_body = $(window.parent.leftFrame.menu);
 			menu_body.html("<ul class='nav'>"
@@ -130,6 +130,7 @@ Company company = (Company)session.getAttribute("company");
 			        +"</ul>");
 			window.parent.main.location.href = "allOrder.action?ordermcompany="+'<%=company.getCompanyid() %>';
 		}
+		//商品管理
 		function doGoods(){
 			var menu_body = $(window.parent.leftFrame.menu);
 			menu_body.html("<ul class='nav'>"
@@ -161,6 +162,7 @@ Company company = (Company)session.getAttribute("company");
 			        +"</ul>");
 			window.parent.main.location.href = "allGoods.action?goodscompany="+'<%=company.getCompanyid() %>';
 		}
+		//客户管理
 		function doCustomer(){
 			var menu_body = $(window.parent.leftFrame.menu);
 			menu_body.html("<ul class='nav'>"
@@ -192,6 +194,7 @@ Company company = (Company)session.getAttribute("company");
 			        +"</ul>");
 			window.parent.main.location.href = "allCustomer.action?ccustomercompany="+'<%=company.getCompanyid() %>';
 		}
+		//系统管理
 		function doSys(){
 			var menu_body = $(window.parent.leftFrame.menu);
 			menu_body.html("<ul class='nav'>"
@@ -212,6 +215,18 @@ Company company = (Company)session.getAttribute("company");
 			        +"</li>"
 			        +"</ul>");
 			window.parent.main.location.href = "cusInfo.jsp";
+		}
+		//文档管理
+		function doFile(){
+			var menu_body = $(window.parent.leftFrame.menu);
+			menu_body.html("<ul class='nav'>"
+			        +"<li class='nav__item'>"
+			        +"<a href=fileMana.jsp target='main' class='nav__item-link'>"
+			        +"<span class='nav__item-text'>文档列表</span>"
+			        +"</a>   "
+			        +"</li>"
+			        +"</ul>");
+			window.parent.main.location.href = "fileMana.jsp";
 		}
 	</script>
 </body>
