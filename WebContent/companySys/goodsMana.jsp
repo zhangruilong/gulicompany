@@ -64,6 +64,7 @@ String goodsstatue = request.getParameter("goodsstatue");
 		<th>状态</th>
 		<th>品牌</th>
 		<th>顺序</th>
+		<th>重量</th>
 		<th>创建时间</th>
 		<th>创建人</th>
 		<th>修改时间</th>
@@ -85,6 +86,7 @@ String goodsstatue = request.getParameter("goodsstatue");
 			</td>
 			<td>${goods.goodsbrand}</td>
 			<td>${goods.goodsorder}</td>
+			<td>${goods.goodsweight}</td>
 			<td>${goods.createtime}</td>
 			<td>${goods.creator}</td>
 			<td>${goods.updtime}</td>
@@ -150,6 +152,8 @@ String goodsstatue = request.getParameter("goodsstatue");
 				name="goodsbrand" placeholder="品牌" /></label>
 			<label><span>种类 :</span><input id="goodstype" type="text"
 				name="goodstype" placeholder="种类" /></label>
+			<label><span>重量 :</span><input id="goodsweight" type="text"
+				name="goodsweight" placeholder="重量" /></label>
 			<label><span>顺序 :</span><input id="goodsorder" type="number"
 				name="goodsorder" placeholder="顺序" /></label>
 			<label><span>图片路径 :</span><input id="goodsimage" type="text"
@@ -380,15 +384,17 @@ function popup_formSub(){
 				"goodsbrand":$("#goodsbrand").val(),
 				"goodstype":$("#goodstype").val(),
 				"goodsorder":$("#goodsorder").val(),
-				"goodsimage":$("#goodsimage").val()
+				"goodsimage":$("#goodsimage").val(),
+				"goodsweight":$("#goodsweight").val()
 			},
 			success:function(data){
-				if(data=='success'){
+				if(data.message=='success'){
 					alert("商品添加成功!");
-					window.location.reload();
-				} else if(data == 'fail1'){
+					window.location.href = "doGoodsPrices.action?goodsid="+data.goods.goodsid+"&pagenow=1&goodscompany="+
+							data.goods.goodscompany;
+				} else if(data.message == 'fail1'){
 					alert("操作失败,没有添加商品。");
-				} else if(data == 'fail2'){
+				} else if(data.message == 'fail2'){
 					alert("商品编号重复，添加失败。");
 				}
 			},
@@ -413,7 +419,7 @@ function goodsStatusEdit(goodsid){
 				"goodscompany":"${sessionScope.company.companyid }",
 				"goodsstatue":goodsstatue
 			},function(data){
-				alert(data.editResult);				//返回的提示信息
+				alert(data.editResult);									//返回的提示信息
 				if(data.editResult == '修改成功！'){
 					$(".edit_goodsStatus"+goodsid).text(goodsstatue);	
 				}

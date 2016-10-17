@@ -18,6 +18,7 @@
     <result column="GOODSBRAND" property="goodsbrand" jdbcType="VARCHAR" />
     <result column="GOODSTYPE" property="goodstype" jdbcType="VARCHAR" />
     <result column="GOODSORDER" property="goodsorder" jdbcType="DECIMAL" />
+    <result column="GOODSWEIGHT" property="goodsweight" jdbcType="DECIMAL" />
     <!-- 商品类别 -->
     <association property="gClass" javaType="com.server.pojo.entity.Goodsclass">
     	<id column="GOODSCLASS" property="goodsclassid" jdbcType="VARCHAR" />
@@ -76,7 +77,7 @@
   <sql id="Base_Column_List" >
     GOODSID, GOODSCOMPANY, GOODSCODE, GOODSNAME, GOODSDETAIL, GOODSUNITS, GOODSCLASS, 
     GOODSIMAGE, GOODSSTATUE, CREATETIME, UPDTIME, CREATOR, UPDOR, GOODSBRAND, GOODSTYPE, 
-    GOODSORDER
+    GOODSORDER,GOODSWEIGHT
   </sql>
   <!-- 根据编号和经销商查询商品 -->
   <select id="selectByGoodsCode" resultType="int">
@@ -362,6 +363,9 @@ where RN &gt; ((#{nowpage}-1)*#{pagesize})
       <if test="goodsorder != null" >
         GOODSORDER,
       </if>
+      <if test="goodsweight != null" >
+        GOODSWEIGHT,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="goodsid != null" >
@@ -411,6 +415,9 @@ where RN &gt; ((#{nowpage}-1)*#{pagesize})
       </if>
       <if test="goodsorder != null" >
         #{goodsorder,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsweight != null" >
+        #{goodsweight,jdbcType=DECIMAL},
       </if>
     </trim>
   </insert>
@@ -462,6 +469,9 @@ where RN &gt; ((#{nowpage}-1)*#{pagesize})
       </if>
       <if test="goodsorder != null" >
         GOODSORDER = #{goodsorder,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsweight != null" >
+        GOODSWEIGHT = #{goodsweight,jdbcType=VARCHAR},
       </if>
     </set>
     where GOODSID = #{goodsid,jdbcType=VARCHAR}

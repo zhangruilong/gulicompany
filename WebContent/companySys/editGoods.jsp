@@ -46,6 +46,8 @@
 				name="goodstype" placeholder="种类" /></label>
 			<label><span>顺序 :</span><input id="goodsorder" type="number" value="${requestScope.editGoods.goodsorder }"
 				name="goodsorder" placeholder="顺序" /></label>
+			<label><span>重量 :</span><input id="goodsweight" type="text" value="${requestScope.editGoods.goodsweight }"
+				name="goodsweight" placeholder="重量" /></label>
 			<p><input type="button"
 				class="button" value="保存修改" onclick="saveEdit()"/>
 			<input type="button"

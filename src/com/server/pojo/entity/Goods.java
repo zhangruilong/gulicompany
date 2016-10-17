@@ -1,7 +1,5 @@
 package com.server.pojo.entity;
 
-import java.math.BigDecimal;
-import java.sql.Date;
 import java.util.List;
 /**
  * 商品 实体类
@@ -73,6 +71,10 @@ public class Goods
     * 顺序
     */
    private Integer goodsorder;
+   /**
+    * 重量
+    */
+   private String goodsweight;
    /**
     * 关联价格(一对多)
     */
@@ -376,6 +378,19 @@ public class Goods
 	public void setGoodsorder(Integer goodsorder) {
 		this.goodsorder = goodsorder;
 	}
+	/**
+	 * 重量
+	 */
+	public String getGoodsweight() {
+		return goodsweight;
+	}
+	/**
+	 * 重量
+	 */
+	public void setGoodsweight(String goodsweight) {
+		this.goodsweight = goodsweight;
+	}
+
 	/**
     * 供应商
     */

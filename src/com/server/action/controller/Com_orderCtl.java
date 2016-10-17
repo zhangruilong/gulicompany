@@ -240,9 +240,21 @@ public class Com_orderCtl {
 	@ResponseBody
 	public String largeCusOrdermSave(@RequestBody Orderm orderm){
 		String ordermid = CommonUtil.getNewId();
+		
 		orderm.setOrdermid(ordermid);
 		orderm.setOrdermtime(DateUtils.getDateTime());
-		orderm.setOrdermcode(ordermid);
+		
+		String date = DateUtils.getDate();
+		String odCode = DateUtils.getDateTime().replace("-", "");
+		odCode = odCode.replace(" ", "");
+		odCode = odCode.replace(":", "");
+		//System.out.println(odCode);
+		Orderm odm = new Orderm();
+		odm.setOrdermcompany(orderm.getOrdermcompany());
+		String todayOd = (ordermMapper.selectByCompanyCount(date+" 00:00:00", date+"23:59:59",odm)+1)+"";	//今天的第几个订单;
+		odCode += "00000".substring(0, 5-todayOd.length())+todayOd ;
+		//System.out.println(odCode);
+		orderm.setOrdermcode(odCode);
 		ordermMapper.insertSelective(orderm);
 		for (Orderd insOD : orderm.getOrderdList()) {
 			insOD.setOrderdid(CommonUtil.getNewId());

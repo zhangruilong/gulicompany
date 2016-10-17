@@ -375,7 +375,8 @@ public class Com_goodsCtl {
 	//添加商品
 	@RequestMapping("/companySys/addGoods")
 	@ResponseBody
-	public String addGoods(Model model,Goods goodsCon){
+	public Map<String, Object> addGoods(Model model,Goods goodsCon){
+		Map<String, Object> map = new HashMap<String, Object>();
 		int num = goodsMapper.selectByGoodsCode(goodsCon.getGoodscode(), goodsCon.getGoodscompany());
 		if(num==0){
 			if(goodsCon.getGoodsorder() == null){
@@ -385,17 +386,16 @@ public class Com_goodsCtl {
 			goodsCon.setCreatetime(DateUtils.getDateTime());
 			goodsCon.setGoodsid(CommonUtil.getNewId());
 			int insNum = goodsMapper.insertSelective(goodsCon);
-			//model.addAttribute("goodsCon", goodsCon);
-			model.addAttribute("editPriGoods", goodsCon);
-			model.addAttribute("message", "添加商品");
 			if(insNum ==1){
-				return "success";
+				map.put("goods", goodsCon);
+				map.put("message", "success");
 			} else {
-				return "fail1";			//操作失败,没有添加商品。
+				map.put("message", "fail1");
 			}
 		} else {
-			return "fail2";		//商品编号重复，添加失败。
+			map.put("message", "fail2");
 		}
+		return map;
 	}
 	//修改商品页面
 	@RequestMapping("/companySys/doEditGoods")
