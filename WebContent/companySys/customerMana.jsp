@@ -127,7 +127,6 @@ function cusOperation(option){
 		if(item.checked){
 			ccusid = $(item).val();
 			customerid = $(item).attr('name');
-			alert(customerid);
 			count++;
 		}
 	});

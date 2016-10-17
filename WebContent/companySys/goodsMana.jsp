@@ -134,8 +134,6 @@ String goodsstatue = request.getParameter("goodsstatue");
 <!--弹框-->
 <div class="cd-popup" role="alert">
 	<div class="elegant-aero">
-		<form id="popup_form" action="addGoods.action?creator=${sessionScope.company.companyshop }&goodscompany=${sessionScope.company.companyid }" method="post" class="STYLE-NAME">
-		<input type="hidden" id="goodsimage" name="goodsimage" value="">
 			<h1>添加商品</h1>
 			<label><span>商品编码 :</span><input id="addgoodscode" type="text"
 				name="goodscode" placeholder="商品编码" value="" /></label>
@@ -154,6 +152,8 @@ String goodsstatue = request.getParameter("goodsstatue");
 				name="goodstype" placeholder="种类" /></label>
 			<label><span>顺序 :</span><input id="goodsorder" type="number"
 				name="goodsorder" placeholder="顺序" /></label>
+			<label><span>图片路径 :</span><input id="goodsimage" type="text"
+				name="goodsimage" placeholder="图片路径" /></label>
 			<p><label><input type="button"
 				class="popup_button" value="提交" onclick="popup_formSub()"/>
 			</label>
@@ -163,7 +163,6 @@ String goodsstatue = request.getParameter("goodsstatue");
 			<label><input type="button"
 				class="popup_button" value="关闭窗口" onclick="close_popup()"/>
 			</label></p>
-		</form>
 	</div>
 </div>
 <!--弹框-->
@@ -260,7 +259,7 @@ function setgoodsprices(){
 }
 //添加商品窗口
 function addgoods(){
-	$("#popup_form [type!='button']").val("");
+	$(".elegant-aero [type!='button']").val("");
 	$("#addgoodscode").val('${sessionScope.company.companycode }');
 	$(".cd-popup").addClass("is-visible");	//弹出窗口
 	$.getJSON("getallGoodclass.action",function(data){
@@ -360,7 +359,7 @@ function popup_formSub(){
 	var count = 0;
 	$(".elegant-aero [type='text']").add(".elegant-aero [type='number']").each(function(i,item){
 		if($(item).val() == null || $(item).val() == '' ){
-			if($(item).attr('placeholder') != '品牌' && $(item).attr('placeholder') != '顺序'){
+			if($(item).attr('placeholder') != '品牌' && $(item).attr('placeholder') != '顺序'&& $(item).attr('placeholder') != '图片路径'){
 				alert($(item).attr('placeholder') + '不能为空');
 				count++;
 				return false;
@@ -368,7 +367,35 @@ function popup_formSub(){
 		}
 	});
 	if(count == 0){
-		$("#popup_form").submit();
+		$.ajax({
+			url:"addGoods.action",
+			type:"post",
+			data:{
+				"creator":"${sessionScope.company.companyshop }",
+				"goodscompany":"${sessionScope.company.companyid }",
+				"goodscode":$("#addgoodscode").val(),
+				"goodsname":$("#goodsname").val(),
+				"goodsunits":$("#goodsunits").val(),
+				"goodsclass":$("#goodsclass").val(),
+				"goodsbrand":$("#goodsbrand").val(),
+				"goodstype":$("#goodstype").val(),
+				"goodsorder":$("#goodsorder").val(),
+				"goodsimage":$("#goodsimage").val()
+			},
+			success:function(data){
+				if(data=='success'){
+					alert("商品添加成功!");
+					window.location.reload();
+				} else if(data == 'fail1'){
+					alert("操作失败,没有添加商品。");
+				} else if(data == 'fail2'){
+					alert("商品编号重复，添加失败。");
+				}
+			},
+			error:function(data){
+				alert('操作失败!');
+			}
+		});
 	}
 }
 //修改商品状态

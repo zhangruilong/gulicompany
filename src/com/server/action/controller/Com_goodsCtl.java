@@ -374,18 +374,28 @@ public class Com_goodsCtl {
 	}
 	//添加商品
 	@RequestMapping("/companySys/addGoods")
+	@ResponseBody
 	public String addGoods(Model model,Goods goodsCon){
-		if(goodsCon.getGoodsorder() == null){
-			goodsCon.setGoodsorder(0);
+		int num = goodsMapper.selectByGoodsCode(goodsCon.getGoodscode(), goodsCon.getGoodscompany());
+		if(num==0){
+			if(goodsCon.getGoodsorder() == null){
+				goodsCon.setGoodsorder(0);
+			}
+			goodsCon.setGoodsstatue("下架");
+			goodsCon.setCreatetime(DateUtils.getDateTime());
+			goodsCon.setGoodsid(CommonUtil.getNewId());
+			int insNum = goodsMapper.insertSelective(goodsCon);
+			//model.addAttribute("goodsCon", goodsCon);
+			model.addAttribute("editPriGoods", goodsCon);
+			model.addAttribute("message", "添加商品");
+			if(insNum ==1){
+				return "success";
+			} else {
+				return "fail1";			//操作失败,没有添加商品。
+			}
+		} else {
+			return "fail2";		//商品编号重复，添加失败。
 		}
-		goodsCon.setGoodsstatue("下架");
-		goodsCon.setCreatetime(DateUtils.getDateTime());
-		goodsCon.setGoodsid(CommonUtil.getNewId());
-		goodsMapper.insertSelective(goodsCon);
-		//model.addAttribute("goodsCon", goodsCon);
-		model.addAttribute("editPriGoods", goodsCon);
-		model.addAttribute("message", "添加商品");
-		return "forward:/companySys/goodsPrices.jsp";
 	}
 	//修改商品页面
 	@RequestMapping("/companySys/doEditGoods")

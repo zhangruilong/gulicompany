@@ -12,6 +12,10 @@ import com.server.pojo.entity.Goods;
  */
 public interface GoodsMapper {
 	/**
+	 * 根据商品编号查询商品
+	 */
+	Integer selectByGoodsCode(@Param("goodscode") String goodscode,@Param("comid") String comid);
+	/**
 	 * 大客户商品和价格(信息条数)
 	 */
 	Integer selectlagerCusGoodsCount(Goods goods);
