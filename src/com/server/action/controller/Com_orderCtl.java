@@ -164,7 +164,7 @@ public class Com_orderCtl {
 		model.addAttribute("order", order);
 		model.addAttribute("printCompany", company);
 		model.addAttribute("printCustomer", customer);
-		return "forward:/companySys/print.jsp";
+		return "forward:/companySys/print/print"+order.getOrdermcompany()+".jsp";
 	}
 	//订单商品统计
 	@RequestMapping("/companySys/orderStatistics")
