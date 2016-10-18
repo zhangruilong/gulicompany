@@ -341,9 +341,13 @@ function popup_formSub(){
 	data += '"timegoodsscope":"' + timegoodsscope +'",';
 	if(count == 0){
 		data += '"timegoodsimage":"'+$("#timegoodsimage").val()+'","timegoodscompany":"${requestScope.timegoodsCon.timegoodscompany }","creator":"${sessionScope.company.companyshop }"}';
-		$.getJSON('addTimeGoods.action',JSON.parse(data),function(){
-			alert('添加成功!');
-			fenye('1');
+		$.getJSON('addTimeGoods.action',JSON.parse(data),function(data){
+			if(data.message=='success'){
+				alert('添加成功!');
+				fenye('1');
+			} else if(data.message=='fail2'){
+				alert('商品编号和规格重复，添加失败。');
+			}
 		});
 	}
 }

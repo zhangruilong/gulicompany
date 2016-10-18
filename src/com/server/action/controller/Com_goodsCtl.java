@@ -377,10 +377,13 @@ public class Com_goodsCtl {
 	@ResponseBody
 	public Map<String, Object> addGoods(Model model,Goods goodsCon){
 		Map<String, Object> map = new HashMap<String, Object>();
-		int num = goodsMapper.selectByGoodsCode(goodsCon.getGoodscode(), goodsCon.getGoodscompany());
+		int num = goodsMapper.selectByGoodsCode(goodsCon.getGoodscode(), goodsCon.getGoodscompany(),goodsCon.getGoodsunits());
 		if(num==0){
 			if(goodsCon.getGoodsorder() == null){
 				goodsCon.setGoodsorder(0);
+			}
+			if(goodsCon.getGoodsweight() == null){
+				goodsCon.setGoodsweight("0");
 			}
 			goodsCon.setGoodsstatue("下架");
 			goodsCon.setCreatetime(DateUtils.getDateTime());
@@ -390,10 +393,10 @@ public class Com_goodsCtl {
 				map.put("goods", goodsCon);
 				map.put("message", "success");
 			} else {
-				map.put("message", "fail1");
+				map.put("message", "fail1");		//操作失败,没有添加商品。
 			}
 		} else {
-			map.put("message", "fail2");
+			map.put("message", "fail2");			//商品编号和规格重复，添加失败。
 		}
 		return map;
 	}
@@ -454,14 +457,19 @@ public class Com_goodsCtl {
 	@ResponseBody
 	public Map<String, Object> addTimeGoods(Timegoods timegoods){
 		Map<String, Object> map = new HashMap<String, Object>();
-		if(timegoods.getTimegoodsseq() == null){
-			timegoods.setTimegoodsseq(0);
+		if(timegoodsMapper.selectComRepeatGoods(timegoods.getTimegoodscompany(), timegoods.getTimegoodscode(), timegoods.getTimegoodsunits())==0){
+			if(timegoods.getTimegoodsseq() == null){
+				timegoods.setTimegoodsseq(0);
+			}
+			timegoods.setTimegoodsid(CommonUtil.getNewId());
+			timegoods.setCreatetime(DateUtils.getDateTime());
+			timegoods.setSurplusnum(timegoods.getAllnum());
+			timegoods.setTimegoodsstatue("启用");
+			timegoodsMapper.insertSelective(timegoods);
+			map.put("message", "success");
+		} else {
+			map.put("message", "fail2");		//商品编号和规格重复，添加失败。
 		}
-		timegoods.setTimegoodsid(CommonUtil.getNewId());
-		timegoods.setCreatetime(DateUtils.getDateTime());
-		timegoods.setSurplusnum(timegoods.getAllnum());
-		timegoods.setTimegoodsstatue("启用");
-		timegoodsMapper.insertSelective(timegoods);
 		return map;
 	}
 	//添加买赠商品
@@ -469,13 +477,18 @@ public class Com_goodsCtl {
 	@ResponseBody
 	public Map<String, Object> addGiveGoods(Givegoods givegoods){
 		Map<String, Object> map = new HashMap<String, Object>();
-		if(givegoods.getGivegoodsseq() == null){
-			givegoods.setGivegoodsseq(0);
+		if(givegoodsMapper.selectComRepeatGoods(givegoods.getGivegoodscompany(), givegoods.getGivegoodscode(), givegoods.getGivegoodsunits())==0){
+			if(givegoods.getGivegoodsseq() == null){
+				givegoods.setGivegoodsseq(0);
+			}
+			givegoods.setGivegoodsid(CommonUtil.getNewId());
+			givegoods.setCreatetime(DateUtils.getDateTime());
+			givegoods.setGivegoodsstatue("启用");
+			givegoodsMapper.insertSelective(givegoods);
+			map.put("message", "success");
+		} else {
+			map.put("message", "fail2");		//商品编号和规格重复，添加失败。
 		}
-		givegoods.setGivegoodsid(CommonUtil.getNewId());
-		givegoods.setCreatetime(DateUtils.getDateTime());
-		givegoods.setGivegoodsstatue("启用");
-		givegoodsMapper.insertSelective(givegoods);
 		return map;
 	}
 	//添加大客户订单时所需商品

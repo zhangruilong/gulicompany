@@ -36,6 +36,13 @@
     TIMEGOODSUNIT, TIMEGOODSPRICE, TIMEGOODSORGPRICE, TIMEGOODSNUM, TIMEGOODSCLASS, TIMEGOODSIMAGE, 
     TIMEGOODSSTATUE, CREATETIME, CREATOR, ALLNUM, SURPLUSNUM, TIMEGOODSSEQ, TIMEGOODSSCOPE
   </sql>
+  <!-- 根据编码和规格和经销商查询 -->
+  <select id="selectComRepeatGoods" resultType="int" >
+    select count(*) from TIMEGOODS
+    where TIMEGOODSCODE = #{timegoodscode,jdbcType=VARCHAR} 
+    and TIMEGOODSCOMPANY=#{comid} 
+    and TIMEGOODSUNITS=#{timegoodsunits}
+  </select>
   <!-- 根据编码查询 -->
   <select id="selectByCode" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -80,6 +87,7 @@
 	<if test="timegoods.timegoodsscope != null and timegoods.timegoodsscope != ''">
 		and tg.TIMEGOODSSCOPE like '%${timegoods.timegoodsscope}%'
 	</if>
+	order by timegoodsid desc
     ) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) ) 
 		where RN &gt; ((#{nowpage}-1)*#{pagesize})
   </select>

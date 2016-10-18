@@ -8,6 +8,11 @@ import com.server.pojo.entity.Timegoods;
 
 public interface TimegoodsMapper {
 	/**
+	 * 根据编码和规格和经销商查询
+	 */
+	Integer selectComRepeatGoods(@Param("comid") String comid,@Param("timegoodscode") String timegoodscode,
+			@Param("timegoodsunits") String timegoodsunits);
+	/**
 	 * 根据编码查询
 	 */
 	List<Timegoods> selectByCode(String timegoodscode);

@@ -235,7 +235,7 @@ public class Com_orderCtl {
 		}
 		FileUtil.expExcel(response, ordermList, heads, discard, name);
 	}
-	//大客户添加订单
+	//大客户下单
 	@RequestMapping(value="/companySys/largeCusOrdermSave")
 	@ResponseBody
 	public String largeCusOrdermSave(@RequestBody Orderm orderm){
@@ -245,14 +245,14 @@ public class Com_orderCtl {
 		orderm.setOrdermtime(DateUtils.getDateTime());
 		
 		String date = DateUtils.getDate();
-		String odCode = DateUtils.getDateTime().replace("-", "");
+		String odCode = "G"+DateUtils.getDateTime().replace("-", "");
 		odCode = odCode.replace(" ", "");
 		odCode = odCode.replace(":", "");
 		//System.out.println(odCode);
 		Orderm odm = new Orderm();
 		odm.setOrdermcompany(orderm.getOrdermcompany());
 		String todayOd = (ordermMapper.selectByCompanyCount(date+" 00:00:00", date+"23:59:59",odm)+1)+"";	//今天的第几个订单;
-		odCode += "00000".substring(0, 5-todayOd.length())+todayOd ;
+		odCode += "0000".substring(0, 4-todayOd.length())+todayOd ;
 		//System.out.println(odCode);
 		orderm.setOrdermcode(odCode);
 		ordermMapper.insertSelective(orderm);

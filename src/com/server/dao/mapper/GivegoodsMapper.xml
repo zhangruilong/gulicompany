@@ -58,6 +58,13 @@
     GIVEGOODSUNIT, GIVEGOODSPRICE, GIVEGOODSNUM, GIVEGOODSCLASS, GIVEGOODSIMAGE, GIVEGOODSSTATUE, 
     CREATETIME, CREATOR, GIVEGOODSSEQ, GIVEGOODSSCOPE
   </sql>
+  <!-- 根据编码和规格和经销商查询 -->
+  <select id="selectComRepeatGoods" resultType="int" >
+    select count(*) from GIVEGOODS
+    where GIVEGOODSCODE = #{givegoodscode,jdbcType=VARCHAR} 
+    and GIVEGOODSCOMPANY=#{comid} 
+    and GIVEGOODSUNITS=#{givegoodsunits}
+  </select>
   <!-- 根据编码查询 -->
   <select id="selectByCode" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select * 
@@ -103,6 +110,7 @@
 	<if test="givegoods.givegoodsscope != null and givegoods.givegoodsscope != ''">
 		and gg.GIVEGOODSSCOPE like '%${givegoods.givegoodsscope}%'
 	</if>
+	order by givegoodsid desc
     ) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) ) 
 		where RN &gt; ((#{nowpage}-1)*#{pagesize})
   </select>

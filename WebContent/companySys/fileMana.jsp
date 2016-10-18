@@ -41,7 +41,7 @@ String ordermway = request.getParameter("ordermway");
 			<td> 操作指南 </td>
 			<td> 谷粒网供应商后台管理系统操作指南 </td>
 			<td>2016-10-17</td>
-			<td>高治业</td>
+			<td>管理员</td>
 			<td><a href="file/【YF-5】经销商后台系统操作指南.doc">下载</a></td>
 		</tr>
 		<tr>

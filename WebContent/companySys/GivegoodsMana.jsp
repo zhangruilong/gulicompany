@@ -335,9 +335,14 @@ function popup_formSub(){
 	data += '"givegoodsscope":"' + givegoodsscope +'",';
 	if(count == 0){
 		data += '"givegoodsimage":"'+$("#givegoodsimage").val()+'","givegoodscompany":"${requestScope.givegoodsCon.givegoodscompany }","creator":"${sessionScope.company.companyshop }"}';
-		$.getJSON('addGiveGoods.action',JSON.parse(data),function(){
-			alert('添加成功!');
-			document.forms[0].submit();
+		$.getJSON('addGiveGoods.action',JSON.parse(data),function(data){
+			if(data.message=='success'){
+				alert('添加成功!');
+				document.forms[0].submit();
+			} else if(data.message=='fail2'){
+				alert('商品编号和规格重复，添加失败。');
+			}
+			
 		});
 	}
 }

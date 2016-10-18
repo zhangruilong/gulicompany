@@ -152,10 +152,10 @@ String goodsstatue = request.getParameter("goodsstatue");
 				name="goodsbrand" placeholder="品牌" /></label>
 			<label><span>种类 :</span><input id="goodstype" type="text"
 				name="goodstype" placeholder="种类" /></label>
-			<label><span>重量 :</span><input id="goodsweight" type="text"
-				name="goodsweight" placeholder="重量" /></label>
+			<label><span>重量（kg） :</span><input id="goodsweight" type="number"
+				name="goodsweight" placeholder="重量" value="0"/></label>
 			<label><span>顺序 :</span><input id="goodsorder" type="number"
-				name="goodsorder" placeholder="顺序" /></label>
+				name="goodsorder" placeholder="顺序" value="0"/></label>
 			<label><span>图片路径 :</span><input id="goodsimage" type="text"
 				name="goodsimage" placeholder="图片路径" /></label>
 			<p><label><input type="button"
@@ -363,7 +363,8 @@ function popup_formSub(){
 	var count = 0;
 	$(".elegant-aero [type='text']").add(".elegant-aero [type='number']").each(function(i,item){
 		if($(item).val() == null || $(item).val() == '' ){
-			if($(item).attr('placeholder') != '品牌' && $(item).attr('placeholder') != '顺序'&& $(item).attr('placeholder') != '图片路径'){
+			if($(item).attr('placeholder') != '品牌' && $(item).attr('placeholder') != '顺序'&& 
+					$(item).attr('placeholder') != '图片路径' != '顺序'&& $(item).attr('placeholder') != '重量'){
 				alert($(item).attr('placeholder') + '不能为空');
 				count++;
 				return false;
@@ -384,7 +385,7 @@ function popup_formSub(){
 				"goodsbrand":$("#goodsbrand").val(),
 				"goodstype":$("#goodstype").val(),
 				"goodsorder":$("#goodsorder").val(),
-				"goodsimage":$("#goodsimage").val(),
+				"goodsimage":trim($("#goodsimage").val()),
 				"goodsweight":$("#goodsweight").val()
 			},
 			success:function(data){
@@ -395,7 +396,7 @@ function popup_formSub(){
 				} else if(data.message == 'fail1'){
 					alert("操作失败,没有添加商品。");
 				} else if(data.message == 'fail2'){
-					alert("商品编号重复，添加失败。");
+					alert("商品编号和规格重复，添加失败。");
 				}
 			},
 			error:function(data){
