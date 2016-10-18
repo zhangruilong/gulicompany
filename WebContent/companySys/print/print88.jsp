@@ -66,6 +66,7 @@ window.print()
 		<td width="30" align="center" style="font-family: 黑体;font-size: 12px;">单位</td>
 		<td width="40" align="center" style="font-family: 黑体;font-size: 12px;">单价</td>
 		<td width="53" style="font-family: 黑体;font-size: 12px;">实际金额</td>
+		<td align="center" style="font-family: 黑体;font-size: 12px;min-width:25px;">备注</td>
 	</tr>
 	<c:forEach items="${requestScope.order.orderdList }" var="orderDetail" varStatus="sta">
 		<tr>
@@ -77,6 +78,7 @@ window.print()
 			<td align="center">${orderDetail.orderdunit }</td>
 			<td align="center">${orderDetail.orderdprice }</td>
 			<td align="center">${orderDetail.orderdrightmoney }</td>
+			<td align="left" style="-webkit-text-size-adjust:none;font-size: 8px;">${ orderDetail.orderdtype == '买赠'?orderDetail.orderddetail:'' }${ orderDetail.orderdtype == '秒杀'?orderDetail.orderdtype:'' }</td>
 		</tr>
 	</c:forEach>
 		
