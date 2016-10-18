@@ -153,9 +153,9 @@ String goodsstatue = request.getParameter("goodsstatue");
 			<label><span>种类 :</span><input id="goodstype" type="text"
 				name="goodstype" placeholder="种类" /></label>
 			<label><span>重量（kg） :</span><input id="goodsweight" type="number"
-				name="goodsweight" placeholder="重量" value="0"/></label>
+				name="goodsweight" placeholder="重量" value=0/></label>
 			<label><span>顺序 :</span><input id="goodsorder" type="number"
-				name="goodsorder" placeholder="顺序" value="0"/></label>
+				name="goodsorder" placeholder="顺序" value=0/></label>
 			<label><span>图片路径 :</span><input id="goodsimage" type="text"
 				name="goodsimage" placeholder="图片路径" /></label>
 			<p><label><input type="button"
@@ -385,7 +385,7 @@ function popup_formSub(){
 				"goodsbrand":$("#goodsbrand").val(),
 				"goodstype":$("#goodstype").val(),
 				"goodsorder":$("#goodsorder").val(),
-				"goodsimage":trim($("#goodsimage").val()),
+				"goodsimage":$.trim($("#goodsimage").val()),
 				"goodsweight":$("#goodsweight").val()
 			},
 			success:function(data){

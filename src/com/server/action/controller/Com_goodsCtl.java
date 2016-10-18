@@ -382,7 +382,7 @@ public class Com_goodsCtl {
 			if(goodsCon.getGoodsorder() == null){
 				goodsCon.setGoodsorder(0);
 			}
-			if(goodsCon.getGoodsweight() == null){
+			if(goodsCon.getGoodsweight() == null || goodsCon.getGoodsweight().equals("")){
 				goodsCon.setGoodsweight("0");
 			}
 			goodsCon.setGoodsstatue("下架");
@@ -413,6 +413,12 @@ public class Com_goodsCtl {
 	@RequestMapping("/companySys/editGoods")
 	@ResponseBody
 	public String editGoods(Goods editGoods){
+		if(editGoods.getGoodsorder() == null){
+			editGoods.setGoodsorder(0);
+		}
+		if(editGoods.getGoodsweight() == null || editGoods.getGoodsweight().equals("")){
+			editGoods.setGoodsweight("0");
+		}
 		int upd = goodsMapper.updateByPrimaryKeySelective(editGoods);
 		if(upd > 0){
 			return "ok";
