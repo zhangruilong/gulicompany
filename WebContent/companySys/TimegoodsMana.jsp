@@ -69,6 +69,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<th>类别</th>
 		<th>原价</th>
 		<th>现价</th>
+		<th>重量(kg)</th>
 		<th>限量</th>
 		<th>全部限量</th>
 		<th>剩余数量</th>
@@ -90,6 +91,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td>${timegoods.timegoodsclass}</td>
 			<td>${timegoods.timegoodsprice}</td>
 			<td>${timegoods.timegoodsorgprice}</td>
+			<td>${timegoods.timegoodsweight}</td>
 			<td>${timegoods.timegoodsnum}</td>
 			<td>${timegoods.allnum}</td>
 			<td>${timegoods.surplusnum}</td>
@@ -170,6 +172,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				name="timegoodsprice" placeholder="原价" /></label>
 			<label><span>现价 :</span><input id="timegoodsorgprice" type="number"
 				name="timegoodsorgprice" placeholder="现价" /></label>
+			<label><span>重量（kg） :</span><input id="timegoodsweight" type="number"
+				name="timegoodsweight" placeholder="重量" /></label>
 			<label><span>个人限量 :</span><input id="timegoodsnum" type="number"
 				name="timegoodsnum" placeholder="个人限量" /></label>
 			<label><span>全部限量 :</span><input id="allnum" type="number"
@@ -323,7 +327,7 @@ function popup_formSub(){
 	var count = 0;
 	$(".elegant-aero [type='text']").add(".elegant-aero [type='number']").each(function(i,item){
 		if($(item).val() == null || $(item).val() == '' ){
-			if($(item).attr('placeholder') != '顺序'){
+			if($(item).attr('placeholder') != '顺序' && $(item).attr('placeholder') != '重量'){
 				alert($(item).attr('placeholder') + '不能为空!');
 				count++;
 				return false;

@@ -19,6 +19,9 @@
     <result column="UPDTIME" property="updtime" jdbcType="VARCHAR" />
     <result column="UPDOR" property="updor" jdbcType="VARCHAR" />
     <result column="ORDERMEMP" property="ordermemp" jdbcType="VARCHAR" />
+    <result column="ORDERMCUSSHOP" property="ordermcusshop" jdbcType="VARCHAR" />
+    <result column="ORDERMCUSLEVEL" property="ordermlevel" jdbcType="VARCHAR" />
+    <result column="ORDERMCUSTYPE" property="ordermtype" jdbcType="VARCHAR" />
     <!-- 客户 -->
     <association property="orderdCustomer" javaType="com.server.pojo.entity.Customer">
 	    <id column="CUSTOMERID" property="customerid" jdbcType="VARCHAR" />
@@ -58,7 +61,7 @@
   <sql id="Base_Column_List" >
     ORDERMID, ORDERMCUSTOMER, ORDERMCOMPANY, ORDERMCODE, ORDERMNUM, ORDERMMONEY, ORDERMRIGHTMONEY, 
     ORDERMWAY, ORDERMSTATUE, ORDERMDETAIL, ORDERMTIME, ORDERMCONNECT, ORDERMPHONE, ORDERMADDRESS, 
-    UPDTIME, UPDOR, ORDERMEMP
+    UPDTIME, UPDOR, ORDERMEMP,ORDERMCUSSHOP,ORDERMCUSLEVEL,ORDERMCUSTYPE
   </sql>
   <!-- 查询最新的一条订单信息 -->
   <select id="selectNewestOrderm" resultMap="BaseResultMap">

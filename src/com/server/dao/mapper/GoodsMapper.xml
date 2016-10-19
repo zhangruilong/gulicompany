@@ -18,7 +18,7 @@
     <result column="GOODSBRAND" property="goodsbrand" jdbcType="VARCHAR" />
     <result column="GOODSTYPE" property="goodstype" jdbcType="VARCHAR" />
     <result column="GOODSORDER" property="goodsorder" jdbcType="DECIMAL" />
-    <result column="GOODSWEIGHT" property="goodsweight" jdbcType="DECIMAL" />
+    <result column="GOODSWEIGHT" property="goodsweight" jdbcType="VARCHAR" />
     <!-- 商品类别 -->
     <association property="gClass" javaType="com.server.pojo.entity.Goodsclass">
     	<id column="GOODSCLASS" property="goodsclassid" jdbcType="VARCHAR" />
@@ -418,7 +418,7 @@ where RN &gt; ((#{nowpage}-1)*#{pagesize})
         #{goodsorder,jdbcType=DECIMAL},
       </if>
       <if test="goodsweight != null" >
-        #{goodsweight,jdbcType=DECIMAL},
+        #{goodsweight,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>

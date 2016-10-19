@@ -18,6 +18,7 @@
     <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
     <result column="GIVEGOODSSEQ" property="givegoodsseq" jdbcType="DECIMAL" />
     <result column="GIVEGOODSSCOPE" property="givegoodsscope" jdbcType="VARCHAR" />
+    <result column="GIVEGOODSWEIGHT" property="givegoodsweight" jdbcType="VARCHAR" />
     <!-- 供应商 -->
     <association property="givegoodcompany" javaType="com.server.pojo.entity.Company">
     	<id column="COMPANYID" property="companyid" jdbcType="VARCHAR" />
@@ -56,7 +57,7 @@
   <sql id="Base_Column_List" >
     GIVEGOODSID, GIVEGOODSCOMPANY, GIVEGOODSCODE, GIVEGOODSNAME, GIVEGOODSDETAIL, GIVEGOODSUNITS, 
     GIVEGOODSUNIT, GIVEGOODSPRICE, GIVEGOODSNUM, GIVEGOODSCLASS, GIVEGOODSIMAGE, GIVEGOODSSTATUE, 
-    CREATETIME, CREATOR, GIVEGOODSSEQ, GIVEGOODSSCOPE
+    CREATETIME, CREATOR, GIVEGOODSSEQ, GIVEGOODSSCOPE,GIVEGOODSWEIGHT
   </sql>
   <!-- 根据编码和规格和经销商查询 -->
   <select id="selectComRepeatGoods" resultType="int" >
@@ -193,6 +194,10 @@
       <if test="givegoodsscope != null" >
         GIVEGOODSSCOPE,
       </if>
+      <if test="givegoodsweight != null" >
+        GIVEGOODSWEIGHT,
+      </if>
+      
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="givegoodsid != null" >
@@ -243,6 +248,10 @@
       <if test="givegoodsscope != null" >
         #{givegoodsscope,jdbcType=VARCHAR},
       </if>
+      <if test="givegoodsweight != null" >
+        #{givegoodsweight,jdbcType=VARCHAR},
+      </if>
+      
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.server.pojo.entity.Givegoods" >
@@ -292,6 +301,9 @@
       </if>
       <if test="givegoodsscope != null" >
         GIVEGOODSSCOPE = #{givegoodsscope,jdbcType=VARCHAR},
+      </if>
+      <if test="givegoodsweight != null" >
+        GIVEGOODSWEIGHT = #{givegoodsweight,jdbcType=VARCHAR},
       </if>
     </set>
     where GIVEGOODSID = #{givegoodsid,jdbcType=VARCHAR}

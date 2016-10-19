@@ -87,6 +87,10 @@ public class Timegoods
     * 客户范围
     */
    private String timegoodsscope;
+   /**
+    * 重量
+    */
+   private String timegoodsweight;
 	//属性方法	
    /**
     * 小类
@@ -402,7 +406,18 @@ public class Timegoods
 	public void setSurplusnum(Integer surplusnum) {
 		this.surplusnum = surplusnum;
 	}
-
+	/**
+	    * 重量
+	    */
+	public String getTimegoodsweight() {
+		return timegoodsweight;
+	}
+	/**
+	    * 重量
+	    */
+	public void setTimegoodsweight(String timegoodsweight) {
+		this.timegoodsweight = timegoodsweight;
+	}
 	public Timegoods() {
 		super();
 		// TODO Auto-generated constructor stub

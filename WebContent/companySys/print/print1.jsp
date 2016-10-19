@@ -95,12 +95,16 @@ window.print()
 		</tr>
 	</c:forEach>
 	</table>
-	<span style="font-family: 黑体;float: right;padding-top: 3px;padding-right: 40px;padding-bottom: 3px;">￥${requestScope.order.ordermrightmoney }</span>
-	<span style="font-family: 黑体;float: right;padding-top: 3px;padding-right: 40px;padding-bottom: 3px;font-size: 12px;">实际应收货款:</span>
-	<span style="font-family: 黑体;float: right;padding-top: 3px;padding-right: 40px;padding-bottom: 3px;">￥${requestScope.order.ordermmoney - requestScope.order.ordermrightmoney }</span>
-	<span style="font-family: 黑体;float: right;padding-top: 3px;padding-right: 40px;padding-bottom: 3px;font-size: 12px;">优惠金额：</span>
-	<span style="font-family: 黑体;float: right;padding-top: 3px;padding-right: 40px;padding-bottom: 3px;">￥${requestScope.order.ordermmoney }</span>
-	<span style="font-family: 黑体;float: right;padding-top: 3px;padding-right: 40px;padding-bottom: 3px;font-size: 12px;">下单金额合计：</span>
+	<span style="font-family: 黑体;float: left;padding:3px 10px 0px 3px;">合计:</span>
+	<span style="font-family: 黑体;float: left;padding:3px 10px 0px 3px;" id="sum-money-ch"></span>
+	<span style="font-family: 黑体;float: left;padding:3px 10px 0px 3px;">重量:</span>
+	<span style="font-family: 黑体;float: left;padding:3px 10px 0px 3px;"></span>
+	<span style="font-family: 黑体;float: left;padding:3px 10px 0px 3px;">下单金额:</span>
+	<span style="font-family: 黑体;float: left;padding:3px 10px 0px 3px;">￥${requestScope.order.ordermmoney }</span>
+	<span style="font-family: 黑体;float: left;padding:3px 10px 0px 3px;">优惠金额:</span>
+	<span style="font-family: 黑体;float: left;padding:3px 10px 0px 3px;">￥${requestScope.order.ordermmoney - requestScope.order.ordermrightmoney }</span>
+	<span style="font-family: 黑体;float: left;padding:3px 10px 0px 3px;">实际金额:</span>
+	<span style="font-family: 黑体;float: left;padding:3px 10px 0px 3px;">￥${requestScope.order.ordermrightmoney }</span>
 	<table width="100%" border="1" cellspacing="0" cellpadding="3" style="background-color: #80ffff;border-collapse: collapse;padding-top: 20px;font-family: 黑体;">
 	<tr>
 		<td width="111" align="center" style="font-size: 12px;">客户签收</td>
@@ -131,7 +135,15 @@ window.print()
 
 <input type="button" name="Btn_printPreviw" value="打印" 
 onclick="javascript:this.style.display='none';printpreview();" />
+<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="js/numTF.js"></script>
+<script type="text/javascript">
+$(function(){
+	var chMone= chineseNumber('${requestScope.order.ordermrightmoney }');
+	$('#sum-money-ch').html('&nbsp;'+chMone);
+});
 
+</script>
 </body>
 
 </html>

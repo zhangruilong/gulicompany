@@ -77,6 +77,18 @@ public class Orderm
     */
    private String ordermemp;   
    /**
+    * 店铺名称
+    */
+   private String ordermcusshop;
+   /**
+    * 客户等级
+    */
+   private String ordermcuslevel;
+   /**
+    * 客户类型
+    */
+   private String ordermcustype;
+   /**
     * 关联orderd
     */
    private List<Orderd> orderdList;
@@ -373,7 +385,43 @@ public class Orderm
 	{
 		return this.ordermemp;
 	}	   
-	
+	/**
+	    * 店铺名称
+	    */
+	public String getOrdermcusshop() {
+		return ordermcusshop;
+	}
+	/**
+	    * 店铺名称
+	    */
+	public void setOrdermcusshop(String ordermcusshop) {
+		this.ordermcusshop = ordermcusshop;
+	}
+	/**
+	    * 客户等级
+	    */
+	public String getOrdermcuslevel() {
+		return ordermcuslevel;
+	}
+	/**
+	    * 客户等级
+	    */
+	public void setOrdermcuslevel(String ordermcuslevel) {
+		this.ordermcuslevel = ordermcuslevel;
+	}
+	/**
+	    * 客户类型
+	    */
+	public String getOrdermcustype() {
+		return ordermcustype;
+	}
+	/**
+	    * 客户类型
+	    */
+	public void setOrdermcustype(String ordermcustype) {
+		this.ordermcustype = ordermcustype;
+	}
+
 	public List<Orderd> getOrderdList() {
 		return orderdList;
 	}

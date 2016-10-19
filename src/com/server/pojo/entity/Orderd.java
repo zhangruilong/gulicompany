@@ -58,7 +58,19 @@ public class Orderd
    /**
     * 实际金额
     */
-   private String orderdrightmoney;   
+   private String orderdrightmoney;  
+   /**
+    * 重量
+    */
+   private String orderdweight;  
+   /**
+    * 商品id
+    */
+   private String orderdgoods;  
+   /**
+    * 备注
+    */
+   private String orderdnote;  
    /**
     * 订单
     */
@@ -284,7 +296,43 @@ public class Orderd
 	{
 		return this.orderdrightmoney;
 	}
-	
+	/**
+	    * 重量
+	    */
+	public String getOrderdweight() {
+		return orderdweight;
+	}
+	/**
+	    * 重量
+	    */
+	public void setOrderdweight(String orderdweight) {
+		this.orderdweight = orderdweight;
+	}
+	/**
+	    * 商品id
+	    */
+	public String getOrderdgoods() {
+		return orderdgoods;
+	}
+	/**
+	    * 商品id
+	    */
+	public void setOrderdgoods(String orderdgoods) {
+		this.orderdgoods = orderdgoods;
+	}
+	/**
+	    * 备注
+	    */
+	public String getOrderdnote() {
+		return orderdnote;
+	}
+	/**
+	    * 备注
+	    */
+	public void setOrderdnote(String orderdnote) {
+		this.orderdnote = orderdnote;
+	}
+
 	public Orderm getOrderm() {
 		return orderm;
 	}

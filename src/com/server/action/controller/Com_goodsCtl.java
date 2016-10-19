@@ -171,7 +171,7 @@ public class Com_goodsCtl {
 		model.addAttribute("pagenow", pagenow);
 		return "forward:/companySys/goodsPrices.jsp";
 	}
-	//修改 秒杀 商品页面
+	//修改秒杀商品页面
 	@RequestMapping("/companySys/doEditTimeGoods")
 	public String doEditTimeGoods(Model model,Timegoods timegoodsCon,Integer pagenow){
 		Timegoods editTimeGoods = timegoodsMapper.selectByPrimaryKey(timegoodsCon.getTimegoodsid());
@@ -180,10 +180,16 @@ public class Com_goodsCtl {
 		model.addAttribute("pagenow", pagenow);
 		return "forward:/companySys/editTimeGoods.jsp";
 	}
-	//修改 秒杀 商品
+	//修改秒杀商品
 	@RequestMapping("/companySys/editTimeGoods")
 	@ResponseBody
 	public String editTimeGoods(Timegoods editTimeGoods){
+		if(editTimeGoods.getTimegoodsseq() == null){
+			editTimeGoods.setTimegoodsseq(0);
+		}
+		if(editTimeGoods.getTimegoodsweight()==null || editTimeGoods.getTimegoodsweight().equals("")){
+			editTimeGoods.setTimegoodsweight("0");
+		}
 		int upd = timegoodsMapper.updateByPrimaryKeySelective(editTimeGoods);
 		if(upd > 0){
 			return "ok";
@@ -191,7 +197,7 @@ public class Com_goodsCtl {
 			return "no";
 		}
 	}
-	//删除 秒杀 商品
+	//删除秒杀商品
 	@RequestMapping("/companySys/removeTimeGoods")
 	@ResponseBody
 	public String removeTimeGoods(String timegoodsid){
@@ -211,10 +217,16 @@ public class Com_goodsCtl {
 		model.addAttribute("pagenow", pagenow);
 		return "forward:/companySys/editGiveGoods.jsp";
 	}
-	//修改 买赠 商品
+	//修改买赠商品
 	@RequestMapping("/companySys/editGiveGoods")
 	@ResponseBody
 	public String editGiveGoods(Givegoods editGiveGoods){
+		if(editGiveGoods.getGivegoodsseq() == null){
+			editGiveGoods.setGivegoodsseq(0);
+		}
+		if(editGiveGoods.getGivegoodsweight()==null || editGiveGoods.getGivegoodsweight().equals("")){
+			editGiveGoods.setGivegoodsweight("0");
+		}
 		int upd = givegoodsMapper.updateByPrimaryKeySelective(editGiveGoods);
 		if(upd > 0){
 			return "ok";
@@ -222,7 +234,7 @@ public class Com_goodsCtl {
 			return "no";
 		}
 	}
-	//删除 买赠 商品
+	//删除买赠商品
 	@RequestMapping("/companySys/removeGiveGoods")
 	@ResponseBody
 	public String removeGiveGoods(String givegoodsid){
@@ -467,6 +479,9 @@ public class Com_goodsCtl {
 			if(timegoods.getTimegoodsseq() == null){
 				timegoods.setTimegoodsseq(0);
 			}
+			if(timegoods.getTimegoodsweight()==null || timegoods.getTimegoodsweight().equals("")){
+				timegoods.setTimegoodsweight("0");
+			}
 			timegoods.setTimegoodsid(CommonUtil.getNewId());
 			timegoods.setCreatetime(DateUtils.getDateTime());
 			timegoods.setSurplusnum(timegoods.getAllnum());
@@ -486,6 +501,9 @@ public class Com_goodsCtl {
 		if(givegoodsMapper.selectComRepeatGoods(givegoods.getGivegoodscompany(), givegoods.getGivegoodscode(), givegoods.getGivegoodsunits())==0){
 			if(givegoods.getGivegoodsseq() == null){
 				givegoods.setGivegoodsseq(0);
+			}
+			if(givegoods.getGivegoodsweight()==null || givegoods.getGivegoodsweight().equals("")){
+				givegoods.setGivegoodsweight("0");
 			}
 			givegoods.setGivegoodsid(CommonUtil.getNewId());
 			givegoods.setCreatetime(DateUtils.getDateTime());

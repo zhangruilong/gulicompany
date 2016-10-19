@@ -21,6 +21,7 @@
     <result column="SURPLUSNUM" property="surplusnum" jdbcType="DECIMAL" />
     <result column="TIMEGOODSSEQ" property="timegoodsseq" jdbcType="DECIMAL" />
     <result column="TIMEGOODSSCOPE" property="timegoodsscope" jdbcType="VARCHAR" />
+    <result column="TIMEGOODSWEIGHT" property="timegoodsweight" jdbcType="VARCHAR" />
     <!-- 小类 -->
     <association property="timeGoodsClass" javaType="com.server.pojo.entity.Goodsclass">
 		<id column="GOODSCLASSID" property="goodsclassid" jdbcType="VARCHAR" />
@@ -34,7 +35,7 @@
   <sql id="Base_Column_List" >
     TIMEGOODSID, TIMEGOODSCOMPANY, TIMEGOODSCODE, TIMEGOODSNAME, TIMEGOODSDETAIL, TIMEGOODSUNITS, 
     TIMEGOODSUNIT, TIMEGOODSPRICE, TIMEGOODSORGPRICE, TIMEGOODSNUM, TIMEGOODSCLASS, TIMEGOODSIMAGE, 
-    TIMEGOODSSTATUE, CREATETIME, CREATOR, ALLNUM, SURPLUSNUM, TIMEGOODSSEQ, TIMEGOODSSCOPE
+    TIMEGOODSSTATUE, CREATETIME, CREATOR, ALLNUM, SURPLUSNUM, TIMEGOODSSEQ, TIMEGOODSSCOPE, TIMEGOODSWEIGHT
   </sql>
   <!-- 根据编码和规格和经销商查询 -->
   <select id="selectComRepeatGoods" resultType="int" >
@@ -164,6 +165,9 @@
       <if test="timegoodsscope != null" >
         TIMEGOODSSCOPE,
       </if>
+      <if test="timegoodsweight != null" >
+        TIMEGOODSWEIGHT,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="timegoodsid != null" >
@@ -223,6 +227,10 @@
       <if test="timegoodsscope != null" >
         #{timegoodsscope,jdbcType=VARCHAR},
       </if>
+      <if test="timegoodsweight != null" >
+        #{timegoodsweight,jdbcType=VARCHAR},
+      </if>
+      
     </trim>
   </insert>
   <!-- 根据主键选择性修改 -->
@@ -282,6 +290,9 @@
       </if>
       <if test="timegoodsscope != null" >
         TIMEGOODSSCOPE = #{timegoodsscope,jdbcType=VARCHAR},
+      </if>
+      <if test="timegoodsweight != null" >
+      	TIMEGOODSWEIGHT = #{timegoodsweight,jdbcType=VARCHAR},
       </if>
     </set>
     where TIMEGOODSID = #{timegoodsid,jdbcType=VARCHAR}

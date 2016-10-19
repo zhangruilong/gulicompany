@@ -15,6 +15,9 @@
     <result column="ORDERDNUM" property="orderdnum" jdbcType="DECIMAL" />
     <result column="ORDERDMONEY" property="orderdmoney" jdbcType="FLOAT" />
     <result column="ORDERDRIGHTMONEY" property="orderdrightmoney" jdbcType="FLOAT" />
+    <result column="ORDERDWEIGHT" property="orderdweight" jdbcType="VARCHAR" />
+    <result column="ORDERDGOODS" property="orderdgoods" jdbcType="VARCHAR" />
+    <result column="ORDERDNOTE" property="orderdnote" jdbcType="VARCHAR" />
     <!-- 订单 -->
     <association property="orderm" javaType="com.server.pojo.entity.Orderm">
 	    <id column="ORDERMID" property="ordermid" jdbcType="VARCHAR" />
@@ -34,6 +37,9 @@
 	    <result column="UPDTIME" property="updtime" jdbcType="VARCHAR" />
 	    <result column="UPDOR" property="updor" jdbcType="VARCHAR" />
 	    <result column="ORDERMEMP" property="ordermemp" jdbcType="VARCHAR" />
+	    <result column="ORDERMCUSSHOP" property="ordermshop" jdbcType="VARCHAR" />
+	    <result column="ORDERMCUSLEVEL" property="ordermlevel" jdbcType="VARCHAR" />
+	    <result column="ORDERMCUSTYPE" property="ordermtype" jdbcType="VARCHAR" />
     </association>
   </resultMap>
   <resultMap type="com.server.pojo.entity.Orderd" id="groupByOrderdcode">
@@ -42,7 +48,8 @@
   </resultMap>
   <sql id="Base_Column_List" >
     ORDERDID, ORDERDORDERM, ORDERDCODE, ORDERDTYPE, ORDERDNAME, ORDERDDETAIL, ORDERDUNITS, 
-    ORDERDPRICE, ORDERDUNIT, ORDERDCLASS, ORDERDNUM, ORDERDMONEY, ORDERDRIGHTMONEY
+    ORDERDPRICE, ORDERDUNIT, ORDERDCLASS, ORDERDNUM, ORDERDMONEY, ORDERDRIGHTMONEY,ORDERDWEIGHT,
+    ORDERDGOODS,ORDERDNOTE,ORDERMCUSSHOP,ORDERMCUSLEVEL,ORDERMCUSTYPE
   </sql>
   <!-- 查询热销商品订单(编码和类型) -->
   <select id="selectHotGoodsCodeAndType" resultMap="groupByOrderdcode" >
@@ -257,6 +264,16 @@
       <if test="orderdrightmoney != null" >
         ORDERDRIGHTMONEY,
       </if>
+      <if test="ordermshop != null" >
+        ORDERMCUSSHOP,
+      </if>
+      <if test="ordermlevel != null" >
+        ORDERMCUSLEVEL,
+      </if>
+      <if test="ordermtype != null" >
+        ORDERMCUSTYPE,
+      </if>
+      
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="orderdid != null" >
@@ -298,6 +315,16 @@
       <if test="orderdrightmoney != null" >
         #{orderdrightmoney,jdbcType=FLOAT},
       </if>
+      <if test="ordermshop != null" >
+        #{ordermshop,jdbcType=VARCHAR},
+      </if>
+      <if test="ordermlevel != null" >
+        #{ordermlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="ordermtype != null" >
+        #{ordermtype,jdbcType=VARCHAR},
+      </if>
+      
     </trim>
   </insert>
   <!-- 根据主键选择性修改 -->
@@ -339,6 +366,15 @@
       </if>
       <if test="orderdrightmoney != null" >
         ORDERDRIGHTMONEY = #{orderdrightmoney,jdbcType=FLOAT},
+      </if>
+      <if test="orderdclass != null" >
+        ORDERMCUSSHOP = #{ordermshop,jdbcType=VARCHAR},
+      </if>
+      <if test="orderdclass != null" >
+        ORDERMCUSLEVEL = #{ordermlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="orderdclass != null" >
+        ORDERMCUSTYPE = #{ordermtype,jdbcType=VARCHAR},
       </if>
     </set>
     where ORDERDID = #{orderdid,jdbcType=VARCHAR}

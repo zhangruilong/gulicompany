@@ -37,6 +37,16 @@ public class Givegoods {
 
     private Integer givegoodsseq;
     
+    private String givegoodsweight;
+    
+	public String getGivegoodsweight() {
+		return givegoodsweight;
+	}
+
+	public void setGivegoodsweight(String givegoodsweight) {
+		this.givegoodsweight = givegoodsweight;
+	}
+
 	public String getGivegoodsscope() {
 		return givegoodsscope;
 	}

@@ -54,6 +54,8 @@
 				name="timegoodsprice" value="${requestScope.editTimeGoods.timegoodsprice }" placeholder="原价" /></label>
 			<label><span>现价 :</span><input id="timegoodsorgprice" type="number"
 				name="timegoodsorgprice" value="${requestScope.editTimeGoods.timegoodsorgprice }" placeholder="现价" /></label>
+			<label><span>重量 :</span><input id="timegoodsweight" type="number"
+				name="timegoodsweight" value="${requestScope.editTimeGoods.timegoodsweight }" placeholder="重量" /></label>
 			<label><span>个人限量 :</span><input id="timegoodsnum" type="number"
 				name="timegoodsnum" value="${requestScope.editTimeGoods.timegoodsnum }" placeholder="个人限量" /></label>
 			<label><span>全部限量 :</span><input id="allnum" type="number"
@@ -89,7 +91,7 @@ function saveEdit(){
 	data += '"timegoodsscope":"' + timegoodsscope +'",';
 	$(".elegant-aero [type='text']").add(".elegant-aero [type='number']").each(function(i,item){
 		if($(item).val() == null || $(item).val() == '' ){
-			if($(item).attr('placeholder') != '顺序' && $(item).attr('placeholder') != '图片路径'){
+			if($(item).attr('placeholder') != '顺序' && $(item).attr('placeholder') != '图片路径' && $(item).attr('placeholder') != '重量'){
 				alert($(item).attr('placeholder') + '不能为空');
 				count++;
 				return false;
