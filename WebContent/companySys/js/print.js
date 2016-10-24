@@ -34,7 +34,7 @@ $(function(){
 						rowNum = 0;								//行号变为0
 						if(item.sheetname =='供应商信息'){
 							$('#print-content').append(
-								'<table width="100%" cellspacing="0" cellpadding="0" style="border-collapse: collapse;"></table>');
+								'<table width="100%" cellspacing="0" cellpadding="0" style="border-collapse: collapse;border-bottom:solid 1px black"></table>');
 						} else if(item.sheetname =='客户信息'){
 							$('#print-content').append('<table width="100%" border="0" cellspacing="0" cellpadding="3"></table>');
 						} else if(item.sheetname == '商品信息'){
@@ -84,7 +84,7 @@ $(function(){
 								item.headnameas+'：</td><td style="width: 171px;">'+text+'</td>');
 					} else if(item.sheetname == '商品信息'){
 						$('#print-content table:last tr:last').append(
-								'<td style="font-family: 黑体;font-size: 12px;" name="'+item.fieldname+'">'+item.headnameas+'</td>');
+								'<td style="font-family: 黑体;font-size: 12px;white-space: nowrap;" name="'+item.fieldname+'">'+item.headnameas+'</td>');
 					} else if(item.sheetname == '合计信息'){
 						$('#print-content').append(
 								'<span style="font-family: 黑体;float: left;padding:3px 10px 0px 3px;">'+item.headnameas+':</span>'+
@@ -109,7 +109,7 @@ $(function(){
 						$('#print-content table:last tr:last td:last').attr('colspan',item.endcol-item.startcol);
 					}
 				});
-				$('#print-content table:first').css('border-bottom','solid 1px black');
+				//$('#print-content table:first').css('border-bottom','solid 1px black');
 				$.each(orderdList,function(i,item1){							//订单商品
 					$('#goods-tab').append('<tr></tr>');
 					
