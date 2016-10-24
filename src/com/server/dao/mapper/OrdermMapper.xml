@@ -41,6 +41,22 @@
 	    <result column="CREATETIME" property="createtime" jdbcType="VARCHAR" />
 	    <result column="UPDTIME" property="updtime" jdbcType="VARCHAR" />
 	 </association>
+	 <!-- 经销商 -->
+	 <association property="ordermCom" javaType="com.server.pojo.entity.Company">
+	 	<id column="COMPANYID" property="companyid" jdbcType="VARCHAR" />
+	    <result column="COMPANYCODE" property="companycode" jdbcType="VARCHAR" />
+	    <result column="USERNAME" property="username" jdbcType="VARCHAR" />
+	    <result column="COMPANYPHONE" property="companyphone" jdbcType="VARCHAR" />
+	    <result column="COMPANYSHOP" property="companyshop" jdbcType="VARCHAR" />
+	    <result column="COMPANYCITY" property="companycity" jdbcType="VARCHAR" />
+	    <result column="COMPANYADDRESS" property="companyaddress" jdbcType="VARCHAR" />
+	    <result column="COMPANYDETAIL" property="companydetail" jdbcType="VARCHAR" />
+	    <result column="COMPANYSTATUE" property="companystatue" jdbcType="VARCHAR" />
+	    <result column="LOGINNAME" property="loginname" jdbcType="VARCHAR" />
+	    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+	    <result column="CREATETIME" property="createtime" jdbcType="VARCHAR" />
+	    <result column="UPDTIME" property="updtime" jdbcType="VARCHAR" />
+	 </association>
     <!-- 订单详情 -->
     <collection property="orderdList" ofType="com.server.pojo.entity.Orderd">
     	<id column="ORDERDID" property="orderdid" jdbcType="VARCHAR" />
@@ -63,6 +79,16 @@
     ORDERMWAY, ORDERMSTATUE, ORDERMDETAIL, ORDERMTIME, ORDERMCONNECT, ORDERMPHONE, ORDERMADDRESS, 
     UPDTIME, UPDOR, ORDERMEMP,ORDERMCUSSHOP,ORDERMCUSLEVEL,ORDERMCUSTYPE
   </sql>
+  <!-- 根据ordermid查询打印订单时需要的信息：订单、客户、经销商、订单详情 信息 -->
+  <select id="selectPrintInfo" resultType="com.server.pojo.entity.PrintInfo">
+  	select * from orderm om
+  	left join customer c 
+  	on c.customerid = om.ordermcustomer
+  	left join company com 
+  	on com.companyid = om.ordermcompany
+  	where om.ordermstatue != '已删除'
+  	and om.ordermid = #{ordermid}
+  </select>
   <!-- 查询最新的一条订单信息 -->
   <select id="selectNewestOrderm" resultMap="BaseResultMap">
   	SELECT * FROM (

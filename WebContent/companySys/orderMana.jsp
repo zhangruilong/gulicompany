@@ -166,7 +166,7 @@ function doprint(msg,statue){
 	});
 	if(count > 0 && count < 2){
 		if(msg == '打印'){
-			window.open("printOrder.action?ordermid="+itemid+"&ordermcompany=${sessionScope.company.companyid }");
+			window.open("print.jsp?ordermid="+itemid);
 		} else if(msg == '详情'){
 			window.location.href = "orderDetail.action?ordermid="+itemid+"&ordermcompany=${sessionScope.company.companyid }";
 		} else if(msg == '状态'){

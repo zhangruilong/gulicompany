@@ -118,7 +118,7 @@ return resAIW;
  * @param num 
   * @returns 
   */ 
-  function aNumber(num) { 
+  /*function aNumber(num) { 
   var numArray = new Array(); 
   var unit = "亿万元";  
   for ( var i = 0; i < unit.length; i++) {  
@@ -136,4 +136,4 @@ return resAIW;
   numArray[i] = 0; 
   } 
   return eval(numArray.join("+")); 
-  }
+  }*/

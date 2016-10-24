@@ -6,8 +6,13 @@ import org.apache.ibatis.annotations.Param;
 
 import com.server.pojo.entity.Orderm;
 import com.server.pojo.entity.Ordermview;
+import com.server.pojo.entity.PrintInfo;
 
 public interface OrdermMapper {
+	/**
+	 * 根据ordermid查询打印订单时需要的信息：订单、客户、经销商、订单详情 信息
+	 */
+	PrintInfo selectPrintInfo(String ordermid);
 	/**
 	 * 查询订单总实际金额
 	 */

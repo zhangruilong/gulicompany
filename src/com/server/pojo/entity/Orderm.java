@@ -96,6 +96,10 @@ public class Orderm
     * 客户
     */
    private Customer orderdCustomer;
+   /**
+    * 经销商
+    */
+   private Company ordermCom;
     //属性方法	    
      /**
 	 *设置主键"订单ID"属性
@@ -436,6 +440,14 @@ public class Orderm
 
 	public void setOrderdCustomer(Customer orderdCustomer) {
 		this.orderdCustomer = orderdCustomer;
+	}
+
+	public Company getOrdermCom() {
+		return ordermCom;
+	}
+
+	public void setOrdermCom(Company ordermCom) {
+		this.ordermCom = ordermCom;
 	}
 
 	public Orderm() {

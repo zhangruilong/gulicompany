@@ -10,6 +10,10 @@ import com.server.pojo.entity.OrderdStatistics;
 
 public interface OrderdMapper {
 	/**
+	 * 根据ordermid查询订单详情
+	 */
+	List<Orderd> selectByOrderm(String ordermid);
+	/**
 	 * 查询热销商品
 	 */
 	List<Orderd> selectHotGoodsCodeAndType(@Param("staTime") String staTime,@Param("endTime") String endTime,@Param("cityname") String cityname);

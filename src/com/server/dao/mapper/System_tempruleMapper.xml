@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.server.dao.mapper.System_tempruleMapper" >
+  <resultMap id="BaseResultMap" type="com.server.pojo.entity.System_temprule" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="TEMPCODE" property="tempcode" jdbcType="VARCHAR" />
+    <result column="TEMPNAME" property="tempname" jdbcType="VARCHAR" />
+    <result column="SHEETNO" property="sheetno" jdbcType="DECIMAL" />
+    <result column="SHEETNAME" property="sheetname" jdbcType="VARCHAR" />
+    <result column="TABLECODE" property="tablecode" jdbcType="VARCHAR" />
+    <result column="HEADNO" property="headno" jdbcType="DECIMAL" />
+    <result column="HEADCODE" property="headcode" jdbcType="VARCHAR" />
+    <result column="HEADNAME" property="headname" jdbcType="VARCHAR" />
+    <result column="HEADNAMEAS" property="headnameas" jdbcType="VARCHAR" />
+    <result column="FIELDNAME" property="fieldname" jdbcType="VARCHAR" />
+    <result column="HEADLEVEL" property="headlevel" jdbcType="DECIMAL" />
+    <result column="STARTROW" property="startrow" jdbcType="DECIMAL" />
+    <result column="ENDROW" property="endrow" jdbcType="DECIMAL" />
+    <result column="STARTCOL" property="startcol" jdbcType="DECIMAL" />
+    <result column="ENDCOL" property="endcol" jdbcType="DECIMAL" />
+    <result column="DETAIL" property="detail" jdbcType="VARCHAR" />
+  </resultMap>
+  <!-- 根据供应商id查找模板 -->
+  <select id="selectByComid" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    *
+    from SYSTEM_TEMPRULE
+    where TEMPCODE = #{comid} 
+    order by headno,startrow,startcol 
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    *
+    from SYSTEM_TEMPRULE
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from SYSTEM_TEMPRULE
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="com.server.pojo.entity.System_temprule" >
+    insert into SYSTEM_TEMPRULE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="tempcode != null" >
+        TEMPCODE,
+      </if>
+      <if test="tempname != null" >
+        TEMPNAME,
+      </if>
+      <if test="sheetno != null" >
+        SHEETNO,
+      </if>
+      <if test="sheetname != null" >
+        SHEETNAME,
+      </if>
+      <if test="tablecode != null" >
+        TABLECODE,
+      </if>
+      <if test="headno != null" >
+        HEADNO,
+      </if>
+      <if test="headcode != null" >
+        HEADCODE,
+      </if>
+      <if test="headname != null" >
+        HEADNAME,
+      </if>
+      <if test="headnameas != null" >
+        HEADNAMEAS,
+      </if>
+      <if test="fieldname != null" >
+        FIELDNAME,
+      </if>
+      <if test="headlevel != null" >
+        HEADLEVEL,
+      </if>
+      <if test="startrow != null" >
+        STARTROW,
+      </if>
+      <if test="endrow != null" >
+        ENDROW,
+      </if>
+      <if test="startcol != null" >
+        STARTCOL,
+      </if>
+      <if test="endcol != null" >
+        ENDCOL,
+      </if>
+      <if test="detail != null" >
+        DETAIL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="tempcode != null" >
+        #{tempcode,jdbcType=VARCHAR},
+      </if>
+      <if test="tempname != null" >
+        #{tempname,jdbcType=VARCHAR},
+      </if>
+      <if test="sheetno != null" >
+        #{sheetno,jdbcType=DECIMAL},
+      </if>
+      <if test="sheetname != null" >
+        #{sheetname,jdbcType=VARCHAR},
+      </if>
+      <if test="tablecode != null" >
+        #{tablecode,jdbcType=VARCHAR},
+      </if>
+      <if test="headno != null" >
+        #{headno,jdbcType=DECIMAL},
+      </if>
+      <if test="headcode != null" >
+        #{headcode,jdbcType=VARCHAR},
+      </if>
+      <if test="headname != null" >
+        #{headname,jdbcType=VARCHAR},
+      </if>
+      <if test="headnameas != null" >
+        #{headnameas,jdbcType=VARCHAR},
+      </if>
+      <if test="fieldname != null" >
+        #{fieldname,jdbcType=VARCHAR},
+      </if>
+      <if test="headlevel != null" >
+        #{headlevel,jdbcType=DECIMAL},
+      </if>
+      <if test="startrow != null" >
+        #{startrow,jdbcType=DECIMAL},
+      </if>
+      <if test="endrow != null" >
+        #{endrow,jdbcType=DECIMAL},
+      </if>
+      <if test="startcol != null" >
+        #{startcol,jdbcType=DECIMAL},
+      </if>
+      <if test="endcol != null" >
+        #{endcol,jdbcType=DECIMAL},
+      </if>
+      <if test="detail != null" >
+        #{detail,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.server.pojo.entity.System_temprule" >
+    update SYSTEM_TEMPRULE
+    <set >
+      <if test="tempcode != null" >
+        TEMPCODE = #{tempcode,jdbcType=VARCHAR},
+      </if>
+      <if test="tempname != null" >
+        TEMPNAME = #{tempname,jdbcType=VARCHAR},
+      </if>
+      <if test="sheetno != null" >
+        SHEETNO = #{sheetno,jdbcType=DECIMAL},
+      </if>
+      <if test="sheetname != null" >
+        SHEETNAME = #{sheetname,jdbcType=VARCHAR},
+      </if>
+      <if test="tablecode != null" >
+        TABLECODE = #{tablecode,jdbcType=VARCHAR},
+      </if>
+      <if test="headno != null" >
+        HEADNO = #{headno,jdbcType=DECIMAL},
+      </if>
+      <if test="headcode != null" >
+        HEADCODE = #{headcode,jdbcType=VARCHAR},
+      </if>
+      <if test="headname != null" >
+        HEADNAME = #{headname,jdbcType=VARCHAR},
+      </if>
+      <if test="headnameas != null" >
+        HEADNAMEAS = #{headnameas,jdbcType=VARCHAR},
+      </if>
+      <if test="fieldname != null" >
+        FIELDNAME = #{fieldname,jdbcType=VARCHAR},
+      </if>
+      <if test="headlevel != null" >
+        HEADLEVEL = #{headlevel,jdbcType=DECIMAL},
+      </if>
+      <if test="startrow != null" >
+        STARTROW = #{startrow,jdbcType=DECIMAL},
+      </if>
+      <if test="endrow != null" >
+        ENDROW = #{endrow,jdbcType=DECIMAL},
+      </if>
+      <if test="startcol != null" >
+        STARTCOL = #{startcol,jdbcType=DECIMAL},
+      </if>
+      <if test="endcol != null" >
+        ENDCOL = #{endcol,jdbcType=DECIMAL},
+      </if>
+      <if test="detail != null" >
+        DETAIL = #{detail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

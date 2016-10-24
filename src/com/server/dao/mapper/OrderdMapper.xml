@@ -51,6 +51,10 @@
     ORDERDPRICE, ORDERDUNIT, ORDERDCLASS, ORDERDNUM, ORDERDMONEY, ORDERDRIGHTMONEY,ORDERDWEIGHT,
     ORDERDGOODS,ORDERDNOTE,ORDERMCUSSHOP,ORDERMCUSLEVEL,ORDERMCUSTYPE
   </sql>
+  <!-- 查询到客户的所有秒杀品的订单详情 -->
+  <select id="selectByOrderm" resultMap="BaseResultMap" parameterType="String" >
+    select * from orderd od where ORDERDORDERM=#{ordermid}
+  </select>
   <!-- 查询热销商品订单(编码和类型) -->
   <select id="selectHotGoodsCodeAndType" resultMap="groupByOrderdcode" >
     select * from 
