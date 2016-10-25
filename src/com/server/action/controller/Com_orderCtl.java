@@ -1,6 +1,7 @@
 package com.server.action.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -245,10 +246,7 @@ public class Com_orderCtl {
 		orderm.setOrdermtime(DateUtils.getDateTime());
 		
 		String date = DateUtils.getDate();
-		String odCode = "G"+DateUtils.getDateTime().replace("-", "");
-		odCode = odCode.replace(" ", "");
-		odCode = odCode.replace(":", "");
-		//System.out.println(odCode);
+		String odCode = "G"+DateUtils.formatDate(new Date(), "yyyyMMddhhmmss");
 		Orderm odm = new Orderm();
 		odm.setOrdermcompany(orderm.getOrdermcompany());
 		String todayOd = (ordermMapper.selectByCompanyCount(date+" 00:00:00", date+"23:59:59",odm)+1)+"";	//今天的第几个订单;

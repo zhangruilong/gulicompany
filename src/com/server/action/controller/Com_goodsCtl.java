@@ -387,7 +387,7 @@ public class Com_goodsCtl {
 	//添加商品
 	@RequestMapping("/companySys/addGoods")
 	@ResponseBody
-	public Map<String, Object> addGoods(Model model,Goods goodsCon){
+	public Map<String, Object> addGoods(Goods goodsCon){
 		Map<String, Object> map = new HashMap<String, Object>();
 		int num = goodsMapper.selectByGoodsCode(goodsCon.getGoodscode(), goodsCon.getGoodscompany(),goodsCon.getGoodsunits());
 		if(num==0){
@@ -425,15 +425,20 @@ public class Com_goodsCtl {
 	@RequestMapping("/companySys/editGoods")
 	@ResponseBody
 	public String editGoods(Goods editGoods){
-		if(editGoods.getGoodsorder() == null){
-			editGoods.setGoodsorder(0);
-		}
-		if(editGoods.getGoodsweight() == null || editGoods.getGoodsweight().equals("")){
-			editGoods.setGoodsweight("0");
-		}
-		int upd = goodsMapper.updateByPrimaryKeySelective(editGoods);
-		if(upd > 0){
-			return "ok";
+		int num = goodsMapper.selectByGoodsCode(editGoods.getGoodscode(), editGoods.getGoodscompany(),editGoods.getGoodsunits());
+		if(num==0){
+			if(editGoods.getGoodsorder() == null){
+				editGoods.setGoodsorder(0);
+			}
+			if(editGoods.getGoodsweight() == null || editGoods.getGoodsweight().equals("")){
+				editGoods.setGoodsweight("0");
+			}
+			int upd = goodsMapper.updateByPrimaryKeySelective(editGoods);
+			if(upd > 0){
+				return "ok";
+			} else {
+				return "error1";					//编号重复,请重新输入.
+			}
 		} else {
 			return "no";
 		}

@@ -138,26 +138,27 @@ String goodsstatue = request.getParameter("goodsstatue");
 	<div class="elegant-aero">
 			<h1>添加商品</h1>
 			<label><span>商品编码 :</span><input id="addgoodscode" type="text"
-				name="goodscode" placeholder="商品编码" value="" /></label>
+				name="goodscode" placeholder="商品编码" value="" /><font style="color: red;">*</font></label>
 			<label><span>商品名称 :</span><input id="goodsname" type="text"
-				name="goodsname" placeholder="商品名称" /></label>
+				name="goodsname" placeholder="商品名称" /><font style="color: red;">*</font></label>
 			<label><span>规格 :</span><input id="goodsunits" type="text"
-				name="goodsunits" placeholder="规格" /></label>
+				name="goodsunits" placeholder="规格" /><font style="color: red;">*</font></label>
 			<label><span>小类名称 :</span>
 			<select name="goodsclass" id="goodsclass">
 				<option value="">请选择</option>
-			</select>
+			</select><font style="color: red;">*</font>
 			</label>
+			<label><span>图片路径 :</span><input id="goodsimage" type="text"
+				name="goodsimage" placeholder="图片路径" /><font style="color: red;">*</font></label>
 			<label><span>品牌 :</span><input id="goodsbrand" type="text"
 				name="goodsbrand" placeholder="品牌" /></label>
 			<label><span>种类 :</span><input id="goodstype" type="text"
-				name="goodstype" placeholder="种类" /></label>
+				name="goodstype" placeholder="种类" /><font style="color: red;">*</font></label>
 			<label><span>重量（kg） :</span><input id="goodsweight" type="number"
 				name="goodsweight" placeholder="重量" value=0/></label>
 			<label><span>顺序 :</span><input id="goodsorder" type="number"
 				name="goodsorder" placeholder="顺序" value=0/></label>
-			<label><span>图片路径 :</span><input id="goodsimage" type="text"
-				name="goodsimage" placeholder="图片路径" /></label>
+			
 			<p><label><input type="button"
 				class="popup_button" value="提交" onclick="popup_formSub()"/>
 			</label>
@@ -363,8 +364,7 @@ function popup_formSub(){
 	var count = 0;
 	$(".elegant-aero [type='text']").add(".elegant-aero [type='number']").each(function(i,item){
 		if($(item).val() == null || $(item).val() == '' ){
-			if($(item).attr('placeholder') != '品牌' && $(item).attr('placeholder') != '顺序'&& 
-					$(item).attr('placeholder') != '图片路径' != '顺序'&& $(item).attr('placeholder') != '重量'){
+			if($(item).attr('placeholder') != '品牌' && $(item).attr('placeholder') != '顺序'&& $(item).attr('placeholder') != '重量'){
 				alert($(item).attr('placeholder') + '不能为空');
 				count++;
 				return false;

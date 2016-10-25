@@ -24,7 +24,7 @@ String ordermway = request.getParameter("ordermway");
 </style>
 </head>
 <body>
-<div class="nowposition">当前位置：文档管理》文档列表</div>
+<div class="nowposition">当前位置：帮助中心 》帮助文档</div>
 <div class="navigation">
 </div>
 <table class="bordered" >

@@ -25,7 +25,7 @@ Company company = (Company)session.getAttribute("company");
 	</div>
 	<div class="mokuai">
 		<ul>
-			<li onclick="doFile()">合作管理</li>
+			<li onclick="doFile()">帮助中心</li>
 			<li onclick="doSys()">系统管理</li>
 			<li onclick="doCustomer()">客户管理</li>
 			<li onclick="doGoods()">商品管理</li>
@@ -222,7 +222,7 @@ Company company = (Company)session.getAttribute("company");
 			menu_body.html("<ul class='nav'>"
 			        +"<li class='nav__item'>"
 			        +"<a href=fileMana.jsp target='main' class='nav__item-link'>"
-			        +"<span class='nav__item-text'>文档列表</span>"
+			        +"<span class='nav__item-text'>帮助文档</span>"
 			        +"</a>   "
 			        +"</li>"
 			        +"</ul>");
