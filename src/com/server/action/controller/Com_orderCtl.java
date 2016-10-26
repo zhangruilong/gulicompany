@@ -106,11 +106,15 @@ public class Com_orderCtl {
 /*--------------------------订单详情-----------------------------*/
 	//订单详情
 	@RequestMapping("/companySys/orderDetail")
-	public String orderDetail(Model model,Orderm order){
-		order = ordermMapper.selectByPrimaryKey(order.getOrdermid());
-		Customer coddd = customerMapper.selectByPrimaryKey(order.getOrdermcustomer());
+	public String orderDetail(Model model,Orderm order,String staTime,String endTime,String pagenow){
+		Orderm detOrder = ordermMapper.selectByPrimaryKey(order.getOrdermid());
+		Customer coddd = customerMapper.selectByPrimaryKey(detOrder.getOrdermcustomer());
 		model.addAttribute("order", order);
+		model.addAttribute("detOrder", detOrder);
 		model.addAttribute("cusFoODInfo", coddd);
+		model.addAttribute("staTime", staTime);
+		model.addAttribute("endTime", endTime);
+		model.addAttribute("pagenow", pagenow);
 		return "forward:/companySys/orderDetail.jsp";
 	}
 	//删除订单详情

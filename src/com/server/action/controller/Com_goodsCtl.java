@@ -520,7 +520,7 @@ public class Com_goodsCtl {
 		}
 		return map;
 	}
-	//添加大客户订单时所需商品
+	//添加录单客户订单时所需商品
 	@RequestMapping(value="/companySys/getlargeCusGoods",produces = "application/json")
 	@ResponseBody
 	public Map<String,Object> getlargeCusGoods(Goods goodsCon,Integer pagenowGoods,String customerid){
@@ -542,7 +542,7 @@ public class Com_goodsCtl {
 		map.put("goodsList", goodsList);
 		return map;
 	}
-	//查询大客户的特殊价格商品
+	//查询录单客户的特殊价格商品
 	@RequestMapping(value="/companySys/querylargeCusPriceGoods")
 	@ResponseBody
 	public Map<String,Object> querylargeCusPriceGoods(Largecusprice largecusprice,Integer pagenow){
@@ -564,7 +564,7 @@ public class Com_goodsCtl {
 		map.put("largeCusPrice", largeCPList);
 		return map;
 	}
-	//添加大客户商品价格
+	//添加录单客户商品价格
 	@RequestMapping(value="/companySys/saveNewLargeCusGP")
 	@ResponseBody
 	public Integer saveNewLargeCusGP(Largecusprice newLargecusprice){
@@ -576,14 +576,14 @@ public class Com_goodsCtl {
 		newLargecusprice.setLargecuspricecreatetime(DateUtils.getDateTime());
 		return largecuspriceMapper.insertSelective(newLargecusprice);
 	}
-	//修改大客户商品价格
+	//修改录单客户商品价格
 	@RequestMapping(value="/companySys/editLargeGoodsPrice")
 	@ResponseBody
 	public Integer editLargeGoodsPrice(Largecusprice largecusprice){
 		largecusprice.setLargecuspricecreator(DateUtils.getDateTime());
 		return largecuspriceMapper.updateByPrimaryKeySelective(largecusprice);
 	}
-	//删除大客户商品
+	//删除录单客户商品
 	@RequestMapping(value="/companySys/deleteLGPByIDs")
 	@ResponseBody
 	public String deleteLGPByIDs(@RequestParam("lcpIDs[]") String[] lcpIDs){
@@ -592,13 +592,14 @@ public class Com_goodsCtl {
 		}
 		return "";
 	}
-	//添加大客户
+	//添加录单客户
 	@RequestMapping(value="/companySys/saveLargeCus")
 	@ResponseBody
 	public String saveLargeCus(Customer cus,String comid){
 		String newId = CommonUtil.getNewId();
 		String datatime = DateUtils.getDateTime();
 		cus.setCustomerid(newId);
+		cus.setOpenid(newId);
 		cus.setCreatetime(datatime);
 		cus.setCustomerstatue("启用");
 		/*if(cus.getCustomercity() == null || cus.getCustomercity().equals("")){		//如果是

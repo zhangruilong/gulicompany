@@ -44,7 +44,7 @@ public class Com_customerCtl {
 	private EmpMapper empMapper;
 	@Autowired
 	private CityMapper cityMapper;
-	//新增大客户时用到的city
+	//新增录单客户时用到的city
 	@RequestMapping(value="/companySys/addLGCity")
 	@ResponseBody
 	public Map<String,Object> addLGCity(String cityid){
@@ -131,7 +131,7 @@ public class Com_customerCtl {
 		String name = "客户统计报表";							//文件名称
 		FileUtil.expExcel(response, list, heads, discard, name);
 	}
-	//大客户下单页信息
+	//录单客户下单页信息
 	@RequestMapping("/companySys/largeCusXiaDanInfo")
 	@ResponseBody
 	public Map<String, Object> largeCusXiaDanInfo(String ccustomerid){

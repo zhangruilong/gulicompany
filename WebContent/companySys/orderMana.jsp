@@ -129,6 +129,7 @@ onclick="doprint('删除')">
 </form>
 <script type="text/javascript">
 var ordermway = '<%=ordermway %>';
+var ordermid = '${requestScope.order.ordermid }';
 $(function(){
 	if(ordermway == null || ordermway == ''){
 		$(".nowposition").html("当前位置：订单管理》全部订单");
@@ -136,6 +137,9 @@ $(function(){
 		$(".nowposition").html("当前位置：订单管理》在线支付订单");
 	} else if(ordermway == '货到付款'){
 		$(".nowposition").html("当前位置：订单管理》货到付款订单");
+	}
+	if(ordermid && ordermid != 'null'){
+		$('#'+ordermid).attr('checked',true);
 	}
 	$("#main_form").on("submit",function(){
 		checkCondition();
@@ -168,7 +172,10 @@ function doprint(msg,statue){
 		if(msg == '打印'){
 			window.open("print.jsp?ordermid="+itemid);
 		} else if(msg == '详情'){
-			window.location.href = "orderDetail.action?ordermid="+itemid+"&ordermcompany=${sessionScope.company.companyid }";
+			window.location.href = "orderDetail.action?ordermid="+itemid+
+					"&ordermcompany=${sessionScope.company.companyid }&ordermcode=${requestScope.order.ordermcode }"+
+					"&staTime=${requestScope.staTime}&endTime=${requestScope.endTime}&pagenow=${requestScope.pagenow }"+
+					"&ordermway="+ordermway;
 		} else if(msg == '状态'){
 			if(confirm("是否修改订单状态")){
 				$.post('updateStatue.action',{

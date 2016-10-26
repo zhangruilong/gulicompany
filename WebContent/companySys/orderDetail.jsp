@@ -30,25 +30,25 @@ String ordermcompany = request.getParameter("ordermcompany");
 <body>
 <form action="deleOrderd.action" method="post">
  <pg:pager maxPageItems="10" url="orderDetail.action">
- <pg:param name="ordermid" value="${requestScope.order.ordermid }"/>
+ <pg:param name="ordermid" value="${requestScope.detOrder.ordermid }"/>
  <pg:param name="orderdids"/>
- <input type="hidden" name="ordermid" value="${requestScope.order.ordermid }">
- <input type="hidden" name="ordermrightmoney" value="${requestScope.order.ordermrightmoney }">
- <input type="hidden" name="ordermmoney" value="${requestScope.order.ordermmoney }">
- <input type="hidden" name="ordermnum" value="${requestScope.order.ordermnum }">
+ <input type="hidden" name="ordermid" value="${requestScope.detOrder.ordermid }">
+ <input type="hidden" name="ordermrightmoney" value="${requestScope.detOrder.ordermrightmoney }">
+ <input type="hidden" name="ordermmoney" value="${requestScope.detOrder.ordermmoney }">
+ <input type="hidden" name="ordermnum" value="${requestScope.detOrder.ordermnum }">
 <div class="nowposition">订单管理》订单详情</div>
 <table class="navigation">
 <tr>
 <td>
-<span>订单编号:${requestScope.order.ordermcode }&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span>订单状态 : ${requestScope.order.ordermstatue }&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span>订单编号:${requestScope.detOrder.ordermcode }&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span>订单状态 : ${requestScope.detOrder.ordermstatue }&nbsp;&nbsp;&nbsp;&nbsp;</span>
 </td>
 <td rowspan="2" align="left" width="63%">
 <input class="button" type="button" value="确认订单" onclick="updateStatue('已确认');">
 <input class="button" type="button" value="订单发货" onclick="updateStatue('已发货');">
 <input class="button" type="button" value="完成订单" onclick="updateStatue('已完成');">
 <input class="button" type="button" value="删除订单" 
-onclick="del('editOrder.action?ordermid=${requestScope.order.ordermid }&ordermcompany=${requestScope.order.ordermcompany }','删除')">
+onclick="del('editOrder.action?ordermid=${requestScope.detOrder.ordermid }&ordermcompany=${requestScope.detOrder.ordermcompany }','删除')">
 <input class="button" type="button" value="删除商品" onclick="delegoods()">
 </td>
 </tr>
@@ -80,8 +80,8 @@ onclick="del('editOrder.action?ordermid=${requestScope.order.ordermid }&ordermco
 		<th>修改</th>
     </tr>
     </thead>
-    <c:if test="${fn:length(requestScope.order.orderdList) != 0 }">
-	<c:forEach var="orderd" items="${requestScope.order.orderdList }" varStatus="orderdSta">
+    <c:if test="${fn:length(requestScope.detOrder.orderdList) != 0 }">
+	<c:forEach var="orderd" items="${requestScope.detOrder.orderdList }" varStatus="orderdSta">
 	<pg:item>
 		<tr>	
 			<td><input type="checkbox" name="orderdids" value="${orderd.orderdid}"></td>
@@ -97,12 +97,12 @@ onclick="del('editOrder.action?ordermid=${requestScope.order.ordermid }&ordermco
 			<td>${orderd.orderdnum}</td>
 			<td>${orderd.orderdmoney}</td>
 			<td>${orderd.orderdrightmoney}</td>
-			<td><a href="doeditOrder.action?orderdid=${orderd.orderdid}&ordermcompany=${requestScope.order.ordermcompany }&ordermid=${requestScope.order.ordermid }">修改</a></td>
+			<td><a href="doeditOrder.action?orderdid=${orderd.orderdid}&ordermcompany=${requestScope.detOrder.ordermcompany }&ordermid=${requestScope.detOrder.ordermid }">修改</a></td>
 		</tr>
 	</pg:item>
 	</c:forEach>
 	</c:if>
-	<c:if test="${fn:length(requestScope.order.orderdList)==0 }">
+	<c:if test="${fn:length(requestScope.detOrder.orderdList)==0 }">
 		<tr><td colspan="14" align="center" style="font-size: 26px;color: red;"> 没有可显示的信息</td></tr>
 	</c:if>
     	<tr>
@@ -123,17 +123,38 @@ onclick="del('editOrder.action?ordermid=${requestScope.order.ordermid }&ordermco
 </form>
 <script type="text/javascript">
 var ordermid = '<%=ordermid%>';
-var ordermcompany = '${requestScope.order.ordermcompany }';
+var ordermcompany = '${requestScope.detOrder.ordermcompany }';
+var ordermway = '${requestScope.order.ordermway }';
 //修改订单状态
 function updateStatue(statue){
 	if(confirm("是否修改订单状态")){
-		window.location.href = 
-			"deliveryGoods.action?ordermid="
-					+ordermid
-					+"&ordermcompany="
-					+ordermcompany
-					+"&ordermstatue="
-					+statue;
+		
+		$.ajax({
+			url:"updateStatue.action",
+			type:"post",
+			data:{
+				"ordermid":ordermid,
+				"ordermcompany":ordermcompany,
+				"ordermstatue":statue
+			},
+			success : function(data){
+				if(data>0){
+					alert('修改成功!');
+					var url = "allOrder.action?ordermcode=${requestScope.order.ordermcode }"+
+					"&staTime=${requestScope.staTime}&endTime=${requestScope.endTime}&pagenow=${requestScope.pagenow }"+
+					"&ordermcompany="+ordermcompany+"&ordermid=${requestScope.order.ordermid }";
+					if(ordermway && ordermway != 'null'){
+						url += "&ordermway="+ordermway;
+					}
+					window.location.href = url;
+				} else {
+					alert('修改失败!');
+				}
+			},
+			error : function(data){
+				alert('修改失败。');
+			}
+		});
 	}
 }
 //删除商品
