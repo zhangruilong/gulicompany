@@ -22,6 +22,10 @@
 .elegant-aero p input[type="checkbox"]{
 	vertical-align:middle
 }
+.elegant-aero label>font{
+	font-weight: bold;
+	color: #F66B45;
+}
 </style>
 </head>
 <body>
@@ -38,21 +42,21 @@
 			组织单位客户 
 			</p>
 			<label><span>编码 :</span><input id="givegoodscode" type="text"
-				name="givegoodscode" value="${requestScope.editGiveGoods.givegoodscode }" placeholder="编码" /></label>
+				name="givegoodscode" value="${requestScope.editGiveGoods.givegoodscode }" placeholder="编码" /><font>(必填)</font></label>
 			<label><span>名称 :</span><input id="givegoodsname" type="text"
-				name="givegoodsname" value="${requestScope.editGiveGoods.givegoodsname }" placeholder="名称" /></label>
+				name="givegoodsname" value="${requestScope.editGiveGoods.givegoodsname }" placeholder="名称" /><font>(必填)</font></label>
 			<label><span>规格 :</span><input id="givegoodsunits" type="text"
-				name="givegoodsunits" value="${requestScope.editGiveGoods.givegoodsunits }" placeholder="规格" /></label>
+				name="givegoodsunits" value="${requestScope.editGiveGoods.givegoodsunits }" placeholder="规格" /><font>(必填)</font></label>
 			<!-- <label><span>小类名称 :</span><input id="givegoodsclass" type="text"
 				name="givegoodsclass" value="${requestScope.editGiveGoods.givegoodsclass }" placeholder="小类名称" /></label> -->
 			<label><span>单位 :</span><input id="givegoodsunit" type="text"
-				name="givegoodsunit" value="${requestScope.editGiveGoods.givegoodsunit }" placeholder="单位" /></label>
+				name="givegoodsunit" value="${requestScope.editGiveGoods.givegoodsunit }" placeholder="单位" /><font>(必填)</font></label>
 			<label><span>售价 :</span><input id="givegoodsprice" type="number"
-				name="givegoodsprice" value="${requestScope.editGiveGoods.givegoodsprice }" placeholder="售价" /></label>
+				name="givegoodsprice" value="${requestScope.editGiveGoods.givegoodsprice }" placeholder="售价" /><font>(必填)</font></label>
 			<label><span>重量 :</span><input id="givegoodsweight" type="number"
 				name="givegoodsweight" value="${requestScope.editGiveGoods.givegoodsweight }" placeholder="重量" /></label>
 			<label><span>个人限量 :</span><input id="givegoodsnum" type="number"
-				name="givegoodsnum" value="${requestScope.editGiveGoods.givegoodsnum }" placeholder="个人限量" /></label>
+				name="givegoodsnum" value="${requestScope.editGiveGoods.givegoodsnum }" placeholder="个人限量" /><font>(必填)</font></label>
 			<label><span>顺序 :</span><input id="givegoodsseq" type="number"
 				name="givegoodsseq" value="${requestScope.editGiveGoods.givegoodsseq }" placeholder="顺序" /></label>
 			<label><span>图片路径 :</span><input id="givegoodsimage" type="text"
@@ -60,8 +64,8 @@
 			<label><span>状态 :</span><select name="givegoodsstatue">
 				<option ${requestScope.editGiveGoods.givegoodsstatue == '启用'?'selected':'' }>启用</option>
 				<option ${requestScope.editGiveGoods.givegoodsstatue == '禁用'?'selected':'' }>禁用</option>
-			</select></label>
-			<label><span>描述 :</span><textarea name="givegoodsdetail">${requestScope.editGiveGoods.givegoodsdetail }</textarea></label>
+			</select><font>(必填)</font></label>
+			<label><span>描述 :</span><textarea name="givegoodsdetail">${requestScope.editGiveGoods.givegoodsdetail }</textarea><font>(必填)</font></label>
 			<p><input type="button"
 				class="button" value="保存修改" onclick="saveEdit()"/>
 			<input type="button"

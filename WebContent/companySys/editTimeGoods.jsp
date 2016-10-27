@@ -25,6 +25,10 @@
 .elegant-aero p input[type="checkbox"]{
 	vertical-align:middle
 }
+.elegant-aero label>font{
+	font-weight: bold;
+	color: #F66B45;
+}
 </style>
 </head>
 <body>
@@ -41,27 +45,27 @@
 			组织单位客户 &nbsp;&nbsp;&nbsp;
 			</p>
 			<label><span>编码 :</span><input id="timegoodscode" type="text"
-				name="timegoodscode" value="${requestScope.editTimeGoods.timegoodscode }" placeholder="编码" /></label>
+				name="timegoodscode" value="${requestScope.editTimeGoods.timegoodscode }" placeholder="编码" /><font>(必填)</font></label>
 			<label><span>名称 :</span><input id="timegoodsname" type="text"
-				name="timegoodsname" value="${requestScope.editTimeGoods.timegoodsname }" placeholder="名称" /></label>
+				name="timegoodsname" value="${requestScope.editTimeGoods.timegoodsname }" placeholder="名称" /><font>(必填)</font></label>
 			<label><span>规格 :</span><input id="timegoodsunits" type="text"
-				name="timegoodsunits" value="${requestScope.editTimeGoods.timegoodsunits }" placeholder="规格" /></label>
+				name="timegoodsunits" value="${requestScope.editTimeGoods.timegoodsunits }" placeholder="规格" /><font>(必填)</font></label>
 			<!-- <label><span>小类名称 :</span><input id="timegoodsclass" type="text"
 				name="timegoodsclass" value="${requestScope.editTimeGoods.timegoodsclass }" placeholder="小类名称" /></label> -->
 			<label><span>单位 :</span><input id="timegoodsunit" type="text"
-				name="timegoodsunit" value="${requestScope.editTimeGoods.timegoodsunit }" placeholder="单位" /></label>
+				name="timegoodsunit" value="${requestScope.editTimeGoods.timegoodsunit }" placeholder="单位" /><font>(必填)</font></label>
 			<label><span>原价 :</span><input id="timegoodsprice" type="number"
-				name="timegoodsprice" value="${requestScope.editTimeGoods.timegoodsprice }" placeholder="原价" /></label>
+				name="timegoodsprice" value="${requestScope.editTimeGoods.timegoodsprice }" placeholder="原价" /><font>(必填)</font></label>
 			<label><span>现价 :</span><input id="timegoodsorgprice" type="number"
-				name="timegoodsorgprice" value="${requestScope.editTimeGoods.timegoodsorgprice }" placeholder="现价" /></label>
+				name="timegoodsorgprice" value="${requestScope.editTimeGoods.timegoodsorgprice }" placeholder="现价" /><font>(必填)</font></label>
 			<label><span>重量 :</span><input id="timegoodsweight" type="number"
 				name="timegoodsweight" value="${requestScope.editTimeGoods.timegoodsweight }" placeholder="重量" /></label>
 			<label><span>个人限量 :</span><input id="timegoodsnum" type="number"
-				name="timegoodsnum" value="${requestScope.editTimeGoods.timegoodsnum }" placeholder="个人限量" /></label>
+				name="timegoodsnum" value="${requestScope.editTimeGoods.timegoodsnum }" placeholder="个人限量" /><font>(必填)</font></label>
 			<label><span>全部限量 :</span><input id="allnum" type="number"
-				name="allnum" value="${requestScope.editTimeGoods.allnum }" placeholder="全部限量" /></label>
+				name="allnum" value="${requestScope.editTimeGoods.allnum }" placeholder="全部限量" /><font>(必填)</font></label>
 			<label><span>剩余数量 :</span><input id="surplusnum" type="number"
-				name="surplusnum" value="${requestScope.editTimeGoods.surplusnum }" placeholder="剩余数量" /></label>
+				name="surplusnum" value="${requestScope.editTimeGoods.surplusnum }" placeholder="剩余数量" /><font>(必填)</font></label>
 			<label><span>顺序 :</span><input id="timegoodsseq" type="number"
 				name="timegoodsseq" value="${requestScope.editTimeGoods.timegoodsseq }" placeholder="顺序" /></label>
 			<label><span>图片路径 :</span><input id="timegoodsimage" type="text"
@@ -69,7 +73,7 @@
 			<label><span>状态 :</span><select name="timegoodsstatue">
 				<option ${requestScope.editTimeGoods.timegoodsstatue == '启用'?'selected':'' }>启用</option>
 				<option ${requestScope.editTimeGoods.timegoodsstatue == '禁用'?'selected':'' }>禁用</option>
-			</select></label>
+			</select><font>(必填)</font></label>
 			<p><input type="button"
 				class="button" value="保存修改" onclick="saveEdit()"/>
 			<input type="button"

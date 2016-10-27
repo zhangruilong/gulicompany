@@ -37,9 +37,9 @@
 	    <result column="UPDTIME" property="updtime" jdbcType="VARCHAR" />
 	    <result column="UPDOR" property="updor" jdbcType="VARCHAR" />
 	    <result column="ORDERMEMP" property="ordermemp" jdbcType="VARCHAR" />
-	    <result column="ORDERMCUSSHOP" property="ordermshop" jdbcType="VARCHAR" />
-	    <result column="ORDERMCUSLEVEL" property="ordermlevel" jdbcType="VARCHAR" />
-	    <result column="ORDERMCUSTYPE" property="ordermtype" jdbcType="VARCHAR" />
+	    <result column="ORDERMCUSSHOP" property="ordermcusshop" jdbcType="VARCHAR" />
+	    <result column="ORDERMCUSLEVEL" property="ordermcuslevel" jdbcType="VARCHAR" />
+	    <result column="ORDERMCUSTYPE" property="ordermcustype" jdbcType="VARCHAR" />
     </association>
   </resultMap>
   <resultMap type="com.server.pojo.entity.Orderd" id="groupByOrderdcode">
@@ -268,16 +268,6 @@
       <if test="orderdrightmoney != null" >
         ORDERDRIGHTMONEY,
       </if>
-      <if test="ordermshop != null" >
-        ORDERMCUSSHOP,
-      </if>
-      <if test="ordermlevel != null" >
-        ORDERMCUSLEVEL,
-      </if>
-      <if test="ordermtype != null" >
-        ORDERMCUSTYPE,
-      </if>
-      
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="orderdid != null" >
@@ -319,16 +309,6 @@
       <if test="orderdrightmoney != null" >
         #{orderdrightmoney,jdbcType=FLOAT},
       </if>
-      <if test="ordermshop != null" >
-        #{ordermshop,jdbcType=VARCHAR},
-      </if>
-      <if test="ordermlevel != null" >
-        #{ordermlevel,jdbcType=VARCHAR},
-      </if>
-      <if test="ordermtype != null" >
-        #{ordermtype,jdbcType=VARCHAR},
-      </if>
-      
     </trim>
   </insert>
   <!-- 根据主键选择性修改 -->
@@ -370,15 +350,6 @@
       </if>
       <if test="orderdrightmoney != null" >
         ORDERDRIGHTMONEY = #{orderdrightmoney,jdbcType=FLOAT},
-      </if>
-      <if test="orderdclass != null" >
-        ORDERMCUSSHOP = #{ordermshop,jdbcType=VARCHAR},
-      </if>
-      <if test="orderdclass != null" >
-        ORDERMCUSLEVEL = #{ordermlevel,jdbcType=VARCHAR},
-      </if>
-      <if test="orderdclass != null" >
-        ORDERMCUSTYPE = #{ordermtype,jdbcType=VARCHAR},
       </if>
     </set>
     where ORDERDID = #{orderdid,jdbcType=VARCHAR}

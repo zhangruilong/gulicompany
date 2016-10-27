@@ -389,8 +389,8 @@ public class Com_goodsCtl {
 	@ResponseBody
 	public Map<String, Object> addGoods(Goods goodsCon){
 		Map<String, Object> map = new HashMap<String, Object>();
-		int num = goodsMapper.selectByGoodsCode(goodsCon.getGoodscode(), goodsCon.getGoodscompany(),goodsCon.getGoodsunits());
-		if(num==0){
+		Goods reGoods = goodsMapper.selectByGoodsCode(goodsCon.getGoodscode(), goodsCon.getGoodscompany(),goodsCon.getGoodsunits());
+		if(null==reGoods || reGoods.getGoodsid().equals(goodsCon.getGoodsid())){
 			if(goodsCon.getGoodsorder() == null){
 				goodsCon.setGoodsorder(0);
 			}
@@ -425,8 +425,8 @@ public class Com_goodsCtl {
 	@RequestMapping("/companySys/editGoods")
 	@ResponseBody
 	public String editGoods(Goods editGoods){
-		int num = goodsMapper.selectByGoodsCode(editGoods.getGoodscode(), editGoods.getGoodscompany(),editGoods.getGoodsunits());
-		if(num==0){
+		Goods reGoods = goodsMapper.selectByGoodsCode(editGoods.getGoodscode(), editGoods.getGoodscompany(),editGoods.getGoodsunits());
+		if(null==reGoods || reGoods.getGoodsid().equals(editGoods.getGoodsid())){
 			if(editGoods.getGoodsorder() == null){
 				editGoods.setGoodsorder(0);
 			}
@@ -437,10 +437,10 @@ public class Com_goodsCtl {
 			if(upd > 0){
 				return "ok";
 			} else {
-				return "error1";					//编号重复,请重新输入.
+				return "error1";
 			}
 		} else {
-			return "no";
+			return "no";					//编号重复,请重新输入.
 		}
 	}
 	//查询标品

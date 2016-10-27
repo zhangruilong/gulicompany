@@ -14,7 +14,7 @@ public interface GoodsMapper {
 	/**
 	 * 根据商品编号查询商品
 	 */
-	Integer selectByGoodsCode(@Param("goodscode") String goodscode,@Param("comid") String comid,@Param("goodsunits") String goodsunits);
+	Goods selectByGoodsCode(@Param("goodscode") String goodscode,@Param("comid") String comid,@Param("goodsunits") String goodsunits);
 	/**
 	 * 大客户商品和价格(信息条数)
 	 */

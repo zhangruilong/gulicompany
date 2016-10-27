@@ -20,8 +20,8 @@
     <result column="UPDOR" property="updor" jdbcType="VARCHAR" />
     <result column="ORDERMEMP" property="ordermemp" jdbcType="VARCHAR" />
     <result column="ORDERMCUSSHOP" property="ordermcusshop" jdbcType="VARCHAR" />
-    <result column="ORDERMCUSLEVEL" property="ordermlevel" jdbcType="VARCHAR" />
-    <result column="ORDERMCUSTYPE" property="ordermtype" jdbcType="VARCHAR" />
+    <result column="ORDERMCUSLEVEL" property="ordermcuslevel" jdbcType="VARCHAR" />
+    <result column="ORDERMCUSTYPE" property="ordermcustype" jdbcType="VARCHAR" />
     <!-- 客户 -->
     <association property="orderdCustomer" javaType="com.server.pojo.entity.Customer">
 	    <id column="CUSTOMERID" property="customerid" jdbcType="VARCHAR" />
@@ -305,6 +305,16 @@ where RN &gt; ((#{nowpage}-1)*#{pagesize})
       <if test="ordermemp != null" >
         ORDERMEMP,
       </if>
+      <if test="ordermcusshop != null" >
+        ORDERMCUSSHOP,
+      </if>
+      <if test="ordermcuslevel != null" >
+        ORDERMCUSLEVEL,
+      </if>
+      <if test="ordermcustype != null" >
+        ORDERMCUSTYPE,
+      </if>
+      
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="ordermid != null" >
@@ -358,6 +368,16 @@ where RN &gt; ((#{nowpage}-1)*#{pagesize})
       <if test="ordermemp != null" >
         #{ordermemp,jdbcType=VARCHAR},
       </if>
+      <if test="ordermcusshop != null" >
+        #{ordermcusshop,jdbcType=VARCHAR},
+      </if>
+      <if test="ordermcuslevel != null" >
+        #{ordermcuslevel,jdbcType=VARCHAR},
+      </if>
+      <if test="ordermcustype != null" >
+        #{ordermcustype,jdbcType=VARCHAR},
+      </if>
+      
     </trim>
   </insert>
   <!-- 根据主键选择性修改 -->
@@ -411,6 +431,15 @@ where RN &gt; ((#{nowpage}-1)*#{pagesize})
       </if>
       <if test="ordermemp != null" >
         ORDERMEMP = #{ordermemp,jdbcType=VARCHAR},
+      </if>
+      <if test="ordermcusshop != null" >
+        ORDERMCUSSHOP = #{ordermcusshop,jdbcType=VARCHAR},
+      </if>
+      <if test="ordermcuslevel != null" >
+        ORDERMCUSLEVEL = #{ordermcuslevel,jdbcType=VARCHAR},
+      </if>
+      <if test="ordermcustype != null" >
+        ORDERMCUSTYPE = #{ordermcustype,jdbcType=VARCHAR},
       </if>
     </set>
     where ORDERMID = #{ordermid,jdbcType=VARCHAR}

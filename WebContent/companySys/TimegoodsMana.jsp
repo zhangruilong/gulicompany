@@ -36,6 +36,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 .elegant-aero p input[type="checkbox"]{
 	vertical-align:middle
 }
+.elegant-aero label>font{
+	font-weight: bold;
+	color: #F66B45;
+}
 </style>
 </head>
 <body>
@@ -156,28 +160,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</p>
 			<input type="hidden" id="timegoodsimage" value="">
 			<label><span>编码 :</span><input id="timegoodscode" type="text"
-				name="timegoodscode" placeholder="编码" /></label>
+				name="timegoodscode" placeholder="编码" /><font>(必填)</font></label>
 			<label><span>名称 :</span><input id="timegoodsname" type="text"
-				name="timegoodsname" placeholder="名称" /></label>
+				name="timegoodsname" placeholder="名称" /><font>(必填)</font></label>
 			<label><span>规格 :</span><input id="timegoodsunits" type="text"
-				name="timegoodsunits" placeholder="规格" /></label>
+				name="timegoodsunits" placeholder="规格" /><font>(必填)</font></label>
 			<!-- <label><span>小类名称 :</span>
 			<select name="timegoodsclass" id="timegoodsclass">
 				<option value="">请选择</option>
 			</select>
 			</label> -->
 			<label><span>单位 :</span><input id="timegoodsunit" type="text"
-				name="timegoodsunit" placeholder="单位" /></label>
+				name="timegoodsunit" placeholder="单位" /><font>(必填)</font></label>
 			<label><span>原价 :</span><input id="timegoodsprice" type="number"
-				name="timegoodsprice" placeholder="原价" /></label>
+				name="timegoodsprice" placeholder="原价" /><font>(必填)</font></label>
 			<label><span>现价 :</span><input id="timegoodsorgprice" type="number"
-				name="timegoodsorgprice" placeholder="现价" /></label>
+				name="timegoodsorgprice" placeholder="现价" /><font>(必填)</font></label>
 			<label><span>重量（kg） :</span><input id="timegoodsweight" type="number"
 				name="timegoodsweight" placeholder="重量" /></label>
 			<label><span>个人限量 :</span><input id="timegoodsnum" type="number"
-				name="timegoodsnum" placeholder="个人限量" /></label>
+				name="timegoodsnum" placeholder="个人限量" /><font>(必填)</font></label>
 			<label><span>全部限量 :</span><input id="allnum" type="number"
-				name="allnum" placeholder="全部限量" /></label>
+				name="allnum" placeholder="全部限量" /><font>(必填)</font></label>
 			<label><span>顺序 :</span><input id="timegoodsseq" type="number"
 				name="timegoodsseq" placeholder="顺序" /></label>
 			<p><label><input type="button"

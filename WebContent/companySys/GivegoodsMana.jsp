@@ -35,6 +35,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 .elegant-aero p input[type="checkbox"]{
 	vertical-align:middle
 }
+.elegant-aero label>font{
+	font-weight: bold;
+	color: #F66B45;
+}
 </style>
 </head>
 <body>
@@ -147,27 +151,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<input type="checkbox" name="givegoodsscope" code="1" checked="checked"/>
 			</p>
 			<label><span>编码 :</span><input id="givegoodscode" type="text"
-				name="givegoodscode" placeholder="编码" /></label>
+				name="givegoodscode" placeholder="编码" /><font>(必填)</font></label>
 			<label><span>名称 :</span><input id="givegoodsname" type="text"
-				name="givegoodsname" placeholder="名称" /></label>
+				name="givegoodsname" placeholder="名称" /><font>(必填)</font></label>
 			<label><span>规格 :</span><input id="givegoodsunits" type="text"
-				name="givegoodsunits" placeholder="规格" /></label>
+				name="givegoodsunits" placeholder="规格" /><font>(必填)</font></label>
 			<!-- <label><span>小类名称 :</span>
 			<select name="givegoodsclass" id="givegoodsclass">
 				<option value="">请选择</option>
 			</select>
 			</label> -->
 			<label><span>单位 :</span><input id="givegoodsunit" type="text"
-				name="givegoodsunit" placeholder="单位" /></label>
+				name="givegoodsunit" placeholder="单位" /><font>(必填)</font></label>
 			<label><span>售价 :</span><input id="givegoodsprice" type="number"
-				name="givegoodsprice" placeholder="售价" /></label>
+				name="givegoodsprice" placeholder="售价" /><font>(必填)</font></label>
 			<label><span>重量 :</span><input id="givegoodsweight" type="number"
 				name="givegoodsweight" placeholder="重量" /></label>
 			<label><span>个人限量 :</span><input id="givegoodsnum" type="number"
-				name="givegoodsnum" placeholder="个人限量" /></label>
+				name="givegoodsnum" placeholder="个人限量" /><font>(必填)</font></label>
 			<label><span>顺序 :</span><input id="givegoodsseq" type="number"
 				name="givegoodsseq" placeholder="顺序" /></label>
-			<label><span>买赠描述 :</span><textarea name="givegoodsdetail"></textarea></label>
+			<label><span>买赠描述 :</span><textarea name="givegoodsdetail"></textarea><font>(必填)</font></label>
 			<p><label><input type="button"
 				class="popup_button" value="提交" onclick="popup_formSub()"/>
 			</label>
