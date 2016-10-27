@@ -95,20 +95,23 @@
 	left outer join largecusprice lcp
 	on lcp.largecuspricegoods = g.goodsid
 	where  (g.goodsstatue = '上架' or lcp.largecuspriceprice is not null)
-	and g.goodscompany = #{goodscompany}
-	and p.pricesclass = #{pricesList[0].pricesclass}
-	and p.priceslevel = #{pricesList[0].priceslevel}
-	and (lcp.largecuspricecompany = #{goodscompany} or lcp.largecuspricecompany is null )
-	<if test="goodscode != null and goodscode != ''">
+	and (lcp.largecuspricecustomer = #{customerid} or lcp.largecuspricecustomer is null)
+	and g.goodscompany = #{goods.goodscompany}
+	and (
+			(p.pricesclass = #{goods.pricesList[0].pricesclass} and p.priceslevel = #{goods.pricesList[0].priceslevel} ) or 
+			(p.pricesid is null and lcp.largecuspriceprice is not null)
+		)
+	and (lcp.largecuspricecompany = #{goods.goodscompany} or lcp.largecuspricecompany is null )
+	<if test="goods.goodscode != null and goods.goodscode != ''">
 			and
-			(g.GOODSCODE like '%${goodscode}%' or
-			g.GOODSNAME like '%${goodscode}%' or
-			g.GOODSUNITS like '%${goodscode}%' or
-			g.GOODSCLASS like '%${goodscode}%' or
-			g.GOODSSTATUE like '%${goodscode}%' or
-			g.CREATOR like '%${goodscode}%' or
-			g.UPDOR like '%${goodscode}%' or
-			gc.goodsclassname like '%${goodscode}%')
+			(g.GOODSCODE like '%${goods.goodscode}%' or
+			g.GOODSNAME like '%${goods.goodscode}%' or
+			g.GOODSUNITS like '%${goods.goodscode}%' or
+			g.GOODSCLASS like '%${goods.goodscode}%' or
+			g.GOODSSTATUE like '%${goods.goodscode}%' or
+			g.CREATOR like '%${goods.goodscode}%' or
+			g.UPDOR like '%${goods.goodscode}%' or
+			gc.goodsclassname like '%${goods.goodscode}%')
 	</if>
   </select>
   <!-- 大客户商品和价格 -->
@@ -124,12 +127,14 @@
 	on g.goodsclass = gc.goodsclassid
 	left outer join prices p
 	on p.pricesgoods = g.goodsid
-	left outer join (select * from largecusprice lag where lag.largecuspricecustomer = #{customerid} ) lcp
-	on lcp.largecuspricegoods = g.goodsid
+	left outer join largecusprice lcp on lcp.largecuspricegoods = g.goodsid
 	where (g.goodsstatue = '上架' or lcp.largecuspriceprice is not null)
 	and g.goodscompany = #{goods.goodscompany}
-	and p.pricesclass = #{goods.pricesList[0].pricesclass}
-	and p.priceslevel = #{goods.pricesList[0].priceslevel}
+	and (lcp.largecuspricecustomer = #{customerid} or lcp.largecuspricecustomer is null)
+	and (
+			(p.pricesclass = #{goods.pricesList[0].pricesclass} and p.priceslevel = #{goods.pricesList[0].priceslevel} ) or 
+			(p.pricesid is null and lcp.largecuspriceprice is not null)
+		)
 	and (lcp.largecuspricecompany = #{goods.goodscompany} or lcp.largecuspricecompany is null )
 	<if test="goods.goodscode != null and goods.goodscode != ''">
 			and

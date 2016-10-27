@@ -18,7 +18,7 @@ public interface GoodsMapper {
 	/**
 	 * 大客户商品和价格(信息条数)
 	 */
-	Integer selectlagerCusGoodsCount(Goods goods);
+	Integer selectlagerCusGoodsCount(@Param("goods") Goods goods,@Param("customerid") String customerid);
 	/**
 	 * 大客户商品和价格
 	 */

@@ -528,7 +528,7 @@ public class Com_goodsCtl {
 		if(pagenowGoods == null){
 			pagenowGoods = 1;
 		}
-		Integer countGoods = goodsMapper.selectlagerCusGoodsCount(goodsCon);	//总信息条数
+		Integer countGoods = goodsMapper.selectlagerCusGoodsCount(goodsCon,customerid);	//总信息条数
 		Integer pageCountGoods;		//总页数
 		if(countGoods % 10 ==0){
 			pageCountGoods = countGoods / 10;

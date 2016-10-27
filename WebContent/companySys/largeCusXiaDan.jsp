@@ -327,7 +327,6 @@ function saveOrder(){
 function selectGoods(){
 	$(".cd-popup").addClass("is-visible");	//弹出商品窗口
 	loadGoodsData(1);
-	
 }
 //商品分页
 function fenyeGoods(targetPage){
@@ -353,6 +352,7 @@ function loadGoodsData(pagenowGoods){
 		$("#goods_LCXD tr:gt(0)").remove();
 		$.each(data.goodsList,function(i,item){
 			var strJSON = JSON.stringify(item);
+			//alert(strJSON);
 			var price = 0;													//商品价格
 			var unit = '';													//商品单位
 			if(item.largecuspriceList[0]){
