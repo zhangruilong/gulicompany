@@ -277,6 +277,12 @@ function saveOrder(){
 	var orderdListStr = "[";
 	$(".largeCus_form tr[name!='ordLi_tr1'][name!='ord_info_tr']").each(function(i,item){
 		var goodsJson = JSON.parse($(item).find("td span[hidden='true']").text());
+		var unit = "";
+		if(typeof(goodsJson.pricesList[0]) == "undefined" || !goodsJson.pricesList[0]){
+			unit = goodsJson.largecuspriceList[0].largecuspriceunit;
+		} else {
+			unit = goodsJson.pricesList[0].pricesunit;
+		}
 		orderdListStr += '{"orderdid":"'+i
 			+ '","orderdcode":"' + goodsJson.goodscode
 			+ '","orderdtype":"' + $(item).find("td:eq(2)").text()
@@ -284,7 +290,7 @@ function saveOrder(){
 			+ '","orderddetail":"' +'danpin'
 			+ '","orderdunits":"' + goodsJson.goodsunits
 			+ '","orderdprice":"' + $(item).find("td:eq(5)").text()
-			+ '","orderdunit":"' + goodsJson.pricesList[0].pricesunit
+			+ '","orderdunit":"' + unit
 			+ '","orderdclass":"' + goodsJson.gClass.goodsclassname
 			+ '","orderdnum":"' + $(item).find("td:eq(7)").text()
 			+ '","orderdmoney":"' + $(item).find("td:eq(8)").text()

@@ -49,7 +49,7 @@
   <sql id="Base_Column_List" >
     ORDERDID, ORDERDORDERM, ORDERDCODE, ORDERDTYPE, ORDERDNAME, ORDERDDETAIL, ORDERDUNITS, 
     ORDERDPRICE, ORDERDUNIT, ORDERDCLASS, ORDERDNUM, ORDERDMONEY, ORDERDRIGHTMONEY,ORDERDWEIGHT,
-    ORDERDGOODS,ORDERDNOTE,ORDERMCUSSHOP,ORDERMCUSLEVEL,ORDERMCUSTYPE
+    ORDERDGOODS,ORDERDNOTE
   </sql>
   <!-- 查询到客户的所有秒杀品的订单详情 -->
   <select id="selectByOrderm" resultMap="BaseResultMap" parameterType="String" >
@@ -216,7 +216,7 @@
   <!-- 根据主键查询 -->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
-    <include refid="Base_Column_List" />
+    *
     from ORDERD
     where ORDERDID = #{orderdid,jdbcType=VARCHAR}
   </select>
