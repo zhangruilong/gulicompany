@@ -16,8 +16,8 @@ $(function(){
 			var printinfo = data.printinfo;					//打印信息 (除订单商品外的打印信息)
 			var orderdList = data.orderdList;				//订单商品列表
 			var rowStyle = '';								//行样式
-			var tdStrle1 = '';								//单元格样式1
-			var tdStrle2 = '';								//单元格样式2
+			var goodsTDStrle = '';							//订单商品单元格样式
+			var qianshouTDStrle = '';						//签收信息单元格样式
 			
 			if(data.message=='success'){
 				var text = '';									//要输入的文本
@@ -38,9 +38,11 @@ $(function(){
 						} else if(item.sheetname =='客户信息'){
 							$('#print-content').append('<table width="100%" border="0" cellspacing="0" cellpadding="3"></table>');
 						} else if(item.sheetname == '商品信息'){
+								goodsTDStrle = typeNullFoString(item.detail);
 							$('#print-content').append(
 								'<table id="goods-tab" class="print_tab" width="100%" border="1" cellspacing="0" cellpadding="2" style="border-collapse: collapse;margin-top: 5px;"></table>');
 						} else if(item.sheetname == '签收信息'){
+							qianshouTDStrle = typeNullFoString(item.detail);
 							$('#print-content').append(
 						'<table class="print_tab" id="signFo-tab" width="100%" border="1" cellspacing="0" cellpadding="3" style="background-color: #80ffff;border-collapse: collapse;padding-top: 20px;font-family: 黑体;"></table>');
 						} else if(item.sheetname == '制表信息'){
@@ -74,43 +76,44 @@ $(function(){
 					} else if(item.headnameas=='重量合计'){
 						text = totalWeight;
 					}
-					if(item.sheetname == '供应商信息'){
+					if(item.sheetno == '1'){												//供应商信息
 						$('#print-content table:last tr:last').append(
 								'<td style="text-align: center;font-family: 黑体;font-size: 12px;border-left: hidden;'+
 								'border-top: hidden;border-right: hidden;">'+item.headnameas+'：</td>'
-								+'<td style="font-size: 12px;font-family: 黑体;border-left: hidden;border-top: hidden;">'+text+'</td>');
-					} else if(item.sheetname == '客户信息'){
+								+'<td style="'+item.detail+'">'+text+'</td>');
+					} else if(item.sheetno == '2'){											//客户信息
 						$('#print-content table:last tr:last').append('<td align="right" style="width: 75px;font-size: 12px;">'+
-								item.headnameas+'：</td><td style="width: 171px;">'+text+'</td>');
-					} else if(item.sheetname == '商品信息'){
+								item.headnameas+'：</td><td style="'+item.detail+'">'+text+'</td>');
+					} else if(item.sheetno == '3'){											//商品信息
 						$('#print-content table:last tr:last').append(
 								'<td style="font-family: 黑体;font-size: 12px;white-space: nowrap;" name="'+item.fieldname+'">'+item.headnameas+'</td>');
-					} else if(item.sheetname == '合计信息'){
+					} else if(item.sheetno == '4'){											//合计信息
 						$('#print-content').append(
-								'<span style="font-family: 黑体;float: left;padding:3px 10px 0px 3px;">'+item.headnameas+':</span>'+
-								'<span style="font-family: 黑体;float: left;padding:3px 10px 0px 3px;">'+text+'</span>');
-					} else if(item.sheetname == '签收信息'){
+								'<span style="'+item.detail+'">'+item.headnameas+':</span>'+
+								'<span style="'+item.detail+'">'+text+'</span>');
+					} else if(item.sheetno == '5'){											//签收信息
 						$('#print-content table:last tr:last').append(
 								'<td style="font-size: 12px;">'+item.headnameas+'</td>');
-					} else if(item.sheetname == '制表信息'){
-						$('#print-content table:last tr:last').append(
-								'<td style="width: 24%;font-size: 12px;">'+item.headnameas+
-								':<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>');
-					} else if(item.sheetname == '留言信息' && text){
+					} else if(item.sheetno == '6'){											//四联信息
 						$('#print-content').append(
-								'<div style="font-size: 12px;line-height: 30px;margin-left: 17px;">'+item.headnameas+':'+text+'</div>');
-					} else if(item.sheetname == '谷粒网标识'){
-						$('#print-content').append('<div style="font-size: 12px;">'+item.headnameas+'</div>');
+								'<span style="'+item.detail+'">'+item.headnameas+'</span>');
+					} else if(item.sheetno == '7'){											//制表信息
+						$('#print-content table:last tr:last').append(
+								'<td style="'+item.detail+'">'+item.headnameas+
+								':<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>');
+					} else if(item.sheetno == '8'){											//留言信息
+						$('#print-content').append(
+								'<div style="'+item.detail+'">'+item.headnameas+':'+text+'</div>');
+					} else if(item.sheetno == '9'){											//工商说明
+						$('#print-content').append('<div style="'+item.detail+'">'+item.headnameas+'</div>');
+					} else if(item.sheetno == '99'){										//谷粒网标识
+						$('#print-content').append('<div style="'+item.detail+'">'+item.headnameas+'</div>');
 					}
-					/*if(item.endcol-item.startcol>1){
-						alert(item.endcol-item.startcol);
-					}*/
-					if(item.endcol-item.startcol>1){									//如果跳过了1列或多列
+					if(item.endcol-item.startcol>1){										//如果跳过了1列或多列
 						$('#print-content table:last tr:last td:last').attr('colspan',item.endcol-item.startcol);
 					}
 				});
-				//$('#print-content table:first').css('border-bottom','solid 1px black');
-				$.each(orderdList,function(i,item1){							//订单商品
+				$.each(orderdList,function(i,item1){										//订单商品
 					$('#goods-tab').append('<tr></tr>');
 					
 					$('#goods-tab tr:first td').each(function(j,item2){
@@ -120,15 +123,15 @@ $(function(){
 						} else {
 							goodsInfo = i+1;
 						}
-						$('#goods-tab tr:last').append('<td align="right">'+goodsInfo+'</td>');
+						$('#goods-tab tr:last').append('<td align="right" style="'+goodsTDStrle+'">'+goodsInfo+'</td>');
 					});
 				});
 				$('#signFo-tab').append('<tr></tr>');
 				$('#signFo-tab tr:first td').each(function(i,item){
 					if($(item).text()=='支付方式'){
-						$('#signFo-tab tr:last').append('<td>货到付款</td>');
+						$('#signFo-tab tr:last').append('<td style="'+qianshouTDStrle+'">货到付款</td>');
 					} else {
-						$('#signFo-tab tr:last').append('<td></td>');
+						$('#signFo-tab tr:last').append('<td style="'+qianshouTDStrle+'"></td>');
 					}
 				});
 			} else {
