@@ -12,7 +12,7 @@ public interface OrderdMapper {
 	/**
 	 * 根据ordermid查询订单详情
 	 */
-	List<Orderd> selectByOrderm(String ordermid);
+	List<Orderd> selectByOrderm(String[] ordermids);
 	/**
 	 * 查询热销商品
 	 */

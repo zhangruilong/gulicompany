@@ -87,7 +87,10 @@
   	left join company com 
   	on com.companyid = om.ordermcompany
   	where om.ordermstatue != '已删除'
-  	and om.ordermid = #{ordermid}
+  	and 
+  	<foreach collection="array" open="(" separator=" or " close=")" item="ordermid">
+  		om.ordermid = #{ordermid}
+  	</foreach>
   </select>
   <!-- 查询最新的一条订单信息 -->
   <select id="selectNewestOrderm" resultMap="BaseResultMap">

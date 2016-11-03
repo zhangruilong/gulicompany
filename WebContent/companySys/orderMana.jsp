@@ -38,13 +38,12 @@ String ordermway = request.getParameter("ordermway");
 模糊查询:<input type="text" class="ordermcode_query" name="ordermcode" value="${requestScope.order.ordermcode }">
 <input class="button" type="button" value="查询" onclick="subfor()">
 <input class="button" type="button" value="导出" onclick="report()">
-<input class="button" type="button" value="打印" onclick="doprint('打印')">
-<input class="button" type="button" value="详情" onclick="doprint('详情')">
-<input style="background-image: url('');background-color: #83CD1F;" class="button" type="button" value="确认" onclick="doprint('状态','已确认');">
-<input style="background-image: url('');background-color: #DAD52B;" class="button" type="button" value="发货" onclick="doprint('状态','已发货');">
-<input style="background-image: url('');background-color: #1D6BE9;" class="button" type="button" value="完成" onclick="doprint('状态','已完成');">
-<input style="background-image: url('');background-color: #D33E2C;" class="button" type="button" value="删除" 
-onclick="doprint('删除')">
+<input class="button" type="button" value="打印" onclick="doprint()">
+<input class="button" type="button" value="详情" onclick="operation('详情')">
+<input style="background-image: url('');background-color: #83CD1F;" class="button" type="button" value="确认" onclick="operation('状态','已确认');">
+<input style="background-image: url('');background-color: #DAD52B;" class="button" type="button" value="发货" onclick="operation('状态','已发货');">
+<input style="background-image: url('');background-color: #1D6BE9;" class="button" type="button" value="完成" onclick="operation('状态','已完成');">
+<input style="background-image: url('');background-color: #D33E2C;" class="button" type="button" value="删除" onclick="operation('删除')">
 </div>
 <table class="bordered" >
     <thead>
@@ -70,7 +69,7 @@ onclick="doprint('删除')">
     <c:if test="${fn:length(requestScope.allOrder) != 0 }">
 	<c:forEach var="order" items="${requestScope.allOrder }" varStatus="orderSta">
 		<tr>
-			<td><input type="checkbox" id="${order.ordermid}"></td>
+			<td><input type="checkbox" id="${order.ordermid}" name="${order.ordermcustomer }"></td>
 			<td><c:out value="${orderSta.count}"></c:out></td>
 			<td>${order.ordermcode}</td>
 			<td>${order.ordermway}</td>
@@ -158,21 +157,45 @@ function checkCondition(){
 		$("#pagenow").val('1');
 	}
 }
-//打印,详情,状态,删除
-function doprint(msg,statue){
+//打印
+function doprint(){
+	var itemids = '';
+	var itemname = '';
 	var count = 0;
-	var itemid;
 	$("[type='checkbox']").each(function(i,item){
 		if(item.checked==true){
-			itemid = $(item).attr("id");
+			var name = $(item).attr("name");
+			if(itemname==''){
+				itemname = name;
+			} else if(itemname != name){
+				alert('一次只能打印一个客户的订单。');
+				count++;
+				return false;
+			}
+			itemids += $(item).attr("id")+',';
+		}
+	});
+	if(count==0 && itemname!=''){
+		window.open("print.jsp?ordermids="+itemids);
+		//window.open("printOrder.action?ordermid="+itemid);
+	}
+}
+//详情,状态,删除
+function operation(msg,statue){
+	var count = 0;
+	var itemids = '';
+	$("[type='checkbox']").each(function(i,item){
+		if(item.checked==true){
+			itemids += $(item).attr("id")+',';
 			count++;
 		}
 	});
-	if(count > 0 && count < 2){
-		if(msg == '打印'){
-			window.open("print.jsp?ordermid="+itemid);
-			//window.open("printOrder.action?ordermid="+itemid);
-		} else if(msg == '详情'){
+	if(count > 0 && msg=='打印'){
+		window.open("print.jsp?ordermids="+itemids);
+		//window.open("printOrder.action?ordermid="+itemid);
+	} else if(count > 0 && count < 2){
+		var itemid = itemids.substring(0,itemids.length-1);
+		if(msg == '详情'){
 			window.location.href = "orderDetail.action?ordermid="+itemid+
 					"&ordermcompany=${sessionScope.company.companyid }&ordermcode=${requestScope.order.ordermcode }"+
 					"&staTime=${requestScope.staTime}&endTime=${requestScope.endTime}&pagenow=${requestScope.pagenow }"+

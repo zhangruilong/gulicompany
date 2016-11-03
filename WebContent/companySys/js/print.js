@@ -9,16 +9,32 @@ $(function(){
 		url:"printInfo.action",
 		type:"post",
 		data:{
-			"ordermid":ordermid
+			"ordermids":ordermids
 		},
 		success : function(data){
 			var tempList = data.tempList;					//模板
-			var printinfo = data.printinfo;					//打印信息 (除订单商品外的打印信息)
+			var printinfo = data.printinfo[0];					//打印信息 (除订单商品外的打印信息)
 			var orderdList = data.orderdList;				//订单商品列表
 			var rowStyle = '';								//行样式
-			var goodsTDStrle = '';							//订单商品单元格样式
 			var qianshouTDStrle = '';						//签收信息单元格样式
+			var totalMon=0;									//总下单金额
+			var totalRMon = 0;								//总实际金额
+			var orderMsg = '';								//订单留言
 			
+			$.each(data.printinfo,function(i,item){
+				totalMon += parseFloat(item.ordermmoney);
+				totalRMon += parseFloat(item.ordermrightmoney);
+				if(typeof(item.ordermdetail)!='undefined' && item.ordermdetail){
+					orderMsg += item.ordermdetail;
+				}
+			});
+			if(data.printinfo.length>1){							//得到合并后的订单总金额
+				printinfo.ordermmoney = totalMon;
+				printinfo.ordermrightmoney = totalRMon;
+				if(orderMsg != ''){
+					printinfo.ordermdetail = orderMsg;
+				}
+			}
 			if(data.message=='success'){
 				var text = '';									//要输入的文本
 				$.each(orderdList,function(i,item){
@@ -38,7 +54,6 @@ $(function(){
 						} else if(item.sheetname =='客户信息'){
 							$('#print-content').append('<table width="100%" border="0" cellspacing="0" cellpadding="3"></table>');
 						} else if(item.sheetname == '商品信息'){
-								goodsTDStrle = typeNullFoString(item.detail);
 							$('#print-content').append(
 								'<table id="goods-tab" class="print_tab" width="100%" border="1" cellspacing="0" cellpadding="2" style="border-collapse: collapse;margin-top: 5px;"></table>');
 						} else if(item.sheetname == '签收信息'){
@@ -70,9 +85,9 @@ $(function(){
 					} else if(item.headnameas=='订单日期'){
 						text = today;											//订单日期
 					} else if(item.headnameas=='优惠金额'){
-						text = printinfo['ordermmoney']-printinfo['ordermrightmoney'];											//优惠金额
+						text = totalMon-totalRMon;											//优惠金额
 					} else if(item.headnameas=='大写合计'){
-						text = chineseNumber(printinfo['ordermrightmoney']);											//优惠金额
+						text = chineseNumber(totalRMon);											//优惠金额
 					} else if(item.headnameas=='重量合计'){
 						text = totalWeight;
 					}
@@ -86,7 +101,8 @@ $(function(){
 								item.headnameas+'：</td><td style="'+item.detail+'">'+text+'</td>');
 					} else if(item.sheetno == '3'){											//商品信息
 						$('#print-content table:last tr:last').append(
-								'<td style="font-family: 黑体;font-size: 12px;white-space: nowrap;" name="'+item.fieldname+'">'+item.headnameas+'</td>');
+								'<td style="font-family: 黑体;font-size: 12px;border-bottom:solid 1px black;border-right:solid 1px black;white-space: nowrap;" name="'
+								+item.fieldname+'">'+item.headnameas+'<span hidden=true>'+typeNullFoString(item.detail)+'</span></td>');
 					} else if(item.sheetno == '4'){											//合计信息
 						$('#print-content').append(
 								'<span style="'+item.detail+'">'+item.headnameas+':</span>'+
@@ -113,19 +129,36 @@ $(function(){
 						$('#print-content table:last tr:last td:last').attr('colspan',item.endcol-item.startcol);
 					}
 				});
-				$.each(orderdList,function(i,item1){										//订单商品
-					$('#goods-tab').append('<tr></tr>');
-					
-					$('#goods-tab tr:first td').each(function(j,item2){
-						var goodsInfo = '';
-						if($(item2).attr('name') && $(item2).attr('name')!='undefined'&& $(item2).attr('name')!='null'){
-							goodsInfo = typeNullFoString(item1[$(item2).attr('name')]);
-						} else {
-							goodsInfo = i+1;
-						}
-						$('#goods-tab tr:last').append('<td align="right" style="'+goodsTDStrle+'">'+goodsInfo+'</td>');
-					});
+				//订单商品
+				var previousOdd = new Object();												//前一个orderd
+				$.each(orderdList,function(i,item1){
+					//alert(JSON.stringify(previousOdd)+" == "+JSON.stringify(item1));
+					//alert(previousOdd != item1);
+					if(previousOdd['orderdcode'] != item1['orderdcode'] || 
+							previousOdd['orderdtype'] != item1['orderdtype'] || 
+							previousOdd['orderdunits'] != item1['orderdunits'] ){
+						previousOdd = item1;
+						$('#goods-tab').append('<tr></tr>');
+						$('#goods-tab tr:first td').each(function(j,item2){
+							var goodsInfo = '';
+							var curSty = $(item2).children().text();
+							if($(item2).attr('name') && $(item2).attr('name')!='undefined'&& $(item2).attr('name')!='null'){
+								goodsInfo = typeNullFoString(item1[$(item2).attr('name')]);
+							} else {
+								goodsInfo = $('#goods-tab tr').length-1;
+							}
+							$('#goods-tab tr:last').append('<td style="'+curSty+'">'+goodsInfo+'</td>');
+						});
+					} else {
+						var newODNum = item1['orderdnum'] + previousOdd['orderdnum'];
+						var newODMon = parseFloat(item1['orderdmoney']) + parseFloat(previousOdd['orderdmoney']);
+						var newODRMon = parseFloat(item1['orderdrightmoney']) + parseFloat(previousOdd['orderdrightmoney']);
+						$('#goods-tab tr:last td:eq(5)').text(newODNum);
+						$('#goods-tab tr:last td:eq(8)').text(newODMon);
+						$('#goods-tab tr:last td:eq(9)').text(newODRMon);
+					}
 				});
+				//签收信息
 				$('#signFo-tab').append('<tr></tr>');
 				$('#signFo-tab tr:first td').each(function(i,item){
 					if($(item).text()=='支付方式'){

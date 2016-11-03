@@ -12,7 +12,7 @@ public interface OrdermMapper {
 	/**
 	 * 根据ordermid查询打印订单时需要的信息：订单、客户、经销商、订单详情 信息
 	 */
-	PrintInfo selectPrintInfo(String ordermid);
+	List<PrintInfo> selectPrintInfo(String[] ordermids);
 	/**
 	 * 查询订单总实际金额
 	 */

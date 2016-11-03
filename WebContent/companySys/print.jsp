@@ -45,7 +45,7 @@ onclick="javascript:this.style.display='none';printpreview();" />
 <script type="text/javascript" src="js/numTF.js"></script>
 <script type="text/javascript" src="js/common.js"></script>
 <script type="text/javascript">
-var ordermid = '${param.ordermid}';
+var ordermids = '${param.ordermids}';
 </script>
 <script type="text/javascript" src="js/print.js"></script>
 </body>

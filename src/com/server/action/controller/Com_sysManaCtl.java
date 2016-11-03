@@ -1,5 +1,6 @@
 package com.server.action.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,14 +67,15 @@ public class Com_sysManaCtl {
 	//打印订单
 	@RequestMapping("/companySys/printInfo")
 	@ResponseBody
-	public Map<String, Object> printInfo(String ordermid){
+	public Map<String, Object> printInfo(String ordermids){
 		Map<String, Object> result = new HashMap<String, Object>();
-		PrintInfo pi = ordermMapper.selectPrintInfo(ordermid);
-		if(pi != null){
-			List<System_temprule> tempList = sys_tempruleMapper.selectByComid(pi.getOrdermcompany());
-			List<Orderd> odLI = orderdMapper.selectByOrderm(pi.getOrdermid());
+		String[] odmids = ordermids.split(",");
+		List<PrintInfo> piLi = ordermMapper.selectPrintInfo(odmids);
+		if(null!=piLi && piLi.size()>0){
+			List<System_temprule> tempList = sys_tempruleMapper.selectByComid(piLi.get(0).getOrdermcompany());
+			List<Orderd> odLI = orderdMapper.selectByOrderm(odmids);
 			result.put("tempList", tempList);
-			result.put("printinfo", pi);
+			result.put("printinfo", piLi);
 			result.put("orderdList", odLI);
 			result.put("message", "success");
 		} else {

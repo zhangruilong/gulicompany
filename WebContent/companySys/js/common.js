@@ -1,5 +1,5 @@
 function typeNullFoString(obj){
-	if(obj == null || typeof(obj) == "undefined"){
+	if(typeof(obj) == "undefined" || !obj || obj=='undefined' || obj=='null'){
 		return '';
 	} else {
 		return obj;
