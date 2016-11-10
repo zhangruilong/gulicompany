@@ -13,6 +13,29 @@ lastMonthDate.setDate(1);
  lastMonthDate.setMonth(lastMonthDate.getMonth()-1); 
  var lastYear = lastMonthDate.getYear(); 
  var lastMonth = lastMonthDate.getMonth(); 
+ 
+//格局化日期：yyyy-MM-dd hh:mm
+ function formatDateTime(date) { 
+	 var myyear = date.getFullYear(); 		//年
+	 var mymonth = date.getMonth()+1; 		//月
+	 var myweekday = date.getDate(); 		//日
+	 var myHour = date.getHours();			//时
+	 var myMinutes = date.getMinutes();		//分
+	
+	if(mymonth < 10){ 
+		mymonth = "0" + mymonth; 
+	 } 
+	 if(myweekday < 10){ 
+		myweekday = "0" + myweekday; 
+	 } 
+	 if(myHour < 10){
+		 myHour = "0" + myHour;
+	 }
+	 if(myMinutes < 10){
+		 myMinutes = "0" + myMinutes;
+	 }
+	 return (myyear+"-"+mymonth+"-"+myweekday+" "+myHour+":"+myMinutes); 
+ } 
 
 //格局化日期：yyyy-MM-dd 
  function formatDate(date) { 

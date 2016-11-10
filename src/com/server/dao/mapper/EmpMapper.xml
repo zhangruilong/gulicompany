@@ -12,6 +12,21 @@
     <result column="CREATETIME" property="createtime" jdbcType="VARCHAR" />
     <result column="UPDTIME" property="updtime" jdbcType="VARCHAR" />
   </resultMap>
+  <!-- 查询全部业务员 -->
+  <select id="selectAllEmp" resultMap="BaseResultMap">
+  	select * from EMP where empcompany=#{companyid }
+  		<if test="condition != null and condition != ''">
+  			and(
+  				empcode like '%${condition }%' or
+  				empdetail like '%${condition }%' or
+  				empstatue like '%${condition }%' or
+  				createtime like '%${condition }%' or
+  				updtime like '%${condition }%'
+  			)
+  		</if>
+  	order by empid desc 
+  </select>
+  
   <select id="selectEmpByCompany" parameterType="string" resultMap="BaseResultMap">
   	select * from GULI.EMP where EMPCOMPANY = #{companyid}
   </select>

@@ -38,8 +38,10 @@ $(function(){
 			if(data.message=='success'){
 				var text = '';									//要输入的文本
 				$.each(orderdList,function(i,item){
-					if(typeof(item.orderdweight)!='undefined'){
+					if(typeof(item.orderdweight)!='undefined' && item.orderdweight != 'undefined'){
 						totalWeight += item.orderdweight*item.orderdnum;
+					} else if(item.orderdweight == 'undefined'){
+						item.orderdweight = 0;
 					}
 				});
 				$('#con-title').text(tempList[0].tempname);

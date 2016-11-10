@@ -173,17 +173,24 @@ public class Com_orderCtl {
 	}
 	//订单商品统计
 	@RequestMapping("/companySys/orderStatistics")
-	public String orderStatistics(Model model,String staTime,String endTime,String companyid,String condition,Integer pagenow) throws Exception{
-		if(staTime != null && !staTime.equals("") && staTime.length() <19){
-			staTime = staTime + " 00:00:00";
-		}
-		if(endTime != null && !endTime.equals("") && endTime.length() <19){
-			endTime = endTime + " 23:59:59";
-		}
+	public String orderStatistics(Model model,String staTime,String endTime,String companyid,
+			String quBrand,String quEmp,String quCus, String condition,Integer pagenow) throws Exception{
 		if(pagenow == null){
 			pagenow = 1;
 		}
-		Integer count = orderdMapper.selectByTimeCount(staTime, endTime, companyid,condition);	//总信息条数
+		String[] quEmpNames = null;
+		String[] quBrandNames = null;
+		String[] quCusNames = null;
+		if(null != quEmp){
+			quEmpNames = quEmp.split(",");
+		}
+		if(null != quBrand){
+			quBrandNames = quBrand.split(",");
+		}
+		if(null != quCus){
+			quCusNames = quCus.split(",");
+		}
+		Integer count = orderdMapper.selectByTimeCount(staTime+":00", endTime+":00", companyid,condition,quEmpNames,quBrandNames,quCusNames);	//总信息条数
 		Integer pageCount;		//总页数
 		if(count % 10 ==0){
 			pageCount = count / 10;
@@ -193,9 +200,9 @@ public class Com_orderCtl {
 		if(pagenow > pageCount){
 			pagenow = pageCount;
 		}
-		List<Orderd> list = orderdMapper.selectByPage(staTime, endTime, companyid,condition,pagenow,10);					//查询数据
-		OrderdStatistics total = orderdMapper.selectOrderdStatistics(staTime, endTime, companyid, condition);	//数据统计
-		model.addAttribute("total", total);
+		List<Orderd> list = orderdMapper.selectByPage(staTime+":00", endTime+":00", companyid,condition,pagenow,10,quEmpNames,quBrandNames,quCusNames);					//查询数据
+		//OrderdStatistics total = orderdMapper.selectOrderdStatistics(staTime+" "+staTime2+":00", endTime+" "+endTime2+":00", companyid, condition);	//数据统计
+		//model.addAttribute("total", total);
 		model.addAttribute("orderdList", list);
 		model.addAttribute("companyid", companyid);
 		model.addAttribute("staTime", staTime);

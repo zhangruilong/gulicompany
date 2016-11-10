@@ -9,13 +9,36 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.server.dao.mapper.AddressMapper;
 import com.server.dao.mapper.CompanyMapper;
 import com.server.dao.mapper.GoodsMapper;
+import com.server.dao.mapper.OrderdMapper;
 import com.server.pojo.entity.Address;
 import com.server.pojo.entity.City;
 import com.server.pojo.entity.Company;
 import com.server.pojo.entity.Goods;
+import com.server.pojo.entity.Orderd;
 import com.server.pojo.entity.Prices;
 
 public class TestApp {
+	@Test
+	public void testsetgoodsid(){
+		ApplicationContext context = 
+				new ClassPathXmlApplicationContext("applicationContext-dao.xml");
+		OrderdMapper odmapper = (OrderdMapper) context.getBean("orderdMapper");
+		GoodsMapper gmapper = (GoodsMapper) context.getBean("goodsMapper");
+		List<Orderd> odLi = odmapper.selectAllOrderd();
+		for (int i = 0; i < odLi.size(); i++) {
+			Orderd od = odLi.get(i);
+			if(null!=od && null != od.getOrderm()){
+				Goods gd = gmapper.selectByGoodsCode(
+						od.getOrderdcode(), 
+						od.getOrderm().getOrdermcompany(), 
+						od.getOrderdunits());
+				if(null != gd){
+					od.setOrderdgoods(gd.getGoodsid());
+					odmapper.updateByPrimaryKeySelective(od);
+				}
+			}
+		}
+	}
 	
 	@Test
 	public void testMappers(){

@@ -10,26 +10,48 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <title></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="css/tabsty.css" rel="stylesheet" type="text/css">
+<link href="css/dig.css" rel="stylesheet" type="text/css">
+<link href="css/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.datetimepicker.full.js"></script>
+<script type="text/javascript" src="js/jquery.datetimepicker.js"></script>
+<!-- 
 <link rel="stylesheet" type="text/css" href="<%=basePath%>ExtJS/resources/css/ext-all.css" />
-<script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>ExtJS/adapter/ext/ext-base.js"></script>
 <script type="text/javascript" src="<%=basePath%>ExtJS/ext-all.js"></script>
-<script type="text/javascript" src="<%=basePath%>ExtJS/ext-lang-zh_CN.js" charset="GBK"></script>
-
+<script type="text/javascript" src="<%=basePath%>ExtJS/ext-lang-zh_CN.js" charset="GBK"></script> -->
+<style type="text/css">
+.goods_select_popup{
+	margin:0px auto;
+	margin-top:1%;
+	width: 600px;
+	background-color: #FBF1E5;
+}
+.xdsoft_datetimepicker  .xdsoft_calendar td > div{
+   padding-right:10px;
+   padding-top: 5px
+}
+</style>
 </head>
 <body>
 <form id='main_form' action="orderStatistics.action" method="post">
  <input type="hidden" name="companyid" value="${sessionScope.company.companyid }">
  <input type="hidden" id="staTime" name="staTime" value="${requestScope.staTime }">
  <input type="hidden" id="endTime" name="endTime" value="${requestScope.endTime }">
+ <input type="hidden" id="quBrand" name="quBrand" value="${requestScope.quBrand }">
+ <input type="hidden" id="quEmp" name="quEmp" value="${requestScope.quEmp }">
 <div class="nowposition">当前位置：订单管理》订单商品统计</div>
  
 <div class="navigation">
-<div>下单时间:</div><div id="divDate" class="date"></div>
-<div>到:</div><div id="divDate2"  class="date"></div>
+<div>下单时间</div><div id="divDate" class="date"><input id="staDatetime" class="date-time" type="text" ></div>
+<div>到:</div><div id="divDate2"  class="date"><input id="endDatetime" class="date-time" type="text" ></div>
+<input class="button" type="button" value="业务员" onclick="showEmp()">
+<input class="button" type="button" value="品牌" onclick="showBrand()">
+<input class="button" type="button" value="客户" onclick="showBrand()">
 模糊查询:<input type="text"  class="condition_query" name="condition" value="${requestScope.condition }">
 <input class="button" type="button" value="查询" onclick="subfor()">
 <input class="button" type="button" value="导出报表" onclick="report()">
+<!-- <input class="button" type="button" value="设置订单商品id" onclick="setorderdgoodsid()"> -->
 </div>
 <table class="bordered">
     <thead>
@@ -108,35 +130,165 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 </tr>       
 </table>
 </form>
-
+<!--业务员(EMP)弹框-->
+<div class="cd-popup emp-popup" role="alert">
+<div class="goods_select_popup">
+<div class="navigation">
+<input class="button" type="button" value="查询" onclick="dobiaopin('1')">
+<input class="button" type="button" value="关闭" onclick="hiddenEmpShow()">
+</div>
+<div class="alert-emp-show">
+</div>
+</div>
+</div>
+<!--品牌弹框-->
+<div class="cd-popup brand-popup" role="alert">
+<div class="goods_select_popup">
+<div class="navigation">
+<input class="button" type="button" value="查询" onclick="dobiaopin('1')">
+<input class="button" type="button" value="关闭" onclick="hiddenBrandShow()">
+</div>
+<div class="alert-brand-show">
+</div>
+</div>
+</div>
+<script type="text/javascript" src="js/getDate.js"></script>
 <script type="text/javascript">
-var md;						//第一个日期对象
-var md2;					//第二个日期对象
-   Ext.onReady(function(){
-		md = new Ext.form.DateField({
-			name:"testDate",
-			editable:false, //不允许对日期进行编辑
-			width:90,
-			format:"Y-m-d",
-			emptyText:"${(requestScope.staTime == null || requestScope.staTime == '')?'请选择日期...':requestScope.staTime}"		//默认显示的日期
-		});
-		md.render('divDate');
-		
-		md2 = new Ext.form.DateField({
-			name:"testDate",
-			editable:false, //不允许对日期进行编辑
-			width:90,
-			format:"Y-m-d",
-			emptyText:"${(requestScope.endTime == null || requestScope.endTime == '')?'请选择日期...':requestScope.endTime}"		//默认显示的日期
-		});
-		md2.render('divDate2');
-		$("#main_form").on("submit",function(){
-			checkCondition();
-		});
-   });
+$.datetimepicker.setLocale('ch');												//设置日期的中文
+var companyid = "${sessionScope.company.companyid}";
+var currDateTime = formatDateTime(new Date());									//当前时间字符串
+$(function(){
+	$('#staDatetime').datetimepicker({
+		dayOfWeekStart : 1,
+		lang:'ch',
+		format:"Y-m-d H:i",      //格式化日期
+		//disabledDates:['1986/01/08','1986/01/09','1986/01/10'],				//禁用日期
+		startDate:	currDateTime,
+		value: currDateTime,
+		step:30
+	});
+	$('#endDatetime').datetimepicker({
+		dayOfWeekStart : 1,
+		lang:'ch',
+		format:"Y-m-d H:i",      //格式化日期
+		//disabledDates:['1986/01/08','1986/01/09','1986/01/10'],				//禁用日期
+		startDate:	currDateTime,
+		value:currDateTime,
+		step:30
+	});
+	$('#staDatetime').click(function(){
+		$(this).blur();
+	});
+	$('#endDatetime').click(function(){
+		$(this).blur();
+	});
+})
+//设置订单商品id
+function setorderdgoodsid(){
+	$.ajax({
+		url:"setOrderdgoodsid.action",
+		type:"post",
+		data:{
+			
+		},
+		success:function(data){
+			alert("修改了:"+data.msg+" 条数据");
+		},
+		error:function(data){
+			
+		}
+	});
+}
+//关闭brand弹窗
+function hiddenBrandShow(){
+	$(".brand-popup").removeClass("is-visible");
+}
+//关闭emp弹窗
+function hiddenEmpShow(){
+	$(".emp-popup").removeClass("is-visible");
+}
+//得到品牌
+function showBrand(){
+	if(!companyid){
+		return;
+	}
+	
+	$.ajax({
+		url:"timeOrderdGoodsBrand.action",						//Com_goodsCtl
+		type:"post",
+		data:{
+			"companyid":companyid,
+			"staTime":$('#staDatetime').val(),
+			"endTime":$('#endDatetime').val()
+		},
+		success:function(data){
+			if(data.msg =='success'){
+				$('.alert-brand-show').html('');
+				$.each(data.brand ,function(i,item){
+					$('.alert-brand-show').append('<span>'+item+'</span>');
+				});
+				$(".brand-popup").addClass("is-visible");
+				$(".alert-brand-show span").click(function(){
+					if($(this).attr('class')=='alert-brand-selspan'){
+						$(this).removeClass('alert-brand-selspan');
+					} else {
+						$(this).addClass('alert-brand-selspan');
+					}
+				});
+			} else {
+				alert('没有查询到品牌。');
+			}
+		},
+		error:function(data){
+			
+		}
+	});
+}
+//得到业务员
+function showEmp(){
+	if(!companyid){
+		return;
+	}
+	
+	$.ajax({
+		url:"queryTimeEmp.action",				//在customerCtl里面
+		type:"post",
+		data:{
+			"companyid":companyid,
+			"staTime":$('#staDatetime').val(),
+			"endTime":$('#endDatetime').val()
+		},
+		success:function(data){
+			if(data.msg=='success'){
+				$(".alert-emp-show").html('');
+				$.each(data.empLi,function(i,item){
+					if(typeof(item)!='undefined' && item){
+						$(".alert-emp-show").append('<span>'+item+'</span>');
+					} else {
+						$(".alert-emp-show").append('<span>其它</span>');
+					}
+				});
+				$(".emp-popup").addClass("is-visible");
+				$(".alert-emp-show span").click(function(){
+					if($(this).attr('class')=='alert-emp-selspan'){
+						$(this).removeClass('alert-emp-selspan');
+					} else {
+						$(this).addClass('alert-emp-selspan');
+					}
+				});
+			} else if(data.msg=='error'){
+				alert('没有查询到业务员。');
+			}
+		},
+		error:function(data){
+			alert('操作失败!');
+		}
+	});
+}
+
  //检查查询条件是否变化
   function checkCondition(){
-	  $(".condition_query").val($.trim($(".condition_query").val()));
+	$(".condition_query").val($.trim($(".condition_query").val()));
    	if($(".condition_query").val() != '${requestScope.condition }'){
    		$("#pagenow").val('1');
    	}
@@ -150,20 +302,35 @@ var md2;					//第二个日期对象
 //导出报表
 function report(){
 	window.location.href ="exportReport.action?companyid=${sessionScope.company.companyid }"+
-	"&staTime=${requestScope.staTime }&endTime=${requestScope.endTime }&condition=${requestScope.condition }";
+					"&staTime=${requestScope.staTime }&endTime=${requestScope.endTime }"+
+					"&staTime2=${requestScope.staTime2 }&endTime2=${requestScope.endTime2 }"+
+					"&condition=${requestScope.condition }";
 }
 //查询
 function subfor(){
-	var gedt = Ext.util.Format.date(md.getValue(), 'Y-m-d');	//得到查询时间
-	var gedt2 = Ext.util.Format.date(md2.getValue(), 'Y-m-d');	
-	if(gedt == ''){
-		gedt = "${requestScope.staTime}";
+	var staDT = $('#staDatetime').val();
+	var endDT = $('#endDatetime').val();
+	//得到查询时间
+	if(staDT && endDT){
+		$('#staTime').val(staDT);
+		$('#endTime').val(endDT);
+	} else {
+		alert('查询时间不能为空。');
+		return;
 	}
-	if(gedt2 == ''){
-		gedt2 = "${requestScope.endTime}";
-	}
-	$("#staTime").val(gedt);
-	$("#endTime").val(gedt2);
+	
+	//得到查询条件:品牌/业务员/客户
+	var quEmp = '';
+	$('.alert-emp-show .alert-emp-selspan').each(function(i,item){
+		quEmp += $(item).text()+",";
+	});
+	$('#quEmp').val(quEmp);
+	var quBrand = '';
+	$('.alert-brand-show .alert-brand-selspan').each(function(i,item){
+		quBrand += $(item).text()+",";
+	});
+	$('#quBrand').val(quBrand);
+	
 	checkCondition();
 	document.forms[0].submit();
 }

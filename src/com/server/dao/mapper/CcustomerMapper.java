@@ -8,6 +8,11 @@ import com.server.pojo.entity.Ccustomer;
 
 public interface CcustomerMapper {
 	/**
+	 * 查询一段时间内的有订单的业务员的名字
+	 */
+	List<String> selectTimeEmpName(@Param("staTime") String staTime,@Param("endTime") String endTime,
+			@Param("companyid") String companyid);
+	/**
 	 * 根据关系id查询关系和客户信息
 	 */
 	Ccustomer selectCCusAndCusById(String ccustomerid);

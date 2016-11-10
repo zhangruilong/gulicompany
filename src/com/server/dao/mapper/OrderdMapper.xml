@@ -51,6 +51,31 @@
     ORDERDPRICE, ORDERDUNIT, ORDERDCLASS, ORDERDNUM, ORDERDMONEY, ORDERDRIGHTMONEY,ORDERDWEIGHT,
     ORDERDGOODS,ORDERDNOTE
   </sql>
+  
+<!-- 查询一段时间内的订单商品的品牌 -->
+  <select id="selectTimeOrderdGoodsBrand" resultType="String" >
+  	select g.goodsbrand from orderd od
+		left join orderm om on om.ordermid = od.orderdorderm
+		left join goods g on g.goodsid = od.orderdgoods
+	where om.ordermcompany = #{companyid} 
+	and om.ordermtime &gt;= #{staTime} 
+	and om.ordermtime &lt;= #{endTime} 
+	and om.ordermstatue != '已删除'
+	and g.goodsbrand is not null
+	group by g.goodsbrand
+  </select>
+  <!-- 查询订单的订单详情 -->
+  <select id="selectAllOrderd" resultMap="BaseResultMap" >
+  <!-- select * from 
+	  (select A.*, ROWNUM RN from ( -->
+    select od.orderdid,od.orderdcode,od.orderdunits,om.ordermcompany from orderd od 
+	left join orderm om on od.orderdorderm = om.ordermid
+	where od.ORDERDTYPE='商品'
+	and od.ORDERDGOODS is null
+	and om.ordermcompany is not null
+	<!-- ) A where ROWNUM  &lt;= (1*1000) ) 
+	  where RN &gt; 0 -->
+  </select>
   <!-- 查询订单的订单详情 -->
   <select id="selectByOrderm" resultMap="BaseResultMap" parameterType="String" >
     select * from orderd od where 
@@ -99,32 +124,53 @@
   	select * from 
 	(select A.*, ROWNUM RN from (
   	select
-		orderd.*,
-		orderm.ordermid,
-		orderm.ordermtime
-	from orderd
-	left join orderm
-	on orderd.orderdorderm = orderm.ordermid
-	where orderm.ordermcompany = #{companyid,jdbcType=VARCHAR}
-	and orderm.ordermstatue != '已删除'
+		od.*,
+		om.ordermid,
+		om.ordermtime
+	from orderd od
+	left join orderm om on od.orderdorderm = om.ordermid
+  	left join customer c on c.customerid = om.ordermcustomer
+  	left join ccustomer cc on cc.ccustomercustomer = c.customerid
+  	left join goods g on od.orderdgoods = g.goodsid
+	where om.ordermcompany = #{companyid,jdbcType=VARCHAR}
+	and cc.ccustomercompany = #{companyid,jdbcType=VARCHAR}
+	and om.ordermstatue != '已删除'
+	<if test="cusNames != null and cusNames !=''">
+		and 
+		<foreach collection="cusNames" open="(" close=")" separator="or" item="cusName">
+			cc.createtime=#{cusName}
+		</foreach>
+	</if>
+	<if test="empNames != null and empNames !=''">
+		and 
+		<foreach collection="empNames" open="(" close=")" separator="or" item="empName">
+			cc.createtime=#{empName}
+		</foreach>
+	</if>
+	<if test="brandNames != null and brandNames !=''">
+		and 
+		<foreach collection="brandNames" open="(" close=")" separator="or" item="brandName">
+			g.goodsbrand=#{brandName}
+		</foreach>
+	</if>
 	<if test="staTime != null and staTime != ''">
-		and orderm.ordermtime &gt;= #{staTime}
+		and om.ordermtime &gt;= #{staTime}
 	</if>
 	<if test="endTime != null and endTime != ''">
-		and orderm.ordermtime &lt;= #{endTime}
+		and om.ordermtime &lt;= #{endTime}
 	</if>
 	<if test="condition != null and condition != ''">
 		and 
-		(orderd.orderdcode like '%${condition}%' or
-		orderd.orderdname like '%${condition}%' or
-		orderd.orderdunits like '%${condition}%' or
-		orderd.orderdunit like '%${condition}%' or
-		orderd.orderdnum like '%${condition}%' or
-		orderd.orderdprice like '%${condition}%' or
-		orderd.orderdmoney like '%${condition}%' or
-		orderd.orderdrightmoney like '%${condition}%')
+		(od.orderdcode like '%${condition}%' or
+		od.orderdname like '%${condition}%' or
+		od.orderdunits like '%${condition}%' or
+		od.orderdunit like '%${condition}%' or
+		od.orderdnum like '%${condition}%' or
+		od.orderdprice like '%${condition}%' or
+		od.orderdmoney like '%${condition}%' or
+		od.orderdrightmoney like '%${condition}%')
 	</if>
-	order by orderm.ordermtime desc
+	order by om.ordermtime desc
 	 ) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) ) 
 	where RN &gt; ((#{nowpage}-1)*#{pagesize})
   </select>
@@ -272,6 +318,16 @@
       <if test="orderdrightmoney != null" >
         ORDERDRIGHTMONEY,
       </if>
+      <if test="orderdweight != null" >
+        ORDERDWEIGHT,
+      </if>
+      <if test="orderdgoods != null" >
+        ORDERDGOODS,
+      </if>
+      <if test="orderdnote != null" >
+        ORDERDNOTE,
+      </if>
+      
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="orderdid != null" >
@@ -313,6 +369,16 @@
       <if test="orderdrightmoney != null" >
         #{orderdrightmoney,jdbcType=FLOAT},
       </if>
+      <if test="orderdweight != null" >
+        #{orderdweight,jdbcType=FLOAT},
+      </if>
+      <if test="orderdgoods != null" >
+        #{orderdgoods,jdbcType=FLOAT},
+      </if>
+      <if test="orderdnote != null" >
+        #{orderdnote,jdbcType=FLOAT},
+      </if>
+      
     </trim>
   </insert>
   <!-- 根据主键选择性修改 -->
@@ -354,6 +420,15 @@
       </if>
       <if test="orderdrightmoney != null" >
         ORDERDRIGHTMONEY = #{orderdrightmoney,jdbcType=FLOAT},
+      </if>
+      <if test="orderdweight != null" >
+        ORDERDWEIGHT = #{orderdweight,jdbcType=FLOAT},
+      </if>
+      <if test="orderdgoods != null" >
+        ORDERDGOODS = #{orderdgoods,jdbcType=FLOAT},
+      </if>
+      <if test="orderdnote != null" >
+        ORDERDNOTE = #{orderdnote,jdbcType=FLOAT},
       </if>
     </set>
     where ORDERDID = #{orderdid,jdbcType=VARCHAR}

@@ -10,6 +10,15 @@ import com.server.pojo.entity.OrderdStatistics;
 
 public interface OrderdMapper {
 	/**
+	 * 查询一段时间内的订单商品的品牌
+	 */
+	List<String> selectTimeOrderdGoodsBrand(@Param("staTime") String staTime,@Param("endTime") String endTime,
+			@Param("companyid") String companyid);
+	/**
+	 * 查询全部订单
+	 */
+	List<Orderd> selectAllOrderd();
+	/**
 	 * 根据ordermid查询订单详情
 	 */
 	List<Orderd> selectByOrderm(String[] ordermids);
@@ -26,12 +35,14 @@ public interface OrderdMapper {
 	 */
 	ArrayList<Orderd> selectByPage(@Param("staTime") String staTime,
 			@Param("endTime") String endTime,@Param("companyid")String companyid,@Param("condition") String condition,
-			@Param("nowpage") Integer nowpage,@Param("pagesize") Integer pagesize);
+			@Param("nowpage") Integer nowpage,@Param("pagesize") Integer pagesize,@Param("empNames") String[] empNames,
+			@Param("brandNames") String[] brandNames,@Param("cusNames") String[] cusNames);
 	/**
 	 * 根据时间范围(多条件)查询订单(数量)
 	 */
 	Integer selectByTimeCount(@Param("staTime") String staTime,
-			@Param("endTime") String endTime,@Param("companyid")String companyid,@Param("condition") String condition);
+			@Param("endTime") String endTime,@Param("companyid")String companyid,@Param("condition") String condition,
+			@Param("empNames") String[] empNames,@Param("brandNames") String[] brandNames,@Param("cusNames") String[] cusNames);
 	/**
 	 * 条件查询统计
 	 */

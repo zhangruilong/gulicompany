@@ -44,6 +44,23 @@ public class Com_customerCtl {
 	private EmpMapper empMapper;
 	@Autowired
 	private CityMapper cityMapper;
+	
+	//一段时间内有订单的业务员
+	@RequestMapping(value="/companySys/queryTimeEmp")
+	@ResponseBody
+	public Map<String,Object> queryTimeEmp(String staTime,String endTime,String companyid){
+		Map<String,Object> map = new HashMap<String, Object>();
+		List<String> empLi = ccustomerMapper.selectTimeEmpName(staTime, endTime, companyid);
+		if(empLi.size()>0){
+			map.put("empLi", empLi);
+			map.put("msg", "success");
+		} else {
+			map.put("msg", "error");
+		}
+		
+		return map;
+	}
+	
 	//新增录单客户时用到的city
 	@RequestMapping(value="/companySys/addLGCity")
 	@ResponseBody

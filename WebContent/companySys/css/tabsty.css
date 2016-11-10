@@ -126,7 +126,10 @@ table {
 	line-height: 30px;
 }
 .navigation .date{
-	margin: 3px 5px 0px 5px;
+	margin: 5px 5px 0px 5px;
+}
+.navigation .date .date-time{
+	width: 110px;
 }
 
 .nowposition {
@@ -142,7 +145,39 @@ table {
 	cursor:pointer;
 }
 
+.alert-emp-show{ 
+	margin: 0px auto;
+	max-height: 500px;
+	overflow: auto;
+	/* background: #EE8704; */
+	padding: 20px 20px 20px 20px;
+	font: 12px Arial, Helvetica, sans-serif;
+	color: #666;
+}
+
+.alert-brand-show{ 
+	margin: 0px auto;
+	max-height: 500px;
+	overflow: auto;
+	/* background: #EE8704; */
+	padding: 20px 20px 20px 20px;
+	font: 12px Arial, Helvetica, sans-serif;
+	color: #666;
+}
+
+.alert-emp-show span{ white-space: nowrap;background: #FBF1E5;margin: 5px 5px 5px 5px;padding: 5px 5px 5px 5px;display: inline-block;cursor:pointer;border-radius: 5px;}
+
+.alert-emp-show .alert-emp-selspan{background: #FAB957 url("../images/s-dagou.jpg") no-repeat center ; background-size: auto 100%}
+
+.alert-brand-show span{ white-space: nowrap;background: #FBF1E5;margin: 5px 5px 5px 5px;padding: 5px 5px 5px 5px;display: inline-block;cursor:pointer;border-radius: 5px;}
+
+.alert-brand-show .alert-brand-selspan{background: #FAB957 url("../images/s-dagou.jpg") no-repeat center ; background-size: auto 100%}
 
 
+
+
+
+
+	
 
 

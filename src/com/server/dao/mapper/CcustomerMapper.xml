@@ -31,6 +31,21 @@
   <sql id="Base_Column_List" >
     CCUSTOMERID, CCUSTOMERCOMPANY, CCUSTOMERCUSTOMER, CCUSTOMERDETAIL, CREATETIME, CREATOR
   </sql>
+  
+  <!-- 查询一段时间内的有订单的业务员的名字 -->
+  <select id="selectTimeEmpName" resultType="String">
+	  select
+			cc.createtime
+		from ccustomer cc
+	  	left join customer cu on cu.customerid = cc.ccustomercustomer
+	  	left join orderm om on om.ordermcustomer = cu.customerid
+	  where om.ordermcompany = #{companyid}
+		and om.ordermstatue != '已删除'
+		and cc.createtime is not null
+	    and om.ordermtime &gt;= #{staTime} 
+	    and om.ordermtime &lt;= #{endTime} 
+	  group by cc.createtime
+  </select>
   <!-- 根据关系id查询关系和客户信息 -->
   <select id="selectCCusAndCusById" resultMap="BaseResultMap" parameterType="java.lang.String">
   select cc.*,c.* 

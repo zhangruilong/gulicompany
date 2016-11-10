@@ -19,6 +19,7 @@ import com.server.dao.mapper.GivegoodsMapper;
 import com.server.dao.mapper.GoodsMapper;
 import com.server.dao.mapper.GoodsclassMapper;
 import com.server.dao.mapper.LargecuspriceMapper;
+import com.server.dao.mapper.OrderdMapper;
 import com.server.dao.mapper.PricesMapper;
 import com.server.dao.mapper.ScantMapper;
 import com.server.dao.mapper.TimegoodsMapper;
@@ -30,6 +31,7 @@ import com.server.pojo.entity.Givegoods;
 import com.server.pojo.entity.Goods;
 import com.server.pojo.entity.Goodsclass;
 import com.server.pojo.entity.Largecusprice;
+import com.server.pojo.entity.Orderd;
 import com.server.pojo.entity.Prices;
 import com.server.pojo.entity.Scant;
 import com.server.pojo.entity.Timegoods;
@@ -65,6 +67,48 @@ public class Com_goodsCtl {
 	private CcustomerMapper ccustomreMapper;
 	@Autowired
 	private CityMapper cityMapper;
+	@Autowired
+	private OrderdMapper orderdMapper;
+	
+	//得到一段时间内订单的品牌
+	@RequestMapping(value="/companySys/timeOrderdGoodsBrand")
+	@ResponseBody
+	public Map<String,Object> timeOrderdGoodsBrand(String staTime,String endTime,String companyid){
+		Map<String,Object> map = new HashMap<String, Object>();
+		List<String> names = orderdMapper.selectTimeOrderdGoodsBrand(staTime, endTime, companyid);
+		if(names.size()>0){
+			map.put("brand", names);
+			map.put("msg", "success");
+		} else {
+			map.put("msg", "error");
+		}
+		return map;
+	}
+	//设置订单商品的orderdgoods
+	@RequestMapping("/companySys/setOrderdgoodsid")
+	@ResponseBody
+	public Map<String, Object> setOrderdgoodsid(String timegoodsid){
+		Map<String, Object> map = new HashMap<String, Object>();
+		int count = 0;
+		List<Orderd> odLi = orderdMapper.selectAllOrderd();
+		for (int i = 0; i < odLi.size(); i++) {
+			Orderd od = odLi.get(i);
+			if(null!=od && null != od.getOrderm()){
+				Goods gd = goodsMapper.selectByGoodsCode(
+						od.getOrderdcode(), 
+						od.getOrderm().getOrdermcompany(), 
+						od.getOrderdunits());
+				if(null != gd){
+					od.setOrderdgoods(gd.getGoodsid());
+					count += orderdMapper.updateByPrimaryKeySelective(od);
+				} else {
+					System.out.println(od.getOrderdid());
+				}
+			}
+		}
+		map.put("msg", count);
+		return map;
+	}
 	//全部商品
 	@RequestMapping("/companySys/allGoods")
 	public String allGoods(Model model,Goods goodsCon,Integer pagenow){
