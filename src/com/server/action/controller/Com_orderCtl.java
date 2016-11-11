@@ -2,7 +2,9 @@ package com.server.action.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -42,6 +44,21 @@ public class Com_orderCtl {
 	private CompanyMapper companyMapper;
 	@Autowired
 	private CustomerMapper customerMapper;
+	
+	//查询一段时间内有订单的客户名称
+	@RequestMapping("/companySys/queryTimeCus")
+	@ResponseBody
+	public Map<String, Object> queryTimeCus(String staTime,String endTime,String companyid) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<String> cusNames = customerMapper.selectTimeCusNames(staTime+":00", endTime+":00", companyid);
+		if(null != cusNames && cusNames.size()>0){
+			map.put("msg", "success");
+			map.put("cusNames", cusNames);
+		} else {
+			map.put("msg", "error");
+		}
+		return map;
+	}
 	//查询最新的一条订单
 	@RequestMapping("/companySys/queryNewestOrderm")
 	public @ResponseBody Orderm queryNewestOrderm(String ordermcompany){
@@ -174,20 +191,20 @@ public class Com_orderCtl {
 	//订单商品统计
 	@RequestMapping("/companySys/orderStatistics")
 	public String orderStatistics(Model model,String staTime,String endTime,String companyid,
-			String quBrand,String quEmp,String quCus, String condition,Integer pagenow) throws Exception{
-		if(pagenow == null){
+			String quBrand,String quEmp,String quCus, String condition,Integer pagenow){
+		if(pagenow == null || pagenow==0){
 			pagenow = 1;
 		}
 		String[] quEmpNames = null;
 		String[] quBrandNames = null;
 		String[] quCusNames = null;
-		if(null != quEmp){
+		if(null != quEmp && quEmp.length()>0){
 			quEmpNames = quEmp.split(",");
 		}
-		if(null != quBrand){
+		if(null != quBrand && quBrand.length()>0){
 			quBrandNames = quBrand.split(",");
 		}
-		if(null != quCus){
+		if(null != quCus && quCus.length()>0){
 			quCusNames = quCus.split(",");
 		}
 		Integer count = orderdMapper.selectByTimeCount(staTime+":00", endTime+":00", companyid,condition,quEmpNames,quBrandNames,quCusNames);	//总信息条数
@@ -207,6 +224,9 @@ public class Com_orderCtl {
 		model.addAttribute("companyid", companyid);
 		model.addAttribute("staTime", staTime);
 		model.addAttribute("endTime", endTime);
+		model.addAttribute("quBrand", quBrand);
+		model.addAttribute("quEmp", quEmp);
+		model.addAttribute("quCus", quCus);
 		model.addAttribute("condition", condition);
 		model.addAttribute("pageCount", pageCount);
 		model.addAttribute("pagenow", pagenow);
@@ -216,11 +236,28 @@ public class Com_orderCtl {
 	//导出报表
 	@RequestMapping("/companySys/exportReport")
 	@ResponseBody
-	public void exportReport(HttpServletResponse response,String staTime,String endTime,String companyid,String condition) throws Exception{
-		ArrayList<Orderd> list = (ArrayList<Orderd>) orderdMapper.selectByTime(staTime, endTime, companyid,condition);
-		String[] heads = {"商品编码","商品名称","规格","商品单价","单位","数量","商品总价","实际金额"};				//表头
-		String[] discard = {"orderdid","orderdorderm","orderddetail","orderdclass","orderdtype","orderm"};			//要忽略的字段名
-		String name = "订单商品统计报表";							//文件名称
+	public void exportReport(HttpServletResponse response,String staTime,String endTime,String companyid,
+			String quBrand,String quEmp,String quCus, String condition) throws Exception{
+		String[] quEmpNames = null;
+		String[] quBrandNames = null;
+		String[] quCusNames = null;
+		String quCondit = "";
+		if(null != quEmp && quEmp.length()>0){
+			quCondit += "业务员:"+quEmp;
+			quEmpNames = quEmp.split(",");
+		}
+		if(null != quBrand && quBrand.length()>0){
+			quCondit += "品牌:"+quBrand;
+			quBrandNames = quBrand.split(",");
+		}
+		if(null != quCus && quCus.length()>0){
+			quCondit += "客户:"+quCus;
+			quCusNames = quCus.split(",");
+		}
+		ArrayList<Orderd> list = (ArrayList<Orderd>) orderdMapper.selectByTime(staTime+":00", endTime+":00", companyid,condition,quEmpNames,quBrandNames,quCusNames);
+		String[] heads = {"商品编码","商品名称","规格","商品单价","单位","数量","下单金额","实际金额"};				//表头
+		String[] discard = {"orderdid","orderdorderm","orderddetail","orderdclass","orderdtype","orderm","orderdweight","orderdgoods","orderdnote"};			//要忽略的字段名
+		String name = "货品销售汇总表";							//文件名称
 		if(!staTime.equals("") && !endTime.equals("")){
 			name = staTime + "日至" + endTime + "日的" + name;
 		} else if(staTime.equals("") && !endTime.equals("")){
@@ -228,7 +265,9 @@ public class Com_orderCtl {
 		} else if(endTime.equals("") && !staTime.equals("")){
 			name = staTime + "日之后的" + name;
 		}
-		FileUtil.expExcel(response, list, heads, discard, name);
+		String title = "货品销售汇总表";
+		String annotation = "编制单位:201309   起始时间："+staTime+":00"+",终止时间："+endTime+":00"+",数据过滤条件:"+quCondit;
+		FileUtil.expExcel(response, list, heads, discard, name, title, annotation ,6);
 	}
 	//导出订单报表
 	@RequestMapping("/companySys/exportOrderReport")

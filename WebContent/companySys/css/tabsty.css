@@ -145,7 +145,7 @@ table {
 	cursor:pointer;
 }
 
-.alert-emp-show{ 
+.alert-emp-show,.alert-brand-show, .alert-brand-show, .alert-cusNames-show { 
 	margin: 0px auto;
 	max-height: 500px;
 	overflow: auto;
@@ -155,23 +155,11 @@ table {
 	color: #666;
 }
 
-.alert-brand-show{ 
-	margin: 0px auto;
-	max-height: 500px;
-	overflow: auto;
-	/* background: #EE8704; */
-	padding: 20px 20px 20px 20px;
-	font: 12px Arial, Helvetica, sans-serif;
-	color: #666;
-}
 
-.alert-emp-show span{ white-space: nowrap;background: #FBF1E5;margin: 5px 5px 5px 5px;padding: 5px 5px 5px 5px;display: inline-block;cursor:pointer;border-radius: 5px;}
+.alert-emp-show span, .alert-brand-show span, .alert-cusNames-show span { white-space: nowrap;background: #FBF1E5;margin: 5px 5px 5px 5px;padding: 5px 5px 5px 5px;display: inline-block;cursor:pointer;border-radius: 5px;}
 
-.alert-emp-show .alert-emp-selspan{background: #FAB957 url("../images/s-dagou.jpg") no-repeat center ; background-size: auto 100%}
+.alert-emp-show .alert-emp-selspan,.alert-brand-show .alert-brand-selspan,.alert-cusNames-show .alert-cusNames-selspan{background: #FAB957 url("../images/s-dagou.jpg") no-repeat center ; background-size: auto 100%}
 
-.alert-brand-show span{ white-space: nowrap;background: #FBF1E5;margin: 5px 5px 5px 5px;padding: 5px 5px 5px 5px;display: inline-block;cursor:pointer;border-radius: 5px;}
-
-.alert-brand-show .alert-brand-selspan{background: #FAB957 url("../images/s-dagou.jpg") no-repeat center ; background-size: auto 100%}
 
 
 

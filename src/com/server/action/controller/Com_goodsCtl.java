@@ -75,7 +75,7 @@ public class Com_goodsCtl {
 	@ResponseBody
 	public Map<String,Object> timeOrderdGoodsBrand(String staTime,String endTime,String companyid){
 		Map<String,Object> map = new HashMap<String, Object>();
-		List<String> names = orderdMapper.selectTimeOrderdGoodsBrand(staTime, endTime, companyid);
+		List<String> names = orderdMapper.selectTimeOrderdGoodsBrand(staTime+":00", endTime+":00", companyid);
 		if(names.size()>0){
 			map.put("brand", names);
 			map.put("msg", "success");

@@ -51,8 +51,10 @@ public interface OrderdMapper {
 	/**
 	 * 根据时间范围(多条件)查询订单
 	 */
-	ArrayList<Orderd> selectByTime(@Param("staTime") String staTime,
-			@Param("endTime") String endTime,@Param("companyid")String companyid,@Param("condition") String condition);
+	ArrayList<Orderd> selectByTime(@Param("staTime") String staTime,@Param("endTime") String endTime,
+			@Param("companyid")String companyid,@Param("condition") String condition,
+			@Param("empNames") String[] empNames,@Param("brandNames") String[] brandNames,
+			@Param("cusNames") String[] cusNames);
 	/**
 	 * 根据主键删除
 	 */

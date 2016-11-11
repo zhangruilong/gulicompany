@@ -10,6 +10,10 @@ import com.server.pojo.entity.CustomerStatisticVO;
 
 public interface CustomerMapper {
 	/**
+	 * 查询一段时间内有订单的客户名称
+	 */
+	List<String> selectTimeCusNames(@Param("staTime") String staTime,@Param("endTime") String endTime,@Param("companyid") String companyid);
+	/**
 	 * 客户订单统计报表
 	 */
 	List<CustomerStatisticVO> selectCusStatisticReport(@Param("companyid") String companyid,@Param("staCusQuery") String staCusQuery,

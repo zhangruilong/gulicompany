@@ -40,6 +40,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  <input type="hidden" id="endTime" name="endTime" value="${requestScope.endTime }">
  <input type="hidden" id="quBrand" name="quBrand" value="${requestScope.quBrand }">
  <input type="hidden" id="quEmp" name="quEmp" value="${requestScope.quEmp }">
+ <input type="hidden" id="quCus" name="quCus" value="${requestScope.quCus }">
 <div class="nowposition">当前位置：订单管理》订单商品统计</div>
  
 <div class="navigation">
@@ -47,7 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div>到:</div><div id="divDate2"  class="date"><input id="endDatetime" class="date-time" type="text" ></div>
 <input class="button" type="button" value="业务员" onclick="showEmp()">
 <input class="button" type="button" value="品牌" onclick="showBrand()">
-<input class="button" type="button" value="客户" onclick="showBrand()">
+<input class="button" type="button" value="客户" onclick="showCusNames()">
 模糊查询:<input type="text"  class="condition_query" name="condition" value="${requestScope.condition }">
 <input class="button" type="button" value="查询" onclick="subfor()">
 <input class="button" type="button" value="导出报表" onclick="report()">
@@ -134,7 +135,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="cd-popup emp-popup" role="alert">
 <div class="goods_select_popup">
 <div class="navigation">
-<input class="button" type="button" value="查询" onclick="dobiaopin('1')">
+<input class="button" type="button" value="查询" onclick="subfor()">
 <input class="button" type="button" value="关闭" onclick="hiddenEmpShow()">
 </div>
 <div class="alert-emp-show">
@@ -145,10 +146,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="cd-popup brand-popup" role="alert">
 <div class="goods_select_popup">
 <div class="navigation">
-<input class="button" type="button" value="查询" onclick="dobiaopin('1')">
+<input class="button" type="button" value="查询" onclick="subfor()">
 <input class="button" type="button" value="关闭" onclick="hiddenBrandShow()">
 </div>
 <div class="alert-brand-show">
+</div>
+</div>
+</div>
+<!--客户名称弹框-->
+<div class="cd-popup cusNames-popup" role="alert">
+<div class="goods_select_popup">
+<div class="navigation">
+<input class="button" type="button" value="查询" onclick="subfor()">
+<input class="button" type="button" value="关闭" onclick="hiddenCusShow()">
+</div>
+<div class="alert-cusNames-show">
 </div>
 </div>
 </div>
@@ -157,14 +169,121 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 $.datetimepicker.setLocale('ch');												//设置日期的中文
 var companyid = "${sessionScope.company.companyid}";
 var currDateTime = formatDateTime(new Date());									//当前时间字符串
+var quBrand = '${requestScope.quBrand }';			//查询的品牌
+var quEmp = '${requestScope.quEmp }';				//查询的业务员
+var quCus = '${requestScope.quCus }';				//查询的客户店名
+
 $(function(){
+	var defStaTime = '${requestScope.staTime }';
+	var defEndTime = '${requestScope.endTime }';
+	if(defStaTime == ''){
+		defStaTime = currDateTime;
+	}
+	if(defEndTime == ''){
+		defEndTime = currDateTime;
+	}
+	$.ajax({
+		url:"queryTimeCus.action",						//Com_orderCtl
+		type:"post",
+		data:{
+			"companyid":companyid,
+			"staTime":defStaTime,
+			"endTime":defEndTime
+		},
+		success:function(data){
+			if(data.msg =='success'){
+				$('.alert-cusNames-show').html('');
+				$.each(data.cusNames ,function(i,item){
+					
+					if(quCus.indexOf(item) == -1){
+						$('.alert-cusNames-show').append('<span>'+item+'</span>');
+					} else {
+						$('.alert-cusNames-show').append('<span class="alert-cusNames-selspan">'+item+'</span>');
+					}
+				});
+				$(".alert-cusNames-show span").click(function(){
+					if($(this).attr('class')=='alert-cusNames-selspan'){
+						$(this).removeClass('alert-cusNames-selspan');
+					} else {
+						$(this).addClass('alert-cusNames-selspan');
+					}
+				});
+			}
+		},
+		error:function(data){
+			
+		}
+	});
+	$.ajax({
+		url:"timeOrderdGoodsBrand.action",						//Com_goodsCtl
+		type:"post",
+		data:{
+			"companyid":companyid,
+			"staTime":defStaTime,
+			"endTime":defEndTime
+		},
+		success:function(data){
+			if(data.msg =='success'){
+				$('.alert-brand-show').html('');
+				$.each(data.brand ,function(i,item){
+					if(quBrand.indexOf(item) == -1){
+						$('.alert-brand-show').append('<span>'+item+'</span>');
+					} else {
+						$('.alert-brand-show').append('<span class="alert-brand-selspan">'+item+'</span>');
+					}
+				});
+				$(".alert-brand-show span").click(function(){
+					if($(this).attr('class')=='alert-brand-selspan'){
+						$(this).removeClass('alert-brand-selspan');
+					} else {
+						$(this).addClass('alert-brand-selspan');
+					}
+				});
+			}
+		},
+		error:function(data){
+			
+		}
+	});
+	$.ajax({
+		url:"queryTimeEmp.action",				//在customerCtl里面
+		type:"post",
+		data:{
+			"companyid":companyid,
+			"staTime":defStaTime,
+			"endTime":defEndTime
+		},
+		success:function(data){
+			if(data.msg=='success'){
+				$(".alert-emp-show").html('');
+				$.each(data.empLi,function(i,item){
+					if(quEmp.indexOf(item) == -1){
+						$(".alert-emp-show").append('<span>'+item+'</span>');
+					} else {
+						$('.alert-emp-show').append('<span class="alert-emp-selspan">'+item+'</span>');
+					}
+				});
+				$(".alert-emp-show span").click(function(){
+					if($(this).attr('class')=='alert-emp-selspan'){
+						$(this).removeClass('alert-emp-selspan');
+					} else {
+						$(this).addClass('alert-emp-selspan');
+					}
+				});
+			}
+		},
+		error:function(data){
+			
+		}
+	});
+	
 	$('#staDatetime').datetimepicker({
 		dayOfWeekStart : 1,
 		lang:'ch',
 		format:"Y-m-d H:i",      //格式化日期
 		//disabledDates:['1986/01/08','1986/01/09','1986/01/10'],				//禁用日期
 		startDate:	currDateTime,
-		value: currDateTime,
+		value: defStaTime,
 		step:30
 	});
 	$('#endDatetime').datetimepicker({
@@ -173,14 +292,8 @@ $(function(){
 		format:"Y-m-d H:i",      //格式化日期
 		//disabledDates:['1986/01/08','1986/01/09','1986/01/10'],				//禁用日期
 		startDate:	currDateTime,
-		value:currDateTime,
+		value: defEndTime,
 		step:30
-	});
-	$('#staDatetime').click(function(){
-		$(this).blur();
-	});
-	$('#endDatetime').click(function(){
-		$(this).blur();
 	});
 })
 //设置订单商品id
@@ -199,6 +312,10 @@ function setorderdgoodsid(){
 		}
 	});
 }
+//关闭cusNames弹窗
+function hiddenCusShow(){
+	$(".cusNames-popup").removeClass("is-visible");
+}
 //关闭brand弹窗
 function hiddenBrandShow(){
 	$(".brand-popup").removeClass("is-visible");
@@ -207,7 +324,50 @@ function hiddenBrandShow(){
 function hiddenEmpShow(){
 	$(".emp-popup").removeClass("is-visible");
 }
-//得到品牌
+
+//得到查询条件中的客户名称
+function showCusNames(){
+	if(!companyid){
+		return;
+	}
+	
+	$.ajax({
+		url:"queryTimeCus.action",						//Com_orderCtl
+		type:"post",
+		data:{
+			"companyid":companyid,
+			"staTime":$('#staDatetime').val(),
+			"endTime":$('#endDatetime').val()
+		},
+		success:function(data){
+			if(data.msg =='success'){
+				$('.alert-cusNames-show').html('');
+				$.each(data.cusNames ,function(i,item){
+					if(quCus.indexOf(item) == -1){
+						$('.alert-cusNames-show').append('<span>'+item+'</span>');
+					} else {
+						$('.alert-cusNames-show').append('<span class="alert-cusNames-selspan">'+item+'</span>');
+					}
+				});
+				$(".cusNames-popup").addClass("is-visible");
+				$(".alert-cusNames-show span").click(function(){
+					if($(this).attr('class')=='alert-cusNames-selspan'){
+						$(this).removeClass('alert-cusNames-selspan');
+					} else {
+						$(this).addClass('alert-cusNames-selspan');
+					}
+				});
+			} else {
+				alert('没有查询到可用的客户名称,可以重新设置查询时间后重试。');
+			}
+		},
+		error:function(data){
+			alert('操作失败!');
+		}
+	});
+}
+
+//得到查询条件中的品牌名称
 function showBrand(){
 	if(!companyid){
 		return;
@@ -225,7 +385,11 @@ function showBrand(){
 			if(data.msg =='success'){
 				$('.alert-brand-show').html('');
 				$.each(data.brand ,function(i,item){
-					$('.alert-brand-show').append('<span>'+item+'</span>');
+					if(quBrand.indexOf(item) == -1){
+						$('.alert-brand-show').append('<span>'+item+'</span>');
+					} else {
+						$('.alert-brand-show').append('<span class="alert-brand-selspan">'+item+'</span>');
+					}
 				});
 				$(".brand-popup").addClass("is-visible");
 				$(".alert-brand-show span").click(function(){
@@ -236,15 +400,15 @@ function showBrand(){
 					}
 				});
 			} else {
-				alert('没有查询到品牌。');
+				alert('没有查询到可用的品牌名称,可以重新设置查询时间后重试。');
 			}
 		},
 		error:function(data){
-			
+			alert('操作失败!');
 		}
 	});
 }
-//得到业务员
+//得到查询条件中的业务员
 function showEmp(){
 	if(!companyid){
 		return;
@@ -262,10 +426,10 @@ function showEmp(){
 			if(data.msg=='success'){
 				$(".alert-emp-show").html('');
 				$.each(data.empLi,function(i,item){
-					if(typeof(item)!='undefined' && item){
+					if(quEmp.indexOf(item) == -1){
 						$(".alert-emp-show").append('<span>'+item+'</span>');
 					} else {
-						$(".alert-emp-show").append('<span>其它</span>');
+						$('.alert-emp-show').append('<span class="alert-emp-selspan">'+item+'</span>');
 					}
 				});
 				$(".emp-popup").addClass("is-visible");
@@ -277,7 +441,7 @@ function showEmp(){
 					}
 				});
 			} else if(data.msg=='error'){
-				alert('没有查询到业务员。');
+				alert('没有查询到可用的业务员名称,可以重新设置查询时间后重试。');
 			}
 		},
 		error:function(data){
@@ -287,8 +451,17 @@ function showEmp(){
 }
 
  //检查查询条件是否变化
-  function checkCondition(){
+  function checkCondition(quEmp,quBrand,quCus){
 	$(".condition_query").val($.trim($(".condition_query").val()));
+	if(quEmp != '${requestScope.quEmp }'){
+   		$("#pagenow").val('1');
+   	}
+	if(quBrand != '${requestScope.quBrand }'){
+   		$("#pagenow").val('1');
+   	}
+	if(quCus != '${requestScope.quCus }'){
+   		$("#pagenow").val('1');
+   	}
    	if($(".condition_query").val() != '${requestScope.condition }'){
    		$("#pagenow").val('1');
    	}
@@ -303,8 +476,8 @@ function showEmp(){
 function report(){
 	window.location.href ="exportReport.action?companyid=${sessionScope.company.companyid }"+
 					"&staTime=${requestScope.staTime }&endTime=${requestScope.endTime }"+
-					"&staTime2=${requestScope.staTime2 }&endTime2=${requestScope.endTime2 }"+
-					"&condition=${requestScope.condition }";
+					"&quBrand=${requestScope.quBrand }&quEmp=${requestScope.quEmp }"+
+					"&quCus=${requestScope.quCus }&condition=${requestScope.condition }";
 }
 //查询
 function subfor(){
@@ -330,8 +503,13 @@ function subfor(){
 		quBrand += $(item).text()+",";
 	});
 	$('#quBrand').val(quBrand);
+	var quCus = '';
+	$('.alert-cusNames-show .alert-cusNames-selspan').each(function(i,item){
+		quCus += $(item).text()+",";
+	});
+	$('#quCus').val(quCus);
 	
-	checkCondition();
+	checkCondition(quEmp,quBrand,quCus);
 	document.forms[0].submit();
 }
 //分页

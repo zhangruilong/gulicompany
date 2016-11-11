@@ -50,7 +50,7 @@ public class Com_customerCtl {
 	@ResponseBody
 	public Map<String,Object> queryTimeEmp(String staTime,String endTime,String companyid){
 		Map<String,Object> map = new HashMap<String, Object>();
-		List<String> empLi = ccustomerMapper.selectTimeEmpName(staTime, endTime, companyid);
+		List<String> empLi = ccustomerMapper.selectTimeEmpName(staTime+":00", endTime+":00", companyid);
 		if(empLi.size()>0){
 			map.put("empLi", empLi);
 			map.put("msg", "success");

@@ -133,12 +133,11 @@
   	left join ccustomer cc on cc.ccustomercustomer = c.customerid
   	left join goods g on od.orderdgoods = g.goodsid
 	where om.ordermcompany = #{companyid,jdbcType=VARCHAR}
-	and cc.ccustomercompany = #{companyid,jdbcType=VARCHAR}
 	and om.ordermstatue != '已删除'
 	<if test="cusNames != null and cusNames !=''">
 		and 
 		<foreach collection="cusNames" open="(" close=")" separator="or" item="cusName">
-			cc.createtime=#{cusName}
+			c.customershop=#{cusName}
 		</foreach>
 	</if>
 	<if test="empNames != null and empNames !=''">
@@ -178,29 +177,48 @@
   <select id="selectByTimeCount" resultType="int" >
   	select
 		count(*) 
-	from orderd
-	left join orderm
-	on orderd.orderdorderm = orderm.ordermid
-	where orderm.ordermcompany = #{companyid,jdbcType=VARCHAR}
-	and orderm.ordermstatue != '已删除'
+	from orderd od
+	left join orderm om on od.orderdorderm = om.ordermid
+  	left join customer c on c.customerid = om.ordermcustomer
+  	left join ccustomer cc on cc.ccustomercustomer = c.customerid
+  	left join goods g on od.orderdgoods = g.goodsid
+	where om.ordermcompany = #{companyid,jdbcType=VARCHAR}
+	and om.ordermstatue != '已删除'
+	<if test="cusNames != null and cusNames !=''">
+		and 
+		<foreach collection="cusNames" open="(" close=")" separator="or" item="cusName">
+			c.customershop=#{cusName}
+		</foreach>
+	</if>
+	<if test="empNames != null and empNames !=''">
+		and 
+		<foreach collection="empNames" open="(" close=")" separator="or" item="empName">
+			cc.createtime=#{empName}
+		</foreach>
+	</if>
+	<if test="brandNames != null and brandNames !=''">
+		and 
+		<foreach collection="brandNames" open="(" close=")" separator="or" item="brandName">
+			g.goodsbrand=#{brandName}
+		</foreach>
+	</if>
 	<if test="staTime != null and staTime != ''">
-		and orderm.ordermtime &gt;= #{staTime}
+		and om.ordermtime &gt;= #{staTime}
 	</if>
 	<if test="endTime != null and endTime != ''">
-		and orderm.ordermtime &lt;= #{endTime}
+		and om.ordermtime &lt;= #{endTime}
 	</if>
 	<if test="condition != null and condition != ''">
 		and 
-		(orderd.orderdcode like '%${condition}%' or
-		orderd.orderdname like '%${condition}%' or
-		orderd.orderdunits like '%${condition}%' or
-		orderd.orderdunit like '%${condition}%' or
-		orderd.orderdnum like '%${condition}%' or
-		orderd.orderdprice like '%${condition}%' or
-		orderd.orderdmoney like '%${condition}%' or
-		orderd.orderdrightmoney like '%${condition}%')
+		(od.orderdcode like '%${condition}%' or
+		od.orderdname like '%${condition}%' or
+		od.orderdunits like '%${condition}%' or
+		od.orderdunit like '%${condition}%' or
+		od.orderdnum like '%${condition}%' or
+		od.orderdprice like '%${condition}%' or
+		od.orderdmoney like '%${condition}%' or
+		od.orderdrightmoney like '%${condition}%')
 	</if>
-	order by orderm.ordermtime desc
   </select>
   <!-- 条件查询统计 -->
   <select id="selectOrderdStatistics" resultType="com.server.pojo.entity.OrderdStatistics" >
@@ -236,32 +254,52 @@
   <!-- 根据时间范围(多条件)查询订单 -->
   <select id="selectByTime" resultMap="BaseResultMap" >
   	select
-		orderd.*,
-		orderm.ordermid,
-		orderm.ordermtime
-	from orderd
-	left join orderm
-	on orderd.orderdorderm = orderm.ordermid
-	where orderm.ordermcompany = #{companyid,jdbcType=VARCHAR}
-	and orderm.ordermstatue != '已删除'
+		od.*,
+		om.ordermid,
+		om.ordermtime
+	from orderd od
+	left join orderm om on od.orderdorderm = om.ordermid
+  	left join customer c on c.customerid = om.ordermcustomer
+  	left join ccustomer cc on cc.ccustomercustomer = c.customerid
+  	left join goods g on od.orderdgoods = g.goodsid
+	where om.ordermcompany = #{companyid,jdbcType=VARCHAR}
+	and om.ordermstatue != '已删除'
+	<if test="cusNames != null and cusNames !=''">
+		and 
+		<foreach collection="cusNames" open="(" close=")" separator="or" item="cusName">
+			c.customershop=#{cusName}
+		</foreach>
+	</if>
+	<if test="empNames != null and empNames !=''">
+		and 
+		<foreach collection="empNames" open="(" close=")" separator="or" item="empName">
+			cc.createtime=#{empName}
+		</foreach>
+	</if>
+	<if test="brandNames != null and brandNames !=''">
+		and 
+		<foreach collection="brandNames" open="(" close=")" separator="or" item="brandName">
+			g.goodsbrand=#{brandName}
+		</foreach>
+	</if>
 	<if test="staTime != null and staTime != ''">
-		and orderm.ordermtime &gt;= #{staTime}
+		and om.ordermtime &gt;= #{staTime}
 	</if>
 	<if test="endTime != null and endTime != ''">
-		and orderm.ordermtime &lt;= #{endTime}
+		and om.ordermtime &lt;= #{endTime}
 	</if>
 	<if test="condition != null and condition != ''">
 		and 
-		(orderd.orderdcode like '%${condition}%' or
-		orderd.orderdname like '%${condition}%' or
-		orderd.orderdunits like '%${condition}%' or
-		orderd.orderdunit like '%${condition}%' or
-		orderd.orderdnum like '%${condition}%' or
-		orderd.orderdprice like '%${condition}%' or
-		orderd.orderdmoney like '%${condition}%' or
-		orderd.orderdrightmoney like '%${condition}%')
+		(od.orderdcode like '%${condition}%' or
+		od.orderdname like '%${condition}%' or
+		od.orderdunits like '%${condition}%' or
+		od.orderdunit like '%${condition}%' or
+		od.orderdnum like '%${condition}%' or
+		od.orderdprice like '%${condition}%' or
+		od.orderdmoney like '%${condition}%' or
+		od.orderdrightmoney like '%${condition}%')
 	</if>
-	order by orderm.ordermtime desc
+	order by om.ordermtime desc
   </select>
   <!-- 根据主键查询 -->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
