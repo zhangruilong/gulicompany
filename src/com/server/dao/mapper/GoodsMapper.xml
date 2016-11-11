@@ -169,6 +169,9 @@
     <if test="goodsstatue != null and goodsstatue != ''">
     	and goods.goodsstatue = #{goodsstatue}
     </if>
+    <if test="goodstype != null and goodstype != ''">
+    	and goods.goodstype like '%${goodstype}%'
+    </if>
     <if test="goodscode != null and goodscode != ''">
 			and
 			(goods.GOODSCODE like '%${goodscode}%' or
@@ -203,6 +206,9 @@
 	</if>
     <if test="goods.goodsstatue != null and goods.goodsstatue != ''">
     	and goods.goodsstatue = #{goods.goodsstatue}
+    </if>
+    <if test="goods.goodstype != null and goods.goodstype != ''">
+    	and goods.goodstype like '%${goods.goodstype}%'
     </if>
     <if test="goods.goodscode != null and goods.goodscode != ''">
 			and

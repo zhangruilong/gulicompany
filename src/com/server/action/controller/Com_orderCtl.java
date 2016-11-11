@@ -266,7 +266,7 @@ public class Com_orderCtl {
 			name = staTime + "日之后的" + name;
 		}
 		String title = "货品销售汇总表";
-		String annotation = "编制单位:201309   起始时间："+staTime+":00"+",终止时间："+endTime+":00"+",数据过滤条件:"+quCondit;
+		String annotation = "起始时间："+staTime+":00"+",终止时间："+endTime+":00"+",数据过滤条件:"+quCondit;
 		FileUtil.expExcel(response, list, heads, discard, name, title, annotation ,6);
 	}
 	//导出订单报表

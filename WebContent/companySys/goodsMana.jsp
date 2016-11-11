@@ -40,6 +40,7 @@ String goodsstatue = request.getParameter("goodsstatue");
 <form id='main_form' action="allGoods.action" method="post">
  <input type="hidden" name="goodscompany" value="${sessionScope.company.companyid }"> 
  <input type="hidden" name="goodsstatue" value="${goods.goodsstatue}"> 
+ <input type="hidden" name="goodstype" value="${goods.goodstype}"> 
  <input type="hidden" class="setPricesGoodsId" name="goodsid" value="">
 <div class="nowposition">当前位置：商品管理》全部商品</div>
 <div class="navigation">
@@ -200,14 +201,18 @@ String goodsstatue = request.getParameter("goodsstatue");
 </div>
 <script type="text/javascript">
 var goodsstatue = '<%=goodsstatue %>';
+var goodstype = '${goods.goodstype}';
 $(function(){
-	if(goodsstatue == null || goodsstatue == ''){
+	if( goodsstatue == '' && goodstype != '裸价商品'){
 		$(".nowposition").html("当前位置：商品管理》全部商品");
 	} else if(goodsstatue == '上架'){
 		$(".nowposition").html("当前位置：商品管理》上架商品");
 	} else if(goodsstatue == '下架'){
 		$(".nowposition").html("当前位置：商品管理》下架商品");
+	} else if(goodstype == '裸价商品'){
+		$(".nowposition").html("当前位置：商品管理》裸价商品");
 	}
+	
 	$("#main_form").on("submit",function(){
 		checkCondition();
 	});

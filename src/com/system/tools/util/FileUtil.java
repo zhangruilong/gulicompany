@@ -22,7 +22,9 @@ import org.apache.commons.fileupload.FileUploadBase.SizeLimitExceededException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
+import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -782,9 +784,15 @@ public class FileUtil {
 		CellRangeAddress cra = new CellRangeAddress(1, 1, 0, 12);
 		//合并单元格
 		sheet.addMergedRegion(cra);
-		
+		HSSFFont titleF  = workbook.createFont();  
+		titleF.setFontHeightInPoints((short) 11);//字号      
+
+		titleF.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);//加粗      
+		HSSFCellStyle style = workbook.createCellStyle();  
+		style.setFont(titleF); 								//设置字体
 		HSSFRow titleRow = sheet.createRow(0);
 		HSSFCell titleCell = titleRow.createCell(titleCellIndex);
+		titleCell.setCellStyle(style);						//设置样式
 		titleCell.setCellType(HSSFCell.CELL_TYPE_STRING);
 		titleCell.setCellValue(title);
 		HSSFRow annoRow = sheet.createRow(1);

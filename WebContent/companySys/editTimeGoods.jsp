@@ -74,6 +74,7 @@
 				<option ${requestScope.editTimeGoods.timegoodsstatue == '启用'?'selected':'' }>启用</option>
 				<option ${requestScope.editTimeGoods.timegoodsstatue == '禁用'?'selected':'' }>禁用</option>
 			</select><font>(必填)</font></label>
+			<label><span>描述 :</span><textarea name="timegoodsdetail">${requestScope.editTimeGoods.timegoodsdetail }</textarea></label>
 			<p><input type="button"
 				class="button" value="保存修改" onclick="saveEdit()"/>
 			<input type="button"
@@ -86,6 +87,7 @@ function saveEdit(){
 	var data = '{';
 	var count = 0;
 	data += '"timegoodsstatue":"' +$("[name='timegoodsstatue']").val() +'",';
+	data += '"timegoodsdetail":"' +$("textarea[name='timegoodsdetail']").val() +'",';
 	var timegoodsscope = '';
 	$("input[name='timegoodsscope']").each(function(i,item){
 		if(item.checked==true){

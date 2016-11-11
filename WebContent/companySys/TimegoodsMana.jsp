@@ -184,6 +184,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				name="allnum" placeholder="全部限量" /><font>(必填)</font></label>
 			<label><span>顺序 :</span><input id="timegoodsseq" type="number"
 				name="timegoodsseq" placeholder="顺序" /></label>
+			<label><span>描述 :</span><textarea name="timegoodsdetail"></textarea></label>
 			<p><label><input type="button"
 				class="popup_button" value="提交" onclick="popup_formSub()"/>
 			</label>
@@ -329,6 +330,9 @@ function popup_formSub(){
 	var data = '{';
 	data += '"timegoodsclass":"秒杀商品",';
 	var count = 0;
+	if($(".elegant-aero textarea").val()){
+		data += '"'+$(".elegant-aero textarea").attr("name") + '":"' + $(".elegant-aero textarea").val() + '",';
+	}
 	$(".elegant-aero [type='text']").add(".elegant-aero [type='number']").each(function(i,item){
 		if($(item).val() == null || $(item).val() == '' ){
 			if($(item).attr('placeholder') != '顺序' && $(item).attr('placeholder') != '重量'){

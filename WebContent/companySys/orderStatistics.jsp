@@ -451,15 +451,21 @@ function showEmp(){
 }
 
  //检查查询条件是否变化
-  function checkCondition(quEmp,quBrand,quCus){
+  function checkCondition(){
+	var nowEmp = $('#quEmp').val();
+	var nowBrand = $('#quBrand').val();
+	var nowCus = $('#quCus').val();
+	  
 	$(".condition_query").val($.trim($(".condition_query").val()));
-	if(quEmp != '${requestScope.quEmp }'){
+	//alert(nowEmp != quEmp);
+	//alert(nowEmp+' -不等于- '+quEmp);
+	if(nowEmp != quEmp){
    		$("#pagenow").val('1');
    	}
-	if(quBrand != '${requestScope.quBrand }'){
+	if(nowBrand != quBrand){
    		$("#pagenow").val('1');
    	}
-	if(quCus != '${requestScope.quCus }'){
+	if(nowCus != quCus){
    		$("#pagenow").val('1');
    	}
    	if($(".condition_query").val() != '${requestScope.condition }'){
@@ -493,27 +499,28 @@ function subfor(){
 	}
 	
 	//得到查询条件:品牌/业务员/客户
-	var quEmp = '';
+	var nowEmp = '';
 	$('.alert-emp-show .alert-emp-selspan').each(function(i,item){
-		quEmp += $(item).text()+",";
+		nowEmp += $(item).text()+",";
 	});
-	$('#quEmp').val(quEmp);
-	var quBrand = '';
+	$('#quEmp').val(nowEmp);
+	var nowBrand = '';
 	$('.alert-brand-show .alert-brand-selspan').each(function(i,item){
-		quBrand += $(item).text()+",";
+		nowBrand += $(item).text()+",";
 	});
-	$('#quBrand').val(quBrand);
-	var quCus = '';
+	$('#quBrand').val(nowBrand);
+	var nowCus = '';
 	$('.alert-cusNames-show .alert-cusNames-selspan').each(function(i,item){
-		quCus += $(item).text()+",";
+		nowCus += $(item).text()+",";
 	});
-	$('#quCus').val(quCus);
+	$('#quCus').val(nowCus);
 	
-	checkCondition(quEmp,quBrand,quCus);
+	checkCondition(nowEmp,nowBrand,nowCus);
 	document.forms[0].submit();
 }
 //分页
 function fenye(targetPage){
+	//alert(targetPage);
 	$("#pagenow").val(targetPage);
 	checkCondition();
 	document.forms[0].submit();
