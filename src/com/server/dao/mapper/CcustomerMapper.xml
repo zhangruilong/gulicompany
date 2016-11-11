@@ -37,8 +37,7 @@
 	  select
 			cc.createtime
 		from ccustomer cc
-	  	left join customer cu on cu.customerid = cc.ccustomercustomer
-	  	left join orderm om on om.ordermcustomer = cu.customerid
+	  	left join orderm om on om.ordermcustomer = cc.ccustomercustomer
 	  where om.ordermcompany = #{companyid}
 		and om.ordermstatue != '已删除'
 		and cc.createtime is not null
