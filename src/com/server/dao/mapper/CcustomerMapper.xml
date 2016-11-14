@@ -39,6 +39,7 @@
 		from ccustomer cc
 	  	left join orderm om on om.ordermcustomer = cc.ccustomercustomer
 	  where om.ordermcompany = #{companyid}
+	  	and cc.ccustomercompany = #{companyid}
 		and om.ordermstatue != '已删除'
 		and cc.createtime is not null
 	    and om.ordermtime &gt;= #{staTime} 

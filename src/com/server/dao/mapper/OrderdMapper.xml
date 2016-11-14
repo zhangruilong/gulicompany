@@ -130,9 +130,10 @@
 	from orderd od
 	left join orderm om on od.orderdorderm = om.ordermid
   	left join customer c on c.customerid = om.ordermcustomer
-  	left join ccustomer cc on cc.ccustomercustomer = c.customerid
+  	left join ccustomer cc on cc.ccustomercustomer = om.ordermcustomer
   	left join goods g on od.orderdgoods = g.goodsid
 	where om.ordermcompany = #{companyid,jdbcType=VARCHAR}
+	and cc.ccustomercompany = #{companyid,jdbcType=VARCHAR}
 	and om.ordermstatue != '已删除'
 	<if test="cusNames != null and cusNames !=''">
 		and 
@@ -183,6 +184,7 @@
   	left join ccustomer cc on cc.ccustomercustomer = c.customerid
   	left join goods g on od.orderdgoods = g.goodsid
 	where om.ordermcompany = #{companyid,jdbcType=VARCHAR}
+	and cc.ccustomercompany = #{companyid,jdbcType=VARCHAR}
 	and om.ordermstatue != '已删除'
 	<if test="cusNames != null and cusNames !=''">
 		and 

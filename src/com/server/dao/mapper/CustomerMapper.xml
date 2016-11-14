@@ -85,8 +85,10 @@
   select * from 
 	(select A.*, ROWNUM RN from (
   	select c.CUSTOMERSHOP from customer c 
+  		left join ccustomer cc on cc.ccustomercustomer = c.customerid
 		left join orderm om on om.ordermcustomer = c.customerid
 	where om.ordermcompany = #{companyid} 
+	and cc.ccustomercompany = #{companyid}
 	and om.ordermtime &gt;= #{staTime} 
 	and om.ordermtime &lt;= #{endTime} 
 	and om.ordermstatue != '已删除'
