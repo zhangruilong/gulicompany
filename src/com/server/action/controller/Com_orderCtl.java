@@ -218,8 +218,8 @@ public class Com_orderCtl {
 			pagenow = pageCount;
 		}
 		List<Orderd> list = orderdMapper.selectByPage(staTime+":00", endTime+":00", companyid,condition,pagenow,10,quEmpNames,quBrandNames,quCusNames);					//查询数据
-		//OrderdStatistics total = orderdMapper.selectOrderdStatistics(staTime+" "+staTime2+":00", endTime+" "+endTime2+":00", companyid, condition);	//数据统计
-		//model.addAttribute("total", total);
+		OrderdStatistics total = orderdMapper.selectOrderdStatistics(staTime+":00", endTime+":00", companyid,condition,quEmpNames,quBrandNames,quCusNames);	//数据统计
+		model.addAttribute("total", total);
 		model.addAttribute("orderdList", list);
 		model.addAttribute("companyid", companyid);
 		model.addAttribute("staTime", staTime);
@@ -255,8 +255,9 @@ public class Com_orderCtl {
 			quCusNames = quCus.split(",");
 		}
 		ArrayList<Orderd> list = (ArrayList<Orderd>) orderdMapper.selectByTime(staTime+":00", endTime+":00", companyid,condition,quEmpNames,quBrandNames,quCusNames);
-		String[] heads = {"商品编码","商品名称","规格","商品单价","单位","数量","下单金额","实际金额"};				//表头
-		String[] discard = {"orderdid","orderdorderm","orderddetail","orderdclass","orderdtype","orderm","orderdweight","orderdgoods","orderdnote"};			//要忽略的字段名
+		OrderdStatistics total = orderdMapper.selectOrderdStatistics(staTime+":00", endTime+":00", companyid,condition,quEmpNames,quBrandNames,quCusNames);	//数据统计
+		String[] heads = {"商品编码","商品名称","规格","商品单价","单位","数量","下单金额","实际金额","重量"};				//表头
+		String[] discard = {"orderdid","orderdorderm","orderddetail","orderdclass","orderdtype","orderm","orderdgoods","orderdnote"};			//要忽略的字段名
 		String name = "货品销售汇总表";							//文件名称
 		if(!staTime.equals("") && !endTime.equals("")){
 			name = staTime + "日至" + endTime + "日的" + name;
@@ -267,7 +268,7 @@ public class Com_orderCtl {
 		}
 		String title = "货品销售汇总表";
 		String annotation = "起始时间："+staTime+":00"+",终止时间："+endTime+":00"+",数据过滤条件:"+quCondit;
-		FileUtil.expExcel(response, list, heads, discard, name, title, annotation ,6);
+		FileUtil.expExcel(response, list, heads, discard, name, title, annotation ,6,total);
 	}
 	//导出订单报表
 	@RequestMapping("/companySys/exportOrderReport")

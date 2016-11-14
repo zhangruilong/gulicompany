@@ -47,7 +47,8 @@ public interface OrderdMapper {
 	 * 条件查询统计
 	 */
 	OrderdStatistics selectOrderdStatistics(@Param("staTime") String staTime,
-			@Param("endTime") String endTime,@Param("companyid")String companyid,@Param("condition") String condition);
+			@Param("endTime") String endTime,@Param("companyid")String companyid,@Param("condition") String condition,
+			@Param("empNames") String[] empNames,@Param("brandNames") String[] brandNames,@Param("cusNames") String[] cusNames);
 	/**
 	 * 根据时间范围(多条件)查询订单
 	 */

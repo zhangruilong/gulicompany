@@ -34,6 +34,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import com.server.pojo.entity.OrderdStatistics;
 import com.system.tools.pojo.ExcelHeadinfo;
 import com.system.tools.pojo.ExcelSheetinfo;
 import com.system.tools.pojo.Fileinfo;
@@ -767,10 +768,11 @@ public class FileUtil {
 	 * @param title		标题
 	 * @param annotation	注释
 	 * @param titleCellIndex	标题所在的列下标
+	 * @param total	最后一行的总计
 	 * @throws Exception
 	 */
 	public static void expExcel(HttpServletResponse response, ArrayList<?> temps, String[] heads,
-			 String[] discard, String name, String title, String annotation, int titleCellIndex) throws Exception {
+			 String[] discard, String name, String title, String annotation, int titleCellIndex, OrderdStatistics total) throws Exception {
 		response.reset();
 		response.addHeader("Content-Disposition", "attachment;filename=\""
 				+ new String((name+".xls").getBytes("GBK"), "ISO8859_1") + "\"");
@@ -781,9 +783,9 @@ public class FileUtil {
 		HSSFSheet sheet = workbook.createSheet("Sheet1");  
 		//设置单元格格式(文本)  
 		//HSSFCellStyle cellStyle = book.createCellStyle();  
-		CellRangeAddress cra = new CellRangeAddress(1, 1, 0, 12);
+		CellRangeAddress cra1 = new CellRangeAddress(1, 1, 0, 12);			//第一个要合并的地方
 		//合并单元格
-		sheet.addMergedRegion(cra);
+		sheet.addMergedRegion(cra1);
 		HSSFFont titleF  = workbook.createFont();  
 		titleF.setFontHeightInPoints((short) 11);//字号      
 
@@ -834,6 +836,31 @@ public class FileUtil {
 			}
 			iLine++;
 		}
+		
+		//最后一行的总计
+		HSSFRow lastRow = sheet.createRow(iLine);
+		HSSFCell lastRowCell1 = lastRow.createCell(5);
+		titleCell.setCellType(HSSFCell.CELL_TYPE_STRING);
+		lastRowCell1.setCellValue(total.getNumtotal());
+		HSSFCell lastRowCell2 = lastRow.createCell(6);
+		titleCell.setCellType(HSSFCell.CELL_TYPE_STRING);
+		lastRowCell2.setCellValue(total.getMoneytotal());
+		HSSFCell lastRowCell3 = lastRow.createCell(7);
+		titleCell.setCellType(HSSFCell.CELL_TYPE_STRING);
+		lastRowCell3.setCellValue(total.getRightmoneytotal());
+		HSSFCell lastRowCell4 = lastRow.createCell(8);
+		titleCell.setCellType(HSSFCell.CELL_TYPE_STRING);
+		lastRowCell4.setCellValue(total.getWeighttotal());
+		
+		//打印日期
+		HSSFRow dateRow = sheet.createRow(iLine+1);
+		HSSFCell dateRowCell1 = dateRow.createCell(0);
+		dateRowCell1.setCellType(HSSFCell.CELL_TYPE_STRING);
+		dateRowCell1.setCellValue("打印日期：");
+		HSSFCell dateRowCell2 = dateRow.createCell(1);
+		dateRowCell2.setCellType(HSSFCell.CELL_TYPE_STRING);
+		dateRowCell2.setCellValue(DateUtils.getDate());
+		
 		workbook.write(out);
 		out.flush();
 		out.close();

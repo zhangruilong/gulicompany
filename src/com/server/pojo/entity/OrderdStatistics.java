@@ -6,9 +6,9 @@ public class OrderdStatistics {
 	 */
 	private String numtotal;
 	/**
-	 * 单价总和
+	 * 总重量
 	 */
-	private String pricetotal;
+	private String weighttotal;
 	/**
 	 * 总下单金额
 	 */
@@ -26,14 +26,14 @@ public class OrderdStatistics {
 		this.numtotal = numtotal;
 	}
 	
-	public String getPricetotal() {
-		return pricetotal;
+	public String getWeighttotal() {
+		return weighttotal;
 	}
-	
-	public void setPricetotal(String pricetotal) {
-		this.pricetotal = pricetotal;
+
+	public void setWeighttotal(String weighttotal) {
+		this.weighttotal = weighttotal;
 	}
-	
+
 	public String getMoneytotal() {
 		return moneytotal;
 	}
