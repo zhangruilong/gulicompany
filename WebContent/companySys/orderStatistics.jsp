@@ -38,21 +38,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  <input type="hidden" name="companyid" value="${sessionScope.company.companyid }">
  <input type="hidden" id="staTime" name="staTime" value="${requestScope.staTime }">
  <input type="hidden" id="endTime" name="endTime" value="${requestScope.endTime }">
- <input type="hidden" id="quBrand" name="quBrand" value="${requestScope.quBrand }">
- <input type="hidden" id="quEmp" name="quEmp" value="${requestScope.quEmp }">
- <input type="hidden" id="quCus" name="quCus" value="${requestScope.quCus }">
 <div class="nowposition">当前位置：订单管理》订单商品统计</div>
  
-<div class="navigation">
+<div class="orderStat-navigationBar">
+<div>
 <div>下单时间</div><div id="divDate" class="date"><input id="staDatetime" class="date-time" type="text" ></div>
 <div>到:</div><div id="divDate2"  class="date"><input id="endDatetime" class="date-time" type="text" ></div>
-<input class="button" type="button" value="业务员" onclick="showEmp()">
-<input class="button" type="button" value="品牌" onclick="showBrand()">
-<input class="button" type="button" value="客户" onclick="showCusNames()">
+
 模糊查询:<input type="text"  class="condition_query" name="condition" value="${requestScope.condition }">
 <input class="button" type="button" value="查询" onclick="subfor()">
 <input class="button" type="button" value="导出报表" onclick="report()">
 <!-- <input class="button" type="button" value="设置订单商品id" onclick="setorderdgoodsid()"> -->
+</div>
+<div class="order-condition">筛选条件：
+<span>业务员：<input type="text" id="quEmp" name="quEmp" value="${requestScope.quEmp }" onclick="showEmp()"></span>
+<span>品牌：<input type="text" id="quBrand" name="quBrand" value="${requestScope.quBrand }" onclick="showBrand()"></span>
+<span>客户：<input type="text" id="quCus" name="quCus" value="${requestScope.quCus }" onclick="showCusNames()"></span>
+</div>
 </div>
 <table class="bordered">
     <thead>
@@ -138,8 +140,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="cd-popup emp-popup" role="alert">
 <div class="goods_select_popup">
 <div class="navigation">
-<input class="button" type="button" value="查询" onclick="subfor()">
-<input class="button" type="button" value="关闭" onclick="hiddenEmpShow()">
+<input class="button" type="button" value="确定" onclick="empConditionConfirm()">
+<input class="button" type="button" value="取消" onclick="hiddenEmpShow()">
 </div>
 <div class="alert-emp-show">
 </div>
@@ -149,8 +151,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="cd-popup brand-popup" role="alert">
 <div class="goods_select_popup">
 <div class="navigation">
-<input class="button" type="button" value="查询" onclick="subfor()">
-<input class="button" type="button" value="关闭" onclick="hiddenBrandShow()">
+<input class="button" type="button" value="确定" onclick="brandConditionConfirm()">
+<input class="button" type="button" value="取消" onclick="hiddenBrandShow()">
 </div>
 <div class="alert-brand-show">
 </div>
@@ -160,8 +162,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="cd-popup cusNames-popup" role="alert">
 <div class="goods_select_popup">
 <div class="navigation">
-<input class="button" type="button" value="查询" onclick="subfor()">
-<input class="button" type="button" value="关闭" onclick="hiddenCusShow()">
+<input class="button" type="button" value="确定" onclick="cusNameConditionConfirm()">
+<input class="button" type="button" value="取消" onclick="hiddenCusShow()">
 </div>
 <div class="alert-cusNames-show">
 </div>
@@ -172,9 +174,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 $.datetimepicker.setLocale('ch');												//设置日期的中文
 var companyid = "${sessionScope.company.companyid}";
 var currDateTime = formatDateTime(new Date());									//当前时间字符串
-var quBrand = '${requestScope.quBrand }';			//查询的品牌
-var quEmp = '${requestScope.quEmp }';				//查询的业务员
-var quCus = '${requestScope.quCus }';				//查询的客户店名
+var quBrand = $('#quBrand').val();			//查询的品牌
+var quEmp = $('#quEmp').val();				//查询的业务员
+var quCus = $('#quCus').val();				//查询的客户店名
 
 $(function(){
 	var defStaTime = '${requestScope.staTime }';
@@ -298,7 +300,34 @@ $(function(){
 		value: defEndTime,
 		step:30
 	});
-})
+});
+//筛选条件:业务员 确定
+function empConditionConfirm(){
+	var nowEmp = '';
+	$('.alert-emp-show .alert-emp-selspan').each(function(i,item){
+		nowEmp += $(item).text()+",";
+	});
+	$('#quEmp').val(nowEmp);
+	$(".emp-popup").removeClass("is-visible");
+}
+//筛选条件:品牌 确定
+function brandConditionConfirm(){
+	var nowBrand = '';
+	$('.alert-brand-show .alert-brand-selspan').each(function(i,item){
+		nowBrand += $(item).text()+",";
+	});
+	$('#quBrand').val(nowBrand);
+	$(".brand-popup").removeClass("is-visible");
+}
+//筛选条件:客户 确定
+function cusNameConditionConfirm(){
+	var nowCus = '';
+	$('.alert-cusNames-show .alert-cusNames-selspan').each(function(i,item){
+		nowCus += $(item).text()+",";
+	});
+	$('#quCus').val(nowCus);
+	$(".cusNames-popup").removeClass("is-visible");
+}
 //设置订单商品id
 function setorderdgoodsid(){
 	$.ajax({
@@ -500,25 +529,7 @@ function subfor(){
 		alert('查询时间不能为空。');
 		return;
 	}
-	
-	//得到查询条件:品牌/业务员/客户
-	var nowEmp = '';
-	$('.alert-emp-show .alert-emp-selspan').each(function(i,item){
-		nowEmp += $(item).text()+",";
-	});
-	$('#quEmp').val(nowEmp);
-	var nowBrand = '';
-	$('.alert-brand-show .alert-brand-selspan').each(function(i,item){
-		nowBrand += $(item).text()+",";
-	});
-	$('#quBrand').val(nowBrand);
-	var nowCus = '';
-	$('.alert-cusNames-show .alert-cusNames-selspan').each(function(i,item){
-		nowCus += $(item).text()+",";
-	});
-	$('#quCus').val(nowCus);
-	
-	checkCondition(nowEmp,nowBrand,nowCus);
+	checkCondition();
 	document.forms[0].submit();
 }
 //分页

@@ -66,7 +66,7 @@ String goodsstatue = request.getParameter("goodsstatue");
 		<th>商品编号</th>
 		<th>商品名称</th>
 		<th>规格</th>
-		<th>类别</th>
+		<th>小类</th>
 		<th>状态</th>
 		<th>品牌</th>
 		<th>顺序</th>

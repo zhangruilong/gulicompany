@@ -121,16 +121,23 @@ table {
 	border-bottom: 1px #848484 dashed;
 	white-space:nowrap;
 }
-.navigation div{
-	float:left; display:inline;
-	line-height: 30px;
+.navigation div{float:left; display:inline;line-height: 30px;}
+.navigation .date{margin: 5px 5px 0px 5px;}
+.navigation .date .date-time{width: 110px;}
+
+.orderStat-navigationBar{
+	margin: 0 auto;
+	height:60px;
+	padding: 0px 0px 5px 30px;
+	color: #848484;
+	border-bottom: 1px #848484 dashed;
+	white-space:nowrap;
 }
-.navigation .date{
-	margin: 5px 5px 0px 5px;
-}
-.navigation .date .date-time{
-	width: 110px;
-}
+.orderStat-navigationBar div{float:left; display:inline;line-height: 30px;}
+.orderStat-navigationBar .date{margin: 5px 5px 0px 5px;}
+.orderStat-navigationBar .date .date-time{width: 110px;}
+.orderStat-navigationBar .order-condition{}
+.orderStat-navigationBar .order-condition span{margin: 0px 10px 0px 10px;}
 
 .nowposition {
 	background: url("../images/orderImg/nowposition.png") no-repeat;
