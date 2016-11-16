@@ -36,13 +36,13 @@ public class Orderd
     */
    private String orderdunits;   
    /**
-    * 价格
-    */
-   private Float orderdprice;   
-   /**
     * 单位
     */
    private String orderdunit;   
+   /**
+    * 价格
+    */
+   private Float orderdprice;   
    /**
     * 小类
     */

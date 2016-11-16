@@ -300,6 +300,12 @@ $(function(){
 		value: defEndTime,
 		step:30
 	});
+	$('#staDatetime').change(function(){
+		$('#endDatetime').focus();
+	});
+	$('#endDatetime').change(function(){
+		$('.condition_query').focus();
+	});
 });
 //筛选条件:业务员 确定
 function empConditionConfirm(){

@@ -1,13 +1,28 @@
 package com.server.action.controller;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -236,7 +251,7 @@ public class Com_orderCtl {
 	//导出报表
 	@RequestMapping("/companySys/exportReport")
 	@ResponseBody
-	public void exportReport(HttpServletResponse response,String staTime,String endTime,String companyid,
+	public void exportReport(HttpServletRequest request,HttpServletResponse response,String staTime,String endTime,String companyid,
 			String quBrand,String quEmp,String quCus, String condition) throws Exception{
 		String[] quEmpNames = null;
 		String[] quBrandNames = null;
@@ -256,7 +271,7 @@ public class Com_orderCtl {
 		}
 		ArrayList<Orderd> list = (ArrayList<Orderd>) orderdMapper.selectByTime(staTime+":00", endTime+":00", companyid,condition,quEmpNames,quBrandNames,quCusNames);
 		OrderdStatistics total = orderdMapper.selectOrderdStatistics(staTime+":00", endTime+":00", companyid,condition,quEmpNames,quBrandNames,quCusNames);	//数据统计
-		String[] heads = {"商品编码","商品名称","规格","商品单价","单位","数量","下单金额","实际金额","重量"};				//表头
+		//String[] heads = {"商品编码","商品名称","规格","单位","单价","数量","下单金额","实际金额","重量"};				//表头
 		String[] discard = {"orderdid","orderdorderm","orderddetail","orderdclass","orderdtype","orderm","orderdgoods","orderdnote"};			//要忽略的字段名
 		String name = "货品销售汇总表";							//文件名称
 		if(!staTime.equals("") && !endTime.equals("")){
@@ -267,8 +282,10 @@ public class Com_orderCtl {
 			name = staTime + "日之后的" + name;
 		}
 		String title = "货品销售汇总表";
-		String annotation = "起始时间："+staTime+":00"+",终止时间："+endTime+":00"+",数据过滤条件:"+quCondit;
-		FileUtil.expExcel(response, list, heads, discard, name, title, annotation ,6,total);
+		String annotation = "起始时间："+staTime+":00"+",终止时间："+endTime+":00";
+		String printCondition = "数据过滤条件:"+quCondit;
+		String templatePath = "companySys/templateFile/haiyanOrderdStatTemp.xls";
+		orderStatisticsExpExcel(request, response, list, templatePath, name, discard, title, annotation, printCondition, total);
 	}
 	//导出订单报表
 	@RequestMapping("/companySys/exportOrderReport")
@@ -311,6 +328,258 @@ public class Com_orderCtl {
 			orderdMapper.insertSelective(insOD);
 		}
 		return "ok";
+	}
+	/**
+	 * 订单商品统计的导出Excel(根据Excel模板文件)
+	 * @param response
+	 * @param temps		需要导出的数据集合
+	 * @param heads		表头
+	 * @param discard	要忽略的字段名
+	 * @param name		文件名称
+	 * @param title		标题
+	 * @param annotation	注释
+	 * @param total	最后一行的总计
+	 * @throws IOException
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
+	 */
+	public static void orderStatisticsExpExcel(HttpServletRequest request, HttpServletResponse response,ArrayList<?> temps,String templatePath,String expName,
+			String[] discard,String title, String annotation, String printCondition, OrderdStatistics total) throws Exception{
+		if(templatePath.endsWith(".xls")){
+			orderStatisticsExpExcel2003(request, response, temps, templatePath,discard, expName,title, 
+					annotation, printCondition, total);
+		}else if(templatePath.endsWith(".xlsx")){
+			orderStatisticsExcel2007(request, response, temps, templatePath,discard, expName,title, 
+					annotation, printCondition, total);
+		}
+	}
+	public static void orderStatisticsExpExcel2003(HttpServletRequest request, HttpServletResponse response,ArrayList<?> temps,String templatePath,
+			String[] discard, String expName,String title, String annotation, String printCondition, OrderdStatistics total) throws Exception{
+		String filePath = request.getServletContext().getRealPath("/")
+				+ templatePath;
+		InputStream fis = new FileInputStream(filePath);
+		HSSFWorkbook hwb = new HSSFWorkbook(fis);
+		HSSFSheet sheet = hwb.getSheetAt(0);
+		HSSFRow row;
+		HSSFCell cell;
+		
+		//时间
+		row = sheet.createRow(1);
+		cell = row.createCell(0);
+		cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+		cell.setCellValue(annotation);
+		//筛选条件
+		row = sheet.createRow(2);
+		cell = row.createCell(0);
+		cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+		cell.setCellValue(printCondition);
+		
+		HSSFCellStyle tableStyle = hwb.createCellStyle();  		//表样式
+		tableStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);			//边框
+		tableStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+		tableStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
+		tableStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
+		int iLine = 4;// 写入各条记录，每条记录对应Excel中的一行
+		int  numtotalIndex = 0;
+		int  moneytotalIndex = 0;
+		int  rightmoneytotalIndex = 0;
+		int  weighttotalIndex = 0;
+		for (int k = 0; k < temps.size(); k++) {
+			Object obj = temps.get(k);
+			Field[] fields = obj.getClass().getDeclaredFields();
+			row = sheet.createRow(iLine);
+			int iRow = 0;// 写入每条记录对应Excel中的一列
+			for (int j = 0; j < fields.length; j++) {
+				Field field = fields[j];
+				field.setAccessible(true);// 忽略访问权限，私有的也可以访问
+				boolean discardflag = true;
+				if(CommonUtil.isNotEmpty(discard)){
+					for (int p = 0; p < discard.length; p++) {
+						if (field.getName().equals(discard[p])) {
+							discardflag = false;
+							break;
+						}
+					}
+				}
+				if (discardflag) {
+					if(k==0){
+						if(field.getName().equals("orderdnum")){
+							numtotalIndex = iRow;
+						}
+						if(field.getName().equals("orderdmoney")){
+							moneytotalIndex = iRow;
+						}
+						if(field.getName().equals("orderdrightmoney")){
+							rightmoneytotalIndex = iRow;
+						}
+						if(field.getName().equals("orderdweight")){
+							weighttotalIndex = iRow;
+						}
+					}
+					cell = row.createCell(iRow);
+					cell.setCellStyle(tableStyle);
+					cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+					cell.setCellValue(String.valueOf(field.get(obj)));			//
+					iRow++;
+				}
+			}
+			iLine++;
+			if(k==temps.size()-1){
+				//最后一行的总计
+				row = sheet.createRow(iLine);
+				for (int j = 0; j < fields.length-discard.length; j++) {
+					String cellText = "";
+					if(j==0){
+						cellText = "合计";
+					} else if(j == numtotalIndex){
+						cellText = total.getNumtotal();
+					} else if(j == moneytotalIndex){
+						cellText = total.getMoneytotal();
+					} else if(j == rightmoneytotalIndex){
+						cellText = total.getRightmoneytotal();
+					} else if(j == weighttotalIndex){
+						cellText = total.getWeighttotal();
+					}
+					cell = row.createCell(j);
+					cell.setCellStyle(tableStyle);
+					cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+					cell.setCellValue(cellText);
+				}
+			}
+		}
+		
+		//打印日期
+		row = sheet.createRow(iLine+1);
+		cell = row.createCell(0);
+		cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+		cell.setCellValue("打印日期：");
+		cell = row.createCell(1);
+		cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+		cell.setCellValue(DateUtils.getDate());
+		
+		response.reset();
+		response.addHeader("Content-Disposition", "attachment;filename=\""
+				+ new String((expName + ".xls").getBytes("GBK"), "ISO8859_1")
+				+ "\"");
+		response.setContentType("application/download");
+		OutputStream out = response.getOutputStream();
+		hwb.write(out);
+		out.flush();
+		out.close();
+	}
+	public static void orderStatisticsExcel2007(HttpServletRequest request, HttpServletResponse response,ArrayList<?> temps,String templatePath,
+			String[] discard,String expName,String title, String annotation, String printCondition, OrderdStatistics total) throws Exception{
+		String filePath = request.getServletContext().getRealPath("/")
+				+ templatePath;
+		InputStream fis = new FileInputStream(filePath);
+		XSSFWorkbook hwb = new XSSFWorkbook(fis);
+		XSSFSheet sheet = hwb.getSheetAt(0);
+		XSSFRow row;
+		XSSFCell cell;
+		
+		//时间
+		row = sheet.createRow(1);
+		cell = row.createCell(0);
+		cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+		cell.setCellValue(annotation);
+		//筛选条件
+		row = sheet.createRow(2);
+		cell = row.createCell(0);
+		cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+		cell.setCellValue(printCondition);
+		
+		XSSFCellStyle tableStyle = hwb.createCellStyle();  		//表样式
+		tableStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);			//边框
+		tableStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+		tableStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
+		tableStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
+		int iLine = 4;// 写入各条记录，每条记录对应Excel中的一行
+		int  numtotalIndex = 0;
+		int  moneytotalIndex = 0;
+		int  rightmoneytotalIndex = 0;
+		int  weighttotalIndex = 0;
+		for (int k = 0; k < temps.size(); k++) {
+			Object obj = temps.get(k);
+			Field[] fields = obj.getClass().getDeclaredFields();
+			row = sheet.createRow(iLine);
+			int iRow = 0;// 写入每条记录对应Excel中的一列
+			for (int j = 0; j < fields.length; j++) {
+				Field field = fields[j];
+				field.setAccessible(true);// 忽略访问权限，私有的也可以访问
+				boolean discardflag = true;
+				if(CommonUtil.isNotEmpty(discard)){
+					for (int p = 0; p < discard.length; p++) {
+						if (field.getName().equals(discard[p])) {
+							discardflag = false;
+							break;
+						}
+					}
+				}
+				if (discardflag) {
+					if(k==0){
+						if(field.getName().equals("orderdnum")){
+							numtotalIndex = iRow;
+						}
+						if(field.getName().equals("orderdmoney")){
+							moneytotalIndex = iRow;
+						}
+						if(field.getName().equals("orderdrightmoney")){
+							rightmoneytotalIndex = iRow;
+						}
+						if(field.getName().equals("orderdweight")){
+							weighttotalIndex = iRow;
+						}
+					}
+					cell = row.createCell(iRow);
+					cell.setCellStyle(tableStyle);
+					cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+					cell.setCellValue(String.valueOf(field.get(obj)));			//
+					iRow++;
+				}
+			}
+			iLine++;
+			if(k==temps.size()-1){
+				//最后一行的总计
+				row = sheet.createRow(iLine);
+				for (int j = 0; j < fields.length-discard.length; j++) {
+					String cellText = "";
+					if(j==0){
+						cellText = "合计";
+					} else if(j == numtotalIndex){
+						cellText = total.getNumtotal();
+					} else if(j == moneytotalIndex){
+						cellText = total.getMoneytotal();
+					} else if(j == rightmoneytotalIndex){
+						cellText = total.getRightmoneytotal();
+					} else if(j == weighttotalIndex){
+						cellText = total.getWeighttotal();
+					}
+					cell = row.createCell(j);
+					cell.setCellStyle(tableStyle);
+					cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+					cell.setCellValue(cellText);
+				}
+			}
+		}
+		
+		//打印日期
+		row = sheet.createRow(iLine+1);
+		cell = row.createCell(0);
+		cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+		cell.setCellValue("打印日期：");
+		cell = row.createCell(1);
+		cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+		cell.setCellValue(DateUtils.getDate());
+		
+		response.reset();
+		response.addHeader("Content-Disposition", "attachment;filename=\""
+				+ new String((expName + ".xlsx").getBytes("GBK"), "ISO8859_1")
+				+ "\"");
+		response.setContentType("application/download");
+		OutputStream out = response.getOutputStream();
+		hwb.write(out);
+		out.flush();
+		out.close();
 	}
 }
 

@@ -30,6 +30,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -758,111 +759,4 @@ public class FileUtil {
        return value;
 	}
 	
-	/**
-	 * 解析ArrayList<?>成excel2003，然后导出(可以设置标题和注释的)
-	 * @param response
-	 * @param temps		需要导出的数据集合
-	 * @param heads		表头
-	 * @param discard	要忽略的字段名
-	 * @param name		文件名称
-	 * @param title		标题
-	 * @param annotation	注释
-	 * @param titleCellIndex	标题所在的列下标
-	 * @param total	最后一行的总计
-	 * @throws Exception
-	 */
-	public static void expExcel(HttpServletResponse response, ArrayList<?> temps, String[] heads,
-			 String[] discard, String name, String title, String annotation, int titleCellIndex, OrderdStatistics total) throws Exception {
-		response.reset();
-		response.addHeader("Content-Disposition", "attachment;filename=\""
-				+ new String((name+".xls").getBytes("GBK"), "ISO8859_1") + "\"");
-		response.setContentType("application/download");
-		OutputStream out = response.getOutputStream();
-		HSSFWorkbook workbook = new HSSFWorkbook();
-		//在Excel工作薄中建一张工作表  
-		HSSFSheet sheet = workbook.createSheet("Sheet1");  
-		//设置单元格格式(文本)  
-		//HSSFCellStyle cellStyle = book.createCellStyle();  
-		CellRangeAddress cra1 = new CellRangeAddress(1, 1, 0, 12);			//第一个要合并的地方
-		//合并单元格
-		sheet.addMergedRegion(cra1);
-		HSSFFont titleF  = workbook.createFont();  
-		titleF.setFontHeightInPoints((short) 11);//字号      
-
-		titleF.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);//加粗      
-		HSSFCellStyle style = workbook.createCellStyle();  
-		style.setFont(titleF); 								//设置字体
-		HSSFRow titleRow = sheet.createRow(0);
-		HSSFCell titleCell = titleRow.createCell(titleCellIndex);
-		titleCell.setCellStyle(style);						//设置样式
-		titleCell.setCellType(HSSFCell.CELL_TYPE_STRING);
-		titleCell.setCellValue(title);
-		HSSFRow annoRow = sheet.createRow(1);
-		HSSFCell annoCell = annoRow.createCell(0);
-		annoCell.setCellValue(annotation);
-		
-		HSSFRow row = sheet.createRow(2);
-		HSSFCell cell;
-		// 写入列名称
-		for (int i = 0; i < heads.length; i++) {
-			cell = row.createCell(i);
-			cell.setCellType(HSSFCell.CELL_TYPE_STRING);
-			cell.setCellValue(heads[i]);
-		}
-		int iLine = 3;// 写入各条记录，每条记录对应Excel中的一行
-		for (int k = 0; k < temps.size(); k++) {
-			Object obj = temps.get(k);
-			Field[] fields = obj.getClass().getDeclaredFields();
-			row = sheet.createRow(iLine);
-			int iRow = 0;// 写入每条记录对应Excel中的一列
-			for (int j = 0; j < fields.length; j++) {
-				Field field = fields[j];
-				field.setAccessible(true);// 忽略访问权限，私有的也可以访问
-				boolean discardflag = true;
-				if(CommonUtil.isNotEmpty(discard)){
-					for (int p = 0; p < discard.length; p++) {
-						if (field.getName().equals(discard[p])) {
-							discardflag = false;
-							break;
-						}
-					}
-				}
-				if (discardflag) {
-					cell = row.createCell(iRow);
-					cell.setCellType(HSSFCell.CELL_TYPE_STRING);
-					cell.setCellValue(String.valueOf(field.get(obj)));			//
-					iRow++;
-				}
-			}
-			iLine++;
-		}
-		
-		//最后一行的总计
-		HSSFRow lastRow = sheet.createRow(iLine);
-		HSSFCell lastRowCell1 = lastRow.createCell(5);
-		titleCell.setCellType(HSSFCell.CELL_TYPE_STRING);
-		lastRowCell1.setCellValue(total.getNumtotal());
-		HSSFCell lastRowCell2 = lastRow.createCell(6);
-		titleCell.setCellType(HSSFCell.CELL_TYPE_STRING);
-		lastRowCell2.setCellValue(total.getMoneytotal());
-		HSSFCell lastRowCell3 = lastRow.createCell(7);
-		titleCell.setCellType(HSSFCell.CELL_TYPE_STRING);
-		lastRowCell3.setCellValue(total.getRightmoneytotal());
-		HSSFCell lastRowCell4 = lastRow.createCell(8);
-		titleCell.setCellType(HSSFCell.CELL_TYPE_STRING);
-		lastRowCell4.setCellValue(total.getWeighttotal());
-		
-		//打印日期
-		HSSFRow dateRow = sheet.createRow(iLine+1);
-		HSSFCell dateRowCell1 = dateRow.createCell(0);
-		dateRowCell1.setCellType(HSSFCell.CELL_TYPE_STRING);
-		dateRowCell1.setCellValue("打印日期：");
-		HSSFCell dateRowCell2 = dateRow.createCell(1);
-		dateRowCell2.setCellType(HSSFCell.CELL_TYPE_STRING);
-		dateRowCell2.setCellValue(DateUtils.getDate());
-		
-		workbook.write(out);
-		out.flush();
-		out.close();
-	}
 }

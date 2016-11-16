@@ -167,10 +167,10 @@
 	    </if>
     </if>
     <if test="goodsstatue != null and goodsstatue != ''">
-    	and goods.goodsstatue = #{goodsstatue}
+    	and goods.goodsstatue = #{goodsstatue} 
     </if>
     <if test="goodstype != null and goodstype != ''">
-    	and goods.goodstype like '%${goodstype}%'
+    	and (goods.goodstype like '%${goodstype}%' or gc.goodsclassname = #{goodstype})
     </if>
     <if test="goodscode != null and goodscode != ''">
 			and
@@ -208,7 +208,7 @@
     	and goods.goodsstatue = #{goods.goodsstatue}
     </if>
     <if test="goods.goodstype != null and goods.goodstype != ''">
-    	and goods.goodstype like '%${goods.goodstype}%'
+    	and (goods.goodstype like '%${goods.goodstype}%' or gc.goodsclassname = #{goods.goodstype})
     </if>
     <if test="goods.goodscode != null and goods.goodscode != ''">
 			and
@@ -221,7 +221,7 @@
 			goods.UPDOR like '%${goods.goodscode}%' or
 			gc.goodsclassname like '%${goods.goodscode}%')
 	</if>
-	 order by goods.createtime desc nulls last
+	 order by goods.goodsid desc,goods.createtime desc nulls last
  ) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) )
 where RN &gt; ((#{nowpage}-1)*#{pagesize})
     
