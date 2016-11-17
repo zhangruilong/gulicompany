@@ -69,7 +69,7 @@ String ordermway = request.getParameter("ordermway");
     <c:if test="${fn:length(requestScope.allOrder) != 0 }">
 	<c:forEach var="order" items="${requestScope.allOrder }" varStatus="orderSta">
 		<tr>
-			<td><input type="checkbox" id="${order.ordermid}" name="${order.ordermcustomer }"></td>
+			<td><input type="checkbox" id="${order.ordermid}" name="${order.ordermcustomer },${order.ordermaddress }"></td>
 			<td><c:out value="${orderSta.count}"></c:out></td>
 			<td>${order.ordermcode}</td>
 			<td>${order.ordermway}</td>
@@ -160,24 +160,32 @@ function checkCondition(){
 //打印
 function doprint(){
 	var itemids = '';
-	var itemname = '';
+	var itemCus = '';
+	var itemAddress = '';
 	var count = 0;
 	$("[type='checkbox']").each(function(i,item){
 		if(item.checked==true){
-			var name = $(item).attr("name");
-			if(itemname==''){
-				itemname = name;
-			} else if(itemname != name){
-				alert('一次只能打印一个客户的订单。');
+			var odmInfo = $(item).attr("name").split(',');
+			if(itemCus==''){					//判断是否是同一个客户
+				itemCus = odmInfo[0];			//订单客户id
+			} else if(itemCus != odmInfo[0]){
+				count++;
+				return false;
+			}
+			if(itemAddress == ''){				//判断是否是同一个地址
+				itemAddress = odmInfo[1];		//订单地址
+			} else if(itemAddress != odmInfo[1]){
 				count++;
 				return false;
 			}
 			itemids += $(item).attr("id")+',';
 		}
 	});
-	if(count==0 && itemname!=''){
+	if(count==0 && itemCus!=''){
 		window.open("print.jsp?ordermids="+itemids);
 		//window.open("printOrder.action?ordermid="+itemid);
+	} else {
+		alert('操作失败。打印多个订单时需要客户和地址都相同。');
 	}
 }
 //详情,状态,删除

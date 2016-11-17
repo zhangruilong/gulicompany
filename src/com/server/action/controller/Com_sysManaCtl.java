@@ -70,10 +70,34 @@ public class Com_sysManaCtl {
 	public Map<String, Object> printInfo(String ordermids){
 		Map<String, Object> result = new HashMap<String, Object>();
 		String[] odmids = ordermids.split(",");
-		List<PrintInfo> piLi = ordermMapper.selectPrintInfo(odmids);
+		List<PrintInfo> piLi = ordermMapper.selectPrintInfo(odmids);		//查询 订单、客户、经销商 信息
 		if(null!=piLi && piLi.size()>0){
-			List<System_temprule> tempList = sys_tempruleMapper.selectByComid(piLi.get(0).getOrdermcompany());
-			List<Orderd> odLI = orderdMapper.selectByOrderm(odmids);
+			List<System_temprule> tempList = sys_tempruleMapper.selectByComid(piLi.get(0).getOrdermcompany());	//查询模板
+			List<Orderd> odLI = orderdMapper.selectByOrderm(odmids);		//一个或多个订单中的订单商品
+			List<Orderd> reOds = orderdMapper.selectRepeatOrderd(odmids);	//查询重复的订单商品信息(编号/类型/规格/价格)
+			if(null != reOds && reOds.size()>0){
+				for (Orderd reOd : reOds) {
+					Orderd newOd = null;									//合并后的订单商品
+					ArrayList<Orderd> removeOdLi = new ArrayList<Orderd>();		//要移除的订单商品
+					for (Orderd od : odLI) {
+						if(od.getOrderdcode().equals(reOd.getOrderdcode()) && od.getOrderdtype().equals(reOd.getOrderdtype()) &&
+								od.getOrderdunits().equals(reOd.getOrderdunits()) && od.getOrderdprice().equals(reOd.getOrderdprice())){
+							if(null == newOd){
+								newOd = od;
+							} else {
+								newOd.setOrderdnum(newOd.getOrderdnum() + od.getOrderdnum());
+								newOd.setOrderdmoney(String.valueOf(								//下单金额累加
+										Float.parseFloat(newOd.getOrderdmoney()) + Float.parseFloat(od.getOrderdmoney())));
+								newOd.setOrderdrightmoney(String.valueOf(							//实际金额累加
+										Float.parseFloat(newOd.getOrderdrightmoney()) + Float.parseFloat(od.getOrderdrightmoney())));
+							}
+							removeOdLi.add(od);
+						}
+					}
+					odLI.removeAll(removeOdLi);			//移除掉重复的订单商品
+					odLI.add(newOd);					//添加合并后的订单商品
+				}
+			}
 			result.put("tempList", tempList);
 			result.put("printinfo", piLi);
 			result.put("orderdList", odLI);

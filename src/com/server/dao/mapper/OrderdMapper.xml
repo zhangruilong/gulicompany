@@ -51,8 +51,16 @@
     ORDERDPRICE, ORDERDUNIT, ORDERDCLASS, ORDERDNUM, ORDERDMONEY, ORDERDRIGHTMONEY,ORDERDWEIGHT,
     ORDERDGOODS,ORDERDNOTE
   </sql>
-  
-<!-- 查询一段时间内的订单商品的品牌 -->
+  <!-- 查询几个订单中的重复的订单商品的:编号/类型/规格/价格 -->
+  <select id="selectRepeatOrderd" resultType="com.server.pojo.entity.Orderd" >
+  	select od.orderdcode,od.orderdtype,od.orderdunits,od.orderdprice from (select * from orderd where 
+  	<foreach collection="ordermids" separator=" or " item="ordermid">
+  		orderdorderm=#{ordermid}
+  	</foreach>
+ 	) od 
+ 	group by od.orderdcode,od.orderdtype,od.orderdunits,od.orderdprice having count(*) >1
+  </select>
+  <!-- 查询一段时间内的订单商品的品牌 -->
   <select id="selectTimeOrderdGoodsBrand" resultType="String" >
   	select g.goodsbrand from orderd od
 		left join orderm om on om.ordermid = od.orderdorderm
@@ -82,7 +90,7 @@
     <foreach collection="array" item="ordermid" separator=" or ">
     	ORDERDORDERM=#{ordermid}
     </foreach>
-    order by ORDERDTYPE,ORDERDCODE,ORDERDUNITS
+    order by orderdid desc
   </select>
   <!-- 查询热销商品订单(编码和类型) -->
   <select id="selectHotGoodsCodeAndType" resultMap="groupByOrderdcode" >

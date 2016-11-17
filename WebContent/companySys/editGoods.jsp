@@ -37,17 +37,17 @@
 				name="goodsunits" placeholder="规格" /><font>(必填)</font></label>
 			<!-- <label><span>描述 :</span><input id="goodsdetail" type="text" value="${requestScope.editGoods.goodsdetail }"
 				name="goodsdetail" placeholder="描述" /></label> -->
-			<label><span>小类名称 :</span>
+			<label><span>小类 :</span>
 			<select name="goodsclass" id="goodsclass">
 				<option value="">请选择</option>
 			</select><font>(必填)</font>
 			</label>
+			<label><span>其它类别 :</span><input id="goodstype" type="text" value="${requestScope.editGoods.goodstype }"
+				name="goodstype" placeholder="商品类别" /><font>(必填)</font></label>
 			<label><span>图片路径 :</span><input id="goodsimage" type="text" value="${requestScope.editGoods.goodsimage }"
 				name="goodsimage" placeholder="图片路径" /></label>
 			<label><span>品牌 :</span><input id="goodsbrand" type="text" value="${requestScope.editGoods.goodsbrand }"
 				name="goodsbrand" placeholder="品牌" /></label>
-			<label><span>商品类别 :<br>（品牌或厂家等）</span><input id="goodstype" type="text" value="${requestScope.editGoods.goodstype }"
-				name="goodstype" placeholder="商品类别" /><font>(必填)</font></label>
 			<label><span>顺序 :</span><input id="goodsorder" type="number" value="${requestScope.editGoods.goodsorder }"
 				name="goodsorder" placeholder="顺序" /></label>
 			<label><span>重量（kg） :</span><input id="goodsweight" type="text" value="${requestScope.editGoods.goodsweight }"

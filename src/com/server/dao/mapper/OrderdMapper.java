@@ -10,6 +10,10 @@ import com.server.pojo.entity.OrderdStatistics;
 
 public interface OrderdMapper {
 	/**
+	 * 查询几个订单中的重复的订单商品的:编号/类型/规格/价格
+	 */
+	List<Orderd> selectRepeatOrderd(@Param("ordermids") String[] ordermids);
+	/**
 	 * 查询一段时间内的订单商品的品牌
 	 */
 	List<String> selectTimeOrderdGoodsBrand(@Param("staTime") String staTime,@Param("endTime") String endTime,

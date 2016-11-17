@@ -210,6 +210,12 @@ public class Com_orderCtl {
 		if(pagenow == null || pagenow==0){
 			pagenow = 1;
 		}
+		if(null == staTime || staTime.equals("")){
+			staTime = DateUtils.getDate()+" 00:00:00";
+		}
+		if(null == endTime || endTime.equals("")){
+			endTime = DateUtils.getDateTime();
+		}
 		String[] quEmpNames = null;
 		String[] quBrandNames = null;
 		String[] quCusNames = null;

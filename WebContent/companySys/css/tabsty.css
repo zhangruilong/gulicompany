@@ -133,10 +133,11 @@ table {
 	border-bottom: 1px #848484 dashed;
 	white-space:nowrap;
 }
-.orderStat-navigationBar div{float:left; display:inline;line-height: 30px;}
+.orderStat-navigationBar div{float:left;}
+.orderStat-navigationBar .stat-bar1,.orderStat-navigationBar .stat-bar2{float:left; display:inline;line-height: 30px;width: 100%;}
 .orderStat-navigationBar .date{margin: 5px 5px 0px 5px;}
 .orderStat-navigationBar .date .date-time{width: 110px;}
-.orderStat-navigationBar .order-condition{}
+.orderStat-navigationBar .stat-bar2{}
 .orderStat-navigationBar .order-condition span{margin: 0px 10px 0px 10px;}
 
 .nowposition {
@@ -165,7 +166,7 @@ table {
 
 .alert-emp-show span, .alert-brand-show span, .alert-cusNames-show span { white-space: nowrap;background: #FBF1E5;margin: 5px 5px 5px 5px;padding: 5px 5px 5px 5px;display: inline-block;cursor:pointer;border-radius: 5px;}
 
-.alert-emp-show .alert-emp-selspan,.alert-brand-show .alert-brand-selspan,.alert-cusNames-show .alert-cusNames-selspan{background: #FAB957 url("../images/s-dagou.jpg") no-repeat center ; background-size: auto 100%}
+.alert-emp-show .alert-emp-selspan,.alert-brand-show .alert-brand-selspan,.alert-cusNames-show .alert-cusNames-selspan{background: #FAB957 url("../images/s-dagou.jpg") no-repeat center ; background-size:100% auto; }
 
 
 

@@ -25,7 +25,7 @@ $(function(){
 				totalMon += parseFloat(item.ordermmoney);
 				totalRMon += parseFloat(item.ordermrightmoney);
 				if(typeof(item.ordermdetail)!='undefined' && item.ordermdetail){
-					orderMsg += item.ordermdetail;
+					orderMsg += item.ordermdetail+';';
 				}
 			});
 			if(data.printinfo.length>1){							//得到合并后的订单总金额
@@ -132,33 +132,18 @@ $(function(){
 					}
 				});
 				//订单商品
-				var previousOdd = new Object();												//前一个orderd
 				$.each(orderdList,function(i,item1){
-					//alert(JSON.stringify(previousOdd)+" == "+JSON.stringify(item1));
-					//alert(previousOdd != item1);
-					if(previousOdd['orderdcode'] != item1['orderdcode'] || 
-							previousOdd['orderdtype'] != item1['orderdtype'] || 
-							previousOdd['orderdunits'] != item1['orderdunits'] ){
-						previousOdd = item1;
-						$('#goods-tab').append('<tr></tr>');
-						$('#goods-tab tr:first td').each(function(j,item2){
-							var goodsInfo = '';
-							var curSty = $(item2).children().text();
-							if($(item2).attr('name') && $(item2).attr('name')!='undefined'&& $(item2).attr('name')!='null'){
-								goodsInfo = typeNullFoString(item1[$(item2).attr('name')]);
-							} else {
-								goodsInfo = $('#goods-tab tr').length-1;
-							}
-							$('#goods-tab tr:last').append('<td style="'+curSty+'">'+goodsInfo+'</td>');
-						});
-					} else {
-						var newODNum = item1['orderdnum'] + previousOdd['orderdnum'];
-						var newODMon = parseFloat(item1['orderdmoney']) + parseFloat(previousOdd['orderdmoney']);
-						var newODRMon = parseFloat(item1['orderdrightmoney']) + parseFloat(previousOdd['orderdrightmoney']);
-						$('#goods-tab tr:last td:eq(5)').text(newODNum);
-						$('#goods-tab tr:last td:eq(8)').text(newODMon);
-						$('#goods-tab tr:last td:eq(9)').text(newODRMon);
-					}
+					$('#goods-tab').append('<tr></tr>');
+					$('#goods-tab tr:first td').each(function(j,item2){
+						var goodsInfo = '';
+						var curSty = $(item2).children().text();
+						if($(item2).attr('name') && $(item2).attr('name')!='undefined'&& $(item2).attr('name')!='null'){
+							goodsInfo = typeNullFoString(item1[$(item2).attr('name')]);
+						} else {
+							goodsInfo = $('#goods-tab tr').length-1;
+						}
+						$('#goods-tab tr:last').append('<td style="'+curSty+'">'+goodsInfo+'</td>');
+					});
 				});
 				//签收信息
 				$('#signFo-tab').append('<tr></tr>');

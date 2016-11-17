@@ -149,17 +149,17 @@ String goodsstatue = request.getParameter("goodsstatue");
 				name="goodsname" placeholder="商品名称" /><font>(必填)</font></label>
 			<label><span>规格 :</span><input id="goodsunits" type="text"
 				name="goodsunits" placeholder="规格" /><font>(必填)</font></label>
-			<label><span>小类名称 :</span>
+			<label><span>小类 :</span>
 			<select name="goodsclass" id="goodsclass">
 				<option value="">请选择</option>
 			</select><font>(必填)</font>
 			</label>
+			<label><span>其它类别:</span><input id="goodstype" type="text"
+				name="goodstype" placeholder="种类" /><font>(必填)</font></label>
 			<label><span>图片路径 :</span><input id="goodsimage" type="text"
 				name="goodsimage" placeholder="图片路径" /></label>
 			<label><span>品牌 :</span><input id="goodsbrand" type="text"
 				name="goodsbrand" placeholder="品牌" /></label>
-			<label><span>种类 :</span><input id="goodstype" type="text"
-				name="goodstype" placeholder="种类" /><font>(必填)</font></label>
 			<label><span>重量（kg） :</span><input id="goodsweight" type="number"
 				name="goodsweight" placeholder="重量" value=0/></label>
 			<label><span>顺序 :</span><input id="goodsorder" type="number"

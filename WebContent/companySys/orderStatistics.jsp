@@ -41,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="nowposition">当前位置：订单管理》订单商品统计</div>
  
 <div class="orderStat-navigationBar">
-<div>
+<div class="stat-bar1">
 <div>下单时间</div><div id="divDate" class="date"><input id="staDatetime" class="date-time" type="text" ></div>
 <div>到:</div><div id="divDate2"  class="date"><input id="endDatetime" class="date-time" type="text" ></div>
 
@@ -50,7 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <input class="button" type="button" value="导出报表" onclick="report()">
 <!-- <input class="button" type="button" value="设置订单商品id" onclick="setorderdgoodsid()"> -->
 </div>
-<div class="order-condition">筛选条件：
+<div class="stat-bar2">筛选条件：
 <span>业务员：<input type="text" id="quEmp" name="quEmp" value="${requestScope.quEmp }" onclick="showEmp()"></span>
 <span>品牌：<input type="text" id="quBrand" name="quBrand" value="${requestScope.quBrand }" onclick="showBrand()"></span>
 <span>客户：<input type="text" id="quCus" name="quCus" value="${requestScope.quCus }" onclick="showCusNames()"></span>
