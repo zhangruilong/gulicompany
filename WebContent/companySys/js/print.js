@@ -25,7 +25,7 @@ $(function(){
 				totalMon += parseFloat(item.ordermmoney);
 				totalRMon += parseFloat(item.ordermrightmoney);
 				if(typeof(item.ordermdetail)!='undefined' && item.ordermdetail){
-					orderMsg += item.ordermdetail+';';
+					orderMsg += item.ordermdetail+'; ';
 				}
 			});
 			if(data.printinfo.length>1){							//得到合并后的订单总金额

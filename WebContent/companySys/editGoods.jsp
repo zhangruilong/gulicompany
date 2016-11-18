@@ -43,7 +43,7 @@
 			</select><font>(必填)</font>
 			</label>
 			<label><span>其它类别 :</span><input id="goodstype" type="text" value="${requestScope.editGoods.goodstype }"
-				name="goodstype" placeholder="商品类别" /><font>(必填)</font></label>
+				name="goodstype" placeholder="其它类别" /><font>(必填)</font></label>
 			<label><span>图片路径 :</span><input id="goodsimage" type="text" value="${requestScope.editGoods.goodsimage }"
 				name="goodsimage" placeholder="图片路径" /></label>
 			<label><span>品牌 :</span><input id="goodsbrand" type="text" value="${requestScope.editGoods.goodsbrand }"

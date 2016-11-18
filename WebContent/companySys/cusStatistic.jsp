@@ -23,7 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="nowposition">当前位置：客户管理》客户信息统计</div>
  
 <div class="navigation">
-<div>交易时间:</div><div id="divDate" class="date"></div>
+<div>下单时间:</div><div id="divDate" class="date"></div>
 <div>到:</div><div id="divDate2"  class="date"></div>
 模糊查询:<input type="text"  class="condition_query" name="staCusQuery" value="${requestScope.staCusQuery }">
 <input class="button" type="button" value="查询" onclick="subfor()">

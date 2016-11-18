@@ -155,7 +155,7 @@ String goodsstatue = request.getParameter("goodsstatue");
 			</select><font>(必填)</font>
 			</label>
 			<label><span>其它类别:</span><input id="goodstype" type="text"
-				name="goodstype" placeholder="种类" /><font>(必填)</font></label>
+				name="goodstype" placeholder="其它类别" /><font>(必填)</font></label>
 			<label><span>图片路径 :</span><input id="goodsimage" type="text"
 				name="goodsimage" placeholder="图片路径" /></label>
 			<label><span>品牌 :</span><input id="goodsbrand" type="text"
@@ -368,7 +368,7 @@ function seleScant(scantcode,scantname,scantunits,goodsclassname,scantimage,scan
 //提交添加商品的表单
 function popup_formSub(){
 	if($("#goodsclass").val() == "" || $("#goodsclass").val() == null){
-		alert("小类名称不能为空");
+		alert("小类不能为空");
 		return;
 	}
 	var count = 0;

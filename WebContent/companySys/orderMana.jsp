@@ -185,7 +185,7 @@ function doprint(){
 		window.open("print.jsp?ordermids="+itemids);
 		//window.open("printOrder.action?ordermid="+itemid);
 	} else {
-		alert('操作失败。打印多个订单时需要客户和地址都相同。');
+		alert('操作失败！多个订单合并打印时，须客户和收货信息完全一致。');
 	}
 }
 //详情,状态,删除

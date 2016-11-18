@@ -166,7 +166,7 @@ table {
 
 .alert-emp-show span, .alert-brand-show span, .alert-cusNames-show span { white-space: nowrap;background: #FBF1E5;margin: 5px 5px 5px 5px;padding: 5px 5px 5px 5px;display: inline-block;cursor:pointer;border-radius: 5px;}
 
-.alert-emp-show .alert-emp-selspan,.alert-brand-show .alert-brand-selspan,.alert-cusNames-show .alert-cusNames-selspan{background: #FAB957 url("../images/s-dagou.jpg") no-repeat center ; background-size:100% auto; }
+.alert-emp-show .alert-emp-selspan,.alert-brand-show .alert-brand-selspan,.alert-cusNames-show .alert-cusNames-selspan{background: #FAB957 url("../images/s-dagou.jpg") no-repeat center ; }
 
 
 

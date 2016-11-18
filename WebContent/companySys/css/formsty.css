@@ -2,7 +2,7 @@
 .elegant-aero {
 	margin-left: 10px auto;
 	margin-right: auto;
-	max-width: 700px;
+	width: 700px;
 	background: #FBF1E5;
 	padding: 20px 20px 20px 20px;
 	font: 12px Arial, Helvetica, sans-serif;
@@ -89,8 +89,7 @@
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	text-indent: 0.01px;
-	text-overflow: '';
-	width: 70%;
+	width: 71%;
 }
 
 .elegant-aero .button {

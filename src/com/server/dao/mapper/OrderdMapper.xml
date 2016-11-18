@@ -168,10 +168,10 @@
 	<if test="brandNames != null and brandNames !=''">
 		and 
 		<foreach collection="brandNames" open="(" close=")" separator="or" item="brandName">
-			<if test="brandName == '没品牌'">
+			<if test="brandName == '无填充'">
 				od.orderdbrand is null
 			</if>
-			<if test="brandName != '没品牌'">
+			<if test="brandName != '无填充'">
 				od.orderdbrand=#{brandName}
 			</if>
 		</foreach>
@@ -228,10 +228,10 @@
 	<if test="brandNames != null and brandNames !=''">
 		and 
 		<foreach collection="brandNames" open="(" close=")" separator="or" item="brandName">
-			<if test="brandName == '没品牌'">
+			<if test="brandName == '无填充'">
 				od.orderdbrand is null
 			</if>
-			<if test="brandName != '没品牌'">
+			<if test="brandName != '无填充'">
 				od.orderdbrand=#{brandName}
 			</if>
 		</foreach>
@@ -288,10 +288,10 @@
 	<if test="brandNames != null and brandNames !=''">
 		and 
 		<foreach collection="brandNames" open="(" close=")" separator="or" item="brandName">
-			<if test="brandName == '没品牌'">
+			<if test="brandName == '无填充'">
 				od.orderdbrand is null
 			</if>
-			<if test="brandName != '没品牌'">
+			<if test="brandName != '无填充'">
 				od.orderdbrand=#{brandName}
 			</if>
 		</foreach>
@@ -347,10 +347,10 @@
 	<if test="brandNames != null and brandNames !=''">
 		and 
 		<foreach collection="brandNames" open="(" close=")" separator="or" item="brandName">
-			<if test="brandName == '没品牌'">
+			<if test="brandName == '无填充'">
 				od.orderdbrand is null
 			</if>
-			<if test="brandName != '没品牌'">
+			<if test="brandName != '无填充'">
 				od.orderdbrand=#{brandName}
 			</if>
 		</foreach>

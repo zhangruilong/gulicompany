@@ -42,7 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  
 <div class="orderStat-navigationBar">
 <div class="stat-bar1">
-<div>下单时间</div><div id="divDate" class="date"><input id="staDatetime" class="date-time" type="text" ></div>
+<div>下单时间:</div><div id="divDate" class="date"><input id="staDatetime" class="date-time" type="text" ></div>
 <div>到:</div><div id="divDate2"  class="date"><input id="endDatetime" class="date-time" type="text" ></div>
 
 模糊查询:<input type="text"  class="condition_query" name="condition" value="${requestScope.condition }">
@@ -198,7 +198,6 @@ $(function(){
 			if(data.msg =='success'){
 				$('.alert-cusNames-show').html('');
 				$.each(data.cusNames ,function(i,item){
-					
 					if(quCus.indexOf(item) == -1){
 						$('.alert-cusNames-show').append('<span>'+item+'</span>');
 					} else {
@@ -231,7 +230,7 @@ $(function(){
 				$('.alert-brand-show').html('');
 				$.each(data.brand ,function(i,item){
 					if(typeof(item)=='undefined' || !item){
-						item = '没品牌';
+						item = '无填充';
 					}
 					if(quBrand.indexOf(item) == -1){
 						$('.alert-brand-show').append('<span>'+item+'</span>');
@@ -415,7 +414,7 @@ function showBrand(){
 				var currQuBrand = $('#quBrand').val();
 				$.each(data.brand ,function(i,item){
 					if(typeof(item)=='undefined' || !item){
-						item = '没品牌';
+						item = '无填充';
 					}
 					if(currQuBrand.indexOf(item) == -1){
 						$('.alert-brand-show').append('<span>'+item+'</span>');
