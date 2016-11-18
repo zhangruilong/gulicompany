@@ -110,8 +110,7 @@ function saveEdit(){
 					window.location.href = 'allGoods.action?goodscompany=${sessionScope.company.companyid}&'+
 					'pagenow=${requestScope.pagenow}&goodscode=${requestScope.goodsCon.goodscode}&'+
 					'goodsstatue=${requestScope.goodsCon.goodsstatue}&pricesList[0].pricesclass=${requestScope.goodsCon.pricesList[0].pricesclass}'+
-					'goodstype=${requestScope.goodsCon.goodstype}';
-					alert('${requestScope.goodsCon.goodstype}');
+					'&goodstype=${requestScope.goodsCon.goodstype}&goodsid=${requestScope.goodsCon.goodsid}';
 				}
 			} else if(data == 'error1'){
 				alert('编号重复,请重新输入。');

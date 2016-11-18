@@ -202,6 +202,7 @@ String goodsstatue = request.getParameter("goodsstatue");
 <script type="text/javascript">
 var goodsstatue = '<%=goodsstatue %>';
 var goodstype = '${goods.goodstype}';
+var glogoodsid = '${goods.goodsid}';
 $(function(){
 	if( goodsstatue == '' && goodstype != '裸价商品'){
 		$(".nowposition").html("当前位置：商品管理》全部商品");
@@ -216,8 +217,8 @@ $(function(){
 	$("#main_form").on("submit",function(){
 		checkCondition();
 	});
-	if('${param.goodsid}'!=''){
-		$('#${param.goodsid}').attr("checked",true);
+	if(glogoodsid){
+		$('#'+glogoodsid).prop('checked',true);
 	}
 })
 //检查查询条件是否变化
