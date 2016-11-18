@@ -22,6 +22,7 @@
     <result column="TIMEGOODSSEQ" property="timegoodsseq" jdbcType="DECIMAL" />
     <result column="TIMEGOODSSCOPE" property="timegoodsscope" jdbcType="VARCHAR" />
     <result column="TIMEGOODSWEIGHT" property="timegoodsweight" jdbcType="VARCHAR" />
+    <result column="TIMEGOODSBRAND" property="timegoodsbrand" jdbcType="VARCHAR" />
     <!-- 小类 -->
     <association property="timeGoodsClass" javaType="com.server.pojo.entity.Goodsclass">
 		<id column="GOODSCLASSID" property="goodsclassid" jdbcType="VARCHAR" />
@@ -32,14 +33,16 @@
 	    <result column="GOODSCLASSSTATUE" property="goodsclassstatue" jdbcType="VARCHAR" />    
     </association>
   </resultMap>
-  <sql id="Base_Column_List" >
-    TIMEGOODSID, TIMEGOODSCOMPANY, TIMEGOODSCODE, TIMEGOODSNAME, TIMEGOODSDETAIL, TIMEGOODSUNITS, 
-    TIMEGOODSUNIT, TIMEGOODSPRICE, TIMEGOODSORGPRICE, TIMEGOODSNUM, TIMEGOODSCLASS, TIMEGOODSIMAGE, 
-    TIMEGOODSSTATUE, CREATETIME, CREATOR, ALLNUM, SURPLUSNUM, TIMEGOODSSEQ, TIMEGOODSSCOPE, TIMEGOODSWEIGHT
-  </sql>
-  <!-- 根据编码和规格和经销商查询 -->
+  <!-- 根据编码和规格和经销商查询(数量) -->
   <select id="selectComRepeatGoods" resultType="int" >
     select count(*) from TIMEGOODS
+    where TIMEGOODSCODE = #{timegoodscode,jdbcType=VARCHAR} 
+    and TIMEGOODSCOMPANY=#{comid} 
+    and TIMEGOODSUNITS=#{timegoodsunits}
+  </select>
+  <!-- 根据编码和规格和经销商查询 -->
+  <select id="selectByCodeUnitsCom" resultType="com.server.pojo.entity.Timegoods" >
+    select * from TIMEGOODS
     where TIMEGOODSCODE = #{timegoodscode,jdbcType=VARCHAR} 
     and TIMEGOODSCOMPANY=#{comid} 
     and TIMEGOODSUNITS=#{timegoodsunits}
@@ -47,7 +50,7 @@
   <!-- 根据编码查询 -->
   <select id="selectByCode" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
-    <include refid="Base_Column_List" />
+    *
     from TIMEGOODS
     where TIMEGOODSCODE = #{timegoodscode,jdbcType=VARCHAR}
   </select>
@@ -95,7 +98,7 @@
   <!-- 根据主键查询 -->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
-    <include refid="Base_Column_List" />
+    *
     from TIMEGOODS
     where TIMEGOODSID = #{timegoodsid,jdbcType=VARCHAR}
   </select>
@@ -168,6 +171,10 @@
       <if test="timegoodsweight != null" >
         TIMEGOODSWEIGHT,
       </if>
+      <if test="timegoodsbrand != null" >
+        TIMEGOODSBRAND,
+      </if>
+      
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="timegoodsid != null" >
@@ -229,6 +236,9 @@
       </if>
       <if test="timegoodsweight != null" >
         #{timegoodsweight,jdbcType=VARCHAR},
+      </if>
+      <if test="timegoodsbrand != null" >
+        #{timegoodsbrand,jdbcType=VARCHAR},
       </if>
       
     </trim>
@@ -293,6 +303,9 @@
       </if>
       <if test="timegoodsweight != null" >
       	TIMEGOODSWEIGHT = #{timegoodsweight,jdbcType=VARCHAR},
+      </if>
+      <if test="timegoodsbrand != null" >
+      	TIMEGOODSBRAND = #{timegoodsbrand,jdbcType=VARCHAR},
       </if>
     </set>
     where TIMEGOODSID = #{timegoodsid,jdbcType=VARCHAR}

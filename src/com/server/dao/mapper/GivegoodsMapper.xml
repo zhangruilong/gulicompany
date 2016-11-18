@@ -19,6 +19,7 @@
     <result column="GIVEGOODSSEQ" property="givegoodsseq" jdbcType="DECIMAL" />
     <result column="GIVEGOODSSCOPE" property="givegoodsscope" jdbcType="VARCHAR" />
     <result column="GIVEGOODSWEIGHT" property="givegoodsweight" jdbcType="VARCHAR" />
+    <result column="GIVEGOODSBRAND" property="givegoodsbrand" jdbcType="VARCHAR" />
     <!-- 供应商 -->
     <association property="givegoodcompany" javaType="com.server.pojo.entity.Company">
     	<id column="COMPANYID" property="companyid" jdbcType="VARCHAR" />
@@ -54,11 +55,13 @@
 	    <result column="GOODSCLASSSTATUE" property="goodsclassstatue" jdbcType="VARCHAR" />    
     </association>
   </resultMap>
-  <sql id="Base_Column_List" >
-    GIVEGOODSID, GIVEGOODSCOMPANY, GIVEGOODSCODE, GIVEGOODSNAME, GIVEGOODSDETAIL, GIVEGOODSUNITS, 
-    GIVEGOODSUNIT, GIVEGOODSPRICE, GIVEGOODSNUM, GIVEGOODSCLASS, GIVEGOODSIMAGE, GIVEGOODSSTATUE, 
-    CREATETIME, CREATOR, GIVEGOODSSEQ, GIVEGOODSSCOPE,GIVEGOODSWEIGHT
-  </sql>
+  <!-- 根据编码和规格和经销商查询 -->
+  <select id="selectByCodeUnitsCom" resultType="com.server.pojo.entity.Givegoods" >
+    select * from GIVEGOODS
+    where GIVEGOODSCODE = #{givegoodscode,jdbcType=VARCHAR} 
+    and GIVEGOODSCOMPANY=#{comid} 
+    and GIVEGOODSUNITS=#{givegoodsunits}
+  </select>
   <!-- 根据编码和规格和经销商查询 -->
   <select id="selectComRepeatGoods" resultType="int" >
     select count(*) from GIVEGOODS
@@ -135,7 +138,7 @@
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
-    <include refid="Base_Column_List" />
+    *
     from GIVEGOODS
     where GIVEGOODSID = #{givegoodsid,jdbcType=VARCHAR}
   </select>
@@ -197,6 +200,9 @@
       <if test="givegoodsweight != null" >
         GIVEGOODSWEIGHT,
       </if>
+      <if test="givegoodsbrand != null" >
+        GIVEGOODSBRAND,
+      </if>
       
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -251,6 +257,9 @@
       <if test="givegoodsweight != null" >
         #{givegoodsweight,jdbcType=VARCHAR},
       </if>
+      <if test="givegoodsbrand != null" >
+        #{givegoodsbrand,jdbcType=VARCHAR},
+      </if>
       
     </trim>
   </insert>
@@ -304,6 +313,9 @@
       </if>
       <if test="givegoodsweight != null" >
         GIVEGOODSWEIGHT = #{givegoodsweight,jdbcType=VARCHAR},
+      </if>
+      <if test="givegoodsbrand != null" >
+        GIVEGOODSBRAND = #{givegoodsbrand,jdbcType=VARCHAR},
       </if>
     </set>
     where GIVEGOODSID = #{givegoodsid,jdbcType=VARCHAR}

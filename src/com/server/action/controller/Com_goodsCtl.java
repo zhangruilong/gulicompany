@@ -84,13 +84,76 @@ public class Com_goodsCtl {
 		}
 		return map;
 	}
-	//设置订单商品的orderdgoods
+	//设置订单商品的orderdbrand(商品品牌)
+	@RequestMapping("/companySys/setOrderdBrand")
+	@ResponseBody
+	public Map<String, Object> setOrderdBrand(String timegoodsid){
+		Map<String, Object> map = new HashMap<String, Object>();
+		int count = 0;
+		List<Orderd> msodLi = orderdMapper.selectAllOrderdBrandIsNull("秒杀");
+		if(null != msodLi && msodLi.size()>0){
+			for (int i = 0; i < msodLi.size(); i++) {
+				Orderd od = msodLi.get(i);
+				if(null!=od && null != od.getOrderm()){
+					Timegoods tg = timegoodsMapper.selectByCodeUnitsCom(
+							od.getOrderm().getOrdermcompany(), 
+							od.getOrderdcode(), 
+							od.getOrderdunits());
+					if(null != tg){
+						od.setOrderdbrand(tg.getTimegoodsbrand());
+						count += orderdMapper.updateByPrimaryKeySelective(od);
+					}/* else {
+						System.out.println(od.getOrderdid());
+					}*/
+				}
+			}
+		}
+		List<Orderd> mzodLi = orderdMapper.selectAllOrderdBrandIsNull("买赠");
+		if(null != mzodLi && mzodLi.size()>0){
+			for (int i = 0; i < mzodLi.size(); i++) {
+				Orderd od = mzodLi.get(i);
+				if(null!=od && null != od.getOrderm()){
+					Givegoods gg = givegoodsMapper.selectByCodeUnitsCom(
+							od.getOrderm().getOrdermcompany(), 
+							od.getOrderdcode(), 
+							od.getOrderdunits());
+					if(null != gg){
+						od.setOrderdbrand(gg.getGivegoodsbrand());
+						count += orderdMapper.updateByPrimaryKeySelective(od);
+					}/* else {
+						System.out.println(od.getOrderdid());
+					}*/
+				}
+			}
+		}
+		List<Orderd> godLi = orderdMapper.selectAllOrderdBrandIsNull("商品");
+		if(null != godLi && godLi.size()>0){
+			for (int i = 0; i < godLi.size(); i++) {
+				Orderd od = godLi.get(i);
+				if(null!=od && null != od.getOrderm()){
+					Goods g = goodsMapper.selectByGoodsCode(
+							od.getOrderdcode(), 
+							od.getOrderm().getOrdermcompany(), 
+							od.getOrderdunits());
+					if(null != g){
+						od.setOrderdbrand(g.getGoodsbrand());
+						count += orderdMapper.updateByPrimaryKeySelective(od);
+					}/* else {
+						System.out.println(od.getOrderdid());
+					}*/
+				}
+			}
+		}
+		map.put("msg", count);
+		return map;
+	}
+	//设置订单商品的orderdgoods(商品id)
 	@RequestMapping("/companySys/setOrderdgoodsid")
 	@ResponseBody
 	public Map<String, Object> setOrderdgoodsid(String timegoodsid){
 		Map<String, Object> map = new HashMap<String, Object>();
 		int count = 0;
-		List<Orderd> odLi = orderdMapper.selectAllOrderd();
+		List<Orderd> odLi = orderdMapper.selectAllOrderdGoodsIsNull();		//商品id为空的订单
 		for (int i = 0; i < odLi.size(); i++) {
 			Orderd od = odLi.get(i);
 			if(null!=od && null != od.getOrderm()){
@@ -101,8 +164,6 @@ public class Com_goodsCtl {
 				if(null != gd){
 					od.setOrderdgoods(gd.getGoodsid());
 					count += orderdMapper.updateByPrimaryKeySelective(od);
-				} else {
-					System.out.println(od.getOrderdid());
 				}
 			}
 		}

@@ -10,6 +10,11 @@ public interface TimegoodsMapper {
 	/**
 	 * 根据编码和规格和经销商查询
 	 */
+	Timegoods selectByCodeUnitsCom(@Param("comid") String comid,@Param("timegoodscode") String timegoodscode,
+			@Param("timegoodsunits") String timegoodsunits);
+	/**
+	 * 根据编码和规格和经销商查询(数量)
+	 */
 	Integer selectComRepeatGoods(@Param("comid") String comid,@Param("timegoodscode") String timegoodscode,
 			@Param("timegoodsunits") String timegoodsunits);
 	/**

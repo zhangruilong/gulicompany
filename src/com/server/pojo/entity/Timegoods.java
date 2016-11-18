@@ -91,6 +91,10 @@ public class Timegoods
     * 重量
     */
    private String timegoodsweight;
+   /**
+    * 品牌
+    */
+   private String timegoodsbrand;
 	//属性方法	
    /**
     * 小类
@@ -417,6 +421,13 @@ public class Timegoods
 	    */
 	public void setTimegoodsweight(String timegoodsweight) {
 		this.timegoodsweight = timegoodsweight;
+	}
+	
+	public String getTimegoodsbrand() {
+		return timegoodsbrand;
+	}
+	public void setTimegoodsbrand(String timegoodsbrand) {
+		this.timegoodsbrand = timegoodsbrand;
 	}
 	public Timegoods() {
 		super();

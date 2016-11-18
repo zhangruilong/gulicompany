@@ -48,7 +48,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 模糊查询:<input type="text"  class="condition_query" name="condition" value="${requestScope.condition }">
 <input class="button" type="button" value="查询" onclick="subfor()">
 <input class="button" type="button" value="导出报表" onclick="report()">
-<!-- <input class="button" type="button" value="设置订单商品id" onclick="setorderdgoodsid()"> -->
 </div>
 <div class="stat-bar2">筛选条件：
 <span>业务员：<input type="text" id="quEmp" name="quEmp" value="${requestScope.quEmp }" onclick="showEmp()"></span>
@@ -231,6 +230,9 @@ $(function(){
 			if(data.msg =='success'){
 				$('.alert-brand-show').html('');
 				$.each(data.brand ,function(i,item){
+					if(typeof(item)=='undefined' || !item){
+						item = '没品牌';
+					}
 					if(quBrand.indexOf(item) == -1){
 						$('.alert-brand-show').append('<span>'+item+'</span>');
 					} else {
@@ -262,6 +264,9 @@ $(function(){
 			if(data.msg=='success'){
 				$(".alert-emp-show").html('');
 				$.each(data.empLi,function(i,item){
+					if(typeof(item)=='undefined' || !item){
+						item = '没有业务员';
+					}
 					if(quEmp.indexOf(item) == -1){
 						$(".alert-emp-show").append('<span>'+item+'</span>');
 					} else {
@@ -334,22 +339,6 @@ function cusNameConditionConfirm(){
 	$('#quCus').val(nowCus);
 	$(".cusNames-popup").removeClass("is-visible");
 }
-//设置订单商品id
-function setorderdgoodsid(){
-	$.ajax({
-		url:"setOrderdgoodsid.action",
-		type:"post",
-		data:{
-			
-		},
-		success:function(data){
-			alert("修改了:"+data.msg+" 条数据");
-		},
-		error:function(data){
-			
-		}
-	});
-}
 //关闭cusNames弹窗
 function hiddenCusShow(){
 	$(".cusNames-popup").removeClass("is-visible");
@@ -380,8 +369,9 @@ function showCusNames(){
 		success:function(data){
 			if(data.msg =='success'){
 				$('.alert-cusNames-show').html('');
+				var currQuCus = $('#quCus').val();
 				$.each(data.cusNames ,function(i,item){
-					if(quCus.indexOf(item) == -1){
+					if(currQuCus.indexOf(item) == -1){
 						$('.alert-cusNames-show').append('<span>'+item+'</span>');
 					} else {
 						$('.alert-cusNames-show').append('<span class="alert-cusNames-selspan">'+item+'</span>');
@@ -422,8 +412,12 @@ function showBrand(){
 		success:function(data){
 			if(data.msg =='success'){
 				$('.alert-brand-show').html('');
+				var currQuBrand = $('#quBrand').val();
 				$.each(data.brand ,function(i,item){
-					if(quBrand.indexOf(item) == -1){
+					if(typeof(item)=='undefined' || !item){
+						item = '没品牌';
+					}
+					if(currQuBrand.indexOf(item) == -1){
 						$('.alert-brand-show').append('<span>'+item+'</span>');
 					} else {
 						$('.alert-brand-show').append('<span class="alert-brand-selspan">'+item+'</span>');
@@ -463,8 +457,12 @@ function showEmp(){
 		success:function(data){
 			if(data.msg=='success'){
 				$(".alert-emp-show").html('');
+				var currQuEmp = $('#quEmp').val();
 				$.each(data.empLi,function(i,item){
-					if(quEmp.indexOf(item) == -1){
+					if(typeof(item)=='undefined' || !item){
+						item = '没有业务员';
+					}
+					if(currQuEmp.indexOf(item) == -1){
 						$(".alert-emp-show").append('<span>'+item+'</span>');
 					} else {
 						$('.alert-emp-show').append('<span class="alert-emp-selspan">'+item+'</span>');

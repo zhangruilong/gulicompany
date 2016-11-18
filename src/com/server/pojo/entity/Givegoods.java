@@ -39,12 +39,22 @@ public class Givegoods {
     
     private String givegoodsweight;
     
+    private String givegoodsbrand;
+    
 	public String getGivegoodsweight() {
 		return givegoodsweight;
 	}
 
 	public void setGivegoodsweight(String givegoodsweight) {
 		this.givegoodsweight = givegoodsweight;
+	}
+
+	public String getGivegoodsbrand() {
+		return givegoodsbrand;
+	}
+
+	public void setGivegoodsbrand(String givegoodsbrand) {
+		this.givegoodsbrand = givegoodsbrand;
 	}
 
 	public String getGivegoodsscope() {

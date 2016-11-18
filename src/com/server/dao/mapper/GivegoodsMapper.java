@@ -10,6 +10,11 @@ public interface GivegoodsMapper {
 	/**
 	 * 根据编码和规格和经销商查询
 	 */
+	Givegoods selectByCodeUnitsCom(@Param("comid") String comid,@Param("givegoodscode") String givegoodscode,
+			@Param("givegoodsunits") String givegoodsunits);
+	/**
+	 * 根据编码和规格和经销商查询
+	 */
 	Integer selectComRepeatGoods(@Param("comid") String comid,@Param("givegoodscode") String givegoodscode,
 			@Param("givegoodsunits") String givegoodsunits);
 	/**

@@ -72,6 +72,10 @@ public class Orderd
     */
    private String orderdnote;  
    /**
+    * 品牌
+    */
+   private String orderdbrand;  
+   /**
     * 订单
     */
    private Orderm orderm;
@@ -331,6 +335,14 @@ public class Orderd
 	    */
 	public void setOrderdnote(String orderdnote) {
 		this.orderdnote = orderdnote;
+	}
+
+	public String getOrderdbrand() {
+		return orderdbrand;
+	}
+
+	public void setOrderdbrand(String orderdbrand) {
+		this.orderdbrand = orderdbrand;
 	}
 
 	public Orderm getOrderm() {

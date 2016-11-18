@@ -82,8 +82,6 @@
   </sql>
   <!-- 查询一段时间内有订单的客户名称 -->
   <select id="selectTimeCusNames" resultType="String" >
-  select * from 
-	(select A.*, ROWNUM RN from (
   	select c.CUSTOMERSHOP from customer c 
   		left join ccustomer cc on cc.ccustomercustomer = c.customerid
 		left join orderm om on om.ordermcustomer = c.customerid
@@ -93,8 +91,6 @@
 	and om.ordermtime &lt;= #{endTime} 
 	and om.ordermstatue != '已删除'
 	group by c.CUSTOMERSHOP
-	) A where ROWNUM  &lt;= 100) 
-	where RN &gt; 0
   </select>
   <!-- 客户订单统计报表 -->
   <select id="selectCusStatisticReport" resultType="com.server.pojo.entity.CustomerStatisticVO" >

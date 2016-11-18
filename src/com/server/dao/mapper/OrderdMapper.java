@@ -19,9 +19,13 @@ public interface OrderdMapper {
 	List<String> selectTimeOrderdGoodsBrand(@Param("staTime") String staTime,@Param("endTime") String endTime,
 			@Param("companyid") String companyid);
 	/**
-	 * 查询全部订单
+	 * 查询全部商品id为空的订单
 	 */
-	List<Orderd> selectAllOrderd();
+	List<Orderd> selectAllOrderdGoodsIsNull();
+	/**
+	 * 根据类型查询全部商品品牌为空的订单
+	 */
+	List<Orderd> selectAllOrderdBrandIsNull(@Param("type") String type);
 	/**
 	 * 根据ordermid查询订单详情
 	 */
