@@ -6,7 +6,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-<head>
 <title></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="css/tabsty.css" rel="stylesheet" type="text/css">
@@ -264,7 +263,7 @@ $(function(){
 				$(".alert-emp-show").html('');
 				$.each(data.empLi,function(i,item){
 					if(typeof(item)=='undefined' || !item){
-						item = '没有业务员';
+						item = '无填充';
 					}
 					if(quEmp.indexOf(item) == -1){
 						$(".alert-emp-show").append('<span>'+item+'</span>');
@@ -459,7 +458,7 @@ function showEmp(){
 				var currQuEmp = $('#quEmp').val();
 				$.each(data.empLi,function(i,item){
 					if(typeof(item)=='undefined' || !item){
-						item = '没有业务员';
+						item = '无填充';
 					}
 					if(currQuEmp.indexOf(item) == -1){
 						$(".alert-emp-show").append('<span>'+item+'</span>');

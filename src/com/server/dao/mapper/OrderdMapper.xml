@@ -157,10 +157,10 @@
 	<if test="empNames != null and empNames !=''">
 		and 
 		<foreach collection="empNames" open="(" close=")" separator="or" item="empName">
-			<if test="empName == '没有业务员'">
+			<if test="empName == '无填充'">
 				cc.createtime is null
 			</if>
-			<if test="empName != '没有业务员'">
+			<if test="empName != '无填充'">
 				cc.createtime=#{empName}
 			</if>
 		</foreach>
@@ -217,10 +217,10 @@
 	<if test="empNames != null and empNames !=''">
 		and 
 		<foreach collection="empNames" open="(" close=")" separator="or" item="empName">
-			<if test="empName == '没有业务员'">
+			<if test="empName == '无填充'">
 				cc.createtime is null
 			</if>
-			<if test="empName != '没有业务员'">
+			<if test="empName != '无填充'">
 				cc.createtime=#{empName}
 			</if>
 		</foreach>
@@ -277,10 +277,10 @@
 	<if test="empNames != null and empNames !=''">
 		and 
 		<foreach collection="empNames" open="(" close=")" separator="or" item="empName">
-			<if test="empName == '没有业务员'">
+			<if test="empName == '无填充'">
 				cc.createtime is null
 			</if>
-			<if test="empName != '没有业务员'">
+			<if test="empName != '无填充'">
 				cc.createtime=#{empName}
 			</if>
 		</foreach>
@@ -336,10 +336,10 @@
 	<if test="empNames != null and empNames !=''">
 		and 
 		<foreach collection="empNames" open="(" close=")" separator="or" item="empName">
-			<if test="empName == '没有业务员'">
+			<if test="empName == '无填充'">
 				cc.createtime is null
 			</if>
-			<if test="empName != '没有业务员'">
+			<if test="empName != '无填充'">
 				cc.createtime=#{empName}
 			</if>
 		</foreach>
