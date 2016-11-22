@@ -12,30 +12,30 @@ $(function(){
 			"ordermids":ordermids
 		},
 		success : function(data){
-			var tempList = data.tempList;					//模板
-			var printinfo = data.printinfo[0];					//打印信息 (除订单商品外的打印信息)
-			var orderdList = data.orderdList;				//订单商品列表
-			var rowStyle = '';								//行样式
-			var qianshouTDStrle = '';						//签收信息单元格样式
-			var totalMon=0;									//总下单金额
-			var totalRMon = 0;								//总实际金额
-			var orderMsg = '';								//订单留言
-			
-			$.each(data.printinfo,function(i,item){
-				totalMon += parseFloat(item.ordermmoney);
-				totalRMon += parseFloat(item.ordermrightmoney);
-				if(typeof(item.ordermdetail)!='undefined' && item.ordermdetail){
-					orderMsg += item.ordermdetail+'; ';
-				}
-			});
-			if(data.printinfo.length>1){							//得到合并后的订单总金额
-				printinfo.ordermmoney = totalMon;
-				printinfo.ordermrightmoney = totalRMon;
-				if(orderMsg != ''){
-					printinfo.ordermdetail = orderMsg;
-				}
-			}
 			if(data.message=='success'){
+				var tempList = data.tempList;					//模板
+				var printinfo = data.printinfo[0];					//打印信息 (除订单商品外的打印信息)
+				var orderdList = data.orderdList;				//订单商品列表
+				var rowStyle = '';								//行样式
+				var qianshouTDStrle = '';						//签收信息单元格样式
+				var totalMon=0;									//总下单金额
+				var totalRMon = 0;								//总实际金额
+				var orderMsg = '';								//订单留言
+				
+				$.each(data.printinfo,function(i,item){
+					totalMon += parseFloat(item.ordermmoney);
+					totalRMon += parseFloat(item.ordermrightmoney);
+					if(typeof(item.ordermdetail)!='undefined' && item.ordermdetail){
+						orderMsg += item.ordermdetail+'; ';
+					}
+				});
+				if(data.printinfo.length>1){							//得到合并后的订单总金额
+					printinfo.ordermmoney = totalMon;
+					printinfo.ordermrightmoney = totalRMon;
+					if(orderMsg != ''){
+						printinfo.ordermdetail = orderMsg;
+					}
+				}
 				var text = '';									//要输入的文本
 				$.each(orderdList,function(i,item){
 					if(typeof(item.orderdweight)!='undefined' && item.orderdweight != 'undefined'){

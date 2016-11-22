@@ -70,6 +70,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<th>商品名称</th>
 		<th>规格</th>
 		<th>类别</th>
+		<th>品牌</th>
 		<th>售价</th>
 		<th>重量(kg)</th>
 		<th>描述</th>
@@ -88,6 +89,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td>${givegoods.givegoodsname}</td>
 			<td>${givegoods.givegoodsunits}</td>
 			<td>${givegoods.givegoodsclass}</td>
+			<td>${givegoods.givegoodsbrand}</td>
 			<td>${givegoods.givegoodsprice}</td>
 			<td>${givegoods.givegoodsweight}</td>
 			<td>${givegoods.givegoodsdetail}</td>

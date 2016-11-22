@@ -121,26 +121,13 @@
   	select * from 
 	(select A.*, ROWNUM RN from (
     select 
-    orderm.ORDERMID, 
-    orderm.ORDERMCUSTOMER, 
-    orderm.ORDERMCOMPANY, 
-    orderm.ORDERMCODE, 
-    orderm.ORDERMNUM, 
-    orderm.ORDERMMONEY, 
-    orderm.ORDERMRIGHTMONEY, 
-    orderm.ORDERMWAY, 
-    orderm.ORDERMSTATUE, 
-    orderm.ORDERMDETAIL, 
-    orderm.ORDERMTIME,
-    orderm.ORDERMCONNECT, 
-    orderm.ORDERMPHONE, 
-    orderm.ORDERMADDRESS, 
-    orderm.UPDTIME, orderm.UPDOR, orderm.ORDERMEMP,
+    orderm.*,
     customer.customershop, 
     customer.customerid
     from ORDERM
     left join customer
 	on orderm.ordermcustomer = customer.customerid
+	left join ccustomer cc on cc.ccustomercustomer = orderm.ordermcustomer and cc.ccustomercompany = orderm.ordermcompany
     where orderm.ordermcompany = #{orderm.ordermcompany,jdbcType=VARCHAR} 
     and orderm.ordermstatue != '已删除'
     	<if test="orderm.ordermway != null and orderm.ordermway != ''">
@@ -162,7 +149,10 @@
 			orderm.ORDERMADDRESS like '%${orderm.ordermcode}%' or
 			orderm.UPDOR like '%${orderm.ordermcode}%' or
 			orderm.ORDERMEMP like '%${orderm.ordermcode}%' or
-			customer.customershop like '%${orderm.ordermcode}%')
+			cc.createtime like '%${orderm.ordermcode}%' or
+			customer.customershop like '%${orderm.ordermcode}%'
+			
+			)
 		</if>
     order by orderm.ordermtime desc
     ) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) ) 
@@ -175,6 +165,7 @@ where RN &gt; ((#{nowpage}-1)*#{pagesize})
     from orderm
     left join customer
 	on orderm.ordermcustomer = customer.customerid
+	left join ccustomer cc on cc.ccustomercustomer = orderm.ordermcustomer and cc.ccustomercompany = orderm.ordermcompany
     where ordermcompany = #{orderm.ordermcompany,jdbcType=VARCHAR} 
     and orderm.ordermstatue != '已删除'
     	<if test="orderm.ordermway != null and orderm.ordermway != ''">
@@ -196,6 +187,7 @@ where RN &gt; ((#{nowpage}-1)*#{pagesize})
 			orderm.ORDERMADDRESS like '%${orderm.ordermcode}%' or
 			orderm.UPDOR like '%${orderm.ordermcode}%' or
 			orderm.ORDERMEMP like '%${orderm.ordermcode}%' or
+			cc.createtime like '%${orderm.ordermcode}%' or
 			customer.customershop like '%${orderm.ordermcode}%')
 		</if>
     order by orderm.ordermtime desc

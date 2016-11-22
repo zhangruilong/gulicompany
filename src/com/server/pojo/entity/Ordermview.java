@@ -64,6 +64,14 @@ public class Ordermview
     */
    private String ordermaddress;   
    /**
+    * 客户等级
+    */
+   private String ordermcuslevel;
+   /**
+    * 客户类型
+    */
+   private String ordermcustype;
+   /**
     * updtime
     */
    private String updtime;   
@@ -95,6 +103,22 @@ public class Ordermview
 	public String getOrdermid()
 	{
 		return this.ordermid;
+	}
+
+	public String getOrdermcuslevel() {
+		return ordermcuslevel;
+	}
+
+	public void setOrdermcuslevel(String ordermcuslevel) {
+		this.ordermcuslevel = ordermcuslevel;
+	}
+
+	public String getOrdermcustype() {
+		return ordermcustype;
+	}
+
+	public void setOrdermcustype(String ordermcustype) {
+		this.ordermcustype = ordermcustype;
 	}
 
 	/**

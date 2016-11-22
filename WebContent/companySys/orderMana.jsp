@@ -54,6 +54,8 @@ String ordermway = request.getParameter("ordermway");
 		<th>订单编号</th>
 		<th>支付方式</th>
 		<th>种类</th>
+		<th>类型</th>
+		<th>层级</th>
 		<th>下单金额</th>
 		<th>实际金额</th>
 		<th style="width:29px;">状态</th>
@@ -74,6 +76,8 @@ String ordermway = request.getParameter("ordermway");
 			<td>${order.ordermcode}</td>
 			<td>${order.ordermway}</td>
 			<td>${order.ordermnum}</td>
+			<td>${order.ordermcustype=='3'?'餐饮客户':(order.ordermcustype=='2'?'商超客户':(order.ordermcustype=='1'?'组织单位客户':''))}</td>
+			<td>${order.ordermcuslevel}</td>
 			<td>${order.ordermmoney}</td>
 			<td>${order.ordermrightmoney}</td>
 			<td class="td_orderm_statue">${order.ordermstatue}</td>
