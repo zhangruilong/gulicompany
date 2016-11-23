@@ -60,6 +60,8 @@
 				name="timegoodsorgprice" value="${requestScope.editTimeGoods.timegoodsorgprice }" placeholder="现价" /><font>(必填)</font></label>
 			<label><span>重量 :</span><input id="timegoodsweight" type="number"
 				name="timegoodsweight" value="${requestScope.editTimeGoods.timegoodsweight }" placeholder="重量" /></label>
+			<label><span>品牌 :</span><input id="timegoodsbrand" type="text"
+				name="timegoodsbrand" value="${requestScope.editTimeGoods.timegoodsbrand }" placeholder="品牌" /></label>
 			<label><span>个人限量 :</span><input id="timegoodsnum" type="number"
 				name="timegoodsnum" value="${requestScope.editTimeGoods.timegoodsnum }" placeholder="个人限量" /><font>(必填)</font></label>
 			<label><span>全部限量 :</span><input id="allnum" type="number"
@@ -96,12 +98,12 @@ function saveEdit(){
 	});
 	data += '"timegoodsscope":"' + timegoodsscope +'",';
 	$(".elegant-aero [type='text']").add(".elegant-aero [type='number']").each(function(i,item){
-		if($(item).val() == null || $(item).val() == '' ){
-			if($(item).attr('placeholder') != '顺序' && $(item).attr('placeholder') != '图片路径' && $(item).attr('placeholder') != '重量'){
-				alert($(item).attr('placeholder') + '不能为空');
-				count++;
-				return false;
-			}
+		if(($(item).val() == null || $(item).val() == '') && $(item).attr('placeholder') != '顺序' 
+				&& $(item).attr('placeholder') != '重量' && $(item).attr('placeholder') != '品牌'
+				&& $(item).attr('placeholder') != '图片路径'){
+			alert($(item).attr('placeholder') + '不能为空!');
+			count++;
+			return false;
 		} else {
 			data += '"'+$(item).attr("name") + '":"' + $(item).val() + '",';
 		}

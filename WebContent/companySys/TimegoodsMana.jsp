@@ -174,6 +174,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</label> -->
 			<label><span>单位 :</span><input id="timegoodsunit" type="text"
 				name="timegoodsunit" placeholder="单位" /><font>(必填)</font></label>
+			<label><span>品牌 :</span><input id="timegoodsbrand" type="text"
+				name="timegoodsbrand" placeholder="品牌" /></label>
 			<label><span>原价 :</span><input id="timegoodsprice" type="number"
 				name="timegoodsprice" placeholder="原价" /><font>(必填)</font></label>
 			<label><span>现价 :</span><input id="timegoodsorgprice" type="number"
@@ -220,6 +222,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</table>
 </div>
 </div>
+<script type="text/javascript" src="js/common.js"></script>
 <script type="text/javascript">
 $(function(){
 	$("#main_form").on("submit",function(){
@@ -289,6 +292,7 @@ function loadGoodsData(pagenowGoods){
 					+item.goodscode+
 					'\',\''+item.goodsname+
 					'\',\''+item.goodsunits+
+					'\',\''+typeNullFoString(item.goodsbrand)+
 					'\',\''+item.goodsimage+
 					'\')">选择</a></td></tr>'
 			);
@@ -314,9 +318,10 @@ function loadGoodsData(pagenowGoods){
 	});
 }
 //选择商品
-function seleScant(timegoodscode,timegoodsname,timegoodsunits,timegoodsimage){
+function seleScant(timegoodscode,timegoodsname,timegoodsunits,timegoodsbrand,timegoodsimage){
 	$("#timegoodscode").val(timegoodscode);
 	$("#timegoodsname").val(timegoodsname);
+	$("#timegoodsbrand").val(timegoodsbrand);
 	$("#timegoodsunits").val(timegoodsunits);
 	/* $("#timegoodsclass option").each(function(i,item){
 		if($(item).text() == goodsclassname){
@@ -336,12 +341,11 @@ function popup_formSub(){
 		data += '"'+$(".elegant-aero textarea").attr("name") + '":"' + $(".elegant-aero textarea").val() + '",';
 	}
 	$(".elegant-aero [type='text']").add(".elegant-aero [type='number']").each(function(i,item){
-		if($(item).val() == null || $(item).val() == '' ){
-			if($(item).attr('placeholder') != '顺序' && $(item).attr('placeholder') != '重量'){
-				alert($(item).attr('placeholder') + '不能为空!');
-				count++;
-				return false;
-			}
+		if(($(item).val() == null || $(item).val() == '') &&
+				$(item).attr('placeholder') != '顺序' && $(item).attr('placeholder') != '重量'&& $(item).attr('placeholder') != '品牌'){
+			alert($(item).attr('placeholder') + '不能为空!');
+			count++;
+			return false;
 		} else {
 			data += '"'+$(item).attr("name") + '":"' + $(item).val() + '",';
 		}

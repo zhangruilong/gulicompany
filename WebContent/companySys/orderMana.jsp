@@ -54,8 +54,6 @@ String ordermway = request.getParameter("ordermway");
 		<th>订单编号</th>
 		<th>支付方式</th>
 		<th>种类</th>
-		<th>类型</th>
-		<th>层级</th>
 		<th>下单金额</th>
 		<th>实际金额</th>
 		<th style="width:29px;">状态</th>
@@ -66,6 +64,8 @@ String ordermway = request.getParameter("ordermway");
 		<th>手机</th>
 		<th>地址</th>
 		<th>订单源</th>
+		<th>类型</th>
+		<th>层级</th>
     </tr>
     </thead>
     <c:if test="${fn:length(requestScope.allOrder) != 0 }">
@@ -76,8 +76,6 @@ String ordermway = request.getParameter("ordermway");
 			<td>${order.ordermcode}</td>
 			<td>${order.ordermway}</td>
 			<td>${order.ordermnum}</td>
-			<td>${order.ordermcustype=='3'?'餐饮客户':(order.ordermcustype=='2'?'商超客户':(order.ordermcustype=='1'?'组织单位客户':''))}</td>
-			<td>${order.ordermcuslevel}</td>
 			<td>${order.ordermmoney}</td>
 			<td>${order.ordermrightmoney}</td>
 			<td class="td_orderm_statue">${order.ordermstatue}</td>
@@ -88,6 +86,8 @@ String ordermway = request.getParameter("ordermway");
 			<td>${order.ordermphone}</td>
 			<td>${order.ordermaddress}</td>
 			<td>${order.ordermemp}</td>
+			<td>${order.ordermcustype=='3'?'餐饮客户':(order.ordermcustype=='2'?'商超客户':(order.ordermcustype=='1'?'组织单位客户':''))}</td>
+			<td>${order.ordermcuslevel}</td>
 		</tr>
 	</c:forEach>
 	</c:if>
@@ -187,7 +187,6 @@ function doprint(){
 	});
 	if(count==0 && itemCus!=''){
 		window.open("print.jsp?ordermids="+itemids);
-		//window.open("printOrder.action?ordermid="+itemid);
 	} else {
 		alert('操作失败！多个订单合并打印时，须客户和收货信息完全一致。');
 	}

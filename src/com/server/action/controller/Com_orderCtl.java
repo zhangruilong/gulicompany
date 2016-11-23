@@ -298,7 +298,7 @@ public class Com_orderCtl {
 	@ResponseBody
 	public void exportOrderReport(HttpServletResponse response,String staTime,String endTime,Orderm order) throws Exception{
 		ArrayList<Ordermview> ordermList = (ArrayList<Ordermview>)ordermMapper.selectByCompany(staTime, endTime,order);
-		String[] heads = {"订单编号","种类数","下单金额","实际金额","支付方式","订单状态","下单时间","联系人","手机","地址","修改时间","客户名称"};				//表头
+		String[] heads = {"订单编号","种类数","下单金额","实际金额","支付方式","订单状态","下单时间","联系人","手机","地址","层级","客户名称","类型","修改时间"};				//表头
 		String[] discard = {"ordermid","ordermcustomer","ordermcompany","ordermdetail","updor","ordermemp","orderdList","orderdCustomer"};			//要忽略的字段名
 		String name = "订单统计报表";							//文件名称
 		if(!staTime.equals("") && !endTime.equals("")){

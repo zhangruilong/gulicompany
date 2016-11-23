@@ -14,7 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link href="css/tabsty.css" rel="stylesheet" type="text/css">
 <link href="css/dig.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="<%=basePath%>ExtJS/resources/css/ext-all.css" />
-<script type="text/javascript" src="../sysjs/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
 <style type="text/css">
 .elegant-aero{
 	margin-top: 0;
@@ -165,6 +165,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</label> -->
 			<label><span>单位 :</span><input id="givegoodsunit" type="text"
 				name="givegoodsunit" placeholder="单位" /><font>(必填)</font></label>
+			<label><span>品牌 :</span><input id="givegoodsbrand" type="text"
+				name="givegoodsbrand" placeholder="品牌" /></label>
 			<label><span>售价 :</span><input id="givegoodsprice" type="number"
 				name="givegoodsprice" placeholder="售价" /><font>(必填)</font></label>
 			<label><span>重量 :</span><input id="givegoodsweight" type="number"
@@ -207,6 +209,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</table>
 </div>
 </div>
+<script type="text/javascript" src="js/common.js"></script>
 <script type="text/javascript">
 $(function(){
 	$("#main_form").submit(function(){
@@ -276,6 +279,7 @@ function loadGoodsData(pagenowGoods){
 					+item.goodscode+
 					'\',\''+item.goodsname+
 					'\',\''+item.goodsunits+
+					'\',\''+typeNullFoString(item.goodsbrand)+
 					'\',\''+item.goodsimage+
 					'\')">选择</a></td></tr>'
 			);
@@ -301,15 +305,11 @@ function loadGoodsData(pagenowGoods){
 	});
 }
 //选择商品
-function seleScant(givegoodscode,givegoodsname,givegoodsunits,givegoodsimage){
+function seleScant(givegoodscode,givegoodsname,givegoodsunits,givegoodsbrand,givegoodsimage){
 	$("#givegoodscode").val(givegoodscode);
 	$("#givegoodsname").val(givegoodsname);
 	$("#givegoodsunits").val(givegoodsunits);
-	/* $("#givegoodsclass option").each(function(i,item){
-		if($(item).text() == goodsclassname){
-			$(item).attr("selected",true);
-		}
-	}); */
+	$("#givegoodsbrand").val(givegoodsbrand);
 	$("#givegoodsimage").val(givegoodsimage);
 	$(".cd-popup2").removeClass("is-visible");	//移除'is-visible' class
 	
@@ -326,12 +326,11 @@ function popup_formSub(){
 	}
 	var count = 0;
 	$(".elegant-aero [type='text']").add(".elegant-aero [type='number']").each(function(i,item){
-		if($(item).val() == null || $(item).val() == '' ){
-			if($(item).attr('placeholder') != '顺序' && $(item).attr('placeholder') != '重量'){
-				alert($(item).attr('placeholder') + '不能为空!');
-				count++;
-				return false;
-			}
+		if(($(item).val() == null || $(item).val() == '') &&
+				$(item).attr('placeholder') != '顺序' && $(item).attr('placeholder') != '重量'&& $(item).attr('placeholder') != '品牌'){
+			alert($(item).attr('placeholder') + '不能为空!');
+			count++;
+			return false;
 		} else {
 			data += '"'+$(item).attr("name") + '":"' + $(item).val() + '",';
 		}

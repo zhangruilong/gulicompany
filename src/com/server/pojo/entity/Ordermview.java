@@ -64,13 +64,17 @@ public class Ordermview
     */
    private String ordermaddress;   
    /**
-    * 客户等级
+    * customershop
     */
-   private String ordermcuslevel;
+   private String customershop;   
    /**
     * 客户类型
     */
    private String ordermcustype;
+   /**
+    * 客户等级
+    */
+   private String ordermcuslevel;
    /**
     * updtime
     */
@@ -83,10 +87,6 @@ public class Ordermview
     * ordermemp
     */
    private String ordermemp;   
-   /**
-    * customershop
-    */
-   private String customershop;   
     //属性方法	    
      /**
 	 *设置主键"ordermid"属性
