@@ -8,11 +8,10 @@
     <result column="GOODSCLASSPARENT" property="goodsclassparent" jdbcType="VARCHAR" />
     <result column="GOODSCLASSDETAIL" property="goodsclassdetail" jdbcType="VARCHAR" />
     <result column="GOODSCLASSSTATUE" property="goodsclassstatue" jdbcType="VARCHAR" />
+    <result column="GOODSCLASSCITY" property="goodsclasscity" jdbcType="VARCHAR" />
+    <result column="GOODSCLASSORDER" property="goodsclassorder" jdbcType="VARCHAR" />
+    <result column="GOODSCLASSCOMPANY" property="goodsclasscompany" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    GOODSCLASSID, GOODSCLASSCODE, GOODSCLASSNAME, GOODSCLASSPARENT, GOODSCLASSDETAIL, 
-    GOODSCLASSSTATUE
-  </sql>
   <!-- 得到全部商品小类(id和name) -->
   <select id="selectAllGoodsclass" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -21,10 +20,11 @@
     where GOODSCLASSPARENT != 'root'
     and goodsclassstatue != '禁用'
     and GOODSCLASSPARENT != 'G14630381061319233'
+    and goodsclasscompany = #{companyid}
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
-    <include refid="Base_Column_List" />
+    *
     from GOODSCLASS
     where GOODSCLASSID = #{goodsclassid,jdbcType=VARCHAR}
   </select>
@@ -53,6 +53,16 @@
       <if test="goodsclassstatue != null" >
         GOODSCLASSSTATUE,
       </if>
+      <if test="goodsclasscity != null" >
+        GOODSCLASSCITY,
+      </if>
+      <if test="goodsclassorder != null" >
+        GOODSCLASSORDER,
+      </if>
+      <if test="goodsclasscompany != null" >
+        GOODSCLASSCOMPANY,
+      </if>
+      
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="goodsclassid != null" >
@@ -73,6 +83,16 @@
       <if test="goodsclassstatue != null" >
         #{goodsclassstatue,jdbcType=VARCHAR},
       </if>
+      <if test="goodsclasscity != null" >
+        #{goodsclasscity,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsclassorder != null" >
+        #{goodsclassorder,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsclasscompany != null" >
+        #{goodsclasscompany,jdbcType=VARCHAR},
+      </if>
+      
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.server.pojo.entity.Goodsclass" >
@@ -92,6 +112,15 @@
       </if>
       <if test="goodsclassstatue != null" >
         GOODSCLASSSTATUE = #{goodsclassstatue,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsclasscity != null" >
+        GOODSCLASSCITY = #{goodsclasscity,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsclassorder != null" >
+        GOODSCLASSORDER = #{goodsclassorder,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsclasscompany != null" >
+        GOODSCLASSCOMPANY = #{goodsclasscompany,jdbcType=VARCHAR},
       </if>
     </set>
     where GOODSCLASSID = #{goodsclassid,jdbcType=VARCHAR}

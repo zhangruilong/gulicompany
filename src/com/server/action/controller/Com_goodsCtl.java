@@ -576,8 +576,8 @@ public class Com_goodsCtl {
 	//得到全部小类
 	@RequestMapping(value="/companySys/getallGoodclass",produces = "application/json")
 	@ResponseBody
-	public List<Goodsclass> getallGoodclass(){
-		List<Goodsclass> list = goodsclassMapper.selectAllGoodsclass();
+	public List<Goodsclass> getallGoodclass(String companyid){
+		List<Goodsclass> list = goodsclassMapper.selectAllGoodsclass(companyid);
 		return list;
 	}
 	//添加秒杀商品

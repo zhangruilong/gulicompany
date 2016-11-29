@@ -6,9 +6,9 @@ import com.server.pojo.entity.Goodsclass;
 
 public interface GoodsclassMapper {
 	/**
-	 * 得到全部商品小类(id和name)
+	 * 根据供应商得到全部商品小类(id和name)
 	 */
-	List<Goodsclass> selectAllGoodsclass();
+	List<Goodsclass> selectAllGoodsclass(String companyid);
 	/**
 	 * 根据主键删除
 	 */

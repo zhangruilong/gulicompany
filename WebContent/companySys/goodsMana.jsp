@@ -278,7 +278,7 @@ function addgoods(){
 	$(".elegant-aero [type!='button']").val("");
 	$("#addgoodscode").val('${sessionScope.company.companycode }');
 	$(".cd-popup").addClass("is-visible");	//弹出窗口
-	$.getJSON("getallGoodclass.action",function(data){
+	$.getJSON("getallGoodclass.action",{companyid:'${sessionScope.company.companyid }'},function(data){				//查询商品小类名称
 		$.each(data,function(i,item){
 			$("#goodsclass").append(
 				'<option value="'+item.goodsclassid+'">'+item.goodsclassname+'</option>'
@@ -380,6 +380,8 @@ function popup_formSub(){
 				alert($(item).attr('placeholder') + '不能为空');
 				count++;
 				return false;
+			} else if($(item).attr('placeholder') == '图片路径'){
+				$("#goodsimage").val("images/default.jpg");
 			}
 		}
 	});

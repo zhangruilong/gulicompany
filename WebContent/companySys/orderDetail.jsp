@@ -97,7 +97,7 @@ onclick="del('editOrder.action?ordermid=${requestScope.detOrder.ordermid }&order
 			<td>${orderd.orderdnum}</td>
 			<td>${orderd.orderdmoney}</td>
 			<td>${orderd.orderdrightmoney}</td>
-			<td><a href="doeditOrder.action?orderdid=${orderd.orderdid}&ordermcompany=${requestScope.detOrder.ordermcompany }&ordermid=${requestScope.detOrder.ordermid }">修改</a></td>
+			<td><a href="doeditOrder.action?orderdid=${orderd.orderdid}&ordermcompany=${requestScope.detOrder.ordermcompany }&ordermid=${requestScope.detOrder.ordermid }&staTime=${requestScope.staTime}&endTime=${requestScope.endTime}&pagenow=${requestScope.pagenow }">修改</a></td>
 		</tr>
 	</pg:item>
 	</c:forEach>

@@ -24,13 +24,25 @@ public class Goodsclass
     */
    private String goodsclassparent;   
    /**
-    * 描述
+    * 图标
     */
    private String goodsclassdetail;   
    /**
     * 状态
     */
    private String goodsclassstatue;   
+   /**
+    * 城市(用逗号分开)
+    */
+   private String goodsclasscity;   
+   /**
+    * 顺序
+    */
+   private String goodsclassorder;   
+   /**
+    * 经销商
+    */
+   private String goodsclasscompany;   
     //属性方法	    
      /**
 	 *设置主键"大小类ID"属性
@@ -101,7 +113,7 @@ public class Goodsclass
 	}	   
 
 	/**
-	 *设置"描述"属性
+	 *设置"图标"属性
 	 *@param goodsclassdetail 实体的Goodsclassdetail属性
 	 */
 	public void setGoodsclassdetail(String goodsclassdetail)
@@ -110,7 +122,7 @@ public class Goodsclass
 	}
 	
 	/**
-	 *获取"描述"属性
+	 *获取"图标"属性
 	 */
 	public String getGoodsclassdetail()
 	{
@@ -133,6 +145,57 @@ public class Goodsclass
 	{
 		return this.goodsclassstatue;
 	}	   
+
+	/**
+	 *设置"城市(用逗号分开)"属性
+	 *@param goodsclasscity 实体的Goodsclasscity属性
+	 */
+	public void setGoodsclasscity(String goodsclasscity)
+	{
+		this.goodsclasscity = goodsclasscity;
+	}
+	
+	/**
+	 *获取"城市(用逗号分开)"属性
+	 */
+	public String getGoodsclasscity()
+	{
+		return this.goodsclasscity;
+	}	   
+
+	/**
+	 *设置"顺序"属性
+	 *@param goodsclassorder 实体的Goodsclassorder属性
+	 */
+	public void setGoodsclassorder(String goodsclassorder)
+	{
+		this.goodsclassorder = goodsclassorder;
+	}
+	
+	/**
+	 *获取"顺序"属性
+	 */
+	public String getGoodsclassorder()
+	{
+		return this.goodsclassorder;
+	}	   
+
+	/**
+	 *设置"经销商"属性
+	 *@param goodsclasscompany 实体的Goodsclasscompany属性
+	 */
+	public void setGoodsclasscompany(String goodsclasscompany)
+	{
+		this.goodsclasscompany = goodsclasscompany;
+	}
+	
+	/**
+	 *获取"经销商"属性
+	 */
+	public String getGoodsclasscompany()
+	{
+		return this.goodsclasscompany;
+	}	   
 	public Goodsclass() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -144,6 +207,9 @@ public class Goodsclass
 	 	,String goodsclassparent
 	 	,String goodsclassdetail
 	 	,String goodsclassstatue
+	 	,String goodsclasscity
+	 	,String goodsclassorder
+	 	,String goodsclasscompany
 		 ){
 		super();
 		this.goodsclassid = goodsclassid;
@@ -152,6 +218,9 @@ public class Goodsclass
 	 	this.goodsclassparent = goodsclassparent;
 	 	this.goodsclassdetail = goodsclassdetail;
 	 	this.goodsclassstatue = goodsclassstatue;
+	 	this.goodsclasscity = goodsclasscity;
+	 	this.goodsclassorder = goodsclassorder;
+	 	this.goodsclasscompany = goodsclasscompany;
 	}
 }
 

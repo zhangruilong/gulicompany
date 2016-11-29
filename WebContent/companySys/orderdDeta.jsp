@@ -57,8 +57,32 @@
 		var diffOrderdrightmoney = parseFloat(orderdrightmoney0).toFixed(2) - parseFloat(orderdrightmoney).toFixed(2);
 		$("#diffOrderdmoney").val(parseFloat(diffOrderdmoney).toFixed(2));								//设置隐藏表单的值
 		$("#diffOrderdrightmoney").val(parseFloat(diffOrderdrightmoney).toFixed(2));
-		//return;
-		document.forms[0].submit();												//提交表单
+		if(confirm('确定修改订单商品么?'))
+		$.ajax({
+			url:"editOrderd.action",
+			type:"post",
+			data:{
+				ordermid:'${requestScope.order.ordermid }',
+				diffOrderdmoney:diffOrderdmoney,
+				diffOrderdrightmoney:diffOrderdrightmoney,
+				orderdid:'${requestScope.orderd.orderdid }',
+				orderdnum:$('#orderdnum').val(),
+				orderdmoney:$('#orderdmoney').val(),
+				orderdrightmoney:$('#orderdrightmoney').val()
+			},
+			success : function(data){
+				alert(data.msg);
+				if(data.msg=='操作成功!'){
+					window.location.href = 'orderDetail.action?staTime=${requestScope.staTime}&endTime=${requestScope.endTime}&'+
+							'pagenow=${requestScope.pagenow}&ordermid=${requestScope.order.ordermid}&'+
+							'ordermcompany=${requestScope.order.ordermcompany}&ordermcode=${requestScope.order.ordermcode}&'+
+							'ordermway=${requestScope.order.ordermway}';
+				}
+			},
+			error : function(data){
+				alert('操作失败。');
+			}
+		});
 	}
 	</script>
 </body>

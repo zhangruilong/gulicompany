@@ -179,18 +179,23 @@ public class Com_orderCtl {
 	}
 	//修改订单详情
 	@RequestMapping("/companySys/editOrderd")
-	public String editOrderd(Model model,Orderd orderd,Orderm order,Float diffOrderdmoney,Float diffOrderdrightmoney){
+	@ResponseBody
+	public HashMap<String, Object> editOrderd(Model model,Orderd orderd,Orderm order,Float diffOrderdmoney,Float diffOrderdrightmoney){
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		Orderm updateOrderm = ordermMapper.selectByPrimaryKey(order.getOrdermid());					//查询要修改的订单
-		Float nowOrdermmoney = Float.parseFloat(updateOrderm.getOrdermmoney()) - diffOrderdmoney;	//得到计算后的下单金额
-		Float nowOrderdrightmoney = Float.parseFloat(updateOrderm.getOrdermrightmoney()) - diffOrderdrightmoney;	//计算后的实际金额
-		updateOrderm.setOrdermmoney(nowOrdermmoney.toString());				
-		updateOrderm.setOrdermrightmoney(nowOrderdrightmoney.toString());
-		updateOrderm.setUpdtime(DateUtils.getDateTime());			//修改时间
-		ordermMapper.updateByPrimaryKeySelective(updateOrderm);										//修改下单金额和实际金额
-		orderdMapper.updateByPrimaryKeySelective(orderd);
-		model.addAttribute("orderd", orderd);
-		model.addAttribute("order", order);
-		return "forward:orderDetail.action";
+		if(null != updateOrderm && !updateOrderm.getOrdermstatue().equals("已删除")){
+			Float nowOrdermmoney = Float.parseFloat(updateOrderm.getOrdermmoney()) - diffOrderdmoney;	//得到计算后的下单金额
+			Float nowOrderdrightmoney = Float.parseFloat(updateOrderm.getOrdermrightmoney()) - diffOrderdrightmoney;	//计算后的实际金额
+			updateOrderm.setOrdermmoney(nowOrdermmoney.toString());				
+			updateOrderm.setOrdermrightmoney(nowOrderdrightmoney.toString());
+			updateOrderm.setUpdtime(DateUtils.getDateTime());			//修改时间
+			ordermMapper.updateByPrimaryKeySelective(updateOrderm);										//修改下单金额和实际金额
+			orderdMapper.updateByPrimaryKeySelective(orderd);
+			resultMap.put("msg", "操作成功!");
+		} else {
+			resultMap.put("msg", "操作失败，订单不存在或已删除。");
+		}
+		return resultMap;
 	}
 	//打印订单
 	@RequestMapping("/companySys/printOrder")
