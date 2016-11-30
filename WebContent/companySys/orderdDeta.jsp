@@ -26,8 +26,8 @@
 				name="orderdmoney" placeholder="下单金额"  value="${requestScope.orderd.orderdmoney }"/>
 			</label> <label> <span>实际金额 :</span> <input id="orderdrightmoney" type="number"
 				name="orderdrightmoney" placeholder="实际金额"  value="${requestScope.orderd.orderdrightmoney }"/>
-			</label> <label> <span>&nbsp;</span> <input type="button"
-				class="button" value="保存修改" onclick="editMoney()"/>
+			</label> <label> <span>&nbsp;</span> <input type="button" id="odd-edit-btn"
+				class="button" value="保存修改" />
 			</label>
 		</form>
 	</div>
@@ -46,6 +46,7 @@
 			$("#orderdmoney").val(orderdmoney);
 			$("#orderdrightmoney").val(orderdrightmoney);
 		});
+		$('#odd-edit-btn').one('click',editMoney);
 	})
 	//修改
 	function editMoney(){
@@ -77,10 +78,13 @@
 							'pagenow=${requestScope.pagenow}&ordermid=${requestScope.order.ordermid}&'+
 							'ordermcompany=${requestScope.order.ordermcompany}&ordermcode=${requestScope.order.ordermcode}&'+
 							'ordermway=${requestScope.order.ordermway}';
+				} else {
+					history.go(-1);
 				}
 			},
 			error : function(data){
 				alert('操作失败。');
+				history.go(-1);
 			}
 		});
 	}

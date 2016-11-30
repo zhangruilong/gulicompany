@@ -99,7 +99,7 @@ function saveEdit(){
 			alert($(item).attr('placeholder') + '不能为空!');
 			count++;
 			return false;
-		} else if($(item).attr('placeholder') == '图片路径'){
+		} else if(($(item).val() == null || $(item).val() == '') && $(item).attr('placeholder') == '图片路径'){
 			data += '"'+$(item).attr("name") + '":"images/default.jpg",';
 		} else {
 			data += '"'+$(item).attr("name") + '":"' + $(item).val() + '",';

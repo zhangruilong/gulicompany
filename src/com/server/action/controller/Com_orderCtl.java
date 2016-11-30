@@ -65,7 +65,7 @@ public class Com_orderCtl {
 	@ResponseBody
 	public Map<String, Object> queryTimeCus(String staTime,String endTime,String companyid) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		List<String> cusNames = customerMapper.selectTimeCusNames(staTime+":00", endTime+":00", companyid);
+		List<String> cusNames = customerMapper.selectTimeCusNames(staTime, endTime, companyid);
 		if(null != cusNames && cusNames.size()>0){
 			map.put("msg", "success");
 			map.put("cusNames", cusNames);
@@ -233,7 +233,7 @@ public class Com_orderCtl {
 		if(null != quCus && quCus.length()>0){
 			quCusNames = quCus.split(",");
 		}
-		Integer count = orderdMapper.selectByTimeCount(staTime+":00", endTime+":00", companyid,condition,quEmpNames,quBrandNames,quCusNames);	//总信息条数
+		Integer count = orderdMapper.selectByTimeCount(staTime, endTime, companyid,condition,quEmpNames,quBrandNames,quCusNames);	//总信息条数
 		Integer pageCount;		//总页数
 		if(count % 10 ==0){
 			pageCount = count / 10;
@@ -243,8 +243,8 @@ public class Com_orderCtl {
 		if(pagenow > pageCount){
 			pagenow = pageCount;
 		}
-		List<Orderd> list = orderdMapper.selectByPage(staTime+":00", endTime+":00", companyid,condition,pagenow,10,quEmpNames,quBrandNames,quCusNames);					//查询数据
-		OrderdStatistics total = orderdMapper.selectOrderdStatistics(staTime+":00", endTime+":00", companyid,condition,quEmpNames,quBrandNames,quCusNames);	//数据统计
+		List<Orderd> list = orderdMapper.selectByPage(staTime, endTime, companyid,condition,pagenow,10,quEmpNames,quBrandNames,quCusNames);					//查询数据
+		OrderdStatistics total = orderdMapper.selectOrderdStatistics(staTime, endTime, companyid,condition,quEmpNames,quBrandNames,quCusNames);	//数据统计
 		model.addAttribute("total", total);
 		model.addAttribute("orderdList", list);
 		model.addAttribute("companyid", companyid);
