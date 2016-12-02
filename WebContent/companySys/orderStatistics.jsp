@@ -176,15 +176,16 @@ var quBrand = $('#quBrand').val();			//查询的品牌
 var quEmp = $('#quEmp').val();				//查询的业务员
 var quCus = $('#quCus').val();				//查询的客户店名
 
+var defStaTime = '${requestScope.staTime }';
+var defEndTime = '${requestScope.endTime }';
+//alert(defStaTime);
+if(defStaTime == ''){
+	defStaTime = currDateTime;
+}
+if(defEndTime == ''){
+	defEndTime = currDateTime;
+}
 $(function(){
-	var defStaTime = '${requestScope.staTime }';
-	var defEndTime = '${requestScope.endTime }';
-	if(defStaTime == ''){
-		defStaTime = currDateTime;
-	}
-	if(defEndTime == ''){
-		defEndTime = currDateTime;
-	}
 	$.ajax({
 		url:"queryTimeCus.action",						//Com_orderCtl
 		type:"post",
@@ -290,7 +291,7 @@ $(function(){
 		lang:'ch',
 		format:"Y-m-d H:i",      //格式化日期
 		//disabledDates:['1986/01/08','1986/01/09','1986/01/10'],				//禁用日期
-		startDate:	currDateTime,
+		//startDate:	defStaTime,
 		value: defStaTime,
 		step:30
 	});
@@ -299,7 +300,7 @@ $(function(){
 		lang:'ch',
 		format:"Y-m-d H:i",      //格式化日期
 		//disabledDates:['1986/01/08','1986/01/09','1986/01/10'],				//禁用日期
-		startDate:	currDateTime,
+		//startDate:	defEndTime,
 		value: defEndTime,
 		step:30
 	});
@@ -355,14 +356,21 @@ function showCusNames(){
 	if(!companyid){
 		return;
 	}
-	
+	var curQueryStaDatetime = $('#staDatetime').val();
+	var curQueryEndDatetime = $('#endDatetime').val();
+	if(curQueryStaDatetime.length==16){
+		curQueryStaDatetime += ':00';
+	}
+	if(curQueryEndDatetime.length==16){
+		curQueryEndDatetime += ':00';
+	}
 	$.ajax({
 		url:"queryTimeCus.action",						//Com_orderCtl
 		type:"post",
 		data:{
 			"companyid":companyid,
-			"staTime":$('#staDatetime').val(),
-			"endTime":$('#endDatetime').val()
+			"staTime":curQueryStaDatetime,
+			"endTime":curQueryEndDatetime
 		},
 		success:function(data){
 			if(data.msg =='success'){
@@ -398,7 +406,14 @@ function showBrand(){
 	if(!companyid){
 		return;
 	}
-	
+	var curQueryStaDatetime = $('#staDatetime').val();
+	var curQueryEndDatetime = $('#endDatetime').val();
+	if(curQueryStaDatetime.length==16){
+		curQueryStaDatetime += ':00';
+	}
+	if(curQueryEndDatetime.length==16){
+		curQueryEndDatetime += ':00';
+	}
 	$.ajax({
 		url:"timeOrderdGoodsBrand.action",						//Com_goodsCtl
 		type:"post",
@@ -443,7 +458,14 @@ function showEmp(){
 	if(!companyid){
 		return;
 	}
-	
+	var curQueryStaDatetime = $('#staDatetime').val();
+	var curQueryEndDatetime = $('#endDatetime').val();
+	if(curQueryStaDatetime.length==16){
+		curQueryStaDatetime += ':00';
+	}
+	if(curQueryEndDatetime.length==16){
+		curQueryEndDatetime += ':00';
+	}
 	$.ajax({
 		url:"queryTimeEmp.action",				//在customerCtl里面
 		type:"post",
@@ -523,6 +545,13 @@ function report(){
 function subfor(){
 	var staDT = $('#staDatetime').val();
 	var endDT = $('#endDatetime').val();
+	
+	if(staDT.length==16){
+		staDT += ':00';
+	}
+	if(endDT.length==16){
+		endDT += ':00';
+	}
 	//得到查询时间
 	if(staDT && endDT){
 		$('#staTime').val(staDT);

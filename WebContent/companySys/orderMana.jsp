@@ -92,10 +92,10 @@ String ordermway = request.getParameter("ordermway");
 	</c:forEach>
 	</c:if>
 	<c:if test="${fn:length(requestScope.allOrder)==0 }">
-		<tr><td colspan="15" align="center" style="font-size: 20px;color: red;"> 没有信息</td></tr>
+		<tr><td colspan="18" align="center" style="font-size: 20px;color: red;"> 没有信息</td></tr>
 	</c:if>
     	<tr>
-		 <td class="td_fenye" colspan="15" align="center">	
+		 <td class="td_fenye" colspan="18" align="center">	
 			 <c:if test="${requestScope.pagenow > 1 }">
 		 	<a onclick="fenye('1')">第一页</a>
 		 </c:if>
