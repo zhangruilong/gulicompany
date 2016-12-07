@@ -40,7 +40,7 @@ window.print()
 </div>
 <div id='p-debug-text'></div>
 <input type="button" name="Btn_printPreviw" value="打印" 
-onclick="javascript:this.style.display='none';printpreview();" />
+onclick="javascript:this.style.display='none';printpreview();" style="float: left;"/>
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="js/numTF.js"></script>
 <script type="text/javascript" src="js/common.js"></script>

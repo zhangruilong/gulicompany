@@ -4,6 +4,7 @@ var columnNum = 0;								//当前列
 var totalWeight = 0;							//总重量
 var dObj = new Date();
 var today = dObj.getFullYear()+"-"+(dObj.getMonth()+1)+"-"+dObj.getDate();	//当前日期
+var haveEmpty = false;							//是否有空白行
 $(function(){
 	$.ajax({
 		url:"printInfo.action",
@@ -68,8 +69,8 @@ $(function(){
 					}
 					
 					//行信息
-					if(rowNum != item.startrow && item.sheetname != '合计信息' 
-						&& item.sheetname != '谷粒网标识' && item.sheetname != '留言信息'){						//如果是新的一行就添加一行
+					if(rowNum != item.startrow && item.sheetno != '4' 
+						&& item.sheetno != '99' && item.sheetno != '8' && item.sheetno != '9' && item.sheetno != '10'){						//如果是新的一行就添加一行
 						rowNum = item.startrow;										//行号
 						if(item.sheetname =='供应商信息'){
 							rowStyle = 'height: 40px;';
@@ -126,17 +127,20 @@ $(function(){
 						$('#print-content').append('<div style="'+item.detail+'">'+item.headnameas+'</div>');
 					} else if(item.sheetno == '99'){										//谷粒网标识
 						$('#print-content').append('<div style="'+item.detail+'">'+item.headnameas+'</div>');
+					} else if(item.sheetno == '10'){										//是否需要空白行
+						haveEmpty = true;
 					}
 					if(item.endcol-item.startcol>1){										//如果跳过了1列或多列
 						$('#print-content table:last tr:last td:last').attr('colspan',item.endcol-item.startcol);
 					}
+					
 				});
 				//订单商品
 				$.each(orderdList,function(i,item1){
 					$('#goods-tab').append('<tr></tr>');
 					$('#goods-tab tr:first td').each(function(j,item2){
 						var goodsInfo = '';
-						var curSty = $(item2).children().text();
+						var curSty = $(item2).children('span').text();
 						if($(item2).attr('name') && $(item2).attr('name')!='undefined'&& $(item2).attr('name')!='null'){
 							goodsInfo = typeNullFoString(item1[$(item2).attr('name')]);
 						} else {
@@ -145,6 +149,17 @@ $(function(){
 						$('#goods-tab tr:last').append('<td style="'+curSty+'">'+goodsInfo+'</td>');
 					});
 				});
+				//如果需要空白行,且行数小于8就添加空白行
+				if(haveEmpty && orderdList.length<8){
+					var tdList = $('#goods-tab tr:first td');		//td的集合
+					for (var i = 0; i < 8-orderdList.length; i++) {
+						$('#goods-tab').append('<tr></tr>');
+						for (var j = 0; j < tdList.length; j++) {
+							var curSty = $(tdList[j]).children('span').text();
+							$('#goods-tab tr:last').append('<td style="'+curSty+'">&nbsp;</td>');
+						}
+					}
+				}
 				//签收信息
 				$('#signFo-tab').append('<tr></tr>');
 				$('#signFo-tab tr:first td').each(function(i,item){
