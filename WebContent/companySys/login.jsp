@@ -18,7 +18,12 @@
 <script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
 <script type=text/javascript>
 if (top != window) top.location.href = window.location.href;
-
+$(function(){
+	var msg = '${requestScope.msg}';
+	if(msg=='密码或账号不正确。'){
+		alert(msg);
+	}
+});
 function check() {
 	if(document.getElementById('username').value==''||document.getElementById('username').value==null){
 		alert("用户名不能为空");

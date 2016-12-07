@@ -14,7 +14,7 @@
 <title></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="css/formsty.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
 <style type="text/css">
 .button{
 	margin-left: 40px;

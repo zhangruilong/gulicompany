@@ -40,11 +40,16 @@ public class Com_sysManaCtl {
 	private System_tempruleMapper sys_tempruleMapper;
 	//修改供应商信息
 	@RequestMapping("/companySys/editCompInfo")
-	public String editCompInfo(HttpSession session,Model model,Company company){
-		companyMapper.updateByPrimaryKeySelective(company);
-		session.setAttribute("company", company);
-		model.addAttribute("message", "信息已修改");
-		return "forward:/companySys/cusInfo.jsp";
+	@ResponseBody
+	public HashMap<String, Object> editCompInfo(HttpSession session,Company company){
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		int result = companyMapper.updateByPrimaryKeySelective(company);
+		if(result>0){
+			resultMap.put("msg", "修改成功!");
+		} else {
+			resultMap.put("msg", "操作失败!");
+		}
+		return resultMap;
 	}
 	//修改密码
 	@RequestMapping("/companySys/editPwd")
@@ -59,7 +64,7 @@ public class Com_sysManaCtl {
 		} else {
 			company.setPassword(newpassword);
 			companyMapper.updateByPrimaryKeySelective(company);
-			session.setAttribute("company", company);
+			session.invalidate();
 			model.addAttribute("message", "密码已修改");
 		}
 		return "forward:/companySys/editPas.jsp";

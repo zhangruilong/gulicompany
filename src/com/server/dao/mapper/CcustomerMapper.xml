@@ -62,7 +62,6 @@
 		left outer join customer 
 		on ccustomer.ccustomercustomer = customer.customerid
 		where ccustomer.ccustomercompany = #{ccustomer.ccustomercompany}
-		and customer.customerstatue='启用'
 		<if test="ccustomer.customer != null">
 			<if test="ccustomer.customer.customertype != null and ccustomer.customer.customertype != ''">
 				and customer.customertype = #{ccustomer.customer.customertype}
@@ -99,7 +98,7 @@
 		ccustomer 
 		left outer join customer 
 		on ccustomer.ccustomercustomer = customer.customerid
-		where ccustomer.ccustomercompany = #{ccustomer.ccustomercompany}
+		where ccustomer.ccustomercompany = #{ccustomer.ccustomercompany} 
 		<if test="ccustomer.customer != null">
 			<if test="ccustomer.customer.customertype != null and ccustomer.customer.customertype != ''">
 				and customer.customertype = #{ccustomer.customer.customertype}

@@ -13,12 +13,8 @@
 <title></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="css/formsty.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
-var message = '<%=message %>'
-	if(message != null && message != '' && message != 'null'){
-		alert(message);
-	}
 	function checkAccount(){
 		var companyshop = $("[name='companyshop']").val();
 		var username = $("[name='username']").val();
@@ -35,7 +31,22 @@ var message = '<%=message %>'
 			alert("联系电话不能为空");
 			return;
 		}
-		document.forms[0].submit();
+		$.ajax({
+			url:"editCompInfo.action",
+			type:"post",
+			data:{
+				companyshop : companyshop,
+				username : username,
+				companyphone : companyphone,
+				companyid : $("[name='companyid']").val()
+			},
+			success : function(data){
+				alert(data.msg);
+			},
+			error : function(data){
+				alert('操作失败!');
+			}
+		});
 	}
 	
 </script>

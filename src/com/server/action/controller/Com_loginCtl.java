@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.server.dao.mapper.CompanyMapper;
@@ -20,11 +21,14 @@ public class Com_loginCtl {
 	private CompanyMapper companyMapper;
 	//登录
 	@RequestMapping("/companySys/login")
-	public String login(HttpSession session,Company company){
+	public String login(HttpSession session,Company company,Model model){
 		Company company2 = companyMapper.selectLogin(company);
 		session.setAttribute("company", company2);
 		session.setMaxInactiveInterval(36000);
-		return "redirect:/companySys/login.jsp";
+		if(null == company2){
+			model.addAttribute("msg", "密码或账号不正确。");
+		}
+		return "forward:/companySys/login.jsp";
 	}
 	//注销
 	@RequestMapping("/companySys/loginOut")

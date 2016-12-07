@@ -16,7 +16,7 @@ $(function(){
 	if(message != null && message != '' && message != 'null'){
 		alert(message);
 		if(message == '密码已修改'){
-			parent.location.href = "login.jsp";
+			window.parent.location.href = "login.jsp";
 		}
 	}
 });
