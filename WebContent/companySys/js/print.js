@@ -149,10 +149,10 @@ $(function(){
 						$('#goods-tab tr:last').append('<td style="'+curSty+'">'+goodsInfo+'</td>');
 					});
 				});
-				//如果需要空白行,且行数小于8就添加空白行
-				if(haveEmpty && orderdList.length<8){
+				//如果需要空白行,且行数小于7就添加空白行
+				if(haveEmpty && orderdList.length<7){
 					var tdList = $('#goods-tab tr:first td');		//td的集合
-					for (var i = 0; i < 8-orderdList.length; i++) {
+					for (var i = 0; i < 7-orderdList.length; i++) {
 						$('#goods-tab').append('<tr></tr>');
 						for (var j = 0; j < tdList.length; j++) {
 							var curSty = $(tdList[j]).children('span').text();
