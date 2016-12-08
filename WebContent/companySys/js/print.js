@@ -4,7 +4,7 @@ var columnNum = 0;								//当前列
 var totalWeight = 0;							//总重量
 var dObj = new Date();
 var today = dObj.getFullYear()+"-"+(dObj.getMonth()+1)+"-"+dObj.getDate();	//当前日期
-var haveEmpty = false;							//是否有空白行
+var blankNum = 0;
 $(function(){
 	$.ajax({
 		url:"printInfo.action",
@@ -128,7 +128,7 @@ $(function(){
 					} else if(item.sheetno == '99'){										//谷粒网标识
 						$('#print-content').append('<div style="'+item.detail+'">'+item.headnameas+'</div>');
 					} else if(item.sheetno == '10'){										//是否需要空白行
-						haveEmpty = true;
+						blankNum = parseInt(item.headnameas);
 					}
 					if(item.endcol-item.startcol>1){										//如果跳过了1列或多列
 						$('#print-content table:last tr:last td:last').attr('colspan',item.endcol-item.startcol);
@@ -150,9 +150,9 @@ $(function(){
 					});
 				});
 				//如果需要空白行,且行数小于7就添加空白行
-				if(haveEmpty && orderdList.length<7){
+				if(blankNum != 0 && orderdList.length<blankNum){
 					var tdList = $('#goods-tab tr:first td');		//td的集合
-					for (var i = 0; i < 7-orderdList.length; i++) {
+					for (var i = 0; i < blankNum-orderdList.length; i++) {
 						$('#goods-tab').append('<tr></tr>');
 						for (var j = 0; j < tdList.length; j++) {
 							var curSty = $(tdList[j]).children('span').text();

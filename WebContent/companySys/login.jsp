@@ -2,7 +2,7 @@
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 	<%
 		if(null != session.getAttribute("company")){
-			request.getRequestDispatcher("main.jsp").forward(request, response);
+			response.sendRedirect("main.jsp");
 		}
 	 %>
 <!DOCTYPE>
