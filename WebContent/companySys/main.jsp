@@ -1,5 +1,10 @@
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+		if(null == session.getAttribute("company")){
+			response.sendRedirect("login.jsp");
+		}
+	 %>
 <!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
