@@ -13,7 +13,7 @@ String customertype = request.getParameter("customer.customertype");
 <head>
 <title></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
 <link href="css/tabsty.css" rel="stylesheet" type="text/css">
 <link href="css/dig.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="<%=basePath%>ExtJS/resources/css/ext-all.css" />

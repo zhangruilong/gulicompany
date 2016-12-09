@@ -122,14 +122,15 @@
 	    </thead>
 	</table>
 </div>
-<script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
 <script type="text/javascript">
 var customerid = '';
 $(function(){
 	$.post("largeCusXiaDanInfo.action",{"ccustomerid":"${param.ccustomerid}","addresscustomer":"${param.customerid}"},function(data){
 		var strJSON = JSON.stringify(data);
 		customerid = data.largeCCus.customer.customerid;
-		$(".tt_cusInfo").append('<span hidden="true">'+strJSON+'</span>');
+		$(".tt_cusInfo").append('<span class="cusInfo-jsonInfo" hidden="true">'+strJSON+'</span>');
 		//客户信息
 		$(".tt_cusInfo span:eq(0)").text(data.largeCCus.customer.customershop);
 		if(data.largeCCus.customer.customertype == 1){
@@ -291,6 +292,10 @@ function saveOrder(){
 			+ '","orderdunits":"' + goodsJson.goodsunits
 			+ '","orderdprice":"' + $(item).find("td:eq(5)").text()
 			+ '","orderdunit":"' + unit
+			+ '","orderdweight":"' + goodsJson.goodsweight
+			+ '","orderdnote":"' + ''								//订单备注
+			+ '","orderdgoods":"' + goodsJson.goodsid				//商品id
+			+ '","orderdbrand":"' + typeNullFoString(goodsJson.goodsbrand)		//商品品牌
 			+ '","orderdclass":"' + goodsJson.gClass.goodsclassname
 			+ '","orderdnum":"' + $(item).find("td:eq(7)").text()
 			+ '","orderdmoney":"' + $(item).find("td:eq(8)").text()
@@ -308,6 +313,9 @@ function saveOrder(){
 			+ '","ordermway":"' + $(".LCXD_OrdermInfo span:eq(3)").text()
 			+ '","ordermstatue":"' + '已下单'
 			+ '","ordermemp":"' + '录单'
+			+ '","ordermcustype":"' + orderCCus.largeCCus.customer.customertype
+			+ '","ordermcuslevel":"' + orderCCus.largeCCus.ccustomerdetail
+			+ '","ordermcusshop":"' + orderCCus.largeCCus.customer.customershop
 			+ '","ordermconnect":"' + $(".LCXD_CusAddress span:eq(0)").text()
 			+ '","ordermphone":"' + $(".LCXD_CusAddress span:eq(1)").text()
 			+ '","ordermaddress":"' + $(".LCXD_CusAddress span:eq(2)").text()
