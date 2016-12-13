@@ -87,6 +87,9 @@
 		left join orderm om on om.ordermcustomer = c.customerid
 	where om.ordermcompany = #{companyid} 
 	and cc.ccustomercompany = #{companyid}
+	<if test="queryShop != null and queryShop != ''">
+		and c.CUSTOMERSHOP like '%${queryShop}%'
+	</if>
 	and om.ordermtime &gt;= #{staTime} 
 	and om.ordermtime &lt;= #{endTime} 
 	and om.ordermstatue != '已删除'

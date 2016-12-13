@@ -36,6 +36,7 @@ import com.server.dao.mapper.OrderdMapper;
 import com.server.dao.mapper.OrdermMapper;
 import com.server.pojo.entity.Company;
 import com.server.pojo.entity.Customer;
+import com.server.pojo.entity.OrderStatisticsVO;
 import com.server.pojo.entity.Orderd;
 import com.server.pojo.entity.OrderdStatistics;
 import com.server.pojo.entity.Orderm;
@@ -63,9 +64,9 @@ public class Com_orderCtl {
 	//查询一段时间内有订单的客户名称
 	@RequestMapping("/companySys/queryTimeCus")
 	@ResponseBody
-	public Map<String, Object> queryTimeCus(String staTime,String endTime,String companyid) {
+	public Map<String, Object> queryTimeCus(String staTime,String endTime,String companyid,String queryShop) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		List<String> cusNames = customerMapper.selectTimeCusNames(staTime, endTime, companyid);
+		List<String> cusNames = customerMapper.selectTimeCusNames(staTime, endTime, companyid,queryShop);
 		if(null != cusNames && cusNames.size()>0){
 			map.put("msg", "success");
 			map.put("cusNames", cusNames);
@@ -210,7 +211,7 @@ public class Com_orderCtl {
 	}
 	//订单商品统计
 	@RequestMapping("/companySys/orderStatistics")
-	public String orderStatistics(Model model,String staTime,String endTime,String companyid,
+	public String orderStatistics(Model model,String staTime,String endTime,String companyid,String queryShop,
 			String quBrand,String quEmp,String quCus, String condition,Integer pagenow){
 		if(pagenow == null || pagenow==0){
 			pagenow = 1;
@@ -243,7 +244,7 @@ public class Com_orderCtl {
 		if(pagenow > pageCount){
 			pagenow = pageCount;
 		}
-		List<Orderd> list = orderdMapper.selectByPage(staTime, endTime, companyid,condition,pagenow,10,quEmpNames,quBrandNames,quCusNames);					//查询数据
+		List<OrderStatisticsVO> list = orderdMapper.selectByPage(staTime, endTime, companyid,condition,pagenow,10,quEmpNames,quBrandNames,quCusNames);					//查询数据
 		OrderdStatistics total = orderdMapper.selectOrderdStatistics(staTime, endTime, companyid,condition,quEmpNames,quBrandNames,quCusNames);	//数据统计
 		model.addAttribute("total", total);
 		model.addAttribute("orderdList", list);
@@ -253,6 +254,7 @@ public class Com_orderCtl {
 		model.addAttribute("quBrand", quBrand);
 		model.addAttribute("quEmp", quEmp);
 		model.addAttribute("quCus", quCus);
+		model.addAttribute("queryShop",queryShop);
 		model.addAttribute("condition", condition);
 		model.addAttribute("pageCount", pageCount);
 		model.addAttribute("pagenow", pagenow);

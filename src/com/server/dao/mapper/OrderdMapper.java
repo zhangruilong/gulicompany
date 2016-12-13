@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.server.pojo.entity.OrderStatisticsVO;
 import com.server.pojo.entity.Orderd;
 import com.server.pojo.entity.OrderdStatistics;
 
@@ -41,7 +42,7 @@ public interface OrderdMapper {
 	/**
 	 * 根据时间范围(多条件)查询订单(分页)
 	 */
-	ArrayList<Orderd> selectByPage(@Param("staTime") String staTime,
+	ArrayList<OrderStatisticsVO> selectByPage(@Param("staTime") String staTime,
 			@Param("endTime") String endTime,@Param("companyid")String companyid,@Param("condition") String condition,
 			@Param("nowpage") Integer nowpage,@Param("pagesize") Integer pagesize,@Param("empNames") String[] empNames,
 			@Param("brandNames") String[] brandNames,@Param("cusNames") String[] cusNames);

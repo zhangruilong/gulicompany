@@ -37,6 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  <input type="hidden" name="companyid" value="${sessionScope.company.companyid }">
  <input type="hidden" id="staTime" name="staTime" value="${requestScope.staTime }">
  <input type="hidden" id="endTime" name="endTime" value="${requestScope.endTime }">
+ <input type="hidden" id="hidden-queryShop" name="queryShop" value="${requestScope.endTime }">
 <div class="nowposition">当前位置：订单管理》订单商品统计</div>
  
 <div class="orderStat-navigationBar">
@@ -79,11 +80,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td>${orderd.orderdunits}</td>
 			<td>${orderd.orderdunit}</td>
 			<td>${orderd.orderdprice}</td>
-			<td>${orderd.orderdnum}</td>
+			<td>${orderd.sumorderdnum}</td>
 			<td>${orderd.orderdweight}</td>
-			<td>${orderd.orderdmoney}</td>
-			<td>${orderd.orderdrightmoney}</td>
-			<td>${orderd.orderm.ordermtime}</td>
+			<td>${orderd.sumorderdmoney}</td>
+			<td>${orderd.sumorderdrightmoney}</td>
+			<td>${orderd.ordermtime}</td>
 		</tr>
 	</c:forEach>
 	<tr>
@@ -160,6 +161,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="cd-popup cusNames-popup" role="alert">
 <div class="goods_select_popup">
 <div class="navigation">
+<!-- 查询店名 的 查询条件 -->
+查询条件:&nbsp;&nbsp;<input type="text" id="queryShop" name="queryShop" value="${ requestScope.queryShop}" onchange="showCusNames()">
+<input class="button" type="button" value="查询" onclick="showCusNames()">
+
 <input class="button" type="button" value="确定" onclick="cusNameConditionConfirm()">
 <input class="button" type="button" value="取消" onclick="hiddenCusShow()">
 </div>
@@ -175,6 +180,7 @@ var currDateTime = formatDateTime(new Date());									//当前时间字符串
 var quBrand = $('#quBrand').val();			//查询的品牌
 var quEmp = $('#quEmp').val();				//查询的业务员
 var quCus = $('#quCus').val();				//查询的客户店名
+var queryShop = "${ requestScope.queryShop}";		//查询店名的 查询条件
 
 var defStaTime = '${requestScope.staTime }';
 var defEndTime = '${requestScope.endTime }';
@@ -187,7 +193,7 @@ if(defEndTime == ''){
 }
 $(function(){
 	$.ajax({
-		url:"queryTimeCus.action",						//Com_orderCtl
+		url:"queryTimeCus.action",						//Com_orderCtl 店铺名称
 		type:"post",
 		data:{
 			"companyid":companyid,
@@ -218,7 +224,7 @@ $(function(){
 		}
 	});
 	$.ajax({
-		url:"timeOrderdGoodsBrand.action",						//Com_goodsCtl
+		url:"timeOrderdGoodsBrand.action",						//Com_goodsCtl 商品品牌
 		type:"post",
 		data:{
 			"companyid":companyid,
@@ -252,7 +258,7 @@ $(function(){
 		}
 	});
 	$.ajax({
-		url:"queryTimeEmp.action",				//在customerCtl里面
+		url:"queryTimeEmp.action",				//在customerCtl里面 业务员名称
 		type:"post",
 		data:{
 			"companyid":companyid,
@@ -370,7 +376,8 @@ function showCusNames(){
 		data:{
 			"companyid":companyid,
 			"staTime":curQueryStaDatetime,
-			"endTime":curQueryEndDatetime
+			"endTime":curQueryEndDatetime,
+			"queryShop":$('#queryShop').val()
 		},
 		success:function(data){
 			if(data.msg =='success'){
@@ -561,6 +568,7 @@ function subfor(){
 		return;
 	}
 	checkCondition();
+	$('#hidden-queryShop').val($('#queryShop').val());
 	document.forms[0].submit();
 }
 //分页
@@ -568,6 +576,7 @@ function fenye(targetPage){
 	//alert(targetPage);
 	$("#pagenow").val(targetPage);
 	checkCondition();
+	$('#hidden-queryShop').val($('#queryShop').val());
 	document.forms[0].submit();
 }
 </script>

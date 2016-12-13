@@ -134,13 +134,16 @@
 	and m.ORDERMTIME &lt;= #{endTime}
   </select>
   <!-- 根据时间范围(多条件)查询订单(分页) -->
-  <select id="selectByPage" resultMap="BaseResultMap" >
+  <select id="selectByPage" resultType="com.server.pojo.entity.OrderStatisticsVO" >
   	select * from 
 	(select A.*, ROWNUM RN from (
   	select
-		od.*,
+		od.orderdcode,od.orderdname,od.orderdunits,od.orderdunit,od.orderdprice,od.orderdweight,
 		om.ordermid,
-		om.ordermtime
+		om.ordermtime,
+		sum(od.ORDERDMONEY) sumorderdmoney,
+		sum(od.ORDERDRIGHTMONEY) sumorderdrightmoney,
+		sum(od.orderdnum) sumorderdnum
 	from orderd od
                   right join orderm om on od.orderdorderm = om.ordermid
   	left join customer c on c.customerid = om.ordermcustomer
@@ -189,18 +192,24 @@
 		od.orderdunits like '%${condition}%' or
 		od.orderdunit like '%${condition}%' or
 		od.orderdnum like '%${condition}%' or
-		od.orderdprice like '%${condition}%' or
-		od.orderdmoney like '%${condition}%' or
-		od.orderdrightmoney like '%${condition}%')
+		od.orderdprice like '%${condition}%' )
 	</if>
+	group by od.orderdcode,od.orderdname,od.orderdunits,od.orderdunit,od.orderdprice,om.ordermid,om.ordermtime,od.orderdweight 
 	order by om.ordermtime desc
 	 ) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) ) 
 	where RN &gt; ((#{nowpage}-1)*#{pagesize})
   </select>
   <!-- 根据时间范围(多条件)查询订单(数量) -->
   <select id="selectByTimeCount" resultType="int" >
-  	select
-		count(*) 
+  	select count(1) from (select
+		od.orderdcode,
+          od.orderdname,
+          od.orderdunits,
+          od.orderdunit,
+          od.orderdprice,
+          od.orderdweight,
+          om.ordermid,
+          om.ordermtime
 	from orderd od
                   right join orderm om on od.orderdorderm = om.ordermid
   	left join customer c on c.customerid = om.ordermcustomer
@@ -249,10 +258,9 @@
 		od.orderdunits like '%${condition}%' or
 		od.orderdunit like '%${condition}%' or
 		od.orderdnum like '%${condition}%' or
-		od.orderdprice like '%${condition}%' or
-		od.orderdmoney like '%${condition}%' or
-		od.orderdrightmoney like '%${condition}%')
+		od.orderdprice like '%${condition}%' )
 	</if>
+	group by od.orderdcode,od.orderdname,od.orderdunits,od.orderdunit,od.orderdprice,om.ordermid,om.ordermtime,od.orderdweight )
   </select>
   <!-- 条件查询统计 -->
   <select id="selectOrderdStatistics" resultType="com.server.pojo.entity.OrderdStatistics" >

@@ -12,7 +12,8 @@ public interface CustomerMapper {
 	/**
 	 * 查询一段时间内有订单的客户名称
 	 */
-	List<String> selectTimeCusNames(@Param("staTime") String staTime,@Param("endTime") String endTime,@Param("companyid") String companyid);
+	List<String> selectTimeCusNames(@Param("staTime") String staTime,@Param("endTime") String endTime,
+			@Param("companyid") String companyid,@Param("queryShop") String queryShop);
 	/**
 	 * 客户订单统计报表
 	 */
