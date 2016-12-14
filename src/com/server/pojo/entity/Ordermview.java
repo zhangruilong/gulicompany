@@ -1,6 +1,5 @@
 package com.server.pojo.entity;
 
-import java.sql.Date;
 /**
  * ordermview 实体类
  *@author ZhangRuiLong
@@ -26,15 +25,15 @@ public class Ordermview
    /**
     * ordermnum
     */
-   private int ordermnum;   
+   private Integer ordermnum;   
    /**
     * ordermmoney
     */
-   private String ordermmoney;   
+   private Float ordermmoney;   
    /**
     * ordermrightmoney
     */
-   private String ordermrightmoney;   
+   private Float ordermrightmoney;   
    /**
     * ordermway
     */
@@ -64,18 +63,6 @@ public class Ordermview
     */
    private String ordermaddress;   
    /**
-    * customershop
-    */
-   private String customershop;   
-   /**
-    * 客户类型
-    */
-   private String ordermcustype;
-   /**
-    * 客户等级
-    */
-   private String ordermcuslevel;
-   /**
     * updtime
     */
    private String updtime;   
@@ -87,6 +74,42 @@ public class Ordermview
     * ordermemp
     */
    private String ordermemp;   
+   /**
+    * ordermcusshop
+    */
+   private String ordermcusshop;   
+   /**
+    * ordermcuslevel
+    */
+   private String ordermcuslevel;   
+   /**
+    * ordermcustype
+    */
+   private String ordermcustype;   
+   /**
+    * ordermprinttimes
+    */
+   private String ordermprinttimes;   
+   /**
+    * companyshop
+    */
+   private String companyshop;   
+   /**
+    * companyphone
+    */
+   private String companyphone;   
+   /**
+    * companydetail
+    */
+   private String companydetail;   
+   /**
+    * openid
+    */
+   private String openid;   
+   /**
+    * customershop
+    */
+   private String customershop;   
     //属性方法	    
      /**
 	 *设置主键"ordermid"属性
@@ -103,22 +126,6 @@ public class Ordermview
 	public String getOrdermid()
 	{
 		return this.ordermid;
-	}
-
-	public String getOrdermcuslevel() {
-		return ordermcuslevel;
-	}
-
-	public void setOrdermcuslevel(String ordermcuslevel) {
-		this.ordermcuslevel = ordermcuslevel;
-	}
-
-	public String getOrdermcustype() {
-		return ordermcustype;
-	}
-
-	public void setOrdermcustype(String ordermcustype) {
-		this.ordermcustype = ordermcustype;
 	}
 
 	/**
@@ -176,7 +183,7 @@ public class Ordermview
 	 *设置"ordermnum"属性
 	 *@param ordermnum 实体的Ordermnum属性
 	 */
-	public void setOrdermnum(int ordermnum)
+	public void setOrdermnum(Integer ordermnum)
 	{
 		this.ordermnum = ordermnum;
 	}
@@ -184,7 +191,7 @@ public class Ordermview
 	/**
 	 *获取"ordermnum"属性
 	 */
-	public int getOrdermnum()
+	public Integer getOrdermnum()
 	{
 		return this.ordermnum;
 	}	   
@@ -193,7 +200,7 @@ public class Ordermview
 	 *设置"ordermmoney"属性
 	 *@param ordermmoney 实体的Ordermmoney属性
 	 */
-	public void setOrdermmoney(String ordermmoney)
+	public void setOrdermmoney(Float ordermmoney)
 	{
 		this.ordermmoney = ordermmoney;
 	}
@@ -201,7 +208,7 @@ public class Ordermview
 	/**
 	 *获取"ordermmoney"属性
 	 */
-	public String getOrdermmoney()
+	public Float getOrdermmoney()
 	{
 		return this.ordermmoney;
 	}	   
@@ -210,7 +217,7 @@ public class Ordermview
 	 *设置"ordermrightmoney"属性
 	 *@param ordermrightmoney 实体的Ordermrightmoney属性
 	 */
-	public void setOrdermrightmoney(String ordermrightmoney)
+	public void setOrdermrightmoney(Float ordermrightmoney)
 	{
 		this.ordermrightmoney = ordermrightmoney;
 	}
@@ -218,7 +225,7 @@ public class Ordermview
 	/**
 	 *获取"ordermrightmoney"属性
 	 */
-	public String getOrdermrightmoney()
+	public Float getOrdermrightmoney()
 	{
 		return this.ordermrightmoney;
 	}	   
@@ -393,14 +400,158 @@ public class Ordermview
 		return this.ordermemp;
 	}	   
 
-	public String getCustomershop() {
-		return customershop;
+	/**
+	 *设置"ordermcusshop"属性
+	 *@param ordermcusshop 实体的Ordermcusshop属性
+	 */
+	public void setOrdermcusshop(String ordermcusshop)
+	{
+		this.ordermcusshop = ordermcusshop;
 	}
+	
+	/**
+	 *获取"ordermcusshop"属性
+	 */
+	public String getOrdermcusshop()
+	{
+		return this.ordermcusshop;
+	}	   
 
-	public void setCustomershop(String customershop) {
+	/**
+	 *设置"ordermcuslevel"属性
+	 *@param ordermcuslevel 实体的Ordermcuslevel属性
+	 */
+	public void setOrdermcuslevel(String ordermcuslevel)
+	{
+		this.ordermcuslevel = ordermcuslevel;
+	}
+	
+	/**
+	 *获取"ordermcuslevel"属性
+	 */
+	public String getOrdermcuslevel()
+	{
+		return this.ordermcuslevel;
+	}	   
+
+	/**
+	 *设置"ordermcustype"属性
+	 *@param ordermcustype 实体的Ordermcustype属性
+	 */
+	public void setOrdermcustype(String ordermcustype)
+	{
+		this.ordermcustype = ordermcustype;
+	}
+	
+	/**
+	 *获取"ordermcustype"属性
+	 */
+	public String getOrdermcustype()
+	{
+		return this.ordermcustype;
+	}	   
+
+	/**
+	 *设置"ordermprinttimes"属性
+	 *@param ordermprinttimes 实体的Ordermprinttimes属性
+	 */
+	public void setOrdermprinttimes(String ordermprinttimes)
+	{
+		this.ordermprinttimes = ordermprinttimes;
+	}
+	
+	/**
+	 *获取"ordermprinttimes"属性
+	 */
+	public String getOrdermprinttimes()
+	{
+		return this.ordermprinttimes;
+	}	   
+
+	/**
+	 *设置"companyshop"属性
+	 *@param companyshop 实体的Companyshop属性
+	 */
+	public void setCompanyshop(String companyshop)
+	{
+		this.companyshop = companyshop;
+	}
+	
+	/**
+	 *获取"companyshop"属性
+	 */
+	public String getCompanyshop()
+	{
+		return this.companyshop;
+	}	   
+
+	/**
+	 *设置"companyphone"属性
+	 *@param companyphone 实体的Companyphone属性
+	 */
+	public void setCompanyphone(String companyphone)
+	{
+		this.companyphone = companyphone;
+	}
+	
+	/**
+	 *获取"companyphone"属性
+	 */
+	public String getCompanyphone()
+	{
+		return this.companyphone;
+	}	   
+
+	/**
+	 *设置"companydetail"属性
+	 *@param companydetail 实体的Companydetail属性
+	 */
+	public void setCompanydetail(String companydetail)
+	{
+		this.companydetail = companydetail;
+	}
+	
+	/**
+	 *获取"companydetail"属性
+	 */
+	public String getCompanydetail()
+	{
+		return this.companydetail;
+	}	   
+
+	/**
+	 *设置"openid"属性
+	 *@param openid 实体的Openid属性
+	 */
+	public void setOpenid(String openid)
+	{
+		this.openid = openid;
+	}
+	
+	/**
+	 *获取"openid"属性
+	 */
+	public String getOpenid()
+	{
+		return this.openid;
+	}	   
+
+	/**
+	 *设置"customershop"属性
+	 *@param customershop 实体的Customershop属性
+	 */
+	public void setCustomershop(String customershop)
+	{
 		this.customershop = customershop;
 	}
-
+	
+	/**
+	 *获取"customershop"属性
+	 */
+	public String getCustomershop()
+	{
+		return this.customershop;
+	}	   
 	public Ordermview() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -410,9 +561,9 @@ public class Ordermview
 	 	,String ordermcustomer
 	 	,String ordermcompany
 	 	,String ordermcode
-	 	,int ordermnum
-	 	,String ordermmoney
-	 	,String ordermrightmoney
+	 	,Integer ordermnum
+	 	,Float ordermmoney
+	 	,Float ordermrightmoney
 	 	,String ordermway
 	 	,String ordermstatue
 	 	,String ordermdetail
@@ -423,6 +574,15 @@ public class Ordermview
 	 	,String updtime
 	 	,String updor
 	 	,String ordermemp
+	 	,String ordermcusshop
+	 	,String ordermcuslevel
+	 	,String ordermcustype
+	 	,String ordermprinttimes
+	 	,String companyshop
+	 	,String companyphone
+	 	,String companydetail
+	 	,String openid
+	 	,String customershop
 		 ){
 		super();
 		this.ordermid = ordermid;
@@ -442,6 +602,15 @@ public class Ordermview
 	 	this.updtime = updtime;
 	 	this.updor = updor;
 	 	this.ordermemp = ordermemp;
+	 	this.ordermcusshop = ordermcusshop;
+	 	this.ordermcuslevel = ordermcuslevel;
+	 	this.ordermcustype = ordermcustype;
+	 	this.ordermprinttimes = ordermprinttimes;
+	 	this.companyshop = companyshop;
+	 	this.companyphone = companyphone;
+	 	this.companydetail = companydetail;
+	 	this.openid = openid;
+	 	this.customershop = customershop;
 	}
 }
 
