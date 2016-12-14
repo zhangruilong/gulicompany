@@ -22,14 +22,20 @@ $(function(){
 				var totalMon=0;									//总下单金额
 				var totalRMon = 0;								//总实际金额
 				var orderMsg = '';								//订单留言
+				var ordermPrintTimes='';							//订单的打印次数
 				
 				$.each(data.printinfo,function(i,item){
+					if(typeof(item.ordermprinttimes)=='undefined' || !item.ordermprinttimes){
+						item.ordermprinttimes = '0';
+					}
+					ordermPrintTimes += '编号:'+item.ordermcode+'&nbsp;打印次数:'+item.ordermprinttimes+'。&nbsp;';
 					totalMon += parseFloat(item.ordermmoney);
 					totalRMon += parseFloat(item.ordermrightmoney);
 					if(typeof(item.ordermdetail)!='undefined' && item.ordermdetail){
 						orderMsg += item.ordermdetail+'; ';
 					}
 				});
+				$('#p-PrintTimes').html(ordermPrintTimes);
 				if(data.printinfo.length>1){							//得到合并后的订单总金额
 					printinfo.ordermmoney = totalMon;
 					printinfo.ordermrightmoney = totalRMon;
@@ -53,7 +59,7 @@ $(function(){
 						rowNum = 0;								//行号变为0
 						if(item.sheetname =='供应商信息'){
 							$('#print-content').append(
-								'<table width="100%" cellspacing="0" cellpadding="0" style="border-collapse: collapse;border-bottom:solid 1px black"></table>');
+								'<table width="100%" cellspacing="0" cellpadding="0" style="border-collapse: collapse;border-bottom:dotted 1px black"></table>');
 						} else if(item.sheetname =='客户信息'){
 							$('#print-content').append('<table width="100%" border="0" cellspacing="0" cellpadding="3"></table>');
 						} else if(item.sheetname == '商品信息'){
@@ -104,7 +110,7 @@ $(function(){
 								item.headnameas+'：</td><td style="'+item.detail+'">'+text+'</td>');
 					} else if(item.sheetno == '3'){											//商品信息
 						$('#print-content table:last tr:last').append(
-								'<td style="font-family: 黑体;font-size: 12px;border-bottom:solid 1px black;border-right:solid 1px black;white-space: nowrap;" name="'
+								'<td style="font-family: 黑体;font-size: 12px;white-space: nowrap;" name="'
 								+item.fieldname+'">'+item.headnameas+'<span hidden=true>'+typeNullFoString(item.detail)+'</span></td>');
 					} else if(item.sheetno == '4'){											//合计信息
 						$('#print-content').append(

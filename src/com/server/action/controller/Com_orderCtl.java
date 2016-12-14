@@ -153,8 +153,8 @@ public class Com_orderCtl {
 	//删除订单详情
 	@RequestMapping("/companySys/deleOrderd")
 	public String deleOrderd(Model model,String[] orderdids,Orderm order){
-		Float money = Float.parseFloat(order.getOrdermmoney());
-		Float rightmoney = Float.parseFloat(order.getOrdermrightmoney());
+		Float money = order.getOrdermmoney();
+		Float rightmoney = order.getOrdermrightmoney();
 		Integer ordermnum = order.getOrdermnum();
 		for (String orderdid : orderdids) {
 			Orderd orderd = orderdMapper.selectByPrimaryKey(orderdid);
@@ -163,8 +163,8 @@ public class Com_orderCtl {
 			ordermnum--;
 			orderdMapper.deleteByPrimaryKey(orderdid);
 		}
-		order.setOrdermmoney(money.toString());
-		order.setOrdermrightmoney(rightmoney.toString());
+		order.setOrdermmoney(money);
+		order.setOrdermrightmoney(rightmoney);
 		order.setOrdermnum(ordermnum);
 		order.setUpdtime(DateUtils.getDateTime());			//修改时间
 		ordermMapper.updateByPrimaryKeySelective(order);
@@ -185,10 +185,10 @@ public class Com_orderCtl {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		Orderm updateOrderm = ordermMapper.selectByPrimaryKey(order.getOrdermid());					//查询要修改的订单
 		if(null != updateOrderm && !updateOrderm.getOrdermstatue().equals("已删除")){
-			Float nowOrdermmoney = Float.parseFloat(updateOrderm.getOrdermmoney()) - diffOrderdmoney;	//得到计算后的下单金额
-			Float nowOrderdrightmoney = Float.parseFloat(updateOrderm.getOrdermrightmoney()) - diffOrderdrightmoney;	//计算后的实际金额
-			updateOrderm.setOrdermmoney(nowOrdermmoney.toString());				
-			updateOrderm.setOrdermrightmoney(nowOrderdrightmoney.toString());
+			Float nowOrdermmoney = updateOrderm.getOrdermmoney() - diffOrderdmoney;	//得到计算后的下单金额
+			Float nowOrderdrightmoney = updateOrderm.getOrdermrightmoney() - diffOrderdrightmoney;	//计算后的实际金额
+			updateOrderm.setOrdermmoney(nowOrdermmoney);				
+			updateOrderm.setOrdermrightmoney(nowOrderdrightmoney);
 			updateOrderm.setUpdtime(DateUtils.getDateTime());			//修改时间
 			ordermMapper.updateByPrimaryKeySelective(updateOrderm);										//修改下单金额和实际金额
 			orderdMapper.updateByPrimaryKeySelective(orderd);

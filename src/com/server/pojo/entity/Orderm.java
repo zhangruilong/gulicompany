@@ -31,11 +31,11 @@ public class Orderm
    /**
     * 下单金额
     */
-   private String ordermmoney;   
+   private Float ordermmoney;   
    /**
     * 实际金额
     */
-   private String ordermrightmoney;   
+   private Float ordermrightmoney;    
    /**
     * 支付方式
     */
@@ -88,6 +88,10 @@ public class Orderm
     * 客户类型
     */
    private String ordermcustype;
+   /**
+    * 打印次数
+    */
+   private String ordermprinttimes;   
    /**
     * 关联orderd
     */
@@ -190,7 +194,7 @@ public class Orderm
 	 *设置"下单金额"属性
 	 *@param ordermmoney 实体的Ordermmoney属性
 	 */
-	public void setOrdermmoney(String ordermmoney)
+	public void setOrdermmoney(Float ordermmoney)
 	{
 		this.ordermmoney = ordermmoney;
 	}
@@ -198,7 +202,7 @@ public class Orderm
 	/**
 	 *获取"下单金额"属性
 	 */
-	public String getOrdermmoney()
+	public Float getOrdermmoney()
 	{
 		return this.ordermmoney;
 	}	   
@@ -207,7 +211,7 @@ public class Orderm
 	 *设置"实际金额"属性
 	 *@param ordermrightmoney 实体的Ordermrightmoney属性
 	 */
-	public void setOrdermrightmoney(String ordermrightmoney)
+	public void setOrdermrightmoney(Float ordermrightmoney)
 	{
 		this.ordermrightmoney = ordermrightmoney;
 	}
@@ -215,7 +219,7 @@ public class Orderm
 	/**
 	 *获取"实际金额"属性
 	 */
-	public String getOrdermrightmoney()
+	public Float getOrdermrightmoney()
 	{
 		return this.ordermrightmoney;
 	}	   
@@ -449,48 +453,71 @@ public class Orderm
 	public void setOrdermCom(Company ordermCom) {
 		this.ordermCom = ordermCom;
 	}
-
+	/**
+	 *设置"打印次数"属性
+	 *@param ordermprinttimes 实体的Ordermprinttimes属性
+	 */
+	public void setOrdermprinttimes(String ordermprinttimes)
+	{
+		this.ordermprinttimes = ordermprinttimes;
+	}
+	
+	/**
+	 *获取"打印次数"属性
+	 */
+	public String getOrdermprinttimes()
+	{
+		return this.ordermprinttimes;
+	}	   
 	public Orderm() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public Orderm(
-		String ordermid
-	 	,String ordermcustomer
-	 	,String ordermcompany
-	 	,String ordermcode
-	 	,int ordermnum
-	 	,String ordermmoney
-	 	,String ordermrightmoney
-	 	,String ordermway
-	 	,String ordermstatue
-	 	,String ordermdetail
-	 	,String ordermtime
-	 	,String ordermconnect
-	 	,String ordermphone
-	 	,String ordermaddress
-	 	,String updtime
-	 	,String updor
-	 	,String ordermemp
-		 ){
-		super();
-		this.ordermid = ordermid;
-	 	this.ordermcustomer = ordermcustomer;
-	 	this.ordermcompany = ordermcompany;
-	 	this.ordermcode = ordermcode;
-	 	this.ordermnum = ordermnum;
-	 	this.ordermmoney = ordermmoney;
-	 	this.ordermrightmoney = ordermrightmoney;
-	 	this.ordermway = ordermway;
-	 	this.ordermstatue = ordermstatue;
-	 	this.ordermdetail = ordermdetail;
-	 	this.ordermtime = ordermtime;
-	 	this.ordermconnect = ordermconnect;
-	 	this.ordermphone = ordermphone;
-	 	this.ordermaddress = ordermaddress;
-	 	this.updtime = updtime;
-	 	this.updor = updor;
-	 	this.ordermemp = ordermemp;
-	}
+			String ordermid
+		 	,String ordermcustomer
+		 	,String ordermcompany
+		 	,String ordermcode
+		 	,Integer ordermnum
+		 	,Float ordermmoney
+		 	,Float ordermrightmoney
+		 	,String ordermway
+		 	,String ordermstatue
+		 	,String ordermdetail
+		 	,String ordermtime
+		 	,String ordermconnect
+		 	,String ordermphone
+		 	,String ordermaddress
+		 	,String updtime
+		 	,String updor
+		 	,String ordermemp
+		 	,String ordermcusshop
+		 	,String ordermcuslevel
+		 	,String ordermcustype
+		 	,String ordermprinttimes
+			 ){
+			super();
+			this.ordermid = ordermid;
+		 	this.ordermcustomer = ordermcustomer;
+		 	this.ordermcompany = ordermcompany;
+		 	this.ordermcode = ordermcode;
+		 	this.ordermnum = ordermnum;
+		 	this.ordermmoney = ordermmoney;
+		 	this.ordermrightmoney = ordermrightmoney;
+		 	this.ordermway = ordermway;
+		 	this.ordermstatue = ordermstatue;
+		 	this.ordermdetail = ordermdetail;
+		 	this.ordermtime = ordermtime;
+		 	this.ordermconnect = ordermconnect;
+		 	this.ordermphone = ordermphone;
+		 	this.ordermaddress = ordermaddress;
+		 	this.updtime = updtime;
+		 	this.updor = updor;
+		 	this.ordermemp = ordermemp;
+		 	this.ordermcusshop = ordermcusshop;
+		 	this.ordermcuslevel = ordermcuslevel;
+		 	this.ordermcustype = ordermcustype;
+		 	this.ordermprinttimes = ordermprinttimes;
+		}
 }
 

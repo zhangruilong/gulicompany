@@ -22,6 +22,7 @@
     <result column="ORDERMCUSSHOP" property="ordermcusshop" jdbcType="VARCHAR" />
     <result column="ORDERMCUSLEVEL" property="ordermcuslevel" jdbcType="VARCHAR" />
     <result column="ORDERMCUSTYPE" property="ordermcustype" jdbcType="VARCHAR" />
+    <result column="ORDERMPRINTTIMES" property="ordermprinttimes" jdbcType="VARCHAR" />
     <!-- 客户 -->
     <association property="orderdCustomer" javaType="com.server.pojo.entity.Customer">
 	    <id column="CUSTOMERID" property="customerid" jdbcType="VARCHAR" />
@@ -74,11 +75,6 @@
 	    <result column="ORDERDRIGHTMONEY" property="orderdrightmoney" jdbcType="FLOAT" />
     </collection>
   </resultMap>
-  <sql id="Base_Column_List" >
-    ORDERMID, ORDERMCUSTOMER, ORDERMCOMPANY, ORDERMCODE, ORDERMNUM, ORDERMMONEY, ORDERMRIGHTMONEY, 
-    ORDERMWAY, ORDERMSTATUE, ORDERMDETAIL, ORDERMTIME, ORDERMCONNECT, ORDERMPHONE, ORDERMADDRESS, 
-    UPDTIME, UPDOR, ORDERMEMP,ORDERMCUSSHOP,ORDERMCUSLEVEL,ORDERMCUSTYPE
-  </sql>
   <!-- 根据ordermid查询打印订单时需要的信息：订单、客户、经销商 信息 -->
   <select id="selectPrintInfo" resultType="com.server.pojo.entity.PrintInfo">
   	select * from orderm om
@@ -309,6 +305,9 @@ where RN &gt; ((#{nowpage}-1)*#{pagesize})
       <if test="ordermcustype != null" >
         ORDERMCUSTYPE,
       </if>
+      <if test="ordermprinttimes != null" >
+        ORDERMPRINTTIMES,
+      </if>
       
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -371,6 +370,9 @@ where RN &gt; ((#{nowpage}-1)*#{pagesize})
       </if>
       <if test="ordermcustype != null" >
         #{ordermcustype,jdbcType=VARCHAR},
+      </if>
+      <if test="ordermprinttimes != null" >
+        #{ordermprinttimes,jdbcType=VARCHAR},
       </if>
       
     </trim>
@@ -435,6 +437,9 @@ where RN &gt; ((#{nowpage}-1)*#{pagesize})
       </if>
       <if test="ordermcustype != null" >
         ORDERMCUSTYPE = #{ordermcustype,jdbcType=VARCHAR},
+      </if>
+      <if test="ordermprinttimes != null" >
+        ORDERMPRINTTIMES = #{ordermprinttimes,jdbcType=VARCHAR},
       </if>
     </set>
     where ORDERMID = #{ordermid,jdbcType=VARCHAR}

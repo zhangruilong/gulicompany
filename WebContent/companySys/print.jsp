@@ -31,7 +31,9 @@ name="WindowPrint" width="0"></OBJECT>
 <script language="javascript" type="text/javascript">
 function printpreview()
 {
-window.print()
+	$('[name="Btn_printPreviw"]').hide();
+	$('#p-PrintTimes').hide();
+	window.print()
 }
 </script>
 
@@ -39,8 +41,12 @@ window.print()
 	<div style="text-align: center;font-size: 33px;font-family: 黑体;" id="con-title"></div>
 </div>
 <div id='p-debug-text'></div>
+<div style="float: left;">
 <input type="button" name="Btn_printPreviw" value="打印" 
-onclick="javascript:this.style.display='none';printpreview();" style="float: left;"/>
+onclick="javascript:this.style.display='none';printpreview();" />
+<span id="p-PrintTimes"></span>
+</div>
+
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="js/numTF.js"></script>
 <script type="text/javascript" src="js/common.js"></script>
