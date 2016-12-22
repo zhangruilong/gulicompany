@@ -1,6 +1,5 @@
 package com.server.pojo.entity;
 
-import java.sql.Date;
 /**
  * 城市和县及街道 实体类
  *@author ZhangRuiLong

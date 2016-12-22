@@ -164,6 +164,16 @@ Company company = (Company)session.getAttribute("company");
 			        +"<span class='nav__item-text'>裸价商品</span>"
 			        +"</a>   "
 			        +"</li>"
+			        +"<li class='nav__item'>"
+			        +"<a href=allCarnivalGoods.action?bkgoodscompany="+'<%=company.getCompanyid() %>'+"&bkgoodstype=年货  target='main' class='nav__item-link'>"
+			        +"<span class='nav__item-text'>年货</span>"
+			        +"</a>   "
+			        +"</li>"
+			        +"<li class='nav__item'>"
+			        +"<a href=allModularGoods.action?bkgoodscompany="+'<%=company.getCompanyid() %>'+"&bkgoodstype=组合商品  target='main' class='nav__item-link'>"
+			        +"<span class='nav__item-text'>组合商品</span>"
+			        +"</a>   "
+			        +"</li>"
 			        +"</ul>");
 			window.parent.main.location.href = "allGoods.action?goodscompany="+'<%=company.getCompanyid() %>';
 		}

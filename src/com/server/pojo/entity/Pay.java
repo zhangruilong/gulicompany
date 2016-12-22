@@ -1,6 +1,5 @@
 package com.server.pojo.entity;
 
-import java.sql.Date;
 /**
  * 在线支付记录 实体类
  *@author ZhangRuiLong

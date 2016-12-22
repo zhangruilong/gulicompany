@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.server.dao.mapper.AddressMapper;
+import com.server.dao.mapper.BkgoodsMapper;
 import com.server.dao.mapper.CcustomerMapper;
 import com.server.dao.mapper.CityMapper;
 import com.server.dao.mapper.CustomerMapper;
@@ -24,6 +25,7 @@ import com.server.dao.mapper.PricesMapper;
 import com.server.dao.mapper.ScantMapper;
 import com.server.dao.mapper.TimegoodsMapper;
 import com.server.pojo.entity.Address;
+import com.server.pojo.entity.Bkgoods;
 import com.server.pojo.entity.Ccustomer;
 import com.server.pojo.entity.City;
 import com.server.pojo.entity.Customer;
@@ -69,6 +71,8 @@ public class Com_goodsCtl {
 	private CityMapper cityMapper;
 	@Autowired
 	private OrderdMapper orderdMapper;
+	@Autowired
+	private BkgoodsMapper bkgoodsMapper;
 	
 	//得到一段时间内订单的品牌
 	@RequestMapping(value="/companySys/timeOrderdGoodsBrand")
@@ -266,7 +270,54 @@ public class Com_goodsCtl {
 		model.addAttribute("count", count);
 		return "forward:/companySys/GivegoodsMana.jsp";
 	}
-	
+	//分页查询年货
+	@RequestMapping("/companySys/allCarnivalGoods")
+	public String allCarnivalGoods(Model model,Bkgoods bkgoodsCondition,Integer pagenow){
+		if(pagenow == null || pagenow == 0){
+			pagenow = 1;
+		}
+		Integer count = bkgoodsMapper.queryBkgoodsCount(bkgoodsCondition);	//总信息条数
+		Integer pageCount;		//总页数
+		if(count % 10 ==0){
+			pageCount = count / 10;
+		} else {
+			pageCount = (count / 10) +1;
+		}
+		if(pagenow > pageCount){
+			pagenow = pageCount;
+		}
+		List<Bkgoods> bkgoodsList = bkgoodsMapper.queryBkgoods(bkgoodsCondition,pagenow,10);
+		model.addAttribute("bkgoodsList", bkgoodsList);
+		model.addAttribute("bkgoodsCondition", bkgoodsCondition);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("pagenow", pagenow);
+		model.addAttribute("count", count);
+		return "forward:/companySys/carnivalgoodsMana.jsp";
+	}
+	//分页查询组合商品
+	@RequestMapping("/companySys/allModularGoods")
+	public String allModularGoods(Model model,Bkgoods bkgoodsCondition,Integer pagenow){
+		if(pagenow == null || pagenow == 0){
+			pagenow = 1;
+		}
+		Integer count = bkgoodsMapper.queryBkgoodsCount(bkgoodsCondition);	//总信息条数
+		Integer pageCount;		//总页数
+		if(count % 10 ==0){
+			pageCount = count / 10;
+		} else {
+			pageCount = (count / 10) +1;
+		}
+		if(pagenow > pageCount){
+			pagenow = pageCount;
+		}
+		List<Bkgoods> bkgoodsList = bkgoodsMapper.queryBkgoods(bkgoodsCondition,pagenow,10);
+		model.addAttribute("bkgoodsList", bkgoodsList);
+		model.addAttribute("bkgoodsCondition", bkgoodsCondition);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("pagenow", pagenow);
+		model.addAttribute("count", count);
+		return "forward:/companySys/modularGoodsMana.jsp";
+	}
 	//到商品价格页面
 	@RequestMapping("/companySys/doGoodsPrices")
 	public String doGoodsPrices(Model model,Goods goodsCon,Integer pagenow){
@@ -275,6 +326,36 @@ public class Com_goodsCtl {
 		model.addAttribute("goodsCon", goodsCon);
 		model.addAttribute("pagenow", pagenow);
 		return "forward:/companySys/goodsPrices.jsp";
+	}
+	//修改年货商品页面
+	@RequestMapping("/companySys/doEditBkgoods")
+	public String doEditBkgoods(Model model,Bkgoods bkgoodsCon,Integer pagenow){
+		Bkgoods editBkgoods = bkgoodsMapper.selectByPrimaryKey(bkgoodsCon.getBkgoodsid());
+		model.addAttribute("bkgoodsCon", bkgoodsCon);
+		model.addAttribute("editBkgoods", editBkgoods);
+		model.addAttribute("pagenow", pagenow);
+		if(bkgoodsCon.getBkgoodstype().equals("年货")){
+			return "forward:/companySys/editCarnivalGoods.jsp";
+		} else {
+			return "forward:/companySys/editModularGoods.jsp";
+		}
+	}
+	//修改年货商品
+	@RequestMapping("/companySys/editBkgoods")
+	@ResponseBody
+	public String editBkgoods(Bkgoods editBkgoods){
+		if(editBkgoods.getBkgoodsseq() == null){
+			editBkgoods.setBkgoodsseq(0);
+		}
+		if(editBkgoods.getBkgoodsweight()==null || editBkgoods.getBkgoodsweight().equals("")){
+			editBkgoods.setBkgoodsweight("0");
+		}
+		int upd = bkgoodsMapper.updateByPrimaryKeySelective(editBkgoods);
+		if(upd > 0){
+			return "ok";
+		} else {
+			return "no";
+		}
 	}
 	//修改秒杀商品页面
 	@RequestMapping("/companySys/doEditTimeGoods")
@@ -344,6 +425,18 @@ public class Com_goodsCtl {
 	@ResponseBody
 	public String removeGiveGoods(String givegoodsid){
 		int del = givegoodsMapper.deleteByPrimaryKey(givegoodsid);
+		if(del > 0){
+			return "ok";
+		} else {
+			return "no";
+		}
+	}
+	
+	//删除年货或组合商品
+	@RequestMapping("/companySys/removeBkgoods")
+	@ResponseBody
+	public String removeBkgoods(String bkgoodsid){
+		int del = bkgoodsMapper.deleteByPrimaryKey(bkgoodsid);
 		if(del > 0){
 			return "ok";
 		} else {
@@ -579,6 +672,29 @@ public class Com_goodsCtl {
 	public List<Goodsclass> getallGoodclass(String companyid){
 		List<Goodsclass> list = goodsclassMapper.selectAllGoodsclass(companyid);
 		return list;
+	}
+	//添加年货或组合商品
+	@RequestMapping(value="/companySys/addBkgoods",produces = "application/json")
+	@ResponseBody
+	public Map<String, Object> addBkgoods(Bkgoods bkgoods){
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(bkgoodsMapper.selectComRepeatGoods(bkgoods.getBkgoodscompany(), bkgoods.getBkgoodscode(), bkgoods.getBkgoodsunits())==0){
+			if(bkgoods.getBkgoodsseq() == null){
+				bkgoods.setBkgoodsseq(0);
+			}
+			if(bkgoods.getBkgoodsweight()==null || bkgoods.getBkgoodsweight().equals("")){
+				bkgoods.setBkgoodsweight("0");
+			}
+			bkgoods.setBkgoodsid(CommonUtil.getNewId());
+			bkgoods.setBkcreatetime(DateUtils.getDateTime());
+			bkgoods.setBkgoodssurplus(bkgoods.getBkgoodsallnum());
+			bkgoods.setBkgoodsstatue("启用");
+			bkgoodsMapper.insertSelective(bkgoods);
+			map.put("message", "success");
+		} else {
+			map.put("message", "fail2");		//商品编号和规格重复，添加失败。
+		}
+		return map;
 	}
 	//添加秒杀商品
 	@RequestMapping(value="/companySys/addTimeGoods",produces = "application/json")

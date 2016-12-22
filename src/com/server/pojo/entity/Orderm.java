@@ -1,6 +1,5 @@
 package com.server.pojo.entity;
 
-import java.sql.Date;
 import java.util.List;
 /**
  * 订单 实体类

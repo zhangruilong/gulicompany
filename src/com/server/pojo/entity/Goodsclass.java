@@ -1,6 +1,5 @@
 package com.server.pojo.entity;
 
-import java.sql.Date;
 /**
  * 大小类 实体类
  *@author ZhangRuiLong

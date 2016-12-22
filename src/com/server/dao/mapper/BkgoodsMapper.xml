@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.server.dao.mapper.BkgoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.server.pojo.entity.Bkgoods" >
+    <id column="BKGOODSID" property="bkgoodsid" jdbcType="VARCHAR" />
+    <result column="BKGOODSCOMPANY" property="bkgoodscompany" jdbcType="VARCHAR" />
+    <result column="BKGOODSCODE" property="bkgoodscode" jdbcType="VARCHAR" />
+    <result column="BKGOODSNAME" property="bkgoodsname" jdbcType="VARCHAR" />
+    <result column="BKGOODSDETAIL" property="bkgoodsdetail" jdbcType="VARCHAR" />
+    <result column="BKGOODSUNITS" property="bkgoodsunits" jdbcType="VARCHAR" />
+    <result column="BKGOODSUNIT" property="bkgoodsunit" jdbcType="VARCHAR" />
+    <result column="BKGOODSPRICE" property="bkgoodsprice" jdbcType="FLOAT" />
+    <result column="BKGOODSORGPRICE" property="bkgoodsorgprice" jdbcType="FLOAT" />
+    <result column="BKGOODSNUM" property="bkgoodsnum" jdbcType="DECIMAL" />
+    <result column="BKGOODSCLASS" property="bkgoodsclass" jdbcType="VARCHAR" />
+    <result column="BKGOODSIMAGE" property="bkgoodsimage" jdbcType="VARCHAR" />
+    <result column="BKGOODSSTATUE" property="bkgoodsstatue" jdbcType="VARCHAR" />
+    <result column="BKCREATETIME" property="bkcreatetime" jdbcType="VARCHAR" />
+    <result column="BKCREATOR" property="bkcreator" jdbcType="VARCHAR" />
+    <result column="BKGOODSSEQ" property="bkgoodsseq" jdbcType="DECIMAL" />
+    <result column="BKGOODSSCOPE" property="bkgoodsscope" jdbcType="VARCHAR" />
+    <result column="BKGOODSBRAND" property="bkgoodsbrand" jdbcType="VARCHAR" />
+    <result column="BKGOODSALLNUM" property="bkgoodsallnum" jdbcType="DECIMAL" />
+    <result column="BKGOODSSURPLUS" property="bkgoodssurplus" jdbcType="DECIMAL" />
+    <result column="BKGOODSWEIGHT" property="bkgoodsweight" jdbcType="VARCHAR" />
+    <result column="BKGOODSTYPE" property="bkgoodstype" jdbcType="VARCHAR" />
+  </resultMap>
+  <!-- 查询重复商品数量 -->
+  <select id="selectComRepeatGoods" resultType="int" >
+    select count(*) from bkgoods
+    where bkgoodscode = #{bkgoodscode,jdbcType=VARCHAR} 
+    and BKGOODSCOMPANY=#{comid} 
+    and BKGOODSUNITS=#{bkgoodsunits}
+  </select>
+  <!-- 总信息条数查询 -->
+  <select id="queryBkgoodsCount" resultType="int" parameterType="com.server.pojo.entity.Bkgoods" >
+    select 
+    	count(*) 
+    from bkgoods bkg
+    where bkg.bkgoodscompany = #{bkgoodscompany}
+    and bkg.bkgoodstype = #{bkgoodstype}
+    <if test="bkgoodscode != null and bkgoodscode != ''">
+			and
+			(bkg.bkgoodsCODE like '%${bkgoodscode}%' or
+			bkg.bkgoodsNAME like '%${bkgoodscode}%' or
+			bkg.bkgoodsDETAIL like '%${bkgoodscode}%' or
+			bkg.bkgoodsUNITS like '%${bkgoodscode}%' or
+			bkg.bkgoodsSTATUE like '%${bkgoodscode}%')
+	</if>
+	<if test="bkgoodsscope != null and bkgoodsscope != ''">
+		and bkg.bkgoodsSCOPE like '%${bkgoodsscope}%'
+	</if>
+  </select>
+  <!-- 分页查询 -->
+  <select id="queryBkgoods" resultMap="BaseResultMap">
+  select * from 
+	(select A.*, ROWNUM RN from (
+    select 
+    *
+    from bkgoods bkg
+    where bkg.bkgoodscompany = #{bkgoods.bkgoodscompany}
+    and bkg.bkgoodstype = #{bkgoods.bkgoodstype}
+    <if test="bkgoods.bkgoodscode != null and bkgoods.bkgoodscode != ''">
+			and
+			(bkg.bkgoodsCODE like '%${bkgoods.bkgoodscode}%' or
+			bkg.bkgoodsNAME like '%${bkgoods.bkgoodscode}%' or
+			bkg.bkgoodsDETAIL like '%${bkgoods.bkgoodscode}%' or
+			bkg.bkgoodsUNITS like '%${bkgoods.bkgoodscode}%' or
+			bkg.bkgoodsSTATUE like '%${bkgoods.bkgoodscode}%')
+	</if>
+	<if test="bkgoods.bkgoodsscope != null and bkgoods.bkgoodsscope != ''">
+		and bkg.bkgoodsSCOPE like '%${bkgoods.bkgoodsscope}%'
+	</if>
+	order by bkg.bkgoodsid desc
+    ) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) ) 
+		where RN &gt; ((#{nowpage}-1)*#{pagesize})
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from BKGOODS
+    where BKGOODSID = #{bkgoodsid,jdbcType=VARCHAR}
+  </delete>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    *
+    from BKGOODS
+    where BKGOODSID = #{bkgoodsid,jdbcType=VARCHAR}
+  </select>
+  <insert id="insertSelective" parameterType="com.server.pojo.entity.Bkgoods" >
+    insert into BKGOODS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bkgoodsid != null" >
+        BKGOODSID,
+      </if>
+      <if test="bkgoodscompany != null" >
+        BKGOODSCOMPANY,
+      </if>
+      <if test="bkgoodscode != null" >
+        BKGOODSCODE,
+      </if>
+      <if test="bkgoodsname != null" >
+        BKGOODSNAME,
+      </if>
+      <if test="bkgoodsdetail != null" >
+        BKGOODSDETAIL,
+      </if>
+      <if test="bkgoodsunits != null" >
+        BKGOODSUNITS,
+      </if>
+      <if test="bkgoodsunit != null" >
+        BKGOODSUNIT,
+      </if>
+      <if test="bkgoodsprice != null" >
+        BKGOODSPRICE,
+      </if>
+      <if test="bkgoodsorgprice != null" >
+        BKGOODSORGPRICE,
+      </if>
+      <if test="bkgoodsnum != null" >
+        BKGOODSNUM,
+      </if>
+      <if test="bkgoodsclass != null" >
+        BKGOODSCLASS,
+      </if>
+      <if test="bkgoodsimage != null" >
+        BKGOODSIMAGE,
+      </if>
+      <if test="bkgoodsstatue != null" >
+        BKGOODSSTATUE,
+      </if>
+      <if test="bkcreatetime != null" >
+        BKCREATETIME,
+      </if>
+      <if test="bkcreator != null" >
+        BKCREATOR,
+      </if>
+      <if test="bkgoodsseq != null" >
+        BKGOODSSEQ,
+      </if>
+      <if test="bkgoodsscope != null" >
+        BKGOODSSCOPE,
+      </if>
+      <if test="bkgoodsbrand != null" >
+        BKGOODSBRAND,
+      </if>
+      <if test="bkgoodsallnum != null" >
+        BKGOODSALLNUM,
+      </if>
+      <if test="bkgoodssurplus != null" >
+        BKGOODSSURPLUS,
+      </if>
+      <if test="bkgoodsweight != null" >
+        BKGOODSWEIGHT,
+      </if>
+      <if test="bkgoodstype != null" >
+        BKGOODSTYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bkgoodsid != null" >
+        #{bkgoodsid,jdbcType=VARCHAR},
+      </if>
+      <if test="bkgoodscompany != null" >
+        #{bkgoodscompany,jdbcType=VARCHAR},
+      </if>
+      <if test="bkgoodscode != null" >
+        #{bkgoodscode,jdbcType=VARCHAR},
+      </if>
+      <if test="bkgoodsname != null" >
+        #{bkgoodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="bkgoodsdetail != null" >
+        #{bkgoodsdetail,jdbcType=VARCHAR},
+      </if>
+      <if test="bkgoodsunits != null" >
+        #{bkgoodsunits,jdbcType=VARCHAR},
+      </if>
+      <if test="bkgoodsunit != null" >
+        #{bkgoodsunit,jdbcType=VARCHAR},
+      </if>
+      <if test="bkgoodsprice != null" >
+        #{bkgoodsprice,jdbcType=FLOAT},
+      </if>
+      <if test="bkgoodsorgprice != null" >
+        #{bkgoodsorgprice,jdbcType=FLOAT},
+      </if>
+      <if test="bkgoodsnum != null" >
+        #{bkgoodsnum,jdbcType=DECIMAL},
+      </if>
+      <if test="bkgoodsclass != null" >
+        #{bkgoodsclass,jdbcType=VARCHAR},
+      </if>
+      <if test="bkgoodsimage != null" >
+        #{bkgoodsimage,jdbcType=VARCHAR},
+      </if>
+      <if test="bkgoodsstatue != null" >
+        #{bkgoodsstatue,jdbcType=VARCHAR},
+      </if>
+      <if test="bkcreatetime != null" >
+        #{bkcreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="bkcreator != null" >
+        #{bkcreator,jdbcType=VARCHAR},
+      </if>
+      <if test="bkgoodsseq != null" >
+        #{bkgoodsseq,jdbcType=DECIMAL},
+      </if>
+      <if test="bkgoodsscope != null" >
+        #{bkgoodsscope,jdbcType=VARCHAR},
+      </if>
+      <if test="bkgoodsbrand != null" >
+        #{bkgoodsbrand,jdbcType=VARCHAR},
+      </if>
+      <if test="bkgoodsallnum != null" >
+        #{bkgoodsallnum,jdbcType=DECIMAL},
+      </if>
+      <if test="bkgoodssurplus != null" >
+        #{bkgoodssurplus,jdbcType=DECIMAL},
+      </if>
+      <if test="bkgoodsweight != null" >
+        #{bkgoodsweight,jdbcType=VARCHAR},
+      </if>
+      <if test="bkgoodstype != null" >
+        #{bkgoodstype,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.server.pojo.entity.Bkgoods" >
+    update BKGOODS
+    <set >
+      <if test="bkgoodscompany != null" >
+        BKGOODSCOMPANY = #{bkgoodscompany,jdbcType=VARCHAR},
+      </if>
+      <if test="bkgoodscode != null" >
+        BKGOODSCODE = #{bkgoodscode,jdbcType=VARCHAR},
+      </if>
+      <if test="bkgoodsname != null" >
+        BKGOODSNAME = #{bkgoodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="bkgoodsdetail != null" >
+        BKGOODSDETAIL = #{bkgoodsdetail,jdbcType=VARCHAR},
+      </if>
+      <if test="bkgoodsunits != null" >
+        BKGOODSUNITS = #{bkgoodsunits,jdbcType=VARCHAR},
+      </if>
+      <if test="bkgoodsunit != null" >
+        BKGOODSUNIT = #{bkgoodsunit,jdbcType=VARCHAR},
+      </if>
+      <if test="bkgoodsprice != null" >
+        BKGOODSPRICE = #{bkgoodsprice,jdbcType=FLOAT},
+      </if>
+      <if test="bkgoodsorgprice != null" >
+        BKGOODSORGPRICE = #{bkgoodsorgprice,jdbcType=FLOAT},
+      </if>
+      <if test="bkgoodsnum != null" >
+        BKGOODSNUM = #{bkgoodsnum,jdbcType=DECIMAL},
+      </if>
+      <if test="bkgoodsclass != null" >
+        BKGOODSCLASS = #{bkgoodsclass,jdbcType=VARCHAR},
+      </if>
+      <if test="bkgoodsimage != null" >
+        BKGOODSIMAGE = #{bkgoodsimage,jdbcType=VARCHAR},
+      </if>
+      <if test="bkgoodsstatue != null" >
+        BKGOODSSTATUE = #{bkgoodsstatue,jdbcType=VARCHAR},
+      </if>
+      <if test="bkcreatetime != null" >
+        BKCREATETIME = #{bkcreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="bkcreator != null" >
+        BKCREATOR = #{bkcreator,jdbcType=VARCHAR},
+      </if>
+      <if test="bkgoodsseq != null" >
+        BKGOODSSEQ = #{bkgoodsseq,jdbcType=DECIMAL},
+      </if>
+      <if test="bkgoodsscope != null" >
+        BKGOODSSCOPE = #{bkgoodsscope,jdbcType=VARCHAR},
+      </if>
+      <if test="bkgoodsbrand != null" >
+        BKGOODSBRAND = #{bkgoodsbrand,jdbcType=VARCHAR},
+      </if>
+      <if test="bkgoodsallnum != null" >
+        BKGOODSALLNUM = #{bkgoodsallnum,jdbcType=DECIMAL},
+      </if>
+      <if test="bkgoodssurplus != null" >
+        BKGOODSSURPLUS = #{bkgoodssurplus,jdbcType=DECIMAL},
+      </if>
+      <if test="bkgoodsweight != null" >
+        BKGOODSWEIGHT = #{bkgoodsweight,jdbcType=VARCHAR},
+      </if>
+      <if test="bkgoodstype != null" >
+        BKGOODSTYPE = #{bkgoodstype,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where BKGOODSID = #{bkgoodsid,jdbcType=VARCHAR}
+  </update>
+</mapper>
