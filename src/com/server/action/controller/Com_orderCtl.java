@@ -136,6 +136,24 @@ public class Com_orderCtl {
 		Integer num = ordermMapper.updateByPrimaryKeySelective(order);
 		return num;
 	}
+	//修改订单打印次数
+	@RequestMapping("/companySys/updatePrintCount")
+	public @ResponseBody Map<String, Object> updatePrintCount( String ordermids,String ordermprinttimess){
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		String[] ids = ordermids.split(",");
+		String[] timess = ordermprinttimess.split(",");
+		int count=0;
+		for (int i = 0; i < ids.length; i++) {
+			int c = ordermMapper.updatePrintCount(ids[i], timess[i]);
+			count += c;
+		}
+		if(count>0){
+			resultMap.put("msg", "success");
+		} else {
+			resultMap.put("msg", "no");
+		}
+		return resultMap;
+	}
 /*--------------------------订单详情-----------------------------*/
 	//订单详情
 	@RequestMapping("/companySys/orderDetail")

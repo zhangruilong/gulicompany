@@ -33,7 +33,23 @@ function printpreview()
 {
 	$('[name="Btn_printPreviw"]').hide();
 	$('#p-PrintTimes').hide();
-	window.print()
+	window.print();
+	$.ajax({
+		url:"updatePrintCount.action",
+		type:"post",
+		data:{
+			"ordermids":ordermids,
+			"ordermprinttimess":ordermprinttimess
+		},
+		success:function(data){
+			if(data.msg!="success"){
+				alert('记录打印次数失败。');
+			}
+		},
+		error:function(data){
+			alert('记录打印次数失败。');
+		}
+	});
 }
 </script>
 
@@ -52,6 +68,8 @@ onclick="javascript:this.style.display='none';printpreview();" />
 <script type="text/javascript" src="js/common.js"></script>
 <script type="text/javascript">
 var ordermids = '${param.ordermids}';
+var ordermprinttimess = "";
+$('[name="Btn_printPreviw"]').hide();
 </script>
 <script type="text/javascript" src="js/print.js"></script>
 </body>

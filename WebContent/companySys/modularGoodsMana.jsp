@@ -69,6 +69,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<th>原价</th>
 		<th>现价</th>
 		<th>重量(kg)</th>
+		<th>限量</th>
+		<th>全部限量</th>
+		<th>剩余数量</th>
+		<th>已售出</th>
 		<th>状态</th>
 		<th>顺序</th>
 		<th>创建时间</th>
@@ -88,6 +92,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td>${bkgoods.bkgoodsprice}</td>
 			<td>${bkgoods.bkgoodsorgprice}</td>
 			<td>${bkgoods.bkgoodsweight}</td>
+			<td>${bkgoods.bkgoodsnum}</td>
+			<td>${bkgoods.bkgoodsallnum}</td>
+			<td>${bkgoods.bkgoodssurplus}</td>
+			<td>${bkgoods.bkgoodsallnum - bkgoods.bkgoodssurplus}</td>
 			<td>${bkgoods.bkgoodsstatue}</td>
 			<td>${bkgoods.bkgoodsseq}</td>
 			<td>${bkgoods.bkcreatetime}</td>
@@ -96,10 +104,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</c:forEach>
 	</c:if>
 	<c:if test="${fn:length(requestScope.bkgoodsList)==0 }">
-		<tr><td colspan="18" align="center" style="font-size: 20px;color: red;"> 没有信息</td></tr>
+		<tr><td colspan="22" align="center" style="font-size: 20px;color: red;"> 没有信息</td></tr>
 	</c:if>
     	<tr>
-		 <td colspan="18" align="center">
+		 <td colspan="22" align="center">
 		 <c:if test="${requestScope.pagenow > 1 }">
 		 	<a onclick="fenye('1')">第一页</a>
 		 </c:if>
@@ -163,7 +171,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<label><span>品牌 :</span><input id="bkgoodsbrand" type="text"
 				name="bkgoodsbrand" placeholder="品牌" /></label>
 			<label><span>原价 :</span><input id="bkgoodsprice" type="number"
-				name="bkgoodsprice" placeholder="原价" /><font>(必填)</font></label>
+				name="bkgoodsprice" placeholder="原价" /></label>
 			<label><span>现价 :</span><input id="bkgoodsorgprice" type="number"
 				name="bkgoodsorgprice" placeholder="现价" /><font>(必填)</font></label>
 			<label><span>重量（kg） :</span><input id="bkgoodsweight" type="number"
@@ -335,7 +343,7 @@ function popup_formSub(){
 	} */
 	$(".elegant-aero [type='text']").add(".elegant-aero [type='number']").each(function(i,item){
 		if(($(item).val() == null || $(item).val() == '') && $(item).attr('placeholder') != '顺序' && 
-				$(item).attr('placeholder') != '重量' && $(item).attr('placeholder') != '品牌'){
+				$(item).attr('placeholder') != '重量' && $(item).attr('placeholder') != '品牌'&& $(item).attr('placeholder') != '原价'){
 			alert($(item).attr('placeholder') + '不能为空!');
 			count++;
 			return false;

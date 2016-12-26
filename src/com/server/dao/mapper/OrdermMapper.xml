@@ -75,6 +75,10 @@
 	    <result column="ORDERDRIGHTMONEY" property="orderdrightmoney" jdbcType="FLOAT" />
     </collection>
   </resultMap>
+  <update id="updatePrintCount" >
+  	update orderm om set om.ordermprinttimes=#{ordermprinttimes} 
+  	where om.ordermid=#{ordermid} 
+  </update>
   <!-- 根据ordermid查询打印订单时需要的信息：订单、客户、经销商 信息 -->
   <select id="selectPrintInfo" resultType="com.server.pojo.entity.PrintInfo">
   	select * from orderm om

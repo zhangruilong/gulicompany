@@ -12,10 +12,6 @@ public class OrderStatisticsVO {
 	
 	private String orderdprice;
 	
-	private String ordermid;
-	
-	private String ordermtime;
-	
 	private String sumorderdmoney;
 	
 	private String sumorderdrightmoney;
@@ -78,22 +74,6 @@ public class OrderStatisticsVO {
 
 	public void setOrderdprice(String orderdprice) {
 		this.orderdprice = orderdprice;
-	}
-
-	public String getOrdermid() {
-		return ordermid;
-	}
-
-	public void setOrdermid(String ordermid) {
-		this.ordermid = ordermid;
-	}
-
-	public String getOrdermtime() {
-		return ordermtime;
-	}
-
-	public void setOrdermtime(String ordermtime) {
-		this.ordermtime = ordermtime;
 	}
 
 	public String getSumorderdmoney() {

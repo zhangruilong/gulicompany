@@ -68,7 +68,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<th>重量</th>
 		<th>商品总价</th>
 		<th>实际金额</th>
-		<th>订单时间</th>
     </tr>
     </thead>
     <c:if test="${fn:length(requestScope.orderdList) != 0 }">
@@ -84,7 +83,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td>${orderd.orderdweight}</td>
 			<td>${orderd.sumorderdmoney}</td>
 			<td>${orderd.sumorderdrightmoney}</td>
-			<td>${orderd.ordermtime}</td>
 		</tr>
 	</c:forEach>
 	<tr>
@@ -93,7 +91,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td>${requestScope.total.weighttotal }</td>
 		<td>${requestScope.total.moneytotal }</td>
 		<td>${requestScope.total.rightmoneytotal }</td>
-		<td></td>
 	</tr>
 	</c:if>
 	<c:if test="${fn:length(requestScope.orderdList)==0 }">
@@ -164,7 +161,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- 查询店名 的 查询条件 -->
 查询条件:&nbsp;&nbsp;<input type="text" id="queryShop" name="queryShop" value="${ requestScope.queryShop}" onchange="showCusNames()">
 <input class="button" type="button" value="查询" onclick="showCusNames()">
-
 <input class="button" type="button" value="确定" onclick="cusNameConditionConfirm()">
 <input class="button" type="button" value="取消" onclick="hiddenCusShow()">
 </div>
@@ -180,6 +176,7 @@ var currDateTime = formatDateTime(new Date());									//当前时间字符串
 var quBrand = $('#quBrand').val();			//查询的品牌
 var quEmp = $('#quEmp').val();				//查询的业务员
 var quCus = $('#quCus').val();				//查询的客户店名
+var mquCus = $('#quCus').val();				//查询的客户店名缓存
 var queryShop = "${ requestScope.queryShop}";		//查询店名的 查询条件
 
 var defStaTime = '${requestScope.staTime }';
@@ -190,6 +187,10 @@ if(defStaTime == ''){
 }
 if(defEndTime == ''){
 	defEndTime = currDateTime;
+}
+function cusConfirmAndSubfor(){
+	cusNameConditionConfirm();
+	subfor()
 }
 $(function(){
 	$.ajax({
@@ -213,8 +214,10 @@ $(function(){
 				$(".alert-cusNames-show span").click(function(){
 					if($(this).attr('class')=='alert-cusNames-selspan'){
 						$(this).removeClass('alert-cusNames-selspan');
+						mquCus = mquCus.replace($(this).text()+',','');
 					} else {
 						$(this).addClass('alert-cusNames-selspan');
+						mquCus += $(this).text()+',';
 					}
 				});
 			}
@@ -337,16 +340,14 @@ function brandConditionConfirm(){
 }
 //筛选条件:客户 确定
 function cusNameConditionConfirm(){
-	var nowCus = '';
-	$('.alert-cusNames-show .alert-cusNames-selspan').each(function(i,item){
-		nowCus += $(item).text()+",";
-	});
-	$('#quCus').val(nowCus);
+	quCus=mquCus;
+	$('#quCus').val(quCus);
 	$(".cusNames-popup").removeClass("is-visible");
 }
 //关闭cusNames弹窗
 function hiddenCusShow(){
 	$(".cusNames-popup").removeClass("is-visible");
+	mquCus = quCus;
 }
 //关闭brand弹窗
 function hiddenBrandShow(){
@@ -382,9 +383,9 @@ function showCusNames(){
 		success:function(data){
 			if(data.msg =='success'){
 				$('.alert-cusNames-show').html('');
-				var currQuCus = $('#quCus').val();
+				
 				$.each(data.cusNames ,function(i,item){
-					if(currQuCus.indexOf(item) == -1){
+					if(mquCus.indexOf(item) == -1){
 						$('.alert-cusNames-show').append('<span>'+item+'</span>');
 					} else {
 						$('.alert-cusNames-show').append('<span class="alert-cusNames-selspan">'+item+'</span>');
@@ -394,8 +395,10 @@ function showCusNames(){
 				$(".alert-cusNames-show span").click(function(){
 					if($(this).attr('class')=='alert-cusNames-selspan'){
 						$(this).removeClass('alert-cusNames-selspan');
+						mquCus = mquCus.replace($(this).text()+',','');
 					} else {
 						$(this).addClass('alert-cusNames-selspan');
+						mquCus += $(this).text()+',';
 					}
 				});
 			} else {

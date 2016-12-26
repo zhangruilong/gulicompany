@@ -28,6 +28,8 @@ $(function(){
 					if(typeof(item.ordermprinttimes)=='undefined' || !item.ordermprinttimes){
 						item.ordermprinttimes = '0';
 					}
+					ordermprinttimess += (parseInt(item.ordermprinttimes)+1)+",";
+					printCount = parseInt(item.ordermprinttimes);
 					ordermPrintTimes += '编号:'+item.ordermcode+'&nbsp;打印次数:'+item.ordermprinttimes+'。&nbsp;';
 					totalMon += parseFloat(item.ordermmoney);
 					totalRMon += parseFloat(item.ordermrightmoney);
@@ -91,8 +93,8 @@ $(function(){
 					columnNum = item.startcol;									//当前列
 					if(typeof(item.fieldname)!='undefined' && item.fieldname){
 						text = typeNullFoString(printinfo[item.fieldname]);						//一般的
-					} else if(item.headnameas=='订单日期'){
-						text = today;											//订单日期
+					} else if(item.headnameas=='打印日期'){
+						text = today;											//打印日期
 					} else if(item.headnameas=='优惠金额'){
 						text = totalMon-totalRMon;											//优惠金额
 					} else if(item.headnameas=='大写合计'){
@@ -175,6 +177,7 @@ $(function(){
 						$('#signFo-tab tr:last').append('<td style="'+qianshouTDStrle+'"></td>');
 					}
 				});
+				$('[name="Btn_printPreviw"]').show();
 			} else {
 				alert('没有查询到该订单。');
 				window.close();

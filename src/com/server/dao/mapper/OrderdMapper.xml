@@ -139,8 +139,6 @@
 	(select A.*, ROWNUM RN from (
   	select
 		od.orderdcode,od.orderdname,od.orderdunits,od.orderdunit,od.orderdprice,od.orderdweight,
-		om.ordermid,
-		om.ordermtime,
 		sum(od.ORDERDMONEY) sumorderdmoney,
 		sum(od.ORDERDRIGHTMONEY) sumorderdrightmoney,
 		sum(od.orderdnum) sumorderdnum
@@ -194,8 +192,8 @@
 		od.orderdnum like '%${condition}%' or
 		od.orderdprice like '%${condition}%' )
 	</if>
-	group by od.orderdcode,od.orderdname,od.orderdunits,od.orderdunit,od.orderdprice,om.ordermid,om.ordermtime,od.orderdweight 
-	order by om.ordermtime desc
+	group by od.orderdcode,od.orderdname,od.orderdunits,od.orderdunit,od.orderdprice,od.orderdweight 
+	order by od.orderdname,od.orderdunits,od.orderdcode,od.orderdprice,od.orderdweight 
 	 ) A where ROWNUM  &lt;= (#{nowpage}*#{pagesize}) ) 
 	where RN &gt; ((#{nowpage}-1)*#{pagesize})
   </select>
@@ -207,9 +205,7 @@
           od.orderdunits,
           od.orderdunit,
           od.orderdprice,
-          od.orderdweight,
-          om.ordermid,
-          om.ordermtime
+          od.orderdweight
 	from orderd od
                   right join orderm om on od.orderdorderm = om.ordermid
   	left join customer c on c.customerid = om.ordermcustomer
@@ -260,7 +256,7 @@
 		od.orderdnum like '%${condition}%' or
 		od.orderdprice like '%${condition}%' )
 	</if>
-	group by od.orderdcode,od.orderdname,od.orderdunits,od.orderdunit,od.orderdprice,om.ordermid,om.ordermtime,od.orderdweight )
+	group by od.orderdcode,od.orderdname,od.orderdunits,od.orderdunit,od.orderdprice,od.orderdweight )
   </select>
   <!-- 条件查询统计 -->
   <select id="selectOrderdStatistics" resultType="com.server.pojo.entity.OrderdStatistics" >

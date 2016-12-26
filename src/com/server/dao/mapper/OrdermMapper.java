@@ -10,6 +10,10 @@ import com.server.pojo.entity.PrintInfo;
 
 public interface OrdermMapper {
 	/**
+	 * 修改订单打印次数
+	 */
+	int updatePrintCount(@Param("ordermid") String ordermid,@Param("ordermprinttimes") String ordermprinttimes);
+	/**
 	 * 根据ordermid查询打印订单时需要的信息：订单、客户、经销商 信息
 	 */
 	List<PrintInfo> selectPrintInfo(String[] ordermids);

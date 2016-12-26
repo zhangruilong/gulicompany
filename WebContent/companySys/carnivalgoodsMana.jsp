@@ -163,7 +163,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<label><span>品牌 :</span><input id="bkgoodsbrand" type="text"
 				name="bkgoodsbrand" placeholder="品牌" /></label>
 			<label><span>原价 :</span><input id="bkgoodsprice" type="number"
-				name="bkgoodsprice" placeholder="原价" /><font>(必填)</font></label>
+				name="bkgoodsprice" placeholder="原价" /></label>
 			<label><span>现价 :</span><input id="bkgoodsorgprice" type="number"
 				name="bkgoodsorgprice" placeholder="现价" /><font>(必填)</font></label>
 			<label><span>重量（kg） :</span><input id="bkgoodsweight" type="number"
@@ -331,7 +331,7 @@ function popup_formSub(){
 	} */
 	$(".elegant-aero [type='text']").add(".elegant-aero [type='number']").each(function(i,item){
 		if(($(item).val() == null || $(item).val() == '') && $(item).attr('placeholder') != '顺序' && 
-				$(item).attr('placeholder') != '重量' && $(item).attr('placeholder') != '品牌'){
+				$(item).attr('placeholder') != '重量' && $(item).attr('placeholder') != '品牌'&& $(item).attr('placeholder') != '原价'){
 			alert($(item).attr('placeholder') + '不能为空!');
 			count++;
 			return false;
