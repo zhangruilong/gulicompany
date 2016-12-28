@@ -31,43 +31,43 @@
 <body>
 	<div class="elegant-aero">
 		<form action="" method="post" class="STYLE-NAME">
-		<input type="hidden" name="givegoodscompany" value="${requestScope.editGiveGoods.givegoodscompany }">
+		<input type="hidden" name="bkgoodscompany" value="${requestScope.editBkgoods.bkgoodscompany }">
 			<h1>买赠商品信息</h1>
 			<p><span>客户范围 :</span>&nbsp;&nbsp;&nbsp;
-			<input type="checkbox" name="givegoodsscope" value="3" ${fn:contains(requestScope.editGiveGoods.givegoodsscope,'3')?'checked':'' }/>
+			<input type="checkbox" name="bkgoodsscope" value="3" ${fn:contains(requestScope.editBkgoods.bkgoodsscope,'3')?'checked':'' }/>
 			餐饮客户&nbsp;&nbsp;&nbsp;
-			<input type="checkbox" name="givegoodsscope" value="2" ${fn:contains(requestScope.editGiveGoods.givegoodsscope,'2')?'checked':'' }/>
+			<input type="checkbox" name="bkgoodsscope" value="2" ${fn:contains(requestScope.editBkgoods.bkgoodsscope,'2')?'checked':'' }/>
 			商超客户 &nbsp;&nbsp;&nbsp;
-			<input type="checkbox" name="givegoodsscope" value="1" ${fn:contains(requestScope.editGiveGoods.givegoodsscope,'1')?'checked':'' }/>
+			<input type="checkbox" name="bkgoodsscope" value="1" ${fn:contains(requestScope.editBkgoods.bkgoodsscope,'1')?'checked':'' }/>
 			组织单位客户 
 			</p>
-			<label><span>编码 :</span><input id="givegoodscode" type="text"
-				name="givegoodscode" value="${requestScope.editGiveGoods.givegoodscode }" placeholder="编码" /><font>(必填)</font></label>
-			<label><span>名称 :</span><input id="givegoodsname" type="text"
-				name="givegoodsname" value="${requestScope.editGiveGoods.givegoodsname }" placeholder="名称" /><font>(必填)</font></label>
-			<label><span>规格 :</span><input id="givegoodsunits" type="text"
-				name="givegoodsunits" value="${requestScope.editGiveGoods.givegoodsunits }" placeholder="规格" /><font>(必填)</font></label>
-			<!-- <label><span>小类名称 :</span><input id="givegoodsclass" type="text"
-				name="givegoodsclass" value="${requestScope.editGiveGoods.givegoodsclass }" placeholder="小类名称" /></label> -->
-			<label><span>单位 :</span><input id="givegoodsunit" type="text"
-				name="givegoodsunit" value="${requestScope.editGiveGoods.givegoodsunit }" placeholder="单位" /><font>(必填)</font></label>
-			<label><span>售价 :</span><input id="givegoodsprice" type="number"
-				name="givegoodsprice" value="${requestScope.editGiveGoods.givegoodsprice }" placeholder="售价" /><font>(必填)</font></label>
-			<label><span>重量 :</span><input id="givegoodsweight" type="number"
-				name="givegoodsweight" value="${requestScope.editGiveGoods.givegoodsweight }" placeholder="重量" /></label>
-			<label><span>品牌 :</span><input id="givegoodsbrand" type="text"
-				name="givegoodsbrand" value="${requestScope.editGiveGoods.givegoodsbrand }" placeholder="品牌" /></label>
-			<label><span>个人限量 :</span><input id="givegoodsnum" type="number"
-				name="givegoodsnum" value="${requestScope.editGiveGoods.givegoodsnum }" placeholder="个人限量" /><font>(必填)</font></label>
-			<label><span>顺序 :</span><input id="givegoodsseq" type="number"
-				name="givegoodsseq" value="${requestScope.editGiveGoods.givegoodsseq }" placeholder="顺序" /></label>
-			<label><span>图片路径 :</span><input id="givegoodsimage" type="text"
-				name="givegoodsimage" value="${requestScope.editGiveGoods.givegoodsimage }" placeholder="图片路径" /></label>
-			<label><span>状态 :</span><select name="givegoodsstatue">
-				<option ${requestScope.editGiveGoods.givegoodsstatue == '启用'?'selected':'' }>启用</option>
-				<option ${requestScope.editGiveGoods.givegoodsstatue == '禁用'?'selected':'' }>禁用</option>
+			<label><span>编码 :</span><input id="bkgoodscode" type="text"
+				name="bkgoodscode" value="${requestScope.editBkgoods.bkgoodscode }" placeholder="编码" /><font>(必填)</font></label>
+			<label><span>名称 :</span><input id="bkgoodsname" type="text"
+				name="bkgoodsname" value="${requestScope.editBkgoods.bkgoodsname }" placeholder="名称" /><font>(必填)</font></label>
+			<label><span>规格 :</span><input id="bkgoodsunits" type="text"
+				name="bkgoodsunits" value="${requestScope.editBkgoods.bkgoodsunits }" placeholder="规格" /><font>(必填)</font></label>
+			<!-- <label><span>小类名称 :</span><input id="bkgoodsclass" type="text"
+				name="bkgoodsclass" value="${requestScope.editBkgoods.bkgoodsclass }" placeholder="小类名称" /></label> -->
+			<label><span>单位 :</span><input id="bkgoodsunit" type="text"
+				name="bkgoodsunit" value="${requestScope.editBkgoods.bkgoodsunit }" placeholder="单位" /><font>(必填)</font></label>
+			<label><span>售价 :</span><input id="bkgoodsprice" type="number"
+				name="bkgoodsprice" value="${requestScope.editBkgoods.bkgoodsprice }" placeholder="售价" /><font>(必填)</font></label>
+			<label><span>重量 :</span><input id="bkgoodsweight" type="number"
+				name="bkgoodsweight" value="${requestScope.editBkgoods.bkgoodsweight }" placeholder="重量" /></label>
+			<label><span>品牌 :</span><input id="bkgoodsbrand" type="text"
+				name="bkgoodsbrand" value="${requestScope.editBkgoods.bkgoodsbrand }" placeholder="品牌" /></label>
+			<label><span>个人限量 :</span><input id="bkgoodsnum" type="number"
+				name="bkgoodsnum" value="${requestScope.editBkgoods.bkgoodsnum }" placeholder="个人限量" /><font>(必填)</font></label>
+			<label><span>顺序 :</span><input id="bkgoodsseq" type="number"
+				name="bkgoodsseq" value="${requestScope.editBkgoods.bkgoodsseq }" placeholder="顺序" /></label>
+			<label><span>图片路径 :</span><input id="bkgoodsimage" type="text"
+				name="bkgoodsimage" value="${requestScope.editBkgoods.bkgoodsimage }" placeholder="图片路径" /></label>
+			<label><span>状态 :</span><select name="bkgoodsstatue">
+				<option ${requestScope.editBkgoods.bkgoodsstatue == '启用'?'selected':'' }>启用</option>
+				<option ${requestScope.editBkgoods.bkgoodsstatue == '禁用'?'selected':'' }>禁用</option>
 			</select><font>(必填)</font></label>
-			<label><span>描述 :</span><textarea name="givegoodsdetail">${requestScope.editGiveGoods.givegoodsdetail }</textarea><font>(必填)</font></label>
+			<label><span>描述 :</span><textarea name="bkgoodsdetail">${requestScope.editBkgoods.bkgoodsdetail }</textarea><font>(必填)</font></label>
 			<p><input type="button"
 				class="button" value="保存修改" onclick="saveEdit()"/>
 			<input type="button"
@@ -79,19 +79,19 @@
 function saveEdit(){
 	var data = '{';
 	var count = 0;
-	if($("[name='givegoodsdetail']").val == null || $("[name='givegoodsdetail']").val == '' ){
+	if($("[name='bkgoodsdetail']").val == null || $("[name='bkgoodsdetail']").val == '' ){
 		alert("描述不能为空!");
 	} else {
-		data += '"givegoodsdetail":"' +$("[name='givegoodsdetail']").val() +'",';
+		data += '"bkgoodsdetail":"' +$("[name='bkgoodsdetail']").val() +'",';
 	}
-	data += '"givegoodsstatue":"' +$("[name='givegoodsstatue']").val() +'",';
-	var givegoodsscope = '';
-	$("input[name='givegoodsscope']").each(function(i,item){
+	data += '"bkgoodsstatue":"' +$("[name='bkgoodsstatue']").val() +'",';
+	var bkgoodsscope = '';
+	$("input[name='bkgoodsscope']").each(function(i,item){
 		if(item.checked == true){
-			givegoodsscope += $(item).val();
+			bkgoodsscope += $(item).val();
 		}
 	});
-	data += '"givegoodsscope":"' + givegoodsscope +'",';
+	data += '"bkgoodsscope":"' + bkgoodsscope +'",';
 	$(".elegant-aero [type='text']").add(".elegant-aero [type='number']").each(function(i,item){
 		if(($(item).val() == null || $(item).val() == '') && $(item).attr('placeholder') != '顺序' 
 				&& $(item).attr('placeholder') != '重量' && $(item).attr('placeholder') != '品牌'
@@ -106,12 +106,13 @@ function saveEdit(){
 		}
 	});
 	if(count == 0){
-		data += '"givegoodsid":"${requestScope.editGiveGoods.givegoodsid }"}';
-		$.post('editGiveGoods.action',JSON.parse(data),function(data){
+		data += '"bkgoodsid":"${requestScope.editBkgoods.bkgoodsid }"}';
+		$.post('editBkgoods.action',JSON.parse(data),function(data){
 			if(data == 'ok'){
 				alert('修改成功!');
-				window.location.href = 'allGiveGoods.action?givegoodscompany=${requestScope.editGiveGoods.givegoodscompany }'+
-						'&givegoodsscope=${requestScope.givegoodsCon.givegoodsscope }&pagenow=${requestScope.pagenow}';
+				window.location.href = 'allCarnivalGoods.action?bkgoodscompany=${requestScope.editBkgoods.bkgoodscompany }'+
+						'&bkgoodsscope=${requestScope.bkgoodsCon.bkgoodsscope }&pagenow=${requestScope.pagenow}'+
+						'&bkgoodstype=${requestScope.bkgoodsCon.bkgoodstype}';
 			} else {
 				alert('要修改的买赠商品不存在!');
 			}

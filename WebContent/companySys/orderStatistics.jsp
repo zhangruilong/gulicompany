@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 <form id='main_form' action="orderStatistics.action" method="post">
- <input type="hidden" name="companyid" value="${sessionScope.company.companyid }">
+ <input type="hidden" name="companyid" value="${sessionScope.loginInfo.companyid }">
  <input type="hidden" id="staTime" name="staTime" value="${requestScope.staTime }">
  <input type="hidden" id="endTime" name="endTime" value="${requestScope.endTime }">
  <input type="hidden" id="hidden-queryShop" name="queryShop" value="${requestScope.endTime }">
@@ -171,7 +171,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="js/getDate.js"></script>
 <script type="text/javascript">
 $.datetimepicker.setLocale('ch');												//设置日期的中文
-var companyid = "${sessionScope.company.companyid}";
+var companyid = "${sessionScope.loginInfo.companyid}";
 var currDateTime = formatDateTime(new Date());									//当前时间字符串
 var quBrand = $('#quBrand').val();			//查询的品牌
 var quEmp = $('#quEmp').val();				//查询的业务员
@@ -546,7 +546,7 @@ function showEmp(){
   }
 //导出报表
 function report(){
-	window.location.href ="exportReport.action?companyid=${sessionScope.company.companyid }"+
+	window.location.href ="exportReport.action?companyid=${sessionScope.loginInfo.companyid }"+
 					"&staTime=${requestScope.staTime }&endTime=${requestScope.endTime }"+
 					"&quBrand=${requestScope.quBrand }&quEmp=${requestScope.quEmp }"+
 					"&quCus=${requestScope.quCus }&condition=${requestScope.condition }";

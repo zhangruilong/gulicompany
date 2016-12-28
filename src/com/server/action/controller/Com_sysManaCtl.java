@@ -53,11 +53,10 @@ public class Com_sysManaCtl {
 	}
 	//修改密码
 	@RequestMapping("/companySys/editPwd")
-	public String editPwd(HttpSession session,Model model,Company company,String newpassword){
-		if(company.getPassword() != null && company.getPassword() != ""){
-			company = companyMapper.selectLogin(company);
-		} else {
-			company = null;
+	public String editPwd(HttpSession session,Model model,String loginname,String password,String newpassword){
+		Company company = null;
+		if(password != null && password != ""){
+			company = companyMapper.selectLogin(loginname,password);
 		}
 		if(company == null){
 			model.addAttribute("message", "密码不正确");

@@ -45,7 +45,7 @@ function checkPwd(){
 <body>
 	<div class="elegant-aero">
 		<form action="editPwd.action" method="post" class="STYLE-NAME">
-		<input type="hidden" name="loginname" value="${sessionScope.company.loginname }">
+		<input type="hidden" name="loginname" value="${sessionScope.loginInfo.loginname}">
 			<h1>修改密码</h1>
 			<label><span>旧密码 :</span><input id="password" type="password"
 				name="password" placeholder="密码" /></label>

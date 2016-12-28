@@ -12,6 +12,10 @@
     <result column="CREATETIME" property="createtime" jdbcType="VARCHAR" />
     <result column="UPDTIME" property="updtime" jdbcType="VARCHAR" />
   </resultMap>
+  <!-- 业务员登录 -->
+  <select id="selectEmpLogin" resultMap="BaseResultMap">
+  	select * from EMP where loginname=#{loginname } and password=#{password }
+  </select>
   <!-- 查询全部业务员 -->
   <select id="selectAllEmp" resultMap="BaseResultMap">
   	select * from EMP where empcompany=#{companyid }

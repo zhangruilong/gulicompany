@@ -36,6 +36,7 @@ import com.server.dao.mapper.OrderdMapper;
 import com.server.dao.mapper.OrdermMapper;
 import com.server.pojo.entity.Company;
 import com.server.pojo.entity.Customer;
+import com.server.pojo.entity.LoginInfo;
 import com.server.pojo.entity.OrderStatisticsVO;
 import com.server.pojo.entity.Orderd;
 import com.server.pojo.entity.OrderdStatistics;
@@ -115,36 +116,43 @@ public class Com_orderCtl {
 	}
 	//删除订单
 	@RequestMapping("/companySys/editOrder")
-	public String editOrder(Model model,Orderm order){
+	public String editOrder(HttpServletRequest request,Model model,Orderm order){
 		order.setOrdermstatue("已删除");
+		LoginInfo info = (LoginInfo) request.getSession().getAttribute("loginInfo");
 		order.setUpdtime(DateUtils.getDateTime());			//修改时间是删除时间
+		order.setUpdor(info.getUsername());				//修改人
 		ordermMapper.updateByPrimaryKeySelective(order);
 		return "forward:allOrder.action";
 	}
 	//修改订单状态
 	@RequestMapping("/companySys/deliveryGoods")
-	public String deliveryGoods(Model model,Orderm order){
+	public String deliveryGoods(HttpServletRequest request,Model model,Orderm order){
+		LoginInfo info = (LoginInfo) request.getSession().getAttribute("loginInfo");
 		order.setUpdtime(DateUtils.getDateTime());			//修改时间
+		order.setUpdor(info.getUsername());				//修改人
 		ordermMapper.updateByPrimaryKeySelective(order);
 		model.addAttribute("order", order);
 		return "forward:allOrder.action";
 	}
 	//修改订单状态2
 	@RequestMapping("/companySys/updateStatue")
-	public @ResponseBody Integer updateStatue( Orderm order){
+	public @ResponseBody Integer updateStatue(HttpServletRequest request, Orderm order){
+		LoginInfo info = (LoginInfo) request.getSession().getAttribute("loginInfo");
 		order.setUpdtime(DateUtils.getDateTime());			//修改时间
+		order.setUpdor(info.getUsername());				//修改人
 		Integer num = ordermMapper.updateByPrimaryKeySelective(order);
 		return num;
 	}
 	//修改订单打印次数
 	@RequestMapping("/companySys/updatePrintCount")
-	public @ResponseBody Map<String, Object> updatePrintCount( String ordermids,String ordermprinttimess){
+	public @ResponseBody Map<String, Object> updatePrintCount(HttpServletRequest request, String ordermids,String ordermprinttimess){
 		Map<String, Object> resultMap = new HashMap<String, Object>();
+		LoginInfo info = (LoginInfo) request.getSession().getAttribute("loginInfo");
 		String[] ids = ordermids.split(",");
 		String[] timess = ordermprinttimess.split(",");
 		int count=0;
 		for (int i = 0; i < ids.length; i++) {
-			int c = ordermMapper.updatePrintCount(ids[i], timess[i]);
+			int c = ordermMapper.updatePrintCount(ids[i], timess[i],info.getUsername());
 			count += c;
 		}
 		if(count>0){
@@ -170,10 +178,11 @@ public class Com_orderCtl {
 	}
 	//删除订单详情
 	@RequestMapping("/companySys/deleOrderd")
-	public String deleOrderd(Model model,String[] orderdids,Orderm order){
+	public String deleOrderd(HttpServletRequest request, Model model,String[] orderdids,Orderm order){
 		Float money = order.getOrdermmoney();
 		Float rightmoney = order.getOrdermrightmoney();
 		Integer ordermnum = order.getOrdermnum();
+		LoginInfo info = (LoginInfo) request.getSession().getAttribute("loginInfo");
 		for (String orderdid : orderdids) {
 			Orderd orderd = orderdMapper.selectByPrimaryKey(orderdid);
 			money -= Float.parseFloat(orderd.getOrderdmoney());
@@ -185,6 +194,7 @@ public class Com_orderCtl {
 		order.setOrdermrightmoney(rightmoney);
 		order.setOrdermnum(ordermnum);
 		order.setUpdtime(DateUtils.getDateTime());			//修改时间
+		order.setUpdor(info.getUsername());				//修改人
 		ordermMapper.updateByPrimaryKeySelective(order);
 		return "forward:orderDetail.action";
 	}
@@ -199,15 +209,17 @@ public class Com_orderCtl {
 	//修改订单详情
 	@RequestMapping("/companySys/editOrderd")
 	@ResponseBody
-	public HashMap<String, Object> editOrderd(Model model,Orderd orderd,Orderm order,Float diffOrderdmoney,Float diffOrderdrightmoney){
+	public HashMap<String, Object> editOrderd(HttpServletRequest request,Model model,Orderd orderd,Orderm order,Float diffOrderdmoney,Float diffOrderdrightmoney){
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		Orderm updateOrderm = ordermMapper.selectByPrimaryKey(order.getOrdermid());					//查询要修改的订单
+		LoginInfo info = (LoginInfo) request.getSession().getAttribute("loginInfo");
 		if(null != updateOrderm && !updateOrderm.getOrdermstatue().equals("已删除")){
 			Float nowOrdermmoney = updateOrderm.getOrdermmoney() - diffOrderdmoney;	//得到计算后的下单金额
 			Float nowOrderdrightmoney = updateOrderm.getOrdermrightmoney() - diffOrderdrightmoney;	//计算后的实际金额
 			updateOrderm.setOrdermmoney(nowOrdermmoney);				
 			updateOrderm.setOrdermrightmoney(nowOrderdrightmoney);
 			updateOrderm.setUpdtime(DateUtils.getDateTime());			//修改时间
+			updateOrderm.setUpdor(info.getUsername());					//修改人
 			ordermMapper.updateByPrimaryKeySelective(updateOrderm);										//修改下单金额和实际金额
 			orderdMapper.updateByPrimaryKeySelective(orderd);
 			resultMap.put("msg", "操作成功!");

@@ -1,7 +1,7 @@
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 	<%
-		if(null != session.getAttribute("company")){
+		if(null != session.getAttribute("loginInfo")){
 			response.sendRedirect("main.jsp");
 		}
 	 %>

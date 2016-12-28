@@ -135,9 +135,9 @@ function cusOperation(option){
 			window.location.href = "editCusInfo.jsp?ccustomerid="+ccusid+"&pagenow=${requestScope.pagenow }"
 					+"&customercode=${requestScope.ccustomerCon.customer.customercode }";
 		} else if(option == 1){
-			window.location.href = 'largeCusXiaDan.jsp?ccustomerid='+ccusid+'&ccustomercompany=${sessionScope.company.companyid }';
+			window.location.href = 'largeCusXiaDan.jsp?ccustomerid='+ccusid+'&ccustomercompany=${sessionScope.loginInfo.companyid }';
 		} else if(option==2){
-			window.location.href = "largeCusGoodsMana.jsp?customerid="+customerid+"&companyid=${sessionScope.company.companyid }";
+			window.location.href = "largeCusGoodsMana.jsp?customerid="+customerid+"&companyid=${sessionScope.loginInfo.companyid }";
 		}
 	} else if(count == 0){
 		alert("请选择客户!");

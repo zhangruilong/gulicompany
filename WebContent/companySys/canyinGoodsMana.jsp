@@ -19,7 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 <form id='main_form' action="allCanyinGoods.action" method="post">
- <input type="hidden" name="goodscompany" value="${sessionScope.company.companyid }"> 
+ <input type="hidden" name="goodscompany" value="${sessionScope.loginInfo.companyid }"> 
  <input type="hidden" name="goodsstatue" value="${goods.goodsstatue}"> 
  <input type="hidden" class="setPricesGoodsId" name="goodsid" value="">
 <div class="nowposition">当前位置：商品管理》餐饮商品</div>
@@ -113,9 +113,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--弹框-->
 <div class="cd-popup" role="alert">
 	<div class="elegant-aero">
-		<form id="popup_form" action="addGoods.action?creator=${sessionScope.company.companyshop }&goodscompany=${sessionScope.company.companyid }" method="post" class="STYLE-NAME">
-		<!-- <input type="hidden" name="creator" value="${sessionScope.company.companyshop }">
-		<input type="hidden" name="goodscompany" value="${sessionScope.company.companyid }"> -->
+		<form id="popup_form" action="addGoods.action?creator=${sessionScope.loginInfo.companyshop }&goodscompany=${sessionScope.loginInfo.companyid }" method="post" class="STYLE-NAME">
+		<!-- <input type="hidden" name="creator" value="${sessionScope.loginInfo.companyshop }">
+		<input type="hidden" name="goodscompany" value="${sessionScope.loginInfo.companyid }"> -->
 			<h1>添加商品</h1>
 			<label><span>商品编码 :</span><input id="addgoodscode" type="text"
 				name="goodscode" placeholder="商品编码" /></label>
@@ -328,7 +328,7 @@ function goodsStatusEdit(goodsid){
 	$.getJSON("putaway.action",
 			{
 				"goodsid":goodsid,
-				"goodscompany":"${sessionScope.company.companyid }",
+				"goodscompany":"${sessionScope.loginInfo.companyid }",
 				"goodsstatue":goodsstatue
 			},function(data){
 				alert(data.editResult);				//返回的提示信息

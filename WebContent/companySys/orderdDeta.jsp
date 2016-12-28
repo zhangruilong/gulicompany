@@ -13,7 +13,7 @@
 	<div class="elegant-aero">
 		<form action="editOrderd.action" method="post" class="STYLE-NAME">
 		<input type="hidden" name="orderdid" value="${requestScope.orderd.orderdid }">
-		<input type="hidden" name="ordermcompany" value="${sessionScope.company.companyid }">
+		<input type="hidden" name="ordermcompany" value="${sessionScope.loginInfo.companyid }">
  		<input type="hidden" name="ordermid" value="${requestScope.order.ordermid }">
  		<input type="hidden" id="diffOrderdmoney" name="diffOrderdmoney" value="">
  		<input type="hidden" id="diffOrderdrightmoney" name="diffOrderdrightmoney" value="">
@@ -39,7 +39,7 @@
 	$(function(){
 		$("#orderdnum").blur(function(){
 			//自动计算金额
-			var currNum = $("#orderdnum").val();									//得到当前输入的数量 
+			var currNum = $("#orderdnum").val();									//得到当前输入的数量
 			orderdnum = currNum;
 			orderdmoney = parseFloat(parseFloat(orderdnum)*parseFloat(money)).toFixed(2);					//下单金额和实际金额 相等
 			orderdrightmoney = orderdmoney;

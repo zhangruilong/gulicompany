@@ -38,7 +38,7 @@ String goodsstatue = request.getParameter("goodsstatue");
 </head>
 <body>
 <form id='main_form' action="allGoods.action" method="post">
- <input type="hidden" name="goodscompany" value="${sessionScope.company.companyid }"> 
+ <input type="hidden" name="goodscompany" value="${sessionScope.loginInfo.companyid }"> 
  <input type="hidden" name="goodsstatue" value="${goods.goodsstatue}"> 
  <input type="hidden" name="goodstype" value="${goods.goodstype}"> 
  <input type="hidden" class="setPricesGoodsId" name="goodsid" value="">
@@ -276,9 +276,9 @@ function setgoodsprices(){
 //添加商品窗口
 function addgoods(){
 	$(".elegant-aero [type!='button']").val("");
-	$("#addgoodscode").val('${sessionScope.company.companycode }');
+	$("#addgoodscode").val('${sessionScope.loginInfo.companycode }');
 	$(".cd-popup").addClass("is-visible");	//弹出窗口
-	$.getJSON("getallGoodclass.action",{companyid:'${sessionScope.company.companyid }'},function(data){				//查询商品小类名称
+	$.getJSON("getallGoodclass.action",{companyid:'${sessionScope.loginInfo.companyid }'},function(data){				//查询商品小类名称
 		$.each(data,function(i,item){
 			$("#goodsclass").append(
 				'<option value="'+item.goodsclassid+'">'+item.goodsclassname+'</option>'
@@ -352,7 +352,7 @@ function scantPageTo(pageCount){
 }
 //选择标品
 function seleScant(scantcode,scantname,scantunits,goodsclassname,scantimage,scantbrand,scanttype){
-	$("#addgoodscode").val('${sessionScope.company.companycode }'+scantcode);
+	$("#addgoodscode").val('${sessionScope.loginInfo.companycode }'+scantcode);
 	$("#goodsname").val(scantname);
 	$("#goodsunits").val(scantunits);
 	$("#goodsclass option").each(function(i,item){
@@ -390,8 +390,8 @@ function popup_formSub(){
 			url:"addGoods.action",
 			type:"post",
 			data:{
-				"creator":"${sessionScope.company.companyshop }",
-				"goodscompany":"${sessionScope.company.companyid }",
+				"creator":"${sessionScope.loginInfo.companyshop }",
+				"goodscompany":"${sessionScope.loginInfo.companyid }",
 				"goodscode":$("#addgoodscode").val(),
 				"goodsname":$("#goodsname").val(),
 				"goodsunits":$("#goodsunits").val(),
@@ -431,7 +431,7 @@ function goodsStatusEdit(goodsid){
 	$.getJSON("putaway.action",
 			{
 				"goodsid":goodsid,
-				"goodscompany":"${sessionScope.company.companyid }",
+				"goodscompany":"${sessionScope.loginInfo.companyid }",
 				"goodsstatue":goodsstatue
 			},function(data){
 				alert(data.editResult);									//返回的提示信息

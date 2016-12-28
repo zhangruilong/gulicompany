@@ -30,7 +30,7 @@ String ordermway = request.getParameter("ordermway");
 <form id='main_form' action="allOrder.action" method="post">
  <input type="hidden" id="staTime" name="staTime" value="${requestScope.staTime }">
  <input type="hidden" id="endTime" name="endTime" value="${requestScope.endTime }">
- <input type="hidden" id="ordermcompany" name="ordermcompany" value="${sessionScope.company.companyid }">
+ <input type="hidden" id="ordermcompany" name="ordermcompany" value="${sessionScope.loginInfo.companyid }">
 <div class="nowposition">当前位置：订单管理》全部订单</div>
 <div class="navigation">
 <div>下单时间:</div><div id="divDate" class="date"></div>
@@ -208,14 +208,15 @@ function operation(msg,statue){
 		var itemid = itemids.substring(0,itemids.length-1);
 		if(msg == '详情'){
 			window.location.href = "orderDetail.action?ordermid="+itemid+
-					"&ordermcompany=${sessionScope.company.companyid }&ordermcode=${requestScope.order.ordermcode }"+
+					"&ordermcompany=${sessionScope.loginInfo.companyid }&ordermcode=${requestScope.order.ordermcode }"+
 					"&staTime=${requestScope.staTime}&endTime=${requestScope.endTime}&pagenow=${requestScope.pagenow }"+
 					"&ordermway="+ordermway;
 		} else if(msg == '状态'){
 			if(confirm("是否修改订单状态")){
 				$.post('updateStatue.action',{
 					"ordermid":itemid,
-					"ordermstatue":statue
+					"ordermstatue":statue,
+					"updor":'${sessionScope.loginInfo.username }'
 				},function(data){
 					if(data == '1'){
 						alert("修改成功!");
@@ -227,7 +228,8 @@ function operation(msg,statue){
 			if(confirm("是否删除订单")){
 				$.post('updateStatue.action',{
 					"ordermid":itemid,
-					"ordermstatue":"已删除"
+					"ordermstatue":"已删除",
+					"updor":'${sessionScope.loginInfo.username }'
 				},function(data){
 					if(data == '1'){
 						alert("删除成功!");
@@ -266,7 +268,7 @@ var md2;					//第二个日期对象
    });
 //导出报表
 function report(){
-	window.location.href ="exportOrderReport.action?ordermcompany=${sessionScope.company.companyid }"+
+	window.location.href ="exportOrderReport.action?ordermcompany=${sessionScope.loginInfo.companyid }"+
 	"&staTime=${requestScope.staTime }&endTime=${requestScope.endTime }&ordermcode=${requestScope.order.ordermcode }";
 }
 //查询
@@ -289,18 +291,6 @@ function fenye(targetPage){
 	$("#pagenow").val(targetPage);
 	checkCondition();
 	document.forms[0].submit();
-}
-//修改订单状态
-function updateStatue(statue){
-	if(confirm("是否修改订单状态")){
-		window.parent.main.location.href = 
-			"deliveryGoods.action?ordermid="
-					+ordermid
-					+"&ordermcompany="
-					+ordermcompany
-					+"&ordermstatue="
-					+statue;
-	}
 }
 </script>
 </body>

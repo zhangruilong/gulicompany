@@ -61,7 +61,7 @@
 	</div>
 <script type="text/javascript">
 $(function(){
-	$.getJSON("getallGoodclass.action",{companyid:'${sessionScope.company.companyid}'},function(data){					//查询小类名称
+	$.getJSON("getallGoodclass.action",{companyid:'${sessionScope.loginInfo.companyid}'},function(data){					//查询小类名称
 		$.each(data,function(i,item){
 			var opt = '<option ';
 			if(item.goodsclassname == '${requestScope.editGoods.gClass.goodsclassname}'){
@@ -99,17 +99,17 @@ function saveEdit(){
 		}
 	});
 	if(count == 0){
-		data += '"goodsid":"${requestScope.editGoods.goodsid }","goodscompany":"${sessionScope.company.companyid}"}';
+		data += '"goodsid":"${requestScope.editGoods.goodsid }","goodscompany":"${sessionScope.loginInfo.companyid}"}';
 		$.post('editGoods.action',JSON.parse(data),function(data){
 			if(data == 'ok'){
 				alert('修改成功');
 				if('${param.pagefor}' == 'canyinGoodsPage'){
-					window.location.href = 'allCanyinGoods.action?goodscompany=${sessionScope.company.companyid}&'+
+					window.location.href = 'allCanyinGoods.action?goodscompany=${sessionScope.loginInfo.companyid}&'+
 					'pagenow=${requestScope.pagenow}&goodscode=${requestScope.goodsCon.goodscode}&'+
 					'goodsstatue=${requestScope.goodsCon.goodsstatue}&pricesList[0].pricesclass=${requestScope.goodsCon.pricesList[0].pricesclass}'+
 					'';
 				} else {
-					window.location.href = 'allGoods.action?goodscompany=${sessionScope.company.companyid}&'+
+					window.location.href = 'allGoods.action?goodscompany=${sessionScope.loginInfo.companyid}&'+
 					'pagenow=${requestScope.pagenow}&goodscode=${requestScope.goodsCon.goodscode}&'+
 					'goodsstatue=${requestScope.goodsCon.goodsstatue}&pricesList[0].pricesclass=${requestScope.goodsCon.pricesList[0].pricesclass}'+
 					'&goodstype=${requestScope.goodsCon.goodstype}&goodsid=${requestScope.goodsCon.goodsid}';

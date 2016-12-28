@@ -148,7 +148,7 @@ String customertype = request.getParameter("customer.customertype");
 </div>
 <script type="text/javascript">
 var customertype = '<%=customertype %>';
-var cityid = '${sessionScope.company.companycity }';
+var cityid = '${sessionScope.loginInfo.companycity }';
 if(cityid == ''){
 	window.parent.location.reload();
 }
@@ -162,7 +162,7 @@ $(function(){
 		var cityName = myselect.options[index].text;							//根据下标得到文本内容
 		queryXian();
 	});
-	var comServicEarea = '${sessionScope.company.createtime}';
+	var comServicEarea = '${sessionScope.loginInfo.createtime}';
 	var comSE = comServicEarea.split('/');
 	$.each(comSE,function(i,item){
 		$("#newLargeCus_xian").append('<option>'+item+'</option>');

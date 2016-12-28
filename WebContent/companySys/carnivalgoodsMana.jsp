@@ -44,7 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 <form id="main_form" action="allCarnivalGoods.action" method="post">
-<input type="hidden" name="bkgoodscompany" value="${sessionScope.company.companyid }">
+<input type="hidden" name="bkgoodscompany" value="${sessionScope.loginInfo.companyid }">
 <input type="hidden" name="bkgoodstype" value="年货">
 <input type="hidden" name="bkgoodsid" value="">
 <div class="nowposition">当前位置：商品管理》年货商品</div>
@@ -206,7 +206,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 <script type="text/javascript" src="js/common.js"></script>
 <script type="text/javascript">
-var companyid = '${sessionScope.company.companyid }';
+var companyid = '${sessionScope.loginInfo.companyid }';
 $(function(){
 	$("#main_form").on("submit",function(){
 		checkCondition();
@@ -347,7 +347,7 @@ function popup_formSub(){
 	});
 	data += '"bkgoodsscope":"' + bkgoodsscope +'",';
 	if(count == 0){
-		data += '"bkgoodsimage":"'+$("#bkgoodsimage").val()+'","bkgoodscompany":"'+companyid+'","bkcreator":"${sessionScope.company.companyshop }"}';
+		data += '"bkgoodsimage":"'+$("#bkgoodsimage").val()+'","bkgoodscompany":"'+companyid+'","bkcreator":"${sessionScope.loginInfo.companyshop }"}';
 		$.getJSON('addBkgoods.action',JSON.parse(data),function(data){
 			if(data.message=='success'){
 				alert('添加成功!');

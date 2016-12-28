@@ -285,7 +285,7 @@ function seleLCGoods(goodscode,goodsname,goodsunits,goodsid){
 //加载商品数据
 function loadGoodsData(pagenowGoods){
 	var data = {
-				'goodscompany':'${sessionScope.company.companyid }',
+				'goodscompany':'${sessionScope.loginInfo.companyid }',
 				'pagenowGoods':pagenowGoods,
 				'goodscode':$.trim($("#goodscode").val())
 			};

@@ -424,26 +424,45 @@ function goodsAutoSort(){
 //选择商品
 function seleGoods(goodscode,orderdtype,goodsname,goodsunits,price,unit,obj){
 	var seleStrJson = $(obj).next().text();
+	var selData = JSON.parse(seleStrJson);
+	var flag = 0;
+	$(".largeCus_form table tr[name!=ordLi_tr1][name!=ord_info_tr]").each(function(i,item){
+		if($(item).children('td:last span[hidden="true"]')){
+			//alert($(item).find('td:last a').length);
+			var itemData = JSON.parse($(item).find('td:last span[hidden="true"]').text());
+			if(selData.goodsid==itemData.goodsid){
+				var itemNumEle = $(item).children('td[name="odd_num"]');
+				var itemNum = parseInt(itemNumEle.text())+1;
+				itemNumEle.text(itemNum);
+				flag++;
+				$(item).children('td[name="xd_money"]').text(parseFloat(price)*itemNum);
+				$(item).children('td[name="sj_money"]').text(parseFloat(price)*itemNum);
+				showXDMoneyAndSJMoney();
+			}
+		}
+	});
+	if(flag==0){
+		$(".largeCus_form table tr:eq(0)").after('<tr>'+
+				'<td>'+'</td>'+
+				'<td>'+goodscode+'</td>'+
+				'<td>'+orderdtype+'</td>'+
+				'<td>'+goodsname+'</td>'+
+				'<td>'+goodsunits+'</td>'+
+				'<td name="odd_price">'+price+'</td>'+
+				'<td>'+unit+'</td>'+
+				'<td name="odd_num">1</td>'+
+				'<td name="xd_money">'+price+'</td>'+
+				'<td name="sj_money">'+price+'</td>'+
+				'<td><a onclick="deleteRows(this)">删除</a><span hidden="true">'+seleStrJson+'</span></td>'+
+			'</tr>');
+		$(".LCXD_OrdermInfo span:eq(0)").text(parseInt($(".LCXD_OrdermInfo span:eq(0)").text())+1);
+		$(".LCXD_OrdermInfo span:eq(1)").text((parseFloat($(".LCXD_OrdermInfo span:eq(1)").text())+parseFloat(price)).toFixed(2));
+		$(".LCXD_OrdermInfo span:eq(2)").text((parseFloat($(".LCXD_OrdermInfo span:eq(2)").text())+parseFloat(price)).toFixed(2));
+		tabEdit();										//绑定事件
+		goodsAutoSort();								//自动编号
+	}
 	
-	$(".largeCus_form table tr:eq(0)").after('<tr>'+
-			'<td>'+'</td>'+
-			'<td>'+goodscode+'</td>'+
-			'<td>'+orderdtype+'</td>'+
-			'<td>'+goodsname+'</td>'+
-			'<td>'+goodsunits+'</td>'+
-			'<td name="odd_price">'+price+'</td>'+
-			'<td>'+unit+'</td>'+
-			'<td name="odd_num">1</td>'+
-			'<td name="xd_money">'+price+'</td>'+
-			'<td name="sj_money">'+price+'</td>'+
-			'<td><a onclick="deleteRows(this)">删除</a><span hidden="true">'+seleStrJson+'</span></td>'+
-		'</tr>');
-	$(".LCXD_OrdermInfo span:eq(0)").text(parseInt($(".LCXD_OrdermInfo span:eq(0)").text())+1);
-	$(".LCXD_OrdermInfo span:eq(1)").text((parseFloat($(".LCXD_OrdermInfo span:eq(1)").text())+parseFloat(price)).toFixed(2));
-	$(".LCXD_OrdermInfo span:eq(2)").text((parseFloat($(".LCXD_OrdermInfo span:eq(2)").text())+parseFloat(price)).toFixed(2));
-	goodsAutoSort();								//自动编号
-	closeCdPopup();				
-	tabEdit();										//绑定事件
+	closeCdPopup();							//关闭商品选择窗口
 }
 //删除订单商品
 function deleteRows(obj){

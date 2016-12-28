@@ -1,5 +1,6 @@
 package com.server.pojo.entity;
 
+import java.sql.Date;
 /**
  * bkgoodsview 实体类
  *@author ZhangRuiLong
@@ -94,6 +95,14 @@ public class Bkgoodsview
     * bkgoodstype
     */
    private String bkgoodstype;   
+   /**
+    * bkgoodsupdtime
+    */
+   private String bkgoodsupdtime;   
+   /**
+    * bkgoodsupdor
+    */
+   private String bkgoodsupdor;   
    /**
     * companycode
     */
@@ -526,6 +535,40 @@ public class Bkgoodsview
 	}	   
 
 	/**
+	 *设置"bkgoodsupdtime"属性
+	 *@param bkgoodsupdtime 实体的Bkgoodsupdtime属性
+	 */
+	public void setBkgoodsupdtime(String bkgoodsupdtime)
+	{
+		this.bkgoodsupdtime = bkgoodsupdtime;
+	}
+	
+	/**
+	 *获取"bkgoodsupdtime"属性
+	 */
+	public String getBkgoodsupdtime()
+	{
+		return this.bkgoodsupdtime;
+	}	   
+
+	/**
+	 *设置"bkgoodsupdor"属性
+	 *@param bkgoodsupdor 实体的Bkgoodsupdor属性
+	 */
+	public void setBkgoodsupdor(String bkgoodsupdor)
+	{
+		this.bkgoodsupdor = bkgoodsupdor;
+	}
+	
+	/**
+	 *获取"bkgoodsupdor"属性
+	 */
+	public String getBkgoodsupdor()
+	{
+		return this.bkgoodsupdor;
+	}	   
+
+	/**
 	 *设置"companycode"属性
 	 *@param companycode 实体的Companycode属性
 	 */
@@ -789,6 +832,8 @@ public class Bkgoodsview
 	 	,Integer bkgoodssurplus
 	 	,String bkgoodsweight
 	 	,String bkgoodstype
+	 	,String bkgoodsupdtime
+	 	,String bkgoodsupdor
 	 	,String companycode
 	 	,String username
 	 	,String companyphone
@@ -827,6 +872,8 @@ public class Bkgoodsview
 	 	this.bkgoodssurplus = bkgoodssurplus;
 	 	this.bkgoodsweight = bkgoodsweight;
 	 	this.bkgoodstype = bkgoodstype;
+	 	this.bkgoodsupdtime = bkgoodsupdtime;
+	 	this.bkgoodsupdor = bkgoodsupdor;
 	 	this.companycode = companycode;
 	 	this.username = username;
 	 	this.companyphone = companyphone;

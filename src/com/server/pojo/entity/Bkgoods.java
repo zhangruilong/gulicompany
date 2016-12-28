@@ -1,5 +1,6 @@
 package com.server.pojo.entity;
 
+import java.sql.Date;
 /**
  * 年货和组合商品 实体类
  *@author ZhangRuiLong
@@ -94,6 +95,14 @@ public class Bkgoods
     * 分类
     */
    private String bkgoodstype;   
+   /**
+    * 修改时间
+    */
+   private String bkgoodsupdtime;   
+   /**
+    * 修改人
+    */
+   private String bkgoodsupdor;   
     //属性方法	    
      /**
 	 *设置主键"促销品ID"属性
@@ -468,6 +477,40 @@ public class Bkgoods
 	{
 		return this.bkgoodstype;
 	}	   
+
+	/**
+	 *设置"修改时间"属性
+	 *@param bkgoodsupdtime 实体的Bkgoodsupdtime属性
+	 */
+	public void setBkgoodsupdtime(String bkgoodsupdtime)
+	{
+		this.bkgoodsupdtime = bkgoodsupdtime;
+	}
+	
+	/**
+	 *获取"修改时间"属性
+	 */
+	public String getBkgoodsupdtime()
+	{
+		return this.bkgoodsupdtime;
+	}	   
+
+	/**
+	 *设置"修改人"属性
+	 *@param bkgoodsupdor 实体的Bkgoodsupdor属性
+	 */
+	public void setBkgoodsupdor(String bkgoodsupdor)
+	{
+		this.bkgoodsupdor = bkgoodsupdor;
+	}
+	
+	/**
+	 *获取"修改人"属性
+	 */
+	public String getBkgoodsupdor()
+	{
+		return this.bkgoodsupdor;
+	}	   
 	public Bkgoods() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -495,6 +538,8 @@ public class Bkgoods
 	 	,Integer bkgoodssurplus
 	 	,String bkgoodsweight
 	 	,String bkgoodstype
+	 	,String bkgoodsupdtime
+	 	,String bkgoodsupdor
 		 ){
 		super();
 		this.bkgoodsid = bkgoodsid;
@@ -519,6 +564,8 @@ public class Bkgoods
 	 	this.bkgoodssurplus = bkgoodssurplus;
 	 	this.bkgoodsweight = bkgoodsweight;
 	 	this.bkgoodstype = bkgoodstype;
+	 	this.bkgoodsupdtime = bkgoodsupdtime;
+	 	this.bkgoodsupdor = bkgoodsupdor;
 	}
 }
 

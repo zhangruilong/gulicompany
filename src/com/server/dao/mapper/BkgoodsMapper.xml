@@ -24,6 +24,8 @@
     <result column="BKGOODSSURPLUS" property="bkgoodssurplus" jdbcType="DECIMAL" />
     <result column="BKGOODSWEIGHT" property="bkgoodsweight" jdbcType="VARCHAR" />
     <result column="BKGOODSTYPE" property="bkgoodstype" jdbcType="VARCHAR" />
+    <result column="BKGOODSUPDTIME" property="bkgoodsupdtime" jdbcType="VARCHAR" />
+    <result column="BKGOODSUPDOR" property="bkgoodsupdor" jdbcType="VARCHAR" />
   </resultMap>
   <!-- 查询重复商品数量 -->
   <select id="selectComRepeatGoods" resultType="int" >
@@ -31,6 +33,7 @@
     where bkgoodscode = #{bkgoodscode,jdbcType=VARCHAR} 
     and BKGOODSCOMPANY=#{comid} 
     and BKGOODSUNITS=#{bkgoodsunits}
+    and BKGOODSTYPE=#{bkgoodstype}
   </select>
   <!-- 总信息条数查询 -->
   <select id="queryBkgoodsCount" resultType="int" parameterType="com.server.pojo.entity.Bkgoods" >
@@ -155,6 +158,13 @@
       <if test="bkgoodstype != null" >
         BKGOODSTYPE,
       </if>
+      <if test="bkgoodsupdtime != null" >
+        BKGOODSUPDTIME,
+      </if>
+      <if test="bkgoodsupdor != null" >
+        BKGOODSUPDOR,
+      </if>
+      
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="bkgoodsid != null" >
@@ -223,6 +233,12 @@
       <if test="bkgoodstype != null" >
         #{bkgoodstype,jdbcType=VARCHAR},
       </if>
+      <if test="bkgoodsupdtime != null" >
+        #{bkgoodsupdtime,jdbcType=VARCHAR},
+      </if>
+      <if test="bkgoodsupdor != null" >
+        #{bkgoodsupdor,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.server.pojo.entity.Bkgoods" >
@@ -290,6 +306,12 @@
       </if>
       <if test="bkgoodstype != null" >
         BKGOODSTYPE = #{bkgoodstype,jdbcType=VARCHAR},
+      </if>
+      <if test="bkgoodsupdtime != null" >
+        BKGOODSUPDTIME = #{bkgoodsupdtime,jdbcType=VARCHAR},
+      </if>
+      <if test="bkgoodsupdor != null" >
+        BKGOODSUPDOR = #{bkgoodsupdor,jdbcType=VARCHAR},
       </if>
     </set>
     where BKGOODSID = #{bkgoodsid,jdbcType=VARCHAR}

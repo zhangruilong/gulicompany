@@ -115,10 +115,10 @@ function saveCus(){
 function saveafert(data){
 	alert("保存成功");
 	if('${param.fo}' == 'largeCus'){
-		window.location.href = "allCustomer.action?ccustomercompany=${sessionScope.company.companyid}&creator=1&pagenow=${param.pagenow}"+
+		window.location.href = "allCustomer.action?ccustomercompany=${sessionScope.loginInfo.companyid}&creator=1&pagenow=${param.pagenow}"+
 		"&customer.customercode=${param.customercode}";
 	} else {
-		window.location.href = "allCustomer.action?ccustomercompany=${sessionScope.company.companyid}&pagenow=${param.pagenow}"+
+		window.location.href = "allCustomer.action?ccustomercompany=${sessionScope.loginInfo.companyid}&pagenow=${param.pagenow}"+
 				"&customer.customercode=${param.customercode}";
 	}
 }

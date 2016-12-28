@@ -27,14 +27,12 @@ public class LoginInterceptor implements HandlerInterceptor{
 		System.out.println("进入拦截器");
 		//对于不需要登录就可以访问(公开模块)，应该放行
 		String uri = request.getRequestURI();		//得到访问的url地址
-		//System.out.println("URL:"+uri);
-		if(uri.indexOf("login.action") != -1 ){
+		if(uri.indexOf("login.action") != -1 || uri.indexOf("login.jsp") != -1 ){
 			return true;		//放行
 		}
 		
 		//判断session中是否有username
-		//System.out.println("当前用户为:"+request.getSession().getAttribute("company"));
-		if(request.getSession().getAttribute("company") != null){
+		if( null != request.getSession().getAttribute("loginInfo")){
 			return true;		//session中有用户登录的信息，就放行
 		}
 		//表示即不是共有模块，也没有登录，这种情况下就不放行，并返回到登陆页面

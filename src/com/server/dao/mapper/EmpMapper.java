@@ -8,6 +8,10 @@ import com.server.pojo.entity.Emp;
 
 public interface EmpMapper {
 	/**
+	 * 业务员登录
+	 */
+	Emp selectEmpLogin(@Param("loginname") String loginname,@Param("password") String password);
+	/**
 	 * 查询全部业务员
 	 */
 	List<Emp> selectAllEmp(@Param("condition") String condition,@Param("companyid") String companyid);

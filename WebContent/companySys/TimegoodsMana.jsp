@@ -43,23 +43,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </style>
 </head>
 <body>
-<form id="main_form" action="allTimeGoods.action" method="post">
-<input type="hidden" name="timegoodscompany" value="${requestScope.timegoodsCon.timegoodscompany }">
-<input type="hidden" name="timegoodsid" value="">
+<form id="main_form" action="allCarnivalGoods.action" method="post">
+<input type="hidden" name="bkgoodscompany" value="${requestScope.bkgoodsCon.bkgoodscompany }">
+<input type="hidden" name="bkgoodstype" value="秒杀商品">
+<input type="hidden" name="bkgoodsid" value="">
 <div class="nowposition">当前位置：商品管理》秒杀商品</div>
 <div class="navigation">
 客户类型:&nbsp;&nbsp;
-<select name="timegoodsscope">
+<select name="bkgoodsscope">
 	<option value="" >全部商品</option>
-	<option value="3" ${fn:contains(requestScope.timegoodsCon.timegoodsscope,'3')?'selected':''}>餐饮商品</option>
-	<option value="2" ${fn:contains(requestScope.timegoodsCon.timegoodsscope,'2')?'selected':''}>商超商品</option>
-	<option value="1" ${fn:contains(requestScope.timegoodsCon.timegoodsscope,'1')?'selected':''}>组织单位商品</option>
+	<option value="3" ${fn:contains(requestScope.bkgoodsCon.bkgoodsscope,'3')?'selected':''}>餐饮商品</option>
+	<option value="2" ${fn:contains(requestScope.bkgoodsCon.bkgoodsscope,'2')?'selected':''}>商超商品</option>
+	<option value="1" ${fn:contains(requestScope.bkgoodsCon.bkgoodsscope,'1')?'selected':''}>组织单位商品</option>
 </select>
-查询条件:&nbsp;&nbsp;<input type="text" id="query_TG" name="timegoodscode" value="${requestScope.timegoodsCon.timegoodscode }">
-<input class="button" type="button" value="查询" onclick="timegoodsjump()">
-<input class="button" type="button" value="添加" onclick="addtimegoods()">
-<input class="button" type="button" value="修改" onclick="editTimeGoods()">
-<input class="button" type="button" value="删除" onclick="removeTimeGoods()">
+查询条件:&nbsp;&nbsp;<input type="text" id="query_TG" name="bkgoodscode" value="${requestScope.bkgoodsCon.bkgoodscode }">
+<input class="button" type="button" value="查询" onclick="bkgoodsjump()">
+<input class="button" type="button" value="添加" onclick="addbkgoods()">
+<input class="button" type="button" value="修改" onclick="editbkgoods()">
+<input class="button" type="button" value="删除" onclick="removeBkgoods()">
 <input class="button" type="button" value="刷新" onclick="javascript:window.location.reload()">
 </div>
 <table class="bordered">
@@ -81,39 +82,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<th>已售出</th>
 		<th>状态</th>
 		<th>顺序</th>
+		<th>修改时间</th>
+		<th>修改人</th>
 		<th>创建时间</th>
 		<th>创建人</th>
     </tr>
     </thead>
-    <c:if test="${fn:length(requestScope.timegoodsList) != 0 }">
-	<c:forEach var="timegoods" items="${requestScope.timegoodsList }" varStatus="timegoodsSta">
+    <c:if test="${fn:length(requestScope.bkgoodsList) != 0 }">
+	<c:forEach var="bkgoods" items="${requestScope.bkgoodsList }" varStatus="bkgoodsSta">
 		<tr>
-			<td><input type="checkbox" id="${timegoods.timegoodsid}"></td>
-			<td><c:out value="${timegoodsSta.count}"></c:out></td>
-			<td>${timegoods.timegoodscode}</td>
-			<td>${timegoods.timegoodsname}</td>
-			<td>${timegoods.timegoodsunits}</td>
-			<td>${timegoods.timegoodsclass}</td>
-			<td>${timegoods.timegoodsbrand}</td>
-			<td>${timegoods.timegoodsprice}</td>
-			<td>${timegoods.timegoodsorgprice}</td>
-			<td>${timegoods.timegoodsweight}</td>
-			<td>${timegoods.timegoodsnum}</td>
-			<td>${timegoods.allnum}</td>
-			<td>${timegoods.surplusnum}</td>
-			<td>${timegoods.allnum - timegoods.surplusnum}</td>
-			<td>${timegoods.timegoodsstatue}</td>
-			<td>${timegoods.timegoodsseq}</td>
-			<td>${timegoods.createtime}</td>
-			<td>${timegoods.creator}</td>
+			<td><input type="checkbox" id="${bkgoods.bkgoodsid}"></td>
+			<td><c:out value="${bkgoodsSta.count}"></c:out></td>
+			<td>${bkgoods.bkgoodscode}</td>
+			<td>${bkgoods.bkgoodsname}</td>
+			<td>${bkgoods.bkgoodsunits}</td>
+			<td>${bkgoods.bkgoodsclass}</td>
+			<td>${bkgoods.bkgoodsbrand}</td>
+			<td>${bkgoods.bkgoodsprice}</td>
+			<td>${bkgoods.bkgoodsorgprice}</td>
+			<td>${bkgoods.bkgoodsweight}</td>
+			<td>${bkgoods.bkgoodsnum}</td>
+			<td>${bkgoods.bkgoodsallnum}</td>
+			<td>${bkgoods.bkgoodssurplus}</td>
+			<td>${bkgoods.bkgoodsallnum - bkgoods.bkgoodssurplus}</td>
+			<td>${bkgoods.bkgoodsstatue}</td>
+			<td>${bkgoods.bkgoodsseq}</td>
+			<td>${bkgoods.bkgoodsupdtime}</td>
+			<td>${bkgoods.bkgoodsupdor}</td>
+			<td>${bkgoods.bkcreatetime}</td>
+			<td>${bkgoods.bkcreator}</td>
 		</tr>
 	</c:forEach>
 	</c:if>
-	<c:if test="${fn:length(requestScope.timegoodsList)==0 }">
-		<tr><td colspan="18" align="center" style="font-size: 20px;color: red;"> 没有信息</td></tr>
+	<c:if test="${fn:length(requestScope.bkgoodsList)==0 }">
+		<tr><td colspan="20" align="center" style="font-size: 20px;color: red;"> 没有信息</td></tr>
 	</c:if>
     	<tr>
-		 <td colspan="18" align="center">
+		 <td colspan="20" align="center">
 		 <c:if test="${requestScope.pagenow > 1 }">
 		 	<a onclick="fenye('1')">第一页</a>
 		 </c:if>
@@ -142,7 +147,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		 	<span>最后一页&nbsp;</span>
 		 </c:if>
 		 	<span>跳转到第<input class="fenyelan_input" size="1" type="text" id="pagenow" name="pagenow" value="${requestScope.pagenow }">页</span>
-		 	<input type="button" onclick="timegoodsjump()" value="GO" class="fenyelan_button">
+		 	<input type="button" onclick="bkgoodsjump()" value="GO" class="fenyelan_button">
 		 	<span>一共 ${requestScope.count } 条数据</span>
 		 </td>
 	 </tr>       
@@ -154,41 +159,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<h1>添加秒杀商品</h1>
 			<p><span>客户范围 :</span>
 			餐饮客户:
-			<input type="checkbox" name="timegoodsscope" value="3" checked/>
+			<input type="checkbox" name="bkgoodsscope" value="3" checked/>
 			商超客户 :
-			<input type="checkbox" name="timegoodsscope" value="2" checked/>
+			<input type="checkbox" name="bkgoodsscope" value="2" checked/>
 			组织单位客户 :
-			<input type="checkbox" name="timegoodsscope" value="1" checked/>
+			<input type="checkbox" name="bkgoodsscope" value="1" checked/>
 			</p>
-			<input type="hidden" id="timegoodsimage" value="">
-			<label><span>编码 :</span><input id="timegoodscode" type="text"
-				name="timegoodscode" placeholder="编码" /><font>(必填)</font></label>
-			<label><span>名称 :</span><input id="timegoodsname" type="text"
-				name="timegoodsname" placeholder="名称" /><font>(必填)</font></label>
-			<label><span>规格 :</span><input id="timegoodsunits" type="text"
-				name="timegoodsunits" placeholder="规格" /><font>(必填)</font></label>
+			<input type="hidden" id="bkgoodsimage" value="">
+			<label><span>编码 :</span><input id="bkgoodscode" type="text"
+				name="bkgoodscode" placeholder="编码" /><font>(必填)</font></label>
+			<label><span>名称 :</span><input id="bkgoodsname" type="text"
+				name="bkgoodsname" placeholder="名称" /><font>(必填)</font></label>
+			<label><span>规格 :</span><input id="bkgoodsunits" type="text"
+				name="bkgoodsunits" placeholder="规格" /><font>(必填)</font></label>
 			<!-- <label><span>小类名称 :</span>
-			<select name="timegoodsclass" id="timegoodsclass">
+			<select name="bkgoodsclass" id="bkgoodsclass">
 				<option value="">请选择</option>
 			</select>
 			</label> -->
-			<label><span>单位 :</span><input id="timegoodsunit" type="text"
-				name="timegoodsunit" placeholder="单位" /><font>(必填)</font></label>
-			<label><span>品牌 :</span><input id="timegoodsbrand" type="text"
-				name="timegoodsbrand" placeholder="品牌" /></label>
-			<label><span>原价 :</span><input id="timegoodsprice" type="number"
-				name="timegoodsprice" placeholder="原价" /><font>(必填)</font></label>
-			<label><span>现价 :</span><input id="timegoodsorgprice" type="number"
-				name="timegoodsorgprice" placeholder="现价" /><font>(必填)</font></label>
-			<label><span>重量（kg） :</span><input id="timegoodsweight" type="number"
-				name="timegoodsweight" placeholder="重量" /></label>
-			<label><span>个人限量 :</span><input id="timegoodsnum" type="number"
-				name="timegoodsnum" placeholder="个人限量" /><font>(必填)</font></label>
-			<label><span>全部限量 :</span><input id="allnum" type="number"
-				name="allnum" placeholder="全部限量" /><font>(必填)</font></label>
-			<label><span>顺序 :</span><input id="timegoodsseq" type="number"
-				name="timegoodsseq" placeholder="顺序" /></label>
-			<label><span>描述 :</span><textarea name="timegoodsdetail"></textarea></label>
+			<label><span>单位 :</span><input id="bkgoodsunit" type="text"
+				name="bkgoodsunit" placeholder="单位" /><font>(必填)</font></label>
+			<label><span>品牌 :</span><input id="bkgoodsbrand" type="text"
+				name="bkgoodsbrand" placeholder="品牌" /></label>
+			<label><span>原价 :</span><input id="bkgoodsprice" type="number"
+				name="bkgoodsprice" placeholder="原价" /><font>(必填)</font></label>
+			<label><span>现价 :</span><input id="bkgoodsorgprice" type="number"
+				name="bkgoodsorgprice" placeholder="现价" /><font>(必填)</font></label>
+			<label><span>重量（kg） :</span><input id="bkgoodsweight" type="number"
+				name="bkgoodsweight" placeholder="重量" /></label>
+			<label><span>个人限量 :</span><input id="bkgoodsnum" type="number"
+				name="bkgoodsnum" placeholder="个人限量" /><font>(必填)</font></label>
+			<label><span>全部限量 :</span><input id="bkgoodsallnum" type="number"
+				name="bkgoodsallnum" placeholder="全部限量" /><font>(必填)</font></label>
+			<label><span>顺序 :</span><input id="bkgoodsseq" type="number"
+				name="bkgoodsseq" placeholder="顺序" /></label>
+			<label><span>描述 :</span><textarea name="bkgoodsdetail"></textarea></label>
 			<p><label><input type="button"
 				class="popup_button" value="提交" onclick="popup_formSub()"/>
 			</label>
@@ -231,7 +236,7 @@ $(function(){
 })
 //检查查询条件是否变化
 function checkCondition(){
-	if($("#query_TG").val() != '${requestScope.timegoodsCon.timegoodscode }'){
+	if($("#query_TG").val() != '${requestScope.bkgoodsCon.bkgoodscode }'){
 		$("#pagenow").val(1);
 	}
 }
@@ -246,7 +251,7 @@ function fenyeGoods(targetPage){
 	loadGoodsData(targetPage);
 }
 //秒杀商品跳转到第X页
-function timegoodsjump(){
+function bkgoodsjump(){
 	checkCondition();
 	document.forms[0].submit();
 }
@@ -256,7 +261,7 @@ function goodsPageTo(pageCountGoods){
 	loadGoodsData(pagenowGoods);
 }
 //弹出添加秒杀商品的窗口
-function addtimegoods(){
+function addbkgoods(){
 	$(".cd-popup").addClass("is-visible");	//弹出窗口
 }
 //关闭添加秒杀商品窗口
@@ -276,7 +281,7 @@ function dobiaopin(){
 //加载商品数据
 function loadGoodsData(pagenowGoods){
 	var data = {
-				'goodscompany':'${sessionScope.company.companyid }',
+				'goodscompany':'${sessionScope.loginInfo.companyid }',
 				'pagenowGoods':pagenowGoods,
 				'goodscode':$.trim($("#goodscode").val())
 			};
@@ -318,24 +323,24 @@ function loadGoodsData(pagenowGoods){
 	});
 }
 //选择商品
-function seleScant(timegoodscode,timegoodsname,timegoodsunits,timegoodsbrand,timegoodsimage){
-	$("#timegoodscode").val(timegoodscode);
-	$("#timegoodsname").val(timegoodsname);
-	$("#timegoodsbrand").val(timegoodsbrand);
-	$("#timegoodsunits").val(timegoodsunits);
-	/* $("#timegoodsclass option").each(function(i,item){
+function seleScant(bkgoodscode,bkgoodsname,bkgoodsunits,bkgoodsbrand,bkgoodsimage){
+	$("#bkgoodscode").val(bkgoodscode);
+	$("#bkgoodsname").val(bkgoodsname);
+	$("#bkgoodsbrand").val(bkgoodsbrand);
+	$("#bkgoodsunits").val(bkgoodsunits);
+	/* $("#bkgoodsclass option").each(function(i,item){
 		if($(item).text() == goodsclassname){
 			$(item).attr("selected",true);
 		}
 	}); */
-	$("#timegoodsimage").val(timegoodsimage);
+	$("#bkgoodsimage").val(bkgoodsimage);
 	$(".cd-popup2").removeClass("is-visible");	//移除'is-visible' class
 	
 }
-//提交添加商品的表单
+//提交添加秒杀商品的表单
 function popup_formSub(){
 	var data = '{';
-	data += '"timegoodsclass":"秒杀商品",';
+	data += '"bkgoodsclass":"秒杀商品","bkgoodstype":"秒杀商品",';
 	var count = 0;
 	if($(".elegant-aero textarea").val()){
 		data += '"'+$(".elegant-aero textarea").attr("name") + '":"' + $(".elegant-aero textarea").val() + '",';
@@ -350,16 +355,16 @@ function popup_formSub(){
 			data += '"'+$(item).attr("name") + '":"' + $(item).val() + '",';
 		}
 	});
-	var timegoodsscope = '';
-	$("input[name='timegoodsscope']").each(function(i,item){
+	var bkgoodsscope = '';
+	$("input[name='bkgoodsscope']").each(function(i,item){
 		if(item.checked==true){
-			timegoodsscope += $(item).val();
+			bkgoodsscope += $(item).val();
 		}
 	});
-	data += '"timegoodsscope":"' + timegoodsscope +'",';
+	data += '"bkgoodsscope":"' + bkgoodsscope +'",';
 	if(count == 0){
-		data += '"timegoodsimage":"'+$("#timegoodsimage").val()+'","timegoodscompany":"${requestScope.timegoodsCon.timegoodscompany }","creator":"${sessionScope.company.companyshop }"}';
-		$.getJSON('addTimeGoods.action',JSON.parse(data),function(data){
+		data += '"bkgoodsimage":"'+$("#bkgoodsimage").val()+'","bkgoodscompany":"${requestScope.bkgoodsCon.bkgoodscompany }","creator":"${sessionScope.loginInfo.companyshop }"}';
+		$.getJSON('addBkgoods.action',JSON.parse(data),function(data){
 			if(data.message=='success'){
 				alert('添加成功!');
 				fenye('1');
@@ -374,7 +379,7 @@ function queryGooods(){
 	loadGoodsData(1);
 }
 //修改秒杀商品
-function editTimeGoods(){
+function editbkgoods(){
 	var count = 0;
 	var itemid;
 	$(".bordered [type='checkbox']").each(function(i,item){
@@ -385,8 +390,8 @@ function editTimeGoods(){
 	});
 	if(count > 0 && count < 2){
 		//window.location.href = "doGoodsPrices.action?goodsid="+itemid+"&pagenow=${requestScope.pagenow}";
-		$('#main_form').attr('action','doEditTimeGoods.action');
-		$('[name="timegoodsid"]').val(itemid);
+		$('#main_form').attr('action','doEditBkgoods.action');
+		$('[name="bkgoodsid"]').val(itemid);
 		$('#main_form').submit();
 	} else if(count == 0){
 		alert("请选择秒杀商品!");
@@ -394,8 +399,8 @@ function editTimeGoods(){
 		alert("只能选择一个秒杀商品!");
 	}
 }
-//删除秒杀商品
-function removeTimeGoods(){
+//删除
+function removeBkgoods(){
 	var count = 0;
 	var itemid;
 	$(".bordered [type='checkbox']").each(function(i,item){
@@ -406,7 +411,7 @@ function removeTimeGoods(){
 	});
 	if(count > 0 && count < 2){
 		if(confirm("是否删除")){
-			$.post('removeTimeGoods.action',{'timegoodsid':itemid},function(data){
+			$.post('removeBkgoods.action',{'bkgoodsid':itemid},function(data){
 				if(data == 'ok'){
 					alert("删除成功!");
 					window.location.reload();

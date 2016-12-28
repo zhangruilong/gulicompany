@@ -115,7 +115,7 @@ function saveEdit(){
 		$.post('editBkgoods.action',JSON.parse(data),function(data){
 			if(data == 'ok'){
 				alert('修改成功!');
-				window.location.href = 'allModularGoods.action?bkgoodscompany=${requestScope.editBkgoods.bkgoodscompany }'+
+				window.location.href = 'allCarnivalGoods.action?bkgoodscompany=${requestScope.editBkgoods.bkgoodscompany }'+
 						'&bkgoodscode=${requestScope.bkgoodsCon.bkgoodscode }&bkgoodstype=${requestScope.bkgoodsCon.bkgoodstype }'+
 						'&pagenow=${requestScope.pagenow}';
 			} else {

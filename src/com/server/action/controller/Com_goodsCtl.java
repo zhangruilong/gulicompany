@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +35,7 @@ import com.server.pojo.entity.Givegoods;
 import com.server.pojo.entity.Goods;
 import com.server.pojo.entity.Goodsclass;
 import com.server.pojo.entity.Largecusprice;
+import com.server.pojo.entity.LoginInfo;
 import com.server.pojo.entity.Orderd;
 import com.server.pojo.entity.Prices;
 import com.server.pojo.entity.Scant;
@@ -86,92 +89,6 @@ public class Com_goodsCtl {
 		} else {
 			map.put("msg", "error");
 		}
-		return map;
-	}
-	//设置订单商品的orderdbrand(商品品牌)
-	@RequestMapping("/companySys/setOrderdBrand")
-	@ResponseBody
-	public Map<String, Object> setOrderdBrand(String timegoodsid){
-		Map<String, Object> map = new HashMap<String, Object>();
-		int count = 0;
-		List<Orderd> msodLi = orderdMapper.selectAllOrderdBrandIsNull("秒杀");
-		if(null != msodLi && msodLi.size()>0){
-			for (int i = 0; i < msodLi.size(); i++) {
-				Orderd od = msodLi.get(i);
-				if(null!=od && null != od.getOrderm()){
-					Timegoods tg = timegoodsMapper.selectByCodeUnitsCom(
-							od.getOrderm().getOrdermcompany(), 
-							od.getOrderdcode(), 
-							od.getOrderdunits());
-					if(null != tg){
-						od.setOrderdbrand(tg.getTimegoodsbrand());
-						count += orderdMapper.updateByPrimaryKeySelective(od);
-					}/* else {
-						System.out.println(od.getOrderdid());
-					}*/
-				}
-			}
-		}
-		List<Orderd> mzodLi = orderdMapper.selectAllOrderdBrandIsNull("买赠");
-		if(null != mzodLi && mzodLi.size()>0){
-			for (int i = 0; i < mzodLi.size(); i++) {
-				Orderd od = mzodLi.get(i);
-				if(null!=od && null != od.getOrderm()){
-					Givegoods gg = givegoodsMapper.selectByCodeUnitsCom(
-							od.getOrderm().getOrdermcompany(), 
-							od.getOrderdcode(), 
-							od.getOrderdunits());
-					if(null != gg){
-						od.setOrderdbrand(gg.getGivegoodsbrand());
-						count += orderdMapper.updateByPrimaryKeySelective(od);
-					}/* else {
-						System.out.println(od.getOrderdid());
-					}*/
-				}
-			}
-		}
-		List<Orderd> godLi = orderdMapper.selectAllOrderdBrandIsNull("商品");
-		if(null != godLi && godLi.size()>0){
-			for (int i = 0; i < godLi.size(); i++) {
-				Orderd od = godLi.get(i);
-				if(null!=od && null != od.getOrderm()){
-					Goods g = goodsMapper.selectByGoodsCode(
-							od.getOrderdcode(), 
-							od.getOrderm().getOrdermcompany(), 
-							od.getOrderdunits());
-					if(null != g){
-						od.setOrderdbrand(g.getGoodsbrand());
-						count += orderdMapper.updateByPrimaryKeySelective(od);
-					}/* else {
-						System.out.println(od.getOrderdid());
-					}*/
-				}
-			}
-		}
-		map.put("msg", count);
-		return map;
-	}
-	//设置订单商品的orderdgoods(商品id)
-	@RequestMapping("/companySys/setOrderdgoodsid")
-	@ResponseBody
-	public Map<String, Object> setOrderdgoodsid(String timegoodsid){
-		Map<String, Object> map = new HashMap<String, Object>();
-		int count = 0;
-		List<Orderd> odLi = orderdMapper.selectAllOrderdGoodsIsNull();		//商品id为空的订单
-		for (int i = 0; i < odLi.size(); i++) {
-			Orderd od = odLi.get(i);
-			if(null!=od && null != od.getOrderm()){
-				Goods gd = goodsMapper.selectByGoodsCode(
-						od.getOrderdcode(), 
-						od.getOrderm().getOrdermcompany(), 
-						od.getOrderdunits());
-				if(null != gd){
-					od.setOrderdgoods(gd.getGoodsid());
-					count += orderdMapper.updateByPrimaryKeySelective(od);
-				}
-			}
-		}
-		map.put("msg", count);
 		return map;
 	}
 	//全部商品
@@ -270,13 +187,13 @@ public class Com_goodsCtl {
 		model.addAttribute("count", count);
 		return "forward:/companySys/GivegoodsMana.jsp";
 	}
-	//分页查询年货
+	//分页查询年货、组合商品、秒杀商品、买赠商品
 	@RequestMapping("/companySys/allCarnivalGoods")
-	public String allCarnivalGoods(Model model,Bkgoods bkgoodsCondition,Integer pagenow){
+	public String allCarnivalGoods(Model model,Bkgoods bkgoodsCon,Integer pagenow){
 		if(pagenow == null || pagenow == 0){
 			pagenow = 1;
 		}
-		Integer count = bkgoodsMapper.queryBkgoodsCount(bkgoodsCondition);	//总信息条数
+		Integer count = bkgoodsMapper.queryBkgoodsCount(bkgoodsCon);	//总信息条数
 		Integer pageCount;		//总页数
 		if(count % 10 ==0){
 			pageCount = count / 10;
@@ -286,37 +203,22 @@ public class Com_goodsCtl {
 		if(pagenow > pageCount){
 			pagenow = pageCount;
 		}
-		List<Bkgoods> bkgoodsList = bkgoodsMapper.queryBkgoods(bkgoodsCondition,pagenow,10);
+		List<Bkgoods> bkgoodsList = bkgoodsMapper.queryBkgoods(bkgoodsCon,pagenow,10);
 		model.addAttribute("bkgoodsList", bkgoodsList);
-		model.addAttribute("bkgoodsCondition", bkgoodsCondition);
+		model.addAttribute("bkgoodsCon", bkgoodsCon);
 		model.addAttribute("pageCount", pageCount);
 		model.addAttribute("pagenow", pagenow);
 		model.addAttribute("count", count);
-		return "forward:/companySys/carnivalgoodsMana.jsp";
-	}
-	//分页查询组合商品
-	@RequestMapping("/companySys/allModularGoods")
-	public String allModularGoods(Model model,Bkgoods bkgoodsCondition,Integer pagenow){
-		if(pagenow == null || pagenow == 0){
-			pagenow = 1;
+		if(bkgoodsCon.getBkgoodstype().equals("年货")){
+			return "forward:/companySys/carnivalgoodsMana.jsp";
+		} else if(bkgoodsCon.getBkgoodstype().equals("秒杀商品")){
+			return "forward:/companySys/TimegoodsMana.jsp";
+		} else if(bkgoodsCon.getBkgoodstype().equals("买赠商品")){
+			return "forward:/companySys/GivegoodsMana.jsp";
+		} else {		//组合商品
+			return "forward:/companySys/modularGoodsMana.jsp";
 		}
-		Integer count = bkgoodsMapper.queryBkgoodsCount(bkgoodsCondition);	//总信息条数
-		Integer pageCount;		//总页数
-		if(count % 10 ==0){
-			pageCount = count / 10;
-		} else {
-			pageCount = (count / 10) +1;
-		}
-		if(pagenow > pageCount){
-			pagenow = pageCount;
-		}
-		List<Bkgoods> bkgoodsList = bkgoodsMapper.queryBkgoods(bkgoodsCondition,pagenow,10);
-		model.addAttribute("bkgoodsList", bkgoodsList);
-		model.addAttribute("bkgoodsCondition", bkgoodsCondition);
-		model.addAttribute("pageCount", pageCount);
-		model.addAttribute("pagenow", pagenow);
-		model.addAttribute("count", count);
-		return "forward:/companySys/modularGoodsMana.jsp";
+		
 	}
 	//到商品价格页面
 	@RequestMapping("/companySys/doGoodsPrices")
@@ -336,20 +238,27 @@ public class Com_goodsCtl {
 		model.addAttribute("pagenow", pagenow);
 		if(bkgoodsCon.getBkgoodstype().equals("年货")){
 			return "forward:/companySys/editCarnivalGoods.jsp";
-		} else {
+		} else if(bkgoodsCon.getBkgoodstype().equals("秒杀商品")){
+			return "forward:/companySys/editTimeGoods.jsp";
+		} else if(bkgoodsCon.getBkgoodstype().equals("买赠商品")){
+			return "forward:/companySys/editGiveGoods.jsp";
+		} else {		//组合商品
 			return "forward:/companySys/editModularGoods.jsp";
 		}
 	}
 	//修改年货商品
 	@RequestMapping("/companySys/editBkgoods")
 	@ResponseBody
-	public String editBkgoods(Bkgoods editBkgoods){
+	public String editBkgoods(HttpServletRequest request,Bkgoods editBkgoods){
+		LoginInfo info = (LoginInfo) request.getSession().getAttribute("loginInfo");	//登录信息
 		if(editBkgoods.getBkgoodsseq() == null){
 			editBkgoods.setBkgoodsseq(0);
 		}
 		if(editBkgoods.getBkgoodsweight()==null || editBkgoods.getBkgoodsweight().equals("")){
 			editBkgoods.setBkgoodsweight("0");
 		}
+		editBkgoods.setBkgoodsupdtime(DateUtils.getDateTime());		//修改时间
+		editBkgoods.setBkgoodsupdor(info.getUsername());			//修改人
 		int upd = bkgoodsMapper.updateByPrimaryKeySelective(editBkgoods);
 		if(upd > 0){
 			return "ok";
@@ -676,17 +585,19 @@ public class Com_goodsCtl {
 	//添加年货或组合商品
 	@RequestMapping(value="/companySys/addBkgoods",produces = "application/json")
 	@ResponseBody
-	public Map<String, Object> addBkgoods(Bkgoods bkgoods){
+	public Map<String, Object> addBkgoods(HttpServletRequest request,Bkgoods bkgoods){
 		Map<String, Object> map = new HashMap<String, Object>();
-		if(bkgoodsMapper.selectComRepeatGoods(bkgoods.getBkgoodscompany(), bkgoods.getBkgoodscode(), bkgoods.getBkgoodsunits())==0){
+		if(bkgoodsMapper.selectComRepeatGoods(bkgoods.getBkgoodscompany(), bkgoods.getBkgoodscode(), bkgoods.getBkgoodsunits(), bkgoods.getBkgoodstype())==0){
 			if(bkgoods.getBkgoodsseq() == null){
 				bkgoods.setBkgoodsseq(0);
 			}
 			if(bkgoods.getBkgoodsweight()==null || bkgoods.getBkgoodsweight().equals("")){
 				bkgoods.setBkgoodsweight("0");
 			}
+			LoginInfo info = (LoginInfo) request.getSession().getAttribute("loginInfo");	//登录信息
+			bkgoods.setBkcreator(info.getUsername());			//创建人
+			bkgoods.setBkcreatetime(DateUtils.getDateTime());		//创建时间
 			bkgoods.setBkgoodsid(CommonUtil.getNewId());
-			bkgoods.setBkcreatetime(DateUtils.getDateTime());
 			bkgoods.setBkgoodssurplus(bkgoods.getBkgoodsallnum());
 			bkgoods.setBkgoodsstatue("启用");
 			bkgoodsMapper.insertSelective(bkgoods);

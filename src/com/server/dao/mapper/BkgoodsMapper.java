@@ -12,7 +12,7 @@ public interface BkgoodsMapper {
 	 * 查询重复商品数量
 	 */
 	Integer selectComRepeatGoods(@Param("comid") String comid,@Param("bkgoodscode") String bkgoodscode,
-			@Param("bkgoodsunits") String bkgoodsunits);
+			@Param("bkgoodsunits") String bkgoodsunits,@Param("bkgoodstype") String bkgoodstype);
 	/**
 	 * 总信息条数查询
 	 */

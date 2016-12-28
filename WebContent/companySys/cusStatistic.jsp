@@ -17,7 +17,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 <form id='main_form' action="cusStatistic.action" method="post">
- <input type="hidden" name="companyid" value="${sessionScope.company.companyid }">
+ <input type="hidden" name="companyid" value="${sessionScope.loginInfo.companyid }">
  <input type="hidden" id="staTime" name="staTime" value="${requestScope.staTime }">
  <input type="hidden" id="endTime" name="endTime" value="${requestScope.endTime }">
 <div class="nowposition">当前位置：客户管理》客户信息统计</div>
@@ -146,7 +146,7 @@ var md2;					//第二个日期对象
   }
 //导出报表
 function report(){
-	window.location.href ="exportCusStatisticReport.action?companyid=${sessionScope.company.companyid }"+
+	window.location.href ="exportCusStatisticReport.action?companyid=${sessionScope.loginInfo.companyid }"+
 	"&staTime=${requestScope.staTime }&endTime=${requestScope.endTime }&condition=${requestScope.condition }";
 }
 //查询

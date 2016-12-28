@@ -59,26 +59,26 @@ $(function(){
 					if(currST != item.sheetno){					//如果是新的叶签
 						currST = item.sheetno;					//叶签号
 						rowNum = 0;								//行号变为0
-						if(item.sheetname =='供应商信息'){
+						if(item.sheetno =='1'){//供应商信息
 							$('#print-content').append(
 								'<table width="100%" cellspacing="0" cellpadding="0" style="border-collapse: collapse;border-bottom:dotted 1px black"></table>');
-						} else if(item.sheetname =='客户信息'){
+						} else if(item.sheetno =='2'){//客户信息
 							$('#print-content').append('<table width="100%" border="0" cellspacing="0" cellpadding="3"></table>');
-						} else if(item.sheetname == '商品信息'){
+						} else if(item.sheetno == '3'){//商品信息
 							$('#print-content').append(
 								'<table id="goods-tab" class="print_tab" width="100%" border="1" cellspacing="0" cellpadding="2" style="border-collapse: collapse;margin-top: 5px;"></table>');
-						} else if(item.sheetname == '签收信息'){
+						} else if(item.sheetno == '5'){//签收信息
 							qianshouTDStrle = typeNullFoString(item.detail);
 							$('#print-content').append(
 						'<table class="print_tab" id="signFo-tab" width="100%" border="1" cellspacing="0" cellpadding="3" style="background-color: #80ffff;border-collapse: collapse;padding-top: 20px;font-family: 黑体;"></table>');
-						} else if(item.sheetname == '制表信息'){
+						} else if(item.sheetno == '7'){//制表信息
 							$('#print-content').append('<table cellpadding="7" style="width:100%; margin-left: 10px;padding-top: 5px;font-family: 黑体;">');
 						}
 					}
 					
 					//行信息
 					if(rowNum != item.startrow && item.sheetno != '4' 
-						&& item.sheetno != '99' && item.sheetno != '8' && item.sheetno != '9' && item.sheetno != '10'){						//如果是新的一行就添加一行
+						&& item.sheetno != '99' && item.sheetno != '8' && item.sheetno != '9' && item.sheetno != '10'){	//如果是新的一行就添加一行
 						rowNum = item.startrow;										//行号
 						if(item.sheetname =='供应商信息'){
 							rowStyle = 'height: 40px;';
@@ -93,13 +93,13 @@ $(function(){
 					columnNum = item.startcol;									//当前列
 					if(typeof(item.fieldname)!='undefined' && item.fieldname){
 						text = typeNullFoString(printinfo[item.fieldname]);						//一般的
-					} else if(item.headnameas=='打印日期'){
+					} else if(item.headname=='打印日期'){
 						text = today;											//打印日期
-					} else if(item.headnameas=='优惠金额'){
+					} else if(item.headname=='优惠金额'){
 						text = totalMon-totalRMon;											//优惠金额
-					} else if(item.headnameas=='大写合计'){
+					} else if(item.headname=='大写合计'){
 						text = chineseNumber(totalRMon);											//优惠金额
-					} else if(item.headnameas=='重量合计'){
+					} else if(item.headname=='重量合计'){
 						text = totalWeight;
 					}
 					if(item.sheetno == '1'){												//供应商信息

@@ -54,17 +54,17 @@
 <body>
 	<div class="elegant-aero">
 		<form action="editCompInfo.action" method="post" class="STYLE-NAME">
-		<input type="hidden" name="companyid" value="${sessionScope.company.companyid }">
+		<input type="hidden" name="companyid" value="${sessionScope.loginInfo.companyid }">
 			<h1>用户信息</h1>
 			<label> <span>账户名称 :</span> <input id="companyshop" type="text"
 				name="companyshop" placeholder="账户名称"
-				value="${sessionScope.company.companyshop }" />
+				value="${sessionScope.loginInfo.companyshop }" />
 			</label> <label> <span>联系人 :</span> <input id="username" type="text"
 				name="username" placeholder="联系人"
-				value="${sessionScope.company.username }" />
+				value="${sessionScope.loginInfo.username }" />
 			</label> <label> <span>联系电话 :</span> <input id="companyphone" type="text"
 				name="companyphone" placeholder="联系电话"
-				value="${sessionScope.company.companyphone }" />
+				value="${sessionScope.loginInfo.companyphone }" />
 			</label> <label> <span>&nbsp;</span> <input type="button"
 				class="button" value="保存" onclick="checkAccount()"/>
 			</label>
