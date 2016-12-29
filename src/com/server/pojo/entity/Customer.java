@@ -64,13 +64,13 @@ public class Customer
     */
    private String customerstatue;   
    /**
-    * 创建时间
-    */
-   private String createtime;   
-   /**
     * 修改时间
     */
    private String updtime;   
+   /**
+    * 创建时间
+    */
+   private String createtime;   
    /**
     * 关联收藏(一对多)
     */

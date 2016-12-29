@@ -16,9 +16,6 @@
 <link href="css/formsty.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="../guliwang/js/jquery-2.1.4.min.js"></script>
 <style type="text/css">
-.button{
-	margin-left: 40px;
-}
 .elegant-aero label>font{
 	font-weight: bold;
 	color: #F66B45;

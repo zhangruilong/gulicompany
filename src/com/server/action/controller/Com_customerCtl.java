@@ -149,8 +149,8 @@ public class Com_customerCtl {
 	@ResponseBody
 	public void exportCustomerReport(HttpServletResponse response,Ccustomer ccustomerCon) throws Exception{
 		ArrayList<Customer> list = (ArrayList<Customer>) customerMapper.selectCustomerByGuanxi(ccustomerCon);
-		String[] heads = {"客户编码","客户姓名","手机","客户经理","店铺","城市","县","街道地址","类型","等级","创建时间","修改时间"};				//表头
-		String[] discard = {"customerid","openid","customerdetail","customerstatue","orderm","collectList"};			//要忽略的字段名
+		String[] heads = {"客户编码","客户姓名","手机","客户经理","店铺","城市","县","街道地址","类型","等级","修改人","修改时间","创建时间"};				//表头
+		String[] discard = {"customerid","openid","customerdetail","orderm","collectList"};			//要忽略的字段名
 		String name = "客户统计报表";							//文件名称
 		FileUtil.expExcel(response, list, heads, discard, name);
 	}

@@ -212,8 +212,8 @@
   <select id="selectCustomerByGuanxi" resultMap="BaseResultMap" parameterType="com.server.pojo.entity.Ccustomer" >
     select c.customerid,c.customercode,c.customername,c.customerphone,c.customershop,c.customercity,
   	c.customerxian,c.customeraddress,c.customertype,cc.ccustomerdetail as customerlevel,
-  	c.createtime,c.updtime,cc.createtime as customerpsw from customer c
-	left join ccustomer cc
+  	c.createtime,cc.ccustomerupdtime as updtime,cc.ccustomerupdor as customerstatue,cc.createtime as customerpsw from ccustomer cc
+	left join customer c
 	on cc.ccustomercustomer = c.customerid
 	where cc.ccustomercompany = #{ccustomercompany}
 	<if test="customer != null">
@@ -235,6 +235,7 @@
 	<if test="creator != null and creator != ''">
 		and cc.creator = #{creator}
 	</if>
+	order by cc.ccustomerid desc 
   </select>
   <!-- 检查用户是否已经注册过了 -->
   <select id="selectCustomerIsReg" resultType="int" parameterType="com.server.pojo.entity.Customer" >

@@ -65,9 +65,11 @@
 			</label> -->
 			<label> <span>所在地区 :</span> <input id="customerxian" type="text"
 				name="customerxian" placeholder="所在地区" value="" /></label> 
-			<label> <span>&nbsp;</span> <input type="button"
+			<p> <input type="button" 
 				class="button" value="保存" onclick="saveCus()"/>
-			</label>
+				<input type="button"
+				class="button" value="返回" onclick="javascript:history.go(-1)"/>
+			</p>
 	</div>
 <script type="text/javascript" src="js/common.js"></script>
 <script type="text/javascript">
