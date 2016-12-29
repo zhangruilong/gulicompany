@@ -13,6 +13,8 @@
     <result column="LARGECUSPRICEPRICE2" property="largecuspriceprice2" jdbcType="VARCHAR" />
     <result column="LARGECUSPRICEUNIT" property="largecuspriceunit" jdbcType="VARCHAR" />
     <result column="LARGECUSPRICEUNIT2" property="largecuspriceunit2" jdbcType="VARCHAR" />
+    <result column="LARGECUSUPDTIME" property="largecusupdtime" jdbcType="VARCHAR" />
+    <result column="LARGECUSUPDOR" property="largecusupdor" jdbcType="VARCHAR" />
     <!-- 商品 -->
     <association property="lcpGoods" javaType="com.server.pojo.entity.Goods">
     	<id column="GOODSID" property="goodsid" jdbcType="VARCHAR" />
@@ -141,6 +143,13 @@ where RN &gt; ((#{nowpage}-1)*#{pagesize})
       <if test="largecuspriceunit2 != null" >
         LARGECUSPRICEUNIT2,
       </if>
+      <if test="largecusupdtime != null" >
+        LARGECUSUPDTIME,
+      </if>
+      <if test="largecusupdor != null" >
+        LARGECUSUPDOR,
+      </if>
+      
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="largecuspriceid != null" >
@@ -176,6 +185,13 @@ where RN &gt; ((#{nowpage}-1)*#{pagesize})
       <if test="largecuspriceunit2 != null" >
         #{largecuspriceunit2,jdbcType=VARCHAR},
       </if>
+      <if test="largecusupdtime != null" >
+        #{largecusupdtime,jdbcType=VARCHAR},
+      </if>
+      <if test="largecusupdor != null" >
+        #{largecusupdor,jdbcType=VARCHAR},
+      </if>
+      
     </trim>
   </insert>
   <!-- 根据主键选择性修改 -->
@@ -211,6 +227,12 @@ where RN &gt; ((#{nowpage}-1)*#{pagesize})
       </if>
       <if test="largecuspriceunit2 != null" >
         LARGECUSPRICEUNIT2 = #{largecuspriceunit2,jdbcType=VARCHAR},
+      </if>
+      <if test="largecusupdtime != null" >
+        LARGECUSUPDTIME = #{largecusupdtime,jdbcType=VARCHAR},
+      </if>
+      <if test="largecusupdor != null" >
+        LARGECUSUPDOR = #{largecusupdor,jdbcType=VARCHAR},
       </if>
     </set>
     where LARGECUSPRICEID = #{largecuspriceid,jdbcType=VARCHAR}

@@ -59,6 +59,7 @@ String ordermway = request.getParameter("ordermway");
 		<th style="width:29px;">状态</th>
 		<th style="width:118px;">下单时间</th>
 		<th>修改时间</th>
+		<th>修改人</th>
 		<th>客户名称</th>
 		<th>联系人</th>
 		<th>手机</th>
@@ -81,6 +82,7 @@ String ordermway = request.getParameter("ordermway");
 			<td class="td_orderm_statue">${order.ordermstatue}</td>
 			<td>${order.ordermtime }</td>
 			<td>${order.updtime}</td>
+			<td>${order.updor}</td>
 			<td>${order.customershop}</td>
 			<td>${order.ordermconnect}</td>
 			<td>${order.ordermphone}</td>
@@ -220,7 +222,8 @@ function operation(msg,statue){
 				},function(data){
 					if(data == '1'){
 						alert("修改成功!");
-						$("#"+itemid).parent().nextAll(".td_orderm_statue").text(statue);
+						//$("#"+itemid).parent().nextAll(".td_orderm_statue").text(statue);
+						window.parent.main.location.reload();
 					}
 				});
 			}
@@ -233,7 +236,7 @@ function operation(msg,statue){
 				},function(data){
 					if(data == '1'){
 						alert("删除成功!");
-						window.location.reload();
+						window.parent.main.location.reload();
 					}
 				});
 			}

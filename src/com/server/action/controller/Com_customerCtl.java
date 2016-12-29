@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,7 @@ import com.server.pojo.entity.City;
 import com.server.pojo.entity.Customer;
 import com.server.pojo.entity.CustomerStatisticVO;
 import com.server.pojo.entity.Emp;
+import com.server.pojo.entity.LoginInfo;
 import com.system.tools.util.DateUtils;
 import com.system.tools.util.FileUtil;
 
@@ -115,10 +117,12 @@ public class Com_customerCtl {
 	//修改客户信息
 	@RequestMapping(value="/companySys/editCcusAndCus",produces="application/json")
 	@ResponseBody
-	public Map<String,Object> editCcusAndCus(Customer customer,Ccustomer ccustomer,String accountManager){
+	public Map<String,Object> editCcusAndCus(HttpSession session,Customer customer,Ccustomer ccustomer,String accountManager){
 		Map<String,Object> map = new HashMap<String, Object>();
+		LoginInfo loInfo = (LoginInfo) session.getAttribute("loginInfo");
+		String currDatetime = DateUtils.getDateTime();			//当前时间
 		customer.setCustomerlevel(Integer.parseInt(ccustomer.getCcustomerdetail()));
-		customer.setUpdtime(DateUtils.getDateTime());				//设置客户修改时间
+		customer.setUpdtime(currDatetime);				//设置客户修改时间
 		ccustomer.setCreatetime(accountManager);
 		List<Address> addList = addressMapper.selectByCondition(customer.getCustomerid());
 		Address add = null;
@@ -135,6 +139,8 @@ public class Com_customerCtl {
 		add.setAddressture(1);
 		addressMapper.updateByPrimaryKeySelective(add);
 		customerMapper.updateByPrimaryKeySelective(customer);
+		ccustomer.setCcustomerupdtime(currDatetime);			//客户关系的修改时间
+		ccustomer.setCcustomerupdor(loInfo.getUsername());		//修改人
 		ccustomerMapper.updateByPrimaryKeySelective(ccustomer);
 		return map;
 	}

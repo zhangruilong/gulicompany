@@ -19,17 +19,25 @@ public class Ccustomer
     */
    private String ccustomercustomer;   
    /**
-    * 描述(客户和供应商的关系等级)
+    * 描述(关系等级)
     */
    private String ccustomerdetail;   
    /**
-    * 创建时间(客户经理)
+    * 创建时间(业务员名)
     */
    private String createtime;   
    /**
-    * 创建人
+    * 创建人(是否大客户:1是大客户)
     */
-   private String creator;
+   private String creator;   
+   /**
+    * 修改时间
+    */
+   private String ccustomerupdtime;   
+   /**
+    * 修改人
+    */
+   private String ccustomerupdor;   
    /**
     * 关联客户
     */
@@ -87,7 +95,7 @@ public class Ccustomer
 	}	   
 
 	/**
-	 *设置"描述"属性
+	 *设置"描述(关系等级)"属性
 	 *@param ccustomerdetail 实体的Ccustomerdetail属性
 	 */
 	public void setCcustomerdetail(String ccustomerdetail)
@@ -96,7 +104,7 @@ public class Ccustomer
 	}
 	
 	/**
-	 *获取"描述"属性
+	 *获取"描述(关系等级)"属性
 	 */
 	public String getCcustomerdetail()
 	{
@@ -104,7 +112,7 @@ public class Ccustomer
 	}	   
 
 	/**
-	 *设置"创建时间"属性
+	 *设置"创建时间(业务员名)"属性
 	 *@param createtime 实体的Createtime属性
 	 */
 	public void setCreatetime(String createtime)
@@ -113,7 +121,7 @@ public class Ccustomer
 	}
 	
 	/**
-	 *获取"创建时间"属性
+	 *获取"创建时间(业务员名)"属性
 	 */
 	public String getCreatetime()
 	{
@@ -121,7 +129,7 @@ public class Ccustomer
 	}	   
 
 	/**
-	 *设置"创建人"属性
+	 *设置"创建人(是否大客户:1是大客户)"属性
 	 *@param creator 实体的Creator属性
 	 */
 	public void setCreator(String creator)
@@ -130,11 +138,45 @@ public class Ccustomer
 	}
 	
 	/**
-	 *获取"创建人"属性
+	 *获取"创建人(是否大客户:1是大客户)"属性
 	 */
 	public String getCreator()
 	{
 		return this.creator;
+	}	   
+
+	/**
+	 *设置"修改时间"属性
+	 *@param ccustomerupdtime 实体的Ccustomerupdtime属性
+	 */
+	public void setCcustomerupdtime(String ccustomerupdtime)
+	{
+		this.ccustomerupdtime = ccustomerupdtime;
+	}
+	
+	/**
+	 *获取"修改时间"属性
+	 */
+	public String getCcustomerupdtime()
+	{
+		return this.ccustomerupdtime;
+	}	   
+
+	/**
+	 *设置"修改人"属性
+	 *@param ccustomerupdor 实体的Ccustomerupdor属性
+	 */
+	public void setCcustomerupdor(String ccustomerupdor)
+	{
+		this.ccustomerupdor = ccustomerupdor;
+	}
+	
+	/**
+	 *获取"修改人"属性
+	 */
+	public String getCcustomerupdor()
+	{
+		return this.ccustomerupdor;
 	}	   
 	
 	public Customer getCustomer() {
@@ -156,6 +198,8 @@ public class Ccustomer
 	 	,String ccustomerdetail
 	 	,String createtime
 	 	,String creator
+	 	,String ccustomerupdtime
+	 	,String ccustomerupdor
 		 ){
 		super();
 		this.ccustomerid = ccustomerid;
@@ -164,6 +208,8 @@ public class Ccustomer
 	 	this.ccustomerdetail = ccustomerdetail;
 	 	this.createtime = createtime;
 	 	this.creator = creator;
+	 	this.ccustomerupdtime = ccustomerupdtime;
+	 	this.ccustomerupdor = ccustomerupdor;
 	}
 }
 

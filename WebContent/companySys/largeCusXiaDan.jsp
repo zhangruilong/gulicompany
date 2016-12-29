@@ -312,7 +312,7 @@ function saveOrder(){
 			+ '","ordermrightmoney":"' + $(".LCXD_OrdermInfo span:eq(2)").text()
 			+ '","ordermway":"' + $(".LCXD_OrdermInfo span:eq(3)").text()
 			+ '","ordermstatue":"' + '已下单'
-			+ '","ordermemp":"' + '录单'
+//			+ '","ordermemp":"' + '录单' 
 			+ '","ordermcustype":"' + orderCCus.largeCCus.customer.customertype
 			+ '","ordermcuslevel":"' + orderCCus.largeCCus.ccustomerdetail
 			+ '","ordermcusshop":"' + orderCCus.largeCCus.customer.customershop

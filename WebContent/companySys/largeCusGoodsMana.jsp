@@ -47,8 +47,10 @@ String customertype = request.getParameter("customer.customertype");
 		<th>价格</th>
 		<th>单位</th>
 		<th>描述</th>
-		<th>创建时间</th>
 		<th>修改时间</th>
+		<th>修改人</th>
+		<th>创建时间</th>
+		<th>创建人</th>
     </tr>
     </thead>
     <tr name="fenyelan">
@@ -351,8 +353,10 @@ function initLargePG(targetPage){
 						'<td>'+item.largecuspriceprice+'</td>'+
 						'<td>'+item.largecuspriceunit+'</td>'+
 						'<td>'+ typeNullFoString(item.largecuspricedetail) +'</td>'+
-						'<td>'+item.largecuspricecreatetime+'</td>'+
+						'<td>'+ typeNullFoString(item.largecuspricecreatetime) +'</td>'+
 						'<td>'+ typeNullFoString(item.largecuspricecreator) +'</td>'+
+						'<td>'+ typeNullFoString(item.largecusupdtime) +'</td>'+
+						'<td>'+ typeNullFoString(item.largecusupdor) +'</td>'+
 					'</tr>');
 			});
 			fenyelanInfo(data.pagenow,data.count,data.pageCount);

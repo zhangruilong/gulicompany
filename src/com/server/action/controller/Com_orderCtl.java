@@ -12,6 +12,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
@@ -116,9 +117,9 @@ public class Com_orderCtl {
 	}
 	//删除订单
 	@RequestMapping("/companySys/editOrder")
-	public String editOrder(HttpServletRequest request,Model model,Orderm order){
+	public String editOrder(HttpSession session,Model model,Orderm order){
 		order.setOrdermstatue("已删除");
-		LoginInfo info = (LoginInfo) request.getSession().getAttribute("loginInfo");
+		LoginInfo info = (LoginInfo) session.getAttribute("loginInfo");
 		order.setUpdtime(DateUtils.getDateTime());			//修改时间是删除时间
 		order.setUpdor(info.getUsername());				//修改人
 		ordermMapper.updateByPrimaryKeySelective(order);
@@ -126,8 +127,8 @@ public class Com_orderCtl {
 	}
 	//修改订单状态
 	@RequestMapping("/companySys/deliveryGoods")
-	public String deliveryGoods(HttpServletRequest request,Model model,Orderm order){
-		LoginInfo info = (LoginInfo) request.getSession().getAttribute("loginInfo");
+	public String deliveryGoods(HttpSession session,Model model,Orderm order){
+		LoginInfo info = (LoginInfo) session.getAttribute("loginInfo");
 		order.setUpdtime(DateUtils.getDateTime());			//修改时间
 		order.setUpdor(info.getUsername());				//修改人
 		ordermMapper.updateByPrimaryKeySelective(order);
@@ -136,8 +137,8 @@ public class Com_orderCtl {
 	}
 	//修改订单状态2
 	@RequestMapping("/companySys/updateStatue")
-	public @ResponseBody Integer updateStatue(HttpServletRequest request, Orderm order){
-		LoginInfo info = (LoginInfo) request.getSession().getAttribute("loginInfo");
+	public @ResponseBody Integer updateStatue(HttpSession session, Orderm order){
+		LoginInfo info = (LoginInfo) session.getAttribute("loginInfo");
 		order.setUpdtime(DateUtils.getDateTime());			//修改时间
 		order.setUpdor(info.getUsername());				//修改人
 		Integer num = ordermMapper.updateByPrimaryKeySelective(order);
@@ -145,13 +146,14 @@ public class Com_orderCtl {
 	}
 	//修改订单打印次数
 	@RequestMapping("/companySys/updatePrintCount")
-	public @ResponseBody Map<String, Object> updatePrintCount(HttpServletRequest request, String ordermids,String ordermprinttimess){
+	public @ResponseBody Map<String, Object> updatePrintCount(HttpSession session, String ordermids,String ordermprinttimess){
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		LoginInfo info = (LoginInfo) request.getSession().getAttribute("loginInfo");
+		LoginInfo info = (LoginInfo) session.getAttribute("loginInfo");		//登录信息
 		String[] ids = ordermids.split(",");
 		String[] timess = ordermprinttimess.split(",");
 		int count=0;
 		for (int i = 0; i < ids.length; i++) {
+			//修改 打印次数 和 修改人(操作人)
 			int c = ordermMapper.updatePrintCount(ids[i], timess[i],info.getUsername());
 			count += c;
 		}
@@ -178,11 +180,11 @@ public class Com_orderCtl {
 	}
 	//删除订单详情
 	@RequestMapping("/companySys/deleOrderd")
-	public String deleOrderd(HttpServletRequest request, Model model,String[] orderdids,Orderm order){
+	public String deleOrderd(HttpSession session, Model model,String[] orderdids,Orderm order){
 		Float money = order.getOrdermmoney();
 		Float rightmoney = order.getOrdermrightmoney();
 		Integer ordermnum = order.getOrdermnum();
-		LoginInfo info = (LoginInfo) request.getSession().getAttribute("loginInfo");
+		LoginInfo info = (LoginInfo) session.getAttribute("loginInfo");		//登录信息
 		for (String orderdid : orderdids) {
 			Orderd orderd = orderdMapper.selectByPrimaryKey(orderdid);
 			money -= Float.parseFloat(orderd.getOrderdmoney());
@@ -209,10 +211,10 @@ public class Com_orderCtl {
 	//修改订单详情
 	@RequestMapping("/companySys/editOrderd")
 	@ResponseBody
-	public HashMap<String, Object> editOrderd(HttpServletRequest request,Model model,Orderd orderd,Orderm order,Float diffOrderdmoney,Float diffOrderdrightmoney){
+	public HashMap<String, Object> editOrderd(HttpSession session,Model model,Orderd orderd,Orderm order,Float diffOrderdmoney,Float diffOrderdrightmoney){
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		Orderm updateOrderm = ordermMapper.selectByPrimaryKey(order.getOrdermid());					//查询要修改的订单
-		LoginInfo info = (LoginInfo) request.getSession().getAttribute("loginInfo");
+		LoginInfo info = (LoginInfo) session.getAttribute("loginInfo");				//登录信息
 		if(null != updateOrderm && !updateOrderm.getOrdermstatue().equals("已删除")){
 			Float nowOrdermmoney = updateOrderm.getOrdermmoney() - diffOrderdmoney;	//得到计算后的下单金额
 			Float nowOrderdrightmoney = updateOrderm.getOrdermrightmoney() - diffOrderdrightmoney;	//计算后的实际金额
@@ -350,9 +352,9 @@ public class Com_orderCtl {
 	//大客户下单
 	@RequestMapping(value="/companySys/largeCusOrdermSave")
 	@ResponseBody
-	public String largeCusOrdermSave(@RequestBody Orderm orderm){
+	public String largeCusOrdermSave(@RequestBody Orderm orderm,HttpSession session){
 		String ordermid = CommonUtil.getNewId();
-		
+		LoginInfo info = (LoginInfo) session.getAttribute("loginInfo");
 		orderm.setOrdermid(ordermid);
 		orderm.setOrdermtime(DateUtils.getDateTime());
 		
@@ -361,9 +363,10 @@ public class Com_orderCtl {
 		Orderm odm = new Orderm();
 		odm.setOrdermcompany(orderm.getOrdermcompany());
 		String todayOd = (ordermMapper.selectByCompanyCount(date+" 00:00:00", date+"23:59:59",odm)+1)+"";	//今天的第几个订单;
-		odCode += "0000".substring(0, 4-todayOd.length())+todayOd ;
+		odCode += "0000".substring(0, 4-todayOd.length())+todayOd ;		//订单编码
 		//System.out.println(odCode);
-		orderm.setOrdermcode(odCode);
+		orderm.setOrdermcode(odCode);			//设置订单编码
+		orderm.setOrdermemp(info.getEmpcode());		//设置订单源
 		ordermMapper.insertSelective(orderm);
 		for (Orderd insOD : orderm.getOrderdList()) {
 			insOD.setOrderdid(CommonUtil.getNewId());

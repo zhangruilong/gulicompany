@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,28 +19,23 @@ import com.server.dao.mapper.BkgoodsMapper;
 import com.server.dao.mapper.CcustomerMapper;
 import com.server.dao.mapper.CityMapper;
 import com.server.dao.mapper.CustomerMapper;
-import com.server.dao.mapper.GivegoodsMapper;
 import com.server.dao.mapper.GoodsMapper;
 import com.server.dao.mapper.GoodsclassMapper;
 import com.server.dao.mapper.LargecuspriceMapper;
 import com.server.dao.mapper.OrderdMapper;
 import com.server.dao.mapper.PricesMapper;
 import com.server.dao.mapper.ScantMapper;
-import com.server.dao.mapper.TimegoodsMapper;
 import com.server.pojo.entity.Address;
 import com.server.pojo.entity.Bkgoods;
 import com.server.pojo.entity.Ccustomer;
 import com.server.pojo.entity.City;
 import com.server.pojo.entity.Customer;
-import com.server.pojo.entity.Givegoods;
 import com.server.pojo.entity.Goods;
 import com.server.pojo.entity.Goodsclass;
 import com.server.pojo.entity.Largecusprice;
 import com.server.pojo.entity.LoginInfo;
-import com.server.pojo.entity.Orderd;
 import com.server.pojo.entity.Prices;
 import com.server.pojo.entity.Scant;
-import com.server.pojo.entity.Timegoods;
 import com.system.tools.util.CommonUtil;
 import com.system.tools.util.DateUtils;
 
@@ -55,13 +51,9 @@ public class Com_goodsCtl {
 	@Autowired
 	private GoodsclassMapper goodsclassMapper;
 	@Autowired
-	private TimegoodsMapper timegoodsMapper;
-	@Autowired
 	private PricesMapper pricesMapper;
 	@Autowired
 	private ScantMapper scantMapper;
-	@Autowired
-	private GivegoodsMapper givegoodsMapper;
 	@Autowired
 	private LargecuspriceMapper largecuspriceMapper;
 	@Autowired
@@ -139,54 +131,6 @@ public class Com_goodsCtl {
 		model.addAttribute("count", count);
 		return "forward:/companySys/canyinGoodsMana.jsp";
 	}
-	//全部促销品
-	@RequestMapping("/companySys/allTimeGoods")
-	public String allTimeGoods(Model model,Timegoods timegoodsCon,Integer pagenow){
-		if(pagenow == null){
-			pagenow = 1;
-		}
-		Integer count = timegoodsMapper.selectByConditionCount(timegoodsCon);	//总信息条数
-		Integer pageCount;		//总页数
-		if(count % 10 ==0){
-			pageCount = count / 10;
-		} else {
-			pageCount = (count / 10) +1;
-		}
-		if(pagenow > pageCount){
-			pagenow = pageCount;
-		}
-		List<Timegoods> timegoodsList = timegoodsMapper.selectByCondition(timegoodsCon,pagenow,10);
-		model.addAttribute("timegoodsList", timegoodsList);
-		model.addAttribute("timegoodsCon", timegoodsCon);
-		model.addAttribute("pageCount", pageCount);
-		model.addAttribute("pagenow", pagenow);
-		model.addAttribute("count", count);
-		return "forward:/companySys/TimegoodsMana.jsp";
-	}
-	//全部买赠商品
-	@RequestMapping("/companySys/allGiveGoods")
-	public String allGiveGoods(Model model,Givegoods givegoodsCon,Integer pagenow){
-		if(pagenow == null){
-			pagenow = 1;
-		}
-		Integer count = givegoodsMapper.selectByConditionCount(givegoodsCon);	//总信息条数
-		Integer pageCount;		//总页数
-		if(count % 10 ==0){
-			pageCount = count / 10;
-		} else {
-			pageCount = (count / 10) +1;
-		}
-		if(pagenow > pageCount){
-			pagenow = pageCount;
-		}
-		List<Givegoods> givegoodsList = givegoodsMapper.selectByCondition(givegoodsCon,pagenow,10);
-		model.addAttribute("givegoodsList", givegoodsList);
-		model.addAttribute("givegoodsCon", givegoodsCon);
-		model.addAttribute("pageCount", pageCount);
-		model.addAttribute("pagenow", pagenow);
-		model.addAttribute("count", count);
-		return "forward:/companySys/GivegoodsMana.jsp";
-	}
 	//分页查询年货、组合商品、秒杀商品、买赠商品
 	@RequestMapping("/companySys/allCarnivalGoods")
 	public String allCarnivalGoods(Model model,Bkgoods bkgoodsCon,Integer pagenow){
@@ -229,7 +173,7 @@ public class Com_goodsCtl {
 		model.addAttribute("pagenow", pagenow);
 		return "forward:/companySys/goodsPrices.jsp";
 	}
-	//修改年货商品页面
+	//修改年货商品、组合商品、买赠商品、秒杀商品页面
 	@RequestMapping("/companySys/doEditBkgoods")
 	public String doEditBkgoods(Model model,Bkgoods bkgoodsCon,Integer pagenow){
 		Bkgoods editBkgoods = bkgoodsMapper.selectByPrimaryKey(bkgoodsCon.getBkgoodsid());
@@ -246,11 +190,11 @@ public class Com_goodsCtl {
 			return "forward:/companySys/editModularGoods.jsp";
 		}
 	}
-	//修改年货商品
+	//修改年货商品、组合商品、买赠商品、秒杀商品
 	@RequestMapping("/companySys/editBkgoods")
 	@ResponseBody
-	public String editBkgoods(HttpServletRequest request,Bkgoods editBkgoods){
-		LoginInfo info = (LoginInfo) request.getSession().getAttribute("loginInfo");	//登录信息
+	public String editBkgoods(HttpSession session,Bkgoods editBkgoods){
+		LoginInfo info = (LoginInfo) session.getAttribute("loginInfo");	//登录信息
 		if(editBkgoods.getBkgoodsseq() == null){
 			editBkgoods.setBkgoodsseq(0);
 		}
@@ -266,82 +210,8 @@ public class Com_goodsCtl {
 			return "no";
 		}
 	}
-	//修改秒杀商品页面
-	@RequestMapping("/companySys/doEditTimeGoods")
-	public String doEditTimeGoods(Model model,Timegoods timegoodsCon,Integer pagenow){
-		Timegoods editTimeGoods = timegoodsMapper.selectByPrimaryKey(timegoodsCon.getTimegoodsid());
-		model.addAttribute("timegoodsCon", timegoodsCon);
-		model.addAttribute("editTimeGoods", editTimeGoods);
-		model.addAttribute("pagenow", pagenow);
-		return "forward:/companySys/editTimeGoods.jsp";
-	}
-	//修改秒杀商品
-	@RequestMapping("/companySys/editTimeGoods")
-	@ResponseBody
-	public String editTimeGoods(Timegoods editTimeGoods){
-		if(editTimeGoods.getTimegoodsseq() == null){
-			editTimeGoods.setTimegoodsseq(0);
-		}
-		if(editTimeGoods.getTimegoodsweight()==null || editTimeGoods.getTimegoodsweight().equals("")){
-			editTimeGoods.setTimegoodsweight("0");
-		}
-		int upd = timegoodsMapper.updateByPrimaryKeySelective(editTimeGoods);
-		if(upd > 0){
-			return "ok";
-		} else {
-			return "no";
-		}
-	}
-	//删除秒杀商品
-	@RequestMapping("/companySys/removeTimeGoods")
-	@ResponseBody
-	public String removeTimeGoods(String timegoodsid){
-		int del = timegoodsMapper.deleteByPrimaryKey(timegoodsid);
-		if(del > 0){
-			return "ok";
-		} else {
-			return "no";
-		}
-	}
-	//修改 买赠 商品页面
-	@RequestMapping("/companySys/doEditGiveGoods")
-	public String doEditGiveGoods(Model model,Givegoods givegoodsCon,Integer pagenow){
-		Givegoods editGiveGoods = givegoodsMapper.selectByPrimaryKey(givegoodsCon.getGivegoodsid());
-		model.addAttribute("editGiveGoods", editGiveGoods);
-		model.addAttribute("givegoodsCon", givegoodsCon);
-		model.addAttribute("pagenow", pagenow);
-		return "forward:/companySys/editGiveGoods.jsp";
-	}
-	//修改买赠商品
-	@RequestMapping("/companySys/editGiveGoods")
-	@ResponseBody
-	public String editGiveGoods(Givegoods editGiveGoods){
-		if(editGiveGoods.getGivegoodsseq() == null){
-			editGiveGoods.setGivegoodsseq(0);
-		}
-		if(editGiveGoods.getGivegoodsweight()==null || editGiveGoods.getGivegoodsweight().equals("")){
-			editGiveGoods.setGivegoodsweight("0");
-		}
-		int upd = givegoodsMapper.updateByPrimaryKeySelective(editGiveGoods);
-		if(upd > 0){
-			return "ok";
-		} else {
-			return "no";
-		}
-	}
-	//删除买赠商品
-	@RequestMapping("/companySys/removeGiveGoods")
-	@ResponseBody
-	public String removeGiveGoods(String givegoodsid){
-		int del = givegoodsMapper.deleteByPrimaryKey(givegoodsid);
-		if(del > 0){
-			return "ok";
-		} else {
-			return "no";
-		}
-	}
 	
-	//删除年货或组合商品
+	//删除年货商品、组合商品、买赠商品、秒杀商品
 	@RequestMapping("/companySys/removeBkgoods")
 	@ResponseBody
 	public String removeBkgoods(String bkgoodsid){
@@ -355,8 +225,9 @@ public class Com_goodsCtl {
 	//设置商品价格
 	@RequestMapping("/companySys/addGoodsPrices")
 	@ResponseBody
-	public Map<String, Object> addGoodsPrices(Goods editPriGoods,Prices prices,String strpricesprice,String strpricesprice2){
+	public Map<String, Object> addGoodsPrices(HttpSession session,Goods editPriGoods,Prices prices,String strpricesprice,String strpricesprice2){
 		Map<String, Object> map = new HashMap<String, Object>();
+		LoginInfo lInfo = (LoginInfo) session.getAttribute("loginInfo");		//登录信息
 		Goods updateGoods = goodsMapper.selectByPrimaryKey(editPriGoods.getGoodsid());
 		String[] priceStrs = strpricesprice.split(",");
 		String[] price2Strs = strpricesprice2.split(",");
@@ -385,6 +256,7 @@ public class Com_goodsCtl {
 				}
 				prices.setPriceslevel(3-(i%3));						//等级
 				prices.setCreatetime(DateUtils.getDateTime());		//创建时间
+				prices.setCreator(lInfo.getUsername());						//创建人
 				prices.setPricesid(CommonUtil.getNewId());			//价格id
 				pricesMapper.insertSelective(prices);				//添加到数据库
 		}
@@ -412,6 +284,7 @@ public class Com_goodsCtl {
 								}
 								prices.setPriceslevel(3-(i%3));						//等级
 								prices.setUpdtime(DateUtils.getDateTime());		//修改时间
+								prices.setUpdor(lInfo.getUsername());						//修改人
 								prices.setPricesid(pricesIds[k]);					//价格id
 								pricesMapper.updateByPrimaryKeySelective(prices);	//修改
 							}
@@ -437,6 +310,7 @@ public class Com_goodsCtl {
 							}
 							prices.setPriceslevel(3-(i%3));						//等级
 							prices.setUpdtime(DateUtils.getDateTime());		//修改时间
+							prices.setUpdor(lInfo.getUsername());						//修改人
 							prices.setPricesid(pricesIds[k]);					//价格id
 							pricesMapper.updateByPrimaryKeySelective(prices);	//修改
 						}
@@ -444,20 +318,23 @@ public class Com_goodsCtl {
 				}
 			}
 		}
-		updateGoods.setUpdtime(DateUtils.getDateTime());
+		updateGoods.setUpdtime(DateUtils.getDateTime());	//修改时间
+		updateGoods.setUpdor(lInfo.getUsername());		//修改人
 		goodsMapper.updateByPrimaryKeySelective(updateGoods);
 		return map;
 	}
 	//修改商品状态
 	@RequestMapping("/companySys/putaway")
 	@ResponseBody
-	public Map<String, Object> putaway(Goods goodsCon){
+	public Map<String, Object> putaway(HttpSession session,Goods goodsCon){
 		Map<String, Object> map = new HashMap<String, Object>();
+		LoginInfo lInfo = (LoginInfo) session.getAttribute("loginInfo");		//登录信息
 		String editResult;										//要返回的提示信息
 		Goods putawayGoods = goodsMapper.selectByPrimaryKey(goodsCon.getGoodsid());
 		List<Prices> pricesList = putawayGoods.getPricesList();
 		if(pricesList.size() == 9){								//判断是否设置了9个价格
-			goodsCon.setUpdtime(DateUtils.getDateTime());		//设置修改时间
+			goodsCon.setUpdtime(DateUtils.getDateTime());		//修改时间
+			goodsCon.setUpdor(lInfo.getUsername());			//修改人
 			goodsMapper.updateByPrimaryKeySelective(goodsCon);
 			editResult = "修改成功！";
 		} else {
@@ -494,8 +371,9 @@ public class Com_goodsCtl {
 	//添加商品
 	@RequestMapping("/companySys/addGoods")
 	@ResponseBody
-	public Map<String, Object> addGoods(Goods goodsCon){
+	public Map<String, Object> addGoods(HttpSession session,Goods goodsCon){
 		Map<String, Object> map = new HashMap<String, Object>();
+		LoginInfo lInfo = (LoginInfo) session.getAttribute("loginInfo");
 		Goods reGoods = goodsMapper.selectByGoodsCode(goodsCon.getGoodscode(), goodsCon.getGoodscompany(),goodsCon.getGoodsunits());
 		if(null==reGoods || reGoods.getGoodsid().equals(goodsCon.getGoodsid())){
 			if(goodsCon.getGoodsorder() == null){
@@ -505,7 +383,8 @@ public class Com_goodsCtl {
 				goodsCon.setGoodsweight("0");
 			}
 			goodsCon.setGoodsstatue("下架");
-			goodsCon.setCreatetime(DateUtils.getDateTime());
+			goodsCon.setCreatetime(DateUtils.getDateTime());		//创建时间
+			goodsCon.setCreator(lInfo.getUsername());			//创建人
 			goodsCon.setGoodsid(CommonUtil.getNewId());
 			int insNum = goodsMapper.insertSelective(goodsCon);
 			if(insNum ==1){
@@ -531,7 +410,8 @@ public class Com_goodsCtl {
 	//修改商品
 	@RequestMapping("/companySys/editGoods")
 	@ResponseBody
-	public String editGoods(Goods editGoods){
+	public String editGoods(HttpSession session,Goods editGoods){
+		LoginInfo lInfo = (LoginInfo) session.getAttribute("loginInfo");
 		Goods reGoods = goodsMapper.selectByGoodsCode(editGoods.getGoodscode(), editGoods.getGoodscompany(),editGoods.getGoodsunits());
 		if(null==reGoods || reGoods.getGoodsid().equals(editGoods.getGoodsid())){
 			if(editGoods.getGoodsorder() == null){
@@ -540,6 +420,8 @@ public class Com_goodsCtl {
 			if(editGoods.getGoodsweight() == null || editGoods.getGoodsweight().equals("")){
 				editGoods.setGoodsweight("0");
 			}
+			editGoods.setUpdtime(DateUtils.getDateTime());		//修改时间
+			editGoods.setUpdor(lInfo.getUsername());			//修改人
 			int upd = goodsMapper.updateByPrimaryKeySelective(editGoods);
 			if(upd > 0){
 				return "ok";
@@ -582,7 +464,7 @@ public class Com_goodsCtl {
 		List<Goodsclass> list = goodsclassMapper.selectAllGoodsclass(companyid);
 		return list;
 	}
-	//添加年货或组合商品
+	//添加年货商品、组合商品、买赠商品、秒杀商品
 	@RequestMapping(value="/companySys/addBkgoods",produces = "application/json")
 	@ResponseBody
 	public Map<String, Object> addBkgoods(HttpServletRequest request,Bkgoods bkgoods){
@@ -601,51 +483,6 @@ public class Com_goodsCtl {
 			bkgoods.setBkgoodssurplus(bkgoods.getBkgoodsallnum());
 			bkgoods.setBkgoodsstatue("启用");
 			bkgoodsMapper.insertSelective(bkgoods);
-			map.put("message", "success");
-		} else {
-			map.put("message", "fail2");		//商品编号和规格重复，添加失败。
-		}
-		return map;
-	}
-	//添加秒杀商品
-	@RequestMapping(value="/companySys/addTimeGoods",produces = "application/json")
-	@ResponseBody
-	public Map<String, Object> addTimeGoods(Timegoods timegoods){
-		Map<String, Object> map = new HashMap<String, Object>();
-		if(timegoodsMapper.selectComRepeatGoods(timegoods.getTimegoodscompany(), timegoods.getTimegoodscode(), timegoods.getTimegoodsunits())==0){
-			if(timegoods.getTimegoodsseq() == null){
-				timegoods.setTimegoodsseq(0);
-			}
-			if(timegoods.getTimegoodsweight()==null || timegoods.getTimegoodsweight().equals("")){
-				timegoods.setTimegoodsweight("0");
-			}
-			timegoods.setTimegoodsid(CommonUtil.getNewId());
-			timegoods.setCreatetime(DateUtils.getDateTime());
-			timegoods.setSurplusnum(timegoods.getAllnum());
-			timegoods.setTimegoodsstatue("启用");
-			timegoodsMapper.insertSelective(timegoods);
-			map.put("message", "success");
-		} else {
-			map.put("message", "fail2");		//商品编号和规格重复，添加失败。
-		}
-		return map;
-	}
-	//添加买赠商品
-	@RequestMapping(value="/companySys/addGiveGoods",produces = "application/json")
-	@ResponseBody
-	public Map<String, Object> addGiveGoods(Givegoods givegoods){
-		Map<String, Object> map = new HashMap<String, Object>();
-		if(givegoodsMapper.selectComRepeatGoods(givegoods.getGivegoodscompany(), givegoods.getGivegoodscode(), givegoods.getGivegoodsunits())==0){
-			if(givegoods.getGivegoodsseq() == null){
-				givegoods.setGivegoodsseq(0);
-			}
-			if(givegoods.getGivegoodsweight()==null || givegoods.getGivegoodsweight().equals("")){
-				givegoods.setGivegoodsweight("0");
-			}
-			givegoods.setGivegoodsid(CommonUtil.getNewId());
-			givegoods.setCreatetime(DateUtils.getDateTime());
-			givegoods.setGivegoodsstatue("启用");
-			givegoodsMapper.insertSelective(givegoods);
 			map.put("message", "success");
 		} else {
 			map.put("message", "fail2");		//商品编号和规格重复，添加失败。
@@ -699,20 +536,24 @@ public class Com_goodsCtl {
 	//添加录单客户商品价格
 	@RequestMapping(value="/companySys/saveNewLargeCusGP")
 	@ResponseBody
-	public Integer saveNewLargeCusGP(Largecusprice newLargecusprice){
+	public Integer saveNewLargeCusGP(HttpSession session,Largecusprice newLargecusprice){
 		Integer num = largecuspriceMapper.selectCusBargainByGoodsId(newLargecusprice);
 		if(num>0){
 			return 0;
 		}
+		LoginInfo info = (LoginInfo) session.getAttribute("loginInfo");	//登录信息
 		newLargecusprice.setLargecuspriceid(CommonUtil.getNewId());
-		newLargecusprice.setLargecuspricecreatetime(DateUtils.getDateTime());
+		newLargecusprice.setLargecuspricecreatetime(DateUtils.getDateTime());	//创建时间
+		newLargecusprice.setLargecuspricecreator(info.getUsername());		//创建人
 		return largecuspriceMapper.insertSelective(newLargecusprice);
 	}
 	//修改录单客户商品价格
 	@RequestMapping(value="/companySys/editLargeGoodsPrice")
 	@ResponseBody
-	public Integer editLargeGoodsPrice(Largecusprice largecusprice){
-		largecusprice.setLargecuspricecreator(DateUtils.getDateTime());
+	public Integer editLargeGoodsPrice(HttpSession session,Largecusprice largecusprice){
+		LoginInfo info = (LoginInfo) session.getAttribute("loginInfo");	//登录信息
+		largecusprice.setLargecusupdtime(DateUtils.getDateTime());	//修改时间
+		largecusprice.setLargecusupdor(info.getUsername());			//修改人
 		return largecuspriceMapper.updateByPrimaryKeySelective(largecusprice);
 	}
 	//删除录单客户商品
@@ -732,13 +573,8 @@ public class Com_goodsCtl {
 		String datatime = DateUtils.getDateTime();
 		cus.setCustomerid(newId);
 		cus.setOpenid(newId);
-		cus.setCreatetime(datatime);
+		cus.setCreatetime(datatime);	//创建时间
 		cus.setCustomerstatue("启用");
-		/*if(cus.getCustomercity() == null || cus.getCustomercity().equals("")){		//如果是
-			cus.setCustomercity("嘉兴市");
-			cus.setCustomerxian("海盐县");
-			cus.setCustomertype("3");
-		}*/
 		if(cus.getCustomerlevel()>3|| cus.getCustomerlevel()<1){
 			cus.setCustomerlevel(3);
 		}

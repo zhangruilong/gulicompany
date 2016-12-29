@@ -14,10 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.server.dao.mapper.CompanyMapper;
+import com.server.dao.mapper.EmpMapper;
 import com.server.dao.mapper.OrderdMapper;
 import com.server.dao.mapper.OrdermMapper;
 import com.server.dao.mapper.System_tempruleMapper;
 import com.server.pojo.entity.Company;
+import com.server.pojo.entity.Emp;
+import com.server.pojo.entity.LoginInfo;
 import com.server.pojo.entity.Orderd;
 import com.server.pojo.entity.Orderm;
 import com.server.pojo.entity.PrintInfo;
@@ -38,13 +41,24 @@ public class Com_sysManaCtl {
 	private OrderdMapper orderdMapper;
 	@Autowired
 	private System_tempruleMapper sys_tempruleMapper;
+	@Autowired
+	private EmpMapper empMapper;
+	
 	//修改供应商信息
 	@RequestMapping("/companySys/editCompInfo")
 	@ResponseBody
 	public HashMap<String, Object> editCompInfo(HttpSession session,Company company){
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		int result = companyMapper.updateByPrimaryKeySelective(company);
+		LoginInfo lif = (LoginInfo) session.getAttribute("loginInfo");
+		int result = 0;
+		if(lif.getPower().equals("company")){
+			result = companyMapper.updateByPrimaryKeySelective(company);
+		}
 		if(result>0){
+			lif.setComusername(company.getUsername());
+			lif.setCompanyshop(company.getCompanyshop());
+			lif.setCompanyphone(company.getCompanyphone());
+			session.setAttribute("loginInfo", lif);
 			resultMap.put("msg", "修改成功!");
 		} else {
 			resultMap.put("msg", "操作失败!");
@@ -55,16 +69,24 @@ public class Com_sysManaCtl {
 	@RequestMapping("/companySys/editPwd")
 	public String editPwd(HttpSession session,Model model,String loginname,String password,String newpassword){
 		Company company = null;
+		List<Emp> empli = null;
 		if(password != null && password != ""){
 			company = companyMapper.selectLogin(loginname,password);
+			empli = empMapper.selectEmpLogin(loginname, password);
 		}
-		if(company == null){
-			model.addAttribute("message", "密码不正确");
-		} else {
+		if(null != company){
 			company.setPassword(newpassword);
 			companyMapper.updateByPrimaryKeySelective(company);
 			session.invalidate();
 			model.addAttribute("message", "密码已修改");
+		} else if(null != empli && empli.size()>0){
+			Emp emp = empli.get(0);
+			emp.setPassword(newpassword);
+			empMapper.updateByPrimaryKeySelective(emp);
+			session.invalidate();
+			model.addAttribute("message", "密码已修改");
+		} else {
+			model.addAttribute("message", "您输入的密码不正确，请重新输入。");
 		}
 		return "forward:/companySys/editPas.jsp";
 	}

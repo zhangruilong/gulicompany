@@ -14,42 +14,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="css/formsty.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
-<script type="text/javascript">
-	function checkAccount(){
-		var companyshop = $("[name='companyshop']").val();
-		var username = $("[name='username']").val();
-		var companyphone = $("[name='companyphone']").val();
-		if(companyshop == null ||　companyshop == ''){
-			alert("账户名称不能为空");
-			return;
-		}
-		if(username == null ||　username == ''){
-			alert("联系人不能为空");
-			return;
-		}
-		if(companyphone == null ||　companyphone == ''){
-			alert("联系电话不能为空");
-			return;
-		}
-		$.ajax({
-			url:"editCompInfo.action",
-			type:"post",
-			data:{
-				companyshop : companyshop,
-				username : username,
-				companyphone : companyphone,
-				companyid : $("[name='companyid']").val()
-			},
-			success : function(data){
-				alert(data.msg);
-			},
-			error : function(data){
-				alert('操作失败!');
-			}
-		});
-	}
-	
-</script>
 </head>
 <body>
 	<div class="elegant-aero">
@@ -61,14 +25,56 @@
 				value="${sessionScope.loginInfo.companyshop }" />
 			</label> <label> <span>联系人 :</span> <input id="username" type="text"
 				name="username" placeholder="联系人"
-				value="${sessionScope.loginInfo.username }" />
+				value="${sessionScope.loginInfo.comusername }" />
 			</label> <label> <span>联系电话 :</span> <input id="companyphone" type="text"
 				name="companyphone" placeholder="联系电话"
 				value="${sessionScope.loginInfo.companyphone }" />
-			</label> <label> <span>&nbsp;</span> <input type="button"
+			</label> <label> <span>&nbsp;</span> <input type="button" id="save-btn"
 				class="button" value="保存" onclick="checkAccount()"/>
 			</label>
 		</form>
 	</div>
+<script type="text/javascript">
+var power = '${sessionScope.loginInfo.power}';
+$(function(){
+	if(power=='emp'){
+		$('#save-btn').hide();
+	}
+});
+//保存修改
+function checkAccount(){
+	var companyshop = $("[name='companyshop']").val();
+	var username = $("[name='username']").val();
+	var companyphone = $("[name='companyphone']").val();
+	if(companyshop == null ||　companyshop == ''){
+		alert("账户名称不能为空");
+		return;
+	}
+	if(username == null ||　username == ''){
+		alert("联系人不能为空");
+		return;
+	}
+	if(companyphone == null ||　companyphone == ''){
+		alert("联系电话不能为空");
+		return;
+	}
+	$.ajax({
+		url:"editCompInfo.action",
+		type:"post",
+		data:{
+			companyshop : companyshop,
+			username : username,
+			companyphone : companyphone,
+			companyid : $("[name='companyid']").val()
+		},
+		success : function(data){
+			alert(data.msg);
+		},
+		error : function(data){
+			alert('操作失败!');
+		}
+	});
+}
+</script>
 </body>
 </html>

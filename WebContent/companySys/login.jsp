@@ -20,7 +20,7 @@
 if (top != window) top.location.href = window.location.href;
 $(function(){
 	var msg = '${requestScope.msg}';
-	if(msg=='密码或账号不正确。'){
+	if(msg!='' && msg!='success'){
 		alert(msg);
 	}
 });

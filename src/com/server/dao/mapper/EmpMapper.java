@@ -10,7 +10,7 @@ public interface EmpMapper {
 	/**
 	 * 业务员登录
 	 */
-	Emp selectEmpLogin(@Param("loginname") String loginname,@Param("password") String password);
+	List<Emp> selectEmpLogin(@Param("loginname") String loginname,@Param("password") String password);
 	/**
 	 * 查询全部业务员
 	 */
