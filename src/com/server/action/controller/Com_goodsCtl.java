@@ -155,9 +155,9 @@ public class Com_goodsCtl {
 		model.addAttribute("count", count);
 		if(bkgoodsCon.getBkgoodstype().equals("年货")){
 			return "forward:/companySys/carnivalgoodsMana.jsp";
-		} else if(bkgoodsCon.getBkgoodstype().equals("秒杀商品")){
+		} else if(bkgoodsCon.getBkgoodstype().equals("秒杀")){
 			return "forward:/companySys/TimegoodsMana.jsp";
-		} else if(bkgoodsCon.getBkgoodstype().equals("买赠商品")){
+		} else if(bkgoodsCon.getBkgoodstype().equals("买赠")){
 			return "forward:/companySys/GivegoodsMana.jsp";
 		} else {		//组合商品
 			return "forward:/companySys/modularGoodsMana.jsp";
@@ -182,9 +182,9 @@ public class Com_goodsCtl {
 		model.addAttribute("pagenow", pagenow);
 		if(bkgoodsCon.getBkgoodstype().equals("年货")){
 			return "forward:/companySys/editCarnivalGoods.jsp";
-		} else if(bkgoodsCon.getBkgoodstype().equals("秒杀商品")){
+		} else if(bkgoodsCon.getBkgoodstype().equals("秒杀")){
 			return "forward:/companySys/editTimeGoods.jsp";
-		} else if(bkgoodsCon.getBkgoodstype().equals("买赠商品")){
+		} else if(bkgoodsCon.getBkgoodstype().equals("买赠")){
 			return "forward:/companySys/editGiveGoods.jsp";
 		} else {		//组合商品
 			return "forward:/companySys/editModularGoods.jsp";

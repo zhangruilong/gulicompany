@@ -172,8 +172,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				name="bkgoodsunit" placeholder="单位" /><font>(必填)</font></label>
 			<label><span>品牌 :</span><input id="bkgoodsbrand" type="text"
 				name="bkgoodsbrand" placeholder="品牌" /></label>
-			<label><span>售价 :</span><input id="bkgoodsprice" type="number"
-				name="bkgoodsprice" placeholder="售价" /><font>(必填)</font></label>
+			<label><span>售价 :</span><input id="bkgoodsorgprice" type="number"
+				name="bkgoodsorgprice" placeholder="售价" /><font>(必填)</font></label>
 			<label><span>重量 :</span><input id="bkgoodsweight" type="number"
 				name="bkgoodsweight" placeholder="重量" /></label>
 			<label><span>个人限量 :</span><input id="bkgoodsnum" type="number"

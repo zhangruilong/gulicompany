@@ -48,8 +48,8 @@
 				name="bkgoodsclass" value="${requestScope.editBkgoods.bkgoodsclass }" placeholder="小类名称" /></label> -->
 			<label><span>单位 :</span><input id="bkgoodsunit" type="text"
 				name="bkgoodsunit" value="${requestScope.editBkgoods.bkgoodsunit }" placeholder="单位" /><font>(必填)</font></label>
-			<label><span>售价 :</span><input id="bkgoodsprice" type="number"
-				name="bkgoodsprice" value="${requestScope.editBkgoods.bkgoodsprice }" placeholder="售价" /><font>(必填)</font></label>
+			<label><span>售价 :</span><input id="bkgoodsorgprice" type="number"
+				name="bkgoodsorgprice" value="${requestScope.editBkgoods.bkgoodsorgprice }" placeholder="售价" /><font>(必填)</font></label>
 			<label><span>重量 :</span><input id="bkgoodsweight" type="number"
 				name="bkgoodsweight" value="${requestScope.editBkgoods.bkgoodsweight }" placeholder="重量" /></label>
 			<label><span>品牌 :</span><input id="bkgoodsbrand" type="text"

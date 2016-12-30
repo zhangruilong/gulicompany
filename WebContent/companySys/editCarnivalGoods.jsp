@@ -32,7 +32,7 @@
 	<div class="elegant-aero">
 		<form action="" method="post" class="STYLE-NAME">
 		<input type="hidden" name="bkgoodscompany" value="${requestScope.editBkgoods.bkgoodscompany }">
-			<h1>秒杀商品信息</h1>
+			<h1>年货商品信息</h1>
 			<p><span>客户范围 :</span>&nbsp;&nbsp;&nbsp;
 			<input type="checkbox" name="bkgoodsscope" value="3" ${fn:contains(requestScope.editBkgoods.bkgoodsscope,'3')?'checked':'' }/>
 			餐饮客户&nbsp;&nbsp;&nbsp;
