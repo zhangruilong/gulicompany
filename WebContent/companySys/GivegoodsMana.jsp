@@ -93,7 +93,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td>${bkgoods.bkgoodsunits}</td>
 			<td>${bkgoods.bkgoodsclass}</td>
 			<td>${bkgoods.bkgoodsbrand}</td>
-			<td>${bkgoods.bkgoodsprice}</td>
+			<td>${bkgoods.bkgoodsorgprice}</td>
 			<td>${bkgoods.bkgoodsweight}</td>
 			<td>${bkgoods.bkgoodsdetail}</td>
 			<td>${bkgoods.bkgoodsstatue}</td>
