@@ -93,13 +93,13 @@ $(function(){
 					columnNum = item.startcol;									//当前列
 					if(typeof(item.fieldname)!='undefined' && item.fieldname){
 						text = typeNullFoString(printinfo[item.fieldname]);						//一般的
-					} else if(item.headname=='打印日期'){
+					} else if(item.headcode=='printdate'){
 						text = today;											//打印日期
-					} else if(item.headname=='优惠金额'){
+					} else if(item.headcode=='discount'){
 						text = totalMon-totalRMon;											//优惠金额
-					} else if(item.headname=='大写合计'){
+					} else if(item.headcode=='totalda'){
 						text = chineseNumber(totalRMon);											//优惠金额
-					} else if(item.headname=='重量合计'){
+					} else if(item.headcode=='totalweight'){
 						text = totalWeight;
 					}
 					if(item.sheetno == '1'){												//供应商信息
@@ -157,7 +157,7 @@ $(function(){
 						$('#goods-tab tr:last').append('<td style="'+curSty+'">'+goodsInfo+'</td>');
 					});
 				});
-				//如果需要空白行,且行数小于7就添加空白行
+				//如果需要空白行,且行数小于blankNum就添加空白行
 				if(blankNum != 0 && orderdList.length<blankNum){
 					var tdList = $('#goods-tab tr:first td');		//td的集合
 					for (var i = 0; i < blankNum-orderdList.length; i++) {

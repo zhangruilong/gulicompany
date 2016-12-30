@@ -44,7 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 <form id="main_form" action="allCarnivalGoods.action" method="post">
 <input type="hidden" name="bkgoodscompany" value="${requestScope.bkgoodsCon.bkgoodscompany }">
-<input type="hidden" name="bkgoodstype" value="买赠商品">
+<input type="hidden" name="bkgoodstype" value="买赠">
 <input type="hidden" name="bkgoodsid" value="">
 <div class="nowposition">当前位置：商品管理》买赠商品</div>
 <div class="navigation">
@@ -322,7 +322,7 @@ function seleScant(bkgoodscode,bkgoodsname,bkgoodsunits,bkgoodsbrand,bkgoodsimag
 //提交添加商品的表单
 function popup_formSub(){
 	var data = '{';
-		data += '"bkgoodsclass":"买赠商品","bkgoodstype":"买赠商品",';
+		data += '"bkgoodsclass":"买赠商品","bkgoodstype":"买赠",';
 	if($(".elegant-aero textarea").val() == null || $(".elegant-aero textarea").val() == ""){
 		alert("买赠描述不能为空!");
 		return;

@@ -45,7 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 <form id="main_form" action="allCarnivalGoods.action" method="post">
 <input type="hidden" name="bkgoodscompany" value="${sessionScope.loginInfo.companyid }">
-<input type="hidden" name="bkgoodstype" value="组合商品">
+<input type="hidden" name="bkgoodstype" value="组合">
 <input type="hidden" name="bkgoodsid" value="">
 <div class="nowposition">当前位置：商品管理》组合商品</div>
 <div class="navigation">
@@ -330,7 +330,7 @@ function seleScant(bkgoodscode,bkgoodsname,bkgoodsunits,bkgoodsbrand,bkgoodsimag
 //提交添加组合商品的表单
 function popup_formSub(){
 	var data = '{';
-	data += '"bkgoodstype":"组合商品","bkgoodscompany":"'+companyid+'",';
+	data += '"bkgoodstype":"组合","bkgoodscompany":"'+companyid+'",';
 	var count = 0;
 	if($(".elegant-aero textarea").val()){
 		data += '"'+$(".elegant-aero textarea").attr("name") + '":"' + $(".elegant-aero textarea").val() + '",';
