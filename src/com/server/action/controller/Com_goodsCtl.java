@@ -195,11 +195,20 @@ public class Com_goodsCtl {
 	@ResponseBody
 	public String editBkgoods(HttpSession session,Bkgoods editBkgoods){
 		LoginInfo info = (LoginInfo) session.getAttribute("loginInfo");	//登录信息
-		if(editBkgoods.getBkgoodsseq() == null){
+		if(null == editBkgoods.getBkgoodsseq()){
 			editBkgoods.setBkgoodsseq(0);
 		}
-		if(editBkgoods.getBkgoodsweight()==null || editBkgoods.getBkgoodsweight().equals("")){
+		if(null==editBkgoods.getBkgoodsweight() || editBkgoods.getBkgoodsweight().equals("")){
 			editBkgoods.setBkgoodsweight("0");
+		}
+		if(null==editBkgoods.getBkgoodsnum() || editBkgoods.getBkgoodsnum().equals("")){
+			editBkgoods.setBkgoodsnum(-1);
+		}
+		if(null==editBkgoods.getBkgoodsallnum() || editBkgoods.getBkgoodsallnum().equals("")){
+			editBkgoods.setBkgoodsallnum(-1);
+		}
+		if(null==editBkgoods.getBkgoodsprice()){
+			editBkgoods.setBkgoodsprice(new Float(0.0));
 		}
 		editBkgoods.setBkgoodsupdtime(DateUtils.getDateTime());		//修改时间
 		editBkgoods.setBkgoodsupdor(info.getUsername());			//修改人
@@ -470,17 +479,20 @@ public class Com_goodsCtl {
 	public Map<String, Object> addBkgoods(HttpServletRequest request,Bkgoods bkgoods){
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(bkgoodsMapper.selectComRepeatGoods(bkgoods.getBkgoodscompany(), bkgoods.getBkgoodscode(), bkgoods.getBkgoodsunits(), bkgoods.getBkgoodstype())==0){
-			if(bkgoods.getBkgoodsseq() == null){
+			if(null == bkgoods.getBkgoodsseq()){
 				bkgoods.setBkgoodsseq(0);
 			}
-			if(bkgoods.getBkgoodsweight()==null || bkgoods.getBkgoodsweight().equals("")){
+			if(null==bkgoods.getBkgoodsweight() || bkgoods.getBkgoodsweight().equals("")){
 				bkgoods.setBkgoodsweight("0");
 			}
-			if(bkgoods.getBkgoodsnum()==null || bkgoods.getBkgoodsnum().equals("")){
+			if(null==bkgoods.getBkgoodsnum() || bkgoods.getBkgoodsnum().equals("")){
 				bkgoods.setBkgoodsnum(-1);
 			}
-			if(bkgoods.getBkgoodsallnum()==null || bkgoods.getBkgoodsallnum().equals("")){
+			if(null==bkgoods.getBkgoodsallnum() || bkgoods.getBkgoodsallnum().equals("")){
 				bkgoods.setBkgoodsallnum(-1);
+			}
+			if(null==bkgoods.getBkgoodsprice()){
+				bkgoods.setBkgoodsprice(new Float(0.0));
 			}
 			LoginInfo info = (LoginInfo) request.getSession().getAttribute("loginInfo");	//登录信息
 			bkgoods.setBkcreator(info.getUsername());			//创建人
