@@ -13,28 +13,33 @@ public interface CustomerMapper {
 	 * 查询一段时间内有订单的客户名称
 	 */
 	List<String> selectTimeCusNames(@Param("staTime") String staTime,@Param("endTime") String endTime,
-			@Param("companyid") String companyid,@Param("queryShop") String queryShop);
+			@Param("companyid") String companyid,@Param("queryShop") String queryShop,
+			@Param("power") String power);
 	/**
 	 * 客户订单统计报表
 	 */
 	List<CustomerStatisticVO> selectCusStatisticReport(@Param("companyid") String companyid,@Param("staCusQuery") String staCusQuery,
-			@Param("staTime") String staTime,@Param("endTime") String endTime);
+			@Param("staTime") String staTime,@Param("endTime") String endTime,
+			@Param("power") String power);
 	/**
 	 * 统计客户下单数量和实际金额的总和
 	 */
 	CustomerStatisticVO selectStatisticSum(@Param("companyid") String companyid,@Param("staCusQuery") String staCusQuery,
-			@Param("staTime") String staTime,@Param("endTime") String endTime);
+			@Param("staTime") String staTime,@Param("endTime") String endTime,
+			@Param("power") String power);
 	/**
 	 * 客户统计(数量)
 	 */
 	Integer selectCusStatisticCount(@Param("companyid") String companyid,@Param("staCusQuery") String staCusQuery,
-			@Param("staTime") String staTime,@Param("endTime") String endTime);
+			@Param("staTime") String staTime,@Param("endTime") String endTime,
+			@Param("power") String power);
 	/**
 	 * 客户订单统计
 	 */
 	List<CustomerStatisticVO> selectCusStatistic(@Param("companyid") String companyid,@Param("staCusQuery") String staCusQuery,
 			@Param("nowpage") Integer nowpage,@Param("pagesize") Integer pagesize,
-			@Param("staTime") String staTime,@Param("endTime") String endTime);
+			@Param("staTime") String staTime,@Param("endTime") String endTime,
+			@Param("power") String power);
 	/**
 	 * 检查用户是否已经注册过了
 	 */

@@ -52,7 +52,7 @@
 			<label><span>单位 :</span><input id="bkgoodsunit" type="text"
 				name="bkgoodsunit" value="${requestScope.editBkgoods.bkgoodsunit }" placeholder="单位" /><font>(必填)</font></label>
 			<label><span>原价 :</span><input id="bkgoodsprice" type="number"
-				name="bkgoodsprice" value="${requestScope.editBkgoods.bkgoodsprice }" placeholder="原价" /><font>(必填)</font></label>
+				name="bkgoodsprice" value="${requestScope.editBkgoods.bkgoodsprice }" placeholder="原价" /></label>
 			<label><span>现价 :</span><input id="bkgoodsorgprice" type="number"
 				name="bkgoodsorgprice" value="${requestScope.editBkgoods.bkgoodsorgprice }" placeholder="现价" /><font>(必填)</font></label>
 			<label><span>重量 :</span><input id="bkgoodsweight" type="number"
@@ -91,7 +91,7 @@ function saveEdit(){
 	$(".elegant-aero [type='text']").add(".elegant-aero [type='number']").each(function(i,item){
 		if(($(item).val() == null || $(item).val() == '') && $(item).attr('placeholder') != '顺序' 
 				&& $(item).attr('placeholder') != '重量' && $(item).attr('placeholder') != '品牌'
-				&& $(item).attr('placeholder') != '图片路径'){
+				&& $(item).attr('placeholder') != '图片路径' && $(item).attr('placeholder') != '原价'){
 			alert($(item).attr('placeholder') + '不能为空!');
 			count++;
 			return false;

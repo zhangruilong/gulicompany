@@ -66,9 +66,10 @@ public class Com_orderCtl {
 	//查询一段时间内有订单的客户名称
 	@RequestMapping("/companySys/queryTimeCus")
 	@ResponseBody
-	public Map<String, Object> queryTimeCus(String staTime,String endTime,String companyid,String queryShop) {
+	public Map<String, Object> queryTimeCus(HttpSession session,String staTime,String endTime,String companyid,String queryShop) {
+		LoginInfo info = (LoginInfo) session.getAttribute("loginInfo");
 		Map<String, Object> map = new HashMap<String, Object>();
-		List<String> cusNames = customerMapper.selectTimeCusNames(staTime, endTime, companyid,queryShop);
+		List<String> cusNames = customerMapper.selectTimeCusNames(staTime, endTime, companyid,queryShop,info.getPower());
 		if(null != cusNames && cusNames.size()>0){
 			map.put("msg", "success");
 			map.put("cusNames", cusNames);
@@ -85,7 +86,8 @@ public class Com_orderCtl {
 	}
 	//全部订单
 	@RequestMapping("/companySys/allOrder")
-	public String allOrder(Model model,String staTime,String endTime,Orderm order,Integer pagenow){
+	public String allOrder(HttpSession session,Model model,String staTime,String endTime,Orderm order,Integer pagenow){
+		LoginInfo info = (LoginInfo) session.getAttribute("loginInfo");
 		if(staTime != null && !staTime.equals("") && staTime.length() <19){
 			staTime = staTime + " 00:00:00";
 		}
@@ -95,7 +97,7 @@ public class Com_orderCtl {
 		if(pagenow == null){
 			pagenow = 1;
 		}
-		Integer count = ordermMapper.selectByCompanyCount(staTime, endTime,order);	//总信息条数
+		Integer count = ordermMapper.selectByPageCount(staTime, endTime,order,info.getPower());	//总信息条数
 		Integer pageCount;		//总页数
 		if(count % 10 ==0){
 			pageCount = count / 10;
@@ -105,7 +107,7 @@ public class Com_orderCtl {
 		if(pagenow > pageCount){
 			pagenow = pageCount;
 		}
-		List<Ordermview> ordermList = ordermMapper.selectByPage(staTime, endTime,order,pagenow,10);
+		List<Ordermview> ordermList = ordermMapper.selectByPage(staTime, endTime,order,pagenow,10,info.getPower());
 		model.addAttribute("allOrder", ordermList);
 		model.addAttribute("order", order);
 		model.addAttribute("staTime", staTime);
@@ -243,8 +245,9 @@ public class Com_orderCtl {
 	}
 	//订单商品统计
 	@RequestMapping("/companySys/orderStatistics")
-	public String orderStatistics(Model model,String staTime,String endTime,String companyid,String queryShop,
+	public String orderStatistics(HttpSession session,Model model,String staTime,String endTime,String companyid,String queryShop,
 			String quBrand,String quEmp,String quCus, String condition,Integer pagenow){
+		LoginInfo info = (LoginInfo) session.getAttribute("loginInfo");
 		if(pagenow == null || pagenow==0){
 			pagenow = 1;
 		}
@@ -266,7 +269,8 @@ public class Com_orderCtl {
 		if(null != quCus && quCus.length()>0){
 			quCusNames = quCus.split(",");
 		}
-		Integer count = orderdMapper.selectByTimeCount(staTime, endTime, companyid,condition,quEmpNames,quBrandNames,quCusNames);	//总信息条数
+		Integer count = orderdMapper.selectByTimeCount(staTime, endTime, companyid,condition,quEmpNames,quBrandNames,
+				quCusNames,info.getPower());	//总信息条数
 		Integer pageCount;		//总页数
 		if(count % 10 ==0){
 			pageCount = count / 10;
@@ -276,8 +280,10 @@ public class Com_orderCtl {
 		if(pagenow > pageCount){
 			pagenow = pageCount;
 		}
-		List<OrderStatisticsVO> list = orderdMapper.selectByPage(staTime, endTime, companyid,condition,pagenow,10,quEmpNames,quBrandNames,quCusNames);					//查询数据
-		OrderdStatistics total = orderdMapper.selectOrderdStatistics(staTime, endTime, companyid,condition,quEmpNames,quBrandNames,quCusNames);	//数据统计
+		List<OrderStatisticsVO> list = orderdMapper.selectByPage(staTime, endTime, companyid,condition,pagenow,10,
+				quEmpNames,quBrandNames,quCusNames,info.getPower());					//查询数据
+		OrderdStatistics total = orderdMapper.selectOrderdStatistics(staTime, endTime, companyid,condition,quEmpNames,
+				quBrandNames,quCusNames,info.getPower());	//数据统计
 		model.addAttribute("total", total);
 		model.addAttribute("orderdList", list);
 		model.addAttribute("companyid", companyid);
@@ -296,8 +302,9 @@ public class Com_orderCtl {
 	//导出报表
 	@RequestMapping("/companySys/exportReport")
 	@ResponseBody
-	public void exportReport(HttpServletRequest request,HttpServletResponse response,String staTime,String endTime,String companyid,
+	public void exportReport(HttpSession session,HttpServletRequest request,HttpServletResponse response,String staTime,String endTime,String companyid,
 			String quBrand,String quEmp,String quCus, String condition) throws Exception{
+		LoginInfo info = (LoginInfo) session.getAttribute("loginInfo");
 		String[] quEmpNames = null;
 		String[] quBrandNames = null;
 		String[] quCusNames = null;
@@ -314,8 +321,10 @@ public class Com_orderCtl {
 			quCondit += "客户:"+quCus;
 			quCusNames = quCus.split(",");
 		}
-		ArrayList<Orderd> list = (ArrayList<Orderd>) orderdMapper.selectByTime(staTime+":00", endTime+":00", companyid,condition,quEmpNames,quBrandNames,quCusNames);
-		OrderdStatistics total = orderdMapper.selectOrderdStatistics(staTime+":00", endTime+":00", companyid,condition,quEmpNames,quBrandNames,quCusNames);	//数据统计
+		ArrayList<Orderd> list = (ArrayList<Orderd>) orderdMapper.selectByTime(staTime+":00", endTime+":00", companyid,condition,
+				quEmpNames,quBrandNames,quCusNames,info.getPower());
+		OrderdStatistics total = orderdMapper.selectOrderdStatistics(staTime+":00", endTime+":00", companyid,condition,quEmpNames,
+				quBrandNames,quCusNames,info.getPower());	//数据统计
 		//String[] heads = {"商品编码","商品名称","规格","单位","单价","数量","下单金额","实际金额","重量"};				//表头
 		String[] discard = {"orderdid","orderdorderm","orderddetail","orderdclass","orderdtype","orderm","orderdgoods","orderdnote"};			//要忽略的字段名
 		String name = "货品销售汇总表";							//文件名称
@@ -335,8 +344,9 @@ public class Com_orderCtl {
 	//导出订单报表
 	@RequestMapping("/companySys/exportOrderReport")
 	@ResponseBody
-	public void exportOrderReport(HttpServletResponse response,String staTime,String endTime,Orderm order) throws Exception{
-		ArrayList<Ordermview> ordermList = (ArrayList<Ordermview>)ordermMapper.selectByCompany(staTime, endTime,order);
+	public void exportOrderReport(HttpSession session,HttpServletResponse response,String staTime,String endTime,Orderm order) throws Exception{
+		LoginInfo info = (LoginInfo) session.getAttribute("loginInfo");
+		ArrayList<Ordermview> ordermList = (ArrayList<Ordermview>)ordermMapper.selectByCompany(staTime, endTime,order,info.getPower());
 		String[] heads = {"订单编号","种类数","下单金额","实际金额","支付方式","订单状态","下单时间","联系人","手机","地址","层级","客户名称","类型","修改时间"};				//表头
 		String[] discard = {"ordermid","ordermcustomer","ordermcompany","ordermdetail","updor","ordermemp","orderdList","orderdCustomer"};			//要忽略的字段名
 		String name = "订单统计报表";							//文件名称
@@ -362,7 +372,7 @@ public class Com_orderCtl {
 		String odCode = "G"+DateUtils.formatDate(new Date(), "yyyyMMddhhmmss");
 		Orderm odm = new Orderm();
 		odm.setOrdermcompany(orderm.getOrdermcompany());
-		String todayOd = (ordermMapper.selectByCompanyCount(date+" 00:00:00", date+"23:59:59",odm)+1)+"";	//今天的第几个订单;
+		String todayOd = (ordermMapper.selectByPageCount(date+" 00:00:00", date+"23:59:59",odm,"company")+1)+"";	//今天的第几个订单;
 		odCode += "0000".substring(0, 4-todayOd.length())+todayOd ;		//订单编码
 		//System.out.println(odCode);
 		orderm.setOrdermcode(odCode);			//设置订单编码

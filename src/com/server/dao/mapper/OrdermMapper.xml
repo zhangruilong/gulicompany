@@ -130,6 +130,14 @@
 	left join ccustomer cc on cc.ccustomercustomer = orderm.ordermcustomer and cc.ccustomercompany = orderm.ordermcompany
     where orderm.ordermcompany = #{orderm.ordermcompany,jdbcType=VARCHAR} 
     and orderm.ordermstatue != '已删除'
+    	<if test="power != 'company'">
+    		and (orderm.ordermtime like '2016-12-30%' or 
+    		orderm.ordermid like '%0' or
+    		orderm.ordermid like '%1' or
+    		orderm.ordermid like '%2' or
+    		orderm.ordermid like '%3' or
+    		orderm.ordermid like '%4')
+    	</if>
     	<if test="orderm.ordermway != null and orderm.ordermway != ''">
     		and ORDERMWAY = #{orderm.ordermway,jdbcType=VARCHAR} 
     	</if>
@@ -159,7 +167,7 @@
 where RN &gt; ((#{nowpage}-1)*#{pagesize})
   </select>
   <!-- 根据供应商(和条件)查询订单(数量) -->
-  <select id="selectByCompanyCount" resultType="int">
+  <select id="selectByPageCount" resultType="int">
     select 
     count(*) 
     from orderm
@@ -168,6 +176,14 @@ where RN &gt; ((#{nowpage}-1)*#{pagesize})
 	left join ccustomer cc on cc.ccustomercustomer = orderm.ordermcustomer and cc.ccustomercompany = orderm.ordermcompany
     where ordermcompany = #{orderm.ordermcompany,jdbcType=VARCHAR} 
     and orderm.ordermstatue != '已删除'
+    	<if test="power != 'company'">
+    		and (orderm.ordermtime like '2016-12-30%' or 
+    		orderm.ordermid like '%0' or
+    		orderm.ordermid like '%1' or
+    		orderm.ordermid like '%2' or
+    		orderm.ordermid like '%3' or
+    		orderm.ordermid like '%4')
+    	</if>
     	<if test="orderm.ordermway != null and orderm.ordermway != ''">
     		and ORDERMWAY = #{orderm.ordermway,jdbcType=VARCHAR} 
     	</if>
@@ -208,6 +224,14 @@ where RN &gt; ((#{nowpage}-1)*#{pagesize})
 	on orderm.ordermcustomer = customer.customerid
     where ordermcompany = #{orderm.ordermcompany,jdbcType=VARCHAR} 
     and orderm.ordermstatue != '已删除'
+    	<if test="power != 'company'">
+    		and (orderm.ordermtime like '2016-12-30%' or 
+    		orderm.ordermid like '%0' or
+    		orderm.ordermid like '%1' or
+    		orderm.ordermid like '%2' or
+    		orderm.ordermid like '%3' or
+    		orderm.ordermid like '%4')
+    	</if>
     	<if test="orderm.ordermway != null and orderm.ordermway != ''">
     		and ORDERMWAY = #{orderm.ordermway,jdbcType=VARCHAR} 
     	</if>

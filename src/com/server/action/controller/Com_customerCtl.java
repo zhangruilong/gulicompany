@@ -178,7 +178,8 @@ public class Com_customerCtl {
 	}
 	//统计客户
 	@RequestMapping("/companySys/cusStatistic")
-	public String cusStatistic(Model model,String companyid,String staCusQuery,Integer nowpage,String staTime,String endTime){
+	public String cusStatistic(HttpSession session,Model model,String companyid,String staCusQuery,Integer nowpage,String staTime,String endTime){
+		LoginInfo info = (LoginInfo) session.getAttribute("loginInfo");
 		if(staTime != null && !staTime.equals("") && staTime.length() <19){
 			staTime = staTime + " 00:00:00";
 		}
@@ -191,7 +192,7 @@ public class Com_customerCtl {
 		if(nowpage == null){
 			nowpage = 1;
 		}
-		Integer count = customerMapper.selectCusStatisticCount(companyid, staCusQuery,staTime, endTime);	//总信息条数
+		Integer count = customerMapper.selectCusStatisticCount(companyid, staCusQuery,staTime, endTime,info.getPower());	//总信息条数
 		Integer pageCount;		//总页数
 		if(count % 10 ==0){
 			pageCount = count / 10;
@@ -201,8 +202,8 @@ public class Com_customerCtl {
 		if(nowpage > pageCount){
 			nowpage = pageCount;
 		}
-		List<CustomerStatisticVO> volist = customerMapper.selectCusStatistic(companyid,staCusQuery, nowpage, 10,staTime, endTime);
-		CustomerStatisticVO total = customerMapper.selectStatisticSum(companyid, staCusQuery, staTime, endTime);
+		List<CustomerStatisticVO> volist = customerMapper.selectCusStatistic(companyid,staCusQuery, nowpage, 10,staTime, endTime,info.getPower());
+		CustomerStatisticVO total = customerMapper.selectStatisticSum(companyid, staCusQuery, staTime, endTime,info.getPower());
 		model.addAttribute("total", total);
 		model.addAttribute("cusStaVoList", volist);
 		model.addAttribute("staCusQuery", staCusQuery);
@@ -216,8 +217,11 @@ public class Com_customerCtl {
 	//导出客户统计报表
 	@RequestMapping("/companySys/exportCusStatisticReport")
 	@ResponseBody
-	public void exportCusStatisticReport(HttpServletResponse response,String companyid,String staCusQuery,String staTime,String endTime) throws Exception{
-		ArrayList<CustomerStatisticVO> list = (ArrayList<CustomerStatisticVO>) customerMapper.selectCusStatisticReport(companyid, staCusQuery, staTime, endTime);
+	public void exportCusStatisticReport(HttpSession session,HttpServletResponse response,String companyid,String staCusQuery,
+			String staTime,String endTime) throws Exception{
+		LoginInfo info = (LoginInfo) session.getAttribute("loginInfo");
+		ArrayList<CustomerStatisticVO> list = (ArrayList<CustomerStatisticVO>) customerMapper.selectCusStatisticReport(
+				companyid, staCusQuery, staTime, endTime,info.getPower());
 		String[] heads = {"联系人","手机","店名","地址","订单数量","订单总额","客户经理"};								//表头
 		String[] discard = {"customerid","customercode","customerpsw","customercity","customerxian",
 					"customertype","customerlevel","openid","customerdetail",

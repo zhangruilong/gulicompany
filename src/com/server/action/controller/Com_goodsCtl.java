@@ -476,6 +476,12 @@ public class Com_goodsCtl {
 			if(bkgoods.getBkgoodsweight()==null || bkgoods.getBkgoodsweight().equals("")){
 				bkgoods.setBkgoodsweight("0");
 			}
+			if(bkgoods.getBkgoodsnum()==null || bkgoods.getBkgoodsnum().equals("")){
+				bkgoods.setBkgoodsnum(-1);
+			}
+			if(bkgoods.getBkgoodsallnum()==null || bkgoods.getBkgoodsallnum().equals("")){
+				bkgoods.setBkgoodsallnum(-1);
+			}
 			LoginInfo info = (LoginInfo) request.getSession().getAttribute("loginInfo");	//登录信息
 			bkgoods.setBkcreator(info.getUsername());			//创建人
 			bkgoods.setBkcreatetime(DateUtils.getDateTime());		//创建时间

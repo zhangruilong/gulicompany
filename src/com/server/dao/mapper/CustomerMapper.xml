@@ -87,6 +87,14 @@
 		left join orderm om on om.ordermcustomer = c.customerid
 	where om.ordermcompany = #{companyid} 
 	and cc.ccustomercompany = #{companyid}
+	<if test="power != 'company'">
+   		and (om.ordermtime like '2016-12-30%' or 
+   		om.ordermid like '%0' or
+   		om.ordermid like '%1' or
+   		om.ordermid like '%2' or
+   		om.ordermid like '%3' or
+   		om.ordermid like '%4')
+   	</if>
 	<if test="queryShop != null and queryShop != ''">
 		and c.CUSTOMERSHOP like '%${queryShop}%'
 	</if>
@@ -111,6 +119,15 @@
 		on om.ordermcustomer = c.customerid
 		where cc.ccustomercompany = #{companyid}
 		and om.ordermstatue != '已删除'
+		and om.ordermcompany = #{companyid}
+		<if test="power != 'company'">
+    		and (om.ordermtime like '2016-12-30%' or 
+    		om.ordermid like '%0' or
+    		om.ordermid like '%1' or
+    		om.ordermid like '%2' or
+    		om.ordermid like '%3' or
+    		om.ordermid like '%4')
+    	</if>
 		<if test="staTime != null and staTime != ''">
 			and om.ordermtime &gt;= #{staTime}
 		</if>
@@ -136,6 +153,15 @@
 	  left outer join orderm om on om.ordermcustomer = c.customerid
 		where cc.ccustomercompany = #{companyid}
 		and om.ordermstatue != '已删除'
+		and om.ordermcompany = #{companyid}
+		<if test="power != 'company'">
+    		and (om.ordermtime like '2016-12-30%' or 
+    		om.ordermid like '%0' or
+    		om.ordermid like '%1' or
+    		om.ordermid like '%2' or
+    		om.ordermid like '%3' or
+    		om.ordermid like '%4')
+    	</if>
 		<if test="staTime != null and staTime != ''">
 			and om.ordermtime &gt;= #{staTime}
 		</if>
@@ -160,6 +186,15 @@
 		on om.ordermcustomer = c.customerid
 		where cc.ccustomercompany = #{companyid}
 		and om.ordermstatue != '已删除'
+		and om.ordermcompany = #{companyid}
+		<if test="power != 'company'">
+    		and (om.ordermtime like '2016-12-30%' or 
+    		om.ordermid like '%0' or
+    		om.ordermid like '%1' or
+    		om.ordermid like '%2' or
+    		om.ordermid like '%3' or
+    		om.ordermid like '%4')
+    	</if>
 		<if test="staTime != null and staTime != ''">
 			and om.ordermtime &gt;= #{staTime}
 		</if>
@@ -191,7 +226,16 @@
 		on om.ordermcustomer = c.customerid
 		where cc.ccustomercompany = #{companyid}
 		and om.ordermstatue != '已删除'
-		<if test="staTime != null and staTime != ''">
+		and om.ordermcompany = #{companyid}
+		<if test="power != 'company'">
+    		and (om.ordermtime like '2016-12-30%' or 
+    		om.ordermid like '%0' or
+    		om.ordermid like '%1' or
+    		om.ordermid like '%2' or
+    		om.ordermid like '%3' or
+    		om.ordermid like '%4')
+    	</if>
+		<if test="staTime != null and staTime != ''"> 
 			and om.ordermtime &gt;= #{staTime}
 		</if>
 		<if test="endTime != null and endTime != ''">

@@ -149,6 +149,14 @@
 	where om.ordermcompany = #{companyid,jdbcType=VARCHAR}
 	and cc.ccustomercompany = #{companyid,jdbcType=VARCHAR}
 	and om.ordermstatue != '已删除'
+	<if test="power != 'company'">
+    		and (om.ordermtime like '2016-12-30%' or 
+    		om.ordermid like '%0' or
+    		om.ordermid like '%1' or
+    		om.ordermid like '%2' or
+    		om.ordermid like '%3' or
+    		om.ordermid like '%4')
+    </if>
 	<if test="cusNames != null and cusNames !=''">
 		and 
 		<foreach collection="cusNames" open="(" close=")" separator="or" item="cusName">
@@ -213,6 +221,14 @@
 	where om.ordermcompany = #{companyid,jdbcType=VARCHAR}
 	and cc.ccustomercompany = #{companyid,jdbcType=VARCHAR}
 	and om.ordermstatue != '已删除'
+	<if test="power != 'company'">
+    		and (om.ordermtime like '2016-12-30%' or 
+    		om.ordermid like '%0' or
+    		om.ordermid like '%1' or
+    		om.ordermid like '%2' or
+    		om.ordermid like '%3' or
+    		om.ordermid like '%4')
+    	</if>
 	<if test="cusNames != null and cusNames !=''">
 		and 
 		<foreach collection="cusNames" open="(" close=")" separator="or" item="cusName">
@@ -272,6 +288,14 @@
 	where om.ordermcompany = #{companyid,jdbcType=VARCHAR}
 	and cc.ccustomercompany = #{companyid,jdbcType=VARCHAR}
 	and om.ordermstatue != '已删除'
+	<if test="power != 'company'">
+   		and (om.ordermtime like '2016-12-30%' or 
+   		om.ordermid like '%0' or
+   		om.ordermid like '%1' or
+   		om.ordermid like '%2' or
+   		om.ordermid like '%3' or
+   		om.ordermid like '%4')
+   	</if>
 	<if test="cusNames != null and cusNames !=''">
 		and 
 		<foreach collection="cusNames" open="(" close=")" separator="or" item="cusName">
@@ -331,6 +355,14 @@
   	left join ccustomer cc on cc.ccustomercustomer = om.ordermcustomer
 	where om.ordermcompany = #{companyid,jdbcType=VARCHAR}
 	and om.ordermstatue != '已删除'
+	<if test="power != 'company'">
+   		and (orderm.ordermtime like '2016-12-30%' or 
+   		orderm.ordermid like '%0' or
+   		orderm.ordermid like '%1' or
+   		orderm.ordermid like '%2' or
+   		orderm.ordermid like '%3' or
+   		orderm.ordermid like '%4')
+   	</if>
 	<if test="cusNames != null and cusNames !=''">
 		and 
 		<foreach collection="cusNames" open="(" close=")" separator="or" item="cusName">

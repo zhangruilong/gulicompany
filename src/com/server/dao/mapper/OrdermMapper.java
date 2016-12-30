@@ -37,17 +37,20 @@ public interface OrdermMapper {
 	 */
 	List<Ordermview> selectByPage(@Param("staTime") String staTime,
 			@Param("endTime") String endTime,@Param("orderm") Orderm record,
-			@Param("nowpage") Integer nowpage,@Param("pagesize") Integer pagesize);
+			@Param("nowpage") Integer nowpage,@Param("pagesize") Integer pagesize,
+			@Param("power") String power);
 	/**
 	 * 根据供应商(和条件)查询订单(数量)
 	 */
-	Integer selectByCompanyCount(@Param("staTime") String staTime,
-			@Param("endTime") String endTime,@Param("orderm") Orderm record);
+	Integer selectByPageCount(@Param("staTime") String staTime,
+			@Param("endTime") String endTime,@Param("orderm") Orderm record,
+			@Param("power") String power);
 	/**
 	 * 根据供应商(和条件)查询订单
 	 */
 	List<Ordermview> selectByCompany(@Param("staTime") String staTime,
-			@Param("endTime") String endTime,@Param("orderm") Orderm record);
+			@Param("endTime") String endTime,@Param("orderm") Orderm record,
+			@Param("power") String power);
 	/**
 	 * 根据主键删除
 	 */
