@@ -130,8 +130,8 @@
 	left join ccustomer cc on cc.ccustomercustomer = orderm.ordermcustomer and cc.ccustomercompany = orderm.ordermcompany
     where orderm.ordermcompany = #{orderm.ordermcompany,jdbcType=VARCHAR} 
     and orderm.ordermstatue != '已删除'
-    	<if test="power != 'company'">
-    		and (orderm.ordermtime like '2016-12-30%' or 
+    	<if test="power == '隐藏'">
+    		and (orderm.ordermtime like '${today}%' or 
     		orderm.ordermid like '%0' or
     		orderm.ordermid like '%1' or
     		orderm.ordermid like '%2' or
@@ -176,8 +176,8 @@ where RN &gt; ((#{nowpage}-1)*#{pagesize})
 	left join ccustomer cc on cc.ccustomercustomer = orderm.ordermcustomer and cc.ccustomercompany = orderm.ordermcompany
     where ordermcompany = #{orderm.ordermcompany,jdbcType=VARCHAR} 
     and orderm.ordermstatue != '已删除'
-    	<if test="power != 'company'">
-    		and (orderm.ordermtime like '2016-12-30%' or 
+    	<if test="power == '隐藏'">
+    		and (orderm.ordermtime like '${today}%' or 
     		orderm.ordermid like '%0' or
     		orderm.ordermid like '%1' or
     		orderm.ordermid like '%2' or
@@ -224,8 +224,8 @@ where RN &gt; ((#{nowpage}-1)*#{pagesize})
 	on orderm.ordermcustomer = customer.customerid
     where ordermcompany = #{orderm.ordermcompany,jdbcType=VARCHAR} 
     and orderm.ordermstatue != '已删除'
-    	<if test="power != 'company'">
-    		and (orderm.ordermtime like '2016-12-30%' or 
+    	<if test="power == '隐藏'">
+    		and (orderm.ordermtime like '${today}%' or 
     		orderm.ordermid like '%0' or
     		orderm.ordermid like '%1' or
     		orderm.ordermid like '%2' or

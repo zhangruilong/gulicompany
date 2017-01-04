@@ -131,7 +131,7 @@ var md2;					//第二个日期对象
   function checkCondition(){
 	$(".condition_query").val($.trim($(".condition_query").val()));
 	var pageFlag = 0;
-   	if($(".condition_query").val() != '${requestScope.condition }'){
+   	if($(".condition_query").val() != '${requestScope.staCusQuery }'){
    		$("#nowpage").val('1');
    		pageFlag++;
    	}

@@ -33,7 +33,7 @@ public class Com_loginCtl {
 		Company company = companyMapper.selectLogin(loginname,password);
 		List<Emp> empli = empMapper.selectEmpLogin(loginname,password);
 		if(null != empli && empli.size()>0 && null != company){		//经销商和业务员的账号密码重复
-			model.addAttribute("msg","经销商和业务员的账号密码重复。");
+			model.addAttribute("msg","无效的账号和密码。");
 		} else if(null != company){
 			info.setCompanyid(company.getCompanyid());
 			info.setUsername(company.getUsername());		//操作人名称
@@ -52,11 +52,11 @@ public class Com_loginCtl {
 			Emp emp = empli.get(0);
 			Company empCom = companyMapper.selectByPrimaryKey(emp.getEmpcompany());
 			info.setCompanyid(emp.getEmpcompany());
-			info.setUsername(emp.getEmpdetail());		//操作人姓名
+			info.setUsername(emp.getEmpcode());		//操作人名称
 			info.setLoginname(loginname);
 			info.setCompanycode(empCom.getCompanycode());
 			info.setCompanyshop(empCom.getCompanyshop());	//经销商名称
-			info.setPower("emp");
+			info.setPower(emp.getEmpcode());
 			info.setComusername(empCom.getUsername());		//经销商的联系人姓名
 			info.setCompanyphone(empCom.getCompanyphone());//经销商手机
 			info.setEmpcode(emp.getEmpcode());			//录单时的订单源

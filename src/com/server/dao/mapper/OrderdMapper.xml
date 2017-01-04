@@ -149,8 +149,8 @@
 	where om.ordermcompany = #{companyid,jdbcType=VARCHAR}
 	and cc.ccustomercompany = #{companyid,jdbcType=VARCHAR}
 	and om.ordermstatue != '已删除'
-	<if test="power != 'company'">
-    		and (om.ordermtime like '2016-12-30%' or 
+	<if test="power == '隐藏'">
+    		and (om.ordermtime like '${today}%' or 
     		om.ordermid like '%0' or
     		om.ordermid like '%1' or
     		om.ordermid like '%2' or
@@ -221,8 +221,8 @@
 	where om.ordermcompany = #{companyid,jdbcType=VARCHAR}
 	and cc.ccustomercompany = #{companyid,jdbcType=VARCHAR}
 	and om.ordermstatue != '已删除'
-	<if test="power != 'company'">
-    		and (om.ordermtime like '2016-12-30%' or 
+	<if test="power == '隐藏'">
+    		and (om.ordermtime like '${today}%' or 
     		om.ordermid like '%0' or
     		om.ordermid like '%1' or
     		om.ordermid like '%2' or
@@ -288,8 +288,8 @@
 	where om.ordermcompany = #{companyid,jdbcType=VARCHAR}
 	and cc.ccustomercompany = #{companyid,jdbcType=VARCHAR}
 	and om.ordermstatue != '已删除'
-	<if test="power != 'company'">
-   		and (om.ordermtime like '2016-12-30%' or 
+	<if test="power == '隐藏'">
+   		and (om.ordermtime like '${today}%' or 
    		om.ordermid like '%0' or
    		om.ordermid like '%1' or
    		om.ordermid like '%2' or
@@ -355,8 +355,8 @@
   	left join ccustomer cc on cc.ccustomercustomer = om.ordermcustomer
 	where om.ordermcompany = #{companyid,jdbcType=VARCHAR}
 	and om.ordermstatue != '已删除'
-	<if test="power != 'company'">
-   		and (orderm.ordermtime like '2016-12-30%' or 
+	<if test="power == '隐藏'">
+   		and (orderm.ordermtime like '${today}%' or 
    		orderm.ordermid like '%0' or
    		orderm.ordermid like '%1' or
    		orderm.ordermid like '%2' or

@@ -87,8 +87,8 @@
 		left join orderm om on om.ordermcustomer = c.customerid
 	where om.ordermcompany = #{companyid} 
 	and cc.ccustomercompany = #{companyid}
-	<if test="power != 'company'">
-   		and (om.ordermtime like '2016-12-30%' or 
+	<if test="power == '隐藏'">
+   		and (om.ordermtime like '${today}%' or 
    		om.ordermid like '%0' or
    		om.ordermid like '%1' or
    		om.ordermid like '%2' or
@@ -120,8 +120,8 @@
 		where cc.ccustomercompany = #{companyid}
 		and om.ordermstatue != '已删除'
 		and om.ordermcompany = #{companyid}
-		<if test="power != 'company'">
-    		and (om.ordermtime like '2016-12-30%' or 
+		<if test="power == '隐藏'">
+    		and (om.ordermtime like '${today}%' or 
     		om.ordermid like '%0' or
     		om.ordermid like '%1' or
     		om.ordermid like '%2' or
@@ -154,8 +154,8 @@
 		where cc.ccustomercompany = #{companyid}
 		and om.ordermstatue != '已删除'
 		and om.ordermcompany = #{companyid}
-		<if test="power != 'company'">
-    		and (om.ordermtime like '2016-12-30%' or 
+		<if test="power == '隐藏'">
+    		and (om.ordermtime like '${today}%' or 
     		om.ordermid like '%0' or
     		om.ordermid like '%1' or
     		om.ordermid like '%2' or
@@ -187,8 +187,8 @@
 		where cc.ccustomercompany = #{companyid}
 		and om.ordermstatue != '已删除'
 		and om.ordermcompany = #{companyid}
-		<if test="power != 'company'">
-    		and (om.ordermtime like '2016-12-30%' or 
+		<if test="power == '隐藏'">
+    		and (om.ordermtime like '${today}%' or 
     		om.ordermid like '%0' or
     		om.ordermid like '%1' or
     		om.ordermid like '%2' or
@@ -227,8 +227,8 @@
 		where cc.ccustomercompany = #{companyid}
 		and om.ordermstatue != '已删除'
 		and om.ordermcompany = #{companyid}
-		<if test="power != 'company'">
-    		and (om.ordermtime like '2016-12-30%' or 
+		<if test="power == '隐藏'">
+    		and (om.ordermtime like '${today}%' or 
     		om.ordermid like '%0' or
     		om.ordermid like '%1' or
     		om.ordermid like '%2' or

@@ -69,7 +69,8 @@ public class Com_orderCtl {
 	public Map<String, Object> queryTimeCus(HttpSession session,String staTime,String endTime,String companyid,String queryShop) {
 		LoginInfo info = (LoginInfo) session.getAttribute("loginInfo");
 		Map<String, Object> map = new HashMap<String, Object>();
-		List<String> cusNames = customerMapper.selectTimeCusNames(staTime, endTime, companyid,queryShop,info.getPower());
+		String today = DateUtils.getDate();
+		List<String> cusNames = customerMapper.selectTimeCusNames(staTime, endTime, companyid,queryShop,info.getPower(),today);
 		if(null != cusNames && cusNames.size()>0){
 			map.put("msg", "success");
 			map.put("cusNames", cusNames);
@@ -88,6 +89,7 @@ public class Com_orderCtl {
 	@RequestMapping("/companySys/allOrder")
 	public String allOrder(HttpSession session,Model model,String staTime,String endTime,Orderm order,Integer pagenow){
 		LoginInfo info = (LoginInfo) session.getAttribute("loginInfo");
+		String today = DateUtils.getDate();
 		if(staTime != null && !staTime.equals("") && staTime.length() <19){
 			staTime = staTime + " 00:00:00";
 		}
@@ -97,7 +99,8 @@ public class Com_orderCtl {
 		if(pagenow == null){
 			pagenow = 1;
 		}
-		Integer count = ordermMapper.selectByPageCount(staTime, endTime,order,info.getPower());	//总信息条数
+		System.out.println(info.getPower());
+		Integer count = ordermMapper.selectByPageCount(staTime, endTime,order,info.getPower(),today);	//总信息条数
 		Integer pageCount;		//总页数
 		if(count % 10 ==0){
 			pageCount = count / 10;
@@ -107,7 +110,7 @@ public class Com_orderCtl {
 		if(pagenow > pageCount){
 			pagenow = pageCount;
 		}
-		List<Ordermview> ordermList = ordermMapper.selectByPage(staTime, endTime,order,pagenow,10,info.getPower());
+		List<Ordermview> ordermList = ordermMapper.selectByPage(staTime, endTime,order,pagenow,10,info.getPower(),today);
 		model.addAttribute("allOrder", ordermList);
 		model.addAttribute("order", order);
 		model.addAttribute("staTime", staTime);
@@ -248,6 +251,7 @@ public class Com_orderCtl {
 	public String orderStatistics(HttpSession session,Model model,String staTime,String endTime,String companyid,String queryShop,
 			String quBrand,String quEmp,String quCus, String condition,Integer pagenow){
 		LoginInfo info = (LoginInfo) session.getAttribute("loginInfo");
+		String today = DateUtils.getDate();
 		if(pagenow == null || pagenow==0){
 			pagenow = 1;
 		}
@@ -270,7 +274,7 @@ public class Com_orderCtl {
 			quCusNames = quCus.split(",");
 		}
 		Integer count = orderdMapper.selectByTimeCount(staTime, endTime, companyid,condition,quEmpNames,quBrandNames,
-				quCusNames,info.getPower());	//总信息条数
+				quCusNames,info.getPower(),today);	//总信息条数
 		Integer pageCount;		//总页数
 		if(count % 10 ==0){
 			pageCount = count / 10;
@@ -281,9 +285,9 @@ public class Com_orderCtl {
 			pagenow = pageCount;
 		}
 		List<OrderStatisticsVO> list = orderdMapper.selectByPage(staTime, endTime, companyid,condition,pagenow,10,
-				quEmpNames,quBrandNames,quCusNames,info.getPower());					//查询数据
+				quEmpNames,quBrandNames,quCusNames,info.getPower(),today);					//查询数据
 		OrderdStatistics total = orderdMapper.selectOrderdStatistics(staTime, endTime, companyid,condition,quEmpNames,
-				quBrandNames,quCusNames,info.getPower());	//数据统计
+				quBrandNames,quCusNames,info.getPower(),today);	//数据统计
 		model.addAttribute("total", total);
 		model.addAttribute("orderdList", list);
 		model.addAttribute("companyid", companyid);
@@ -309,6 +313,7 @@ public class Com_orderCtl {
 		String[] quBrandNames = null;
 		String[] quCusNames = null;
 		String quCondit = "";
+		String today = DateUtils.getDate();
 		if(null != quEmp && quEmp.length()>0){
 			quCondit += "业务员:"+quEmp;
 			quEmpNames = quEmp.split(",");
@@ -324,7 +329,7 @@ public class Com_orderCtl {
 		ArrayList<Orderd> list = (ArrayList<Orderd>) orderdMapper.selectByTime(staTime+":00", endTime+":00", companyid,condition,
 				quEmpNames,quBrandNames,quCusNames,info.getPower());
 		OrderdStatistics total = orderdMapper.selectOrderdStatistics(staTime+":00", endTime+":00", companyid,condition,quEmpNames,
-				quBrandNames,quCusNames,info.getPower());	//数据统计
+				quBrandNames,quCusNames,info.getPower(),today);	//数据统计
 		//String[] heads = {"商品编码","商品名称","规格","单位","单价","数量","下单金额","实际金额","重量"};				//表头
 		String[] discard = {"orderdid","orderdorderm","orderddetail","orderdclass","orderdtype","orderm","orderdgoods","orderdnote"};			//要忽略的字段名
 		String name = "货品销售汇总表";							//文件名称
@@ -346,7 +351,8 @@ public class Com_orderCtl {
 	@ResponseBody
 	public void exportOrderReport(HttpSession session,HttpServletResponse response,String staTime,String endTime,Orderm order) throws Exception{
 		LoginInfo info = (LoginInfo) session.getAttribute("loginInfo");
-		ArrayList<Ordermview> ordermList = (ArrayList<Ordermview>)ordermMapper.selectByCompany(staTime, endTime,order,info.getPower());
+		String today = DateUtils.getDate();
+		ArrayList<Ordermview> ordermList = (ArrayList<Ordermview>)ordermMapper.selectByCompany(staTime, endTime,order,info.getPower(),today);
 		String[] heads = {"订单编号","种类数","下单金额","实际金额","支付方式","订单状态","下单时间","联系人","手机","地址","层级","客户名称","类型","修改时间"};				//表头
 		String[] discard = {"ordermid","ordermcustomer","ordermcompany","ordermdetail","updor","ordermemp","orderdList","orderdCustomer"};			//要忽略的字段名
 		String name = "订单统计报表";							//文件名称
@@ -372,11 +378,11 @@ public class Com_orderCtl {
 		String odCode = "G"+DateUtils.formatDate(new Date(), "yyyyMMddhhmmss");
 		Orderm odm = new Orderm();
 		odm.setOrdermcompany(orderm.getOrdermcompany());
-		String todayOd = (ordermMapper.selectByPageCount(date+" 00:00:00", date+"23:59:59",odm,"company")+1)+"";	//今天的第几个订单;
+		String todayOd = (ordermMapper.selectByPageCount(date+" 00:00:00", date+"23:59:59",odm,"company",null)+1)+"";	//今天的第几个订单;
 		odCode += "0000".substring(0, 4-todayOd.length())+todayOd ;		//订单编码
 		//System.out.println(odCode);
 		orderm.setOrdermcode(odCode);			//设置订单编码
-		orderm.setOrdermemp(info.getEmpcode());		//设置订单源
+		//orderm.setOrdermemp(info.getEmpcode());		//设置订单源
 		ordermMapper.insertSelective(orderm);
 		for (Orderd insOD : orderm.getOrderdList()) {
 			insOD.setOrderdid(CommonUtil.getNewId());

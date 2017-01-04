@@ -15,7 +15,7 @@ $(function(){
 	var message = '<%=message %>'
 	if(message != null && message != '' && message != 'null'){
 		alert(message);
-		if(message == '密码已修改'){
+		if(message == '操作成功，密码已修改。'){
 			window.parent.location.href = "login.jsp";
 		}
 	}

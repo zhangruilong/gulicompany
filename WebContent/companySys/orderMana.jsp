@@ -64,9 +64,9 @@ String ordermway = request.getParameter("ordermway");
 		<th>联系人</th>
 		<th>手机</th>
 		<th>地址</th>
-		<th>订单源</th>
 		<th>类型</th>
 		<th>层级</th>
+		<th>订单源</th>
     </tr>
     </thead>
     <c:if test="${fn:length(requestScope.allOrder) != 0 }">
@@ -87,9 +87,9 @@ String ordermway = request.getParameter("ordermway");
 			<td>${order.ordermconnect}</td>
 			<td>${order.ordermphone}</td>
 			<td>${order.ordermaddress}</td>
-			<td>${order.ordermemp}</td>
 			<td>${order.ordermcustype=='3'?'餐饮客户':(order.ordermcustype=='2'?'商超客户':(order.ordermcustype=='1'?'组织单位客户':''))}</td>
 			<td>${order.ordermcuslevel}</td>
+			<td>${order.ordermemp}</td>
 		</tr>
 	</c:forEach>
 	</c:if>

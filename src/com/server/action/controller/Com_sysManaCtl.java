@@ -68,25 +68,39 @@ public class Com_sysManaCtl {
 	//修改密码
 	@RequestMapping("/companySys/editPwd")
 	public String editPwd(HttpSession session,Model model,String loginname,String password,String newpassword){
+		LoginInfo info = (LoginInfo) session.getAttribute("loginInfo");
 		Company company = null;
 		List<Emp> empli = null;
-		if(password != null && password != ""){
-			company = companyMapper.selectLogin(loginname,password);
+		Boolean flag = null;
+		if(password != null && password != "" && info.getPower().equals("emp")){
 			empli = empMapper.selectEmpLogin(loginname, password);
+			if(null != empli && empli.size()>0){
+				Emp emp = empli.get(0);
+				emp.setPassword(newpassword);
+				empMapper.updateByPrimaryKeySelective(emp);
+				session.invalidate();
+				flag = true;
+			} else {
+				flag = false;
+			}
+		} else if(password != null && password != "" && info.getPower().equals("company")){
+			company = companyMapper.selectLogin(loginname,password);
+			if(null != company){
+				company.setPassword(newpassword);
+				companyMapper.updateByPrimaryKeySelective(company);
+				session.invalidate();
+				model.addAttribute("message", "密码已修改");
+				flag = true; 
+			} else {
+				flag = false;
+			}
 		}
-		if(null != company){
-			company.setPassword(newpassword);
-			companyMapper.updateByPrimaryKeySelective(company);
-			session.invalidate();
-			model.addAttribute("message", "密码已修改");
-		} else if(null != empli && empli.size()>0){
-			Emp emp = empli.get(0);
-			emp.setPassword(newpassword);
-			empMapper.updateByPrimaryKeySelective(emp);
-			session.invalidate();
-			model.addAttribute("message", "密码已修改");
+		if(null == flag){
+			model.addAttribute("message", "密码修改失败。");
+		} else if(flag==true){
+			model.addAttribute("message", "操作成功，密码已修改。");
 		} else {
-			model.addAttribute("message", "您输入的密码不正确，请重新输入。");
+			model.addAttribute("message", "输入的密码错误，请重新输入。");
 		}
 		return "forward:/companySys/editPas.jsp";
 	}

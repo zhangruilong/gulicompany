@@ -168,7 +168,7 @@ $(function(){
 	});
 	tabEdit();			//绑定双击事件可编辑
 });
-//得到下单金额和实际金额
+//得到总下单金额和总实际金额
 function showXDMoneyAndSJMoney(){
 	var xdMoney = 0;
 	var sjMoney = 0;
@@ -312,7 +312,7 @@ function saveOrder(){
 			+ '","ordermrightmoney":"' + $(".LCXD_OrdermInfo span:eq(2)").text()
 			+ '","ordermway":"' + $(".LCXD_OrdermInfo span:eq(3)").text()
 			+ '","ordermstatue":"' + '已下单'
-//			+ '","ordermemp":"' + '录单' 
+			+ '","ordermemp":"' + '录单' 
 			+ '","ordermcustype":"' + orderCCus.largeCCus.customer.customertype
 			+ '","ordermcuslevel":"' + orderCCus.largeCCus.ccustomerdetail
 			+ '","ordermcusshop":"' + orderCCus.largeCCus.customer.customershop
@@ -429,15 +429,16 @@ function seleGoods(goodscode,orderdtype,goodsname,goodsunits,price,unit,obj){
 	$(".largeCus_form table tr[name!=ordLi_tr1][name!=ord_info_tr]").each(function(i,item){
 		if($(item).children('td:last span[hidden="true"]')){
 			//alert($(item).find('td:last a').length);
+			var currPrice = $(item).find('td:eq(5)').text();		//当前价格
 			var itemData = JSON.parse($(item).find('td:last span[hidden="true"]').text());
 			if(selData.goodsid==itemData.goodsid){
 				var itemNumEle = $(item).children('td[name="odd_num"]');
 				var itemNum = parseInt(itemNumEle.text())+1;
 				itemNumEle.text(itemNum);
 				flag++;
-				$(item).children('td[name="xd_money"]').text(parseFloat(price)*itemNum);
-				$(item).children('td[name="sj_money"]').text(parseFloat(price)*itemNum);
-				showXDMoneyAndSJMoney();
+				$(item).children('td[name="xd_money"]').text(parseFloat(currPrice)*itemNum);
+				$(item).children('td[name="sj_money"]').text(parseFloat(currPrice)*itemNum);
+				showXDMoneyAndSJMoney();			//得到总下单金额和总实际金额
 			}
 		}
 	});
