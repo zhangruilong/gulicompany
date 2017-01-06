@@ -162,7 +162,7 @@ $(function(){
 		var cityName = myselect.options[index].text;							//根据下标得到文本内容
 		queryXian();
 	});
-	var comServicEarea = '${sessionScope.loginInfo.createtime}';
+	var comServicEarea = '${sessionScope.loginInfo.comarea}';
 	var comSE = comServicEarea.split('/');
 	$.each(comSE,function(i,item){
 		$("#newLargeCus_xian").append('<option>'+item+'</option>');

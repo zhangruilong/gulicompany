@@ -1,3 +1,4 @@
+<%@page import="com.system.tools.util.DateUtils"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -222,8 +223,13 @@ function operation(msg,statue){
 				},function(data){
 					if(data == '1'){
 						alert("修改成功!");
-						//$("#"+itemid).parent().nextAll(".td_orderm_statue").text(statue);
-						window.parent.main.location.reload();
+						var statueObj = $("#"+itemid).parent().nextAll(".td_orderm_statue").text(statue);
+						statueObj.text(statue);
+						var updTimeObj = statueObj.next().next();
+						updTimeObj.text(Ext.util.Format.date(new Date(), 'Y-m-d h:i:s'));	//修改时间
+						updTimeObj.next().text('${sessionScope.loginInfo.username }');
+						
+						//window.parent.main.location.reload();
 					}
 				});
 			}

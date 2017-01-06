@@ -19,6 +19,10 @@ public class LoginInfo {
 	private String companyphone;	//经销商电话
 	
 	private String empcode;			//业务员职位和名字
+	
+	private String companycity;		//经销商城市ID
+	
+	private String comarea;			//经销商服务区域
 
 	public String getCompanyid() {
 		return companyid;
@@ -137,4 +141,37 @@ public class LoginInfo {
 		return this.empcode;
 	}	   
 	
+	/**
+	 *设置"城市和县ID"属性
+	 *@param companycity 实体的Companycity属性
+	 */
+	public void setCompanycity(String companycity)
+	{
+		this.companycity = companycity;
+	}
+	
+	/**
+	 *获取"城市和县ID"属性
+	 */
+	public String getCompanycity()
+	{
+		return this.companycity;
+	}	   
+
+	/**
+	 *设置"经销商服务区域"属性
+	 */
+	public void setComarea(String comarea)
+	{
+		this.comarea = comarea;
+	}
+	
+	/**
+	 *获取"经销商服务区域"属性
+	 */
+	public String getComarea()
+	{
+		return this.comarea;
+	}	   
+
 }

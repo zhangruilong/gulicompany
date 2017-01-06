@@ -44,6 +44,8 @@ public class Com_loginCtl {
 			info.setCompanyphone(company.getCompanyphone());//经销商手机
 			info.setEmpcode(company.getUsername());				//录单时的订单源
 			info.setPower("company");
+			info.setCompanycity(company.getCompanycity());	//经销商城市
+			info.setComarea(company.getCreatetime());		//服务区域
 			
 			session.setAttribute("loginInfo", info);
 			session.setMaxInactiveInterval(36000);
@@ -60,6 +62,8 @@ public class Com_loginCtl {
 			info.setComusername(empCom.getUsername());		//经销商的联系人姓名
 			info.setCompanyphone(empCom.getCompanyphone());//经销商手机
 			info.setEmpcode(emp.getEmpcode());			//录单时的订单源
+			info.setCompanycity(empCom.getCompanycity());	//经销商城市
+			info.setComarea(empCom.getCreatetime());		//服务区域
 			
 			session.setAttribute("loginInfo", info);
 			session.setMaxInactiveInterval(36000);
