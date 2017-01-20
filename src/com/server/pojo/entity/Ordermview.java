@@ -63,6 +63,10 @@ public class Ordermview
     */
    private String ordermaddress;   
    /**
+    * customershop
+    */
+   private String customershop;   
+   /**
     * updtime
     */
    private String updtime;   
@@ -106,10 +110,7 @@ public class Ordermview
     * openid
     */
    private String openid;   
-   /**
-    * customershop
-    */
-   private String customershop;   
+   
     //属性方法	    
      /**
 	 *设置主键"ordermid"属性

@@ -54,7 +54,7 @@ String customertype = request.getParameter("customer.customertype");
     </tr>
     </thead>
     <tr name="fenyelan">
-    	<td colspan="12">
+    	<td colspan="16">
     		<a>第一页</a> 
     		<a>上一页</a> 
     		<span>当前第<span name="showNP"></span>页</span> 
@@ -307,7 +307,7 @@ function loadGoodsData(pagenowGoods){
 					'\')">选择</a></td></tr>'
 			);
 		});
-		var goodsfenye = '<tr><td colspan="7">';
+		var goodsfenye = '<tr><td colspan="16">';
 		if(data.pagenowGoods > 1){
 			goodsfenye += '<a onclick=fenyeGoods("1")>第一页</a><a onclick=fenyeGoods("'+(parseInt(data.pagenowGoods)-1)+'")>上一页</a>';
 			
@@ -338,7 +338,7 @@ function initLargePG(targetPage){
 	$.post("querylargeCusPriceGoods.action",data,function(data){
 		if(data.largeCusPrice.length == 0){
 			$("#LGC_PGtable tr:gt(0)[name!='fenyelan']").remove();
-			$("#LGC_PGtable tr[name='fenyelan']").before('<tr><td colspan="11" align="center" style="font-size: 20px;color: red;"> 没有信息</td></tr>');
+			$("#LGC_PGtable tr[name='fenyelan']").before('<tr><td colspan="16" align="center" style="font-size: 20px;color: red;"> 没有信息</td></tr>');
 		} else {
 			$("#LGC_PGtable tr:gt(0)[name!='fenyelan']").remove();
 			$.each(data.largeCusPrice,function(i,item){
@@ -353,10 +353,10 @@ function initLargePG(targetPage){
 						'<td>'+item.largecuspriceprice+'</td>'+
 						'<td>'+item.largecuspriceunit+'</td>'+
 						'<td>'+ typeNullFoString(item.largecuspricedetail) +'</td>'+
-						'<td>'+ typeNullFoString(item.largecuspricecreatetime) +'</td>'+
-						'<td>'+ typeNullFoString(item.largecuspricecreator) +'</td>'+
 						'<td>'+ typeNullFoString(item.largecusupdtime) +'</td>'+
 						'<td>'+ typeNullFoString(item.largecusupdor) +'</td>'+
+						'<td>'+ typeNullFoString(item.largecuspricecreatetime) +'</td>'+
+						'<td>'+ typeNullFoString(item.largecuspricecreator) +'</td>'+
 					'</tr>');
 			});
 			fenyelanInfo(data.pagenow,data.count,data.pageCount);

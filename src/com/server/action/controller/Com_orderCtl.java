@@ -353,8 +353,8 @@ public class Com_orderCtl {
 		LoginInfo info = (LoginInfo) session.getAttribute("loginInfo");
 		String today = DateUtils.getDate();
 		ArrayList<Ordermview> ordermList = (ArrayList<Ordermview>)ordermMapper.selectByCompany(staTime, endTime,order,info.getPower(),today);
-		String[] heads = {"订单编号","种类数","下单金额","实际金额","支付方式","订单状态","下单时间","联系人","手机","地址","层级","客户名称","类型","修改时间"};				//表头
-		String[] discard = {"ordermid","ordermcustomer","ordermcompany","ordermdetail","updor","ordermemp","orderdList","orderdCustomer"};			//要忽略的字段名
+		String[] heads = {"订单编号","种类数","下单金额","实际金额","支付方式","订单状态","下单时间","联系人","手机","地址","客户名称","修改时间"};				//表头
+		String[] discard = {"ordermid","ordermcustomer","ordermcompany","ordermdetail","companyshop","ordermcusshop","companydetail","companyphone","ordermprinttimes","ordermcuslevel","openid","ordermcustype","updor","ordermemp","orderdList","orderdCustomer"};			//要忽略的字段名
 		String name = "订单统计报表";							//文件名称
 		if(!staTime.equals("") && !endTime.equals("")){
 			name = staTime + "日至" + endTime + "日的" + name;
