@@ -84,9 +84,6 @@
 	background: #FF9802;
 }
 
-.elegant-aero p{
-
-}
 h1 .title_goodsinfo {
 	font-size: 12px;
 	font-weight: normal;

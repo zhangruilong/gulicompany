@@ -265,7 +265,6 @@ public class Com_goodsCtl {
 				}
 				prices.setPriceslevel(3-(i%3));						//等级
 				prices.setCreatetime(DateUtils.getDateTime());		//创建时间
-				prices.setCreator(lInfo.getUsername());						//创建人
 				prices.setPricesid(CommonUtil.getNewId());			//价格id
 				pricesMapper.insertSelective(prices);				//添加到数据库
 		}
