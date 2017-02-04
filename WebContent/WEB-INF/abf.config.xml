@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+	<bean id="404" class="com.system.tools.base.HandlerFor404" />
+	<bean id="BaseAction" class="com.system.tools.base.BaseAction" />
+	<bean id="CPCompanyAction" class="com.server.action.CPCompanyAction" />
+	<bean id="CPOrderAction" class="com.server.action.CPOrderAction" />
+	<bean id="CPGoodsviewAction" class="com.server.action.CPGoodsviewAction" />
+	<bean id="CPSystem_tempruleAction" class="com.server.action.CPSystem_tempruleAction" />
+	<bean id="CPOrderdAction" class="com.server.action.CPOrderdAction" />
+	<bean id="CPOrdermAction" class="com.server.action.CPOrdermAction" />
+	<bean id="CPGoodsclassAction" class="com.server.action.CPGoodsclassAction" />
+	<bean id="CPScantAction" class="com.server.action.CPScantAction" />
+	<bean id="CPGoodsAction" class="com.server.action.CPGoodsAction" />
+	<bean id="CPBkgoodsAction" class="com.server.action.CPBkgoodsAction" />
+	<bean id="CPCustomerAction" class="com.server.action.CPCustomerAction" />
+	<bean id="CPCcustomerviewAction" class="com.server.action.CPCcustomerviewAction" />
+	<bean id="CPEmpAction" class="com.server.action.CPEmpAction" />
+	<bean id="CPLargecuspriceviewAction" class="com.server.action.CPLargecuspriceviewAction" />
+	<bean id="CPWarrantbackAction" class="com.server.action.CPWarrantbackAction" />
+	<bean id="CPWarrantcheckAction" class="com.server.action.CPWarrantcheckAction" />
+	<bean id="CPWarrantinAction" class="com.server.action.CPWarrantinAction" />
+	<bean id="CPCPWarrantoutAction" class="com.server.action.CPCPWarrantoutAction" />
+	<bean id="CPWarrantbackviewAction" class="com.server.action.CPWarrantbackviewAction" />
+	<bean id="CPWarrantcheckviewAction" class="com.server.action.CPWarrantcheckviewAction" />
+	<bean id="CPWarrantinviewAction" class="com.server.action.CPWarrantinviewAction" />
+	<bean id="CPWarrantoutviewAction" class="com.server.action.CPWarrantoutviewAction" />
+	<bean id="CPGoodsnumviewAction" class="com.server.action.CPGoodsnumviewAction" />
+	<bean id="CPGoodsnumAction" class="com.server.action.CPGoodsnumAction" />
+	<bean id="CPPricesAction" class="com.server.action.CPPricesAction" />
+</beans>
