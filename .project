@@ -47,12 +47,17 @@
 		<link>
 			<name>adminsrc</name>
 			<type>2</type>
-			<location>E:/gulicompany/guliadmin/src</location>
+			<location>/Users/zhangruilong/Documents/develop/j2eeworkspace/guliadmin/src</location>
 		</link>
 		<link>
 			<name>zrlextsrc</name>
 			<type>2</type>
-			<location>D:/Program Files/workspace2/zrlext/src</location>
+			<location>/Users/zhangruilong/Documents/develop/j2eeworkspace/zrlext/src</location>
+		</link>
+		<link>
+			<name>WebContent/zrlextpages</name>
+			<type>2</type>
+			<location>/Users/zhangruilong/Documents/develop/j2eeworkspace/zrlext/WebContent/zrlextpages</location>
 		</link>
 	</linkedResources>
 </projectDescription>
