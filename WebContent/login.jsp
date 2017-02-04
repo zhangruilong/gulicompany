@@ -14,7 +14,7 @@
 <meta http-equiv="Expires" content="0" />
 <title>用户登录</title>
 <link href="css/style.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="zrlextpages/common/jquery/jquery-2.1.4.min.js"></script>
 <script type=text/javascript>
 if (top != window) top.location.href = window.location.href;
 

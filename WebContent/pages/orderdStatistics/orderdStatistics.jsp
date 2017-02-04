@@ -1,28 +1,23 @@
+<%@page import="com.server.pojo.LoginInfo"%>
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
   <head>
-	<%@ include file="../../common/common.jsp" %>
+	<%@ include file="../../zrlextpages/common/common.jsp" %>
+	<%
+	LoginInfo info = (LoginInfo)session.getAttribute("loginInfo"); 
+	String comid = info.getCompanyid();
+	%>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link href="../../css/dig.css" rel="stylesheet" type="text/css">
 	<link href="../../css/tabsty.css" rel="stylesheet" type="text/css">
-	<script type="text/javascript" src="../../js/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="../../zrlextpages/common/jquery/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript" src="../../js/DateTimePicker.js"></script>
 	<script type="text/javascript" src="../../js/DeteTimeField.js"></script>
-	
-	<!-- <link rel="stylesheet" type="text/css" href="../../group-summary/examples.css"> -->
-
-    <!-- GC -->
-
-	<!-- <link rel="stylesheet" type="text/css" href="../../group-summary/theme-triton-all.css">
-	<link rel="stylesheet" type="text/css" href="../../group-summary/charts-all.css">
-	<link rel="stylesheet" type="text/css" href="../../group-summary/ux-all.css"> -->
-    <!-- <script type="text/javascript" src="../../group-summary/include-ext.js"></script> -->
-	<!-- <script type="text/javascript" src="../../group-summary/theme-triton.js" ></script>
-	<script type="text/javascript" src="../../group-summary/ux.js"></script>
-	<script type="text/javascript" src="../../group-summary/charts.js"></script>
-    <script type="text/javascript" src="../../group-summary/options-toolbar.js"></script> -->
+	<script type="text/javascript">
+	var comid = '<%=comid%>';
+	</script>
 	
 	<script type="text/javascript" src="orderdStatisticsfun.js"></script>
 	<script type="text/javascript" src="orderdStatistics.js"></script>

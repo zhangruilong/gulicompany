@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="css/tabsty.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="<%=basePath%>ExtJS/resources/css/ext-all.css" />
-<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="zrlextpages/common/jquery/jquery-2.1.4.min.js"></script>
 <style type="text/css">
 .button{
 	padding: 0px;
