@@ -1,4 +1,4 @@
-<%@page import="com.server.pojo.LoginInfo"%>
+<%@page import="com.server.pojo.LoginInfo"%> 
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
 	String path = request.getContextPath();
