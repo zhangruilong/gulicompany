@@ -75,7 +75,7 @@ public class CPCompanyAction extends CompanyAction {
 		LoginInfo info = new LoginInfo();
 		List<Company> comLi = (List<Company>) selAll(Company.class, 
 				"select * from company where loginname='"+loginname+"' and password='"+password+"'");
-		List<Emp> empli = (List<Emp>) selAll(Company.class, 
+		List<Emp> empli = (List<Emp>) selAll(Emp.class, 
 				"select * from emp where loginname='"+loginname+"' and password='"+password+"'");
 		if(empli.size()>0 && comLi.size()>0){		//经销商和业务员的账号密码重复
 			result = "{success:true,code:400,msg:'无效的账号和密码。'}";

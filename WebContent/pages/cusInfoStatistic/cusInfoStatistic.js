@@ -86,7 +86,11 @@ Ext.onReady(function() {
 	         clicksToEdit: 1										//点几下可以编辑
 	    },
 	    /*设置表格*/
-		columns : [{xtype: 'rownumberer',width:25}, 			//行号
+		columns : [{
+			header : '序号',
+			xtype: 'rownumberer',		//行号
+			width:60
+		},
 		{// 改
 			header : '店名',
 			dataIndex : 'customershop',

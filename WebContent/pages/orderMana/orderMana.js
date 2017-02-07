@@ -180,8 +180,13 @@ Ext.onReady(function() {
 	         clicksToEdit: 1										//点几下可以编辑
 	    },
 	    /*设置表格*/
-		columns : [{xtype: 'rownumberer',width:25}, 			//行号
-		{// 改
+		columns : [
+		{
+			header : '序号',
+			xtype: 'rownumberer',		//行号
+			width:60
+		}
+		,{// 改
 			header : 'id',
 			dataIndex : 'ordermid',
 			sortable : true,		//如果是false则禁用此列的排序功能,默认为 true
@@ -388,7 +393,11 @@ Ext.onReady(function() {
 								    selModel: {
 								        type: 'checkboxmodel'
 								    },
-									columns : [{xtype: 'rownumberer',width:25}, 
+									columns : [{
+										header : '序号',
+										xtype: 'rownumberer',		//行号
+										width:60
+									},
 									{
 										header : '商品编码',
 										dataIndex : 'orderdcode',

@@ -130,4 +130,8 @@ public class CPGoodsAction extends GoodsAction {
 		result = CommonConst.SUCCESS;
 		responsePW(response, result);
 	}
+	
+	public void columnName(HttpServletRequest request, HttpServletResponse response){
+		responsePW(response, result);
+	}
 }

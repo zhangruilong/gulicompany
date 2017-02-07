@@ -1,4 +1,7 @@
-
+var goodsStatueStore = new Ext.data.ArrayStore({//状态下拉
+    	fields:["name"],
+    	data:[["上架"],["下架"]]
+    });
 var Goodsbbar;
 var Goodsclassstore;
 //上下架的combox的renderer函数
@@ -300,7 +303,11 @@ Ext.onReady(function() {
 	    	ptype: 'cellediting',									//类型为:单元格编辑
 	    	clicksToEdit: 1										//点几下可以编辑
 	    },
-		columns : [{xtype: 'rownumberer',width:50}, //行号
+		columns : [{
+			header : '序号',
+			xtype: 'rownumberer',		//行号
+			width:60
+		},
 		{// 改
 			header : '商品ID',
 			dataIndex : 'goodsid',

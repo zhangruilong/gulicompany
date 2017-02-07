@@ -361,8 +361,12 @@ Ext.onReady(function() {
 	         ptype: 'cellediting',
 	         clicksToEdit: 1
 	    },
-		columns : [{xtype: 'rownumberer',width:50}, 
-		           {// 改
+		columns : [{
+			header : '序号',
+			xtype: 'rownumberer',		//行号
+			width:60
+		},
+		{// 改
 			header : '促销品ID',
 			dataIndex : 'bkgoodsid',
 			sortable : true, 
