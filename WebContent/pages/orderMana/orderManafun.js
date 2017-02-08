@@ -6,7 +6,7 @@ function createOrderdWindow(url,title,_form,Orderdgrid,store) {
 		//width : Ext.os.deviceType === 'Phone' ? '100%' : 650, // 窗口宽度
 		width : '100%',
 		height : '100%',
-		scrollable : 'y',	//滚动条
+//		scrollable : 'y',	//滚动条
 		modal : true, //是否掩盖后面的元素
 		closeAction: 'hide', //点击关闭时采取的动作
 		closable : true, // 是否可关闭

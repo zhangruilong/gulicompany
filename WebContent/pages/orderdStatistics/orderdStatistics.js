@@ -200,89 +200,6 @@ Ext.onReady(function() {
 		],
 		/*工具栏*/
 		tbar : [{
-					text : "导出",
-    				iconCls : 'exp',
-    				handler : function() {
-    					Ext.Msg.confirm('请确认', '<b>提示:</b>请确认要导出当前数据？', function(btn, text) {
-    						if (btn == 'yes') {
-    							//
-    							window.location.href = basePath + Orderdstataction + "?method=exprderdSta&query="+
-    							Ext.getCmp("queryOrderdstataction").getValue()+"&startDate="+startDate+"&endDate="+endDate+
-    							"&cusNames="+Ext.getCmp("quCustextfield").getValue()+"&empNames="+Ext.getCmp("quEmptextfield").getValue()+
-    							"&brandNames="+Ext.getCmp("quBrandtextfield").getValue(); 
-    						}
-    					});
-    				}
-				},'-',{
-					xtype: 'datetimefield',
-					fieldLabel : '订单日期',
-					labelWidth:60,				//标签宽度
-					id:"startDate",
-					name:"startDate",
-					editable:false, //不允许对日期进行编辑
-					width:220,
-					format:"Y-m-d H:i:s",
-					emptyText:"请选择日期",		//默认显示的日期
-					value: startDate
-				},{
-					xtype: 'datetimefield',
-					fieldLabel : '到',
-					labelWidth:20,
-					id:"endDate",
-					name:"endDate",
-					editable:false, //不允许对日期进行编辑
-					width:180,
-					format:"Y-m-d H:i:s",
-					emptyText:"请选择日期",		//默认显示的日期
-					value: endDate
-				},{
-					text : "查询",
-					xtype: 'button',
-    				handler : function() {
-    					startDate = Ext.util.Format.date(Ext.getCmp("startDate").getValue(),'Y-m-d H:i:s');		//得到时间选择框中的开始时间
-    					endDate = Ext.util.Format.date(Ext.getCmp("endDate").getValue(),'Y-m-d H:i:s');			//结束时间
-    					Orderdstatstore.load();
-    				}
-				},'-',{
-					xtype : 'textfield',
-					fieldLabel : '筛选:业务员',
-					id : 'quEmptextfield',
-					name : 'quEmp',
-					width : 195,
-					labelWidth : 80,
-					enableKeyEvents : true,
-					listeners : {
-						focus : function(){
-							showEmp();
-						}
-					}
-				},{
-					xtype : 'textfield',
-					fieldLabel : '品牌',
-					id : 'quBrandtextfield',
-					name : 'quEmp',
-					width : 150,
-					labelWidth : 35,
-					enableKeyEvents : true,
-					listeners : {
-						focus : function(){
-							showBrand();
-						}
-					}
-				},{
-					xtype : 'textfield',
-					fieldLabel : '客户',
-					id : 'quCustextfield',
-					name : 'quEmp',
-					width : 150,
-					labelWidth : 35,
-					listeners : {
-						focus : function(){
-							showCusNames();
-						},
-						
-					}
-				},'->',{
 				xtype : 'textfield',														//文本类型
 				id : 'queryOrderdstataction',
 				name : 'query',															//传到后台时这个就是 参数名称
@@ -297,6 +214,89 @@ Ext.onReady(function() {
 							Orderdstatstore.load();
 						}
 					}
+				}
+			},'-',{
+				xtype: 'datetimefield',
+				fieldLabel : '订单日期',
+				labelWidth:60,				//标签宽度
+				id:"startDate",
+				name:"startDate",
+				editable:false, //不允许对日期进行编辑
+				width:220,
+				format:"Y-m-d H:i:s",
+				emptyText:"请选择日期",		//默认显示的日期
+				value: startDate
+			},{
+				xtype: 'datetimefield',
+				fieldLabel : '到',
+				labelWidth:20,
+				id:"endDate",
+				name:"endDate",
+				editable:false, //不允许对日期进行编辑
+				width:180,
+				format:"Y-m-d H:i:s",
+				emptyText:"请选择日期",		//默认显示的日期
+				value: endDate
+			},{
+				text : "查询",
+				xtype: 'button',
+				handler : function() {
+					startDate = Ext.util.Format.date(Ext.getCmp("startDate").getValue(),'Y-m-d H:i:s');		//得到时间选择框中的开始时间
+					endDate = Ext.util.Format.date(Ext.getCmp("endDate").getValue(),'Y-m-d H:i:s');			//结束时间
+					Orderdstatstore.load();
+				}
+			},'-',{
+				xtype : 'textfield',
+				fieldLabel : '筛选:业务员',
+				id : 'quEmptextfield',
+				name : 'quEmp',
+				width : 195,
+				labelWidth : 80,
+				enableKeyEvents : true,
+				listeners : {
+					focus : function(){
+						showEmp();
+					}
+				}
+			},{
+				xtype : 'textfield',
+				fieldLabel : '品牌',
+				id : 'quBrandtextfield',
+				name : 'quEmp',
+				width : 150,
+				labelWidth : 35,
+				enableKeyEvents : true,
+				listeners : {
+					focus : function(){
+						showBrand();
+					}
+				}
+			},{
+				xtype : 'textfield',
+				fieldLabel : '客户',
+				id : 'quCustextfield',
+				name : 'quEmp',
+				width : 150,
+				labelWidth : 35,
+				listeners : {
+					focus : function(){
+						showCusNames();
+					},
+					
+				}
+			},'-',{
+				text : "导出",
+				iconCls : 'exp',
+				handler : function() {
+					Ext.Msg.confirm('请确认', '<b>提示:</b>请确认要导出当前数据？', function(btn, text) {
+						if (btn == 'yes') {
+							//
+							window.location.href = basePath + Orderdstataction + "?method=exprderdSta&query="+
+							Ext.getCmp("queryOrderdstataction").getValue()+"&startDate="+startDate+"&endDate="+endDate+
+							"&cusNames="+Ext.getCmp("quCustextfield").getValue()+"&empNames="+Ext.getCmp("quEmptextfield").getValue()+
+							"&brandNames="+Ext.getCmp("quBrandtextfield").getValue(); 
+						}
+					});
 				}
 			}
 		]

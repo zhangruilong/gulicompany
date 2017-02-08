@@ -440,6 +440,33 @@ Ext.onReady(function() {
 		}
 		],
 		tbar : [{
+			xtype : 'textfield',
+			id : 'queryGoodsaction',
+			name : 'query',
+			emptyText : '模糊匹配',
+			width : 100,
+			enableKeyEvents : true,
+			listeners : {
+				specialkey : function(field, e) {
+					if (e.getKey() == Ext.EventObject.ENTER) {
+						if ("" == Ext.getCmp("queryGoodsaction").getValue()) {
+							Goodsstore.load({
+								params : {
+									json : queryjson
+								}
+							});
+						} else {
+							Goodsstore.load({
+								params : {
+									json : queryjson,
+									query : Ext.getCmp("queryGoodsaction").getValue()
+								}
+							});
+						}
+					}
+				}
+			}
+		},'-',{
 				text : Ext.os.deviceType === 'Phone' ? null : "新增",
 				iconCls : 'add',
 				handler : function() {
@@ -490,34 +517,7 @@ Ext.onReady(function() {
 										'&goodsunits='+selections[0].data['goodsunits'];*/
 					GoodsPricesForm.form.loadRecord(selections[0]);
 				}
-            },'->',{
-				xtype : 'textfield',
-				id : 'queryGoodsaction',
-				name : 'query',
-				emptyText : '模糊匹配',
-				width : 100,
-				enableKeyEvents : true,
-				listeners : {
-					specialkey : function(field, e) {
-						if (e.getKey() == Ext.EventObject.ENTER) {
-							if ("" == Ext.getCmp("queryGoodsaction").getValue()) {
-								Goodsstore.load({
-									params : {
-										json : queryjson
-									}
-								});
-							} else {
-								Goodsstore.load({
-									params : {
-										json : queryjson,
-										query : Ext.getCmp("queryGoodsaction").getValue()
-									}
-								});
-							}
-						}
-					}
-				}
-			}
+            }
 		]
 	});
 	Goodsgrid.region = 'center';

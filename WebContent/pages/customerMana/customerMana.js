@@ -240,6 +240,8 @@ Ext.onReady(function() {
 		title : Ccustomerviewtitle,
 		store : Ccustomerviewstore,
 		bbar : Ccustomerviewbbar,
+		forceFit : true,				//自适应列宽
+//		autoFill:true,
 	    selModel: {
 	        type: 'checkboxmodel'
 	    },
@@ -266,7 +268,10 @@ Ext.onReady(function() {
 		, {
 			header : '客户名称',
 			dataIndex : 'customershop',
-			sortable : true
+			sortable : true,
+			flex : 1,
+			minWidth : 110,
+			maxWidth : 200
 		}
 		, {
 			header : '地址',
@@ -281,12 +286,17 @@ Ext.onReady(function() {
 		, {
 			header : '手机',
 			dataIndex : 'customerphone',
-			sortable : true
+			sortable : true,
+			width : 100
 		}
 		, {
 			header : '客户类型',
 			dataIndex : 'customertype',
-			sortable : true
+			sortable : true,
+			renderer : function(value, metaData, record, rowIdx, colIdx, store, view){
+				var type = value=='3'?'餐饮客户':(value=='2'?'商超客户':(value=='1'?'组织单位客户':''));
+				return type;
+			}
 		}
 		, {
 			header : '价格层级',
@@ -296,7 +306,8 @@ Ext.onReady(function() {
 		, {
 			header : '修改时间',
 			dataIndex : 'ccustomerupdtime',
-			sortable : true
+			sortable : true,
+			width : 139
 		}
 		, {
 			header : '修改人',
@@ -310,13 +321,33 @@ Ext.onReady(function() {
 		}
 		],
 		tbar : [{
-				text : Ext.os.deviceType === 'Phone' ? null : "导出",
-				iconCls : 'exp',
-				handler : function() {
-					window.location.href = basePath + Ccustomerviewaction + "?method=expCCustomerwiew&json="+queryjson+"&query="
-					+Ext.getCmp("queryCcustomerviewaction").getValue()+where; 
+			xtype : 'textfield',
+			id : 'queryCcustomerviewaction',
+			name : 'query',
+			emptyText : '模糊匹配',
+			width : 100,
+			enableKeyEvents : true,
+			listeners : {
+				specialkey : function(field, e) {
+					if (e.getKey() == Ext.EventObject.ENTER) {
+						if ("" == Ext.getCmp("queryCcustomerviewaction").getValue()) {
+							Ccustomerviewstore.load({
+								params : {
+									json : queryjson
+								}
+							});
+						} else {
+							Ccustomerviewstore.load({
+								params : {
+									json : queryjson,
+									query : Ext.getCmp("queryCcustomerviewaction").getValue()
+								}
+							});
+						}
+					}
 				}
-			},'-',{
+			}
+		},'-',{
 				text : Ext.os.deviceType === 'Phone' ? null : "修改",
 				iconCls : 'edit',
 				handler : function() {
@@ -333,57 +364,37 @@ Ext.onReady(function() {
 				}
 			},'-',{
 				text : Ext.os.deviceType === 'Phone' ? null : "录单",
-					iconCls : 'query',
-					handler : function() {
-						var selections = Ccustomerviewgrid.getSelection();
-						if (selections.length != 1) {
-							Ext.Msg.alert('提示', '请选择一条数据！', function() {
-							});
-							return;
-						}
-						CcustomerviewdataForm.form.reset();
-						Ext.getCmp("Ccustomerviewccustomerid").setEditable (false);
-						createTextWindow(basePath + Ccustomerviewaction + "?method=updAll", "修改", CcustomerviewdataForm, Ccustomerviewstore);
-						CcustomerviewdataForm.form.loadRecord(selections[0]);
+				iconCls : 'query',
+				handler : function() {
+					var selections = Ccustomerviewgrid.getSelection();
+					if (selections.length != 1) {
+						Ext.Msg.alert('提示', '请选择一条数据！', function() {
+						});
+						return;
 					}
-				},'-',{
-					text : Ext.os.deviceType === 'Phone' ? null : "特殊商品",
-						iconCls : 'select',
-						handler : function() {
-							var selections = Ccustomerviewgrid.getSelection();
-							if (selections.length != 1) {
-								Ext.Msg.alert('提示', '请选择一条数据！', function() {
-								});
-								return;
-							}
-							window.parent.main.location.href = "../../pages/LargecuspriceGoods/LargecuspriceGoods.jsp?cusid="+selections[0].data["customerid"];
+					CcustomerviewdataForm.form.reset();
+					Ext.getCmp("Ccustomerviewccustomerid").setEditable (false);
+					createTextWindow(basePath + Ccustomerviewaction + "?method=updAll", "修改", CcustomerviewdataForm, Ccustomerviewstore);
+					CcustomerviewdataForm.form.loadRecord(selections[0]);
+				}
+			},'-',{
+				text : Ext.os.deviceType === 'Phone' ? null : "特殊商品",
+				iconCls : 'select',
+				handler : function() {
+					var selections = Ccustomerviewgrid.getSelection();
+					if (selections.length != 1) {
+						Ext.Msg.alert('提示', '请选择一条数据！', function() {
+						});
+						return;
 					}
-				},'->',{
-				xtype : 'textfield',
-				id : 'queryCcustomerviewaction',
-				name : 'query',
-				emptyText : '模糊匹配',
-				width : 100,
-				enableKeyEvents : true,
-				listeners : {
-					specialkey : function(field, e) {
-						if (e.getKey() == Ext.EventObject.ENTER) {
-							if ("" == Ext.getCmp("queryCcustomerviewaction").getValue()) {
-								Ccustomerviewstore.load({
-									params : {
-										json : queryjson
-									}
-								});
-							} else {
-								Ccustomerviewstore.load({
-									params : {
-										json : queryjson,
-										query : Ext.getCmp("queryCcustomerviewaction").getValue()
-									}
-								});
-							}
-						}
-					}
+					window.parent.main.location.href = "../../pages/LargecuspriceGoods/LargecuspriceGoods.jsp?cusid="+selections[0].data["customerid"];
+				}
+			},'-',{
+				text : Ext.os.deviceType === 'Phone' ? null : "导出",
+				iconCls : 'exp',
+				handler : function() {
+					window.location.href = basePath + Ccustomerviewaction + "?method=expCCustomerwiew&json="+queryjson+"&query="
+					+Ext.getCmp("queryCcustomerviewaction").getValue()+where; 
 				}
 			}
 		]

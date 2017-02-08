@@ -219,6 +219,33 @@ Ext.onReady(function() {
 		}
 		],
 		tbar : [{
+			xtype : 'textfield',
+			id : 'queryLargecuspriceviewaction',
+			name : 'query',
+			emptyText : '模糊匹配',
+			width : 100,
+			enableKeyEvents : true,
+			listeners : {
+				specialkey : function(field, e) {
+					if (e.getKey() == Ext.EventObject.ENTER) {
+						if ("" == Ext.getCmp("queryLargecuspriceviewaction").getValue()) {
+							Largecuspriceviewstore.load({
+								params : {
+									json : queryjson
+								}
+							});
+						} else {
+							Largecuspriceviewstore.load({
+								params : {
+									json : queryjson,
+									query : Ext.getCmp("queryLargecuspriceviewaction").getValue()
+								}
+							});
+						}
+					}
+				}
+			}
+		},'-',{
 				text : Ext.os.deviceType === 'Phone' ? null : "新增",
 				iconCls : 'add',
 				handler : function() {
@@ -251,33 +278,6 @@ Ext.onReady(function() {
 						return;
 					}
 					commonDelete(basePath + Largecuspriceviewaction + "?method=deleteLCP",selections,Largecuspriceviewstore,Largecuspriceviewkeycolumn);
-				}
-			},'->',{
-				xtype : 'textfield',
-				id : 'queryLargecuspriceviewaction',
-				name : 'query',
-				emptyText : '模糊匹配',
-				width : 100,
-				enableKeyEvents : true,
-				listeners : {
-					specialkey : function(field, e) {
-						if (e.getKey() == Ext.EventObject.ENTER) {
-							if ("" == Ext.getCmp("queryLargecuspriceviewaction").getValue()) {
-								Largecuspriceviewstore.load({
-									params : {
-										json : queryjson
-									}
-								});
-							} else {
-								Largecuspriceviewstore.load({
-									params : {
-										json : queryjson,
-										query : Ext.getCmp("queryLargecuspriceviewaction").getValue()
-									}
-								});
-							}
-						}
-					}
 				}
 			}
 		]

@@ -11,7 +11,7 @@ var moneytotal = 0;		//订单金额合计
 var Orderdgrid = new Object();
 var customerStatbbar = new Object();
 Ext.onReady(function() {
-	var customerStatclassify = "客户订单统计";
+	var customerStatclassify = "订单业务统计";
 	var customerStattitle = "当前位置:订单管理》" + customerStatclassify;
 	var customerStataction = "CPOrderdAction.do";
 	var customerStatfields = ['customerid'
@@ -168,62 +168,62 @@ Ext.onReady(function() {
 		],
 		/*工具栏*/
 		tbar : [{
-					text : "导出",
-    				iconCls : 'exp',
-    				handler : function() {
-    					Ext.Msg.confirm('请确认', '<b>提示:</b>请确认要导出当前数据？', function(btn, text) {
-    						if (btn == 'yes') {
-    							//
-    							window.location.href = basePath + customerStataction + "?method=expCusOrder&query="+
-    							Ext.getCmp("querycustomerStataction").getValue()+"&startDate="+startDate+"&endDate="+endDate+""; 
-    						}
-    					});
-    				}
-				},'-',{
-					xtype: 'datetimefield',
-					fieldLabel : '订单日期',
-					labelWidth:60,				//标签宽度
-					id:"startDate",
-					name:"startDate",
-					editable:false, //不允许对日期进行编辑
-					width:220,
-					format:"Y-m-d H:i:s",
-					emptyText:"请选择日期",		//默认显示的日期
-					value: startDate
-				},{
-					xtype: 'datetimefield',
-					fieldLabel : '到',
-					labelWidth:20,
-					id:"endDate",
-					name:"endDate",
-					editable:false, //不允许对日期进行编辑
-					width:180,
-					format:"Y-m-d H:i:s",
-					emptyText:"请选择日期",		//默认显示的日期
-					value: endDate
-				},{
-					text : "查询",
-					xtype: 'button',
-    				handler : function() {
-    					startDate = Ext.util.Format.date(Ext.getCmp("startDate").getValue(),'Y-m-d H:i:s');		//得到时间选择框中的开始时间
-    					endDate = Ext.util.Format.date(Ext.getCmp("endDate").getValue(),'Y-m-d H:i:s');			//结束时间
-    					customerStatstore.load();
-    				}
-				},'->',{
-				xtype : 'textfield',														//文本类型
-				id : 'querycustomerStataction',
-				name : 'query',															//传到后台时这个就是 参数名称
-				emptyText : '模糊匹配',												//为空的时候的字符
-				width : 100,																//宽度
-				enableKeyEvents : true,
-				listeners : {
-					specialkey : function(field, e) {
-						if (e.getKey() == Ext.EventObject.ENTER) {				//这句话等于:e.getKey() == 13
-							startDate = Ext.util.Format.date(Ext.getCmp("startDate").getValue(),'Y-m-d H:i:s');		//得到时间选择框中的开始时间
-							endDate = Ext.util.Format.date(Ext.getCmp("endDate").getValue(),'Y-m-d H:i:s');			//结束时间
-							customerStatstore.load();
-						}
+			xtype : 'textfield',														//文本类型
+			id : 'querycustomerStataction',
+			name : 'query',															//传到后台时这个就是 参数名称
+			emptyText : '模糊匹配',												//为空的时候的字符
+			width : 100,																//宽度
+			enableKeyEvents : true,
+			listeners : {
+				specialkey : function(field, e) {
+					if (e.getKey() == Ext.EventObject.ENTER) {				//这句话等于:e.getKey() == 13
+						startDate = Ext.util.Format.date(Ext.getCmp("startDate").getValue(),'Y-m-d H:i:s');		//得到时间选择框中的开始时间
+						endDate = Ext.util.Format.date(Ext.getCmp("endDate").getValue(),'Y-m-d H:i:s');			//结束时间
+						customerStatstore.load();
 					}
+				}
+			}
+		},'-',{
+				xtype: 'datetimefield',
+				fieldLabel : '订单日期',
+				labelWidth:60,				//标签宽度
+				id:"startDate",
+				name:"startDate",
+				editable:false, //不允许对日期进行编辑
+				width:220,
+				format:"Y-m-d H:i:s",
+				emptyText:"请选择日期",		//默认显示的日期
+				value: startDate
+			},{
+				xtype: 'datetimefield',
+				fieldLabel : '到',
+				labelWidth:20,
+				id:"endDate",
+				name:"endDate",
+				editable:false, //不允许对日期进行编辑
+				width:180,
+				format:"Y-m-d H:i:s",
+				emptyText:"请选择日期",		//默认显示的日期
+				value: endDate
+			},{
+				text : "查询",
+				xtype: 'button',
+				handler : function() {
+					startDate = Ext.util.Format.date(Ext.getCmp("startDate").getValue(),'Y-m-d H:i:s');		//得到时间选择框中的开始时间
+					endDate = Ext.util.Format.date(Ext.getCmp("endDate").getValue(),'Y-m-d H:i:s');			//结束时间
+					customerStatstore.load();
+				}
+			},'-',{
+				text : "导出",
+				iconCls : 'exp',
+				handler : function() {
+					Ext.Msg.confirm('请确认', '<b>提示:</b>请确认要导出当前数据？', function(btn, text) {
+						if (btn == 'yes') {
+							//
+							window.location.href = basePath + customerStataction + "?method=expCusOrder&query="+
+							Ext.getCmp("querycustomerStataction").getValue()+"&startDate="+startDate+"&endDate="+endDate+""; 
+						}
+					});
 				}
 			}
 		]

@@ -330,6 +330,20 @@ Ext.onReady(function() {
 		],
 		/*工具栏*/
 		tbar : [{
+			xtype : 'textfield',														//文本类型
+			id : 'queryOrdermviewaction',
+			name : 'query',															//传到后台时这个就是 参数名称
+			emptyText : '模糊匹配',												//为空的时候的字符
+			width : 100,																//宽度
+			enableKeyEvents : true,
+			listeners : {
+				specialkey : function(field, e) {
+					if (e.getKey() == Ext.EventObject.ENTER) {				//这句话等于:e.getKey() == 13
+    					Ordermviewstore.load();
+					}
+				}
+			}
+		},'-',{
 			text : Ext.os.deviceType === 'Phone' ? null : "删除",					//按钮上的字
 					iconCls : 'delete',												//按钮样式(删除按钮)
 					handler : function() {											//点击按钮执行的函数
@@ -385,7 +399,7 @@ Ext.onReady(function() {
 										+ordermid+"'");// 定义Orderdstore
 								/*   定义 orderd(订单商品) 的 表格  开始    */
 								Orderdgrid = Ext.create('Ext.grid.Panel', {
-									height : document.documentElement.clientHeight - 148,
+									height : document.documentElement.clientHeight - 110,
 									width : '100%',
 									store : Orderdstore,
 									region : 'north',					//显示在容器的上方
@@ -728,21 +742,7 @@ Ext.onReady(function() {
     						}
     					});
     				}
-				},'->',{
-				xtype : 'textfield',														//文本类型
-				id : 'queryOrdermviewaction',
-				name : 'query',															//传到后台时这个就是 参数名称
-				emptyText : '模糊匹配',												//为空的时候的字符
-				width : 100,																//宽度
-				enableKeyEvents : true,
-				listeners : {
-					specialkey : function(field, e) {
-						if (e.getKey() == Ext.EventObject.ENTER) {				//这句话等于:e.getKey() == 13
-	    					Ordermviewstore.load();
-						}
-					}
 				}
-			}
 		]
 	});
 	/*   定义 orderm(订单总表) 的 表格  结束    */

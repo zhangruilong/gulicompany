@@ -274,6 +274,33 @@ Ext.onReady(function() {
 		}
 		],
 		tbar : [{
+			xtype : 'textfield',
+			id : 'queryWarrantoutviewaction',
+			name : 'query',
+			emptyText : '模糊匹配',
+			width : 100,
+			enableKeyEvents : true,
+			listeners : {
+				specialkey : function(field, e) {
+					if (e.getKey() == Ext.EventObject.ENTER) {
+						if ("" == Ext.getCmp("queryWarrantoutviewaction").getValue()) {
+							Warrantoutviewstore.load({
+								params : {
+									json : queryjson
+								}
+							});
+						} else {
+							Warrantoutviewstore.load({
+								params : {
+									json : queryjson,
+									query : Ext.getCmp("queryWarrantoutviewaction").getValue()
+								}
+							});
+						}
+					}
+				}
+			}
+		},'-',{
 				text : Ext.os.deviceType === 'Phone' ? null : "新增",
 				iconCls : 'add',
 				handler : function() {
@@ -307,34 +334,7 @@ Ext.onReady(function() {
 					}
 					delWarrantout(basePath + "CPCPWarrantoutAction.do?method=delWarrantout",selections,Warrantoutviewstore,Warrantoutviewkeycolumn);
 				}
-            },'->',{
-				xtype : 'textfield',
-				id : 'queryWarrantoutviewaction',
-				name : 'query',
-				emptyText : '模糊匹配',
-				width : 100,
-				enableKeyEvents : true,
-				listeners : {
-					specialkey : function(field, e) {
-						if (e.getKey() == Ext.EventObject.ENTER) {
-							if ("" == Ext.getCmp("queryWarrantoutviewaction").getValue()) {
-								Warrantoutviewstore.load({
-									params : {
-										json : queryjson
-									}
-								});
-							} else {
-								Warrantoutviewstore.load({
-									params : {
-										json : queryjson,
-										query : Ext.getCmp("queryWarrantoutviewaction").getValue()
-									}
-								});
-							}
-						}
-					}
-				}
-			}
+            }
 		]
 	});
 	Warrantoutviewgrid.region = 'center';
