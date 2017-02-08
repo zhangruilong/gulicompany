@@ -4,30 +4,30 @@ Ext.onReady(function() {
 	var Goodsnumviewtitle = "当前位置:业务管理》" + Goodsnumviewclassify;
 	var Goodsnumviewaction = "CPGoodsnumviewAction.do";
 	var Goodsnumviewfields = ['idgoodsnum'
-	        			    ,'goodsnumgoods' 
-	        			    ,'goodsnumnum' 
-	        			    ,'goodsnumstore' 
-	        			    ,'gOODSID' 
-	        			    ,'gOODSCOMPANY' 
-	        			    ,'gOODSCODE' 
-	        			    ,'gOODSNAME' 
-	        			    ,'gOODSDETAIL' 
-	        			    ,'gOODSUNITS' 
-	        			    ,'gOODSCLASS' 
-	        			    ,'gOODSIMAGE' 
-	        			    ,'gOODSSTATUE' 
-	        			    ,'cREATETIME' 
-	        			    ,'uPDTIME' 
-	        			    ,'cREATOR' 
-	        			    ,'uPDOR' 
-	        			    ,'gOODSBRAND' 
-	        			    ,'gOODSTYPE' 
-	        			    ,'gOODSORDER' 
-	        			    ,'gOODSCLASSID' 
-	        			    ,'gOODSCLASSNAME' 
+		        			    ,'goodsnumgoods' 
+		        			    ,'goodsnumnum' 
+		        			    ,'goodsnumstore' 
+		        			    ,'goodsid' 
+		        			    ,'goodscompany' 
+		        			    ,'goodscode' 
+		        			    ,'goodsname' 
+		        			    ,'goodsdetail' 
+		        			    ,'goodsunits' 
+		        			    ,'goodsclass' 
+		        			    ,'goodsimage' 
+		        			    ,'goodsstatue' 
+		        			    ,'createtime' 
+		        			    ,'updtime' 
+		        			    ,'creator' 
+		        			    ,'updor' 
+		        			    ,'goodsbrand' 
+		        			    ,'goodstype' 
+		        			    ,'goodsorder' 
+		        			    ,'goodsclassid' 
+		        			    ,'goodsclassname'  
 	        			      ];// 全部字段
 	var Goodsnumviewkeycolumn = [ 'idgoodsnum' ];// 主键
-	var wheresql = "gOODSCOMPANY='"+comid+"'";
+	var wheresql = "goodscompany='"+comid+"'";
 	var Goodsnumviewstore = dataStore(Goodsnumviewfields, basePath + Goodsnumviewaction + "?method=selQuery");// 定义Goodsnumviewstore
 	Goodsnumviewstore.on('beforeload',function(store,options){					//数据加载时的事件
 		var new_params = {		//每次数据加载的时候传递的参数
@@ -74,11 +74,11 @@ Ext.onReady(function() {
 			layout : 'form',
 			items : [ {
 				xtype : 'textfield',
-				fieldLabel : '商品编码',
+				fieldLabel : '商品编号',
 				readOnly : true,
-				id : 'GoodsnumviewgOODSCODE',
+				id : 'Goodsnumviewgoodscode',
 				allowBlank : false,
-				name : 'gOODSCODE',
+				name : 'goodscode',
 				maxLength : 100
 			} ]
 		}
@@ -89,9 +89,9 @@ Ext.onReady(function() {
 				xtype : 'textfield',
 				fieldLabel : '商品名称',
 				readOnly : true,
-				id : 'GoodsnumviewgOODSNAME',
+				id : 'Goodsnumviewgoodsname',
 				allowBlank : false,
-				name : 'gOODSNAME',
+				name : 'goodsname',
 				maxLength : 100
 			} ]
 		}
@@ -102,9 +102,9 @@ Ext.onReady(function() {
 				xtype : 'textfield',
 				fieldLabel : '商品规格',
 				readOnly : true,
-				id : 'GoodsnumviewgOODSUNITS',
+				id : 'Goodsnumviewgoodsunits',
 				allowBlank : false,
-				name : 'gOODSUNITS',
+				name : 'goodsunits',
 				maxLength : 100
 			} ]
 		}
@@ -166,28 +166,48 @@ Ext.onReady(function() {
 		}
 		, {
 			header : '商品编码',
-			dataIndex : 'gOODSCODE',
-			sortable : true
+			dataIndex : 'goodscode',
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '商品名称',
-			dataIndex : 'gOODSNAME',
-			sortable : true
+			dataIndex : 'goodsname',
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '商品规格',
-			dataIndex : 'gOODSUNITS',
-			sortable : true
+			dataIndex : 'goodsunits',
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '数量',
 			dataIndex : 'goodsnumnum',
-			sortable : true
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '仓库',
 			dataIndex : 'goodsnumstore',
-			sortable : true
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		],
 		tbar : [{

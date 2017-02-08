@@ -110,7 +110,7 @@ Ext.onReady(function() {
 			layout : 'form',
 			items : [ {
 				xtype : 'textfield',
-				fieldLabel : '编码',
+				fieldLabel : '商品编号',
 				id : 'Goodsgoodscode',
 				allowBlank : false,
 				name : 'goodscode',
@@ -122,7 +122,7 @@ Ext.onReady(function() {
 			layout : 'form',
 			items : [ {
 				xtype : 'textfield',
-				fieldLabel : '名称',
+				fieldLabel : '商品名称',
 				id : 'Goodsgoodsname',
 				allowBlank : false,
 				name : 'goodsname',
@@ -315,7 +315,7 @@ Ext.onReady(function() {
 			hidden : true
 		}
 		, {
-			header : '编号',
+			header : '商品编号',
 			dataIndex : 'goodscode',
 			sortable : true, 
 			editor: {
@@ -324,7 +324,7 @@ Ext.onReady(function() {
             }
 		}
 		, {
-			header : '名称',
+			header : '商品名称',
 			dataIndex : 'goodsname',
 			sortable : true, 
 			editor: {

@@ -14,27 +14,27 @@ Ext.onReady(function() {
 	        			    ,'warrantoutinswho' 
 	        			    ,'warrantoutupdwhen' 
 	        			    ,'warrantoutupdwho' 
-	        			    ,'gOODSID' 
-	        			    ,'gOODSCOMPANY' 
-	        			    ,'gOODSCODE' 
-	        			    ,'gOODSNAME' 
-	        			    ,'gOODSDETAIL' 
-	        			    ,'gOODSUNITS' 
-	        			    ,'gOODSCLASS' 
-	        			    ,'gOODSIMAGE' 
-	        			    ,'gOODSSTATUE' 
-	        			    ,'cREATETIME' 
-	        			    ,'uPDTIME' 
-	        			    ,'cREATOR' 
-	        			    ,'uPDOR' 
-	        			    ,'gOODSBRAND' 
-	        			    ,'gOODSTYPE' 
-	        			    ,'gOODSORDER' 
-	        			    ,'gOODSWEIGHT' 
-	        			    ,'gOODSCLASSNAME' 
+	        			    ,'goodsid' 
+	        			    ,'goodscompany' 
+	        			    ,'goodscode' 
+	        			    ,'goodsname' 
+	        			    ,'goodsdetail' 
+	        			    ,'goodsunits' 
+	        			    ,'goodsclass' 
+	        			    ,'goodsimage' 
+	        			    ,'goodsstatue' 
+	        			    ,'createtime' 
+	        			    ,'updtime' 
+	        			    ,'creator' 
+	        			    ,'updor' 
+	        			    ,'goodsbrand' 
+	        			    ,'goodstype' 
+	        			    ,'goodsorder' 
+	        			    ,'goodsweight' 
+	        			    ,'goodsclassname' 
 	        			      ];// 全部字段
 	var Warrantoutviewkeycolumn = [ 'idwarrantout' ];// 主键
-	var wheresql = "gOODSCOMPANY='"+comid+"'";
+	var wheresql = "goodscompany='"+comid+"'";
 	var Warrantoutviewstore = dataStore(Warrantoutviewfields, basePath + Warrantoutviewaction + "?method=selAll");// 定义Warrantoutviewstore
 	Warrantoutviewstore.on('beforeload',function(store,options){					//数据加载时的事件
 		var new_params = {		//每次数据加载的时候传递的参数
@@ -81,10 +81,10 @@ Ext.onReady(function() {
 			layout : 'form',
 			items : [ {
 				xtype : 'textfield',
-				fieldLabel : '编码',
-				id : 'WarrantoutviewgOODSCODE',
+				fieldLabel : '商品编号',
+				id : 'Warrantoutviewgoodscode',
 				allowBlank : false,
-				name : 'gOODSCODE',
+				name : 'goodscode',
 				maxLength : 100
 			} ]
 		}
@@ -93,10 +93,10 @@ Ext.onReady(function() {
 			layout : 'form',
 			items : [ {
 				xtype : 'textfield',
-				fieldLabel : '名称',
-				id : 'WarrantoutviewgOODSNAME',
+				fieldLabel : '商品名称',
+				id : 'Warrantoutviewgoodsname',
 				allowBlank : false,
-				name : 'gOODSNAME',
+				name : 'goodsname',
 				maxLength : 100
 			} ]
 		}
@@ -106,9 +106,9 @@ Ext.onReady(function() {
 			items : [ {
 				xtype : 'textfield',
 				fieldLabel : '规格',
-				id : 'WarrantoutviewgOODSUNITS',
+				id : 'Warrantoutviewgoodsunits',
 				allowBlank : false,
-				name : 'gOODSUNITS',
+				name : 'goodsunits',
 				maxLength : 100
 			} ]
 		}
@@ -213,64 +213,112 @@ Ext.onReady(function() {
             }
 		}
 		, {
-			header : '商品编码',
-			dataIndex : 'gOODSCODE',
-			sortable : true
+			header : '商品编号',
+			dataIndex : 'goodscode',
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '商品名称',
-			dataIndex : 'gOODSNAME',
-			sortable : true
+			dataIndex : 'goodsname',
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '规格',
-			dataIndex : 'gOODSUNITS',
-			sortable : true
+			dataIndex : 'goodsunits',
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '仓库',
 			dataIndex : 'warrantoutstore',
-			sortable : true
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '数量',
 			dataIndex : 'warrantoutnum',
-			sortable : true
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '状态',
 			dataIndex : 'warrantoutstatue',
-			sortable : true
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '描述',
 			dataIndex : 'warrantoutdetail',
-			sortable : true
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '领货人',
 			dataIndex : 'warrantoutwho',
-			sortable : true
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '创建时间',
 			dataIndex : 'warrantoutinswhen',
-			sortable : true
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '创建人',
 			dataIndex : 'warrantoutinswho',
-			sortable : true
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '修改时间',
 			dataIndex : 'warrantoutupdwhen',
-			sortable : true
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '修改人',
 			dataIndex : 'warrantoutupdwho',
-			sortable : true
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		],
 		tbar : [{

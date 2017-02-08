@@ -14,27 +14,27 @@ Ext.onReady(function() {
 	        			    ,'warrantcheckinswhen' 
 	        			    ,'warrantcheckupdwho' 
 	        			    ,'warrantcheckupdwhen' 
-	        			    ,'gOODSID' 
-	        			    ,'gOODSCOMPANY' 
-	        			    ,'gOODSCODE' 
-	        			    ,'gOODSNAME' 
-	        			    ,'gOODSDETAIL' 
-	        			    ,'gOODSUNITS' 
-	        			    ,'gOODSCLASS' 
-	        			    ,'gOODSIMAGE' 
-	        			    ,'gOODSSTATUE' 
-	        			    ,'cREATETIME' 
-	        			    ,'uPDTIME' 
-	        			    ,'cREATOR' 
-	        			    ,'uPDOR' 
-	        			    ,'gOODSBRAND' 
-	        			    ,'gOODSTYPE' 
-	        			    ,'gOODSORDER' 
-	        			    ,'gOODSWEIGHT' 
-	        			    ,'gOODSCLASSNAME' 
+	        			    ,'goodsid' 
+	        			    ,'goodscompany' 
+	        			    ,'goodscode' 
+	        			    ,'goodsname' 
+	        			    ,'goodsdetail' 
+	        			    ,'goodsunits' 
+	        			    ,'goodsclass' 
+	        			    ,'goodsimage' 
+	        			    ,'goodsstatue' 
+	        			    ,'createtime' 
+	        			    ,'updtime' 
+	        			    ,'creator' 
+	        			    ,'updor' 
+	        			    ,'goodsbrand' 
+	        			    ,'goodstype' 
+	        			    ,'goodsorder' 
+	        			    ,'goodsweight' 
+	        			    ,'goodsclassname' 
 	        			      ];// 全部字段
 	var Warrantcheckviewkeycolumn = [ 'idwarrantcheck' ];// 主键
-	var wheresql = "gOODSCOMPANY='"+comid+"'";
+	var wheresql = "goodscompany='"+comid+"'";
 	var Warrantcheckviewstore = dataStore(Warrantcheckviewfields, basePath + Warrantcheckviewaction + "?method=selAll");// 定义Warrantcheckviewstore
 	Warrantcheckviewstore.on('beforeload',function(store,options){					//数据加载时的事件
 		var new_params = {		//每次数据加载的时候传递的参数
@@ -81,10 +81,10 @@ Ext.onReady(function() {
 			layout : 'form',
 			items : [ {
 				xtype : 'textfield',
-				fieldLabel : '商品编码',
-				id : 'WarrantcheckviewgOODSCODE',
+				fieldLabel : '商品编号',
+				id : 'Warrantcheckviewgoodscode',
 				allowBlank : false,
-				name : 'gOODSCODE',
+				name : 'goodscode',
 				maxLength : 100
 			} ]
 		}
@@ -94,9 +94,9 @@ Ext.onReady(function() {
 			items : [ {
 				xtype : 'textfield',
 				fieldLabel : '商品名称',
-				id : 'WarrantcheckviewgOODSNAME',
+				id : 'Warrantcheckviewgoodsname',
 				allowBlank : false,
-				name : 'gOODSNAME',
+				name : 'goodsname',
 				maxLength : 100
 			} ]
 		}
@@ -105,10 +105,10 @@ Ext.onReady(function() {
 			layout : 'form',
 			items : [ {
 				xtype : 'textfield',
-				fieldLabel : '商品规格',
-				id : 'WarrantcheckviewgOODSUNITS',
+				fieldLabel : '规格',
+				id : 'Warrantcheckviewgoodsunits',
 				allowBlank : false,
-				name : 'gOODSUNITS',
+				name : 'goodsunits',
 				maxLength : 100
 			} ]
 		}
@@ -213,64 +213,112 @@ Ext.onReady(function() {
             }
 		}
 		, {
-			header : '商品编码',
-			dataIndex : 'gOODSCODE',
-			sortable : true
+			header : '商品编号',
+			dataIndex : 'goodscode',
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '商品名称',
-			dataIndex : 'gOODSNAME',
-			sortable : true
+			dataIndex : 'goodsname',
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '规格',
-			dataIndex : 'gOODSUNITS',
-			sortable : true
+			dataIndex : 'goodsunits',
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '仓库',
 			dataIndex : 'warrantcheckstore',
-			sortable : true
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '应有数量',
 			dataIndex : 'warrantchecknumorg',
-			sortable : true
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '现有数量',
 			dataIndex : 'warrantchecknumnow',
-			sortable : true
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '状态',
 			dataIndex : 'warrantcheckstatue',
-			sortable : true
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '描述',
 			dataIndex : 'warrantcheckdetail',
-			sortable : true
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '创建人',
 			dataIndex : 'warrantcheckinswho',
-			sortable : true
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '创建时间',
 			dataIndex : 'warrantcheckinswhen',
-			sortable : true
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '更新人',
 			dataIndex : 'warrantcheckupdwho',
-			sortable : true
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '更新时间',
 			dataIndex : 'warrantcheckupdwhen',
-			sortable : true
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		],
 		tbar : [{

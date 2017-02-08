@@ -70,7 +70,7 @@ Ext.onReady(function() {
 			layout : 'form',
 			items : [ {
 				xtype : 'textfield',
-				fieldLabel : '编码',
+				fieldLabel : '商品编号',
 				readOnly : true,
 				id : 'Largecuspriceviewgoodscode',
 				name : 'goodscode',
@@ -82,7 +82,7 @@ Ext.onReady(function() {
 			layout : 'form',
 			items : [ {
 				xtype : 'textfield',
-				fieldLabel : '名称',
+				fieldLabel : '商品名称',
 				readOnly : true,
 				id : 'Largecuspriceviewgoodsname',
 				name : 'goodsname',
@@ -163,59 +163,103 @@ Ext.onReady(function() {
 			hidden : true
 		}
 		, {
-			header : '价格',
-			dataIndex : 'largecuspriceprice',
-			sortable : true
+			header : '商品编号',
+			dataIndex : 'goodscode',
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
+		}
+		, {
+			header : '商品名称',
+			dataIndex : 'goodsname',
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '规格',
 			dataIndex : 'goodsunits',
-			sortable : true
-		}
-		, {
-			header : '单位',
-			dataIndex : 'largecuspriceunit',
-			sortable : true
-		}
-		, {
-			header : '描述',
-			dataIndex : 'largecuspricedetail',
-			sortable : true
-		}
-		, {
-			header : '创建时间',
-			dataIndex : 'largecuspricecreatetime',
-			sortable : true
-		}
-		, {
-			header : '创建人',
-			dataIndex : 'largecuspricecreator',
-			sortable : true
-		}
-		, {
-			header : '修改时间',
-			dataIndex : 'largecusupdtime',
-			sortable : true
-		}
-		, {
-			header : '修改人',
-			dataIndex : 'largecusupdor',
-			sortable : true
-		}
-		, {
-			header : '编码',
-			dataIndex : 'goodscode',
-			sortable : true
-		}
-		, {
-			header : '名称',
-			dataIndex : 'goodsname',
-			sortable : true
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '类别',
 			dataIndex : 'goodsclassname',
-			sortable : true
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
+		}
+		, {
+			header : '价格',
+			dataIndex : 'largecuspriceprice',
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
+		}
+		, {
+			header : '单位',
+			dataIndex : 'largecuspriceunit',
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
+		}
+		, {
+			header : '描述',
+			dataIndex : 'largecuspricedetail',
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
+		}
+		, {
+			header : '修改时间',
+			dataIndex : 'largecusupdtime',
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
+		}
+		, {
+			header : '修改人',
+			dataIndex : 'largecusupdor',
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
+		}
+		, {
+			header : '创建时间',
+			dataIndex : 'largecuspricecreatetime',
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
+		}
+		, {
+			header : '创建人',
+			dataIndex : 'largecuspricecreator',
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		],
 		tbar : [{
@@ -251,7 +295,7 @@ Ext.onReady(function() {
 				handler : function() {
 					LargecuspriceviewdataForm.form.reset();
 					Ext.getCmp("Largecuspriceviewlargecuspriceid").setEditable (true);
-					addLCPWindow(basePath + Largecuspriceviewaction + "?method=insLCP", "新增", LargecuspriceviewdataForm, Largecuspriceviewstore);
+					addLCPWindow(basePath + Largecuspriceviewaction + "?method=insLCP", "新增特殊商品", LargecuspriceviewdataForm, Largecuspriceviewstore);
 				}
 			},'-',{
 				text : Ext.os.deviceType === 'Phone' ? null : "修改",

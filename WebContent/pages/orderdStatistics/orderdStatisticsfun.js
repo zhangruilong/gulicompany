@@ -67,10 +67,10 @@ function showCusNames(){
 				$('.alert-cusNames-show').html('');
 				
 				$.each(data.root ,function(i,item){
-					if(quCus.indexOf(item.customershop) == -1){
-						$('.alert-cusNames-show').append('<span>'+item.customershop+'</span>');
+					if(quCus.indexOf(item.ordermcusshop) == -1){
+						$('.alert-cusNames-show').append('<span>'+item.ordermcusshop+'</span>');
 					} else {
-						$('.alert-cusNames-show').append('<span class="alert-cusNames-selspan">'+item.customershop+'</span>');
+						$('.alert-cusNames-show').append('<span class="alert-cusNames-selspan">'+item.ordermcusshop+'</span>');
 					}
 				});
 				$(".cusNames-popup").addClass("is-visible");		//显示弹窗

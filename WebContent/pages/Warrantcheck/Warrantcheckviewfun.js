@@ -33,7 +33,7 @@ function goodsWindow(){
 	    },
 		columns : [{xtype: 'rownumberer',width:50}, 
 		 {
-			header : '编码',
+			header : '商品编号',
 			dataIndex : 'goodscode',
 			sortable : true,  
 			editor: {
@@ -41,7 +41,7 @@ function goodsWindow(){
             }
 		}
 		, {
-			header : '名称',
+			header : '商品名称',
 			dataIndex : 'goodsname',
 			sortable : true,  
 			editor: {

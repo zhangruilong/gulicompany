@@ -4,10 +4,10 @@
 	<bean id="BaseAction" class="com.system.tools.base.BaseAction" />
 	<bean id="CPCompanyAction" class="com.server.action.CPCompanyAction" />
 	<bean id="CPOrderAction" class="com.server.action.CPOrderAction" />
-	<bean id="CPGoodsviewAction" class="com.server.action.CPGoodsviewAction" />
-	<bean id="CPSystem_tempruleAction" class="com.server.action.CPSystem_tempruleAction" />
 	<bean id="CPOrderdAction" class="com.server.action.CPOrderdAction" />
 	<bean id="CPOrdermAction" class="com.server.action.CPOrdermAction" />
+	<bean id="CPGoodsviewAction" class="com.server.action.CPGoodsviewAction" />
+	<bean id="CPSystem_tempruleAction" class="com.server.action.CPSystem_tempruleAction" />
 	<bean id="CPGoodsclassAction" class="com.server.action.CPGoodsclassAction" />
 	<bean id="CPScantAction" class="com.server.action.CPScantAction" />
 	<bean id="CPGoodsAction" class="com.server.action.CPGoodsAction" />

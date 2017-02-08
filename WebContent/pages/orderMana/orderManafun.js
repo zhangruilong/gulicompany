@@ -118,7 +118,7 @@ var OrderddataForm = Ext.create('Ext.form.Panel', {
 		layout : 'form',
 		items : [ {
 			xtype : 'textfield',
-			fieldLabel : '商品编码',
+			fieldLabel : '商品编号',
 			id : 'Orderdorderdcode',
 			name : 'orderdcode',
 			maxLength : 100
@@ -129,7 +129,7 @@ var OrderddataForm = Ext.create('Ext.form.Panel', {
 		layout : 'form',
 		items : [ {
 			xtype : 'textfield',
-			fieldLabel : '名称',
+			fieldLabel : '商品名称',
 			id : 'Orderdorderdname',
 			name : 'orderdname',
 			maxLength : 100

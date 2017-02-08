@@ -413,7 +413,7 @@ Ext.onReady(function() {
 										width:60
 									},
 									{
-										header : '商品编码',
+										header : '商品编号',
 										dataIndex : 'orderdcode',
 										sortable : true,  
 										editor: {
@@ -421,7 +421,7 @@ Ext.onReady(function() {
 							                editable:false
 							            }
 									}, {
-										header : '名称',
+										header : '商品名称',
 										dataIndex : 'orderdname',
 										sortable : true,  
 										editor: {
@@ -430,7 +430,7 @@ Ext.onReady(function() {
 							            }
 									}
 									, {
-										header : '商品类型',
+										header : '类型',
 										dataIndex : 'orderdtype',
 										sortable : true,  
 										editor: {
@@ -552,7 +552,7 @@ Ext.onReady(function() {
     						if (btn == 'yes') {
     							//
     							window.location.href = basePath + Ordermviewaction + "?method=expOrder&json="+queryjson+"&query="+
-    							Ext.getCmp("queryOrdermviewaction").getValue()+"&startDate="+startDate+" 00:00:00&endDate="+endDate+" 23:59:59"; 
+    							Ext.getCmp("queryOrdermviewaction").getValue()+"&startDate="+startDate+" 00:00:00&endDate="+endDate+" 23:59:59&comid="+comid; 
     						}
     					});
     				}

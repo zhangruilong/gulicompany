@@ -212,15 +212,15 @@ public class CPOrderdAction extends OrderdAction{
 		selectsql += "group by od.orderdcode,od.orderdname,od.orderdunits,od.orderdunit,od.orderdprice,od.orderdweight "
 				+ "order by od.orderdname,od.orderdunits,od.orderdcode,od.orderdprice,od.orderdweight ";
 		
-		String quCondit = "数据过滤条件:";
+		String quCondit = "数据过滤条件: ";
 		if(null != empNames && empNames.length()>0){
-			quCondit += "业务员:"+empNames;
+			quCondit += " 业务员:"+empNames+";";
 		}
 		if(null != brandNames && brandNames.length()>0){
-			quCondit += "品牌:"+brandNames;
+			quCondit += " 品牌:"+brandNames+";";
 		}
 		if(null != cusNames && cusNames.length()>0){
-			quCondit += "客户:"+cusNames;
+			quCondit += " 客户:"+cusNames+";";
 		}
 		
 		ArrayList<OrderStatisticsVO> statLi = (ArrayList<OrderStatisticsVO>) selAll(OrderStatisticsVO.class, selectsql);
@@ -270,7 +270,7 @@ public class CPOrderdAction extends OrderdAction{
 		if(CommonUtil.isNotEmpty(cusNames)){
 			selectsql += "and (";
 			for (String cusName : cusNames.split(",")) {
-				selectsql += "om.customershop='"+cusName+"' or ";
+				selectsql += "om.ordermcusshop='"+cusName+"' or ";
 			}
 			selectsql = selectsql.substring(0, selectsql.length()-3) + ")";
 		}

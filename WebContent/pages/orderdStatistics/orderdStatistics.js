@@ -94,7 +94,7 @@ Ext.onReady(function() {
 			width:60
 		},
 		{// 改
-			header : '商品编码',
+			header : '商品编号',
 			dataIndex : 'orderdcode',
 			sortable : true, 
 			editor: {

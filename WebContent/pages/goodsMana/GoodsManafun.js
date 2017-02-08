@@ -19,7 +19,7 @@ var GoodsPricesForm = Ext.create('Ext.form.Panel', {// 定义新增和修改的F
 			items: [
 			    {
 					xtype : 'textfield',
-					fieldLabel : '编码',
+					fieldLabel : '商品编号',
 			        margin    : '0 15 0 0',			//外边距
 					columnWidth : .4,				//宽度
 					labelWidth : 35,				//标题宽度
@@ -29,7 +29,7 @@ var GoodsPricesForm = Ext.create('Ext.form.Panel', {// 定义新增和修改的F
 				}
 				, {
 					xtype : 'textfield',
-					fieldLabel : '名称',
+					fieldLabel : '商品名称',
 			        margin    : '0 15 0 0',
 					columnWidth : .4,
 					labelWidth : 35,

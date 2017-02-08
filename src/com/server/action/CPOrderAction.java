@@ -87,7 +87,7 @@ public class CPOrderAction extends OrdermviewAction {
 		queryinfo.setWheresql(queryinfo.getWheresql()==null?wheresql:queryinfo.getWheresql()+wheresql);
 		queryinfo.setOrder("ordermtime desc");
 		String[] heads = {"订单编号","种类数","下单金额","实际金额","支付方式","订单状态","下单时间","联系人","手机","地址","修改时间","层级","类型","客户名称"};				//表头
-		String[] discard = {"ordermid","ordermcustomer","ordermcompany","ordermdetail","updor","ordermemp","openid","companyshop","companyphone","companydetail","ordermcusshop"};			//要忽略的字段名
+		String[] discard = {"ordermid","ordermcustomer","ordermcompany","ordermdetail","updor","ordermemp","openid","companyshop","companyphone","companydetail","ordermcusshop","ordermprinttimes"};			//要忽略的字段名
 		String name = "订单统计报表";							//文件名称
 		if(!startDate.equals("") && !endDate.equals("")){
 			name = startDate + "日至" + endDate + "日的" + name;

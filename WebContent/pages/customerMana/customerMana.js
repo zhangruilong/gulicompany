@@ -2,6 +2,10 @@ var customertypeStore = new Ext.data.ArrayStore({//状态下拉
     	fields:["name","value"],
     	data:[["餐饮客户","3"],["商超客户","2"],["组织单位客户","1"]]
     });
+var customerlevelStore = new Ext.data.ArrayStore({//状态下拉
+	fields:["value"],
+	data:[["3"],["2"],["1"]]
+});
 var Ccustomerviewbbar;
 Ext.onReady(function() {
 	var Ccustomerviewclassify = classify;
@@ -81,15 +85,28 @@ Ext.onReady(function() {
 				anchor : '95%'
 			} ]
 		}
-		, {
+ 		, {
 			columnWidth : 1,
 			layout : 'form',
 			items : [ {
-				xtype : 'textfield',
+				xtype : 'combo',
 				fieldLabel : '客户等级',
 				id : 'Ccustomerviewccustomerdetail',
-				name : 'ccustomerdetail',
-				maxLength : 100
+				name : 'ccustomerdetail',			//小类名称
+				//loadingText: 'loading...',			//正在加载时的显示
+				//editable : false,						//是否可编辑
+				emptyText : '请选择',
+				store : customerlevelStore,
+				mode : 'local',					//local是取本地数据的也就是javascirpt(内存)中的数据。
+												//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
+				displayField : 'value',		//显示的字段
+				valueField : 'value',		//作为值的字段
+				hiddenName : 'ccustomerdetail',
+				triggerAction : 'all',
+				editable : false,
+				maxLength : 100,
+				allowBlank : false,
+				anchor : '95%'
 			} ]
 		}
  		, {
@@ -271,23 +288,39 @@ Ext.onReady(function() {
 			sortable : true,
 			flex : 1,
 			minWidth : 110,
-			maxWidth : 200
+			maxWidth : 200, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '地址',
 			dataIndex : 'customeraddress',
-			sortable : true
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '联系人',
 			dataIndex : 'customername',
-			sortable : true
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '手机',
 			dataIndex : 'customerphone',
 			sortable : true,
-			width : 100
+			width : 100, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '客户类型',
@@ -296,28 +329,48 @@ Ext.onReady(function() {
 			renderer : function(value, metaData, record, rowIdx, colIdx, store, view){
 				var type = value=='3'?'餐饮客户':(value=='2'?'商超客户':(value=='1'?'组织单位客户':''));
 				return type;
-			}
+			}, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '价格层级',
 			dataIndex : 'ccustomerdetail',
-			sortable : true
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '修改时间',
 			dataIndex : 'ccustomerupdtime',
 			sortable : true,
-			width : 139
+			width : 139, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '修改人',
 			dataIndex : 'ccustomerupdor',
-			sortable : true
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '客户经理',
 			dataIndex : 'createtime',
-			sortable : true
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		],
 		tbar : [{

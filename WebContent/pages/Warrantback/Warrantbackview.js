@@ -4,37 +4,37 @@ Ext.onReady(function() {
 	var Warrantbackviewtitle = "当前位置:库存管理》" + Warrantbackviewclassify;
 	var Warrantbackviewaction = "CPWarrantbackviewAction.do";
 	var Warrantbackviewfields = ['idwarrantback'
-	        			    ,'warrantbackstore' 
-	        			    ,'warrantbackgoods' 
-	        			    ,'warrantbacknum' 
-	        			    ,'warrantbackwho' 
-	        			    ,'warrantbackstatue' 
-	        			    ,'warrantbackdetail' 
-	        			    ,'warrantbackinswho' 
-	        			    ,'warrantbackinswhen' 
-	        			    ,'warrantbackupdwho' 
-	        			    ,'warrantbackupdwhen' 
-	        			    ,'gOODSID' 
-	        			    ,'gOODSCOMPANY' 
-	        			    ,'gOODSCODE' 
-	        			    ,'gOODSNAME' 
-	        			    ,'gOODSDETAIL' 
-	        			    ,'gOODSUNITS' 
-	        			    ,'gOODSCLASS' 
-	        			    ,'gOODSIMAGE' 
-	        			    ,'gOODSSTATUE' 
-	        			    ,'cREATETIME' 
-	        			    ,'uPDTIME' 
-	        			    ,'cREATOR' 
-	        			    ,'uPDOR' 
-	        			    ,'gOODSBRAND' 
-	        			    ,'gOODSTYPE' 
-	        			    ,'gOODSORDER' 
-	        			    ,'gOODSWEIGHT' 
-	        			    ,'gOODSCLASSNAME' 
+	                             ,'warrantbackstore' 
+	 	        			    ,'warrantbackgoods' 
+	 	        			    ,'warrantbacknum' 
+	 	        			    ,'warrantbackwho' 
+	 	        			    ,'warrantbackstatue' 
+	 	        			    ,'warrantbackdetail' 
+	 	        			    ,'warrantbackinswho' 
+	 	        			    ,'warrantbackinswhen' 
+	 	        			    ,'warrantbackupdwho' 
+	 	        			    ,'warrantbackupdwhen' 
+	 	        			    ,'goodsid' 
+	 	        			    ,'goodscompany' 
+	 	        			    ,'goodscode' 
+	 	        			    ,'goodsname' 
+	 	        			    ,'goodsdetail' 
+	 	        			    ,'goodsunits' 
+	 	        			    ,'goodsclass' 
+	 	        			    ,'goodsimage' 
+	 	        			    ,'goodsstatue' 
+	 	        			    ,'createtime' 
+	 	        			    ,'updtime' 
+	 	        			    ,'creator' 
+	 	        			    ,'updor' 
+	 	        			    ,'goodsbrand' 
+	 	        			    ,'goodstype' 
+	 	        			    ,'goodsorder' 
+	 	        			    ,'goodsweight' 
+	 	        			    ,'goodsclassname'  
 	        			      ];// 全部字段
 	var Warrantbackviewkeycolumn = [ 'idwarrantback' ];// 主键
-	var wheresql = "gOODSCOMPANY='"+comid+"'";
+	var wheresql = "goodscompany='"+comid+"'";
 	var Warrantbackviewstore = dataStore(Warrantbackviewfields, basePath + Warrantbackviewaction + "?method=selQuery");// 定义Warrantbackviewstore
 	Warrantbackviewstore.on('beforeload',function(store,options){					//数据加载时的事件
 		var new_params = {		//每次数据加载的时候传递的参数
@@ -81,10 +81,10 @@ Ext.onReady(function() {
 			layout : 'form',
 			items : [ {
 				xtype : 'textfield',
-				fieldLabel : '商品编码',
-				id : 'WarrantbackviewgOODSCODE',
+				fieldLabel : '商品编号',
+				id : 'Warrantbackviewgoodscode',
 				allowBlank : false,
-				name : 'gOODSCODE',
+				name : 'goodscode',
 				maxLength : 100
 			} ]
 		}
@@ -94,9 +94,9 @@ Ext.onReady(function() {
 			items : [ {
 				xtype : 'textfield',
 				fieldLabel : '商品名称',
-				id : 'WarrantbackviewgOODSNAME',
+				id : 'Warrantbackviewgoodsname',
 				allowBlank : false,
-				name : 'gOODSNAME',
+				name : 'goodsname',
 				maxLength : 100
 			} ]
 		}
@@ -106,9 +106,9 @@ Ext.onReady(function() {
 			items : [ {
 				xtype : 'textfield',
 				fieldLabel : '规格',
-				id : 'WarrantbackviewgOODSUNITS',
+				id : 'Warrantbackviewgoodsunits',
 				allowBlank : false,
-				name : 'gOODSUNITS',
+				name : 'goodsunits',
 				maxLength : 100
 			} ]
 		}
@@ -203,69 +203,122 @@ Ext.onReady(function() {
             }
 		}
 		, {
-			header : '商品编码',
-			dataIndex : 'gOODSCODE',
-			sortable : true
+			header : '商品编号',
+			dataIndex : 'goodscode',
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '商品名称',
-			dataIndex : 'gOODSNAME',
-			sortable : true
+			dataIndex : 'goodsname',
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '规格',
-			dataIndex : 'gOODSUNITS',
-			sortable : true
+			dataIndex : 'goodsunits',
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '仓库',
 			dataIndex : 'warrantbackstore',
-			sortable : true
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '商品',
 			dataIndex : 'warrantbackgoods',
-			sortable : true
+			sortable : true, 
+			hidden : true,
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '数量',
 			dataIndex : 'warrantbacknum',
-			sortable : true
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '退货人',
 			dataIndex : 'warrantbackwho',
-			sortable : true
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '状态',
 			dataIndex : 'warrantbackstatue',
-			sortable : true
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '描述',
 			dataIndex : 'warrantbackdetail',
-			sortable : true
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '创建人',
 			dataIndex : 'warrantbackinswho',
-			sortable : true
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '创建时间',
 			dataIndex : 'warrantbackinswhen',
-			sortable : true
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '修改人',
 			dataIndex : 'warrantbackupdwho',
-			sortable : true
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		, {
 			header : '修改时间',
 			dataIndex : 'warrantbackupdwhen',
-			sortable : true
+			sortable : true, 
+			editor: {
+                xtype: 'textfield',
+                editable: false
+            }
 		}
 		],
 		tbar : [{

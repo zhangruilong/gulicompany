@@ -31,21 +31,32 @@ function goodsWindow(){
 		selModel: {
 	        type: 'checkboxmodel'
 	    },
-		columns : [{xtype: 'rownumberer',width:50}, 
-		 {
-			header : '编码',
+	    plugins: {
+	         ptype: 'cellediting',
+	         clicksToEdit: 1
+	    },
+		columns : [{
+			header : '序号',
+			xtype: 'rownumberer',		//行号
+			width:60
+		}
+		, {
+			header : '商品编号',
 			dataIndex : 'goodscode',
 			sortable : true,  
 			editor: {
-                xtype: 'textfield'
+                xtype: 'textfield',
+                editable: false
             }
 		}
 		, {
-			header : '名称',
+			header : '商品名称',
 			dataIndex : 'goodsname',
 			sortable : true,  
+			width : 150,
 			editor: {
-                xtype: 'textfield'
+                xtype: 'textfield',
+                editable: false
             }
 		}
 		, {
@@ -53,15 +64,8 @@ function goodsWindow(){
 			dataIndex : 'goodsunits',
 			sortable : true,  
 			editor: {
-                xtype: 'textfield'
-            }
-		}
-		, {
-			header : '图片',
-			dataIndex : 'goodsimage',
-			sortable : true,  
-			editor: {
-                xtype: 'textfield'
+                xtype: 'textfield',
+                editable: false
             }
 		}
 		, {
@@ -69,7 +73,8 @@ function goodsWindow(){
 			dataIndex : 'goodsbrand',
 			sortable : true,  
 			editor: {
-                xtype: 'textfield'
+                xtype: 'textfield',
+                editable: false
             }
 		}
 		, {
@@ -77,7 +82,8 @@ function goodsWindow(){
 			dataIndex : 'goodsweight',
 			sortable : true,  
 			editor: {
-                xtype: 'textfield'
+                xtype: 'textfield',
+                editable: false
             }
 		}
 		],
