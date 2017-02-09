@@ -22,7 +22,7 @@ var GoodsPricesForm = Ext.create('Ext.form.Panel', {// 定义新增和修改的F
 					fieldLabel : '商品编号',
 			        margin    : '0 15 0 0',			//外边距
 					columnWidth : .4,				//宽度
-					labelWidth : 35,				//标题宽度
+					labelWidth : 60,				//标题宽度
 					editable : false,				//不可编辑
 					name : 'goodscode',
 					maxLength : 100					//输入的最大长度
@@ -32,7 +32,7 @@ var GoodsPricesForm = Ext.create('Ext.form.Panel', {// 定义新增和修改的F
 					fieldLabel : '商品名称',
 			        margin    : '0 15 0 0',
 					columnWidth : .4,
-					labelWidth : 35,
+					labelWidth : 60,
 					editable : false,
 					name : 'goodsname',
 					maxLength : 100
@@ -304,8 +304,8 @@ function goodsPriceWindow(url,store,pricegoodsid){
 		modal : true,
 		closeAction: 'hide',
 		closable : true, // 是否可关闭
-		collapsible : true, // 是否可收缩
-		maximizable : true, // 设置是否可以最大化
+		collapsible : false, // 是否可收缩
+		maximizable : false, // 设置是否可以最大化
 		border : false, // 边框线设置
 		animateTarget : Ext.getBody(),
 		pageY : 0, // 页面定位Y坐标
@@ -382,27 +382,27 @@ function goodsPriceWindow(url,store,pricegoodsid){
 function scantWindow(){
 	var Scanttitle = "标品库";
 	var Scantaction = "CPScantAction.do";
-	var Scantfields = ['sCANTID'
-	        			    ,'sCANTCODE' 
-	        			    ,'sCANTNAME' 
-	        			    ,'sCANTDETAIL' 
-	        			    ,'sCANTUNITS' 
-	        			    ,'sCANTCLASS' 
-	        			    ,'sCANTIMAGE' 
-	        			    ,'sCANTBRAND' 
-	        			    ,'sCANTTYPE' 
-	        			    ,'sCANTSTATUE' 
-	        			    ,'gOODSCLASSID' 
-	        			    ,'gOODSCLASSCODE' 
-	        			    ,'gOODSCLASSNAME' 
-	        			    ,'gOODSCLASSPARENT' 
-	        			    ,'gOODSCLASSDETAIL' 
-	        			    ,'gOODSCLASSSTATUE' 
-	        			    ,'gOODSCLASSCITY' 
-	        			    ,'gOODSCLASSORDER' 
-	        			    ,'gOODSCLASSCOMPANY' 
+	var Scantfields = ['scantid'
+       			    ,'scantcode' 
+    			    ,'scantname' 
+    			    ,'scantdetail' 
+    			    ,'scantunits' 
+    			    ,'scantclass' 
+    			    ,'scantimage' 
+    			    ,'scantbrand' 
+    			    ,'scanttype' 
+    			    ,'scantstatue' 
+    			    ,'goodsclassid' 
+    			    ,'goodsclasscode' 
+    			    ,'goodsclassname' 
+    			    ,'goodsclassparent' 
+    			    ,'goodsclassdetail' 
+    			    ,'goodsclassstatue' 
+    			    ,'goodsclasscity' 
+    			    ,'goodsclassorder' 
+    			    ,'goodsclasscompany' 
 	        			      ];// 全部字段
-	var Scantkeycolumn = [ 'sCANTID' ];// 主键
+	var Scantkeycolumn = [ 'scantid' ];// 主键
 	var Scantstore = dataStore(Scantfields, basePath + Scantaction + "?method=selQuery");// 定义Scantstore
 	var Scantbbar = pagesizebar(Scantstore);
 	var Scantgrid = new Ext.grid.GridPanel({
@@ -413,80 +413,56 @@ function scantWindow(){
 		selModel: {
 	        type: 'checkboxmodel'
 	    },
-		columns : [{xtype: 'rownumberer',width:50}, 
-		{// 改
+	    viewConfig : {
+	    	enableTextSelection : true	//文本可以被选中
+	    },
+		columns : [{
+			header : '序号',
+			xtype: 'rownumberer',		//行号
+			width:60
+		}
+		, {// 改
 			header : '标品ID',
-			dataIndex : 'sCANTID',
+			dataIndex : 'scantid',
 			hidden : true,
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
 		}
 		, {
 			header : '编码',
-			dataIndex : 'sCANTCODE',
+			dataIndex : 'scantcode',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
 		}
 		, {
 			header : '名称',
-			dataIndex : 'sCANTNAME',
+			dataIndex : 'scantname',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
 		}
 		, {
 			header : '规格',
-			dataIndex : 'sCANTUNITS',
+			dataIndex : 'scantunits',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
 		}
 		, {
 			header : '小类ID',
-			dataIndex : 'sCANTCLASS',
+			dataIndex : 'scantclass',
 			sortable : true,  
 			hidden : true,
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
 		}
 		, {
 			header : '小类',
-			dataIndex : 'gOODSCLASSNAME',
+			dataIndex : 'goodsclassname',
 			sortable : true,  
-			editor: {
-                xtype: 'textfield'
-            }
 		}
 		, {
-			header : '图片',
-			dataIndex : 'sCANTIMAGE',
+			header : '图片路径',
+			dataIndex : 'scantimage',
 			sortable : true,
 			hidden : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
 		}
 		, {
 			header : '品牌',
-			dataIndex : 'sCANTBRAND',
+			dataIndex : 'scantbrand',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
 		}
 		],
 		tbar : [{
@@ -522,8 +498,8 @@ function scantWindow(){
 		modal : true,
 		//closeAction: 'hide',
 		closable : true, // 是否可关闭
-		collapsible : true, // 是否可收缩
-		maximizable : true, // 设置是否可以最大化
+		collapsible : false, // 是否可收缩
+		maximizable : false, // 设置是否可以最大化
 		border : false, // 边框线设置
 		constrain : true, // 设置窗口是否可以溢出父容器
 		animateTarget : Ext.getBody(),
@@ -541,13 +517,13 @@ function scantWindow(){
 								});
 								return;
 							}
-							Ext.getCmp('Goodsgoodscode').setValue(comcode+selectRows[0].get("sCANTCODE"));
-							Ext.getCmp('Goodsgoodsname').setValue(selectRows[0].get("sCANTNAME"));
-							Ext.getCmp('Goodsgoodsunits').setValue(selectRows[0].get("sCANTUNITS"));
-							Ext.getCmp('Goodsgoodsimage').setValue(nullStr(selectRows[0].get("sCANTIMAGE")));
-							Ext.getCmp('Goodsgoodsbrand').setValue(nullStr(selectRows[0].get("sCANTBRAND")));
-							Ext.getCmp('Goodsgoodsclass').setValue(nullStr(selectRows[0].get("sCANTCLASS")));
-							Ext.getCmp('Goodsgoodstype').setValue(nullStr(selectRows[0].get("gOODSCLASSNAME")));
+							Ext.getCmp('Goodsgoodscode').setValue(comcode+selectRows[0].get("scantcode"));
+							Ext.getCmp('Goodsgoodsname').setValue(selectRows[0].get("scantname"));
+							Ext.getCmp('Goodsgoodsunits').setValue(selectRows[0].get("scantunits"));
+							Ext.getCmp('Goodsgoodsimage').setValue(nullStr(selectRows[0].get("scantimage")));
+							Ext.getCmp('Goodsgoodsbrand').setValue(nullStr(selectRows[0].get("scantbrand")));
+							Ext.getCmp('Goodsgoodsclass').setValue(nullStr(selectRows[0].get("scantclass")));
+							Ext.getCmp('Goodsgoodstype').setValue(nullStr(selectRows[0].get("goodsclassname")));
 							selectgridWindow.close();
 						}
 					}, '-', {
@@ -574,8 +550,8 @@ function editGoodsWindow(url,title,_form,store) {
 		modal : true,
 		closeAction: 'hide',
 		closable : true, // 是否可关闭
-		collapsible : true, // 是否可收缩
-		maximizable : true, // 设置是否可以最大化
+		collapsible : false, // 是否可收缩
+		maximizable : false, // 设置是否可以最大化
 		border : false, // 边框线设置
 		animateTarget : Ext.getBody(),
 		pageY : 0, // 页面定位Y坐标
@@ -634,8 +610,8 @@ function addGoodsWindow(url,title,_form,store) {
 		modal : true,
 		closeAction: 'hide',
 		closable : true, // 是否可关闭
-		collapsible : true, // 是否可收缩
-		maximizable : true, // 设置是否可以最大化
+		collapsible : false, // 是否可收缩
+		maximizable : false, // 设置是否可以最大化
 		border : false, // 边框线设置
 		animateTarget : Ext.getBody(),
 		pageY : 0, // 页面定位Y坐标
@@ -643,7 +619,7 @@ function addGoodsWindow(url,title,_form,store) {
 		items : _form, // 嵌入的表单面板
 		buttons : [
 				{
-					text : '标品库',
+					text : '查找标品库',
 					iconCls : 'select',
 					handler : function() {
 						scantWindow();

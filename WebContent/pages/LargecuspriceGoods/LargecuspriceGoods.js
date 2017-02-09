@@ -147,9 +147,8 @@ Ext.onReady(function() {
 	    selModel: {
 	        type: 'checkboxmodel'
 	    },
-	    plugins: {
-	         ptype: 'cellediting',
-	         clicksToEdit: 1
+	    viewConfig : {
+	    	enableTextSelection : true	//文本可以被选中
 	    },
 		columns : [{
 			header : '序号',
@@ -166,100 +165,58 @@ Ext.onReady(function() {
 			header : '商品编号',
 			dataIndex : 'goodscode',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 158,
 		}
 		, {
 			header : '商品名称',
 			dataIndex : 'goodsname',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 137,
 		}
 		, {
 			header : '规格',
 			dataIndex : 'goodsunits',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
 		}
 		, {
 			header : '类别',
 			dataIndex : 'goodsclassname',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
 		}
 		, {
 			header : '价格',
 			dataIndex : 'largecuspriceprice',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
 		}
 		, {
 			header : '单位',
 			dataIndex : 'largecuspriceunit',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
 		}
 		, {
 			header : '描述',
 			dataIndex : 'largecuspricedetail',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
 		}
 		, {
 			header : '修改时间',
 			dataIndex : 'largecusupdtime',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
 		}
 		, {
 			header : '修改人',
 			dataIndex : 'largecusupdor',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
 		}
 		, {
 			header : '创建时间',
 			dataIndex : 'largecuspricecreatetime',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
 		}
 		, {
 			header : '创建人',
 			dataIndex : 'largecuspricecreator',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
 		}
 		],
 		tbar : [{

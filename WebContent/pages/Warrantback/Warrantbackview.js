@@ -183,9 +183,8 @@ Ext.onReady(function() {
 	    selModel: {
 	        type: 'checkboxmodel'
 	    },
-	    plugins: {
-	         ptype: 'cellediting',
-	         clicksToEdit: 1
+	    viewConfig : {
+	    	enableTextSelection : true	//文本可以被选中
 	    },
 		columns : [{
 			header : '序号',
@@ -197,128 +196,82 @@ Ext.onReady(function() {
 			dataIndex : 'idwarrantback',
 			sortable : true, 
 			hidden : true,
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
 		}
 		, {
 			header : '商品编号',
 			dataIndex : 'goodscode',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 122,
 		}
 		, {
 			header : '商品名称',
 			dataIndex : 'goodsname',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 137,
 		}
 		, {
 			header : '规格',
 			dataIndex : 'goodsunits',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 105,
 		}
 		, {
 			header : '仓库',
 			dataIndex : 'warrantbackstore',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 137,
 		}
 		, {
 			header : '商品',
 			dataIndex : 'warrantbackgoods',
 			sortable : true, 
 			hidden : true,
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
 		}
 		, {
 			header : '数量',
 			dataIndex : 'warrantbacknum',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 47,
 		}
 		, {
 			header : '退货人',
 			dataIndex : 'warrantbackwho',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width:150,
 		}
 		, {
 			header : '状态',
 			dataIndex : 'warrantbackstatue',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 47,
 		}
 		, {
 			header : '描述',
 			dataIndex : 'warrantbackdetail',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
-		}
-		, {
-			header : '创建人',
-			dataIndex : 'warrantbackinswho',
-			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width:150,
 		}
 		, {
 			header : '创建时间',
 			dataIndex : 'warrantbackinswhen',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width:138,
 		}
 		, {
-			header : '修改人',
-			dataIndex : 'warrantbackupdwho',
+			header : '创建人',
+			dataIndex : 'warrantbackinswho',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 73,
 		}
 		, {
 			header : '修改时间',
 			dataIndex : 'warrantbackupdwhen',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+		}
+		, {
+			header : '修改人',
+			dataIndex : 'warrantbackupdwho',
+			sortable : true, 
 		}
 		],
 		tbar : [{
@@ -354,7 +307,7 @@ Ext.onReady(function() {
 				handler : function() {
 					WarrantbackviewdataForm.form.reset();
 					Ext.getCmp("Warrantbackviewidwarrantback").setEditable (true);
-					addWarrantbackWindow(basePath + "CPWarrantbackAction.do?method=addWarrantback", "新增", WarrantbackviewdataForm, Warrantbackviewstore);
+					addWarrantbackWindow(basePath + "CPWarrantbackAction.do?method=addWarrantback", "新增退货台账", WarrantbackviewdataForm, Warrantbackviewstore);
 				}
 			},'-',{
 				text : Ext.os.deviceType === 'Phone' ? null : "修改",
@@ -368,7 +321,7 @@ Ext.onReady(function() {
 					}
 					WarrantbackviewdataForm.form.reset();
 					Ext.getCmp("Warrantbackviewidwarrantback").setEditable (false);
-					editWarrantbackWindow(basePath + "CPWarrantbackAction.do?method=updWarrantback", "修改", WarrantbackviewdataForm, Warrantbackviewstore);
+					editWarrantbackWindow(basePath + "CPWarrantbackAction.do?method=updWarrantback", "修改退货台账", WarrantbackviewdataForm, Warrantbackviewstore);
 					WarrantbackviewdataForm.form.loadRecord(selections[0]);
 				}
 			},'-',{

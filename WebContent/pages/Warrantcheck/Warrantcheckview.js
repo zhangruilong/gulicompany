@@ -183,9 +183,8 @@ Ext.onReady(function() {
 	    selModel: {
 	        type: 'checkboxmodel'
 	    },
-	    plugins: {
-	         ptype: 'cellediting',
-	         clicksToEdit: 1
+	    viewConfig : {
+	    	enableTextSelection : true	//文本可以被选中
 	    },
 		columns : [{
 			header : '序号',
@@ -197,128 +196,84 @@ Ext.onReady(function() {
 			dataIndex : 'idwarrantcheck',
 			hidden : true,
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
 		}
 		, {
 			header : '商品ID',
 			dataIndex : 'warrantcheckgoods',
 			hidden : true,
 			sortable : true,  
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
 		}
 		, {
 			header : '商品编号',
 			dataIndex : 'goodscode',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 122,
 		}
 		, {
 			header : '商品名称',
 			dataIndex : 'goodsname',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 137,
 		}
 		, {
 			header : '规格',
 			dataIndex : 'goodsunits',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 105,
 		}
 		, {
 			header : '仓库',
 			dataIndex : 'warrantcheckstore',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 137,
 		}
 		, {
 			header : '应有数量',
 			dataIndex : 'warrantchecknumorg',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 73,
 		}
 		, {
 			header : '现有数量',
 			dataIndex : 'warrantchecknumnow',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 73,
 		}
 		, {
 			header : '状态',
 			dataIndex : 'warrantcheckstatue',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 47,
 		}
 		, {
 			header : '描述',
 			dataIndex : 'warrantcheckdetail',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 137,
 		}
 		, {
 			header : '创建人',
 			dataIndex : 'warrantcheckinswho',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 73,
 		}
 		, {
 			header : '创建时间',
 			dataIndex : 'warrantcheckinswhen',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width:138,
 		}
 		, {
-			header : '更新人',
+			header : '修改人',
 			dataIndex : 'warrantcheckupdwho',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 73,
 		}
 		, {
-			header : '更新时间',
+			header : '修改时间',
 			dataIndex : 'warrantcheckupdwhen',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width:138,
 		}
 		],
 		tbar : [{
@@ -354,7 +309,7 @@ Ext.onReady(function() {
 				handler : function() {
 					WarrantcheckviewdataForm.form.reset();
 					Ext.getCmp("Warrantcheckviewidwarrantcheck").setEditable (true);
-					addWarrantcheckWindow(basePath + "CPWarrantcheckAction.do?method=insWarrantcheck", "新增", WarrantcheckviewdataForm, Warrantcheckviewstore);
+					addWarrantcheckWindow(basePath + "CPWarrantcheckAction.do?method=insWarrantcheck", "新增盘点记录", WarrantcheckviewdataForm, Warrantcheckviewstore);
 				}
 			},'-',{
 				text : Ext.os.deviceType === 'Phone' ? null : "修改",
@@ -368,7 +323,7 @@ Ext.onReady(function() {
 					}
 					WarrantcheckviewdataForm.form.reset();
 					Ext.getCmp("Warrantcheckviewidwarrantcheck").setEditable (false);
-					editWarrantcheckWindow(basePath + "CPWarrantcheckAction.do?method=updWarrantcheck", "修改", WarrantcheckviewdataForm, Warrantcheckviewstore);
+					editWarrantcheckWindow(basePath + "CPWarrantcheckAction.do?method=updWarrantcheck", "修改盘点记录", WarrantcheckviewdataForm, Warrantcheckviewstore);
 					WarrantcheckviewdataForm.form.loadRecord(selections[0]);
 				}
 			},'-',{

@@ -145,9 +145,8 @@ Ext.onReady(function() {
 	    selModel: {
 	        type: 'checkboxmodel'
 	    },
-	    plugins: {
-	         ptype: 'cellediting',
-	         clicksToEdit: 1
+	    viewConfig : {
+	    	enableTextSelection : true	//文本可以被选中
 	    },
 		columns : [{
 			header : '序号',
@@ -159,55 +158,36 @@ Ext.onReady(function() {
 			dataIndex : 'idgoodsnum',
 			sortable : true, 
 			hidden : true,
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
 		}
 		, {
-			header : '商品编码',
+			header : '商品编号',
 			dataIndex : 'goodscode',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 122,
 		}
 		, {
 			header : '商品名称',
 			dataIndex : 'goodsname',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 137,
 		}
 		, {
 			header : '商品规格',
 			dataIndex : 'goodsunits',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 105,
 		}
 		, {
 			header : '数量',
 			dataIndex : 'goodsnumnum',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 48,
 		}
 		, {
 			header : '仓库',
 			dataIndex : 'goodsnumstore',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 137,
 		}
 		],
 		tbar : [{

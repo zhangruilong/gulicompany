@@ -83,9 +83,8 @@ Ext.onReady(function() {
 		selModel: {
 	        type: 'checkboxmodel'								//复选框
 	    },
-	    plugins: {												//这里设置插件
-	         ptype: 'cellediting',									//类型为:单元格编辑
-	         clicksToEdit: 1										//点几下可以编辑
+	    viewConfig : {
+	    	enableTextSelection : true	//文本可以被选中
 	    },
 	    /*设置表格*/
 		columns : [{
@@ -97,37 +96,23 @@ Ext.onReady(function() {
 			header : '商品编号',
 			dataIndex : 'orderdcode',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 158,
 		}
 		, {
 			header : '商品名称',				//表头
 			dataIndex : 'orderdname',		//对应字段
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 137,
 		}
 		, {
 			header : '规格',
 			dataIndex : 'orderdunits',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
 		}
 		, {
 			header : '单位',
 			dataIndex : 'orderdunit',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
 		}
 		, {
 			header : '单价',
@@ -136,10 +121,6 @@ Ext.onReady(function() {
 			summaryRenderer: function(value, summaryData, dataIndex) {
                 return '合计:';
             },
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
 		}
 		, {
 			header : '数量',
@@ -153,10 +134,6 @@ Ext.onReady(function() {
 			summaryRenderer: function(value, summaryData, dataIndex) {
                 return parseInt(numtotal);
             },
-			editor: {
-                xtype: 'numberfield',
-                readOnly: true
-            }
 		}
 		, {
 			header : '重量',
@@ -166,10 +143,6 @@ Ext.onReady(function() {
 			summaryRenderer: function(value, summaryData, dataIndex) {
                 return parseInt(weighttotal);
             },
-			editor: {
-                xtype: 'numberfield',
-                readOnly: true
-            }
 		}
 		, {
 			header : '商品总价',
@@ -179,10 +152,6 @@ Ext.onReady(function() {
 			summaryRenderer: function(value, summaryData, dataIndex) {
                 return parseInt(moneytotal);
             },
-			editor: {
-                xtype: 'numberfield',
-                readOnly: true
-            }
 		}
 		, {
 			header : '实际金额',
@@ -192,10 +161,6 @@ Ext.onReady(function() {
 			summaryRenderer: function(value, summaryData, dataIndex) {
                 return parseInt(rightmoneytotal);
             },
-			editor: {
-                xtype: 'numberfield',
-                readOnly: true
-            }
 		}
 		],
 		/*工具栏*/

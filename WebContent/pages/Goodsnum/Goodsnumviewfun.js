@@ -36,6 +36,7 @@ function goodsWindow(){
 			header : '商品编号',
 			dataIndex : 'goodscode',
 			sortable : true,  
+			width : 158,
 			editor: {
                 xtype: 'textfield'
             }
@@ -44,6 +45,7 @@ function goodsWindow(){
 			header : '商品名称',
 			dataIndex : 'goodsname',
 			sortable : true,  
+			width : 137,
 			editor: {
                 xtype: 'textfield'
             }
@@ -114,8 +116,8 @@ function goodsWindow(){
 		modal : true,
 		//closeAction: 'hide',
 		closable : true, // 是否可关闭
-		collapsible : true, // 是否可收缩
-		maximizable : true, // 设置是否可以最大化
+		collapsible : false, // 是否可收缩
+		maximizable : false, // 设置是否可以最大化
 		border : false, // 边框线设置
 		constrain : true, // 设置窗口是否可以溢出父容器
 		animateTarget : Ext.getBody(),
@@ -133,9 +135,9 @@ function goodsWindow(){
 								});
 								return;
 							}
-							Ext.getCmp('GoodsnumviewgOODSCODE').setValue(selectRows[0].get("goodscode"));
-							Ext.getCmp('GoodsnumviewgOODSNAME').setValue(selectRows[0].get("goodsname"));
-							Ext.getCmp('GoodsnumviewgOODSUNITS').setValue(selectRows[0].get("goodsunits"));
+							Ext.getCmp('Goodsnumviewgoodscode').setValue(selectRows[0].get("goodscode"));
+							Ext.getCmp('Goodsnumviewgoodsname').setValue(selectRows[0].get("goodsname"));
+							Ext.getCmp('Goodsnumviewgoodsunits').setValue(selectRows[0].get("goodsunits"));
 							Ext.getCmp('Goodsnumgoodsnumgoods').setValue(selectRows[0].get("goodsid"));
 							selectgridWindow.close();
 						}
@@ -159,8 +161,8 @@ function addGoodsnumWindow(url,title,_form,store) {
 		closeAction: 'hide',
 		scrollable : true,		//滚动条
 		closable : true, // 是否可关闭
-		collapsible : true, // 是否可收缩
-		maximizable : true, // 设置是否可以最大化
+		collapsible : false, // 是否可收缩
+		maximizable : false, // 设置是否可以最大化
 		border : false, // 边框线设置
 		animateTarget : Ext.getBody(),
 		pageY : 0, // 页面定位Y坐标
@@ -224,8 +226,8 @@ function editGoodsnumWindow(url,title,_form,store,bkgoodsscope) {
 		closeAction: 'hide',
 		scrollable : true,	//滚动条
 		closable : true, // 是否可关闭
-		collapsible : true, // 是否可收缩
-		maximizable : true, // 设置是否可以最大化
+		collapsible : false, // 是否可收缩
+		maximizable : false, // 设置是否可以最大化
 		border : false, // 边框线设置
 		animateTarget : Ext.getBody(),
 		pageY : 0, // 页面定位Y坐标

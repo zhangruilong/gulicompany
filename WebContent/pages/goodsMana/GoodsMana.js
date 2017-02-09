@@ -2,6 +2,10 @@ var goodsStatueStore = new Ext.data.ArrayStore({//状态下拉
     	fields:["name"],
     	data:[["上架"],["下架"]]
     });
+var goodsCusTypeStore = new Ext.data.ArrayStore({//客户类型下拉
+	fields:["name","value"],
+	data:[["全部商品",""],["餐饮商品","3"],["商超商品","2"],["组织单位商品","1"]]
+});
 var Goodsbbar;
 var Goodsclassstore;
 //上下架的combox的renderer函数
@@ -102,7 +106,7 @@ Ext.onReady(function() {
 				xtype : 'textfield',
 				fieldLabel : '商品ID',
 				id : 'Goodsgoodsid',
-				name : 'goodsid'
+				name : 'goodsid',
 			} ]
 		}
 		, {
@@ -114,7 +118,7 @@ Ext.onReady(function() {
 				id : 'Goodsgoodscode',
 				allowBlank : false,
 				name : 'goodscode',
-				maxLength : 100
+				maxLength : 100,
 			} ]
 		}
 		, {
@@ -126,7 +130,7 @@ Ext.onReady(function() {
 				id : 'Goodsgoodsname',
 				allowBlank : false,
 				name : 'goodsname',
-				maxLength : 100
+				maxLength : 100,
 			} ]
 		}
 		, {
@@ -138,7 +142,7 @@ Ext.onReady(function() {
 				id : 'Goodsgoodsunits',
 				allowBlank : false,
 				name : 'goodsunits',
-				maxLength : 100
+				maxLength : 100,
 			} ]
 		}
 		, {
@@ -146,7 +150,7 @@ Ext.onReady(function() {
 			layout : 'form',
 			items : [ {
 				xtype : 'combo',
-				fieldLabel : '类型',
+				fieldLabel : '小类',
 				id : 'Goodsgoodsclass',
 				name : 'goodsclass',			//小类名称
 				//loadingText: 'loading...',			//正在加载时的显示
@@ -162,7 +166,7 @@ Ext.onReady(function() {
 				editable : false,
 				maxLength : 100,
 				allowBlank : false,			//不允许空白值
-				anchor : '95%'
+				anchor : '95%',
 			} ]
 		}
 		
@@ -183,7 +187,7 @@ Ext.onReady(function() {
 			layout : 'form',
 			items : [ {
 				xtype : 'textfield',
-				fieldLabel : '图片',
+				fieldLabel : '图片路径',
 				id : 'Goodsgoodsimage',
 				name : 'goodsimage',
 				maxLength : 100
@@ -200,15 +204,14 @@ Ext.onReady(function() {
 				maxLength : 100
 			} ]
 		}
-		
 		, {
 			columnWidth : 1,
 			layout : 'form',
 			items : [ {
 				xtype : 'textfield',
-				fieldLabel : '顺序',
-				id : 'Goodsgoodsorder',
-				name : 'goodsorder',
+				fieldLabel : '重量(kg)',
+				id : 'Goodsgoodsweight',
+				name : 'goodsweight',
 				maxLength : 100
 			} ]
 		}
@@ -217,9 +220,9 @@ Ext.onReady(function() {
 			layout : 'form',
 			items : [ {
 				xtype : 'textfield',
-				fieldLabel : '重量',
-				id : 'Goodsgoodsweight',
-				name : 'goodsweight',
+				fieldLabel : '顺序',
+				id : 'Goodsgoodsorder',
+				name : 'goodsorder',
 				maxLength : 100
 			} ]
 		}
@@ -299,9 +302,8 @@ Ext.onReady(function() {
 	    selModel: {
 	        type: 'checkboxmodel'
 	    },
-	    plugins: {												//这里设置插件
-	    	ptype: 'cellediting',									//类型为:单元格编辑
-	    	clicksToEdit: 1										//点几下可以编辑
+	    viewConfig : {
+	    	enableTextSelection : true	//文本可以被选中
 	    },
 		columns : [{
 			header : '序号',
@@ -318,128 +320,102 @@ Ext.onReady(function() {
 			header : '商品编号',
 			dataIndex : 'goodscode',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 122,
 		}
 		, {
 			header : '商品名称',
 			dataIndex : 'goodsname',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 137,
 		}
 		, {
 			header : '规格',
 			dataIndex : 'goodsunits',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
-		}
-		, {
-			header : '描述',
-			dataIndex : 'goodsdetail',
-			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 105,
 		}
 		, {
 			header : '小类',
 			dataIndex : 'goodsclassname',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 85,
 		}
 		, {
 			header : '其他类别',
 			dataIndex : 'goodstype',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 85,
 		}
 		, {
 			header : '状态',
 			dataIndex : 'goodsstatue',
 			sortable : true,
 			editor : goodsStaCombo,
-			renderer : getOneDisplay
+			renderer : getOneDisplay,
+			width : 47,
 		}
 		, {
 			header : '品牌',
 			dataIndex : 'goodsbrand',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 73,
 		}
 		, {
 			header : '顺序',
 			dataIndex : 'goodsorder',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 47,
 		}
 		, {
-			header : '重量',
+			header : '重量(kg)',
 			dataIndex : 'goodsweight',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 47,
 		}
 		, {
 			header : '修改时间',
 			dataIndex : 'updtime',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width:138,
 		}
 		, {
 			header : '修改人',
 			dataIndex : 'updor',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 73,
 		}
 		, {
 			header : '创建时间',
 			dataIndex : 'createtime',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width:138,
 		}
 		, {
 			header : '创建人',
 			dataIndex : 'creator',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 73,
 		}
 		],
 		tbar : [{
+			xtype : 'combo',
+			fieldLabel : '商品类型',
+			labelWidth : 63,
+			id : 'queryGoodsCusType',
+			name : 'cusType',
+			width : 173,
+			store : goodsCusTypeStore,
+			mode : 'local',					//local是取本地数据的也就是javascirpt(内存)中的数据。
+											//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
+			displayField : 'name',		//显示的字段
+			valueField : 'value',		//作为值的字段
+			hiddenName : 'cusType',
+			triggerAction : 'all',
+			value : "",
+			editable : false,
+			maxLength : 100,
+			anchor : '95%',
+		},'-',{
 			xtype : 'textfield',
 			id : 'queryGoodsaction',
 			name : 'query',
@@ -467,12 +443,25 @@ Ext.onReady(function() {
 				}
 			}
 		},'-',{
-				text : Ext.os.deviceType === 'Phone' ? null : "新增",
+        	text : "价格设置",
+			iconCls : 'edit',
+			handler : function() {
+				var selections = Goodsgrid.getSelection();
+				if (Ext.isEmpty(selections)) {
+					Ext.Msg.alert('提示', '请选择一条数据！');
+					return;
+				}
+				GoodsPricesForm.form.reset();
+				goodsPriceWindow("CPPricesAction.do?method=setGoodsPrices",Goodsstore,selections[0].data['goodsid']+'');
+				GoodsPricesForm.form.loadRecord(selections[0]);
+			}
+        },'-',{
+				text : Ext.os.deviceType === 'Phone' ? null : "新增商品",
 				iconCls : 'add',
 				handler : function() {
 					GoodsdataForm.form.reset();
 					Ext.getCmp("Goodsgoodsid").setEditable (true);
-					addGoodsWindow(basePath + Goodsaction + "?method=insGoods", "新增", GoodsdataForm, Goodsstore);
+					addGoodsWindow(basePath + Goodsaction + "?method=insGoods", "新增商品", GoodsdataForm, Goodsstore);
 				}
 			},'-',{
 				text : Ext.os.deviceType === 'Phone' ? null : "修改",
@@ -486,7 +475,7 @@ Ext.onReady(function() {
 					}
 					GoodsdataForm.form.reset();
 					Ext.getCmp("Goodsgoodsid").setEditable (false);
-					editGoodsWindow(basePath + "CPGoodsAction.do?method=updAll", "修改", GoodsdataForm, Goodsstore);
+					editGoodsWindow(basePath + "CPGoodsAction.do?method=updAll", "修改商品信息", GoodsdataForm, Goodsstore);
 					GoodsdataForm.form.loadRecord(selections[0]);
 				}
 			},'-',{
@@ -499,23 +488,6 @@ Ext.onReady(function() {
 						return;
 					}
 					commonDelete(basePath + Goodsaction + "?method=deleteGoods",selections,Goodsstore,Goodskeycolumn);
-				}
-            },'-',{
-            	text : "商品价格",
-				iconCls : 'edit',
-				handler : function() {
-					var selections = Goodsgrid.getSelection();
-					if (Ext.isEmpty(selections)) {
-						Ext.Msg.alert('提示', '请选择一条数据！');
-						return;
-					}
-					GoodsPricesForm.form.reset();
-					goodsPriceWindow("CPPricesAction.do?method=setGoodsPrices",Goodsstore,selections[0].data['goodsid']+'');
-					/*window.parent.main.location.href = '../Prices/setPrices.jsp?goodsid='+selections[0].data['goodsid']+
-										'&goodscode='+selections[0].data['goodscode']+
-										'&goodsname='+selections[0].data['goodsname']+
-										'&goodsunits='+selections[0].data['goodsunits'];*/
-					GoodsPricesForm.form.loadRecord(selections[0]);
 				}
             }
 		]

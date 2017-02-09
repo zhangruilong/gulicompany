@@ -257,14 +257,11 @@ Ext.onReady(function() {
 		title : Ccustomerviewtitle,
 		store : Ccustomerviewstore,
 		bbar : Ccustomerviewbbar,
-		forceFit : true,				//自适应列宽
-//		autoFill:true,
 	    selModel: {
 	        type: 'checkboxmodel'
 	    },
-	    plugins: {
-	         ptype: 'cellediting',
-	         clicksToEdit: 1
+	    viewConfig : {
+	    	enableTextSelection : true	//文本可以被选中
 	    },
 		columns : [{
 			header : '序号',
@@ -280,97 +277,65 @@ Ext.onReady(function() {
 		, {
 			header : '客户编码',
 			dataIndex : 'customercode',
-			sortable : true
+			sortable : true,
+			width:75,
 		}
 		, {
 			header : '客户名称',
 			dataIndex : 'customershop',
 			sortable : true,
-			flex : 1,
-			minWidth : 110,
-			maxWidth : 200, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width:150,
 		}
 		, {
 			header : '地址',
 			dataIndex : 'customeraddress',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width:150,
 		}
 		, {
 			header : '联系人',
 			dataIndex : 'customername',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width:72,
 		}
 		, {
-			header : '手机',
+			header : '联系电话',
 			dataIndex : 'customerphone',
 			sortable : true,
-			width : 100, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width:109,
 		}
 		, {
 			header : '客户类型',
 			dataIndex : 'customertype',
 			sortable : true,
+			width : 73,
 			renderer : function(value, metaData, record, rowIdx, colIdx, store, view){
 				var type = value=='3'?'餐饮客户':(value=='2'?'商超客户':(value=='1'?'组织单位客户':''));
 				return type;
 			}, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
 		}
 		, {
 			header : '价格层级',
 			dataIndex : 'ccustomerdetail',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 73,
 		}
 		, {
 			header : '修改时间',
 			dataIndex : 'ccustomerupdtime',
 			sortable : true,
 			width : 139, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
 		}
 		, {
 			header : '修改人',
 			dataIndex : 'ccustomerupdor',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 73,
 		}
 		, {
 			header : '客户经理',
 			dataIndex : 'createtime',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
 		}
 		],
 		tbar : [{

@@ -44,6 +44,7 @@ function goodsWindow(){
 			header : '商品编号',
 			dataIndex : 'goodscode',
 			sortable : true,  
+			width : 158,
 			editor: {
                 xtype: 'textfield',
                 editable: false
@@ -53,7 +54,7 @@ function goodsWindow(){
 			header : '商品名称',
 			dataIndex : 'goodsname',
 			sortable : true,  
-			width : 150,
+			width : 137,
 			editor: {
                 xtype: 'textfield',
                 editable: false
@@ -120,8 +121,8 @@ function goodsWindow(){
 		modal : true,
 		//closeAction: 'hide',
 		closable : true, // 是否可关闭
-		collapsible : true, // 是否可收缩
-		maximizable : true, // 设置是否可以最大化
+		collapsible : false, // 是否可收缩
+		maximizable : false, // 设置是否可以最大化
 		border : false, // 边框线设置
 		constrain : true, // 设置窗口是否可以溢出父容器
 		animateTarget : Ext.getBody(),
@@ -163,8 +164,8 @@ function addLCPWindow(url,title,_form,store) {
 		modal : true,
 		closeAction: 'hide',
 		closable : true, // 是否可关闭
-		collapsible : true, // 是否可收缩
-		maximizable : true, // 设置是否可以最大化
+		collapsible : false, // 是否可收缩
+		maximizable : false, // 设置是否可以最大化
 		border : false, // 边框线设置
 		animateTarget : Ext.getBody(),
 		pageY : 0, // 页面定位Y坐标

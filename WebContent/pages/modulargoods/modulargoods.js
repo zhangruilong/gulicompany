@@ -119,7 +119,7 @@ Ext.onReady(function() {
 				allowBlank : false,
 				name : 'bkgoodscode',
 				maxLength : 100,
-				labelWidth: 40,
+				labelWidth: 70,
 				width : 352,
 				margin : '5 10 5 10'
 			},{
@@ -129,7 +129,7 @@ Ext.onReady(function() {
 				allowBlank : false,
 				name : 'bkgoodsname',
 				maxLength : 100,
-				labelWidth: 40,
+				labelWidth: 70,
 				width : 352,
 				margin : '5 10 5 10'
 			} ]
@@ -282,11 +282,11 @@ Ext.onReady(function() {
 			layout : 'column',
 			items : [ {
 				xtype : 'textfield',
-				fieldLabel : '图片',
+				fieldLabel : '图片路径',
 				id : 'Bkgoodsbkgoodsimage',
 				name : 'bkgoodsimage',
 				maxLength : 100,
-				labelWidth: 40,
+				labelWidth: 70,
 				width : 724,
 				margin : '5 10 5 10'
 			} ]
@@ -357,9 +357,8 @@ Ext.onReady(function() {
 	    selModel: {
 	        type: 'checkboxmodel'
 	    },
-	    plugins: {
-	         ptype: 'cellediting',
-	         clicksToEdit: 1
+	    viewConfig : {
+	    	enableTextSelection : true	//文本可以被选中
 	    },
 		columns : [{
 			header : '序号',
@@ -376,112 +375,76 @@ Ext.onReady(function() {
 			header : '商品编号',
 			dataIndex : 'bkgoodscode',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 126,
 		}
 		, {
 			header : '商品名称',
 			dataIndex : 'bkgoodsname',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 137,
 		}
 		, {
 			header : '规格',
 			dataIndex : 'bkgoodsunits',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 105,
 		}
 		, {
 			header : '单位',
 			dataIndex : 'bkgoodsunit',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 47,
 		}
 		, {
 			header : '类别',
 			dataIndex : 'bkgoodsclass',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width:72,
 		}
 		, {
 			header : '品牌',
 			dataIndex : 'bkgoodsbrand',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width:72,
 		}
 		, {
 			header : '原价',
 			dataIndex : 'bkgoodsprice',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 47,
 		}
 		, {
 			header : '现价',
 			dataIndex : 'bkgoodsorgprice',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 47,
 		}
 		, {
 			header : '重量',
 			dataIndex : 'bkgoodsweight',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 47,
 		}
 		, {
 			header : '每日限量',
 			dataIndex : 'bkgoodsnum',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width:75,
 		}
 		, {
 			header : '总限量',
 			dataIndex : 'bkgoodsallnum',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 60,
 		}
 		, {
 			header : '剩余数量',
 			dataIndex : 'bkgoodssurplus',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width:75,
 		}
 		, {
-			header : '图片',
+			header : '图片路径',
 			dataIndex : 'bkgoodsimage',
 			sortable : true,
 			hidden : true
@@ -490,64 +453,43 @@ Ext.onReady(function() {
 			header : '状态',
 			dataIndex : 'bkgoodsstatue',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 47,
 		}
 		, {
 			header : '顺序',
 			dataIndex : 'bkgoodsseq',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 47,
 		}
 		, {
 			header : '客户范围',
 			dataIndex : 'bkgoodsscope',
 			sortable : true,  
 			hidden : true,
-			editor: {
-                xtype: 'textfield'
-            }
 		}
 		, {
 			header : '修改时间',
-			dataIndex : 'bKGOODSUPDTIME',
+			dataIndex : 'bkgoodsupdtime',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width:138,
 		}
 		, {
 			header : '修改人',
-			dataIndex : 'bKGOODSUPDOR',
+			dataIndex : 'bkgoodsupdor',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width:72,
 		}
 		, {
 			header : '创建时间',
 			dataIndex : 'bkcreatetime',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width:138,
 		}
 		, {
 			header : '创建人',
 			dataIndex : 'bkcreator',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width:72,
 		}
 		],
 		tbar : [{

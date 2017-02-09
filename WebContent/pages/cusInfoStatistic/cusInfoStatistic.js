@@ -81,9 +81,8 @@ Ext.onReady(function() {
 		selModel: {
 	        type: 'checkboxmodel'								//复选框
 	    },
-	    plugins: {												//这里设置插件
-	         ptype: 'cellediting',									//类型为:单元格编辑
-	         clicksToEdit: 1										//点几下可以编辑
+	    viewConfig : {
+	    	enableTextSelection : true	//文本可以被选中
 	    },
 	    /*设置表格*/
 		columns : [{
@@ -92,40 +91,28 @@ Ext.onReady(function() {
 			width:60
 		},
 		{// 改
-			header : '店名',
+			header : '客户名称',
 			dataIndex : 'customershop',
 			sortable : true,  
-			editor: {
-                xtype: 'textfield',
-                editable:false								//是否可编辑
-            }
+			width:150,
 		}
 		, {
 			header : '联系人',				//表头
 			dataIndex : 'customername',		//对应字段
 			sortable : true,  
-			editor: {
-                xtype: 'textfield',
-                editable:false								//是否可编辑
-            }
+			width:72,
 		}
 		, {
-			header : '手机',
+			header : '联系电话',
 			dataIndex : 'customerphone',
 			sortable : true,  
-			editor: {
-                xtype: 'textfield',
-                editable:false								//是否可编辑
-            }
+			width:109,
 		}
 		, {
 			header : '地址',
 			dataIndex : 'customeraddress',
 			sortable : true,  
-			editor: {
-                xtype: 'textfield',
-                editable:false								//是否可编辑
-            }
+			width:160,
 		}
 		, {
 			header : '客户经理',
@@ -134,10 +121,6 @@ Ext.onReady(function() {
 			summaryRenderer: function(value, summaryData, dataIndex) {
                 return '合计:';
             },
-			editor: {
-                xtype: 'textfield',
-                editable:false								//是否可编辑
-            }
 		}
 		, {
 			header : '订单数量',
@@ -147,10 +130,6 @@ Ext.onReady(function() {
 			summaryRenderer: function(value, summaryData, dataIndex) {
                 return parseInt(numtotal);
             },
-			editor: {
-                xtype: 'textfield',
-                editable:false								//是否可编辑
-            }
 		}
 		, {
 			header : '订单总额',
@@ -160,10 +139,6 @@ Ext.onReady(function() {
 			summaryRenderer: function(value, summaryData, dataIndex) {
                 return parseInt(moneytotal);
             },
-			editor: {
-                xtype: 'textfield',
-                editable:false								//是否可编辑
-            }
 		}
 		],
 		/*工具栏*/

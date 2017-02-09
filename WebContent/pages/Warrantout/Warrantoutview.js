@@ -152,7 +152,7 @@ Ext.onReady(function() {
 			layout : 'form',
 			items : [ {
 				xtype : 'textfield',
-				fieldLabel : '描述',
+				fieldLabel : '备注',
 				id : 'Warrantoutviewwarrantoutdetail',
 				name : 'warrantoutdetail',
 				maxLength : 100
@@ -183,9 +183,8 @@ Ext.onReady(function() {
 	    selModel: {
 	        type: 'checkboxmodel'
 	    },
-	    plugins: {
-	         ptype: 'cellediting',
-	         clicksToEdit: 1
+	    viewConfig : {
+	    	enableTextSelection : true	//文本可以被选中
 	    },
 		columns : [{
 			header : '序号',
@@ -197,128 +196,84 @@ Ext.onReady(function() {
 			dataIndex : 'idwarrantout',
 			sortable : true, 
 			hidden : true,
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
 		}
 		, {
 			header : '商品',
 			dataIndex : 'warrantoutgoods',
 			sortable : true,  
 			hidden : true,
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
 		}
 		, {
 			header : '商品编号',
 			dataIndex : 'goodscode',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 122,
 		}
 		, {
 			header : '商品名称',
 			dataIndex : 'goodsname',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 137,
 		}
 		, {
 			header : '规格',
 			dataIndex : 'goodsunits',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 105,
 		}
 		, {
 			header : '仓库',
 			dataIndex : 'warrantoutstore',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 137,
 		}
 		, {
 			header : '数量',
 			dataIndex : 'warrantoutnum',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 48,
 		}
 		, {
 			header : '状态',
 			dataIndex : 'warrantoutstatue',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 48,
 		}
 		, {
-			header : '描述',
+			header : '备注',
 			dataIndex : 'warrantoutdetail',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 73,
 		}
 		, {
 			header : '领货人',
 			dataIndex : 'warrantoutwho',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 73,
 		}
 		, {
 			header : '创建时间',
 			dataIndex : 'warrantoutinswhen',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width:138,
 		}
 		, {
 			header : '创建人',
 			dataIndex : 'warrantoutinswho',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 73,
 		}
 		, {
 			header : '修改时间',
 			dataIndex : 'warrantoutupdwhen',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width:138,
 		}
 		, {
 			header : '修改人',
 			dataIndex : 'warrantoutupdwho',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 73,
 		}
 		],
 		tbar : [{
@@ -354,7 +309,7 @@ Ext.onReady(function() {
 				handler : function() {
 					WarrantoutviewdataForm.form.reset();
 					Ext.getCmp("Warrantoutviewidwarrantout").setEditable (true);
-					addWarrantoutWindow(basePath + "CPCPWarrantoutAction.do?method=insWarrantout", "新增", WarrantoutviewdataForm, Warrantoutviewstore);
+					addWarrantoutWindow(basePath + "CPCPWarrantoutAction.do?method=insWarrantout", "新增出库台账", WarrantoutviewdataForm, Warrantoutviewstore);
 				}
 			},'-',{
 				text : Ext.os.deviceType === 'Phone' ? null : "修改",
@@ -368,7 +323,7 @@ Ext.onReady(function() {
 					}
 					WarrantoutviewdataForm.form.reset();
 					Ext.getCmp("Warrantoutviewidwarrantout").setEditable (false);
-					editWarrantoutWindow(basePath + "CPCPWarrantoutAction.do?method=updWarrantout", "修改", WarrantoutviewdataForm, Warrantoutviewstore);
+					editWarrantoutWindow(basePath + "CPCPWarrantoutAction.do?method=updWarrantout", "修改出库台账", WarrantoutviewdataForm, Warrantoutviewstore);
 					WarrantoutviewdataForm.form.loadRecord(selections[0]);
 				}
 			},'-',{

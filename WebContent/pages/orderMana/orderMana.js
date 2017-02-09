@@ -104,7 +104,7 @@ Ext.onReady(function() {
 			layout : 'form',
 			items : [ {
 				xtype : 'textfield',
-				fieldLabel : '订单状态',
+				fieldLabel : '状态',
 				id : 'Ordermviewordermstatue',
 				name : 'ordermstatue',
 				readOnly : true
@@ -175,9 +175,8 @@ Ext.onReady(function() {
 		selModel: {
 	        type: 'checkboxmodel'								//复选框
 	    },
-	    plugins: {												//这里设置插件
-	         ptype: 'cellediting',									//类型为:单元格编辑
-	         clicksToEdit: 1										//点几下可以编辑
+	    viewConfig : {
+	    	enableTextSelection : true	//文本可以被选中
 	    },
 	    /*设置表格*/
 		columns : [
@@ -195,52 +194,32 @@ Ext.onReady(function() {
 		, {
 			header : '订单编号',				//表头
 			dataIndex : 'ordermcode',		//对应字段
-			sortable : true,  
-			width:80,
-			editor: {	
-                xtype: 'textfield',
-                editable:false
-            }
+			sortable : true,
+			width : 158,
 		}
 		, {
 			header : '支付方式',
 			dataIndex : 'ordermway',
 			sortable : true,  
-			width:80,
-			editor: {										//这里是编辑选项。设置后变为可编辑，不设置则不可编辑。(要有可编辑单元格的插件才能生效)
-                xtype: 'textfield',							//编辑类型
-                editable:false								//是否可编辑
-            }
+			width:75,
 		}
 		, {
 			header : '种类数',
 			dataIndex : 'ordermnum',
 			sortable : true,
-			width:50,
-			editor: {	
-                xtype: 'textfield',
-                editable:false
-            }
+			width:60,
 		}
 		, {
 			header : '下单金额',
 			dataIndex : 'ordermmoney',
 			sortable : true,
-			width:60,
-			editor: {	
-                xtype: 'textfield',
-                editable:false
-            }
+			width:75,
 		}
 		, {
 			header : '实际金额',
 			dataIndex : 'ordermrightmoney',
 			sortable : true,
-			width:60,
-			editor: {	
-                xtype: 'textfield',
-                editable:false
-            }
+			width:75,
 		}
 		
 		, {
@@ -248,84 +227,55 @@ Ext.onReady(function() {
 			dataIndex : 'ordermstatue',
 			sortable : true,
 			width:60,
-			editor: {	
-                xtype: 'textfield',
-                editable:false
-            }
 		}
 		
 		, {
 			header : '下单时间',
 			dataIndex : 'ordermtime',
 			sortable : true,
-			editor: {	
-                xtype: 'textfield',
-                editable:false
-            }
+			width:138,
 		}
 		, {
 			header : '修改时间',
 			dataIndex : 'updtime',
 			sortable : true,
-			editor: {	
-                xtype: 'textfield',
-                editable:false
-            }
+			width:138,
 		}
 		, {
 			header : '客户名称',
 			dataIndex : 'ordermcusshop',
 			sortable : true,  
-			editor: {
-                xtype: 'textfield',
-                editable:false
-            }
+			width:150,
 		}
 		, {
 			header : '联系人',
 			dataIndex : 'ordermconnect',
 			sortable : true,
-			width:70,
-			editor: {	
-                xtype: 'textfield',
-                editable:false
-            }
+			width:72,
 		}
 		, {
-			header : '手机号',
+			header : '手机',
 			dataIndex : 'ordermphone',
 			sortable : true,
-			editor: {	
-                xtype: 'textfield',
-                editable:false
-            }
+			width:109,
 		}
 		, {
 			header : '地址',
 			dataIndex : 'ordermaddress',
 			sortable : true,
-			editor: {	
-                xtype: 'textfield',
-                editable:false
-            }
+			width:150,
 		}
 		, {
 			header : '订单源',
 			dataIndex : 'ordermemp',
 			sortable : true,
-			editor: {	
-                xtype: 'textfield',
-                editable:false
-            }
+			width:60,
 		}
 		, {
 			header : '修改人',
 			dataIndex : 'updor',
 			sortable : true,
-			editor: {	
-                xtype: 'textfield',
-                editable:false
-            }
+			width:72,
 		}
 		],
 		/*工具栏*/
@@ -407,6 +357,9 @@ Ext.onReady(function() {
 								    selModel: {
 								        type: 'checkboxmodel'
 								    },
+								    viewConfig : {
+								    	enableTextSelection : true	//文本可以被选中
+								    },
 									columns : [{
 										header : '序号',
 										xtype: 'rownumberer',		//行号
@@ -416,108 +369,62 @@ Ext.onReady(function() {
 										header : '商品编号',
 										dataIndex : 'orderdcode',
 										sortable : true,  
-										editor: {
-							                xtype: 'textfield',
-							                editable:false
-							            }
+										width : 158,
 									}, {
 										header : '商品名称',
 										dataIndex : 'orderdname',
 										sortable : true,  
-										editor: {
-							                xtype: 'textfield',
-							                editable:false
-							            }
+										width : 137,
 									}
 									, {
 										header : '类型',
 										dataIndex : 'orderdtype',
 										sortable : true,  
-										editor: {
-							                xtype: 'textfield',
-							                editable:false
-							            }
 									}
 									, {
 										header : '规格',
 										dataIndex : 'orderdunits',
 										sortable : true,  
-										editor: {
-							                xtype: 'textfield',
-							                editable:false
-							            }
 									}
 									, {
 										header : '小类',
 										dataIndex : 'orderdclass',
 										sortable : true,  
-										editor: {
-							                xtype: 'textfield',
-							                editable:false
-							            }
 									}
 									, {
 										header : '价格',
 										dataIndex : 'orderdprice',
 										sortable : true,  
-										editor: {
-							                xtype: 'textfield',
-							                editable:false
-							            }
 									}
 									, {
 										header : '单位',
 										dataIndex : 'orderdunit',
 										sortable : true,  
-										editor: {
-							                xtype: 'textfield',
-							                editable:false
-							            }
 									}
 									, {
 										header : '数量',
 										dataIndex : 'orderdnum',
 										sortable : true,  
-										editor: {
-							                xtype: 'textfield',
-							                editable:false
-							            }
 									}
 									, {
 										header : '下单金额',
 										dataIndex : 'orderdmoney',
 										sortable : true,  
-										editor: {
-							                xtype: 'textfield',
-							                editable:false
-							            }
 									}
 									, {
 										header : '实际金额',
 										dataIndex : 'orderdrightmoney',
 										sortable : true,  
-										editor: {
-							                xtype: 'textfield',
-							                editable:false
-							            }
 									}
 									, {
 										header : '重量',
 										dataIndex : 'orderdweight',
 										sortable : true,  
-										editor: {
-							                xtype: 'textfield',
-							                editable:false
-							            }
 									}
 									, {
 										header : '订单备注',
 										dataIndex : 'orderdnote',
 										sortable : true,  
-										editor: {
-							                xtype: 'textfield',
-							                editable:false
-							            }
 									}
 									],
 									tbar : [{	

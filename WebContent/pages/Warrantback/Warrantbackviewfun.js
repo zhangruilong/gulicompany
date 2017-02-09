@@ -31,11 +31,16 @@ function goodsWindow(){
 		selModel: {
 	        type: 'checkboxmodel'
 	    },
-		columns : [{xtype: 'rownumberer',width:50}, 
+		columns : [{
+			header : '序号',
+			xtype: 'rownumberer',		//行号
+			width:60,
+		},
 		 {
 			header : '商品编号',
 			dataIndex : 'goodscode',
 			sortable : true,  
+			width : 158,
 			editor: {
                 xtype: 'textfield'
             }
@@ -44,6 +49,7 @@ function goodsWindow(){
 			header : '商品名称',
 			dataIndex : 'goodsname',
 			sortable : true,  
+			width : 137,
 			editor: {
                 xtype: 'textfield'
             }
@@ -114,8 +120,8 @@ function goodsWindow(){
 		modal : true,
 		//closeAction: 'hide',
 		closable : true, // 是否可关闭
-		collapsible : true, // 是否可收缩
-		maximizable : true, // 设置是否可以最大化
+		collapsible : false, // 是否可收缩
+		maximizable : false, // 设置是否可以最大化
 		border : false, // 边框线设置
 		constrain : true, // 设置窗口是否可以溢出父容器
 		animateTarget : Ext.getBody(),
@@ -133,9 +139,9 @@ function goodsWindow(){
 								});
 								return;
 							}
-							Ext.getCmp('WarrantbackviewgOODSCODE').setValue(selectRows[0].get("goodscode"));
-							Ext.getCmp('WarrantbackviewgOODSNAME').setValue(selectRows[0].get("goodsname"));
-							Ext.getCmp('WarrantbackviewgOODSUNITS').setValue(selectRows[0].get("goodsunits"));
+							Ext.getCmp('Warrantbackviewgoodscode').setValue(selectRows[0].get("goodscode"));
+							Ext.getCmp('Warrantbackviewgoodsname').setValue(selectRows[0].get("goodsname"));
+							Ext.getCmp('Warrantbackviewgoodsunits').setValue(selectRows[0].get("goodsunits"));
 							Ext.getCmp('Warrantbackviewwarrantbackgoods').setValue(selectRows[0].get("goodsid"));
 							selectgridWindow.close();
 						}
@@ -158,8 +164,8 @@ function addWarrantbackWindow(url,title,_form,store) {
 		modal : true,
 		closeAction: 'hide',
 		closable : true, // 是否可关闭
-		collapsible : true, // 是否可收缩
-		maximizable : true, // 设置是否可以最大化
+		collapsible : false, // 是否可收缩
+		maximizable : false, // 设置是否可以最大化
 		border : false, // 边框线设置
 		animateTarget : Ext.getBody(),
 		pageY : 0, // 页面定位Y坐标
@@ -222,8 +228,8 @@ function editWarrantbackWindow(url,title,_form,store,bkgoodsscope) {
 		modal : true,
 		closeAction: 'hide',
 		closable : true, // 是否可关闭
-		collapsible : true, // 是否可收缩
-		maximizable : true, // 设置是否可以最大化
+		collapsible : false, // 是否可收缩
+		maximizable : false, // 设置是否可以最大化
 		border : false, // 边框线设置
 		animateTarget : Ext.getBody(),
 		pageY : 0, // 页面定位Y坐标

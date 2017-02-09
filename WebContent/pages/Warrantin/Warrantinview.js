@@ -208,9 +208,8 @@ Ext.onReady(function() {
 	    selModel: {
 	        type: 'checkboxmodel'
 	    },
-	    plugins: {
-	         ptype: 'cellediting',
-	         clicksToEdit: 1
+	    viewConfig : {
+	    	enableTextSelection : true	//文本可以被选中
 	    },
 		columns : [{
 			header : '序号',
@@ -222,146 +221,96 @@ Ext.onReady(function() {
 			dataIndex : 'idwarrantin',
 			hidden : true,
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
 		}
 		, {
 			header : '商品ID',
 			dataIndex : 'warrantingoods',
 			hidden : true,
 			sortable : true,  
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
 		}
 		, {
 			header : '商品编号',
 			dataIndex : 'goodscode',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 122,
 		}
 		, {
 			header : '商品名称',
 			dataIndex : 'goodsname',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 137,
 		}
 		, {
 			header : '规格',
 			dataIndex : 'goodsunits',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 105,
 		}
 		, {
 			header : '仓库',
 			dataIndex : 'warrantinstore',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 137,
 		}
 		, {
 			header : '供货单位',
 			dataIndex : 'warrantinfrom',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width:150,
 		}
 		, {
 			header : '进货价',
 			dataIndex : 'warrantinprice',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width:60,
 		}
 		, {
 			header : '数量',
 			dataIndex : 'warrantinnum',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 48,
 		}
 		, {
 			header : '检验员',
 			dataIndex : 'warrantinwho',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 73,
 		}
 		, {
 			header : '状态',
 			dataIndex : 'warrantinstatue',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 47,
 		}
 		, {
 			header : '备注',
 			dataIndex : 'warrantindetail',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 73,
 		}
 		, {
 			header : '创建时间',
 			dataIndex : 'warrantininswhen',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width:138,
 		}
 		, {
 			header : '创建人',
 			dataIndex : 'warrantininswho',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 73,
 		}
 		, {
 			header : '修改时间',
 			dataIndex : 'warrantinupdwhen',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width:138,
 		}
 		, {
 			header : '修改人',
 			dataIndex : 'warrantinupdwho',
 			sortable : true, 
-			editor: {
-                xtype: 'textfield',
-                editable: false
-            }
+			width : 73,
 		}
 		],
 		tbar : [{
@@ -397,7 +346,7 @@ Ext.onReady(function() {
 				handler : function() {
 					WarrantinviewdataForm.form.reset();
 					Ext.getCmp("Warrantinviewidwarrantin").setEditable (true);
-					addWarrantinWindow(basePath + "CPWarrantinAction.do?method=addWarrantin", "新增", WarrantinviewdataForm, Warrantinviewstore);
+					addWarrantinWindow(basePath + "CPWarrantinAction.do?method=addWarrantin", "新增入库台账", WarrantinviewdataForm, Warrantinviewstore);
 				}
 			},'-',{
 				text : Ext.os.deviceType === 'Phone' ? null : "修改",
@@ -411,7 +360,7 @@ Ext.onReady(function() {
 					}
 					WarrantinviewdataForm.form.reset();
 					Ext.getCmp("Warrantinviewidwarrantin").setEditable (false);
-					editWarrantinWindow(basePath + "CPWarrantinAction.do?method=updWarrantin", "修改", WarrantinviewdataForm, Warrantinviewstore);
+					editWarrantinWindow(basePath + "CPWarrantinAction.do?method=updWarrantin", "修改入库台账", WarrantinviewdataForm, Warrantinviewstore);
 					WarrantinviewdataForm.form.loadRecord(selections[0]);
 				}
 			},'-',{
