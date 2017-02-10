@@ -1,6 +1,9 @@
 package com.server.action;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,6 +12,7 @@ import com.google.gson.reflect.TypeToken;
 import com.server.poco.CcustomerviewPoco;
 import com.server.poco.CustomerPoco;
 import com.server.poco.OrdermviewPoco;
+import com.server.pojo.Address;
 import com.server.pojo.Ccustomer;
 import com.server.pojo.Ccustomerview;
 import com.server.pojo.Customer;
@@ -25,6 +29,24 @@ import com.system.tools.util.TypeUtil;
 
 public class CPCcustomerviewAction extends CcustomerviewAction {
 
+	//largeCusXiaDan.jsp页 得到客户信息和地址
+	@SuppressWarnings("unchecked")
+	public void queryCusAndAddress(HttpServletRequest request, HttpServletResponse response){
+		LoginInfo lgif = (LoginInfo) request.getSession().getAttribute("loginInfo");
+		String customerid = request.getParameter("customerid");
+		cuss = (ArrayList<Ccustomerview>) selAll(Ccustomerview.class, "select * from ccustomerview where customerid='"+customerid+"' and ccustomercompany='"+lgif.getCompanyid()+"'");
+		if(cuss.size()>0){
+			List<Address> addLi = selAll(Address.class, "select * from address where addresscustomer='"+customerid+"' and addressture=1");
+			if(addLi.size()>0){
+				result = "{success:true,code:202,msg:'操作成功',customerInfo:"+CommonConst.GSON.toJson(cuss.get(0))+",address:"+CommonConst.GSON.toJson(addLi.get(0))+"}";
+			} else {
+				result = "{success:true,code:400,msg:'该客户还没有添加地址'}";
+			}
+		} else {
+			result = "{success:true,code:400,msg:'没有查找到该用户'}";
+		}
+		responsePW(response, result);
+	}
 	//客户管理的"修改"
 	public void updateCustomerInfo(HttpServletRequest request, HttpServletResponse response){
 		LoginInfo loif = (LoginInfo) request.getSession().getAttribute("loginInfo");

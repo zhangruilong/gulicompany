@@ -443,6 +443,17 @@ Ext.onReady(function() {
 				}
 			}
 		},'-',{
+			text : "筛选",
+			iconCls : 'select',
+			handler : function() {
+				Ext.getCmp("Goodsgoodsid").setEditable (true);
+				Ext.getCmp('Goodsgoodsnumnum').setDisabled(true);
+				Ext.getCmp('Goodsgoodsnumstore').setDisabled(true);
+				Ext.getCmp('Goodsgoodsnumnum').setVisible(true);
+				Ext.getCmp('Goodsgoodsnumstore').setVisible(true);
+				createQueryWindow("筛选", GoodsdataForm, Goodsstore,Ext.getCmp("queryGoodsaction").getValue());
+			}
+		},'-',{
         	text : "价格设置",
 			iconCls : 'edit',
 			handler : function() {

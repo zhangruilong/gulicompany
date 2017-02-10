@@ -466,6 +466,14 @@ Ext.onReady(function() {
 				}
 			}
 		},'-',{
+			text : "筛选",
+			iconCls : 'select',
+			handler : function() {
+				BkgoodsdataForm.form.reset();
+				Ext.getCmp("Bkgoodsbkgoodsid").setEditable (true);
+				bkgoodsQueryWindow("筛选", BkgoodsdataForm, Bkgoodsstore,Ext.getCmp("queryBkgoodsaction").getValue());
+			}
+		},'-',{
 				text : Ext.os.deviceType === 'Phone' ? null : "新增商品",
 				iconCls : 'add',
 				handler : function() {

@@ -27,4 +27,5 @@
 	<bean id="CPGoodsnumviewAction" class="com.server.action.CPGoodsnumviewAction" />
 	<bean id="CPGoodsnumAction" class="com.server.action.CPGoodsnumAction" />
 	<bean id="CPPricesAction" class="com.server.action.CPPricesAction" />
+	<bean id="AddressAction" class="com.server.action.AddressAction" />
 </beans>

@@ -390,10 +390,7 @@ Ext.onReady(function() {
 						});
 						return;
 					}
-					CcustomerviewdataForm.form.reset();
-					Ext.getCmp("Ccustomerviewccustomerid").setEditable (false);
-					createTextWindow(basePath + Ccustomerviewaction + "?method=updAll", "修改", CcustomerviewdataForm, Ccustomerviewstore);
-					CcustomerviewdataForm.form.loadRecord(selections[0]);
+					window.location.href="../../largeCusXiaDan.jsp?customerid="+selections[0].data["customerid"];
 				}
 			},'-',{
 				text : Ext.os.deviceType === 'Phone' ? null : "特殊商品",

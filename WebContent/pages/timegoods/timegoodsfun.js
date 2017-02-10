@@ -156,6 +156,53 @@ function goodsWindow(){
 	});
 	selectgridWindow.show();
 }
+//筛选的窗口
+function bkgoodsQueryWindow(title,_form,store) {
+	var dataWindow = new Ext.Window({
+		title : title, // 窗口标题
+		layout : 'fit', // 设置窗口布局模式
+		width : Ext.os.deviceType === 'Phone' ? '100%' : 750, // 窗口宽度
+		modal : true,
+		closeAction: 'hide',
+		closable : true, // 是否可关闭
+		collapsible : true, // 是否可收缩
+		maximizable : true, // 设置是否可以最大化
+		border : false, // 边框线设置
+		animateTarget : Ext.getBody(),
+		pageY : 0, // 页面定位Y坐标
+		pageX : Ext.os.deviceType === 'Phone' ? 0 : document.body.clientWidth / 2 - 720 / 2, // 页面定位X坐标
+		items : _form, // 嵌入的表单面板
+		buttons : [
+				{
+					text : '提交',
+					iconCls : 'ok',
+					handler : function() {
+						var scope = "";
+						Ext.getCmp("scopeCheckbox1").getValue()+Ext.getCmp("scopeCheckbox2").getValue()+Ext.getCmp("scopeCheckbox3").getValue();
+						if(Ext.getCmp("scopeCheckbox1").getValue()==true){
+							scope += "1";
+						}
+						if(Ext.getCmp("scopeCheckbox2").getValue()==true){
+							scope += "2";
+						}
+						if(Ext.getCmp("scopeCheckbox3").getValue()==true){
+							scope += "3";
+						}
+						Ext.getCmp("Bkgoodsbkgoodsscope").setValue(scope);		//设置客户范围
+						queryjson = "[" + Ext.encode(_form.form.getValues(false)) + "]";
+						store.load();
+						dataWindow.hide();
+					}
+				}, {
+					text : '关闭',
+					iconCls : 'close',
+					handler : function() {
+						dataWindow.hide();
+					}
+				}]
+	});
+	dataWindow.show();
+}
 //新增秒杀商品的窗口
 function addBKgoodsWindow(url,title,_form,store) {
 	var dataWindow = new Ext.Window({
@@ -230,7 +277,7 @@ function addBKgoodsWindow(url,title,_form,store) {
 					}
 				}]
 	});
-	dataWindow.removeAll(false);	//这一行和下面一行如果没有则第二次选择修改时窗口中的选择框没有选项。
+	dataWindow.removeAll(false);	//这一行和下面一行如果没有则第二次选择修改时窗口中的选择框可能没有选项。
 	dataWindow.items.add(_form);
 	dataWindow.show();
 }
@@ -299,7 +346,7 @@ function editBKgoodsWindow(url,title,_form,store,bkgoodsscope) {
 					}
 				}]
 	});
-	dataWindow.removeAll(false);	//这一行和下面一行如果没有则第二次选择修改时窗口中的选择框没有选项。
+	dataWindow.removeAll(false);	//这一行和下面一行如果没有则第二次选择修改时窗口中的选择框可能没有选项。
 	dataWindow.items.add(_form);
 	dataWindow.show();
 	if(bkgoodsscope){

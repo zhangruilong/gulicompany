@@ -10,9 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.reflect.TypeToken;
 import com.server.poco.GoodsPoco;
 import com.server.poco.GoodsviewPoco;
+import com.server.poco.LargecuspricePoco;
 import com.server.pojo.Goods;
 import com.server.pojo.Goodsnum;
 import com.server.pojo.Goodsview;
+import com.server.pojo.LargecuspriceGoodsVO;
 import com.server.pojo.LoginInfo;
 import com.system.tools.CommonConst;
 import com.system.tools.pojo.Pageinfo;
@@ -27,6 +29,47 @@ import com.system.tools.util.TypeUtil;
  */
 public class CPGoodsviewAction extends GoodsviewAction {
 	
+	//客户录单时的商品和价格
+	public void customerGoods(HttpServletRequest request, HttpServletResponse response){
+		String companyid = request.getParameter("companyid");
+		String pagenowGoods = request.getParameter("pagenowGoods");
+		String goodscode = request.getParameter("goodscode");
+		String priceslevel = request.getParameter("priceslevel");
+		String pricesclass = request.getParameter("pricesclass");
+		String customerid = request.getParameter("customerid");
+		if(pagenowGoods == null){
+			pagenowGoods = "1";
+		}
+		String sql = "select distinct g.*,p.pricesid,p.pricesprice,p.pricesunit,p.pricesprice2,p.pricesunit2,lcp.largecuspriceprice,gc.goodsclassname"+
+			",lcp.largecuspriceunit,lcp.largecuspriceunit2,lcp.largecuspriceprice2,lcp.largecuspriceid ,lcp.largecuspricecreatetime "+
+			"from prices p "+
+			"left join goods g on p.pricesgoods = g.goodsid "+
+			"left join largecusprice lcp on lcp.largecuspricegoods = p.pricesgoods "+
+			"left join goodsclass gc on g.goodsclass = gc.goodsclassid "+
+		    "where (g.goodsstatue = '上架' or lcp.largecuspriceprice is not null) "+
+			"and g.goodscompany = '"+companyid+"' "+
+			"and (lcp.largecuspricecustomer = '"+customerid+"' or lcp.largecuspricecustomer is null) "+
+			"and ( (p.pricesclass = '"+pricesclass+"' and p.priceslevel = '"+priceslevel+"' ) or "+
+					"(p.pricesid is null and lcp.largecuspriceprice is not null) ) "+
+			"and (lcp.largecuspricecompany = '"+companyid+"' or lcp.largecuspricecompany is null ) "+
+		    "order by lcp.largecuspricecreatetime is null,lcp.largecuspricecreatetime desc ,g.createtime desc";
+		String totSql = sql.replace("distinct g.*,p.pricesid,p.pricesprice,p.pricesunit,p.pricesprice2,p.pricesunit2,lcp.largecuspriceprice,gc.goodsclassname"+
+			",lcp.largecuspriceunit,lcp.largecuspriceunit2,lcp.largecuspriceprice2,lcp.largecuspriceid ,lcp.largecuspricecreatetime "
+			, "count(distinct goodsid) ");
+		sql += " limit "+(Integer.parseInt(pagenowGoods)-1)*10+",10";
+		@SuppressWarnings("unchecked")
+		List<LargecuspriceGoodsVO> voLi = selAll(LargecuspriceGoodsVO.class, sql);
+		Integer countGoods = getTotal(totSql);
+		Integer pageCountGoods;		//总页数
+		if(countGoods % 10 ==0){
+			pageCountGoods = countGoods / 10;
+		} else {
+			pageCountGoods = (countGoods / 10) +1;
+		}
+		result = "{success:true,code:202,msg:'操作成功',pagenowGoods:"+pagenowGoods+",goodsList:"+CommonConst.GSON.toJson(voLi)+
+				",pageCountGoods:"+pageCountGoods+",countGoods:"+countGoods+"}";
+		responsePW(response, result);
+	}
 	//分页查询供应商商品
 	@SuppressWarnings("unchecked")
 	public void queryCompanyGoods(HttpServletRequest request, HttpServletResponse response){
