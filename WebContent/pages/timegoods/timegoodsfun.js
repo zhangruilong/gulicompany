@@ -178,17 +178,16 @@ function bkgoodsQueryWindow(title,_form,store) {
 					iconCls : 'ok',
 					handler : function() {
 						var scope = "";
-						Ext.getCmp("scopeCheckbox1").getValue()+Ext.getCmp("scopeCheckbox2").getValue()+Ext.getCmp("scopeCheckbox3").getValue();
-						if(Ext.getCmp("scopeCheckbox1").getValue()==true){
+						if(Ext.getCmp("scrscopeCheckbox1").getValue()==true){
 							scope += "1";
 						}
-						if(Ext.getCmp("scopeCheckbox2").getValue()==true){
+						if(Ext.getCmp("scrscopeCheckbox2").getValue()==true){
 							scope += "2";
 						}
-						if(Ext.getCmp("scopeCheckbox3").getValue()==true){
+						if(Ext.getCmp("scrscopeCheckbox3").getValue()==true){
 							scope += "3";
 						}
-						Ext.getCmp("Bkgoodsbkgoodsscope").setValue(scope);		//设置客户范围
+						Ext.getCmp("scrBkgoodsbkgoodsscope").setValue(scope);		//设置客户范围
 						queryjson = "[" + Ext.encode(_form.form.getValues(false)) + "]";
 						store.load();
 						dataWindow.hide();
@@ -234,7 +233,6 @@ function addBKgoodsWindow(url,title,_form,store) {
 					handler : function() {
 						if (_form.form.isValid()) {
 							var scope = "";
-							Ext.getCmp("scopeCheckbox1").getValue()+Ext.getCmp("scopeCheckbox2").getValue()+Ext.getCmp("scopeCheckbox3").getValue();
 							if(Ext.getCmp("scopeCheckbox1").getValue()==true){
 								scope += "1";
 							}
@@ -305,7 +303,6 @@ function editBKgoodsWindow(url,title,_form,store,bkgoodsscope) {
 					handler : function() {
 						if (_form.form.isValid()) {
 							var scope = "";
-							Ext.getCmp("scopeCheckbox1").getValue()+Ext.getCmp("scopeCheckbox2").getValue()+Ext.getCmp("scopeCheckbox3").getValue();
 							if(Ext.getCmp("scopeCheckbox1").getValue()==true){
 								scope += "1";
 							}

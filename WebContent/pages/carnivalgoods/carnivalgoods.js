@@ -310,6 +310,267 @@ Ext.onReady(function() {
 		}
 		]
 	});
+
+	var screenDataForm = Ext.create('Ext.form.Panel', {// 筛选的FormPanel
+		id:'scrBkgoodsdataForm',
+		labelAlign : 'right',
+		frame : true,
+//		width : document.documentElement.clientWidth - 30,
+		//scrollable : true,	//使用y轴的滚动条
+		layout : 'column',
+		//collapsed : true,		//折叠
+		items : [ {
+			id: 'scrselectScope',
+			name: 'selectScopecontainer',
+			xtype: 'fieldcontainer',
+			fieldLabel: '客户范围',
+			labelWidth: 75,
+			defaultType: 'checkboxfield',
+			columnWidth : 1,
+			layout : 'column',
+			items: [
+			    {
+			        boxLabel  : '餐饮客户',
+			        name      : 'selectScope',
+			        originalValue: '3',
+			        margin    : '0 10 0 0',
+			        id        : 'scrscopeCheckbox3'
+			    }, {
+			        boxLabel  : '商超客户',
+			        name      : 'selectScope',
+			        originalValue: '2',
+			        margin    : '0 10 0 0',
+//			        checked   : true,
+			        id        : 'scrscopeCheckbox2'
+			    }, {
+			        boxLabel  : '组织单位客户',
+			        name      : 'selectScope',
+			        originalValue: '1',
+			        margin    : '0 10 0 0',
+			        id        : 'scrscopeCheckbox1'
+			    }
+		]},
+		{
+			columnWidth : 1,
+			layout : 'form',
+			hidden : true,
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '促销品ID',
+				id : 'scrBkgoodsbkgoodsid',
+				name : 'bkgoodsid',
+				maxLength : 100
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'form',
+			hidden : true,
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '经销商ID',
+				id : 'scrBkgoodsbkgoodscompany',
+				name : 'bkgoodscompany',
+				value : comid,
+				maxLength : 100
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'column',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '商品编号',
+				id : 'scrBkgoodsbkgoodscode',
+				allowBlank : false,
+				name : 'bkgoodscode',
+				maxLength : 100,
+				labelWidth: 70,
+				width : 352,
+				margin : '5 10 5 10'
+			},{
+				xtype : 'textfield',
+				fieldLabel : '商品名称',
+				id : 'scrBkgoodsbkgoodsname',
+				allowBlank : false,
+				name : 'bkgoodsname',
+				maxLength : 100,
+				labelWidth: 70,
+				width : 352,
+				margin : '5 10 5 10'
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'column',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '规格',
+				id : 'scrBkgoodsbkgoodsunits',
+				allowBlank : false,
+				name : 'bkgoodsunits',
+				maxLength : 100,
+				labelWidth: 40,
+				width : 352,
+				margin : '5 10 5 10'
+			},{
+				xtype : 'textfield',
+				fieldLabel : '单位',
+				id : 'scrBkgoodsbkgoodsunit',
+				allowBlank : false,
+				name : 'bkgoodsunit',
+				maxLength : 100,
+				labelWidth: 40,
+				width : 352,
+				margin : '5 10 5 10'
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'column',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '品牌',
+				id : 'scrBkgoodsbkgoodsbrand',
+				name : 'bkgoodsbrand',
+				maxLength : 100,
+				labelWidth: 40,
+				width : 352,
+				margin : '5 10 5 10'
+			},{
+				xtype : 'textfield',
+				fieldLabel : '原价',
+				id : 'scrBkgoodsbkgoodsprice',
+				name : 'bkgoodsprice',
+				maxLength : 100,
+				allowBlank : false,
+				labelWidth: 40,
+				width : 352,
+				margin : '5 10 5 10'
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'column',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '现价',
+				id : 'scrBkgoodsbkgoodsorgprice',
+				allowBlank : false,
+				name : 'bkgoodsorgprice',
+				maxLength : 100,
+				labelWidth: 40,
+				width : 352,
+				margin : '5 10 5 10'
+			},{
+				xtype : 'textfield',
+				fieldLabel : '重量(kg)',
+				id : 'scrBkgoodsbkgoodsweight',
+				name : 'bkgoodsweight',
+				maxLength : 100,
+				labelWidth: 70,
+				width : 352,
+				margin : '5 10 5 10'
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'column',
+			items : [ {
+				xtype : 'combo',
+				fieldLabel : '状态',
+				id : 'scrBkgoodsbkgoodsstatue',
+				name : 'bkgoodsstatue',
+				//loadingText: 'loading...',			//正在加载时的显示
+				//editable : false,						//是否可编辑
+				emptyText : '请选择',
+				store : statueStore,
+				mode : 'local',					//local是取本地数据的也就是javascirpt(内存)中的数据。
+												//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
+				displayField : 'name',		//显示的字段
+				valueField : 'name',		//作为值的字段
+				hiddenName : 'bkgoodsstatue',
+				triggerAction : 'all',
+				editable : false,
+				maxLength : 100,
+				allowBlank : false,
+				anchor : '95%',
+				labelWidth: 40,
+				width : 352,
+				margin : '5 10 5 10'
+			},{
+				xtype : 'textfield',
+				fieldLabel : '顺序',
+				id : 'scrBkgoodsbkgoodsseq',
+				name : 'bkgoodsseq',
+				maxLength : 100,
+				labelWidth: 40,
+				width : 352,
+				margin : '5 10 5 10'
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'column',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '个人限量',
+				id : 'scrBkgoodsbkgoodsnum',
+				name : 'bkgoodsnum',
+				maxLength : 100,
+				allowBlank : false,
+				labelWidth: 70,
+				width : 228,
+				margin : '5 10 5 10'
+			},{
+				xtype : 'textfield',
+				fieldLabel : '全部限量',
+				id : 'scrBkgoodsbkgoodsallnum',
+				name : 'bkgoodsallnum',
+				maxLength : 100,
+				allowBlank : false,
+				labelWidth: 70,
+				width : 228,
+				margin : '5 10 5 10'
+			},{
+				xtype : 'textfield',
+				fieldLabel : '剩余数量',
+				id : 'scrBkgoodsbkgoodssurplus',
+				name : 'bkgoodssurplus',
+				maxLength : 100,
+				labelWidth: 70,
+				width : 228,
+				margin : '5 10 5 10'
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'column',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '图片路径',
+				id : 'scrBkgoodsbkgoodsimage',
+				name : 'bkgoodsimage',
+				maxLength : 100,
+				labelWidth: 70,
+				width : 724,
+				margin : '5 10 5 10'
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'form',
+			hidden : true,
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '客户范围',
+				id : 'scrBkgoodsbkgoodsscope',
+				name : 'bkgoodsscope',
+				maxLength : 100
+			} ]
+		}
+		]
+	});
 	
 	Bkgoodsbbar = pagesizebar(Bkgoodsstore);//定义分页
 	var Bkgoodsgrid =  Ext.create('Ext.grid.Panel', {
@@ -471,7 +732,7 @@ Ext.onReady(function() {
 			handler : function() {
 				BkgoodsdataForm.form.reset();
 				Ext.getCmp("Bkgoodsbkgoodsid").setEditable (true);
-				bkgoodsQueryWindow("筛选", BkgoodsdataForm, Bkgoodsstore,Ext.getCmp("queryBkgoodsaction").getValue());
+				bkgoodsQueryWindow("筛选", screenDataForm, Bkgoodsstore,Ext.getCmp("queryBkgoodsaction").getValue());
 			}
 		},'-',{
 				text : Ext.os.deviceType === 'Phone' ? null : "新增商品",
