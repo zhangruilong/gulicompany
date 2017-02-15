@@ -39,7 +39,7 @@ function submitdata() {
 		success:function(resp){
 			var data = eval('('+resp+')');
 			if(data.code==202){
-				location.href = 'main.jsp';
+				location.href = 'index.html';
 			} else {
 				alert('输入的账号或密码错误。');
 			}

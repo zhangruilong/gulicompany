@@ -1,8 +1,44 @@
 
-/////----------商品价格模块(开始)----------/////
+
+function screenWindow(title,_form,store) {
+	var dataWindow = new Ext.Window({
+		title : title, // 窗口标题
+		layout : 'fit', // 设置窗口布局模式
+		width : Ext.os.deviceType === 'Phone' ? '100%' : 650, // 窗口宽度
+		modal : true,
+		closeAction: 'hide',
+		closable : true, // 是否可关闭
+		collapsible : false, // 是否可收缩
+		maximizable : false, // 设置是否可以最大化
+		border : false, // 边框线设置
+		animateTarget : Ext.getBody(),
+		pageY : 0, // 页面定位Y坐标
+		pageX : Ext.os.deviceType === 'Phone' ? 0 : document.body.clientWidth / 2 - 620 / 2, // 页面定位X坐标
+		items : _form, // 嵌入的表单面板
+		buttons : [
+				{
+					text : '提交',
+					iconCls : 'ok',
+					handler : function() {
+						queryjson = "[" + Ext.encode(_form.form.getValues(false)) + "]";
+						queryjson = queryjson.replace(/""/g,null);
+						store.load();
+						dataWindow.hide();
+					}
+				}, {
+					text : '关闭',
+					iconCls : 'close',
+					handler : function() {
+						dataWindow.hide();
+					}
+				}]
+	});
+	dataWindow.show();
+}
+/////----------商品价格(开始)----------/////
 var isAdd = true;	//是否新增
 var isAct = 'n';
-var GoodsPricesForm = Ext.create('Ext.form.Panel', {// 定义新增和修改的FormPanel
+var GoodsPricesForm = Ext.create('Ext.form.Panel', {
 		id:'GoodsPricesForm',
 		labelAlign : 'left',
 		frame : true,
@@ -21,21 +57,27 @@ var GoodsPricesForm = Ext.create('Ext.form.Panel', {// 定义新增和修改的F
 					xtype : 'textfield',
 					fieldLabel : '商品编号',
 			        margin    : '0 15 0 0',			//外边距
-					columnWidth : .4,				//宽度
+					columnWidth : .3,				//宽度
 					labelWidth : 60,				//标题宽度
 					editable : false,				//不可编辑
 					name : 'goodscode',
-					maxLength : 100					//输入的最大长度
+					maxLength : 100,					//输入的最大长度
+					triggerWrapCls:'kb-textField-not-border-trigger-wrap',
+					inputWrapCls:'kb-textField-not-border-wrap',
+					fieldStyle : 'background:none; border-right: 0px solid;border-top: 0px solid;border-left: 0px solid;border-bottom: 0px solid',
 				}
 				, {
 					xtype : 'textfield',
 					fieldLabel : '商品名称',
 			        margin    : '0 15 0 0',
-					columnWidth : .4,
+					columnWidth : .5,
 					labelWidth : 60,
 					editable : false,
 					name : 'goodsname',
-					maxLength : 100
+					maxLength : 100,
+					triggerWrapCls:'kb-textField-not-border-trigger-wrap',
+					inputWrapCls:'kb-textField-not-border-wrap',
+					fieldStyle : 'background:none; border-right: 0px solid;border-top: 0px solid;border-left: 0px solid;border-bottom: 0px solid',
 				}
 				, {
 					xtype : 'textfield',
@@ -45,7 +87,10 @@ var GoodsPricesForm = Ext.create('Ext.form.Panel', {// 定义新增和修改的F
 					labelWidth : 35,
 					editable : false,
 					name : 'goodsunits',
-					maxLength : 100
+					maxLength : 100,
+					triggerWrapCls:'kb-textField-not-border-trigger-wrap',
+					inputWrapCls:'kb-textField-not-border-wrap',
+					fieldStyle : 'background:none; border-right: 0px solid;border-top: 0px solid;border-left: 0px solid;border-bottom: 0px solid',
 				}
 		]},
 		{
@@ -245,6 +290,7 @@ var GoodsPricesForm = Ext.create('Ext.form.Panel', {// 定义新增和修改的F
 		]
 	
 });
+/////----------商品价格(结束)----------/////
 //添加或修改价格(参数 isAct:y则保存成功后上架)
 function addPricesData(isAct,pricegoodsid,goodsPricesWindow){
 	if(GoodsPricesForm.form.isValid()){
@@ -436,6 +482,7 @@ function scantWindow(){
 			header : '名称',
 			dataIndex : 'scantname',
 			sortable : true, 
+			width : 137,
 		}
 		, {
 			header : '规格',
@@ -493,7 +540,7 @@ function scantWindow(){
 	var selectgridWindow = new Ext.Window({
 		title : Scanttitle,
 		layout : 'fit', // 设置窗口布局模式
-		width : 620, // 窗口宽度
+		width : 720, // 窗口宽度
 		height : document.body.clientHeight -4, // 窗口高度
 		modal : true,
 		//closeAction: 'hide',
@@ -504,7 +551,7 @@ function scantWindow(){
 		constrain : true, // 设置窗口是否可以溢出父容器
 		animateTarget : Ext.getBody(),
 		pageY : 50, // 页面定位Y坐标
-		pageX : document.body.clientWidth / 2 - 620 / 2, // 页面定位X坐标
+		pageX : document.body.clientWidth / 2 - 720 / 2, // 页面定位X坐标
 		items : Scantgrid, // 嵌入的表单面板
 		buttons : [
 					{
@@ -539,8 +586,8 @@ function scantWindow(){
 
 //修改商品的窗口
 function editGoodsWindow(url,title,_form,store) {
-	Ext.getCmp('Goodsgoodsnumnum').setVisible(true);
-	Ext.getCmp('Goodsgoodsnumstore').setVisible(true);
+	Ext.getCmp('Goodsgoodsnumnum').setVisible(false);
+	Ext.getCmp('Goodsgoodsnumstore').setVisible(false);
 	Ext.getCmp('Goodsgoodsnumnum').setDisabled(true);
 	Ext.getCmp('Goodsgoodsnumstore').setDisabled(true);
 	var dataWindow = new Ext.Window({
@@ -601,8 +648,8 @@ function editGoodsWindow(url,title,_form,store) {
 function addGoodsWindow(url,title,_form,store) {
 	Ext.getCmp('Goodsgoodsnumnum').setDisabled(false);
 	Ext.getCmp('Goodsgoodsnumstore').setDisabled(false);
-	Ext.getCmp('Goodsgoodsnumnum').setVisible(false);
-	Ext.getCmp('Goodsgoodsnumstore').setVisible(false);
+	Ext.getCmp('Goodsgoodsnumnum').setVisible(true);
+	Ext.getCmp('Goodsgoodsnumstore').setVisible(true);
 	var dataWindow = new Ext.Window({
 		title : title, // 窗口标题
 		layout : 'fit', // 设置窗口布局模式

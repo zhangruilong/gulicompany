@@ -233,7 +233,8 @@ Ext.onReady(function() {
 				fieldLabel : '所在城市',
 				id : 'Ccustomerviewcustomercity',
 				name : 'customercity',
-				maxLength : 100
+				maxLength : 100,
+				readOnly : true,
 			} ]
 		}
 		, {
@@ -244,7 +245,8 @@ Ext.onReady(function() {
 				fieldLabel : '所在地区',
 				id : 'Ccustomerviewcustomerxian',
 				name : 'customerxian',
-				maxLength : 100
+				maxLength : 100,
+				readOnly : true,
 			} ]
 		}
 		]
@@ -402,7 +404,8 @@ Ext.onReady(function() {
 						});
 						return;
 					}
-					window.parent.main.location.href = "../../pages/LargecuspriceGoods/LargecuspriceGoods.jsp?cusid="+selections[0].data["customerid"];
+					window.location.href = "../../pages/LargecuspriceGoods/LargecuspriceGoods.jsp?cusid="+
+							selections[0].data["customerid"];
 				}
 			},'-',{
 				text : Ext.os.deviceType === 'Phone' ? null : "导出",

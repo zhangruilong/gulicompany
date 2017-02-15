@@ -92,6 +92,7 @@ var OrderddataForm = Ext.create('Ext.form.Panel', {
 			xtype : 'textfield',
 			id : 'Orderdorderdid',
 			name : 'orderdid',
+			readOnly : true,
 		} ]
 	}
 	, {
@@ -101,16 +102,7 @@ var OrderddataForm = Ext.create('Ext.form.Panel', {
 			xtype : 'textfield',
 			id : 'Orderdorderdorderm',
 			name : 'orderdorderm',
-		} ]
-	}
-	, {
-		hidden : true,
-		items : [ {
-			xtype : 'textfield',
-			editable : false,
-			fieldLabel : '订单详细ID',
-			id : 'Orderdorderdid',
-			name : 'orderdid'
+			readOnly : true,
 		} ]
 	}
 	,{
@@ -121,7 +113,9 @@ var OrderddataForm = Ext.create('Ext.form.Panel', {
 			fieldLabel : '商品编号',
 			id : 'Orderdorderdcode',
 			name : 'orderdcode',
-			maxLength : 100
+			maxLength : 100,
+			readOnly : true,
+			disabled : true,
 		} ]
 	}
 	, {
@@ -132,7 +126,9 @@ var OrderddataForm = Ext.create('Ext.form.Panel', {
 			fieldLabel : '商品名称',
 			id : 'Orderdorderdname',
 			name : 'orderdname',
-			maxLength : 100
+			maxLength : 100,
+			readOnly : true,
+			disabled : true,
 		} ]
 	}
 	, {
@@ -143,7 +139,9 @@ var OrderddataForm = Ext.create('Ext.form.Panel', {
 			fieldLabel : '规格',
 			id : 'Orderdorderdunits',
 			name : 'orderdunits',
-			maxLength : 100
+			maxLength : 100,
+			readOnly : true,
+			disabled : true,
 		} ]
 	}
 	, {
@@ -154,7 +152,9 @@ var OrderddataForm = Ext.create('Ext.form.Panel', {
 			fieldLabel : '价格',
 			id : 'Orderdorderdprice',
 			name : 'orderdprice',
-			maxLength : 100
+			maxLength : 100,
+			readOnly : true,
+			disabled : true,
 		} ]
 	}
 	, {
@@ -165,7 +165,9 @@ var OrderddataForm = Ext.create('Ext.form.Panel', {
 			fieldLabel : '单位',
 			id : 'Orderdorderdunit',
 			name : 'orderdunit',
-			maxLength : 100
+			maxLength : 100,
+			readOnly : true,
+			disabled : true,
 		} ]
 	}
 	, {

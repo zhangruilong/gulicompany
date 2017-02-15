@@ -23,5 +23,15 @@
 	</script>
 	<script type="text/javascript" src="GoodsMana.js"></script>
 	<script type="text/javascript" src="GoodsManafun.js"></script>
+	
+<style type="text/css">
+.kb-textField-not-border-wrap {
+	border-style: none;
+}
+
+.kb-textField-not-border-trigger-wrap {
+	border-style: none;
+}
+</style>
   </head>
 </html>

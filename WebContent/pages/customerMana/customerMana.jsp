@@ -19,5 +19,14 @@
 	</script>
 	<script type="text/javascript" src="customerManafun.js"></script>
 	<script type="text/javascript" src="customerMana.js"></script>
+<style type="text/css">
+.kb-textField-not-border-wrap {
+	border-style: none;
+}
+
+.kb-textField-not-border-trigger-wrap {
+	border-style: none;
+}
+</style>
   </head>
 </html>

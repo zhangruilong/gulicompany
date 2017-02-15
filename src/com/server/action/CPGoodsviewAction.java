@@ -95,11 +95,12 @@ public class CPGoodsviewAction extends GoodsviewAction {
 		if(CommonUtil.isNotEmpty(queryinfo.getQuery())){
 			selectsql += " and (" + queryinfo.getQuery() + ") ";
 		}
+		String totSQL = selectsql.replace("g.*,gc.goodsclassname", "count(*)");
 		if(CommonUtil.isNotEmpty(queryinfo.getOrder())){
 			selectsql += " order by " + queryinfo.getOrder();
 		}
 		List<Goodsview> goodsLi = selQuery(selectsql, queryinfo);
-		Pageinfo pageinfo = new Pageinfo(getTotal(queryinfo), goodsLi);
+		Pageinfo pageinfo = new Pageinfo(getTotal(totSQL), goodsLi);
 		result = CommonConst.GSON.toJson(pageinfo);
 		responsePW(response, result);
 	}

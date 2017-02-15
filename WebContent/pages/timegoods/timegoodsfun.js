@@ -165,8 +165,8 @@ function bkgoodsQueryWindow(title,_form,store) {
 		modal : true,
 		closeAction: 'hide',
 		closable : true, // 是否可关闭
-		collapsible : true, // 是否可收缩
-		maximizable : true, // 设置是否可以最大化
+		collapsible : false, // 是否可收缩
+		maximizable : false, // 设置是否可以最大化
 		border : false, // 边框线设置
 		animateTarget : Ext.getBody(),
 		pageY : 0, // 页面定位Y坐标

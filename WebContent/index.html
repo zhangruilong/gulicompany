@@ -6,25 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- The styles -->
-    <link id="bs-css" href="css/bootstrap-cerulean.min.css" rel="stylesheet">
+    <link id="bs-css" href="zrlextpages/charisma/css/bootstrap-cerulean.min.css" rel="stylesheet">
 
-    <link href="css/charisma-app.css" rel="stylesheet">
-    <link href='bower_components/fullcalendar/dist/fullcalendar.css' rel='stylesheet'>
-    <link href='bower_components/fullcalendar/dist/fullcalendar.print.css' rel='stylesheet' media='print'>
-    <link href='bower_components/chosen/chosen.min.css' rel='stylesheet'>
-    <link href='bower_components/colorbox/example3/colorbox.css' rel='stylesheet'>
-    <link href='bower_components/responsive-tables/responsive-tables.css' rel='stylesheet'>
-    <link href='bower_components/bootstrap-tour/build/css/bootstrap-tour.min.css' rel='stylesheet'>
-    <link href='css/jquery.noty.css' rel='stylesheet'>
-    <link href='css/noty_theme_default.css' rel='stylesheet'>
-    <link href='css/elfinder.min.css' rel='stylesheet'>
-    <link href='css/elfinder.theme.css' rel='stylesheet'>
-    <link href='css/jquery.iphone.toggle.css' rel='stylesheet'>
-    <link href='css/uploadify.css' rel='stylesheet'>
-    <link href='css/animate.min.css' rel='stylesheet'>
+    <link href="zrlextpages/charisma/css/charisma-app.css" rel="stylesheet">
+    <link href='zrlextpages/charisma/bower_components/fullcalendar/dist/fullcalendar.css' rel='stylesheet'>
+    <link href='zrlextpages/charisma/bower_components/fullcalendar/dist/fullcalendar.print.css' rel='stylesheet' media='print'>
+    <link href='zrlextpages/charisma/bower_components/chosen/chosen.min.css' rel='stylesheet'>
+    <link href='zrlextpages/charisma/bower_components/colorbox/example3/colorbox.css' rel='stylesheet'>
+    <link href='zrlextpages/charisma/bower_components/responsive-tables/responsive-tables.css' rel='stylesheet'>
+    <link href='zrlextpages/charisma/bower_components/bootstrap-tour/build/css/bootstrap-tour.min.css' rel='stylesheet'>
+    <link href='zrlextpages/charisma/css/jquery.noty.css' rel='stylesheet'>
+    <link href='zrlextpages/charisma/css/noty_theme_default.css' rel='stylesheet'>
+    <link href='zrlextpages/charisma/css/elfinder.min.css' rel='stylesheet'>
+    <link href='zrlextpages/charisma/css/elfinder.theme.css' rel='stylesheet'>
+    <link href='zrlextpages/charisma/css/jquery.iphone.toggle.css' rel='stylesheet'>
+    <link href='zrlextpages/charisma/css/uploadify.css' rel='stylesheet'>
+    <link href='zrlextpages/charisma/css/animate.min.css' rel='stylesheet'>
 
+	<!-- page CSS -->
+	<link href='css/index.css' rel='stylesheet' type="text/css">
     <!-- jQuery -->
-    <script src="bower_components/jquery/jquery.min.js"></script>
+    <script src="zrlextpages/charisma/bower_components/jquery/jquery.min.js"></script>
 
     <!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -32,7 +34,7 @@
     <![endif]-->
 
     <!-- The fav icon -->
-    <link rel="shortcut icon" href="img/favicon.ico">
+    <link rel="shortcut icon" href="zrlextpages/charisma/img/favicon.ico">
 </head>
 
 <body>
@@ -46,8 +48,8 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html"> <img alt="Charisma Logo" src="img/logo20.png" class="hidden-xs"/>
-                <span>Zrlext</span></a>
+            <a class="navbar-brand" href="index.html"> <img alt="Charisma Logo" src="images/orderImg/top_logo.png" class="hidden-xs"/>
+                <span>谷粒网</span></a>
 
             <!-- user dropdown starts -->
             <div class="btn-group pull-right">
@@ -56,13 +58,13 @@
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a class="ajax-link" href="../system/System_password/System_password.jsp">修改密码</a></li>
+                    <li><a class="ajax-link" href="editPas.jsp">修改密码</a></li>
                     <li class="divider"></li>
-                    <li><a href="login.html">注销</a></li>
+                    <li><a href="CPCompanyAction.do?method=zhuxiao">注销</a></li>
                 </ul>
             </div>
             <!-- user dropdown ends -->
-
+<div class="haveNewOrderm"><audio id="tishiyin" src="MP3/tishi.mp3"></audio></div>
             <!-- theme selector starts -->
             <div class="btn-group pull-right theme-container animated tada">
                 <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -84,27 +86,6 @@
             </div>
             <!-- theme selector ends -->
 
-            <ul class="collapse navbar-collapse nav navbar-nav top-menu">
-                <li><a target="_blank" href="https://www.baidu.com"><i class="glyphicon glyphicon-globe"></i> www.Baidu.com</a></li>
-                <li class="dropdown">
-                    <a href="#" data-toggle="dropdown"><i class="glyphicon glyphicon-star"></i>默认站点<span
-                            class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="../admin/index.html">电脑版</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">手机版</a></li>
-                        <li class="divider"></li>
-                        <li><a href="../window/index.html">桌面版</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <form class="navbar-search pull-left">
-                        <input placeholder="Search" class="search-query form-control col-md-10" name="query"
-                               type="text">
-                    </form>
-                </li>
-            </ul>
-
         </div>
     </div>
     <!-- topbar ends -->
@@ -116,6 +97,61 @@
             <div class="sidebar-nav">
                 <div class="nav-canvas">
                     <ul id="leftmenu" class="nav nav-pills nav-stacked main-menu">
+                    	<li class="accordion">
+		                <a class="ajax-link" href="../undefined"><i class="glyphicon glyphicon-align-justify"></i><span> 订单管理</span></a>
+		                <ul class="nav nav-pills nav-stacked">
+		                	<li><a class="ajax-link" href="pages/orderMana/orderMana.jsp">全部订单</a></li>
+		                	<li><a class="ajax-link" href="pages/orderdStatistics/orderdStatistics.jsp">订单商品统计</a></li>
+		                	<li><a class="ajax-link" href="pages/cusInfoStatistic/cusInfoStatistic.jsp">订单业务统计</a></li>
+		                </ul>
+		                </li>
+		                <li class="accordion">
+		                <a class="ajax-link" href="../undefined"><i class="glyphicon glyphicon-picture"></i><span> 商品管理</span></a>
+		                <ul class="nav nav-pills nav-stacked">
+		                	<li><a class="ajax-link" href="pages/goodsMana/GoodsMana.jsp?classify=全部商品">全部商品</a></li>
+		                	<li><a class="ajax-link" href="pages/goodsMana/GoodsMana.jsp?goodsstatue=上架&classify=上架商品">上架商品</a></li>
+		                	<li><a class="ajax-link" href="pages/goodsMana/GoodsMana.jsp?goodsstatue=下架&classify=下架商品">下架商品</a></li>
+		                	<li><a class="ajax-link" href="pages/goodsMana/GoodsMana.jsp?goodstype=裸价商品&classify=裸价专区">裸价专区</a></li>
+		                	<li><a class="ajax-link" href="pages/timegoods/timegoods.jsp">秒杀专区</a></li>
+		                	<li><a class="ajax-link" href="pages/givegoods/givegoods.jsp">买赠专区</a></li>
+		                	<li><a class="ajax-link" href="pages/modulargoods/modulargoods.jsp">组合专区</a></li>
+		                	<li><a class="ajax-link" href="pages/carnivalgoods/carnivalgoods.jsp">年货专区</a></li>
+		                </ul>
+		                </li>
+		                <li class="accordion">
+		                <a class="ajax-link" href="../undefined"><i class="glyphicon glyphicon-lock"></i><span> 客户管理</span></a>
+		                <ul class="nav nav-pills nav-stacked">
+		                	<li><a class="ajax-link" href="pages/customerMana/customerMana.jsp?classify=全部客户">全部客户</a></li>
+		                	<li><a class="ajax-link" href="pages/customerMana/customerMana.jsp?customertype=3&classify=餐饮客户">餐饮客户</a></li>
+		                	<li><a class="ajax-link" href="pages/customerMana/customerMana.jsp?customertype=2&classify=商超客户">商超客户</a></li>
+		                	<li><a class="ajax-link" href="pages/customerMana/customerMana.jsp?customertype=1&classify=组织单位客户">组织单位客户</a></li>
+		                	<li><a class="ajax-link" href="pages/customerMana/customerMana.jsp?creator=1&classify=录入客户">录入客户</a></li>
+		                </ul>
+		                </li>
+		                <li class="accordion">
+		                <a class="ajax-link" href="../undefined"><i class="glyphicon glyphicon-star"></i><span> 库存管理</span></a>
+		                <ul class="nav nav-pills nav-stacked">
+		                	<li><a class="ajax-link" href="pages/Goodsnum/Goodsnumview.jsp">库存总账</a></li>
+		                	<li><a class="ajax-link" href="pages/Warrantin/Warrantinview.jsp">入库台账</a></li>
+		                	<li><a class="ajax-link" href="pages/Warrantout/Warrantoutview.jsp">出库台账</a></li>
+		                	<li><a class="ajax-link" href="pages/Warrantback/Warrantbackview.jsp">退货台账</a></li>
+		                	<li><a class="ajax-link" href="pages/Warrantcheck/Warrantcheckview.jsp">盘点记录</a></li>
+		                </ul>
+		                </li>
+		                <li class="accordion">
+		                <a class="ajax-link" href="../undefined"><i class="glyphicon glyphicon-globe"></i><span> 系统管理</span></a>
+		                <ul class="nav nav-pills nav-stacked">
+		                	<li><a class="ajax-link" href="cusInfo.jsp">用户信息</a></li>
+		                	<li><a class="ajax-link" href="editPas.jsp">密码修改</a></li>
+		                	<li><a class="ajax-link" href="CPCompanyAction.do?method=zhuxiao">退出系统</a></li>
+		                </ul>
+		                </li>
+		                <li class="accordion">
+		                <a class="ajax-link" href="../undefined"><i class="glyphicon glyphicon-plus"></i><span> 帮助中心</span></a>
+		                <ul class="nav nav-pills nav-stacked">
+		                	<li><a class="ajax-link" href="fileMana.jsp">帮助文档</a></li>
+		                </ul>
+		                </li>
                     </ul>
                 </div>
             </div>
@@ -125,7 +161,7 @@
 
         <div id="content" class="col-lg-10 col-sm-10">
             <!-- content starts -->
-             <iframe name="mainFrame" id="mainFrame" src="home.html" frameborder="0" style="margin:0 auto;width:100%;height:100%;"></iframe>
+             <iframe name="mainFrame" id="mainFrame" src="pages/orderMana/orderMana.jsp" frameborder="0" style="margin:0 auto;width:100%;height:100%;"></iframe>
 	   		<!-- content ends -->
 	    </div><!--/#content.col-md-0-->
 </div><!--/fluid-row-->
@@ -134,64 +170,112 @@
 
 <!-- external javascript -->
 
-<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="zrlextpages/charisma/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
 <!-- library for cookie management -->
-<script src="js/jquery.cookie.js"></script>
+<script src="zrlextpages/charisma/js/jquery.cookie.js"></script>
 <!-- calender plugin -->
-<script src='bower_components/moment/min/moment.min.js'></script>
-<script src='bower_components/fullcalendar/dist/fullcalendar.min.js'></script>
+<script src='zrlextpages/charisma/bower_components/moment/min/moment.min.js'></script>
+<script src='zrlextpages/charisma/bower_components/fullcalendar/dist/fullcalendar.min.js'></script>
 <!-- data table plugin -->
-<script src='js/jquery.dataTables.min.js'></script>
+<script src='zrlextpages/charisma/js/jquery.dataTables.min.js'></script>
 
 <!-- select or dropdown enhancer -->
-<script src="bower_components/chosen/chosen.jquery.min.js"></script>
+<script src="zrlextpages/charisma/bower_components/chosen/chosen.jquery.min.js"></script>
 <!-- plugin for gallery image view -->
-<script src="bower_components/colorbox/jquery.colorbox-min.js"></script>
+<script src="zrlextpages/charisma/bower_components/colorbox/jquery.colorbox-min.js"></script>
 <!-- notification plugin -->
-<script src="js/jquery.noty.js"></script>
+<script src="zrlextpages/charisma/js/jquery.noty.js"></script>
 <!-- library for making tables responsive -->
-<script src="bower_components/responsive-tables/responsive-tables.js"></script>
+<script src="zrlextpages/charisma/bower_components/responsive-tables/responsive-tables.js"></script>
 <!-- tour plugin -->
-<script src="bower_components/bootstrap-tour/build/js/bootstrap-tour.min.js"></script>
+<script src="zrlextpages/charisma/bower_components/bootstrap-tour/build/js/bootstrap-tour.min.js"></script>
 <!-- star rating plugin -->
-<script src="js/jquery.raty.min.js"></script>
+<script src="zrlextpages/charisma/js/jquery.raty.min.js"></script>
 <!-- for iOS style toggle switch -->
-<script src="js/jquery.iphone.toggle.js"></script>
+<script src="zrlextpages/charisma/js/jquery.iphone.toggle.js"></script>
 <!-- autogrowing textarea plugin -->
-<script src="js/jquery.autogrow-textarea.js"></script>
+<script src="zrlextpages/charisma/js/jquery.autogrow-textarea.js"></script>
 <!-- multiple file upload plugin -->
-<script src="js/jquery.uploadify-3.1.min.js"></script>
+<script src="zrlextpages/charisma/js/jquery.uploadify-3.1.min.js"></script>
 <!-- history.js for cross-browser state change on ajax -->
-<script src="js/jquery.history.js"></script>
+<script src="zrlextpages/charisma/js/jquery.history.js"></script>
 <!-- application script for Charisma demo -->
 <script src="js/charismafun.js"></script>
 <script type="text/javascript">
 $(function(){
+	charisma();
+	var timer1;
+	window.onbeforeunload = function(){			//关闭浏览器时执行的方法
+		clearInterval(timer1);
+	};
+	var tishiyin = $("#tishiyin")[0];
+	
 	$.ajax({
-		url: "System_powerAction.do?method=selAllMenu",
-		success: function(r) {
-			initmenu(r);
+		url:"CPOrderAction.do?method=selNewOrder",
+		type:"post",
+		data:{
+			limit:'1',
+			order:'ordermtime desc'
 		},
-		error:function(r) {
-			alert('网络出现问题，请稍后再试');
+		success:function(resp){
+			var data = eval('('+resp+')');
+			if(data.root[0].ordermstatue == '已下单'){
+				$(".haveNewOrderm").html(
+					data.root[0].ordermcode+'&nbsp;'
+					+data.root[0].ordermmoney+'&nbsp;'
+					+data.root[0].ordermconnect+'&nbsp;'
+					+data.root[0].customershop+'&nbsp;'
+					+'<span>'+data.root[0].ordermtime+'</span>'
+					+'<span name="ordermtime" hidden="true">'+data.root[0].ordermtime+'</span>'
+				);
+			} else {
+				$(".haveNewOrderm").html('<span name="ordermtime" hidden="true">'+data.root[0].ordermtime+'</span>');
+			}
+		},
+		error:function(resp){
+			var data = eval('('+resp+')');
+			alert(data.msg);
 		}
 	});
+	//显示最新订单信息
+	//timer1 = setInterval(showNewestOrderm,10000);
 })
-function initmenu(data){	
-	var respText = eval('('+data+')'); 
-	$.each(respText, function(i, item) {
-		var menuchild = "";
-		$.each(item.children, function(y, ytem) {			
-			menuchild += '<li><a class="ajax-link" href="../'+ytem.href+'">'+ytem.text+'</a></li>';
-	    });
-		$("#leftmenu").append('<li class="accordion">'+
-                '<a class="ajax-link" href="../'+item.href+'"><i class="glyphicon glyphicon-align-justify"></i><span> '+item.text+'</span></a>'+
-                '<ul class="nav nav-pills nav-stacked">'+menuchild+
-                '</ul></li>');
-    });
-	charisma();
+function showNewestOrderm(){
+		$.ajax({
+			url:"CPOrderAction.do?method=selNewOrder",
+			type:"post",
+			data:{
+				limit:'1',
+				order:'ordermtime desc'
+			},
+			success:function(resp){
+				var data = eval('('+resp+')');
+				if(data.root[0].ordermstatue == '已下单' && data.root[0].ordermtime && $("[name='ordermtime']").text()!='' 
+						&& $("[name='ordermtime']").text() != data.root[0].ordermtime ){
+					play();
+					$(".haveNewOrderm").html(
+							'有新的订单!&nbsp;'+data.root[0].ordermcode+'&nbsp;'
+							+data.root[0].ordermmoney+'&nbsp;'
+							+data.root[0].ordermconnect+'&nbsp;'
+							+data.root[0].customershop+'&nbsp;'
+							+'<span>'+data.root[0].ordermtime+'</span>&nbsp;'
+							+'<span name="ordermtime" hidden="true">'+data.root[0].ordermtime+'</span>'
+						);
+				} else {
+					$(".haveNewOrderm").html('<span name="ordermtime" hidden="true">'+data.root[0].ordermtime+'</span>');
+				}
+			},
+			error:function(resp){
+				var data = eval('('+resp+')');
+				alert(data.msg);
+			}
+		});
 }
+function play() {
+	tishiyin.play();
+}
+
 </script>
 </body>
 </html>

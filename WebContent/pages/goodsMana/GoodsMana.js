@@ -100,7 +100,7 @@ Ext.onReady(function() {
 		layout : 'column',
 		items : [ {
 			columnWidth : 1,
-			layout : 'form',
+			layout : 'column',
 			hidden : true,
 			items : [ {
 				xtype : 'textfield',
@@ -111,7 +111,7 @@ Ext.onReady(function() {
 		}
 		, {
 			columnWidth : 1,
-			layout : 'form',
+			layout : 'column',
 			items : [ {
 				xtype : 'textfield',
 				fieldLabel : '商品编号',
@@ -119,23 +119,24 @@ Ext.onReady(function() {
 				allowBlank : false,
 				name : 'goodscode',
 				maxLength : 100,
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'form',
-			items : [ {
+				labelWidth: 70,
+				width : 302,
+				margin : '5 10 5 10'
+			}, {
 				xtype : 'textfield',
 				fieldLabel : '商品名称',
 				id : 'Goodsgoodsname',
 				allowBlank : false,
 				name : 'goodsname',
 				maxLength : 100,
+				labelWidth: 70,
+				width : 302,
+				margin : '5 10 5 10'
 			} ]
 		}
 		, {
 			columnWidth : 1,
-			layout : 'form',
+			layout : 'column',
 			items : [ {
 				xtype : 'textfield',
 				fieldLabel : '规格',
@@ -143,12 +144,10 @@ Ext.onReady(function() {
 				allowBlank : false,
 				name : 'goodsunits',
 				maxLength : 100,
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'form',
-			items : [ {
+				labelWidth: 40,
+				width : 302,
+				margin : '5 10 5 10'
+			}, {
 				xtype : 'combo',
 				fieldLabel : '小类',
 				id : 'Goodsgoodsclass',
@@ -167,19 +166,81 @@ Ext.onReady(function() {
 				maxLength : 100,
 				allowBlank : false,			//不允许空白值
 				anchor : '95%',
+				labelWidth: 40,
+				width : 302,
+				margin : '5 10 5 10'
 			} ]
 		}
-		
 		, {
 			columnWidth : 1,
-			layout : 'form',
+			layout : 'column',
 			items : [ {
 				xtype : 'textfield',
 				fieldLabel : '其他类别',
 				id : 'Goodsgoodstype',
 				name : 'goodstype',
 				maxLength : 100,
-				allowBlank : false
+				allowBlank : false,
+				labelWidth: 70,
+				width : 302,
+				margin : '5 10 5 10'
+			}, {
+				xtype : 'textfield',
+				fieldLabel : '品牌',
+				id : 'Goodsgoodsbrand',
+				name : 'goodsbrand',
+				maxLength : 100,
+				labelWidth: 40,
+				width : 302,
+				margin : '5 10 5 10'
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'column',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '重量(kg)',
+				id : 'Goodsgoodsweight',
+				name : 'goodsweight',
+				maxLength : 100,
+				labelWidth: 70,
+				width : 302,
+				margin : '5 10 5 10'
+			}, {
+				xtype : 'textfield',
+				fieldLabel : '顺序',
+				id : 'Goodsgoodsorder',
+				name : 'goodsorder',
+				maxLength : 100,
+				labelWidth: 40,
+				width : 302,
+				margin : '5 10 5 10'
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'column',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '商品数量',
+				id : 'Goodsgoodsnumnum',
+				name : 'Goodsnumnum',
+				maxLength : 100,
+				allowBlank : false,
+				labelWidth: 70,
+				width : 302,
+				margin : '5 10 5 10'
+			}, {
+				xtype : 'textfield',
+				fieldLabel : '商品仓库',
+				id : 'Goodsgoodsnumstore',
+				name : 'Goodsnumstore',
+				maxLength : 100,
+				allowBlank : false,
+				labelWidth: 70,
+				width : 302,
+				margin : '5 10 5 10'
 			} ]
 		}
 		, {
@@ -193,13 +254,89 @@ Ext.onReady(function() {
 				maxLength : 100
 			} ]
 		}
+		]
+	});
+/////----------筛选商品(开始)----------/////
+	var screenGoodsForm = Ext.create('Ext.form.Panel', {
+		id:'screenGoodsForm',
+		labelAlign : 'right',
+		frame : true,
+		layout : 'column',
+		items : [ {
+			columnWidth : 1,
+			layout : 'form',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '商品编号',
+				id : 'scrGoodsgoodscode',
+				name : 'goodscode',
+				maxLength : 100,
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'form',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '商品名称',
+				id : 'scrGoodsgoodsname',
+				name : 'goodsname',
+				maxLength : 100,
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'form',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '规格',
+				id : 'scrGoodsgoodsunits',
+				name : 'goodsunits',
+				maxLength : 100,
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'form',
+			items : [ {
+				xtype : 'combo',
+				fieldLabel : '小类',
+				id : 'scrGoodsgoodsclass',
+				name : 'goodsclass',			//小类名称
+				//loadingText: 'loading...',			//正在加载时的显示
+				//editable : false,						//是否可编辑
+				emptyText : '请选择',
+				store : Goodsclassstore,
+				mode : 'local',					//local是取本地数据的也就是javascirpt(内存)中的数据。
+												//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
+				displayField : 'goodsclassname',		//显示的字段
+				valueField : 'goodsclassid',		//作为值的字段
+				hiddenName : 'menulevel',
+				triggerAction : 'all',
+				editable : false,
+				maxLength : 100,
+				anchor : '95%',
+			} ]
+		}
+		
+		, {
+			columnWidth : 1,
+			layout : 'form',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '其他类别',
+				id : 'scrGoodsgoodstype',
+				name : 'goodstype',
+				maxLength : 100,
+			} ]
+		}
 		, {
 			columnWidth : 1,
 			layout : 'form',
 			items : [ {
 				xtype : 'textfield',
 				fieldLabel : '品牌',
-				id : 'Goodsgoodsbrand',
+				id : 'scrGoodsgoodsbrand',
 				name : 'goodsbrand',
 				maxLength : 100
 			} ]
@@ -210,49 +347,15 @@ Ext.onReady(function() {
 			items : [ {
 				xtype : 'textfield',
 				fieldLabel : '重量(kg)',
-				id : 'Goodsgoodsweight',
+				id : 'scrGoodsgoodsweight',
 				name : 'goodsweight',
 				maxLength : 100
 			} ]
 		}
-		, {
-			columnWidth : 1,
-			layout : 'form',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '顺序',
-				id : 'Goodsgoodsorder',
-				name : 'goodsorder',
-				maxLength : 100
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'form',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '商品数量',
-				id : 'Goodsgoodsnumnum',
-				name : 'Goodsnumnum',
-				maxLength : 100,
-				allowBlank : false
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'form',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '商品仓库',
-				id : 'Goodsgoodsnumstore',
-				name : 'Goodsnumstore',
-				maxLength : 100,
-				allowBlank : false
-			} ]
-		}
 		]
 	});
-	var goodsStaCombo = Ext.create('Ext.form.ComboBox', { 
+/////----------筛选商品(结束)----------/////
+	var goodsStaCombo = Ext.create('Ext.form.ComboBox', {
 
 	    store : goodsStatueStore, 
 
@@ -367,7 +470,7 @@ Ext.onReady(function() {
 			width : 47,
 		}
 		, {
-			header : '重量(kg)',
+			header : '重量',
 			dataIndex : 'goodsweight',
 			sortable : true, 
 			width : 47,
@@ -446,12 +549,7 @@ Ext.onReady(function() {
 			text : "筛选",
 			iconCls : 'select',
 			handler : function() {
-				Ext.getCmp("Goodsgoodsid").setEditable (true);
-				Ext.getCmp('Goodsgoodsnumnum').setDisabled(true);
-				Ext.getCmp('Goodsgoodsnumstore').setDisabled(true);
-				Ext.getCmp('Goodsgoodsnumnum').setVisible(true);
-				Ext.getCmp('Goodsgoodsnumstore').setVisible(true);
-				createQueryWindow("筛选", GoodsdataForm, Goodsstore,Ext.getCmp("queryGoodsaction").getValue());
+				screenWindow("筛选", screenGoodsForm, Goodsstore);
 			}
 		},'-',{
         	text : "价格设置",

@@ -28,6 +28,15 @@ import com.system.tools.util.FileUtil;
  */
 public class CPOrderAction extends OrdermviewAction {
 
+	//查询最新订单
+	public void selNewOrder(HttpServletRequest request, HttpServletResponse response){
+		LoginInfo lgInfo = (LoginInfo) request.getSession().getAttribute("loginInfo");		//登录信息
+		Queryinfo queryinfo = getQueryinfo(request, Ordermview.class, OrdermviewPoco.QUERYFIELDNAME, OrdermviewPoco.ORDER, TYPE);
+		queryinfo.setWheresql("ordermcompany='"+lgInfo.getCompanyid()+"'");
+		Pageinfo pageinfo = new Pageinfo(getTotal(queryinfo), selQuery(queryinfo));
+		result = CommonConst.GSON.toJson(pageinfo);
+		responsePW(response, result);
+	}
 	//修改订单状态
 	@SuppressWarnings("unchecked")
 	public void updateOrdermStatue(HttpServletRequest request, HttpServletResponse response){

@@ -89,73 +89,101 @@ Ext.onReady(function() {
 		layout : 'column',	//横向布局
 		//scrollable : "y",	//使用y轴的滚动条
 		items : [ {
-			columnWidth : .3,	//列宽,1表示百分之百
-			layout : 'form',	//布局方式:form是纵向布局
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '订单编号',
-				id : 'Ordermviewordermcode',
-				name : 'ordermcode',
-				readOnly : true
-			} ]
-		}
-		, {
-			columnWidth : .2,
-			layout : 'form',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '状态',
-				id : 'Ordermviewordermstatue',
-				name : 'ordermstatue',
-				readOnly : true
-			} ]
-		}
-		, {
-			columnWidth : .4,
-			layout : 'form',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '店铺名称',
-				id : 'Ordermviewcustomershop',
-				name : 'customershop',
-				readOnly : true
-			} ]
-		}
-		, {
-			columnWidth : .3,
-			layout : 'form',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : ' 联系人',
-				id : 'Ordermviewordermconnect',
-				name : 'ordermconnect',
-//				width : 195,
-//				labelWidth : 80,		//此处'fieldLabel'的宽度设置无效,原因未知
-				readOnly : true
-			} ]
-		}
-		, {
-			columnWidth : .2,
-			layout : 'form',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '联系电话',
-				id : 'Ordermviewordermphone',
-				name : 'ordermphone',
-				readOnly : true
-			} ]
-		}
-		, {
-			columnWidth : .4,
-			layout : 'form',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '送货地址',
-				id : 'Ordermviewordermaddress',
-				name : 'ordermaddress',
-				readOnly : true
-			} ]
-		}
+				xtype: 'fieldcontainer',
+				labelWidth : 120,
+				labelAlign : 'left',
+		        margin    : '5 10 5 10',
+				columnWidth : 1,
+				layout : 'column',
+				items: [
+				    {
+				    	xtype : 'textfield',
+						fieldLabel : '订单编号',
+				        margin    : '0 0 0 0',
+						columnWidth : .25,	//列宽,1表示百分之百
+						labelWidth : 60,
+						id : 'Ordermviewordermcode',
+						name : 'ordermcode',
+						readOnly : true,
+						triggerWrapCls:'kb-textField-not-border-trigger-wrap',
+						inputWrapCls:'kb-textField-not-border-wrap',
+						fieldStyle : 'background:none; border-right: 0px solid;border-top: 0px solid;border-left: 0px solid;border-bottom: 0px solid',
+					}
+					, {
+						xtype : 'textfield',
+						fieldLabel : '状态',
+				        margin    : '0 0 0 0',
+						columnWidth : .25,	//列宽,1表示百分之百
+						labelWidth : 60,
+						id : 'Ordermviewordermstatue',
+						name : 'ordermstatue',
+						readOnly : true,
+						triggerWrapCls:'kb-textField-not-border-trigger-wrap',
+						inputWrapCls:'kb-textField-not-border-wrap',
+						fieldStyle : 'background:none; border-right: 0px solid;border-top: 0px solid;border-left: 0px solid;border-bottom: 0px solid',
+					}
+					, {
+						xtype : 'textfield',
+						fieldLabel : '店铺名称',
+				        margin    : '0 0 0 0',
+						columnWidth : .5,	//列宽,1表示百分之百
+						labelWidth : 60,
+						id : 'Ordermviewcustomershop',
+						name : 'customershop',
+						readOnly : true,
+						triggerWrapCls:'kb-textField-not-border-trigger-wrap',
+						inputWrapCls:'kb-textField-not-border-wrap',
+						fieldStyle : 'background:none; border-right: 0px solid;border-top: 0px solid;border-left: 0px solid;border-bottom: 0px solid',
+					}
+			]},
+			{
+				xtype: 'fieldcontainer',
+				labelWidth : 120,
+				labelAlign : 'left',
+		        margin    : '5 10 5 10',
+				columnWidth : 1,
+				layout : 'column',
+				items: [
+				    {
+				    	xtype : 'textfield',
+						fieldLabel : ' 联系人',
+				        margin    : '0 0 0 0',
+						columnWidth : .25,	//列宽,1表示百分之百
+						labelWidth : 60,
+						id : 'Ordermviewordermconnect',
+						name : 'ordermconnect',
+						readOnly : true,
+						triggerWrapCls:'kb-textField-not-border-trigger-wrap',
+						inputWrapCls:'kb-textField-not-border-wrap',
+						fieldStyle : 'background:none; border-right: 0px solid;border-top: 0px solid;border-left: 0px solid;border-bottom: 0px solid',
+					}
+					, {
+						xtype : 'textfield',
+						fieldLabel : '联系电话',
+				        margin    : '0 0 0 0',
+						columnWidth : .25,	//列宽,1表示百分之百
+						labelWidth : 60,
+						id : 'Ordermviewordermphone',
+						name : 'ordermphone',
+						readOnly : true,
+						triggerWrapCls:'kb-textField-not-border-trigger-wrap',
+						inputWrapCls:'kb-textField-not-border-wrap',
+						fieldStyle : 'background:none; border-right: 0px solid;border-top: 0px solid;border-left: 0px solid;border-bottom: 0px solid',
+					}
+					, {
+						xtype : 'textfield',
+						fieldLabel : '送货地址',
+				        margin    : '0 0 0 0',
+						columnWidth : .5,	//列宽,1表示百分之百
+						labelWidth : 60,
+						id : 'Ordermviewordermaddress',
+						name : 'ordermaddress',
+						readOnly : true,
+						triggerWrapCls:'kb-textField-not-border-trigger-wrap',
+						inputWrapCls:'kb-textField-not-border-wrap',
+						fieldStyle : 'background:none; border-right: 0px solid;border-top: 0px solid;border-left: 0px solid;border-bottom: 0px solid',
+					}
+			]},
 		]
 	});
 	/*   修改 orderm(订单总表) 的 form 表单  结束    */
@@ -349,7 +377,7 @@ Ext.onReady(function() {
 										+ordermid+"'");// 定义Orderdstore
 								/*   定义 orderd(订单商品) 的 表格  开始    */
 								Orderdgrid = Ext.create('Ext.grid.Panel', {
-									height : document.documentElement.clientHeight - 110,
+									height : document.documentElement.clientHeight - 105,
 									width : '100%',
 									store : Orderdstore,
 									region : 'north',					//显示在容器的上方
