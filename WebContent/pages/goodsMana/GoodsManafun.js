@@ -1,4 +1,166 @@
-
+var GoodsdataForm = Ext.create('Ext.form.Panel', {// 定义新增和修改的FormPanel
+	id:'GoodsdataForm',
+	labelAlign : 'right',
+	frame : true,
+	layout : 'column',
+	items : [ {
+		columnWidth : 1,
+		layout : 'column',
+		hidden : true,
+		items : [ {
+			xtype : 'textfield',
+			fieldLabel : '商品ID',
+			id : 'Goodsgoodsid',
+			name : 'goodsid',
+		} ]
+	}
+	, {
+		columnWidth : 1,
+		layout : 'column',
+		items : [ {
+			xtype : 'textfield',
+			fieldLabel : '商品编号',
+			id : 'Goodsgoodscode',
+			allowBlank : false,
+			name : 'goodscode',
+			maxLength : 100,
+			labelWidth: 70,
+			width : 302,
+			margin : '5 10 5 10'
+		}, {
+			xtype : 'textfield',
+			fieldLabel : '商品名称',
+			id : 'Goodsgoodsname',
+			allowBlank : false,
+			name : 'goodsname',
+			maxLength : 100,
+			labelWidth: 70,
+			width : 302,
+			margin : '5 10 5 10'
+		} ]
+	}
+	, {
+		columnWidth : 1,
+		layout : 'column',
+		items : [ {
+			xtype : 'textfield',
+			fieldLabel : '规格',
+			id : 'Goodsgoodsunits',
+			allowBlank : false,
+			name : 'goodsunits',
+			maxLength : 100,
+			labelWidth: 40,
+			width : 302,
+			margin : '5 10 5 10'
+		}, {
+			xtype : 'combo',
+			fieldLabel : '小类',
+			id : 'Goodsgoodsclass',
+			name : 'goodsclass',			//小类名称
+			//loadingText: 'loading...',			//正在加载时的显示
+			//editable : false,						//是否可编辑
+			emptyText : '请选择',
+			store : Goodsclassstore,
+			mode : 'local',					//local是取本地数据的也就是javascirpt(内存)中的数据。
+											//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
+			displayField : 'goodsclassname',		//显示的字段
+			valueField : 'goodsclassid',		//作为值的字段
+			hiddenName : 'menulevel',
+			triggerAction : 'all',
+			editable : false,
+			maxLength : 100,
+			allowBlank : false,			//不允许空白值
+			anchor : '95%',
+			labelWidth: 40,
+			width : 302,
+			margin : '5 10 5 10'
+		} ]
+	}
+	, {
+		columnWidth : 1,
+		layout : 'column',
+		items : [ {
+			xtype : 'textfield',
+			fieldLabel : '其他类别',
+			id : 'Goodsgoodstype',
+			name : 'goodstype',
+			maxLength : 100,
+			allowBlank : false,
+			labelWidth: 70,
+			width : 302,
+			margin : '5 10 5 10'
+		}, {
+			xtype : 'textfield',
+			fieldLabel : '品牌',
+			id : 'Goodsgoodsbrand',
+			name : 'goodsbrand',
+			maxLength : 100,
+			labelWidth: 40,
+			width : 302,
+			margin : '5 10 5 10'
+		} ]
+	}
+	, {
+		columnWidth : 1,
+		layout : 'column',
+		items : [ {
+			xtype : 'textfield',
+			fieldLabel : '重量(kg)',
+			id : 'Goodsgoodsweight',
+			name : 'goodsweight',
+			maxLength : 100,
+			labelWidth: 70,
+			width : 302,
+			margin : '5 10 5 10'
+		}, {
+			xtype : 'textfield',
+			fieldLabel : '顺序',
+			id : 'Goodsgoodsorder',
+			name : 'goodsorder',
+			maxLength : 100,
+			labelWidth: 40,
+			width : 302,
+			margin : '5 10 5 10'
+		} ]
+	}
+	, {
+		columnWidth : 1,
+		layout : 'column',
+		items : [ {
+			xtype : 'textfield',
+			fieldLabel : '商品数量',
+			id : 'Goodsgoodsnumnum',
+			name : 'Goodsnumnum',
+			maxLength : 100,
+			allowBlank : false,
+			labelWidth: 70,
+			width : 302,
+			margin : '5 10 5 10'
+		}, {
+			xtype : 'textfield',
+			fieldLabel : '商品仓库',
+			id : 'Goodsgoodsnumstore',
+			name : 'Goodsnumstore',
+			maxLength : 100,
+			allowBlank : false,
+			labelWidth: 70,
+			width : 302,
+			margin : '5 10 5 10'
+		} ]
+	}
+	, {
+		columnWidth : 1,
+		layout : 'form',
+		items : [ {
+			xtype : 'textfield',
+			fieldLabel : '图片路径',
+			id : 'Goodsgoodsimage',
+			name : 'goodsimage',
+			maxLength : 100
+		} ]
+	}
+	]
+});
 
 function screenWindow(title,_form,store) {
 	var dataWindow = new Ext.Window({
@@ -60,6 +222,7 @@ var GoodsPricesForm = Ext.create('Ext.form.Panel', {
 					columnWidth : .3,				//宽度
 					labelWidth : 60,				//标题宽度
 					editable : false,				//不可编辑
+					id : 'setPricesGoodscode',
 					name : 'goodscode',
 					maxLength : 100,					//输入的最大长度
 					triggerWrapCls:'kb-textField-not-border-trigger-wrap',
@@ -73,6 +236,7 @@ var GoodsPricesForm = Ext.create('Ext.form.Panel', {
 					columnWidth : .5,
 					labelWidth : 60,
 					editable : false,
+					id : 'setPricesGoodsname',
 					name : 'goodsname',
 					maxLength : 100,
 					triggerWrapCls:'kb-textField-not-border-trigger-wrap',
@@ -86,6 +250,7 @@ var GoodsPricesForm = Ext.create('Ext.form.Panel', {
 					columnWidth : .2,
 					labelWidth : 35,
 					editable : false,
+					id : 'setPricesGoodsunits',
 					name : 'goodsunits',
 					maxLength : 100,
 					triggerWrapCls:'kb-textField-not-border-trigger-wrap',
@@ -292,7 +457,7 @@ var GoodsPricesForm = Ext.create('Ext.form.Panel', {
 });
 /////----------商品价格(结束)----------/////
 //添加或修改价格(参数 isAct:y则保存成功后上架)
-function addPricesData(isAct,pricegoodsid,goodsPricesWindow){
+function addPricesData(isAct,pricegoodsid,goodsPricesWindow,store){
 	if(GoodsPricesForm.form.isValid()){
 		var prevPri;		//上一个价格
 		var priIDs = $('[name="pricesid"]');
@@ -328,6 +493,7 @@ function addPricesData(isAct,pricegoodsid,goodsPricesWindow){
 					if(data.code==202){
 						Ext.Msg.alert('提示', '价格已更新！',function(){
 							goodsPricesWindow.hide();
+							store.load();
 						});
 					} else {
 						Ext.Msg.alert('提示', data.msg);
@@ -362,13 +528,13 @@ function goodsPriceWindow(url,store,pricegoodsid){
 					text : '保存',
 					iconCls : 'ok',
 					handler : function() {
-						addPricesData('n',pricegoodsid,goodsPricesWindow);
+						addPricesData('n',pricegoodsid,goodsPricesWindow,store);
 					}
 				}, {
 					text : '保存并上架',
 					iconCls : 'ok',
 					handler : function() {
-						addPricesData('y',pricegoodsid,goodsPricesWindow);
+						addPricesData('y',pricegoodsid,goodsPricesWindow,store);
 					}
 				}, {
 					text : '关闭',
@@ -689,10 +855,12 @@ function addGoodsWindow(url,title,_form,store) {
 								success : function(form, action) {
 									Ext.Msg.alert('提示', action.result.msg,function(){
 										if(action.result.code==202){
-											window.location.href = '../Prices/setPrices.jsp?goodsid='+action.result.goodsid+
-												'&goodscode='+Ext.getCmp('Goodsgoodscode').getValue()+
-												'&goodsname='+Ext.getCmp('Goodsgoodsname').getValue()+
-												'&goodsunits='+Ext.getCmp('Goodsgoodsunits').getValue();
+											GoodsPricesForm.form.reset();
+											Ext.getCmp('setPricesGoodscode').setValue(Ext.getCmp('Goodsgoodscode').getValue());
+											Ext.getCmp('setPricesGoodsname').setValue(Ext.getCmp('Goodsgoodsname').getValue());
+											Ext.getCmp('setPricesGoodsunits').setValue(Ext.getCmp('Goodsgoodsunits').getValue());
+											goodsPriceWindow("CPPricesAction.do?method=setGoodsPrices",store,action.result.goodsid+'');
+											dataWindow.hide();
 										} else {
 											dataWindow.hide();
 											store.reload();
