@@ -33,8 +33,22 @@ Ext.onReady(function() {
 	        			    ,'goodsweight' 
 	        			    ,'goodsclassname' 
 	        			      ];// 全部字段
+	var Storehousefields = ['storehouseid'
+	        			    ,'storehousecode' 
+	        			    ,'storehousename' 
+	        			    ,'storehousedetail' 
+	        			    ,'storehousestatue' 
+	        			    ,'storehousecompany' 
+	        			    ,'storehouseupdtime' 
+	        			    ,'storehouseupdor' 
+	        			    ,'storehousecretime' 
+	        			    ,'storehousecreor' 
+	        			    ,'storehouseaddress' 
+	        			      ];// 全部字段
 	var Warrantcheckviewkeycolumn = [ 'idwarrantcheck' ];// 主键
 	var wheresql = "goodscompany='"+comid+"'";
+	var Storehousestore = dataStore(Storehousefields, basePath + "CPStorehouseAction.do?method=selAll&wheresql=storehousecompany='"+comid+"'");// 定义Storehousestore
+	Storehousestore.load();
 	var Warrantcheckviewstore = dataStore(Warrantcheckviewfields, basePath + Warrantcheckviewaction + "?method=selAll");// 定义Warrantcheckviewstore
 	Warrantcheckviewstore.on('beforeload',function(store,options){					//数据加载时的事件
 		var new_params = {		//每次数据加载的时候传递的参数
@@ -116,12 +130,23 @@ Ext.onReady(function() {
 			columnWidth : 1,
 			layout : 'form',
 			items : [ {
-				xtype : 'textfield',
+				xtype : 'combo',
 				fieldLabel : '仓库',
 				id : 'Warrantcheckviewwarrantcheckstore',
-				allowBlank : false,
-				name : 'warrantcheckstore',
-				maxLength : 100
+				name : 'warrantcheckstore',			//小类名称
+				//loadingText: 'loading...',			//正在加载时的显示
+				//editable : false,						//是否可编辑
+				emptyText : '请选择',
+				store : Storehousestore,
+				mode : 'local',					//local是取本地数据的也就是javascirpt(内存)中的数据。
+												//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
+				displayField : 'storehousename',		//显示的字段
+				valueField : 'storehouseid',		//作为值的字段
+				hiddenName : 'warrantcheckstore',
+				triggerAction : 'all',
+				editable : false,
+				maxLength : 100,
+				anchor : '95%',
 			} ]
 		}
 		, {
@@ -225,6 +250,14 @@ Ext.onReady(function() {
 			header : '仓库',
 			dataIndex : 'warrantcheckstore',
 			sortable : true, 
+			renderer : function(value){
+				var md = Storehousestore.find('storehouseid',value);
+				if(md!=-1){
+					return Storehousestore.getAt(md).get('storehousename');
+				} else {
+					return '';
+				}
+			},
 			width : 137,
 		}
 		, {
@@ -243,7 +276,7 @@ Ext.onReady(function() {
 			header : '状态',
 			dataIndex : 'warrantcheckstatue',
 			sortable : true, 
-			width : 47,
+			width : 73,
 		}
 		, {
 			header : '描述',
@@ -311,31 +344,11 @@ Ext.onReady(function() {
 					Ext.getCmp("Warrantcheckviewidwarrantcheck").setEditable (true);
 					addWarrantcheckWindow(basePath + "CPWarrantcheckAction.do?method=insWarrantcheck", "新增盘点记录", WarrantcheckviewdataForm, Warrantcheckviewstore);
 				}
-			},'-',{
-				text : Ext.os.deviceType === 'Phone' ? null : "修改",
-				iconCls : 'edit',
+		},'-',{
+            	text : "导入",
+				iconCls : 'imp',
 				handler : function() {
-					var selections = Warrantcheckviewgrid.getSelection();
-					if (selections.length != 1) {
-						Ext.Msg.alert('提示', '请选择一条数据！', function() {
-						});
-						return;
-					}
-					WarrantcheckviewdataForm.form.reset();
-					Ext.getCmp("Warrantcheckviewidwarrantcheck").setEditable (false);
-					editWarrantcheckWindow(basePath + "CPWarrantcheckAction.do?method=updWarrantcheck", "修改盘点记录", WarrantcheckviewdataForm, Warrantcheckviewstore);
-					WarrantcheckviewdataForm.form.loadRecord(selections[0]);
-				}
-			},'-',{
-            	text : "删除",
-				iconCls : 'delete',
-				handler : function() {
-					var selections = Warrantcheckviewgrid.getSelection();
-					if (Ext.isEmpty(selections)) {
-						Ext.Msg.alert('提示', '请至少选择一条数据！');
-						return;
-					}
-					commonDelete(basePath + "CPWarrantcheckAction.do?method=delAll",selections,Warrantcheckviewstore,Warrantcheckviewkeycolumn);
+					commonImp(basePath + "CPWarrantcheckAction.do?method=impWarrantcheck","导入",Warrantcheckviewstore);
 				}
             }
 		]

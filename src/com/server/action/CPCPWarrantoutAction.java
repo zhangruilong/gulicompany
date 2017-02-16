@@ -35,36 +35,6 @@ public class CPCPWarrantoutAction extends WarrantoutAction {
 		}
 		responsePW(response, result);
 	}
-	//修改出库台账
-	@SuppressWarnings("unchecked")
-	public void updWarrantout(HttpServletRequest request, HttpServletResponse response){
-		LoginInfo lgi = (LoginInfo) request.getSession().getAttribute("loginInfo");
-		String json = request.getParameter("json");
-		System.out.println("json : " + json);
-		if(CommonUtil.isNotEmpty(json)) cuss = CommonConst.GSON.fromJson(json, TYPE);
-		for(Warrantout temp:cuss){
-			//查询修改前的入库台账记录
-			List<Warrantout> waLi = selAll(Warrantout.class, "select * from Warrantout w where w.idwarrantout='"+temp.getIdwarrantout()+"'", "mysql");
-			if(waLi.size()>0){
-				//计算修改后的差值
-				Integer diffNum = Integer.parseInt(waLi.get(0).getWarrantoutnum()) - Integer.parseInt(temp.getWarrantoutnum());
-				//查询商品的库存总账
-				List<Goodsnum> gnLi = selAll(Goodsnum.class,"select * from goodsnum gn where gn.goodsnumgoods='"+temp.getWarrantoutgoods()+"'");
-				if(gnLi.size()>0){
-					Goodsnum gn = gnLi.get(0);
-					Integer currNum = Integer.parseInt(gn.getGoodsnumnum()) + diffNum;
-					gn.setGoodsnumnum(currNum.toString());
-					String updGNSql = getUpdSingleSql(gn, GoodsnumPoco.KEYCOLUMN);
-					temp.setWarrantoutupdwhen(DateUtils.getDateTime());
-					temp.setWarrantoutupdwho(lgi.getUsername());
-					String tempSql = getUpdSingleSql(temp, WarrantoutPoco.KEYCOLUMN);
-					String[] sqls = {tempSql,updGNSql};
-					result = doAll(sqls);
-				}
-			}
-		}
-		responsePW(response, result);
-	}
 	//新增出库台账
 	@SuppressWarnings("unchecked")
 	public void insWarrantout(HttpServletRequest request, HttpServletResponse response){
@@ -81,11 +51,13 @@ public class CPCPWarrantoutAction extends WarrantoutAction {
 			}
 			String insSql = getInsSingleSql(temp);		//新增入库台账的sql
 			List<Goodsnum> gnLi = selAll(Goodsnum.class,"select * from goodsnum gn where gn.goodsnumgoods='"+temp.getWarrantoutgoods()+"'");
-			if(CommonUtil.isNotEmpty(gnLi)){
+			if(gnLi.size()>0){
 				Integer num =  Integer.parseInt(gnLi.get(0).getGoodsnumnum()) - Integer.parseInt(temp.getWarrantoutnum());
 				String updNumSql = "update goodsnum g set g.goodsnumnum='"+num+"' where g.idgoodsnum='"+gnLi.get(0).getIdgoodsnum()+"'";
 				String[] sqls = {insSql,updNumSql};
 				result = doAll(sqls);
+			} else {
+				result = "{success:true,code:202,msg:'未找到相应的“库存总账”记录'}";
 			}
 		}
 		responsePW(response, result);

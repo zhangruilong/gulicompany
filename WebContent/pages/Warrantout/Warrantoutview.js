@@ -226,6 +226,14 @@ Ext.onReady(function() {
 			dataIndex : 'warrantoutstore',
 			sortable : true, 
 			width : 137,
+			renderer : function(value){
+				var md = Storehousestore.find('storehouseid',value);
+				if(md!=-1){
+					return Storehousestore.getAt(md).get('storehousename');
+				} else {
+					return '';
+				}
+			},
 		}
 		, {
 			header : '数量',
@@ -310,21 +318,6 @@ Ext.onReady(function() {
 					WarrantoutviewdataForm.form.reset();
 					Ext.getCmp("Warrantoutviewidwarrantout").setEditable (true);
 					addWarrantoutWindow(basePath + "CPCPWarrantoutAction.do?method=insWarrantout", "新增出库台账", WarrantoutviewdataForm, Warrantoutviewstore);
-				}
-			},'-',{
-				text : Ext.os.deviceType === 'Phone' ? null : "修改",
-				iconCls : 'edit',
-				handler : function() {
-					var selections = Warrantoutviewgrid.getSelection();
-					if (selections.length != 1) {
-						Ext.Msg.alert('提示', '请选择一条数据！', function() {
-						});
-						return;
-					}
-					WarrantoutviewdataForm.form.reset();
-					Ext.getCmp("Warrantoutviewidwarrantout").setEditable (false);
-					editWarrantoutWindow(basePath + "CPCPWarrantoutAction.do?method=updWarrantout", "修改出库台账", WarrantoutviewdataForm, Warrantoutviewstore);
-					WarrantoutviewdataForm.form.loadRecord(selections[0]);
 				}
 			},'-',{
             	text : "删除",

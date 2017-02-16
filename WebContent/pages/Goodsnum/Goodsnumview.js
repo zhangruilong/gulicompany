@@ -27,7 +27,21 @@ Ext.onReady(function() {
 		        			    ,'goodsclassname'  
 	        			      ];// 全部字段
 	var Goodsnumviewkeycolumn = [ 'idgoodsnum' ];// 主键
+	var Storehousefields = ['storehouseid'
+	        			    ,'storehousecode' 
+	        			    ,'storehousename' 
+	        			    ,'storehousedetail' 
+	        			    ,'storehousestatue' 
+	        			    ,'storehousecompany' 
+	        			    ,'storehouseupdtime' 
+	        			    ,'storehouseupdor' 
+	        			    ,'storehousecretime' 
+	        			    ,'storehousecreor' 
+	        			    ,'storehouseaddress' 
+	        			      ];// 全部字段
 	var wheresql = "goodscompany='"+comid+"'";
+	var Storehousestore = dataStore(Storehousefields, basePath + "CPStorehouseAction.do?method=selAll&wheresql=storehousecompany='"+comid+"'");// 定义Storehousestore
+	Storehousestore.load();
 	var Goodsnumviewstore = dataStore(Goodsnumviewfields, basePath + Goodsnumviewaction + "?method=selQuery");// 定义Goodsnumviewstore
 	Goodsnumviewstore.on('beforeload',function(store,options){					//数据加载时的事件
 		var new_params = {		//每次数据加载的时候传递的参数
@@ -187,6 +201,14 @@ Ext.onReady(function() {
 			header : '仓库',
 			dataIndex : 'goodsnumstore',
 			sortable : true, 
+			renderer : function(value){
+				var md = Storehousestore.find('storehouseid',value);
+				if(md!=-1){
+					return Storehousestore.getAt(md).get('storehousename');
+				} else {
+					return '';
+				}
+			},
 			width : 137,
 		}
 		],

@@ -8,6 +8,7 @@ var goodsCusTypeStore = new Ext.data.ArrayStore({//客户类型下拉
 });
 var Goodsbbar;
 var Goodsclassstore;
+var GoodsdataForm;
 //上下架的combox的renderer函数
 getOneDisplay = function(value, meta, record) { 
     var rowIndex = goodsStatueStore.find("name", "" + value); 
@@ -71,6 +72,18 @@ Ext.onReady(function() {
 	var Goodsclassfields = ['goodsclassid'
 	        			    ,'goodsclassname' 
 	        			      ];// 小类字段
+	var Storehousefields = ['storehouseid'
+	        			    ,'storehousecode' 
+	        			    ,'storehousename' 
+	        			    ,'storehousedetail' 
+	        			    ,'storehousestatue' 
+	        			    ,'storehousecompany' 
+	        			    ,'storehouseupdtime' 
+	        			    ,'storehouseupdor' 
+	        			    ,'storehousecretime' 
+	        			    ,'storehousecreor' 
+	        			    ,'storehouseaddress' 
+	        			      ];// 全部字段
 	var Goodskeycolumn = [ 'goodsid' ];// 主键
 	var goodsStoreURL = basePath + Goodsaction + "?method=queryCompanyGoods&wheresql=goodscompany='"+comid+"'";
 	if(goodsstatue != ''){
@@ -81,10 +94,11 @@ Ext.onReady(function() {
 	}
 	var Goodsstore = dataStore(Goodsfields, goodsStoreURL);// 定义Goodsstore
 	Goodsclassstore = dataStore(Goodsclassfields, "CPGoodsclassAction.do?method=queryCompanyGoodsclass&wheresql=goodsclasscompany='"+comid+"'");//定义小类store
-	
+	Goodsclassstore.load();	//加载供应商小类
+	var Storehousestore = dataStore(Storehousefields, basePath + "CPStorehouseAction.do?method=selAll&wheresql=storehousecompany='"+comid+"'");// 定义Storehousestore
+	Storehousestore.load();
 	/*之前的查询条件*/
 	var odQuery = '';
-	Goodsclassstore.load();	//加载供应商小类
 	Goodsstore.on('beforeload',function(store,options){					//数据加载时的事件
 		var new_params = {		//每次数据加载的时候传递的参数
 				comid : comid,
@@ -96,7 +110,179 @@ Ext.onReady(function() {
 		Ext.apply(Goodsstore.proxy.extraParams, new_params);    //ext 4.0
 	});
 	
-	
+	GoodsdataForm = Ext.create('Ext.form.Panel', {// 定义新增和修改的FormPanel
+		id:'GoodsdataForm',
+		labelAlign : 'right',
+		frame : true,
+		layout : 'column',
+		items : [ {
+			columnWidth : 1,
+			layout : 'column',
+			hidden : true,
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '商品ID',
+				id : 'Goodsgoodsid',
+				name : 'goodsid',
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'column',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '商品编号',
+				id : 'Goodsgoodscode',
+				allowBlank : false,
+				name : 'goodscode',
+				maxLength : 100,
+				labelWidth: 70,
+				width : 302,
+				margin : '5 10 5 10'
+			}, {
+				xtype : 'textfield',
+				fieldLabel : '商品名称',
+				id : 'Goodsgoodsname',
+				allowBlank : false,
+				name : 'goodsname',
+				maxLength : 100,
+				labelWidth: 70,
+				width : 302,
+				margin : '5 10 5 10'
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'column',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '规格',
+				id : 'Goodsgoodsunits',
+				allowBlank : false,
+				name : 'goodsunits',
+				maxLength : 100,
+				labelWidth: 40,
+				width : 302,
+				margin : '5 10 5 10'
+			}, {
+				xtype : 'combo',
+				fieldLabel : '小类',
+				id : 'Goodsgoodsclass',
+				name : 'goodsclass',			//小类名称
+				//loadingText: 'loading...',			//正在加载时的显示
+				//editable : false,						//是否可编辑
+				emptyText : '请选择',
+				store : Goodsclassstore,
+				mode : 'local',					//local是取本地数据的也就是javascirpt(内存)中的数据。
+												//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
+				displayField : 'goodsclassname',		//显示的字段
+				valueField : 'goodsclassid',		//作为值的字段
+				hiddenName : 'menulevel',
+				triggerAction : 'all',
+				editable : false,
+				maxLength : 100,
+				allowBlank : false,			//不允许空白值
+				anchor : '95%',
+				labelWidth: 40,
+				width : 302,
+				margin : '5 10 5 10'
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'column',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '其他类别',
+				id : 'Goodsgoodstype',
+				name : 'goodstype',
+				maxLength : 100,
+				allowBlank : false,
+				labelWidth: 70,
+				width : 302,
+				margin : '5 10 5 10'
+			}, {
+				xtype : 'textfield',
+				fieldLabel : '品牌',
+				id : 'Goodsgoodsbrand',
+				name : 'goodsbrand',
+				maxLength : 100,
+				labelWidth: 40,
+				width : 302,
+				margin : '5 10 5 10'
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'column',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '重量(kg)',
+				id : 'Goodsgoodsweight',
+				name : 'goodsweight',
+				maxLength : 100,
+				labelWidth: 70,
+				width : 302,
+				margin : '5 10 5 10'
+			}, {
+				xtype : 'textfield',
+				fieldLabel : '顺序',
+				id : 'Goodsgoodsorder',
+				name : 'goodsorder',
+				maxLength : 100,
+				labelWidth: 40,
+				width : 302,
+				margin : '5 10 5 10'
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'column',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '商品数量',
+				id : 'Goodsgoodsnumnum',
+				name : 'Goodsnumnum',
+				maxLength : 100,
+				allowBlank : false,
+				labelWidth: 70,
+				width : 302,
+				margin : '5 10 5 10'
+			}, {
+				xtype : 'combo',
+				fieldLabel : '商品仓库',
+				id : 'Goodsgoodsnumstore',
+				name : 'Goodsnumstore',			//小类名称
+				emptyText : '请选择',
+				store : Storehousestore,
+				mode : 'local',					//local是取本地数据的也就是javascirpt(内存)中的数据。
+												//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
+				displayField : 'storehousename',		//显示的字段
+				valueField : 'storehouseid',		//作为值的字段
+				hiddenName : 'Goodsnumstore',
+				triggerAction : 'all',
+				editable : false,
+				allowBlank : false,
+				maxLength : 100,
+				anchor : '95%',
+				labelWidth: 70,
+				width : 302,
+				margin : '5 10 5 10'
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'form',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '图片路径',
+				id : 'Goodsgoodsimage',
+				name : 'goodsimage',
+				maxLength : 100
+			} ]
+		}
+		]
+	});
 /////----------筛选商品(开始)----------/////
 	var screenGoodsForm = Ext.create('Ext.form.Panel', {
 		id:'screenGoodsForm',

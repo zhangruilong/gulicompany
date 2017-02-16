@@ -21,8 +21,8 @@
 	var goodstype = nullStr(getUrlParam('goodstype'));
 	var classify = nullStr(getUrlParam('classify'));
 	</script>
-	<script type="text/javascript" src="GoodsMana.js"></script>
 	<script type="text/javascript" src="GoodsManafun.js"></script>
+	<script type="text/javascript" src="GoodsMana.js"></script>
 	
 <style type="text/css">
 .kb-textField-not-border-wrap {

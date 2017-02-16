@@ -31,6 +31,9 @@ function goodsWindow(){
 		selModel: {
 	        type: 'checkboxmodel'
 	    },
+	    viewConfig : {
+	    	enableTextSelection : true	//文本可以被选中
+	    },
 		columns : [{
 			header : '序号',
 			xtype: 'rownumberer',		//行号
@@ -41,50 +44,32 @@ function goodsWindow(){
 			dataIndex : 'goodscode',
 			sortable : true,  
 			width : 158,
-			editor: {
-                xtype: 'textfield'
-            }
 		}
 		, {
 			header : '商品名称',
 			dataIndex : 'goodsname',
 			sortable : true,  
 			width : 137,
-			editor: {
-                xtype: 'textfield'
-            }
 		}
 		, {
 			header : '规格',
 			dataIndex : 'goodsunits',
 			sortable : true,  
-			editor: {
-                xtype: 'textfield'
-            }
 		}
 		, {
 			header : '图片',
 			dataIndex : 'goodsimage',
 			sortable : true,  
-			editor: {
-                xtype: 'textfield'
-            }
 		}
 		, {
 			header : '品牌',
 			dataIndex : 'goodsbrand',
 			sortable : true,  
-			editor: {
-                xtype: 'textfield'
-            }
 		}
 		, {
 			header : '重量',
 			dataIndex : 'goodsweight',
 			sortable : true,  
-			editor: {
-                xtype: 'textfield'
-            }
 		}
 		],
 		tbar : [{

@@ -277,7 +277,7 @@ function editWarrantinWindow(url,title,_form,store,bkgoodsscope) {
 }
 //删除入库台账
 function delWarrantin(url, selections, store) {
-	Ext.Msg.confirm('请确认', '<b>提示:</b>请确认要删除当前选择的条目？', function(btn, text) {
+	Ext.Msg.confirm('请确认', '<b>提示:</b>请确认要回滚当前选择的条目？', function(btn, text) {
 		if (btn == 'yes') {
 			var json = '[';
 			for (var i = 0; i < selections.length; i++) {
