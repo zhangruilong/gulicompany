@@ -1,18 +1,9 @@
 package com.server.action;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.server.poco.WarrantcheckPoco;
 import com.server.pojo.Goodsnum;
@@ -26,6 +17,27 @@ import com.system.tools.util.FileUtil;
 
 public class CPWarrantcheckAction extends WarrantcheckAction {
 
+	//回滚
+	public void delWarrantcheck(HttpServletRequest request, HttpServletResponse response){
+		String json = request.getParameter("json");
+		System.out.println("json : " + json);
+		if(CommonUtil.isNotEmpty(json)) cuss = CommonConst.GSON.fromJson(json, TYPE);
+		if(cuss.size()>0){
+			Warrantcheck temp = cuss.get(0);
+			//查询商品的库存总账
+			@SuppressWarnings("unchecked")
+			List<Goodsnum> gnLi = selAll(Goodsnum.class,"select * from goodsnum gn where gn.goodsnumgoods='"+temp.getWarrantcheckgoods()+
+					"' and goodsnumstore='"+temp.getWarrantcheckstore()+"'");
+			if(gnLi.size()>0){
+				String updNumSql = "update goodsnum g set g.goodsnumnum='"+temp.getWarrantchecknumorg()+
+						"' where g.idgoodsnum='"+gnLi.get(0).getIdgoodsnum()+"'";
+				String delTempSql = "update Warrantin set warrantinstatue='回滚' where idwarrantin='"+temp.getIdwarrantcheck()+"'";
+				String[] sqls = {updNumSql,delTempSql};
+				result = doAll(sqls);
+			}
+		}
+		responsePW(response, result);
+	}
 	//导入
 	public void impWarrantcheck(HttpServletRequest request, HttpServletResponse response){
 		Fileinfo fileinfo = FileUtil.upload(request,0,null,WarrantcheckPoco.NAME,"impAll");
@@ -83,80 +95,5 @@ public class CPWarrantcheckAction extends WarrantcheckAction {
 			}
 		}
 		responsePW(response, result);
-	}
-	/**
-	 * POI:解析Excel2003文件中的全部数据与heads封装成json
-	 * @param inputfile
-	 * @param heads
-	 * @return 
-	 */
-	public static String impExcel(String inputfile, String[] heads) {
-		if (inputfile.endsWith(".xls"))
-			return impExcel2003(inputfile, heads);
-        else if (inputfile.endsWith(".xlsx"))
-        	return impExcel2007(inputfile, heads);
-		return null;
-	}
-	public static String impExcel2003(String inputfile, String[] heads) {
-		String json = "[";
-		try {
-			InputStream fis = new FileInputStream(inputfile);
-			// 创建Excel工作薄
-			HSSFWorkbook hwb = new HSSFWorkbook(fis);
-			// 得到第一个工作表
-			HSSFSheet sheet = hwb.getSheetAt(0);
-			HSSFRow row = null;
-			// 遍历该表格中所有的工作表，i表示工作表的数量 getNumberOfSheets表示工作表的总数
-			for (int i = 0; i < hwb.getNumberOfSheets(); i++) {
-				sheet = hwb.getSheetAt(i);
-				// 遍历该行所有的行,j表示行数 getPhysicalNumberOfRows行的总数
-				for (int j = 1; j < sheet.getPhysicalNumberOfRows(); j++) {
-					row = sheet.getRow(j);
-					json = json + "{";
-					for (int p = 0; p < heads.length; p++) {
-						String cellValue = FileUtil.getCellValue(row.getCell(p));
-						if(CommonUtil.isNotEmpty(cellValue))
-							json += "'" + heads[p] + "':'" + cellValue + "',";
-					}
-					json = json.substring(0, json.length() - 1) + "},";
-				}
-				json = json.substring(0, json.length() - 1) + "]";
-			}
-			fis.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return json;
-	}
-	public static String impExcel2007(String inputfile, String[] heads) {
-		String json = "[";
-		try {
-			InputStream fis = new FileInputStream(inputfile);
-			// 创建Excel工作薄
-			XSSFWorkbook hwb = new XSSFWorkbook(fis);
-			// 得到第一个工作表
-			XSSFSheet sheet = hwb.getSheetAt(0);
-			XSSFRow row = null;
-			// 遍历该表格中所有的工作表，i表示工作表的数量 getNumberOfSheets表示工作表的总数
-			for (int i = 0; i < hwb.getNumberOfSheets(); i++) {
-				sheet = hwb.getSheetAt(i);
-				// 遍历该行所有的行,j表示行数 getPhysicalNumberOfRows行的总数
-				for (int j = 1; j < sheet.getPhysicalNumberOfRows(); j++) {
-					row = sheet.getRow(j);
-					json = json + "{";
-					for (int p = 0; p < heads.length; p++) {
-						String cellValue = FileUtil.getCellValue(row.getCell(p));
-						if(CommonUtil.isNotEmpty(cellValue))
-							json += "'" + heads[p] + "':'" + cellValue + "',";
-					}
-					json = json.substring(0, json.length() - 1) + "},";
-				}
-				json = json.substring(0, json.length() - 1) + "]";
-			}
-			fis.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return json;
 	}
 }

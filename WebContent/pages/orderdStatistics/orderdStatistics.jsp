@@ -26,7 +26,7 @@
 	margin:0px auto;
 	margin-top:1%;
 	width: 600px;
-	background-color: #FBF1E5;
+	background-color: #FFFFFF;
 }
 .xdsoft_datetimepicker  .xdsoft_calendar td > div{
    padding-right:10px;
@@ -39,33 +39,33 @@
   </div>
 <div class="cd-popup emp-popup" role="alert">
 <div class="goods_select_popup">
+<div class="alert-emp-show">
+</div>
 <div class="navigation">
 <input class="button" type="button" value="确定" onclick="empConditionConfirm()">
 <input class="button" type="button" value="取消" onclick="hiddenCusShow()">
-</div>
-<div class="alert-emp-show">
 </div>
 </div>
 </div>
 <div class="cd-popup brand-popup" role="alert">
 <div class="goods_select_popup">
+<div class="alert-brand-show">
+</div>
 <div class="navigation">
 <input class="button" type="button" value="确定" onclick="brandConditionConfirm()">
 <input class="button" type="button" value="取消" onclick="hiddenCusShow()">
-</div>
-<div class="alert-brand-show">
 </div>
 </div>
 </div>
 <div class="cd-popup cusNames-popup" role="alert">
 <div class="goods_select_popup">
+<div class="alert-cusNames-show">
+</div>
 <div class="navigation">
 查询条件:&nbsp;&nbsp;<input type="text" id="queryShop" name="queryShop" value="" onchange="showCusNames()">
 <input class="button" type="button" value="查询" onclick="showCusNames()">
 <input class="button" type="button" value="确定"  onclick="cusNameConditionConfirm()">
 <input class="button" type="button" value="取消" onclick="hiddenCusShow()">
-</div>
-<div class="alert-cusNames-show">
 </div>
 </div>
 </div>

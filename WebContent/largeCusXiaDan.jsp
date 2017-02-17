@@ -39,10 +39,16 @@
 	margin:0px auto;
 	margin-top:1%;
 	width: 700px;
-	background-color: #FBF1E5;
+	background-color: #FFFFFF;
 }
 .elegant-aero p input[type="checkbox"]{
 	vertical-align:middle
+}
+.sel-goo-input{
+	border:1px solid #A9A9A9;
+}
+.navigation{
+	height: 30px;
 }
 </style>
 </head>
@@ -92,11 +98,7 @@
 <!--弹框-->
 <div class="cd-popup" role="alert">
 <div class="goods_select_popup">
-<div class="navigation">
-查询条件:&nbsp;&nbsp;<input type="text" id="goodscode" name="goodscode" value="">
-<input class="button" type="button" value="查询" onclick="loadGoodsData()">
-<input class="button" type="button" value="关闭" onclick="closeCdPopup()">
-</div>
+
 	<table class="bordered" id="goods_LCXD" style="margin: 0 auto">
 		<thead>
 		<tr>
@@ -110,6 +112,11 @@
 		</tr>
 	    </thead>
 	</table>
+<div class="navigation">
+查询条件:&nbsp;&nbsp;<input type="text" id="goodscode" name="goodscode" class="sel-goo-input" value="">
+<input class="button" type="button" value="查询" onclick="loadGoodsData()">
+<input class="button" type="button" value="关闭" onclick="closeCdPopup()">
+</div>
 </div>
 </div>
 <!--弹框-->
@@ -493,9 +500,10 @@ function deleteRows(obj){
 //显示地址
 function showCusAddress(){
 	$(".cd-popup2").addClass("is-visible");
-	$.post("AddressAction.do?method=selAll",{"wheresql":"addresscustomer='"+customerid+"'"},function(data){
+	$.post("AddressAction.do?method=selAll",{"wheresql":"addresscustomer='"+customerid+"'"},function(resp){
+		var data = eval('('+resp+')');
 		$("#address_LCXD tr:gt(0)").remove();
-		$.each(data,function(i,item){
+		$.each(data.root,function(i,item){
 			var isDef = '';
 			if(item.addressture == '1'){
 				isDef = '默认';

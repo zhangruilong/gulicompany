@@ -394,7 +394,7 @@ Ext.onReady(function() {
 				}
 			}
 		},'-',{
-				text : Ext.os.deviceType === 'Phone' ? null : "新增",
+				text : Ext.os.deviceType === 'Phone' ? null : "入库",
 				iconCls : 'add',
 				handler : function() {
 					WarrantinviewdataForm.form.reset();
@@ -402,7 +402,7 @@ Ext.onReady(function() {
 					addWarrantinWindow(basePath + "CPWarrantinAction.do?method=addWarrantin", "新增入库台账", WarrantinviewdataForm, Warrantinviewstore);
 				}
 			},'-',{
-            	text : "回滚",
+				text : Ext.os.deviceType === 'Phone' ? null : "回滚",
 				iconCls : 'delete',
 				handler : function() {
 					var selections = Warrantinviewgrid.getSelection();

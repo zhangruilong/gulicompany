@@ -155,14 +155,16 @@ Ext.onReady(function() {
 			hidden : true
 		}
 		, {
-			header : '编码',
+			header : '编号',
 			dataIndex : 'storehousecode',
-			sortable : true
+			sortable : true,
+			width : 73,
 		}
 		, {
 			header : '名称',
 			dataIndex : 'storehousename',
-			sortable : true
+			sortable : true,
+			width : 105,
 		}
 		, {
 			header : '描述',
@@ -172,32 +174,38 @@ Ext.onReady(function() {
 		, {
 			header : '状态',
 			dataIndex : 'storehousestatue',
-			sortable : true
+			sortable : true,
+			width : 47,
 		}
 		, {
 			header : '仓库地址',
 			dataIndex : 'storehouseaddress',
-			sortable : true
+			sortable : true,
+			width : 150,
 		}
 		, {
 			header : '修改时间',
 			dataIndex : 'storehouseupdtime',
-			sortable : true
+			sortable : true,
+			width : 73,
 		}
 		, {
 			header : '修改人',
 			dataIndex : 'storehouseupdor',
-			sortable : true
+			sortable : true,
+			width : 73,
 		}
 		, {
 			header : '创建时间',
 			dataIndex : 'storehousecretime',
-			sortable : true
+			sortable : true,
+			width : 73,
 		}
 		, {
 			header : '创建人',
 			dataIndex : 'storehousecreor',
-			sortable : true
+			sortable : true,
+			width : 73,
 		}
 		],
 		tbar : [{

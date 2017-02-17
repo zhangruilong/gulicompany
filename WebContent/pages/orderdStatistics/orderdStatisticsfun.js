@@ -1,35 +1,3 @@
-var alertStr = '<div class="cd-popup emp-popup" role="alert">'+
-'<div class="goods_select_popup">'+
-'<div class="navigation">'+
-'<input class="button" type="button" value="确定" onclick="empConditionConfirm()">'+
-'<input class="button" type="button" value="取消" onclick="hiddenEmpShow()">'+
-'</div>'+
-'<div class="alert-emp-show">'+
-'</div>'+
-'</div>'+
-'</div>'+
-'<div class="cd-popup brand-popup" role="alert">'+
-'<div class="goods_select_popup">'+
-'<div class="navigation">'+
-'<input class="button" type="button" value="确定" onclick="brandConditionConfirm()">'+
-'<input class="button" type="button" value="取消" onclick="hiddenBrandShow()">'+
-'</div>'+
-'<div class="alert-brand-show">'+
-'</div>'+
-'</div>'+
-'</div>'+
-'<div class="cd-popup cusNames-popup" role="alert">'+
-'<div class="goods_select_popup">'+
-'<div class="navigation">'+
-'查询条件:&nbsp;&nbsp;<input type="text" id="queryShop" name="queryShop" value="" onchange="showCusNames()">'+
-'<input class="button" type="button" value="查询" onclick="showCusNames()">'+
-'<input class="button" type="button" value="确定" onclick="cusNameConditionConfirm()">'+
-'<input class="button" type="button" value="取消" onclick="hiddenCusShow()">'+
-'</div>'+
-'<div class="alert-cusNames-show">'+
-'</div>'+
-'</div>'+
-'</div>';
 //筛选条件:客户 确定
 function cusNameConditionConfirm(){
 	Ext.getCmp("quCustextfield").setValue(quCus);
@@ -63,14 +31,18 @@ function showCusNames(){
 		},
 		success:function(resp){
 			var data = eval('('+resp+')');
-			if(data.msg =='操作成功'){
+			if(data.msg =='操作成功' && data.root.length >0){
 				$('.alert-cusNames-show').html('');
 				
 				$.each(data.root ,function(i,item){
-					if(quCus.indexOf(item.ordermcusshop) == -1){
-						$('.alert-cusNames-show').append('<span>'+item.ordermcusshop+'</span>');
+					var shop = item.ordermcusshop;
+					if(typeof(shop)=='undefined'){
+						brand = '未填充';
+					}
+					if(quCus.indexOf(shop) == -1){
+						$('.alert-cusNames-show').append('<span>'+shop+'</span>');
 					} else {
-						$('.alert-cusNames-show').append('<span class="alert-cusNames-selspan">'+item.ordermcusshop+'</span>');
+						$('.alert-cusNames-show').append('<span class="alert-cusNames-selspan">'+shop+'</span>');
 					}
 				});
 				$(".cusNames-popup").addClass("is-visible");		//显示弹窗
@@ -84,7 +56,8 @@ function showCusNames(){
 					}
 				});
 			} else {
-				Ext.Msg.alert('提示', '没有查询到可用的客户名称,可以重新设置查询时间后重试。');
+				Ext.Msg.alert('提示', '没有查询到可用的客户名称,请重新设置查询时间后重试。');
+				
 			}
 		},
 		error:function(resp){
@@ -104,7 +77,7 @@ function showBrand(){
 		},
 		success:function(resp){
 			var data = eval('('+resp+')');
-			if(data.msg =='操作成功'){
+			if(data.msg =='操作成功' && data.root.length >0){
 				$('.alert-brand-show').html('');
 				
 				$.each(data.root ,function(i,item){
@@ -129,7 +102,7 @@ function showBrand(){
 					}
 				});
 			} else {
-				Ext.Msg.alert('提示', '没有查询到可用的品牌名称,可以重新设置查询时间后重试。');
+				Ext.Msg.alert('提示', '没有查询到可用的品牌名称,请重新设置查询时间后重试。');
 			}
 		},
 		error:function(resp){
@@ -148,9 +121,8 @@ function showEmp(){
 			"endDate":endDate
 		},
 		success:function(resp){
-			//alert(resp);
 			var data = eval('('+resp+')');
-			if(data.msg =='操作成功'){
+			if(data.msg =='操作成功' && data.root.length >0){
 				$('.alert-emp-show').html('');
 				$.each(data.root ,function(i,item){
 					var empName = item.createtime;
@@ -174,7 +146,8 @@ function showEmp(){
 					}
 				});
 			} else {
-				Ext.Msg.alert('提示', '没有查询到可用的业务员名称,可以重新设置查询时间后重试。');
+				Ext.Msg.alert('提示', '没有查询到可用的业务员名称,请重新设置查询时间后重试。');
+				Ext.getCmp("quEmptextfield").blur();
 			}
 		},
 		error:function(resp){

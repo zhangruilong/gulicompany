@@ -49,7 +49,7 @@ table {
 }
 
 .bordered th {
-    background-color: #FAB957;
+    background-color: #FFFFFF;
     -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset; 
     -moz-box-shadow:0 1px 0 rgba(255,255,255,.8) inset;  
     box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;        
@@ -99,14 +99,19 @@ table {
 	/*background-color: white;*/
 }
 .button {
-	background: url("../images/orderImg/order_btn.png");
+	/* background: url("../images/orderImg/order_btn.png"); */
+	background-color: #F5F5F5;
 	width: 86px;
 	height: 28px;
-	border: 0;
+	border-color: #D8D8D8;
+	border-width: 1px;
 	font-size: 16px;
-	color:white;
+	color: #666666;
 	cursor:pointer;
 	margin: 0px 0px 0px 10px;
+	border-radius: 5px;
+	float: right;
+	
 }
 .button:hover {
 	
@@ -115,8 +120,8 @@ table {
 }
 .navigation{
 	margin: 0 auto;
-	height:30px;
-	padding: 0px 0px 5px 30px;
+	height:40px;
+	padding: 5px 30px 5px 0px;
 	color: #848484;
 	border-bottom: 1px #848484 dashed;
 	white-space:nowrap;
@@ -141,11 +146,13 @@ table {
 .orderStat-navigationBar .order-condition span{margin: 0px 10px 0px 10px;}
 
 .nowposition {
-	background: url("../images/orderImg/nowposition.png") no-repeat;
-	background-size:1400px 40px;
+	/* background: url("../images/orderImg/nowposition.png") no-repeat;
+	background-size:1400px 40px; */
+	background-color: #F5F5F5;
 	font-size: 14px;
 	line-height: 40px;
 	padding: 0px 0px 0px 30px;
+	color: #157FCC;
 }
 
 .scant_a{

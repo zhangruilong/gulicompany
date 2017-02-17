@@ -5,10 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.eclipse.jdt.internal.compiler.parser.ParserBasicInformation;
-
 import com.server.poco.GoodsnumPoco;
-import com.server.poco.WarrantbackPoco;
 import com.server.pojo.Goodsnum;
 import com.server.pojo.LoginInfo;
 import com.server.pojo.Warrantback;
@@ -18,6 +15,33 @@ import com.system.tools.util.DateUtils;
 
 public class CPWarrantbackAction extends WarrantbackAction {
 
+	//回滚
+	public void backRollBack(HttpServletRequest request, HttpServletResponse response){
+		String json = request.getParameter("json");
+		System.out.println("json : " + json);
+		if(CommonUtil.isNotEmpty(json)) cuss = CommonConst.GSON.fromJson(json, TYPE);
+		if(cuss.size()>0){
+			Warrantback temp = cuss.get(0);
+			String updSql = "update Warrantback set warrantbackstatue='回滚' where idwarrantin='"+temp.getIdwarrantback()+"'";
+			//如果是完好退货就修改库存总账的数量
+			if(temp.getWarrantbackstatue().equals("good")){
+				//根据 商品ID 和 仓库 查询商品的库存总账
+				@SuppressWarnings("unchecked")
+				List<Goodsnum> gnLi = selAll(Goodsnum.class,"select * from goodsnum gn where gn.goodsnumgoods='"+temp.getWarrantbackgoods()+
+						"' and goodsnumstore='"+temp.getWarrantbackstore()+"'");
+				if(gnLi.size()>0){
+					Integer num = Integer.parseInt(gnLi.get(0).getGoodsnumnum()) - Integer.parseInt(temp.getWarrantbacknum());
+					String updNumSql = "update goodsnum g set g.goodsnumnum='"+num+"' where g.idgoodsnum='"+gnLi.get(0).getIdgoodsnum()+"'";
+					String[] sqls = {updSql,updNumSql};
+					result = doAll(sqls);
+				}
+			} else {
+				result = doSingle(updSql, null);
+			}
+		}
+		responsePW(response, result);
+	}
+	
 	//新增
 	public void addWarrantback(HttpServletRequest request, HttpServletResponse response){
 		LoginInfo lgi = (LoginInfo) request.getSession().getAttribute("loginInfo");

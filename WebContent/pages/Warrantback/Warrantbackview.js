@@ -263,9 +263,9 @@ Ext.onReady(function() {
 			sortable : true, 
 			width : 137,
 			renderer : function(value){
-				var md = Storehousestore.find('storehouseid',value);
+				var md = statueStore.find('value',value);
 				if(md!=-1){
-					return Storehousestore.getAt(md).get('storehousename');
+					return statueStore.getAt(md).get('name');
 				} else {
 					return '';
 				}
@@ -294,6 +294,14 @@ Ext.onReady(function() {
 			dataIndex : 'warrantbackstatue',
 			sortable : true, 
 			width : 73,
+			renderer : function(value){
+				var md = Storehousestore.find('storehouseid',value);
+				if(md!=-1){
+					return Storehousestore.getAt(md).get('storehousename');
+				} else {
+					return '';
+				}
+			},
 		}
 		, {
 			header : '描述',
@@ -352,7 +360,7 @@ Ext.onReady(function() {
 				}
 			}
 		},'-',{
-				text : Ext.os.deviceType === 'Phone' ? null : "新增",
+				text : Ext.os.deviceType === 'Phone' ? null : "退货",
 				iconCls : 'add',
 				handler : function() {
 					WarrantbackviewdataForm.form.reset();
@@ -360,7 +368,7 @@ Ext.onReady(function() {
 					addWarrantbackWindow(basePath + "CPWarrantbackAction.do?method=addWarrantback", "新增退货台账", WarrantbackviewdataForm, Warrantbackviewstore);
 				}
 			},'-',{
-            	text : "删除",
+            	text : "回滚",
 				iconCls : 'delete',
 				handler : function() {
 					var selections = Warrantbackviewgrid.getSelection();

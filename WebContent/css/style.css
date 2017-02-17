@@ -47,7 +47,7 @@ input {
 a:active {
 	color: #333333;
 }
-/*ͷ��*/
+/*头部*/
 .top_body{
 background: url(../images/orderImg/top_background.png) repeat;
 background-size:100% 100%;
@@ -77,7 +77,7 @@ height: 100px;
 .mokuai{
 	position:absolute;
 	margin-left: 200px;
-	width: 900px;
+	width: 800px;
 }
 
 .mokuai ul{
@@ -148,7 +148,7 @@ height: 100px;
 	float: left;
 	margin-left: 170px;
 }
-/*�����*/
+/*侧边栏*/
 .menu{
 	
 }
@@ -169,9 +169,9 @@ height: 100px;
 	color:black;
 }
 
-/*��¼ҳ��*/
+/*登录页面*/
 .body {
-	font-family: "΢���ź�", Arial, Tahoma,; 
+	font-family: "微软雅黑", Arial, Tahoma,; 
  	font-size: 12px; 
  	color: #333333; 
  	margin: 0px auto; 
@@ -181,7 +181,7 @@ height: 100px;
  	height: 100%; 
 }
 .login { 
-	/* height:100%; */
+	height:100%;
 	margin: 0px auto; 
 	padding: 0px; 
 }  
@@ -200,7 +200,7 @@ height: 100px;
 	margin: 5% 0% 0% 0%;
 }
 .c_d h2{
-	font-family: ����,STHeiti;
+	font-family: 黑体,STHeiti;
 	font-size: 50px;
 	font-weight:normal;
 	color:white;
@@ -259,7 +259,7 @@ height: 100px;
 }
 .c_d .btn{
 	background: url(../images/log_btn.png) no-repeat left;
-	font-family: ����,STHeiti;
+	font-family: 黑体,STHeiti;
 	font-size: 30px;
 	color: white;
 	line-height: 42px;
@@ -268,9 +268,9 @@ height: 100px;
 	cursor:pointer;
 }
 
-/*��ͻ��¶���*/
-.largeCus_form {background: #FBF1E5;padding: 20px 20px 20px 20px;font: 12px Arial, Helvetica, sans-serif;color: #666;}
-.largeCus_form h1 {font: 24px "Trebuchet MS", Arial, Helvetica, sans-serif;padding: 10px 10px 10px 20px;display: block;background: #F6B543;border-bottom: 1px solid white;
+/*大客户下订单*/
+.largeCus_form {background: #FFFFFF;padding: 20px 20px 20px 20px;font: 12px Arial, Helvetica, sans-serif;color: #666;}
+.largeCus_form h1 {font: 24px "Trebuchet MS", Arial, Helvetica, sans-serif;padding: 10px 10px 10px 20px;display: block;background: #37A7E8;color:#FFFFFF;border-bottom: 1px solid white;
 margin: -20px -20px 15px;font-weight: bold;}
 .largeCus_form h1>span {display: block;font-size: 11px;}
 .largeCus_form label>span {margin-top: 10px;color: #5E5E5E;text-align: right;padding-right: 8px;}
@@ -279,7 +279,7 @@ margin: -20px -20px 15px;font-weight: bold;}
 .largeCus_form input[type="text"]{color: #888;padding: 0px 0px 0px 5px;border: 1px solid #C5E2FF;background: #FBFBFB;outline: 0;-webkit-box-shadow: inset 0px 1px 6px #ECF3F5;
 box-shadow: inset 0px 1px 6px #ECF3F5;font: 200 12px/25px Arial, Helvetica, sans-serif;height: 30px;line-height: 15px;margin: 2px 6px 16px 0px;}
 .largeCus_form p{}
-.largeCus_form .LCF_button{padding: 6px 18px 6px 18px;background: #EE8704;border: none;color: #FFF;box-shadow: 1px 1px 1px #4C6E91;-webkit-box-shadow: 1px 1px 1px #4C6E91;
+.largeCus_form .LCF_button{padding: 6px 18px 6px 18px;background: #D8D8D8;border: none;color: #666666;box-shadow: 1px 1px 1px #4C6E91;-webkit-box-shadow: 1px 1px 1px #4C6E91;
 -moz-box-shadow: 1px 1px 1px #4C6E91;text-shadow: 1px 1px 1px #5079A3;}
 .elegant-aero .LCF_button:hover {background: #FF9802;}
 .largeCus_form h1 .tt_cusInfo {font-size: 12px;font-weight: normal;line-height: 22px;}

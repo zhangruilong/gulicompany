@@ -16,7 +16,7 @@ import com.system.tools.util.DateUtils;
 
 public class CPWarrantinAction extends WarrantinAction {
 
-	//删除入库台账
+	//回滚入库台账
 	@SuppressWarnings("unchecked")
 	public void delWarrantin(HttpServletRequest request, HttpServletResponse response){
 		String json = request.getParameter("json");

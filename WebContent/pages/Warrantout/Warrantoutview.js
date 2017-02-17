@@ -34,7 +34,21 @@ Ext.onReady(function() {
 	        			    ,'goodsclassname' 
 	        			      ];// 全部字段
 	var Warrantoutviewkeycolumn = [ 'idwarrantout' ];// 主键
+	var Storehousefields = ['storehouseid'
+	        			    ,'storehousecode' 
+	        			    ,'storehousename' 
+	        			    ,'storehousedetail' 
+	        			    ,'storehousestatue' 
+	        			    ,'storehousecompany' 
+	        			    ,'storehouseupdtime' 
+	        			    ,'storehouseupdor' 
+	        			    ,'storehousecretime' 
+	        			    ,'storehousecreor' 
+	        			    ,'storehouseaddress' 
+	        			      ];// 全部字段
 	var wheresql = "goodscompany='"+comid+"'";
+	var Storehousestore = dataStore(Storehousefields, basePath + "CPStorehouseAction.do?method=selAll&wheresql=storehousecompany='"+comid+"'");// 定义Storehousestore
+	Storehousestore.load();
 	var Warrantoutviewstore = dataStore(Warrantoutviewfields, basePath + Warrantoutviewaction + "?method=selAll");// 定义Warrantoutviewstore
 	Warrantoutviewstore.on('beforeload',function(store,options){					//数据加载时的事件
 		var new_params = {		//每次数据加载的时候传递的参数
@@ -312,7 +326,7 @@ Ext.onReady(function() {
 				}
 			}
 		},'-',{
-				text : Ext.os.deviceType === 'Phone' ? null : "新增",
+				text : Ext.os.deviceType === 'Phone' ? null : "出库",
 				iconCls : 'add',
 				handler : function() {
 					WarrantoutviewdataForm.form.reset();
@@ -320,7 +334,7 @@ Ext.onReady(function() {
 					addWarrantoutWindow(basePath + "CPCPWarrantoutAction.do?method=insWarrantout", "新增出库台账", WarrantoutviewdataForm, Warrantoutviewstore);
 				}
 			},'-',{
-            	text : "删除",
+            	text : "回滚",
 				iconCls : 'delete',
 				handler : function() {
 					var selections = Warrantoutviewgrid.getSelection();

@@ -129,29 +129,37 @@ public class CPGoodsviewAction extends GoodsviewAction {
 		if(CommonUtil.isNotEmpty(json)) gooLi = CommonConst.GSON.fromJson(json,  new TypeToken<ArrayList<Goods>>() {}.getType());
 		if(gooLi.size()>0 && CommonUtil.isNotEmpty(goodsnum) && CommonUtil.isNotEmpty(goodsnumstore)){
 			Goods addGoods = gooLi.get(0);
-			if(null==addGoods.getGoodsweight()||addGoods.getGoodsweight().equals("")||addGoods.getGoodsweight().equals("undefined")){
-				addGoods.setGoodsweight("0");
-			}
-			if(null==addGoods.getGoodsorder()){
-				addGoods.setGoodsorder(0);
-			}
-			addGoods.setGoodsstatue("下架");
-			addGoods.setCreatetime(DateUtils.getDateTime());		//创建时间
-			addGoods.setCreator(lInfo.getUsername());			//创建人
-			addGoods.setGoodscompany(lInfo.getCompanyid());		//经销商ID
-			String newid = CommonUtil.getNewId();
-			addGoods.setGoodsid(newid);				//商品ID
-			String addGooSql = getInsSingleSql(addGoods);	//新增商品的sql
-			Goodsnum gn = new Goodsnum();
-			gn.setIdgoodsnum(newid);
-			gn.setGoodsnumnum(goodsnum);
-			gn.setGoodsnumstore(goodsnumstore);
-			gn.setGoodsnumgoods(newid);				//商品ID
-			String addGNSql = getInsSingleSql(gn);			//新增库存总账的sql
-			String[] sqls = {addGooSql,addGNSql};
-			result = doAll(sqls);
-			if(result.equals(CommonConst.SUCCESS)){
-				result = "{success:true,code:202,msg:'操作成功',goodsid:'"+newid+"'}";
+			//查询是否有重复的商品
+			@SuppressWarnings("unchecked")
+			List<Goods> isRe = selAll(Goods.class, "select * from goods where goodscode='"+addGoods.getGoodscode()+
+					"' and goodsunits='"+addGoods.getGoodsunits()+"'");
+			if(isRe.size()==0){
+				if(null==addGoods.getGoodsweight()||addGoods.getGoodsweight().equals("")||addGoods.getGoodsweight().equals("undefined")){
+					addGoods.setGoodsweight("0");
+				}
+				if(null==addGoods.getGoodsorder()){
+					addGoods.setGoodsorder(0);
+				}
+				addGoods.setGoodsstatue("下架");
+				addGoods.setCreatetime(DateUtils.getDateTime());		//创建时间
+				addGoods.setCreator(lInfo.getUsername());			//创建人
+				addGoods.setGoodscompany(lInfo.getCompanyid());		//经销商ID
+				String newid = CommonUtil.getNewId();
+				addGoods.setGoodsid(newid);				//商品ID
+				String addGooSql = getInsSingleSql(addGoods);	//新增商品的sql
+				Goodsnum gn = new Goodsnum();
+				gn.setIdgoodsnum(newid);
+				gn.setGoodsnumnum(goodsnum);
+				gn.setGoodsnumstore(goodsnumstore);
+				gn.setGoodsnumgoods(newid);				//商品ID
+				String addGNSql = getInsSingleSql(gn);			//新增库存总账的sql
+				String[] sqls = {addGooSql,addGNSql};
+				result = doAll(sqls);
+				if(result.equals(CommonConst.SUCCESS)){
+					result = "{success:true,code:202,msg:'操作成功',goodsid:'"+newid+"'}";
+				}
+			} else {
+				result = "{success:true,code:400,msg:'商品编号和规格重复,操作失败。'}";
 			}
 		}
 		responsePW(response, result);

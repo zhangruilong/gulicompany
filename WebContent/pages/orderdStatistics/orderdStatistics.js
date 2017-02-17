@@ -219,8 +219,10 @@ Ext.onReady(function() {
 				labelWidth : 80,
 				enableKeyEvents : true,
 				listeners : {
-					focus : function(){
-						showEmp();
+					render : function(p){
+						p.getEl().on('click', function(p){  
+							showEmp();
+						});
 					}
 				}
 			},{
@@ -232,8 +234,10 @@ Ext.onReady(function() {
 				labelWidth : 35,
 				enableKeyEvents : true,
 				listeners : {
-					focus : function(){
-						showBrand();
+					render : function(p){
+						p.getEl().on('click', function(p){  
+							showBrand();
+						});
 					}
 				}
 			},{
@@ -244,10 +248,11 @@ Ext.onReady(function() {
 				width : 150,
 				labelWidth : 35,
 				listeners : {
-					focus : function(){
-						showCusNames();
-					},
-					
+					render : function(p){
+						p.getEl().on('click', function(p){  
+							showCusNames();
+						});
+					}
 				}
 			},'-',{
 				text : "导出",

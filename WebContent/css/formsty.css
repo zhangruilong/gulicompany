@@ -3,19 +3,21 @@
 	margin-left: 10px auto;
 	margin-right: auto;
 	max-width: 700px;
-	background: #FBF1E5;
+	background: #FFFFFF;
 	padding: 20px 20px 20px 20px;
 	font: 12px Arial, Helvetica, sans-serif;
 	color: #666;
+	border: #CFCFCF solid 1px;
 }
 
 .elegant-aero h1 {
 	font: 24px "Trebuchet MS", Arial, Helvetica, sans-serif;
 	padding: 10px 10px 10px 20px;
 	display: block;
-	background: #F6B543;
+	background: #37A7E8;
 	border-bottom: 1px solid #B8DDFF;
 	margin: -20px -20px 15px;
+	color: #FFFFFF;
 }
 
 .elegant-aero h1>span {
@@ -95,7 +97,7 @@
 
 .elegant-aero .button {
 	padding: 10px 30px 10px 30px;
-	background: #EE8704;
+	background: #D8D8D8;
 	border: none;
 	color: #FFF;
 	box-shadow: 1px 1px 1px #4C6E91;
@@ -105,5 +107,5 @@
 }
 
 .elegant-aero .button:hover {
-	background: #FF9802;
+	
 }

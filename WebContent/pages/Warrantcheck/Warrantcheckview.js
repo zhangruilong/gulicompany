@@ -337,13 +337,24 @@ Ext.onReady(function() {
 				}
 			}
 		},'-',{
-				text : Ext.os.deviceType === 'Phone' ? null : "新增",
+				text : Ext.os.deviceType === 'Phone' ? null : "盘点",
 				iconCls : 'add',
 				handler : function() {
 					WarrantcheckviewdataForm.form.reset();
 					Ext.getCmp("Warrantcheckviewidwarrantcheck").setEditable (true);
 					addWarrantcheckWindow(basePath + "CPWarrantcheckAction.do?method=insWarrantcheck", "新增盘点记录", WarrantcheckviewdataForm, Warrantcheckviewstore);
 				}
+		},'-',{
+			text : Ext.os.deviceType === 'Phone' ? null : "回滚",
+					iconCls : 'delete',
+					handler : function() {
+						var selections = Warrantinviewgrid.getSelection();
+						if (Ext.isEmpty(selections)) {
+							Ext.Msg.alert('提示', '请至少选择一条数据！');
+							return;
+						}
+						delWarrantin(basePath + "CPWarrantcheckAction.do?method=delWarrantcheck",selections,Warrantinviewstore);
+					}
 		},'-',{
             	text : "导入",
 				iconCls : 'imp',
