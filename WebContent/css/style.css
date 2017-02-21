@@ -36,7 +36,7 @@ checkbox {
 	border: 0px;
 }
 
-input {
+input[type="text"],input[type="password"],input[type="number"] {
 	border: 0;
 	outline:none;
 }
@@ -279,8 +279,7 @@ margin: -20px -20px 15px;font-weight: bold;}
 .largeCus_form input[type="text"]{color: #888;padding: 0px 0px 0px 5px;border: 1px solid #C5E2FF;background: #FBFBFB;outline: 0;-webkit-box-shadow: inset 0px 1px 6px #ECF3F5;
 box-shadow: inset 0px 1px 6px #ECF3F5;font: 200 12px/25px Arial, Helvetica, sans-serif;height: 30px;line-height: 15px;margin: 2px 6px 16px 0px;}
 .largeCus_form p{}
-.largeCus_form .LCF_button{padding: 6px 18px 6px 18px;background: #D8D8D8;border: none;color: #666666;box-shadow: 1px 1px 1px #4C6E91;-webkit-box-shadow: 1px 1px 1px #4C6E91;
--moz-box-shadow: 1px 1px 1px #4C6E91;text-shadow: 1px 1px 1px #5079A3;}
+.largeCus_form .LCF_button{padding: 6px 18px 6px 18px;background: #D8D8D8;border: none;color: #666666;box-shadow: 1px 1px 1px #4C6E91;-webkit-box-shadow: 1px 1px 1px #4C6E91;-moz-box-shadow: 1px 1px 1px #4C6E91;/* text-shadow: 1px 1px 1px #5079A3; */}
 .elegant-aero .LCF_button:hover {background: #FF9802;}
 .largeCus_form h1 .tt_cusInfo {font-size: 12px;font-weight: normal;line-height: 22px;}
 .largeCus_form h1 .tt_cusInfo span{font-weight: bold;margin: 0px 10px 0px 4px;}

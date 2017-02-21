@@ -33,16 +33,19 @@ function showCusNames(){
 			var data = eval('('+resp+')');
 			if(data.msg =='操作成功' && data.root.length >0){
 				$('.alert-cusNames-show').html('');
-				
+				var countWTC = 0;
 				$.each(data.root ,function(i,item){
 					var shop = item.ordermcusshop;
-					if(typeof(shop)=='undefined'){
-						brand = '未填充';
+					if(typeof(shop)=='undefined' || !shop){
+						shop = '未填充';
+						countWTC++;
 					}
-					if(quCus.indexOf(shop) == -1){
-						$('.alert-cusNames-show').append('<span>'+shop+'</span>');
-					} else {
-						$('.alert-cusNames-show').append('<span class="alert-cusNames-selspan">'+shop+'</span>');
+					if(countWTC < 2 || brand != '未填充'){
+						if(quCus.indexOf(shop) == -1){
+							$('.alert-cusNames-show').append('<span>'+shop+'</span>');
+						} else {
+							$('.alert-cusNames-show').append('<span class="alert-cusNames-selspan">'+shop+'</span>');
+						}
 					}
 				});
 				$(".cusNames-popup").addClass("is-visible");		//显示弹窗
@@ -79,16 +82,19 @@ function showBrand(){
 			var data = eval('('+resp+')');
 			if(data.msg =='操作成功' && data.root.length >0){
 				$('.alert-brand-show').html('');
-				
+				var countWTC = 0;
 				$.each(data.root ,function(i,item){
 					var brand = item.orderdbrand;
-					if(typeof(brand)=='undefined'){
+					if(typeof(brand)=='undefined' || !brand){
 						brand = '未填充';
+						countWTC++;
 					}
-					if(quBrand.indexOf(brand) == -1){
-						$('.alert-brand-show').append('<span>'+brand+'</span>');
-					} else {
-						$('.alert-brand-show').append('<span class="alert-brand-selspan">'+brand+'</span>');
+					if(countWTC < 2 || brand != '未填充'){
+						if(quBrand.indexOf(brand) == -1){
+							$('.alert-brand-show').append('<span>'+brand+'</span>');
+						} else {
+							$('.alert-brand-show').append('<span class="alert-brand-selspan">'+brand+'</span>');
+						}
 					}
 				});
 				$(".brand-popup").addClass("is-visible");
@@ -124,15 +130,19 @@ function showEmp(){
 			var data = eval('('+resp+')');
 			if(data.msg =='操作成功' && data.root.length >0){
 				$('.alert-emp-show').html('');
+				var countWTC = 0;
 				$.each(data.root ,function(i,item){
 					var empName = item.createtime;
-					if(typeof(empName)=='undefined'){
+					if(typeof(empName)=='undefined' || !empName){
 						empName = '未填充';
+						countWTC++;
 					}
-					if(quEmp.indexOf(empName) == -1){
-						$('.alert-emp-show').append('<span>'+empName+'</span>');
-					} else {
-						$('.alert-emp-show').append('<span class="alert-emp-selspan">'+empName+'</span>');
+					if(countWTC < 2 || brand != '未填充'){
+						if(quEmp.indexOf(empName) == -1){
+							$('.alert-emp-show').append('<span>'+empName+'</span>');
+						} else {
+							$('.alert-emp-show').append('<span class="alert-emp-selspan">'+empName+'</span>');
+						}
 					}
 				});
 				$(".emp-popup").addClass("is-visible");

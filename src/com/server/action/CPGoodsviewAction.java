@@ -40,22 +40,19 @@ public class CPGoodsviewAction extends GoodsviewAction {
 		if(pagenowGoods == null){
 			pagenowGoods = "1";
 		}
-		String sql = "select distinct g.*,p.pricesid,p.pricesprice,p.pricesunit,p.pricesprice2,p.pricesunit2,lcp.largecuspriceprice,gc.goodsclassname"+
-			",lcp.largecuspriceunit,lcp.largecuspriceunit2,lcp.largecuspriceprice2,lcp.largecuspriceid ,lcp.largecuspricecreatetime "+
-			"from prices p "+
-			"left join goods g on p.pricesgoods = g.goodsid "+
-			"left join largecusprice lcp on lcp.largecuspricegoods = p.pricesgoods "+
-			"left join goodsclass gc on g.goodsclass = gc.goodsclassid "+
-		    "where (g.goodsstatue = '上架' or lcp.largecuspriceprice is not null) "+
-			"and g.goodscompany = '"+companyid+"' "+
-			"and (lcp.largecuspricecustomer = '"+customerid+"' or lcp.largecuspricecustomer is null) "+
-			"and ( (p.pricesclass = '"+pricesclass+"' and p.priceslevel = '"+priceslevel+"' ) or "+
-					"(p.pricesid is null and lcp.largecuspriceprice is not null) ) "+
-			"and (lcp.largecuspricecompany = '"+companyid+"' or lcp.largecuspricecompany is null ) "+
-		    "order by lcp.largecuspricecreatetime is null,lcp.largecuspricecreatetime desc ,g.createtime desc";
-		String totSql = sql.replace("distinct g.*,p.pricesid,p.pricesprice,p.pricesunit,p.pricesprice2,p.pricesunit2,lcp.largecuspriceprice,gc.goodsclassname"+
-			",lcp.largecuspriceunit,lcp.largecuspriceunit2,lcp.largecuspriceprice2,lcp.largecuspriceid ,lcp.largecuspricecreatetime "
-			, "count(distinct goodsid) ");
+		String sql = "select * from (SELECT g.*,gc.goodsclassname, lcp.largecuspriceid, lcp.largecuspriceprice, lcp.largecuspriceunit, "+
+			    "lcp.largecuspriceunit2, lcp.largecuspriceprice2 FROM goods g left outer JOIN prices p ON p.pricesgoods = g.goodsid LEFT  "+
+			    "outer JOIN goodsclass gc ON g.goodsclass = gc.goodsclassid LEFT outer JOIN largecusprice lcp ON lcp.largecuspricegoods = g.goodsid "+
+			    "WHERE lcp.largecuspricecustomer = '"+customerid+"' AND g.goodscompany = '"+companyid+"' AND ((p.pricesclass = '"+pricesclass+"' AND p.priceslevel = '"+priceslevel+"')  "+
+			    "or p.pricesid is null) UNION all SELECT g.*,gc.goodsclassname, p.pricesid, p.pricesprice, p.pricesunit, p.pricesprice2, "+
+			    "p.pricesunit2 FROM goods g left outer JOIN prices p ON p.pricesgoods = g.goodsid  "+
+			    "LEFT outer JOIN goodsclass gc ON g.goodsclass = gc.goodsclassid "+
+			    "LEFT outer JOIN largecusprice lcp ON lcp.largecuspricegoods = g.goodsid WHERE lcp.largecuspricecustomer IS NULL "+
+			    "AND g.goodscompany = '"+companyid+"' AND p.pricesclass = '"+pricesclass+"' AND p.priceslevel = '"+priceslevel+"') A ";
+		if(CommonUtil.isNotEmpty(goodscode)){
+			sql += "where (goodscode like '%"+goodscode+"%' or GOODSNAME like '%"+goodscode+"%' or goodsunits like '%"+goodscode+"%' or goodsclassname like '%"+goodscode+"%')";
+		}
+		String totSql = sql.replace("select *" , "select count(distinct goodsid) ");
 		sql += " limit "+(Integer.parseInt(pagenowGoods)-1)*10+",10";
 		@SuppressWarnings("unchecked")
 		List<LargecuspriceGoodsVO> voLi = selAll(LargecuspriceGoodsVO.class, sql);

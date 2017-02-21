@@ -7,6 +7,7 @@
 	LoginInfo info = (LoginInfo)session.getAttribute("loginInfo"); 
 	String comid = info.getCompanyid();
 	%>
+<%@ include file="../../zrlextpages/common/common.jsp" %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title></title>
 <link href="css/style.css" rel="stylesheet" type="text/css" />
@@ -44,11 +45,26 @@
 .elegant-aero p input[type="checkbox"]{
 	vertical-align:middle
 }
-.sel-goo-input{
+.cd-popup .goods_select_popup .navigation .sel-goo-input{
 	border:1px solid #A9A9A9;
 }
 .navigation{
 	height: 30px;
+}
+.close-button {
+	border: 0;
+    background-image: url(zrlextpages/common/sencha/build/classic/theme-crisp/resources/images/tools/tool-sprites.png);
+	background-position: 0 0;
+	background-color: white;
+	width: 16px;
+	height: 16px;
+	font-size: 16px;
+	color: #666666;
+	cursor:pointer;
+	margin: 0px 0px 0px 10px;
+	border-radius: 5px;
+	float: right;
+	
 }
 </style>
 </head>
@@ -98,7 +114,11 @@
 <!--弹框-->
 <div class="cd-popup" role="alert">
 <div class="goods_select_popup">
-
+<div class="navigation">
+查询条件:&nbsp;&nbsp;<input type="text" id="goodscode" name="goodscode" class="sel-goo-input" value="">
+<input class="query-button" type="button" value="查询" onclick="loadGoodsData()">
+<input class="close-button" type="button" value="" onclick="closeCdPopup()">
+</div>
 	<table class="bordered" id="goods_LCXD" style="margin: 0 auto">
 		<thead>
 		<tr>
@@ -112,11 +132,6 @@
 		</tr>
 	    </thead>
 	</table>
-<div class="navigation">
-查询条件:&nbsp;&nbsp;<input type="text" id="goodscode" name="goodscode" class="sel-goo-input" value="">
-<input class="button" type="button" value="查询" onclick="loadGoodsData()">
-<input class="button" type="button" value="关闭" onclick="closeCdPopup()">
-</div>
 </div>
 </div>
 <!--弹框-->
@@ -381,7 +396,7 @@ function loadGoodsData(pagenowGoods){
 	$.post("CPGoodsviewAction.do?method=customerGoods",{
 			"companyid" : comid,
 			"pagenowGoods" : pagenowGoods,
-			'goodscode' : $.trim($("#goodscode").val()),
+			"goodscode" : $.trim($("#goodscode").val()),
 			"priceslevel" : jsonDATA.customerInfo.ccustomerdetail,
 			"pricesclass" : jsonDATA.customerInfo.customertype,
 			customerid : jsonDATA.customerInfo.customerid
@@ -392,13 +407,10 @@ function loadGoodsData(pagenowGoods){
 			var strJSON = JSON.stringify(item);
 			var price = 0;													//商品价格
 			var unit = '';													//商品单位
-			if(item.largecuspriceprice){
-				price = item.largecuspriceprice;
-				unit = item.largecuspriceunit;
-			} else {
-				price = item.pricesprice;
-				unit = item.pricesunit;
-			}
+			
+			price = item.largecuspriceprice;
+			unit = item.largecuspriceunit;
+			
 			$("#goods_LCXD").append('<tr>'+
 					'<td>'+(i+1)+'</td>'+
 					'<td>'+item.goodscode+'</td>'+

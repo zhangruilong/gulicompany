@@ -33,7 +33,7 @@ public class CPCompanyAction extends CompanyAction {
 		LoginInfo info = (LoginInfo) request.getSession().getAttribute("loginInfo");
 		if(info.getPower().equals("emp")){
 			List<Emp> empli = selAll(Emp.class,"select * from emp where LOGINNAME='"+info.getLoginname()+"' and PASSWORD='"+password+"'");
-			if(CommonUtil.isNotEmpty(empli)){
+			if(empli.size()>0){
 				Emp emp = empli.get(0);
 				emp.setPassword(newpassword);
 				result = updSingle(emp,EmpPoco.KEYCOLUMN);
@@ -41,7 +41,7 @@ public class CPCompanyAction extends CompanyAction {
 		} else if(info.getPower().equals("company")){
 			List<Company> comli = selAll(Company.class,
 					"select * from Company where LOGINNAME='"+info.getLoginname()+"' and PASSWORD='"+password+"'");
-			if(CommonUtil.isNotEmpty(comli)){
+			if(comli.size()>0){
 				Company com = comli.get(0);
 				com.setPassword(newpassword);
 				result = updSingle(com,CompanyPoco.KEYCOLUMN);

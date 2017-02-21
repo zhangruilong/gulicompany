@@ -49,6 +49,7 @@ Ext.onReady(function() {
 				fieldLabel : '商品ID',
 				id : 'Largecuspriceviewgoodsid',
 				name : 'goodsid',
+				allowBlank : false,
 				maxLength : 100
 			} ]
 		}
@@ -62,6 +63,7 @@ Ext.onReady(function() {
 				id : 'Largecuspriceviewlargecuspricecustomer',
 				name : 'largecuspricecustomer',
 				maxLength : 100,
+				allowBlank : false,
 				value : cusid
 			} ]
 		}
@@ -109,6 +111,7 @@ Ext.onReady(function() {
 				fieldLabel : '单位',
 				id : 'Largecuspriceviewlargecuspriceunit',
 				name : 'largecuspriceunit',
+				allowBlank : false,
 				maxLength : 100
 			} ]
 		}
@@ -120,6 +123,7 @@ Ext.onReady(function() {
 				fieldLabel : '价格',
 				id : 'Largecuspriceviewlargecuspriceprice',
 				name : 'largecuspriceprice',
+				allowBlank : false,
 				maxLength : 100
 			} ]
 		}

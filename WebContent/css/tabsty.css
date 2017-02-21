@@ -99,7 +99,6 @@ table {
 	/*background-color: white;*/
 }
 .button {
-	/* background: url("../images/orderImg/order_btn.png"); */
 	background-color: #F5F5F5;
 	width: 86px;
 	height: 28px;
@@ -113,6 +112,19 @@ table {
 	float: right;
 	
 }
+.query-button {
+	/* background: url("../images/orderImg/order_btn.png"); */
+	background-color: #F5F5F5;
+	width: 86px;
+	height: 28px;
+	border-color: #D8D8D8;
+	border-width: 1px;
+	font-size: 16px;
+	color: #666666;
+	cursor:pointer;
+	margin: 0px 0px 0px 10px;
+	border-radius: 5px;
+}
 .button:hover {
 	
 }
@@ -121,7 +133,7 @@ table {
 .navigation{
 	margin: 0 auto;
 	height:40px;
-	padding: 5px 30px 5px 0px;
+	padding: 5px 30px 5px 30px;
 	color: #848484;
 	border-bottom: 1px #848484 dashed;
 	white-space:nowrap;

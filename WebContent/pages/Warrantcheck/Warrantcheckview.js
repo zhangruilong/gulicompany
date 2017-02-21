@@ -348,7 +348,7 @@ Ext.onReady(function() {
 			text : Ext.os.deviceType === 'Phone' ? null : "回滚",
 					iconCls : 'delete',
 					handler : function() {
-						var selections = Warrantinviewgrid.getSelection();
+						var selections = Warrantcheckviewgrid.getSelection();
 						if (Ext.isEmpty(selections)) {
 							Ext.Msg.alert('提示', '请至少选择一条数据！');
 							return;

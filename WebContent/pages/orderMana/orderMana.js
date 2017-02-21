@@ -391,7 +391,7 @@ Ext.onReady(function() {
 									columns : [{
 										header : '序号',
 										xtype: 'rownumberer',		//行号
-										width:60
+										width:25
 									},
 									{
 										header : '商品编号',
@@ -408,31 +408,37 @@ Ext.onReady(function() {
 										header : '类型',
 										dataIndex : 'orderdtype',
 										sortable : true,  
+										width : 72,
 									}
 									, {
 										header : '规格',
 										dataIndex : 'orderdunits',
 										sortable : true,  
+										width : 105,
 									}
 									, {
 										header : '小类',
 										dataIndex : 'orderdclass',
-										sortable : true,  
+										sortable : true,   
+										width : 85,
 									}
 									, {
 										header : '价格',
 										dataIndex : 'orderdprice',
 										sortable : true,  
+										width : 47,
 									}
 									, {
 										header : '单位',
 										dataIndex : 'orderdunit',
 										sortable : true,  
+										width : 47,
 									}
 									, {
 										header : '数量',
 										dataIndex : 'orderdnum',
 										sortable : true,  
+										width : 47,
 									}
 									, {
 										header : '下单金额',
@@ -443,11 +449,13 @@ Ext.onReady(function() {
 										header : '实际金额',
 										dataIndex : 'orderdrightmoney',
 										sortable : true,  
+										width : 47,
 									}
 									, {
 										header : '重量',
 										dataIndex : 'orderdweight',
 										sortable : true,  
+										width : 47,
 									}
 									, {
 										header : '订单备注',

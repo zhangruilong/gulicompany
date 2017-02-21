@@ -293,7 +293,7 @@ public class CPOrderdAction extends OrderdAction{
 				if(!brandName.equals("无填充")){
 					selectsql += "od.orderdbrand='"+brandName+"' or ";
 				} else {
-					selectsql += "od.orderdbrand is null or ";
+					selectsql += "od.orderdbrand is null or od.orderdbrand='' or ";
 				}
 			}
 			selectsql = selectsql.substring(0, selectsql.length()-3) + ")";

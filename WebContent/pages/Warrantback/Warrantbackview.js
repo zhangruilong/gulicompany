@@ -1,7 +1,7 @@
 var Warrantbackviewbbar;
 var statueStore = new Ext.data.ArrayStore({//状态下拉
 	fields:["name","value"],
-	data:[["完好退货","good"],["报废退货","waste"]]
+	data:[["完好退货","good"],["报废退货","waste"],["回滚","rollback"]]
 });
 Ext.onReady(function() {
 	var Warrantbackviewclassify = "退货台账";
@@ -263,9 +263,9 @@ Ext.onReady(function() {
 			sortable : true, 
 			width : 137,
 			renderer : function(value){
-				var md = statueStore.find('value',value);
+				var md = Storehousestore.find('storehouseid',value);
 				if(md!=-1){
-					return statueStore.getAt(md).get('name');
+					return Storehousestore.getAt(md).get('storehousename');
 				} else {
 					return '';
 				}
@@ -295,9 +295,9 @@ Ext.onReady(function() {
 			sortable : true, 
 			width : 73,
 			renderer : function(value){
-				var md = Storehousestore.find('storehouseid',value);
+				var md = statueStore.find('value',value);
 				if(md!=-1){
-					return Storehousestore.getAt(md).get('storehousename');
+					return statueStore.getAt(md).get('name');
 				} else {
 					return '';
 				}
@@ -376,7 +376,7 @@ Ext.onReady(function() {
 						Ext.Msg.alert('提示', '请至少选择一条数据！');
 						return;
 					}
-					commonDelete(basePath + "CPWarrantbackAction.do?method=delAll",selections,Warrantbackviewstore,Warrantbackviewkeycolumn);
+					backRollBACK(basePath + "CPWarrantbackAction.do?method=backRollBack",selections,Warrantbackviewstore);
 				}
             }
 		]

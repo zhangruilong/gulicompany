@@ -42,8 +42,8 @@
 <div class="alert-emp-show">
 </div>
 <div class="navigation">
-<input class="button" type="button" value="确定" onclick="empConditionConfirm()">
 <input class="button" type="button" value="取消" onclick="hiddenCusShow()">
+<input class="button" type="button" value="确定" onclick="empConditionConfirm()">
 </div>
 </div>
 </div>
@@ -52,20 +52,22 @@
 <div class="alert-brand-show">
 </div>
 <div class="navigation">
-<input class="button" type="button" value="确定" onclick="brandConditionConfirm()">
 <input class="button" type="button" value="取消" onclick="hiddenCusShow()">
+<input class="button" type="button" value="确定" onclick="brandConditionConfirm()">
 </div>
 </div>
 </div>
 <div class="cd-popup cusNames-popup" role="alert">
 <div class="goods_select_popup">
+<div class="navigation">
+查询条件:&nbsp;&nbsp;<input type="text" id="queryShop" name="queryShop" value="" onchange="showCusNames()">
+<input class="query-button" type="button" value="查询" onclick="showCusNames()">
+</div>
 <div class="alert-cusNames-show">
 </div>
 <div class="navigation">
-查询条件:&nbsp;&nbsp;<input type="text" id="queryShop" name="queryShop" value="" onchange="showCusNames()">
-<input class="button" type="button" value="查询" onclick="showCusNames()">
-<input class="button" type="button" value="确定"  onclick="cusNameConditionConfirm()">
 <input class="button" type="button" value="取消" onclick="hiddenCusShow()">
+<input class="button" type="button" value="确定"  onclick="cusNameConditionConfirm()">
 </div>
 </div>
 </div>
