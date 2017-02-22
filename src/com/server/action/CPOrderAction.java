@@ -15,6 +15,7 @@ import com.server.pojo.LoginInfo;
 import com.server.pojo.Orderd;
 import com.server.pojo.Orderm;
 import com.server.pojo.Ordermview;
+import com.server.pojo.Warrantout;
 import com.system.tools.CommonConst;
 import com.system.tools.pojo.Pageinfo;
 import com.system.tools.pojo.Queryinfo;
@@ -40,13 +41,30 @@ public class CPOrderAction extends OrdermviewAction {
 	//修改订单状态
 	@SuppressWarnings("unchecked")
 	public void updateOrdermStatue(HttpServletRequest request, HttpServletResponse response){
+		LoginInfo lgi = (LoginInfo) request.getSession().getAttribute("loginInfo");
 		String statue = request.getParameter("statue");
 		String ordermid = request.getParameter("ordermid");
 		//System.out.println("method:updateOrdermStatue, ordermid:"+ordermid);
 		List<Orderm> omLi = (List<Orderm>) selAll(Orderm.class, 
 				"select * from orderm om where om.ordermid='"+ordermid+"' and om.ordermstatue!='已删除'");
 		if(omLi.size()>0){
-			result = doSingle("update orderm om set om.ordermstatue='"+statue+"',om.updtime='"+DateUtils.getDateTime()+"' where om.ordermid='"+ordermid+"'", null);
+			String updStaSQL = "update orderm om set om.ordermstatue='"+statue+"',om.updtime='"+DateUtils.getDateTime()+"' where om.ordermid='"+ordermid+"'";
+			if(statue.equals("已发货")){
+				List<Orderd> odLi = selAll(Orderd.class, "select * from Orderd where orderdorderm='"+ordermid+"'");
+				ArrayList<String> strLi = new ArrayList<String>();
+				strLi.add(updStaSQL);
+				for (Orderd od : odLi) {
+					Warrantout newOut = new Warrantout(CommonUtil.getNewId(), null, od.getOrderdgoods(), od.getOrderdnum().toString(), 
+							"发货中", null, lgi.getUsername(), DateUtils.getDateTime(), lgi.getUsername(), 
+							null, null);
+					String insSQL = getInsSingleSql(newOut);
+					strLi.add(insSQL);
+				}
+				String[] sqls = (String[]) strLi.toArray();
+				doAll(sqls);
+			} else {
+				result = doSingle(updStaSQL, null);
+			}
 		} else {
 			result = "{success:true,code:400,msg:'没有找到该订单,或已被删除。'}";
 		}

@@ -11,6 +11,10 @@
 	var comid = '<%=comid%>';
 	</script>
 	<script type="text/javascript" src="../../zrlextpages/common/jquery/jquery-2.1.4.min.js"></script>
+	
+	<script type="text/javascript" src="../../js/DateTimePicker.js"></script>
+	<script type="text/javascript" src="../../js/DeteTimeField.js"></script>
+	
 	<script type="text/javascript" src="Warrantcheckviewfun.js"></script>
 	<script type="text/javascript" src="Warrantcheckview.js"></script>
   </head>

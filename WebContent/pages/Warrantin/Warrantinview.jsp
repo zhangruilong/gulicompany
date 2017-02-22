@@ -9,10 +9,14 @@
 	LoginInfo info = (LoginInfo)session.getAttribute("loginInfo"); 
 	String comid = info.getCompanyid();
 	%>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<script type="text/javascript">
 	var comid = '<%=comid%>';
 	</script>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<script type="text/javascript" src="../../js/DateTimePicker.js"></script>
+	<script type="text/javascript" src="../../js/DeteTimeField.js"></script>
+	
 	<script type="text/javascript" src="Warrantinviewfun.js"></script>
 	<script type="text/javascript" src="Warrantinview.js"></script>
   </head>

@@ -1,4 +1,11 @@
 var Warrantcheckviewbbar;
+var startDate = Ext.util.Format.date(new Date(),'Y-m-d')+' 00:00:00';			//查询的开始时间
+var endDate = Ext.util.Format.date(new Date(),'Y-m-d H:i:s');				//查询结束时间
+/*之前的查询条件*/
+var odStartDate=startDate;								
+var odEndDate=endDate;
+var odQuery='';
+var odQueryjson='';
 Ext.onReady(function() {
 	var Warrantcheckviewclassify = "盘点记录";
 	var Warrantcheckviewtitle = "当前位置:库存管理》" + Warrantcheckviewclassify;
@@ -49,15 +56,25 @@ Ext.onReady(function() {
 	var wheresql = "goodscompany='"+comid+"'";
 	var Storehousestore = dataStore(Storehousefields, basePath + "CPStorehouseAction.do?method=selAll&wheresql=storehousecompany='"+comid+"'");// 定义Storehousestore
 	Storehousestore.load();
-	var Warrantcheckviewstore = dataStore(Warrantcheckviewfields, basePath + Warrantcheckviewaction + "?method=selAll");// 定义Warrantcheckviewstore
+	var Warrantcheckviewstore = dataStore(Warrantcheckviewfields, basePath + Warrantcheckviewaction + "?method=selQueryCP");// 定义Warrantcheckviewstore
 	Warrantcheckviewstore.on('beforeload',function(store,options){					//数据加载时的事件
+		var query = Ext.getCmp("queryWarrantcheckviewaction").getValue();
 		var new_params = {		//每次数据加载的时候传递的参数
 				wheresql : wheresql,
 				comid : comid,
+				startDate : startDate,
+				endDate : endDate,
 				json : queryjson,
-				query : Ext.getCmp("queryWarrantcheckviewaction").getValue(),
+				query : query,
 				limit : Warrantcheckviewbbar.pageSize
 		};
+		if(startDate!=odStartDate || endDate!=odEndDate || query!=odQuery || queryjson!=odQueryjson){		//如果查询条件变化了就变成第一页
+			odStartDate = startDate;
+			odEndDate = endDate;
+			odQuery = query;
+			odQueryjson = queryjson;
+			store.loadPage(1);
+		}
 		Ext.apply(Warrantcheckviewstore.proxy.extraParams, new_params);    //ext 4.0
 	});
 	var WarrantcheckviewdataForm = Ext.create('Ext.form.Panel', {// 定义新增和修改的FormPanel
@@ -337,6 +354,59 @@ Ext.onReady(function() {
 				}
 			}
 		},'-',{
+			xtype: 'datetimefield',
+			fieldLabel : '创建时间',
+			labelWidth:60,				//标签宽度
+			id:"startDate",
+			name:"startDate",
+			editable:false, //不允许对日期进行编辑
+			width:220,
+			format:"Y-m-d H:i:s",
+			emptyText:"请选择时间",		//默认显示的日期
+			value: startDate
+		},{
+			xtype: 'datetimefield',
+			fieldLabel : '到',
+			labelWidth:20,
+			id:"endDate",
+			name:"endDate",
+			editable:false, //不允许对日期进行编辑
+			width:180,
+			format:"Y-m-d H:i:s",
+			emptyText:"请选择时间",		//默认显示的日期
+			value: endDate
+		},{
+			text : "查询",
+			xtype: 'button',
+			handler : function() {
+				startDate = Ext.util.Format.date(Ext.getCmp("startDate").getValue(),'Y-m-d H:i:s');		//得到时间选择框中的开始时间
+				endDate = Ext.util.Format.date(Ext.getCmp("endDate").getValue(),'Y-m-d H:i:s');			//结束时间
+				Warrantcheckviewstore.load();
+			}
+		},'-',{
+			text : "筛选",
+			iconCls : 'select',
+			handler : function() {
+				Ext.getCmp("Warrantcheckviewidwarrantcheck").setEditable (true);
+				createQueryWindow("筛选", WarrantcheckviewdataForm, Warrantcheckviewstore,Ext.getCmp("queryWarrantcheckviewaction").getValue());
+			}
+		},'-',{
+        	text : "导出",
+			iconCls : 'exp',
+			handler : function() {
+				Ext.Msg.confirm('请确认', '<b>提示:</b>请确认要导出当前数据？', function(btn, text) {
+					if (btn == 'yes') {
+						window.location.href = basePath + Warrantcheckviewaction + "?method=expAll&json="+queryjson+"&query="+Ext.getCmp("queryWarrantcheckviewaction").getValue(); 
+					}
+				});
+			}
+        },'-',{
+        	text : "导入",
+			iconCls : 'imp',
+			handler : function() {
+				commonImp(basePath + "CPWarrantcheckAction.do?method=impWarrantcheck","导入",Warrantcheckviewstore);
+			}
+        },'-',{
 				text : Ext.os.deviceType === 'Phone' ? null : "盘点",
 				iconCls : 'add',
 				handler : function() {
@@ -356,12 +426,17 @@ Ext.onReady(function() {
 						delWarrantin(basePath + "CPWarrantcheckAction.do?method=delWarrantcheck",selections,Warrantinviewstore);
 					}
 		},'-',{
-            	text : "导入",
-				iconCls : 'imp',
-				handler : function() {
-					commonImp(basePath + "CPWarrantcheckAction.do?method=impWarrantcheck","导入",Warrantcheckviewstore);
+        	text : "删除",
+			iconCls : 'delete',
+			handler : function() {
+				var selections = Warrantcheckviewgrid.getSelection();
+				if (Ext.isEmpty(selections)) {
+					Ext.Msg.alert('提示', '请至少选择一条数据！');
+					return;
 				}
-            }
+				commonDelete(basePath + "CPWarrantcheckAction.do?method=delAll",selections,Warrantcheckviewstore,Warrantcheckviewkeycolumn);
+			}
+        }
 		]
 	});
 	Warrantcheckviewgrid.region = 'center';

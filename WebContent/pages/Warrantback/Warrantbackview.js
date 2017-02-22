@@ -1,8 +1,16 @@
 var Warrantbackviewbbar;
 var statueStore = new Ext.data.ArrayStore({//状态下拉
 	fields:["name","value"],
-	data:[["完好退货","good"],["报废退货","waste"],["回滚","rollback"]]
+	data:[["完好退货","good"],["报废退货","waste"],["采购退货","purchase"]]
 });
+var sumNum = 0;
+var startDate = Ext.util.Format.date(new Date(),'Y-m-d')+' 00:00:00';			//查询的开始时间
+var endDate = Ext.util.Format.date(new Date(),'Y-m-d H:i:s');				//查询结束时间
+/*之前的查询条件*/
+var odStartDate=startDate;								
+var odEndDate=endDate;
+var odQuery='';
+var odQueryjson='';
 Ext.onReady(function() {
 	var Warrantbackviewclassify = "退货台账";
 	var Warrantbackviewtitle = "当前位置:库存管理》" + Warrantbackviewclassify;
@@ -49,19 +57,41 @@ Ext.onReady(function() {
 	        			    ,'storehousecreor' 
 	        			    ,'storehouseaddress' 
 	        			      ];// 全部字段
+	var Empfields = ['empid'
+	     			    ,'empcompany' 
+	     			    ,'empcode' 
+	     			    ,'loginname' 
+	     			    ,'password' 
+	     			    ,'empdetail' 
+	     			    ,'empstatue' 
+	     			    ,'createtime' 
+	     			    ,'updtime' 
+	     			      ];// 全部字段
 	var Warrantbackviewkeycolumn = [ 'idwarrantback' ];// 主键
 	var wheresql = "goodscompany='"+comid+"'";
 	var Storehousestore = dataStore(Storehousefields, basePath + "CPStorehouseAction.do?method=selAll&wheresql=storehousecompany='"+comid+"'");// 定义Storehousestore
 	Storehousestore.load();
-	var Warrantbackviewstore = dataStore(Warrantbackviewfields, basePath + Warrantbackviewaction + "?method=selQuery");// 定义Warrantbackviewstore
+	var Empstore = dataStore(Empfields, basePath + "CPEmpAction.do?method=selAll&wheresql=empcompany='"+comid+"' and empcode!='隐藏'");// 定义Empstore
+	Empstore.load();
+	var Warrantbackviewstore = dataStore(Warrantbackviewfields, basePath + Warrantbackviewaction + "?method=selQueryCP");// 定义Warrantbackviewstore
 	Warrantbackviewstore.on('beforeload',function(store,options){					//数据加载时的事件
+		var query = Ext.getCmp("queryWarrantbackviewaction").getValue();
 		var new_params = {		//每次数据加载的时候传递的参数
 				wheresql : wheresql,
 				comid : comid,
+				startDate : startDate,
+				endDate : endDate,
 				json : queryjson,
-				query : Ext.getCmp("queryWarrantbackviewaction").getValue(),
+				query : query,
 				limit : Warrantbackviewbbar.pageSize
 		};
+		if(startDate!=odStartDate || endDate!=odEndDate || query!=odQuery || queryjson!=odQueryjson){		//如果查询条件变化了就变成第一页
+			odStartDate = startDate;
+			odEndDate = endDate;
+			odQuery = query;
+			odQueryjson = queryjson;
+			store.loadPage(1);
+		}
 		Ext.apply(Warrantbackviewstore.proxy.extraParams, new_params);    //ext 4.0
 	});
 	var WarrantbackviewdataForm = Ext.create('Ext.form.Panel', {// 定义新增和修改的FormPanel
@@ -169,12 +199,23 @@ Ext.onReady(function() {
 			columnWidth : 1,
 			layout : 'form',
 			items : [ {
-				xtype : 'textfield',
+				xtype : 'combo',
 				fieldLabel : '退货人',
 				id : 'Warrantbackviewwarrantbackwho',
-				allowBlank : false,
-				name : 'warrantbackwho',
-				maxLength : 100
+				name : 'warrantbackwho',			//小类名称
+				//loadingText: 'loading...',			//正在加载时的显示
+				//editable : false,						//是否可编辑
+				emptyText : '请选择',
+				store : Empstore,
+				mode : 'local',					//local是取本地数据的也就是javascirpt(内存)中的数据。
+												//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
+				displayField : 'empcode',		//显示的字段
+				valueField : 'empcode',		//作为值的字段
+				hiddenName : 'warrantbackwho',
+				triggerAction : 'all',
+				editable : false,
+				maxLength : 100,
+				anchor : '95%',
 			} ]
 		}
 		, {
@@ -263,11 +304,15 @@ Ext.onReady(function() {
 			sortable : true, 
 			width : 137,
 			renderer : function(value){
-				var md = Storehousestore.find('storehouseid',value);
-				if(md!=-1){
-					return Storehousestore.getAt(md).get('storehousename');
+				if(value=='回滚'){
+					return value;
 				} else {
-					return '';
+					var md = Storehousestore.find('storehouseid',value);
+					if(md!=-1){
+						return Storehousestore.getAt(md).get('storehousename');
+					} else {
+						return '';
+					}
 				}
 			},
 		}
@@ -360,6 +405,53 @@ Ext.onReady(function() {
 				}
 			}
 		},'-',{
+			text : "筛选",
+			iconCls : 'select',
+			handler : function() {
+				Ext.getCmp("Warrantbackviewidwarrantback").setEditable (true);
+				createQueryWindow("筛选", WarrantbackviewdataForm, Warrantbackviewstore,Ext.getCmp("queryWarrantbackviewaction").getValue());
+			}
+		},'-',{
+			xtype: 'datetimefield',
+			fieldLabel : '创建时间',
+			labelWidth:60,				//标签宽度
+			id:"startDate",
+			name:"startDate",
+			editable:false, //不允许对日期进行编辑
+			width:220,
+			format:"Y-m-d H:i:s",
+			emptyText:"请选择时间",		//默认显示的日期
+			value: startDate
+		},{
+			xtype: 'datetimefield',
+			fieldLabel : '到',
+			labelWidth:20,
+			id:"endDate",
+			name:"endDate",
+			editable:false, //不允许对日期进行编辑
+			width:180,
+			format:"Y-m-d H:i:s",
+			emptyText:"请选择时间",		//默认显示的日期
+			value: endDate
+		},{
+			text : "查询",
+			xtype: 'button',
+			handler : function() {
+				startDate = Ext.util.Format.date(Ext.getCmp("startDate").getValue(),'Y-m-d H:i:s');		//得到时间选择框中的开始时间
+				endDate = Ext.util.Format.date(Ext.getCmp("endDate").getValue(),'Y-m-d H:i:s');			//结束时间
+				Warrantbackviewstore.load();
+			}
+		},'-',{
+        	text : "导出",
+			iconCls : 'exp',
+			handler : function() {
+				Ext.Msg.confirm('请确认', '<b>提示:</b>请确认要导出当前数据？', function(btn, text) {
+					if (btn == 'yes') {
+						window.location.href = basePath + Warrantbackviewaction + "?method=expAll&json="+queryjson+"&query="+Ext.getCmp("queryWarrantbackviewaction").getValue(); 
+					}
+				});
+			}
+        },'-',{
 				text : Ext.os.deviceType === 'Phone' ? null : "退货",
 				iconCls : 'add',
 				handler : function() {
@@ -377,6 +469,17 @@ Ext.onReady(function() {
 						return;
 					}
 					backRollBACK(basePath + "CPWarrantbackAction.do?method=backRollBack",selections,Warrantbackviewstore);
+				}
+            },'-',{
+            	text : "删除",
+				iconCls : 'delete',
+				handler : function() {
+					var selections = Warrantbackviewgrid.getSelection();
+					if (Ext.isEmpty(selections)) {
+						Ext.Msg.alert('提示', '请至少选择一条数据！');
+						return;
+					}
+					commonDelete(basePath + "CPWarrantbackAction.do?method=delAll",selections,Warrantbackviewstore,Warrantbackviewkeycolumn);
 				}
             }
 		]

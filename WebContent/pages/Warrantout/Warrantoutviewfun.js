@@ -157,6 +157,7 @@ function goodsWindow(){
 }
 //新增出库台账记录的窗口
 function addWarrantoutWindow(url,title,_form,store) {
+	
 	var dataWindow = new Ext.Window({
 		title : title, // 窗口标题
 		layout : 'fit', // 设置窗口布局模式
@@ -218,8 +219,9 @@ function addWarrantoutWindow(url,title,_form,store) {
 	dataWindow.items.add(_form);
 	dataWindow.show();
 }
+
 //修改出库台账记录的窗口
-function editWarrantoutWindow(url,title,_form,store,bkgoodsscope) {
+function editWarrantoutWindow(url,title,_form,store) {
 	
 	var dataWindow = new Ext.Window({
 		title : title, // 窗口标题

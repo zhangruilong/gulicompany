@@ -22,7 +22,7 @@ public class CPWarrantbackAction extends WarrantbackAction {
 		if(CommonUtil.isNotEmpty(json)) cuss = CommonConst.GSON.fromJson(json, TYPE);
 		if(cuss.size()>0){
 			Warrantback temp = cuss.get(0);
-			String updSql = "update Warrantback set warrantbackstatue='rollback' where idwarrantback='"+temp.getIdwarrantback()+"'";
+			String updSql = "update Warrantback set warrantbackstatue='回滚' where idwarrantback='"+temp.getIdwarrantback()+"'";
 			//如果是完好退货就修改库存总账的数量
 			if(temp.getWarrantbackstatue().equals("good")){
 				//根据 商品ID 和 仓库 查询商品的库存总账
@@ -57,6 +57,24 @@ public class CPWarrantbackAction extends WarrantbackAction {
 			temp.setWarrantbackinswho(lgi.getUsername());
 			String insBackSql = getInsSingleSql(temp);
 			if(temp.getWarrantbackstatue().equals("good")){
+				//完好退货
+				@SuppressWarnings("unchecked")
+				List<Goodsnum> gnLi = selAll(Goodsnum.class, "select * from goodsnum where goodsnumgoods='"+
+						temp.getWarrantbackgoods()+"' and goodsnumstore='"+temp.getWarrantbackstore()+"'");
+				if(gnLi.size()>0){
+					Goodsnum gn = gnLi.get(0);
+					gn.setGoodsnumnum((Integer.parseInt(gn.getGoodsnumnum())+Integer.parseInt(temp.getWarrantbacknum()))+"");
+					String updGNSql = getUpdSingleSql(gn, GoodsnumPoco.KEYCOLUMN);
+					String[] sqls = {insBackSql,updGNSql};
+					result = doAll(sqls);
+				} else {
+					String insNumSql = "INSERT INTO `abf`.`goodsnum` (`idgoodsnum`, `goodsnumgoods`, `goodsnumnum`, `goodsnumstore`) VALUES ('"+
+							newid+"', '"+temp.getWarrantbackgoods()+"', '"+temp.getWarrantbacknum()+"', '"+temp.getWarrantbackstore()+"')";
+					String[] sqls = {insBackSql,insNumSql};
+					result = doAll(sqls);
+				}
+			} else if(temp.getWarrantbackstatue().equals("purchase")){
+				//采购退货
 				@SuppressWarnings("unchecked")
 				List<Goodsnum> gnLi = selAll(Goodsnum.class, "select * from goodsnum where goodsnumgoods='"+
 						temp.getWarrantbackgoods()+"' and goodsnumstore='"+temp.getWarrantbackstore()+"'");
@@ -68,7 +86,7 @@ public class CPWarrantbackAction extends WarrantbackAction {
 					result = doAll(sqls);
 				} else {
 					String insNumSql = "INSERT INTO `abf`.`goodsnum` (`idgoodsnum`, `goodsnumgoods`, `goodsnumnum`, `goodsnumstore`) VALUES ('"+
-							newid+"', '"+temp.getWarrantbackgoods()+"', '"+temp.getWarrantbacknum()+"', '"+temp.getWarrantbackstore()+"')";
+							newid+"', '"+temp.getWarrantbackgoods()+"', '-"+temp.getWarrantbacknum()+"', '"+temp.getWarrantbackstore()+"')";
 					String[] sqls = {insBackSql,insNumSql};
 					result = doAll(sqls);
 				}

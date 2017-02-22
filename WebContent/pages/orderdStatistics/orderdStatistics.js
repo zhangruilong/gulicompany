@@ -35,7 +35,6 @@ Ext.onReady(function() {
 	
 	Orderdstatstore.on('beforeload',function(store,options){					//数据加载前
 		
-		var start;
 		var query = Ext.getCmp("queryOrderdstataction").getValue();
 		var new_params = {		//每次数据加载的时候传递的参数
 				json : queryjson,
