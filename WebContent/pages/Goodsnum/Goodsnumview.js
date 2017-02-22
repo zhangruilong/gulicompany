@@ -1,7 +1,7 @@
 var Goodsnumviewbbar;
 var sumNum=0;
-var startDate = Ext.util.Format.date(new Date(),'Y-m-d')+' 00:00:00';			//查询的开始时间
-var endDate = Ext.util.Format.date(new Date(),'Y-m-d H:i:s');				//查询结束时间
+var startDate = Ext.util.Format.date(new Date(),'Y-m-d');			//查询的开始时间
+var endDate = Ext.util.Format.date(new Date(),'Y-m-d');				//查询结束时间
 /*之前的查询条件*/
 var odStartDate=startDate;								
 var odEndDate=endDate;
@@ -57,8 +57,8 @@ Ext.onReady(function() {
 		var new_params = {		//每次数据加载的时候传递的参数
 				wheresql : wheresql,
 				comid : comid,
-				startDate : startDate,
-				endDate : endDate,
+				startDate : startDate+' 00:00:00',
+				endDate : endDate+' 23:59:59',
 				json : queryjson,
 				query : query,
 				limit : Goodsnumviewbbar.pageSize
@@ -264,7 +264,7 @@ Ext.onReady(function() {
 				id : 'queryGoodsnumviewaction',
 				name : 'query',
 				emptyText : '模糊匹配',
-				width : 200,
+				width : 100,
 				enableKeyEvents : true,
 				listeners : {
 					specialkey : function(field, e) {
@@ -287,68 +287,79 @@ Ext.onReady(function() {
 					}
 				}
 			},'-',{
-				xtype: 'datetimefield',
-				fieldLabel : '创建时间',
-				labelWidth:60,				//标签宽度
+				xtype: 'datefield',
+				fieldLabel : '',
+				labelWidth:8,				//标签宽度
 				id:"startDate",
 				name:"startDate",
 				editable:false, //不允许对日期进行编辑
-				width:220,
-				format:"Y-m-d H:i:s",
-				emptyText:"请选择时间",		//默认显示的日期
+				width:100,
+				format:"Y-m-d",
+				emptyText:"请选择日期",		//默认显示的日期
 				value: startDate
 			},{
-				xtype: 'datetimefield',
-				fieldLabel : '到',
-				labelWidth:20,
+				xtype: 'datefield',
+				fieldLabel : '-',
+				labelSeparator : '',
+				labelWidth:8,
 				id:"endDate",
 				name:"endDate",
 				editable:false, //不允许对日期进行编辑
-				width:180,
-				format:"Y-m-d H:i:s",
-				emptyText:"请选择时间",		//默认显示的日期
+				width:113,
+				format:"Y-m-d",
+				emptyText:"请选择日期",		//默认显示的日期
 				value: endDate
 			},{
 				text : "查询",
 				xtype: 'button',
 				handler : function() {
-					startDate = Ext.util.Format.date(Ext.getCmp("startDate").getValue(),'Y-m-d H:i:s');		//得到时间选择框中的开始时间
-					endDate = Ext.util.Format.date(Ext.getCmp("endDate").getValue(),'Y-m-d H:i:s');			//结束时间
+					startDate = Ext.util.Format.date(Ext.getCmp("startDate").getValue(),'Y-m-d');		//得到时间选择框中的开始时间
+					endDate = Ext.util.Format.date(Ext.getCmp("endDate").getValue(),'Y-m-d');			//结束时间
 					Goodsnumviewstore.load();
 				}
 			},'-',{
-				text : "筛选",
-				iconCls : 'select',
-				handler : function() {
-					Ext.getCmp("Goodsnumviewidgoodsnum").setEditable (true);
-					Ext.getCmp("Goodsnumviewgoodscode").setReadOnly (false);
-					Ext.getCmp("Goodsnumviewgoodsname").setReadOnly (false);
-					Ext.getCmp("Goodsnumviewgoodsunits").setReadOnly (false);
-					Ext.getCmp("Goodsnumviewgoodsnumnum").allowBlank = true;
-					createQueryWindow("筛选", GoodsnumviewdataForm, Goodsnumviewstore,Ext.getCmp("queryGoodsnumviewaction").getValue());
-				}
-			},'-',{
-            	text : "导出",
-				iconCls : 'exp',
-				handler : function() {
-					Ext.Msg.confirm('请确认', '<b>提示:</b>请确认要导出当前数据？', function(btn, text) {
-						if (btn == 'yes') {
-							window.location.href = basePath + Goodsnumviewaction + "?method=expAll&json="+queryjson+"&query="+Ext.getCmp("queryGoodsnumviewaction").getValue(); 
-						}
-					});
-				}
-            },'-',{
-            	text : "删除",
-				iconCls : 'delete',
-				handler : function() {
-					var selections = Goodsnumviewgrid.getSelection();
-					if (Ext.isEmpty(selections)) {
-						Ext.Msg.alert('提示', '请至少选择一条数据！');
-						return;
-					}
-					commonDelete(basePath + "CPGoodsnumAction.do?method=delAll",selections,Goodsnumviewstore,Goodsnumviewkeycolumn);
-				}
-            }
+				text: '操作',
+	            menu: {
+	            	xtype: 'menu',
+	                items: {
+	                	xtype: 'buttongroup',
+	                    columns: 3,
+	                    items: [{
+	        				text : "筛选",
+	        				iconCls : 'select',
+	        				handler : function() {
+	        					Ext.getCmp("Goodsnumviewidgoodsnum").setEditable (true);
+	        					Ext.getCmp("Goodsnumviewgoodscode").setReadOnly (false);
+	        					Ext.getCmp("Goodsnumviewgoodsname").setReadOnly (false);
+	        					Ext.getCmp("Goodsnumviewgoodsunits").setReadOnly (false);
+	        					Ext.getCmp("Goodsnumviewgoodsnumnum").allowBlank = true;
+	        					createQueryWindow("筛选", GoodsnumviewdataForm, Goodsnumviewstore,Ext.getCmp("queryGoodsnumviewaction").getValue());
+	        				}
+	        			},{
+	                    	text : "导出",
+	        				iconCls : 'exp',
+	        				handler : function() {
+	        					Ext.Msg.confirm('请确认', '<b>提示:</b>请确认要导出当前数据？', function(btn, text) {
+	        						if (btn == 'yes') {
+	        							window.location.href = basePath + Goodsnumviewaction + "?method=expAll&json="+queryjson+"&query="+Ext.getCmp("queryGoodsnumviewaction").getValue(); 
+	        						}
+	        					});
+	        				}
+	                    },{
+	                    	text : "删除",
+	        				iconCls : 'delete',
+	        				handler : function() {
+	        					var selections = Goodsnumviewgrid.getSelection();
+	        					if (Ext.isEmpty(selections)) {
+	        						Ext.Msg.alert('提示', '请至少选择一条数据！');
+	        						return;
+	        					}
+	        					commonDelete(basePath + "CPGoodsnumAction.do?method=delAll",selections,Goodsnumviewstore,Goodsnumviewkeycolumn);
+	        				}
+	                    }]
+	                }
+	            }
+			}
 		]
 	});
 	Goodsnumviewgrid.region = 'center';

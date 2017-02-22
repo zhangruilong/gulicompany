@@ -13,10 +13,6 @@
 	<script type="text/javascript">
 	var comid = '<%=comid%>';
 	</script>
-	
-	<script type="text/javascript" src="../../js/DateTimePicker.js"></script>
-	<script type="text/javascript" src="../../js/DeteTimeField.js"></script>
-	
 	<script type="text/javascript" src="Warrantinviewfun.js"></script>
 	<script type="text/javascript" src="Warrantinview.js"></script>
   </head>

@@ -1,7 +1,7 @@
 var Warrantoutviewbbar;
 var sumNum = 0;
-var startDate = Ext.util.Format.date(new Date(),'Y-m-d')+' 00:00:00';			//查询的开始时间
-var endDate = Ext.util.Format.date(new Date(),'Y-m-d H:i:s');				//查询结束时间
+var startDate = Ext.util.Format.date(new Date(),'Y-m-d');			//查询的开始时间
+var endDate = Ext.util.Format.date(new Date(),'Y-m-d');				//查询结束时间
 /*之前的查询条件*/
 var odStartDate=startDate;								
 var odEndDate=endDate;
@@ -75,8 +75,8 @@ Ext.onReady(function() {
 		var new_params = {		//每次数据加载的时候传递的参数
 				wheresql : wheresql,
 				comid : comid,
-				startDate : startDate,
-				endDate : endDate,
+				startDate : startDate+' 00:00:00',
+				endDate : endDate+' 23:59:59',
 				json : queryjson,
 				query : query,
 				limit : Warrantoutviewbbar.pageSize
@@ -473,53 +473,37 @@ Ext.onReady(function() {
 				}
 			}
 		},'-',{
-			xtype: 'datetimefield',
-			fieldLabel : '创建时间',
-			labelWidth:60,				//标签宽度
+			xtype: 'datefield',
+			fieldLabel : '',
+			labelWidth:8,				//标签宽度
 			id:"startDate",
 			name:"startDate",
 			editable:false, //不允许对日期进行编辑
-			width:220,
-			format:"Y-m-d H:i:s",
-			emptyText:"请选择时间",		//默认显示的日期
+			width:100,
+			format:"Y-m-d",
+			emptyText:"请选择日期",		//默认显示的日期
 			value: startDate
 		},{
-			xtype: 'datetimefield',
-			fieldLabel : '到',
-			labelWidth:20,
+			xtype: 'datefield',
+			fieldLabel : '-',
+			labelSeparator : '',
+			labelWidth:8,
 			id:"endDate",
 			name:"endDate",
 			editable:false, //不允许对日期进行编辑
-			width:180,
-			format:"Y-m-d H:i:s",
-			emptyText:"请选择时间",		//默认显示的日期
+			width:113,
+			format:"Y-m-d",
+			emptyText:"请选择日期",		//默认显示的日期
 			value: endDate
 		},{
 			text : "查询",
 			xtype: 'button',
 			handler : function() {
-				startDate = Ext.util.Format.date(Ext.getCmp("startDate").getValue(),'Y-m-d H:i:s');		//得到时间选择框中的开始时间
-				endDate = Ext.util.Format.date(Ext.getCmp("endDate").getValue(),'Y-m-d H:i:s');			//结束时间
+				startDate = Ext.util.Format.date(Ext.getCmp("startDate").getValue(),'Y-m-d');		//得到时间选择框中的开始时间
+				endDate = Ext.util.Format.date(Ext.getCmp("endDate").getValue(),'Y-m-d');			//结束时间
 				Warrantoutviewstore.load();
 			}
 		},'-',{
-			text : "筛选",
-			iconCls : 'select',
-			handler : function() {
-				Ext.getCmp("Warrantoutviewidwarrantout").setEditable (true);
-				createQueryWindow("筛选", WarrantoutviewdataForm, Warrantoutviewstore,Ext.getCmp("queryWarrantoutviewaction").getValue());
-			}
-		},'-',{
-        	text : "导出",
-			iconCls : 'exp',
-			handler : function() {
-				Ext.Msg.confirm('请确认', '<b>提示:</b>请确认要导出当前数据？', function(btn, text) {
-					if (btn == 'yes') {
-						window.location.href = basePath + Warrantoutviewaction + "?method=expAll&json="+queryjson+"&query="+Ext.getCmp("queryWarrantoutviewaction").getValue(); 
-					}
-				});
-			}
-        },'-',{
 				text : Ext.os.deviceType === 'Phone' ? null : "出库",
 				iconCls : 'add',
 				handler : function() {
@@ -527,44 +511,71 @@ Ext.onReady(function() {
 					Ext.getCmp("Warrantoutviewidwarrantout").setEditable (true);
 					addWarrantoutWindow(basePath + "CPCPWarrantoutAction.do?method=insWarrantout", "新增出库台账", WarrantoutviewdataForm, Warrantoutviewstore);
 				}
-			},'-',{
-				text : Ext.os.deviceType === 'Phone' ? null : "修改",
-				iconCls : 'edit',
-				handler : function() {
-					var selections = Warrantoutviewgrid.getSelection();
-					if (selections.length != 1) {
-						Ext.Msg.alert('提示', '请选择一条数据！', function() {
-						});
-						return;
-					}
-					updWarrantoutviewdataForm.form.reset();
-					Ext.getCmp("Warrantoutviewidwarrantout").setEditable (false);
-					editWarrantoutWindow(basePath + "CPCPWarrantoutAction.do?method=updWarrantout", "修改", updWarrantoutviewdataForm, Warrantoutviewstore);
-					updWarrantoutviewdataForm.form.loadRecord(selections[0]);
+		},'-',{
+			text : Ext.os.deviceType === 'Phone' ? null : "修改",
+			iconCls : 'edit',
+			handler : function() {
+				var selections = Warrantoutviewgrid.getSelection();
+				if (selections.length != 1) {
+					Ext.Msg.alert('提示', '请选择一条数据！', function() {
+					});
+					return;
 				}
-			},'-',{
-            	text : "回滚",
-				iconCls : 'delete',
-				handler : function() {
-					var selections = Warrantoutviewgrid.getSelection();
-					if (Ext.isEmpty(selections)) {
-						Ext.Msg.alert('提示', '请至少选择一条数据！');
-						return;
-					}
-					delWarrantout(basePath + "CPCPWarrantoutAction.do?method=delWarrantout",selections,Warrantoutviewstore,Warrantoutviewkeycolumn);
-				}
-            },'-',{
-            	text : "删除",
-				iconCls : 'delete',
-				handler : function() {
-					var selections = Warrantoutviewgrid.getSelection();
-					if (Ext.isEmpty(selections)) {
-						Ext.Msg.alert('提示', '请至少选择一条数据！');
-						return;
-					}
-					commonDelete(basePath + "CPCPWarrantoutAction.do?method=delAll",selections,Warrantoutviewstore,Warrantoutviewkeycolumn);
-				}
+				updWarrantoutviewdataForm.form.reset();
+				Ext.getCmp("Warrantoutviewidwarrantout").setEditable (false);
+				editWarrantoutWindow(basePath + "CPCPWarrantoutAction.do?method=updWarrantout", "修改", updWarrantoutviewdataForm, Warrantoutviewstore);
+				updWarrantoutviewdataForm.form.loadRecord(selections[0]);
+			}
+		},'-',{
+			text: '操作',
+            menu: {
+            	xtype: 'menu',
+                items: {
+                	xtype: 'buttongroup',
+                    columns: 3,
+                    items: [{
+            			text : "筛选",
+            			iconCls : 'select',
+            			handler : function() {
+            				Ext.getCmp("Warrantoutviewidwarrantout").setEditable (true);
+            				createQueryWindow("筛选", WarrantoutviewdataForm, Warrantoutviewstore,Ext.getCmp("queryWarrantoutviewaction").getValue());
+            			}
+            		},{
+                    	text : "导出",
+            			iconCls : 'exp',
+            			handler : function() {
+            				Ext.Msg.confirm('请确认', '<b>提示:</b>请确认要导出当前数据？', function(btn, text) {
+            					if (btn == 'yes') {
+            						window.location.href = basePath + Warrantoutviewaction + "?method=expAll&json="+queryjson+"&query="+Ext.getCmp("queryWarrantoutviewaction").getValue(); 
+            					}
+            				});
+            			}
+                    },{
+                    	text : "回滚",
+        				iconCls : 'delete',
+        				handler : function() {
+        					var selections = Warrantoutviewgrid.getSelection();
+        					if (Ext.isEmpty(selections)) {
+        						Ext.Msg.alert('提示', '请至少选择一条数据！');
+        						return;
+        					}
+        					delWarrantout(basePath + "CPCPWarrantoutAction.do?method=delWarrantout",selections,Warrantoutviewstore,Warrantoutviewkeycolumn);
+        				}
+                    },{
+                    	text : "删除",
+        				iconCls : 'delete',
+        				handler : function() {
+        					var selections = Warrantoutviewgrid.getSelection();
+        					if (Ext.isEmpty(selections)) {
+        						Ext.Msg.alert('提示', '请至少选择一条数据！');
+        						return;
+        					}
+        					commonDelete(basePath + "CPCPWarrantoutAction.do?method=delAll",selections,Warrantoutviewstore,Warrantoutviewkeycolumn);
+        				}
+                    }]
+                }
             }
+		}
 		]
 	});
 	Warrantoutviewgrid.region = 'center';
