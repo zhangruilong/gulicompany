@@ -151,11 +151,11 @@ function goodsWindow(){
 	});
 	selectgridWindow.show();
 }
-//新增退货台账记录的窗口
+//新增库存总账记录的窗口
 function addGoodsnumWindow(url,title,_form,store) {
 	var dataWindow = new Ext.Window({
 		title : title, // 窗口标题
-		layout : 'form', // 设置窗口布局模式,当设置为fit时 scrollable 属性的设置会失效
+		layout : 'fit', // 设置窗口布局模式,当设置为fit时 scrollable 属性的设置会失效
 		width : Ext.os.deviceType === 'Phone' ? '100%' : 650, // 窗口宽度
 		modal : true,
 		closeAction: 'hide',
@@ -190,8 +190,12 @@ function addGoodsnumWindow(url,title,_form,store) {
 								},
 								success : function(form, action) {
 									Ext.Msg.alert('提示', action.result.msg,function(){
-										dataWindow.hide();
-										store.reload();
+										if(action.result.msg=='仓库和商品重复'){
+											
+										} else {
+											dataWindow.hide();
+											store.reload();
+										}
 									});
 								},
 								failure : function(form, action) {

@@ -54,14 +54,16 @@ public class CPOrderAction extends OrdermviewAction {
 				ArrayList<String> strLi = new ArrayList<String>();
 				strLi.add(updStaSQL);
 				for (Orderd od : odLi) {
-					Warrantout newOut = new Warrantout(CommonUtil.getNewId(), null, od.getOrderdgoods(), od.getOrderdnum().toString(), 
-							"发货中", null, lgi.getUsername(), DateUtils.getDateTime(), lgi.getUsername(), 
-							null, null);
-					String insSQL = getInsSingleSql(newOut);
-					strLi.add(insSQL);
+					if(od.getOrderdtype().equals("商品")){
+						Warrantout newOut = new Warrantout(CommonUtil.getNewId(), null, od.getOrderdgoods(), od.getOrderdnum().toString(), 
+								"发货中", null, lgi.getUsername(), DateUtils.getDateTime(), lgi.getUsername(), 
+								null, null);
+						String insSQL = getInsSingleSql(newOut);
+						strLi.add(insSQL);
+					}
 				}
-				String[] sqls = (String[]) strLi.toArray();
-				doAll(sqls);
+				String[] sqls = strLi.toArray(new String[0]);
+				result = doAll(sqls);
 			} else {
 				result = doSingle(updStaSQL, null);
 			}

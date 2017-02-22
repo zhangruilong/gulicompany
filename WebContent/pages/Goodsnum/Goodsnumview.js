@@ -318,6 +318,18 @@ Ext.onReady(function() {
 					Goodsnumviewstore.load();
 				}
 			},'-',{
+				text : Ext.os.deviceType === 'Phone' ? null : "新增",
+				iconCls : 'add',
+				handler : function() {
+					GoodsnumviewdataForm.form.reset();
+					Ext.getCmp("Goodsnumviewidgoodsnum").setEditable (true);
+					Ext.getCmp("Goodsnumviewgoodscode").setReadOnly (true);
+					Ext.getCmp("Goodsnumviewgoodsname").setReadOnly (true);
+					Ext.getCmp("Goodsnumviewgoodsunits").setReadOnly (true);
+					Ext.getCmp("Goodsnumviewgoodsnumnum").allowBlank = false;
+					addGoodsnumWindow(basePath + "CPGoodsnumAction.do?method=insGoodsnum", "新增", GoodsnumviewdataForm, Goodsnumviewstore);
+				}
+			},'-',{
 				text: '操作',
 	            menu: {
 	            	xtype: 'menu',
