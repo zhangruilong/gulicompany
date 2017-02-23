@@ -12,35 +12,22 @@ Ext.onReady(function() {
 	var Warrantoutviewtitle = "当前位置:库存管理》" + Warrantoutviewclassify;
 	var Warrantoutviewaction = "CPWarrantoutviewAction.do";
 	var Warrantoutviewfields = ['idwarrantout'
-	        			    ,'warrantoutstore' 
-	        			    ,'warrantoutgoods' 
-	        			    ,'warrantoutnum' 
-	        			    ,'warrantoutstatue' 
-	        			    ,'warrantoutdetail' 
-	        			    ,'warrantoutwho' 
-	        			    ,'warrantoutinswhen' 
-	        			    ,'warrantoutinswho' 
-	        			    ,'warrantoutupdwhen' 
-	        			    ,'warrantoutupdwho' 
-	        			    ,'goodsid' 
-	        			    ,'goodscompany' 
-	        			    ,'goodscode' 
-	        			    ,'goodsname' 
-	        			    ,'goodsdetail' 
-	        			    ,'goodsunits' 
-	        			    ,'goodsclass' 
-	        			    ,'goodsimage' 
-	        			    ,'goodsstatue' 
-	        			    ,'createtime' 
-	        			    ,'updtime' 
-	        			    ,'creator' 
-	        			    ,'updor' 
-	        			    ,'goodsbrand' 
-	        			    ,'goodstype' 
-	        			    ,'goodsorder' 
-	        			    ,'goodsweight' 
-	        			    ,'goodsclassname' 
-	        			      ];// 全部字段
+		        			    ,'warrantoutstore' 
+		        			    ,'warrantoutgoods' 
+		        			    ,'warrantoutnum' 
+		        			    ,'warrantoutstatue' 
+		        			    ,'warrantoutdetail' 
+		        			    ,'warrantoutwho' 
+		        			    ,'warrantoutinswhen' 
+		        			    ,'warrantoutinswho' 
+		        			    ,'warrantoutupdwhen' 
+		        			    ,'warrantoutupdwho' 
+		        			    ,'goodsid' 
+		        			    ,'goodscode' 
+		        			    ,'goodsname' 
+		        			    ,'goodsunits' 
+		        			    ,'storehousename' 
+		        			      ];// 全部字段
 	var Warrantoutviewkeycolumn = [ 'idwarrantout' ];// 主键
 	var Storehousefields = ['storehouseid'
 	        			    ,'storehousecode' 
@@ -546,7 +533,9 @@ Ext.onReady(function() {
             			handler : function() {
             				Ext.Msg.confirm('请确认', '<b>提示:</b>请确认要导出当前数据？', function(btn, text) {
             					if (btn == 'yes') {
-            						window.location.href = basePath + Warrantoutviewaction + "?method=expAll&json="+queryjson+"&query="+Ext.getCmp("queryWarrantoutviewaction").getValue(); 
+            						window.location.href = basePath + Warrantoutviewaction + "?method=expAllCP&json="+queryjson+
+            						"&query="+Ext.getCmp("queryWarrantoutviewaction").getValue()+"&wheresql="+wheresql+
+    								"&startDate="+startDate+" 00:00:00&endDate="+endDate+" 23:59:59"; 
             					}
             				});
             			}

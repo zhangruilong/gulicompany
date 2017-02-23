@@ -17,24 +17,11 @@ Ext.onReady(function() {
 		        			    ,'goodsnumnum' 
 		        			    ,'goodsnumstore' 
 		        			    ,'goodsid' 
-		        			    ,'goodscompany' 
 		        			    ,'goodscode' 
 		        			    ,'goodsname' 
-		        			    ,'goodsdetail' 
 		        			    ,'goodsunits' 
-		        			    ,'goodsclass' 
-		        			    ,'goodsimage' 
-		        			    ,'goodsstatue' 
-		        			    ,'createtime' 
-		        			    ,'updtime' 
-		        			    ,'creator' 
-		        			    ,'updor' 
-		        			    ,'goodsbrand' 
-		        			    ,'goodstype' 
-		        			    ,'goodsorder' 
-		        			    ,'goodsclassid' 
-		        			    ,'goodsclassname'  
-	        			      ];// 全部字段
+		        			    ,'storehousename' 
+		        			      ];// 全部字段
 	var Goodsnumviewkeycolumn = [ 'idgoodsnum' ];// 主键
 	var Storehousefields = ['storehouseid'
 	        			    ,'storehousecode' 
@@ -353,7 +340,9 @@ Ext.onReady(function() {
 	        				handler : function() {
 	        					Ext.Msg.confirm('请确认', '<b>提示:</b>请确认要导出当前数据？', function(btn, text) {
 	        						if (btn == 'yes') {
-	        							window.location.href = basePath + Goodsnumviewaction + "?method=expAll&json="+queryjson+"&query="+Ext.getCmp("queryGoodsnumviewaction").getValue(); 
+	        							window.location.href = basePath + Goodsnumviewaction + "?method=expAllCP&json="+queryjson+
+	        									"&query="+Ext.getCmp("queryGoodsnumviewaction").getValue()+"&wheresql="+wheresql+
+	        									"&startDate="+startDate+" 00:00:00&endDate="+endDate+" 23:59:59"; 
 	        						}
 	        					});
 	        				}

@@ -144,6 +144,7 @@ public class CPGoodsviewAction extends GoodsviewAction {
 				String newid = CommonUtil.getNewId();
 				addGoods.setGoodsid(newid);				//商品ID
 				String addGooSql = getInsSingleSql(addGoods);	//新增商品的sql
+				//新增库存总账记录
 				Goodsnum gn = new Goodsnum();
 				gn.setIdgoodsnum(newid);
 				gn.setGoodsnumnum(goodsnum);

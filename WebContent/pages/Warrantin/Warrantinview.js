@@ -13,37 +13,25 @@ Ext.onReady(function() {
 	var Warrantinviewtitle = "当前位置:库存管理》" + Warrantinviewclassify;
 	var Warrantinviewaction = "CPWarrantinviewAction.do";
 	var Warrantinviewfields = ['idwarrantin'
-	        			    ,'warrantinstore' 
-	        			    ,'warrantinfrom' 
-	        			    ,'warrantingoods' 
-	        			    ,'warrantinprice' 
-	        			    ,'warrantinnum' 
-	        			    ,'warrantinwho' 
-	        			    ,'warrantinstatue' 
-	        			    ,'warrantindetail' 
-	        			    ,'warrantininswhen' 
-	        			    ,'warrantininswho' 
-	        			    ,'warrantinupdwhen' 
-	        			    ,'warrantinupdwho' 
-	        			    ,'goodsid' 
-	        			    ,'goodscompany' 
-	        			    ,'goodscode' 
-	        			    ,'goodsname' 
-	        			    ,'goodsdetail' 
-	        			    ,'goodsunits' 
-	        			    ,'goodsclass' 
-	        			    ,'goodsimage' 
-	        			    ,'goodsstatue' 
-	        			    ,'createtime' 
-	        			    ,'updtime' 
-	        			    ,'creator' 
-	        			    ,'updor' 
-	        			    ,'goodsbrand' 
-	        			    ,'goodstype' 
-	        			    ,'goodsorder' 
-	        			    ,'goodsweight' 
-	        			    ,'goodsclassname' 
-	        			      ];// 全部字段
+		        			    ,'warrantinstore' 
+		        			    ,'warrantinfrom' 
+		        			    ,'warrantingoods' 
+		        			    ,'warrantinprice' 
+		        			    ,'warrantinnum' 
+		        			    ,'warrantinwho' 
+		        			    ,'warrantinstatue' 
+		        			    ,'warrantindetail' 
+		        			    ,'warrantininswhen' 
+		        			    ,'warrantininswho' 
+		        			    ,'warrantinupdwhen' 
+		        			    ,'warrantinupdwho' 
+		        			    ,'goodsid' 
+		        			    ,'goodscode' 
+		        			    ,'goodsname' 
+		        			    ,'goodsunits' 
+		        			    ,'storehousename' 
+		        			    ,'suppliername' 
+		        			      ];// 全部字段
 	var Warrantinviewkeycolumn = [ 'idwarrantin' ];// 主键
 	var Storehousefields = ['storehouseid'
 	        			    ,'storehousecode' 
@@ -345,21 +333,13 @@ Ext.onReady(function() {
 		}
 		, {
 			header : '仓库',
-			dataIndex : 'warrantinstore',
+			dataIndex : 'storehousename',
 			sortable : true, 
 			width : 137,
-			renderer : function(value){
-				var md = Storehousestore.find('storehouseid',value);
-				if(md!=-1){
-					return Storehousestore.getAt(md).get('storehousename');
-				} else {
-					return '';
-				}
-			},
 		}
 		, {
 			header : '供货单位',
-			dataIndex : 'warrantinfrom',
+			dataIndex : 'suppliername',
 			sortable : true, 
 			width:150,
 			summaryRenderer: function(value, summaryData, dataIndex) {
@@ -521,7 +501,9 @@ Ext.onReady(function() {
             			handler : function() {
             				Ext.Msg.confirm('请确认', '<b>提示:</b>请确认要导出当前数据？', function(btn, text) {
             					if (btn == 'yes') {
-            						window.location.href = basePath + Warrantinviewaction + "?method=expAll&json="+queryjson+"&query="+Ext.getCmp("queryWarrantinviewaction").getValue(); 
+            						window.location.href = basePath + Warrantinviewaction + "?method=expAllCP&json="+queryjson+
+            						"&query="+Ext.getCmp("queryWarrantinviewaction").getValue()+"&wheresql="+wheresql+
+    								"&startDate="+startDate+" 00:00:00&endDate="+endDate+" 23:59:59"; 
             					}
             				});
             			}

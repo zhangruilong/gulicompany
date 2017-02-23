@@ -11,35 +11,22 @@ Ext.onReady(function() {
 	var Warrantcheckviewtitle = "当前位置:库存管理》" + Warrantcheckviewclassify;
 	var Warrantcheckviewaction = "CPWarrantcheckviewAction.do";
 	var Warrantcheckviewfields = ['idwarrantcheck'
-	        			    ,'warrantcheckstore' 
-	        			    ,'warrantcheckgoods' 
-	        			    ,'warrantchecknumorg' 
-	        			    ,'warrantchecknumnow' 
-	        			    ,'warrantcheckstatue' 
-	        			    ,'warrantcheckdetail' 
-	        			    ,'warrantcheckinswho' 
-	        			    ,'warrantcheckinswhen' 
-	        			    ,'warrantcheckupdwho' 
-	        			    ,'warrantcheckupdwhen' 
-	        			    ,'goodsid' 
-	        			    ,'goodscompany' 
-	        			    ,'goodscode' 
-	        			    ,'goodsname' 
-	        			    ,'goodsdetail' 
-	        			    ,'goodsunits' 
-	        			    ,'goodsclass' 
-	        			    ,'goodsimage' 
-	        			    ,'goodsstatue' 
-	        			    ,'createtime' 
-	        			    ,'updtime' 
-	        			    ,'creator' 
-	        			    ,'updor' 
-	        			    ,'goodsbrand' 
-	        			    ,'goodstype' 
-	        			    ,'goodsorder' 
-	        			    ,'goodsweight' 
-	        			    ,'goodsclassname' 
-	        			      ];// 全部字段
+	  	        			    ,'warrantcheckstore' 
+	  	        			    ,'warrantcheckgoods' 
+	  	        			    ,'warrantchecknumorg' 
+	  	        			    ,'warrantchecknumnow' 
+	  	        			    ,'warrantcheckstatue' 
+	  	        			    ,'warrantcheckdetail' 
+	  	        			    ,'warrantcheckinswho' 
+	  	        			    ,'warrantcheckinswhen' 
+	  	        			    ,'warrantcheckupdwho' 
+	  	        			    ,'warrantcheckupdwhen' 
+	  	        			    ,'goodsid' 
+	  	        			    ,'goodscode' 
+	  	        			    ,'goodsname' 
+	  	        			    ,'goodsunits' 
+	  	        			    ,'storehousename' 
+	  	        			      ];// 全部字段
 	var Storehousefields = ['storehouseid'
 	        			    ,'storehousecode' 
 	        			    ,'storehousename' 
@@ -412,7 +399,9 @@ Ext.onReady(function() {
             			handler : function() {
             				Ext.Msg.confirm('请确认', '<b>提示:</b>请确认要导出当前数据？', function(btn, text) {
             					if (btn == 'yes') {
-            						window.location.href = basePath + Warrantcheckviewaction + "?method=expAll&json="+queryjson+"&query="+Ext.getCmp("queryWarrantcheckviewaction").getValue(); 
+            						window.location.href = basePath + Warrantcheckviewaction + "?method=expAllCP&json="+queryjson+
+            						"&query="+Ext.getCmp("queryWarrantcheckviewaction").getValue()+"&wheresql="+wheresql+
+    								"&startDate="+startDate+" 00:00:00&endDate="+endDate+" 23:59:59"; 
             					}
             				});
             			}

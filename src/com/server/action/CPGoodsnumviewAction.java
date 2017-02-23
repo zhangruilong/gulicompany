@@ -11,6 +11,7 @@ import com.system.tools.CommonConst;
 import com.system.tools.pojo.Pageinfo;
 import com.system.tools.pojo.Queryinfo;
 import com.system.tools.util.CommonUtil;
+import com.system.tools.util.FileUtil;
 import com.system.tools.util.TypeUtil;
 
 public class CPGoodsnumviewAction extends GoodsnumviewAction {
@@ -48,5 +49,32 @@ public class CPGoodsnumviewAction extends GoodsnumviewAction {
 		Pageinfo pageinfo = new Pageinfo(getTotal(totalSQL), cuss);
 		result = CommonConst.GSON.toJson(pageinfo);
 		responsePW(response, result);
+	}
+	//导出
+	@SuppressWarnings("unchecked")
+	public void expAllCP(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		Queryinfo queryinfo = getQueryinfo(request, Goodsnumview.class, GoodsnumviewPoco.QUERYFIELDNAME, GoodsnumviewPoco.ORDER, TYPE);
+		String startDate = request.getParameter("startDate");
+		String endDate = request.getParameter("endDate");
+		String sql = "select * from " + queryinfo.getType().getSimpleName() + " where 1=1 ";
+		if(CommonUtil.isNotEmpty(queryinfo.getJson())){
+			String jsonsql = TypeUtil.beanToSql(queryinfo.getJson());
+			if(CommonUtil.isNotNull(jsonsql))
+			sql += " and (" + TypeUtil.beanToSql(queryinfo.getJson()) + ") ";
+		}
+		if(CommonUtil.isNotEmpty(queryinfo.getWheresql())){
+			sql += " and (" + queryinfo.getWheresql() + ") ";
+		}
+		if(CommonUtil.isNotEmpty(queryinfo.getQuery())){
+			sql += " and (" + queryinfo.getQuery() + ") ";
+		}
+		if(CommonUtil.isNotEmpty(startDate) && CommonUtil.isNotEmpty(endDate)){
+			sql += " and createtime >='"+startDate+"' and createtime <='"+endDate+"'";
+		}
+		sql += " order by goodsid desc";
+		cuss = (ArrayList<Goodsnumview>) selAll(Goodsnumview.class, sql);
+		String[] heads = {"商品编号","商品名称","商品规格","数量","仓库"};
+		String[] discard = {"idgoodsnum","goodsnumgoods","goodsid","goodsnumstore","goodscompany","createtime" };
+		FileUtil.expExcel(response, cuss, heads, discard, "库存总账");
 	}
 }

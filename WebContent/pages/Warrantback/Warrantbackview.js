@@ -16,7 +16,7 @@ Ext.onReady(function() {
 	var Warrantbackviewtitle = "当前位置:库存管理》" + Warrantbackviewclassify;
 	var Warrantbackviewaction = "CPWarrantbackviewAction.do";
 	var Warrantbackviewfields = ['idwarrantback'
-	                             ,'warrantbackstore' 
+	 	        			    ,'warrantbackstore' 
 	 	        			    ,'warrantbackgoods' 
 	 	        			    ,'warrantbacknum' 
 	 	        			    ,'warrantbackwho' 
@@ -27,24 +27,11 @@ Ext.onReady(function() {
 	 	        			    ,'warrantbackupdwho' 
 	 	        			    ,'warrantbackupdwhen' 
 	 	        			    ,'goodsid' 
-	 	        			    ,'goodscompany' 
 	 	        			    ,'goodscode' 
 	 	        			    ,'goodsname' 
-	 	        			    ,'goodsdetail' 
 	 	        			    ,'goodsunits' 
-	 	        			    ,'goodsclass' 
-	 	        			    ,'goodsimage' 
-	 	        			    ,'goodsstatue' 
-	 	        			    ,'createtime' 
-	 	        			    ,'updtime' 
-	 	        			    ,'creator' 
-	 	        			    ,'updor' 
-	 	        			    ,'goodsbrand' 
-	 	        			    ,'goodstype' 
-	 	        			    ,'goodsorder' 
-	 	        			    ,'goodsweight' 
-	 	        			    ,'goodsclassname'  
-	        			      ];// 全部字段
+	 	        			    ,'storehousename' 
+	 	        			      ];// 全部字段
 	var Storehousefields = ['storehouseid'
 	        			    ,'storehousecode' 
 	        			    ,'storehousename' 
@@ -463,7 +450,9 @@ Ext.onReady(function() {
             			handler : function() {
             				Ext.Msg.confirm('请确认', '<b>提示:</b>请确认要导出当前数据？', function(btn, text) {
             					if (btn == 'yes') {
-            						window.location.href = basePath + Warrantbackviewaction + "?method=expAll&json="+queryjson+"&query="+Ext.getCmp("queryWarrantbackviewaction").getValue(); 
+            						window.location.href = basePath + Warrantbackviewaction + "?method=expAllCP&json="+queryjson+
+            								"&query="+Ext.getCmp("queryWarrantbackviewaction").getValue()+"&wheresql="+wheresql+
+            								"&startDate="+startDate+" 00:00:00&endDate="+endDate+" 23:59:59"; 
             					}
             				});
             			}
