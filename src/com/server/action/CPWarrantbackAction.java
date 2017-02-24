@@ -24,7 +24,7 @@ public class CPWarrantbackAction extends WarrantbackAction {
 			Warrantback temp = cuss.get(0);
 			String updSql = "update Warrantback set warrantbackstatue='回滚' where idwarrantback='"+temp.getIdwarrantback()+"'";
 			//如果是完好退货就修改库存总账的数量
-			if(temp.getWarrantbackstatue().equals("good")){
+			if(temp.getWarrantbackstatue().equals("完好退货")){
 				//根据 商品ID 和 仓库 查询商品的库存总账
 				@SuppressWarnings("unchecked")
 				List<Goodsnum> gnLi = selAll(Goodsnum.class,"select * from goodsnum gn where gn.goodsnumgoods='"+temp.getWarrantbackgoods()+
@@ -34,6 +34,20 @@ public class CPWarrantbackAction extends WarrantbackAction {
 					String updNumSql = "update goodsnum g set g.goodsnumnum='"+num+"' where g.idgoodsnum='"+gnLi.get(0).getIdgoodsnum()+"'";
 					String[] sqls = {updSql,updNumSql};
 					result = doAll(sqls);
+				} else {
+					result = "{success:true,code:400,msg:'操作失败,未找到对应的库存总账信息'}";
+				}
+			} else if(temp.getWarrantbackstatue().equals("采购退货")){
+				@SuppressWarnings("unchecked")
+				List<Goodsnum> gnLi = selAll(Goodsnum.class,"select * from goodsnum gn where gn.goodsnumgoods='"+temp.getWarrantbackgoods()+
+						"' and goodsnumstore='"+temp.getWarrantbackstore()+"'");
+				if(gnLi.size()>0){
+					Integer num = Integer.parseInt(gnLi.get(0).getGoodsnumnum()) + Integer.parseInt(temp.getWarrantbacknum());
+					String updNumSql = "update goodsnum g set g.goodsnumnum='"+num+"' where g.idgoodsnum='"+gnLi.get(0).getIdgoodsnum()+"'";
+					String[] sqls = {updSql,updNumSql};
+					result = doAll(sqls);
+				} else {
+					result = "{success:true,code:400,msg:'操作失败,未找到对应的库存总账信息'}";
 				}
 			} else {
 				result = doSingle(updSql, null);
@@ -56,7 +70,7 @@ public class CPWarrantbackAction extends WarrantbackAction {
 			temp.setWarrantbackinswhen(DateUtils.getDateTime());
 			temp.setWarrantbackinswho(lgi.getUsername());
 			String insBackSql = getInsSingleSql(temp);
-			if(temp.getWarrantbackstatue().equals("good")){
+			if(temp.getWarrantbackstatue().equals("完好退货")){
 				//完好退货
 				@SuppressWarnings("unchecked")
 				List<Goodsnum> gnLi = selAll(Goodsnum.class, "select * from goodsnum where goodsnumgoods='"+
@@ -73,7 +87,7 @@ public class CPWarrantbackAction extends WarrantbackAction {
 					String[] sqls = {insBackSql,insNumSql};
 					result = doAll(sqls);
 				}
-			} else if(temp.getWarrantbackstatue().equals("purchase")){
+			} else if(temp.getWarrantbackstatue().equals("采购退货")){
 				//采购退货
 				@SuppressWarnings("unchecked")
 				List<Goodsnum> gnLi = selAll(Goodsnum.class, "select * from goodsnum where goodsnumgoods='"+

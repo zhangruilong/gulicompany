@@ -406,6 +406,12 @@ Ext.onReady(function() {
             				});
             			}
                     },{
+                    	text : "检查导入",
+            			iconCls : 'imp',
+            			handler : function() {
+            				commonImp(basePath + "CPWarrantcheckAction.do?method=impCheck","导入",Warrantcheckviewstore);
+            			}
+                    },{
                     	text : "导入",
             			iconCls : 'imp',
             			handler : function() {

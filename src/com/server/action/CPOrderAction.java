@@ -53,14 +53,14 @@ public class CPOrderAction extends OrdermviewAction {
 				List<Orderd> odLi = selAll(Orderd.class, "select * from Orderd where orderdorderm='"+ordermid+"'");
 				ArrayList<String> strLi = new ArrayList<String>();
 				strLi.add(updStaSQL);
+				String time = DateUtils.getDateTime();
 				for (Orderd od : odLi) {
-					if(od.getOrderdtype().equals("商品")){
-						Warrantout newOut = new Warrantout(CommonUtil.getNewId(), null, od.getOrderdgoods(), od.getOrderdnum().toString(), 
-								"发货中", null, lgi.getUsername(), DateUtils.getDateTime(), lgi.getUsername(), 
-								null, null);
-						String insSQL = getInsSingleSql(newOut);
-						strLi.add(insSQL);
-					}
+					Warrantout newOut = new Warrantout(CommonUtil.getNewId(), lgi.getCompanyid(), null, od.getOrderdgoods(), 
+							od.getOrderdnum()+"", "发货中", null, null, time, lgi.getUsername(), null, null, od.getOrderdcode(), 
+							od.getOrderdname(), od.getOrderdunits(), od.getOrderdtype(), od.getOrderdclass(), od.getOrderdunit(), 
+							od.getOrderdweight(), od.getOrderdnote());
+					String insSQL = getInsSingleSql(newOut);
+					strLi.add(insSQL);
 				}
 				String[] sqls = strLi.toArray(new String[0]);
 				result = doAll(sqls);

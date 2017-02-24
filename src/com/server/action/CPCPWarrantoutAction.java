@@ -17,13 +17,28 @@ import com.system.tools.util.DateUtils;
 public class CPCPWarrantoutAction extends WarrantoutAction {
 
 	//修改出库台账
+	public void updWarrantout(HttpServletRequest request, HttpServletResponse response){
+		LoginInfo lgi = (LoginInfo) request.getSession().getAttribute("loginInfo");
+		String json = request.getParameter("json");
+		System.out.println("json : " + json);
+		if(CommonUtil.isNotEmpty(json)) cuss = CommonConst.GSON.fromJson(json, TYPE);
+		if(cuss.size()>0){
+			Warrantout temp = cuss.get(0);
+			temp.setWarrantoutupdwhen(DateUtils.getDateTime());
+			temp.setWarrantoutupdwho(lgi.getUsername());
+			result = updSingle(temp, WarrantoutPoco.KEYCOLUMN);
+		}
+		responsePW(response, result);
+	}
+/*	//修改出库台账
 	@SuppressWarnings("unchecked")
 	public void updWarrantout(HttpServletRequest request, HttpServletResponse response){
 		LoginInfo lgi = (LoginInfo) request.getSession().getAttribute("loginInfo");
 		String json = request.getParameter("json");
 		System.out.println("json : " + json);
 		if(CommonUtil.isNotEmpty(json)) cuss = CommonConst.GSON.fromJson(json, TYPE);
-		for(Warrantout temp:cuss){
+		if(cuss.size()>0){
+			Warrantout temp = cuss.get(0);
 			//查询修改前的出库台账记录
 			List<Warrantout> waLi = selAll(Warrantout.class, "select * from Warrantout w where w.idwarrantout='"+temp.getIdwarrantout()+"'", "mysql");
 			if(waLi.size()>0){
@@ -45,7 +60,7 @@ public class CPCPWarrantoutAction extends WarrantoutAction {
 			}
 		}
 		responsePW(response, result);
-	}
+	}*/
 	//回滚出库台账
 	@SuppressWarnings("unchecked")
 	public void delWarrantout(HttpServletRequest request, HttpServletResponse response){
@@ -76,12 +91,14 @@ public class CPCPWarrantoutAction extends WarrantoutAction {
 		if(CommonUtil.isNotEmpty(json)) cuss = CommonConst.GSON.fromJson(json, TYPE);
 		if(cuss.size()>0){
 			Warrantout temp = cuss.get(0);
-			if(CommonUtil.isNull(temp.getIdwarrantout())){
-				temp.setIdwarrantout(CommonUtil.getNewId());
-				temp.setWarrantoutinswhen(DateUtils.getDateTime());
-				temp.setWarrantoutinswho(lgi.getUsername());
-				temp.setWarrantoutstatue("发货中");
+			temp.setIdwarrantout(CommonUtil.getNewId());
+			temp.setWarrantoutinswhen(DateUtils.getDateTime());
+			temp.setWarrantoutinswho(lgi.getUsername());
+			temp.setWarrantoutstatue("已发货");
+			if(null == temp.getWarrantoutgtype()){
+				temp.setWarrantoutgtype("商品");
 			}
+			
 			String insSql = getInsSingleSql(temp);		//新增出库台账的sql
 			List<Goodsnum> gnLi = selAll(Goodsnum.class,"select * from goodsnum gn where gn.goodsnumgoods='"+temp.getWarrantoutgoods()
 			+"' and goodsnumstore='"+temp.getWarrantoutstore()+"'");

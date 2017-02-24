@@ -69,6 +69,12 @@ public class CPWarrantinviewAction extends WarrantinviewAction {
 		String querySQL = sql.replace("select sum(warrantinprice) as warrantinprice,sum(warrantinnum) as warrantinnum", "select *");
 		String totalSQL = sql.replace("select sum(warrantinprice) as warrantinprice,sum(warrantinnum) as warrantinnum", "select count(*)");
 		cuss = (ArrayList<Warrantinview>) selQuery(querySQL, queryinfo);
+		if(null == sum.getWarrantinnum()){
+			sum.setWarrantinnum("0");
+		}
+		if(null == sum.getWarrantinprice()){
+			sum.setWarrantinprice("0");
+		}
 		cuss.add(sum);
 		Pageinfo pageinfo = new Pageinfo(getTotal(totalSQL), cuss);
 		result = CommonConst.GSON.toJson(pageinfo);

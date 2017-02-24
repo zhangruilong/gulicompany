@@ -1,7 +1,7 @@
 var Warrantbackviewbbar;
 var statueStore = new Ext.data.ArrayStore({//状态下拉
-	fields:["name","value"],
-	data:[["完好退货","good"],["报废退货","waste"],["采购退货","purchase"]]
+	fields:["name"],
+	data:[["完好退货"],["报废退货"],["采购退货"]]
 });
 var sumNum = 0;
 var startDate = Ext.util.Format.date(new Date(),'Y-m-d');			//查询的开始时间
@@ -220,7 +220,7 @@ Ext.onReady(function() {
 				mode : 'local',					//local是取本地数据的也就是javascirpt(内存)中的数据。
 												//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
 				displayField : 'name',		//显示的字段
-				valueField : 'value',		//作为值的字段
+				valueField : 'name',		//作为值的字段
 				hiddenName : 'warrantbackstatue',
 				triggerAction : 'all',
 				editable : false,
@@ -326,14 +326,6 @@ Ext.onReady(function() {
 			dataIndex : 'warrantbackstatue',
 			sortable : true, 
 			width : 73,
-			renderer : function(value){
-				var md = statueStore.find('value',value);
-				if(md!=-1){
-					return statueStore.getAt(md).get('name');
-				} else {
-					return '';
-				}
-			},
 		}
 		, {
 			header : '描述',

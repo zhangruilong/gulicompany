@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.server.poco.WarrantcheckPoco;
 import com.server.pojo.Goodsnum;
+import com.server.pojo.Goodsnumview;
 import com.server.pojo.LoginInfo;
 import com.server.pojo.Warrantcheck;
 import com.system.tools.CommonConst;
@@ -38,33 +39,7 @@ public class CPWarrantcheckAction extends WarrantcheckAction {
 		}
 		responsePW(response, result);
 	}
-	//导入
-	public void impWarrantcheck(HttpServletRequest request, HttpServletResponse response){
-		Fileinfo fileinfo = FileUtil.upload(request,0,null,WarrantcheckPoco.NAME,"impAll");
-		LoginInfo lgi = (LoginInfo) request.getSession().getAttribute("loginInfo");
-	   String[] fieldnames = {
-		 	"warrantcheckstore",
-		 	"warrantcheckgoods",
-		 	"warrantchecknumorg",
-		 	"warrantchecknumnow",
-		 	"warrantcheckstatue",
-		 	"warrantcheckdetail",
-		 	"warrantcheckinswho",
-		 	"warrantcheckinswhen",
-		 	"warrantcheckupdwho",
-		 	"warrantcheckupdwhen",
-	   };
-		String json = FileUtil.impExcel(fileinfo.getPath(),fieldnames); 
-		if(CommonUtil.isNotEmpty(json)) cuss = CommonConst.GSON.fromJson(json, TYPE);
-		String time = DateUtils.getDateTime();
-		for(Warrantcheck temp:cuss){
-			temp.setIdwarrantcheck(CommonUtil.getNewId());
-			temp.setWarrantcheckinswhen(time);
-			temp.setWarrantcheckinswho(lgi.getUsername());
-			result = insSingle(temp);
-		}
-		responsePW(response, result);
-	}
+	
 	//新增
 	public void insWarrantcheck(HttpServletRequest request, HttpServletResponse response){
 		LoginInfo lgi = (LoginInfo) request.getSession().getAttribute("loginInfo");
