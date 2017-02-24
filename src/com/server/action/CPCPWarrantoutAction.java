@@ -17,6 +17,7 @@ import com.system.tools.util.DateUtils;
 public class CPCPWarrantoutAction extends WarrantoutAction {
 
 	//修改出库台账
+	@SuppressWarnings("unchecked")
 	public void updWarrantout(HttpServletRequest request, HttpServletResponse response){
 		LoginInfo lgi = (LoginInfo) request.getSession().getAttribute("loginInfo");
 		String json = request.getParameter("json");
@@ -24,9 +25,43 @@ public class CPCPWarrantoutAction extends WarrantoutAction {
 		if(CommonUtil.isNotEmpty(json)) cuss = CommonConst.GSON.fromJson(json, TYPE);
 		if(cuss.size()>0){
 			Warrantout temp = cuss.get(0);
-			temp.setWarrantoutupdwhen(DateUtils.getDateTime());
-			temp.setWarrantoutupdwho(lgi.getUsername());
-			result = updSingle(temp, WarrantoutPoco.KEYCOLUMN);
+			//查询修改前的 “出库台账”
+			@SuppressWarnings("unchecked")
+			List<Warrantout> odTempLi = selAll(Warrantout.class, "select * from Warrantout where idwarrantout='"+temp.getIdwarrantout()+"'");
+			if(odTempLi.size()>0){
+				Warrantout odTemp = odTempLi.get(0);
+				//修改前状态是 “发货中” 才可以修改
+				if(null != odTemp.getWarrantoutstatue() && odTemp.getWarrantoutstatue().equals("发货中")){
+					temp.setWarrantoutupdwhen(DateUtils.getDateTime());
+					temp.setWarrantoutupdwho(lgi.getUsername());
+					//如果状态修改为 “已发货” 则修改 “库存总账” 中对应商品的数量
+					if(null != temp.getWarrantoutstatue() && temp.getWarrantoutstatue().equals("已发货")){
+						String selGN = "";
+						if(null != temp.getWarrantoutgoods()){
+							selGN = "select * from goodsnum gn where gn.goodsnumgoods='"+temp.getWarrantoutgoods()+
+									"' and goodsnumstore='"+temp.getWarrantoutstore()+"'";
+						} else {
+							selGN = "select * from goodsnumview where goodscode='"+temp.getWarrantoutgcode()+
+									"' and goodsname='"+temp.getWarrantoutgname()+"' and goodsunits='"+temp.getWarrantoutgunits()+
+									"' and goodscompany='"+lgi.getCompanyid()+"' and goodsnumstore='"+temp.getWarrantoutstore()+"'";
+						}
+						List<Goodsnum> gnLi = selAll(Goodsnum.class,selGN);
+						if(gnLi.size()>0){
+							Integer num =  Integer.parseInt(gnLi.get(0).getGoodsnumnum()) - Integer.parseInt(temp.getWarrantoutnum());
+							String updNumSql = "update goodsnum g set g.goodsnumnum='"+num+"' where g.idgoodsnum='"+gnLi.get(0).getIdgoodsnum()+"'";
+							String updTemp = getUpdSingleSql(temp, WarrantoutPoco.KEYCOLUMN);
+							String[] sqls = {updTemp,updNumSql};
+							result = doAll(sqls);
+						} else {
+							result = "{success:true,code:400,msg:'未找到相应的“库存总账”记录,操作失败'}";
+						}
+					} else {
+						result = updSingle(temp, WarrantoutPoco.KEYCOLUMN);
+					}
+				} else {
+					result = "{success:true,code:400,msg:'需要状态为发货中才可以修改。'}";
+				}
+			}
 		}
 		responsePW(response, result);
 	}

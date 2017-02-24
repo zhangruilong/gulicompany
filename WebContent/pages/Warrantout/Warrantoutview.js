@@ -185,19 +185,9 @@ Ext.onReady(function() {
 				hiddenName : 'warrantoutstore',
 				triggerAction : 'all',
 				editable : false,
+				allowBlank : false,
 				maxLength : 100,
 				anchor : '95%',
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'form',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '单位',
-				id : 'Warrantoutviewwarrantoutgunit',
-				name : 'warrantoutgunit',
-				maxLength : 100
 			} ]
 		}
 		, {
@@ -209,17 +199,6 @@ Ext.onReady(function() {
 				id : 'Warrantoutviewwarrantoutnum',
 				allowBlank : false,
 				name : 'warrantoutnum',
-				maxLength : 100
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'form',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '重量',
-				id : 'Warrantoutviewwarrantoutgweight',
-				name : 'warrantoutgweight',
 				maxLength : 100
 			} ]
 		}
@@ -250,17 +229,6 @@ Ext.onReady(function() {
 			columnWidth : 1,
 			layout : 'form',
 			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '备注',
-				id : 'Warrantoutviewwarrantoutdetail',
-				name : 'warrantoutdetail',
-				maxLength : 100
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'form',
-			items : [ {
 				xtype : 'combo',
 				fieldLabel : '领货人',
 				id : 'Warrantoutviewwarrantoutwho',
@@ -276,144 +244,7 @@ Ext.onReady(function() {
 				hiddenName : 'warrantoutwho',
 				triggerAction : 'all',
 				editable : false,
-				maxLength : 100,
-				anchor : '95%'
-			} ]
-		}
-		]
-	});
-	/*////////////////--------------------------------定义修改的FormPanel(开始)--------------------------------------///////////////////*/
-	var updWarrantoutviewdataForm = Ext.create('Ext.form.Panel', {
-		id:'updWarrantoutviewdataForm',
-		labelAlign : 'right',
-		frame : true,
-		layout : 'column',
-		items : [ {
-			columnWidth : 1,
-			layout : 'form',
-			hidden : true,
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '出库台账ID',
-				id : 'updWarrantoutviewidwarrantout',
-				name : 'idwarrantout',
-				maxLength : 100,
-				readOnly : true
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'form',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '商品编号',
-				id : 'updWarrantoutviewwarrantoutgcode',
-				name : 'warrantoutgcode',
 				allowBlank : false,
-				maxLength : 100
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'form',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '商品名称',
-				id : 'updWarrantoutviewwarrantoutgname',
-				name : 'warrantoutgname',
-				allowBlank : false,
-				maxLength : 100
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'form',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '规格',
-				id : 'updWarrantoutviewwarrantoutgunits',
-				name : 'warrantoutgunits',
-				allowBlank : false,
-				maxLength : 100
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'form',
-			items : [ {
-				xtype : 'combo',
-				fieldLabel : '仓库',
-				id : 'updWarrantoutviewwarrantoutstore',
-				name : 'warrantoutstore',			//小类名称
-				//loadingText: 'loading...',			//正在加载时的显示
-				//editable : false,						//是否可编辑
-				emptyText : '请选择',
-				store : Storehousestore,
-				mode : 'local',					//local是取本地数据的也就是javascirpt(内存)中的数据。
-												//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
-				displayField : 'storehousename',		//显示的字段
-				valueField : 'storehouseid',		//作为值的字段
-				hiddenName : 'warrantoutstore',
-				triggerAction : 'all',
-				editable : false,
-				maxLength : 100,
-				anchor : '95%',
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'form',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '数量',
-				id : 'updWarrantoutviewwarrantoutnum',
-				allowBlank : false,
-				name : 'warrantoutnum',
-				maxLength : 100
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'form',
-			items : [ {
-				xtype : 'combo',
-				fieldLabel : '状态',
-				id : 'updWarrantoutviewwarrantoutstatue',
-				name : 'warrantoutstatue',			//小类名称
-				//loadingText: 'loading...',			//正在加载时的显示
-				//editable : false,						//是否可编辑
-				emptyText : '请选择',
-				store : statueStore,
-				mode : 'local',					//local是取本地数据的也就是javascirpt(内存)中的数据。
-												//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
-				displayField : 'name',		//显示的字段
-				valueField : 'name',		//作为值的字段
-				hiddenName : 'warrantoutstatue',
-				triggerAction : 'all',
-				editable : false,
-				maxLength : 100,
-				anchor : '95%'
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'form',
-			items : [ {
-				xtype : 'combo',
-				fieldLabel : '领货人',
-				id : 'Warrantoutviewwarrantoutwho',
-				name : 'warrantoutwho',			//小类名称
-				//loadingText: 'loading...',			//正在加载时的显示
-				//editable : false,						//是否可编辑
-				emptyText : '请选择',
-				store : Empstore,
-				mode : 'local',					//local是取本地数据的也就是javascirpt(内存)中的数据。
-												//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
-				displayField : 'empcode',		//显示的字段
-				valueField : 'empcode',		//作为值的字段
-				hiddenName : 'warrantoutwho',
-				triggerAction : 'all',
-				editable : false,
 				maxLength : 100,
 				anchor : '95%'
 			} ]
@@ -424,14 +255,13 @@ Ext.onReady(function() {
 			items : [ {
 				xtype : 'textfield',
 				fieldLabel : '备注',
-				id : 'updWarrantoutviewwarrantoutdetail',
+				id : 'Warrantoutviewwarrantoutdetail',
 				name : 'warrantoutdetail',
 				maxLength : 100
 			} ]
 		}
 		]
 	});
-	/*////////////////--------------------------------定义修改的FormPanel(结束)--------------------------------------///////////////////*/
 	Warrantoutviewbbar = pagesizebar(Warrantoutviewstore);//定义分页
 	var Warrantoutviewgrid =  Ext.create('Ext.grid.Panel', {
 		height : document.documentElement.clientHeight - 4,
@@ -633,10 +463,10 @@ Ext.onReady(function() {
 					Ext.Msg.alert('提示','不能修改已发货的台账记录。');
 					return;
 				}
-				updWarrantoutviewdataForm.form.reset();
+				WarrantoutviewdataForm.form.reset();
 				Ext.getCmp("Warrantoutviewidwarrantout").setEditable (false);
-				editWarrantoutWindow(basePath + "CPCPWarrantoutAction.do?method=updWarrantout", "修改", updWarrantoutviewdataForm, Warrantoutviewstore);
-				updWarrantoutviewdataForm.form.loadRecord(selections[0]);
+				editWarrantoutWindow(basePath + "CPCPWarrantoutAction.do?method=updWarrantout", "修改", WarrantoutviewdataForm, Warrantoutviewstore);
+				WarrantoutviewdataForm.form.loadRecord(selections[0]);
 			}
 		},'-',{
 			text: '操作',

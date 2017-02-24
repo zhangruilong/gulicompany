@@ -1,7 +1,7 @@
 var Goodsnumviewbbar;
 var sumNum=0;
-var startDate = Ext.util.Format.date(new Date(),'Y-m-d');			//查询的开始时间
-var endDate = Ext.util.Format.date(new Date(),'Y-m-d');				//查询结束时间
+var startDate = '';			//查询的开始时间
+var endDate = '';				//查询结束时间
 /*之前的查询条件*/
 var odStartDate=startDate;								
 var odEndDate=endDate;
@@ -44,8 +44,8 @@ Ext.onReady(function() {
 		var new_params = {		//每次数据加载的时候传递的参数
 				wheresql : wheresql,
 				comid : comid,
-				startDate : startDate+' 00:00:00',
-				endDate : endDate+' 23:59:59',
+				startDate : startDate==''?'':startDate+' 00:00:00',
+				endDate : endDate==''?'':endDate+' 23:59:59',
 				json : queryjson,
 				query : query,
 				limit : Goodsnumviewbbar.pageSize
