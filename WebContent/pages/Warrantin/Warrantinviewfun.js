@@ -31,6 +31,9 @@ function goodsWindow(){
 		selModel: {
 	        type: 'checkboxmodel'
 	    },
+	    viewConfig : {
+	    	enableTextSelection : true	//文本可以被选中
+	    },
 		columns : [{
 			header : '序号',
 			xtype: 'rownumberer',		//行号
@@ -275,8 +278,8 @@ function editWarrantinWindow(url,title,_form,store,bkgoodsscope) {
 	dataWindow.items.add(_form);
 	dataWindow.show();
 }
-//删除入库台账
-function delWarrantin(url, selections, store) {
+//回滚入库台账
+function warrantinRollBACK(url, selections, store) {
 	Ext.Msg.confirm('请确认', '<b>提示:</b>请确认要回滚当前选择的条目？', function(btn, text) {
 		if (btn == 'yes') {
 			var json = '[';

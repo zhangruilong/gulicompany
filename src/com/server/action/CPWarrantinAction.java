@@ -18,7 +18,7 @@ public class CPWarrantinAction extends WarrantinAction {
 
 	//回滚入库台账
 	@SuppressWarnings("unchecked")
-	public void delWarrantin(HttpServletRequest request, HttpServletResponse response){
+	public void warrantinRollBACK(HttpServletRequest request, HttpServletResponse response){
 		String json = request.getParameter("json");
 		System.out.println("json : " + json);
 		if(CommonUtil.isNotEmpty(json)) cuss = CommonConst.GSON.fromJson(json, TYPE);

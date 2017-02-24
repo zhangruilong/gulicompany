@@ -516,7 +516,7 @@ Ext.onReady(function() {
 								Ext.Msg.alert('提示', '请至少选择一条数据！');
 								return;
 							}
-							delWarrantin(basePath + "CPWarrantinAction.do?method=delWarrantin",selections,Warrantinviewstore);
+							warrantinRollBACK(basePath + "CPWarrantinAction.do?method=warrantinRollBACK",selections,Warrantinviewstore);
 						}
         		    },{
                     	text : "删除",

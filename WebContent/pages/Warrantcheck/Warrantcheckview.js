@@ -182,17 +182,6 @@ Ext.onReady(function() {
 			layout : 'form',
 			items : [ {
 				xtype : 'textfield',
-				fieldLabel : '状态',
-				id : 'Warrantcheckviewwarrantcheckstatue',
-				name : 'warrantcheckstatue',
-				maxLength : 100
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'form',
-			items : [ {
-				xtype : 'textfield',
 				fieldLabel : '描述',
 				id : 'Warrantcheckviewwarrantcheckdetail',
 				name : 'warrantcheckdetail',
@@ -372,7 +361,7 @@ Ext.onReady(function() {
 				Warrantcheckviewstore.load();
 			}
 		},'-',{
-				text : Ext.os.deviceType === 'Phone' ? null : "盘点",
+				text : "盘点",
 				iconCls : 'add',
 				handler : function() {
 					WarrantcheckviewdataForm.form.reset();
@@ -418,7 +407,7 @@ Ext.onReady(function() {
             				commonImp(basePath + "CPWarrantcheckAction.do?method=impWarrantcheck","导入",Warrantcheckviewstore);
             			}
                     },{
-            			text : Ext.os.deviceType === 'Phone' ? null : "回滚",
+            			text : "回滚",
     					iconCls : 'delete',
     					handler : function() {
     						var selections = Warrantcheckviewgrid.getSelection();
@@ -426,7 +415,7 @@ Ext.onReady(function() {
     							Ext.Msg.alert('提示', '请至少选择一条数据！');
     							return;
     						}
-    						delWarrantin(basePath + "CPWarrantcheckAction.do?method=delWarrantcheck",selections,Warrantinviewstore);
+    						checkRollBACK(basePath + "CPWarrantcheckAction.do?method=checkRollBACK",selections,Warrantcheckviewstore);
     					}
             		},{
                     	text : "删除",

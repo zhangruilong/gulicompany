@@ -203,6 +203,33 @@ function addWarrantcheckWindow(url,title,_form,store) {
 	dataWindow.items.add(_form);
 	dataWindow.show();
 }
+//回滚库存盘点
+function checkRollBACK(url, selections, store) {
+	Ext.Msg.confirm('请确认', '<b>提示:</b>请确认要回滚当前选择的条目？', function(btn, text) {
+		if (btn == 'yes') {
+			var json = '[';
+			for (var i = 0; i < selections.length; i++) {
+				json += Ext.encode(selections[i].getData())+",";
+			};
+			Ext.Ajax.request({
+				url : url,
+				method : 'POST',
+				params : {
+					json : json.substr(0, json.length - 1) + "]"
+				},
+				success : function(response) {
+					var resp = Ext.decode(response.responseText); 
+					Ext.Msg.alert('提示', resp.msg, function(){
+						store.reload();
+					});
+				},
+				failure : function(response) {
+					Ext.Msg.alert('提示', '网络出现问题，请稍后再试');
+				}
+			});
+		}
+	});
+}
 //修改入库台账记录的窗口
 function editWarrantcheckWindow(url,title,_form,store,bkgoodsscope) {
 	

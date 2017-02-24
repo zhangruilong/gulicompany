@@ -1,3 +1,4 @@
+
 //商品的窗口
 function goodsWindow(){
 	var Goodstitle = "商品";
@@ -30,6 +31,9 @@ function goodsWindow(){
 		bbar : Goodsbbar,
 		selModel: {
 	        type: 'checkboxmodel'
+	    },
+	    viewConfig : {
+	    	enableTextSelection : true	//文本可以被选中
 	    },
 		columns : [{xtype: 'rownumberer',width:50}, 
 		 {
@@ -135,10 +139,16 @@ function goodsWindow(){
 								});
 								return;
 							}
-							Ext.getCmp('Goodsnumviewgoodscode').setValue(selectRows[0].get("goodscode"));
-							Ext.getCmp('Goodsnumviewgoodsname').setValue(selectRows[0].get("goodsname"));
-							Ext.getCmp('Goodsnumviewgoodsunits').setValue(selectRows[0].get("goodsunits"));
-							Ext.getCmp('Goodsnumgoodsnumgoods').setValue(selectRows[0].get("goodsid"));
+							Ext.getCmp('Goodsgoodsid').setValue(selectRows[0].get("goodsid"));
+							Ext.getCmp('Goodsgoodscode').setValue(selectRows[0].get("goodscode"));
+							Ext.getCmp('Goodsgoodsname').setValue(selectRows[0].get("goodsname"));
+							Ext.getCmp('Goodsgoodsunits').setValue(selectRows[0].get("goodsunits"));
+							Ext.getCmp('Goodsgoodsclass').setValue(selectRows[0].get("goodsclass"));
+							Ext.getCmp('Goodsgoodstype').setValue(selectRows[0].get("goodstype"));
+							Ext.getCmp('Goodsgoodsbrand').setValue(selectRows[0].get("goodsbrand"));
+							Ext.getCmp('Goodsgoodsweight').setValue(selectRows[0].get("goodsweight"));
+							Ext.getCmp('Goodsgoodsorder').setValue(selectRows[0].get("goodsorder"));
+							Ext.getCmp('Goodsgoodsimage').setValue(selectRows[0].get("goodsimage"));
 							selectgridWindow.close();
 						}
 					}, '-', {
@@ -186,11 +196,13 @@ function addGoodsnumWindow(url,title,_form,store) {
 								url : url,
 								waitTitle : '提示',
 								params : {//改
-									json : json
+									json : json,
+									goodsnum : Ext.getCmp("Goodsgoodsnumnum").getValue(),
+									goodsnumstore : Ext.getCmp("Goodsgoodsnumstore").getValue()
 								},
 								success : function(form, action) {
 									Ext.Msg.alert('提示', action.result.msg,function(){
-										if(action.result.msg=='仓库和商品重复'){
+										if(action.result.code==400){
 											
 										} else {
 											dataWindow.hide();

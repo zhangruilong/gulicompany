@@ -19,7 +19,7 @@ import com.system.tools.util.FileUtil;
 public class CPWarrantcheckAction extends WarrantcheckAction {
 
 	//回滚
-	public void delWarrantcheck(HttpServletRequest request, HttpServletResponse response){
+	public void checkRollBACK(HttpServletRequest request, HttpServletResponse response){
 		String json = request.getParameter("json");
 		System.out.println("json : " + json);
 		if(CommonUtil.isNotEmpty(json)) cuss = CommonConst.GSON.fromJson(json, TYPE);
@@ -32,9 +32,11 @@ public class CPWarrantcheckAction extends WarrantcheckAction {
 			if(gnLi.size()>0){
 				String updNumSql = "update goodsnum g set g.goodsnumnum='"+temp.getWarrantchecknumorg()+
 						"' where g.idgoodsnum='"+gnLi.get(0).getIdgoodsnum()+"'";
-				String delTempSql = "update Warrantin set warrantinstatue='回滚' where idwarrantin='"+temp.getIdwarrantcheck()+"'";
+				String delTempSql = "update Warrantcheck set warrantcheckstatue='回滚' where idwarrantcheck='"+temp.getIdwarrantcheck()+"'";
 				String[] sqls = {updNumSql,delTempSql};
 				result = doAll(sqls);
+			} else {
+				result = "{success:true,code:400,msg:'没有找到可以回滚的库存总账信息,操作失败。'}";
 			}
 		}
 		responsePW(response, result);

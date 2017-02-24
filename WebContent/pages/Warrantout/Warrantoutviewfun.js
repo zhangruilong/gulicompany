@@ -31,6 +31,9 @@ function goodsWindow(){
 		selModel: {
 	        type: 'checkboxmodel'
 	    },
+	    viewConfig : {
+	    	enableTextSelection : true	//文本可以被选中
+	    },
 		columns : [{
 			header : '序号',
 			xtype: 'rownumberer',		//行号
