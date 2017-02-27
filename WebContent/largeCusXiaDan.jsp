@@ -319,7 +319,7 @@ function saveOrder(){
 	$(".largeCus_form tr[name!='ordLi_tr1'][name!='ord_info_tr']").each(function(i,item){
 		var goodsJson = JSON.parse($(item).find("td span[hidden='true']").text());
 		var unit = "";
-		if(typeof(goodsJson) == "undefined" || !goodsJson){
+		if(typeof(goodsJson.largecuspriceunit) != "undefined" && goodsJson.largecuspriceunit){
 			unit = goodsJson.largecuspriceunit;
 		} else {
 			unit = goodsJson.pricesunit;

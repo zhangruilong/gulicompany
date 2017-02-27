@@ -124,7 +124,6 @@ Ext.onReady(function() {
 				xtype : 'textfield',
 				fieldLabel : '商品',
 				id : 'Warrantoutviewwarrantoutgoods',
-				allowBlank : false,
 				name : 'warrantoutgoods',
 				maxLength : 100,
 				readOnly : true
@@ -214,6 +213,7 @@ Ext.onReady(function() {
 				//editable : false,						//是否可编辑
 				emptyText : '请选择',
 				store : statueStore,
+				value : '已发货',
 				mode : 'local',					//local是取本地数据的也就是javascirpt(内存)中的数据。
 												//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
 				displayField : 'name',		//显示的字段
@@ -257,6 +257,18 @@ Ext.onReady(function() {
 				fieldLabel : '备注',
 				id : 'Warrantoutviewwarrantoutdetail',
 				name : 'warrantoutdetail',
+				maxLength : 100
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'form',
+			hidden : true,
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '其他类别',
+				id : 'Warrantoutviewwarrantoutgtype',
+				name : 'warrantoutgtype',
 				maxLength : 100
 			} ]
 		}
@@ -447,6 +459,7 @@ Ext.onReady(function() {
 				handler : function() {
 					WarrantoutviewdataForm.form.reset();
 					Ext.getCmp("Warrantoutviewidwarrantout").setEditable (true);
+					Ext.getCmp('Warrantoutviewwarrantoutstatue').setVisible(false);	//隐藏
 					addWarrantoutWindow(basePath + "CPCPWarrantoutAction.do?method=insWarrantout", "新增出库台账", WarrantoutviewdataForm, Warrantoutviewstore);
 				}
 		},'-',{
@@ -465,6 +478,7 @@ Ext.onReady(function() {
 				}
 				WarrantoutviewdataForm.form.reset();
 				Ext.getCmp("Warrantoutviewidwarrantout").setEditable (false);
+				Ext.getCmp('Warrantoutviewwarrantoutstatue').setVisible(true);	//显示
 				editWarrantoutWindow(basePath + "CPCPWarrantoutAction.do?method=updWarrantout", "修改", WarrantoutviewdataForm, Warrantoutviewstore);
 				WarrantoutviewdataForm.form.loadRecord(selections[0]);
 			}

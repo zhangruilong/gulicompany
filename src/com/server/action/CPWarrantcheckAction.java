@@ -61,7 +61,7 @@ public class CPWarrantcheckAction extends WarrantcheckAction {
 					"' and goodsnumstore='"+temp.getWarrantcheckstore()+"'");
 			if(gNumLi.size()>0){
 				String updNumSql = "update goodsnum set goodsnumnum='"+temp.getWarrantchecknumnow()+"' where goodsnumgoods='"+
-						temp.getWarrantcheckgoods()+"'";
+						temp.getWarrantcheckgoods()+"' and goodsnumstore='"+temp.getWarrantcheckstore()+"'";
 				String[] sqls = {updNumSql,insCheckSql};
 				result = doAll(sqls);
 			} else {

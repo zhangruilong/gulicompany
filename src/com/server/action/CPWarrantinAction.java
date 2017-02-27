@@ -53,7 +53,8 @@ public class CPWarrantinAction extends WarrantinAction {
 				temp.setWarrantininswho(lgi.getUsername());
 			}
 			String insSql = getInsSingleSql(temp);		//新增入库台账的sql
-			List<Goodsnum> gnLi = selAll(Goodsnum.class,"select * from goodsnum gn where gn.goodsnumgoods='"+temp.getWarrantingoods()+"'");
+			List<Goodsnum> gnLi = selAll(Goodsnum.class,"select * from goodsnum gn where gn.goodsnumgoods='"+temp.getWarrantingoods()+
+					"' and goodsnumstore='"+temp.getWarrantinstore()+"'");
 			if(gnLi.size()>0){
 				Integer num = Integer.parseInt(temp.getWarrantinnum()) + Integer.parseInt(gnLi.get(0).getGoodsnumnum());
 				String updNumSql = "update goodsnum g set g.goodsnumnum='"+num+"' where g.idgoodsnum='"+gnLi.get(0).getIdgoodsnum()+"'";

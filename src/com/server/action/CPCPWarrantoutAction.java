@@ -26,7 +26,6 @@ public class CPCPWarrantoutAction extends WarrantoutAction {
 		if(cuss.size()>0){
 			Warrantout temp = cuss.get(0);
 			//查询修改前的 “出库台账”
-			@SuppressWarnings("unchecked")
 			List<Warrantout> odTempLi = selAll(Warrantout.class, "select * from Warrantout where idwarrantout='"+temp.getIdwarrantout()+"'");
 			if(odTempLi.size()>0){
 				Warrantout odTemp = odTempLi.get(0);
@@ -37,7 +36,7 @@ public class CPCPWarrantoutAction extends WarrantoutAction {
 					//如果状态修改为 “已发货” 则修改 “库存总账” 中对应商品的数量
 					if(null != temp.getWarrantoutstatue() && temp.getWarrantoutstatue().equals("已发货")){
 						String selGN = "";
-						if(null != temp.getWarrantoutgoods()){
+						if(temp.getWarrantoutgtype().equals("商品")){
 							selGN = "select * from goodsnum gn where gn.goodsnumgoods='"+temp.getWarrantoutgoods()+
 									"' and goodsnumstore='"+temp.getWarrantoutstore()+"'";
 						} else {
@@ -121,6 +120,7 @@ public class CPCPWarrantoutAction extends WarrantoutAction {
 	public void insWarrantout(HttpServletRequest request, HttpServletResponse response){
 		LoginInfo lgi = (LoginInfo) request.getSession().getAttribute("loginInfo");
 		String json = request.getParameter("json");
+		String type = request.getParameter("type");
 		System.out.println("json : " + json);
 		json = json.replace("\"\"", "null");
 		if(CommonUtil.isNotEmpty(json)) cuss = CommonConst.GSON.fromJson(json, TYPE);
@@ -130,20 +130,26 @@ public class CPCPWarrantoutAction extends WarrantoutAction {
 			temp.setWarrantoutinswhen(DateUtils.getDateTime());
 			temp.setWarrantoutinswho(lgi.getUsername());
 			temp.setWarrantoutstatue("已发货");
-			if(null == temp.getWarrantoutgtype()){
+			temp.setWarrantoutcompany(lgi.getCompanyid());
+			if(CommonUtil.isEmpty(temp.getWarrantoutgtype())){
 				temp.setWarrantoutgtype("商品");
 			}
 			
 			String insSql = getInsSingleSql(temp);		//新增出库台账的sql
-			List<Goodsnum> gnLi = selAll(Goodsnum.class,"select * from goodsnum gn where gn.goodsnumgoods='"+temp.getWarrantoutgoods()
-			+"' and goodsnumstore='"+temp.getWarrantoutstore()+"'");
+			String selGNSql = null;
+			selGNSql = "select * from goodsnumview where goodscode='"+temp.getWarrantoutgcode()+"' and goodsname='"+temp.getWarrantoutgname()+
+					"' and goodsunits='"+temp.getWarrantoutgunits()+"' and goodscompany='"+lgi.getCompanyid()+
+					"' and goodsnumstore='"+temp.getWarrantoutstore()+"'";
+			List<Goodsnum> gnLi = selAll(Goodsnum.class, selGNSql);
 			if(gnLi.size()>0){
 				Integer num =  Integer.parseInt(gnLi.get(0).getGoodsnumnum()) - Integer.parseInt(temp.getWarrantoutnum());
 				String updNumSql = "update goodsnum g set g.goodsnumnum='"+num+"' where g.idgoodsnum='"+gnLi.get(0).getIdgoodsnum()+"'";
 				String[] sqls = {insSql,updNumSql};
 				result = doAll(sqls);
+			} else if(null!=type && type.equals("直接出库")){
+				result = doSingle(insSql, null);
 			} else {
-				result = "{success:true,code:202,msg:'未找到相应的“库存总账”记录'}";
+				result = "{success:true,code:401,msg:'未找到相应的“库存总账”记录'}";
 			}
 		}
 		responsePW(response, result);

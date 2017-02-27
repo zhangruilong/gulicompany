@@ -444,12 +444,13 @@ Ext.onReady(function() {
 										header : '下单金额',
 										dataIndex : 'orderdmoney',
 										sortable : true,  
+										width : 73,
 									}
 									, {
 										header : '实际金额',
 										dataIndex : 'orderdrightmoney',
 										sortable : true,  
-										width : 47,
+										width : 73,
 									}
 									, {
 										header : '重量',
@@ -620,28 +621,32 @@ Ext.onReady(function() {
     					} else {
     						ordermid = selections[0].data['ordermid'];
     					}
-    					$.ajax({
-    						url:"CPOrderAction.do",
-    						type:"post",
-    						data:{
-    							method:"updateOrdermStatue",
-    							statue:"已发货",
-    							ordermid:ordermid
-    						},
-    						success : function(resp){
-    							var data = eval('('+resp+')');
-    							if(data.msg=='操作成功'){
-    								Ext.Msg.alert('提示', '操作成功，订单已发货。');
-    								Ordermviewstore.load();
-    							} else {
+    					if(selections[0].data['ordermstatue']=='已发货'){
+    						Ext.Msg.alert('提示', '订单已发货。');
+    					} else {
+    						$.ajax({
+    							url:"CPOrderAction.do",
+    							type:"post",
+    							data:{
+    								method:"updateOrdermStatue",
+    								statue:"已发货",
+    								ordermid:ordermid
+    							},
+    							success : function(resp){
+    								var data = eval('('+resp+')');
+    								if(data.msg=='操作成功'){
+    									Ext.Msg.alert('提示', '操作成功，订单已发货。');
+    									Ordermviewstore.load();
+    								} else {
+    									Ext.Msg.alert('提示', data.msg);
+    								}
+    							},
+    							error : function(resp){
+    								var data = eval('('+resp+')');
     								Ext.Msg.alert('提示', data.msg);
     							}
-    						},
-    						error : function(resp){
-    							var data = eval('('+resp+')');
-    							Ext.Msg.alert('提示', data.msg);
-    						}
-    					});
+    						});
+    					}
     				}
 				},'-',{
 					text : '<span style="color:#FFFFFF;">完成</span>',
