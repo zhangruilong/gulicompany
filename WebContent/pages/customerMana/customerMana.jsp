@@ -27,6 +27,9 @@
 .kb-textField-not-border-trigger-wrap {
 	border-style: none;
 }
+/* .x-column-header {
+	background-color: #EFF6FF;
+} */
 </style>
   </head>
 </html>

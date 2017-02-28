@@ -114,7 +114,7 @@ var GoodsPricesForm = Ext.create('Ext.form.Panel', {
 					name : 'pricesunit'
 				}
 		]},{
-			xtype: 'fieldcontainer',
+			xtype: 'checkboxgroup',
 			fieldLabel: '客户范围',
 			margin : 10,
 			defaultType: 'checkboxfield',
@@ -574,7 +574,6 @@ function scantWindow(){
 							Ext.getCmp('Goodsgoodsimage').setValue(nullStr(selectRows[0].get("scantimage")));
 							Ext.getCmp('Goodsgoodsbrand').setValue(nullStr(selectRows[0].get("scantbrand")));
 							Ext.getCmp('Goodsgoodsclass').setValue(nullStr(selectRows[0].get("scantclass")));
-							Ext.getCmp('Goodsgoodstype').setValue(nullStr(selectRows[0].get("goodsclassname")));
 							selectgridWindow.close();
 						}
 					}, '-', {

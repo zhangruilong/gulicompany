@@ -262,7 +262,7 @@ Ext.onReady(function() {
 			layout : 'column',
 			items : [ {
 				xtype : 'textfield',
-				fieldLabel : '买赠信息',
+				fieldLabel : '促销描述',
 				id : 'Bkgoodsbkgoodsdetail',
 				name : 'bkgoodsdetail',
 				maxLength : 100,
@@ -431,29 +431,6 @@ Ext.onReady(function() {
 				fieldLabel : '品牌',
 				id : 'scrBkgoodsbkgoodsbrand',
 				name : 'bkgoodsbrand',
-				maxLength : 100,
-				labelWidth: 40,
-				width : 352,
-				margin : '5 10 5 10'
-			},{
-				xtype : 'textfield',
-				fieldLabel : '原价',
-				id : 'scrBkgoodsbkgoodsprice',
-				name : 'bkgoodsprice',
-				maxLength : 100,
-				labelWidth: 40,
-				width : 352,
-				margin : '5 10 5 10'
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'column',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '现价',
-				id : 'scrBkgoodsbkgoodsorgprice',
-				name : 'bkgoodsorgprice',
 				maxLength : 100,
 				labelWidth: 40,
 				width : 352,
@@ -638,7 +615,7 @@ Ext.onReady(function() {
 			width : 47,
 		}
 		, {
-			header : '买赠信息',
+			header : '促销描述',
 			dataIndex : 'bkgoodsdetail',
 			sortable : true, 
 			width : 300,

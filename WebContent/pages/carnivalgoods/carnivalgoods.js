@@ -435,30 +435,6 @@ Ext.onReady(function() {
 				margin : '5 10 5 10'
 			},{
 				xtype : 'textfield',
-				fieldLabel : '原价',
-				id : 'scrBkgoodsbkgoodsprice',
-				name : 'bkgoodsprice',
-				maxLength : 100,
-				allowBlank : false,
-				labelWidth: 40,
-				width : 352,
-				margin : '5 10 5 10'
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'column',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '现价',
-				id : 'scrBkgoodsbkgoodsorgprice',
-				name : 'bkgoodsorgprice',
-				maxLength : 100,
-				labelWidth: 40,
-				width : 352,
-				margin : '5 10 5 10'
-			},{
-				xtype : 'textfield',
 				fieldLabel : '重量(kg)',
 				id : 'scrBkgoodsbkgoodsweight',
 				name : 'bkgoodsweight',

@@ -88,7 +88,17 @@ public class CPCcustomerviewAction extends CcustomerviewAction {
 
 	//分页查询
 	public void queryCCustomerwiew(HttpServletRequest request, HttpServletResponse response){
-		Queryinfo queryinfo = getQueryinfo(request, Ccustomerview.class, CcustomerviewPoco.QUERYFIELDNAME, CcustomerviewPoco.ORDER, TYPE);
+		String[] queryName = {
+			 	"createtime",
+			 	"ccustomerupdtime",
+			 	"ccustomerupdor",
+			 	"customercode",
+			 	"customername",
+			 	"customerphone",
+			 	"customershop",
+			 	"customeraddress",
+		   };			//模糊查询的字段名
+		Queryinfo queryinfo = getQueryinfo(request, Ccustomerview.class, queryName, CcustomerviewPoco.ORDER, TYPE);
 		Pageinfo pageinfo = new Pageinfo(getTotal(queryinfo), selQuery(queryinfo));
 		result = CommonConst.GSON.toJson(pageinfo);
 		responsePW(response, result);
@@ -97,7 +107,17 @@ public class CPCcustomerviewAction extends CcustomerviewAction {
 	//customerMana导出
 	@SuppressWarnings("unchecked")
 	public void expCCustomerwiew(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		Queryinfo queryinfo = getQueryinfo(request, Ccustomerview.class, CcustomerviewPoco.QUERYFIELDNAME, CcustomerviewPoco.ORDER, TYPE);
+		String[] queryName = {
+			 	"createtime",
+			 	"ccustomerupdtime",
+			 	"ccustomerupdor",
+			 	"customercode",
+			 	"customername",
+			 	"customerphone",
+			 	"customershop",
+			 	"customeraddress",
+		   };			//模糊查询的字段名
+		Queryinfo queryinfo = getQueryinfo(request, Ccustomerview.class, queryName, CcustomerviewPoco.ORDER, TYPE);
 		ArrayList<Ccustomerview> list = (ArrayList<Ccustomerview>) selAll(queryinfo);
 		String[] heads = {"客户编码","客户姓名","手机","客户经理","店铺","城市","县","街道地址","类型","等级","修改人","修改时间","创建时间"};				//表头
 		String[] discard = {"ccustomerid","ccustomercompany","customerid","customerpsw","customerlevel","openid","customerdetail","customerstatue","updtime","creator"};			//要忽略的字段名

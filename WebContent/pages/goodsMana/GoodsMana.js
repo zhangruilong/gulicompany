@@ -104,6 +104,7 @@ Ext.onReady(function() {
 				comid : comid,
 				json : queryjson,
 				goodsstatue : goodsstatue,
+				cusType : Ext.getCmp('queryGoodsCusType').getValue(),
 				query : Ext.getCmp("queryGoodsaction").getValue(),
 				limit : Goodsbbar.pageSize
 		};
@@ -237,6 +238,17 @@ Ext.onReady(function() {
 		}
 		, {
 			columnWidth : 1,
+			layout : 'form',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '图片路径',
+				id : 'Goodsgoodsimage',
+				name : 'goodsimage',
+				maxLength : 100
+			} ]
+		}
+		, {
+			columnWidth : 1,
 			layout : 'column',
 			items : [ {
 				xtype : 'textfield',
@@ -268,17 +280,6 @@ Ext.onReady(function() {
 				labelWidth: 70,
 				width : 302,
 				margin : '5 10 5 10'
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'form',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '图片路径',
-				id : 'Goodsgoodsimage',
-				name : 'goodsimage',
-				maxLength : 100
 			} ]
 		}
 		]
@@ -435,6 +436,10 @@ Ext.onReady(function() {
 	    viewConfig : {
 	    	enableTextSelection : true	//文本可以被选中
 	    },
+	    plugins: {												//这里设置插件
+	    	ptype: 'cellediting',									//类型为:单元格编辑
+	    	clicksToEdit: 1										//点几下可以编辑
+	    },
 		columns : [{
 			header : '序号',
 			xtype: 'rownumberer',		//行号
@@ -482,7 +487,7 @@ Ext.onReady(function() {
 			sortable : true,
 			editor : goodsStaCombo,
 			renderer : getOneDisplay,
-			width : 47,
+			width : 70,
 		}
 		, {
 			header : '品牌',

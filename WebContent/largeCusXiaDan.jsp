@@ -168,7 +168,7 @@ $(function(){
 			var strJSON = JSON.stringify(data);
 			$(".tt_cusInfo").append('<span class="cusInfo-jsonInfo" hidden="true">'+strJSON+'</span>');
 			//客户信息
-			$(".tt_cusInfo span:eq(0)").text(data.customerInfoshop);
+			$(".tt_cusInfo span:eq(0)").text(data.customerInfo.customershop);
 			if(data.customerInfo.customertype == 1){
 				$(".tt_cusInfo span:eq(1)").text("组织单位客户");
 			} else if(data.customerInfo.customertype == 2){

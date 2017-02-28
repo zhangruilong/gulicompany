@@ -395,7 +395,6 @@ Ext.onReady(function() {
 				xtype : 'textfield',
 				fieldLabel : '商品编号',
 				id : 'scrBkgoodsbkgoodscode',
-				allowBlank : false,
 				name : 'bkgoodscode',
 				maxLength : 100,
 				labelWidth: 70,
@@ -405,7 +404,6 @@ Ext.onReady(function() {
 				xtype : 'textfield',
 				fieldLabel : '商品名称',
 				id : 'scrBkgoodsbkgoodsname',
-				allowBlank : false,
 				name : 'bkgoodsname',
 				maxLength : 100,
 				labelWidth: 70,
@@ -420,7 +418,6 @@ Ext.onReady(function() {
 				xtype : 'textfield',
 				fieldLabel : '规格',
 				id : 'scrBkgoodsbkgoodsunits',
-				allowBlank : false,
 				name : 'bkgoodsunits',
 				maxLength : 100,
 				labelWidth: 40,
@@ -430,7 +427,6 @@ Ext.onReady(function() {
 				xtype : 'textfield',
 				fieldLabel : '单位',
 				id : 'scrBkgoodsbkgoodsunit',
-				allowBlank : false,
 				name : 'bkgoodsunit',
 				maxLength : 100,
 				labelWidth: 40,
@@ -446,31 +442,6 @@ Ext.onReady(function() {
 				fieldLabel : '品牌',
 				id : 'scrBkgoodsbkgoodsbrand',
 				name : 'bkgoodsbrand',
-				maxLength : 100,
-				labelWidth: 40,
-				width : 352,
-				margin : '5 10 5 10'
-			},{
-				xtype : 'textfield',
-				fieldLabel : '原价',
-				id : 'scrBkgoodsbkgoodsprice',
-				name : 'bkgoodsprice',
-				maxLength : 100,
-				allowBlank : false,
-				labelWidth: 40,
-				width : 352,
-				margin : '5 10 5 10'
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'column',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '现价',
-				id : 'scrBkgoodsbkgoodsorgprice',
-				allowBlank : false,
-				name : 'bkgoodsorgprice',
 				maxLength : 100,
 				labelWidth: 40,
 				width : 352,
@@ -506,7 +477,6 @@ Ext.onReady(function() {
 				triggerAction : 'all',
 				editable : false,
 				maxLength : 100,
-				allowBlank : false,
 				anchor : '95%',
 				labelWidth: 40,
 				width : 352,
@@ -531,7 +501,6 @@ Ext.onReady(function() {
 				id : 'scrBkgoodsbkgoodsnum',
 				name : 'bkgoodsnum',
 				maxLength : 100,
-				allowBlank : false,
 				labelWidth: 70,
 				width : 228,
 				margin : '5 10 5 10'
@@ -541,7 +510,6 @@ Ext.onReady(function() {
 				id : 'scrBkgoodsbkgoodsallnum',
 				name : 'bkgoodsallnum',
 				maxLength : 100,
-				allowBlank : false,
 				labelWidth: 70,
 				width : 228,
 				margin : '5 10 5 10'

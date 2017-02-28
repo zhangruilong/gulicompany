@@ -79,20 +79,27 @@ public class CPGoodsviewAction extends GoodsviewAction {
 		};	//模糊查询的字段
 		//String goodsstatue = request.getParameter("goodsstatue");
 		Queryinfo queryinfo = getQueryinfo(request, Goodsview.class, curQueryFN, GoodsviewPoco.ORDER, new TypeToken<ArrayList<Goods>>() {}.getType());
-		//String comid = request.getParameter("comid");
-		String selectsql = " select g.*,gc.goodsclassname from goods g left join goodsclass gc on g.goodsclass=gc.goodsclassid where 1=1 ";
+		String cusType = request.getParameter("cusType");
+		String selectsql = " select distinct g.*,gc.goodsclassname from goods g left join goodsclass gc on g.goodsclass=gc.goodsclassid ";
+		if(CommonUtil.isNotEmpty(cusType)){
+			selectsql += "left join prices p on p.pricesgoods = g.goodsid ";
+		}
+		selectsql += "where 1=1 ";
+		if(CommonUtil.isNotEmpty(cusType)){
+			selectsql += "and p.pricesclass = '"+cusType+"' and p.creator = '启用' ";
+		}
 		if(CommonUtil.isNotEmpty(queryinfo.getJson())){
 			String jsonsql = TypeUtil.beanToSql(queryinfo.getJson());
 			if(CommonUtil.isNotNull(jsonsql))
-				selectsql += " and (" + TypeUtil.beanToSql(queryinfo.getJson()) + ") ";
+				selectsql += "and (" + TypeUtil.beanToSql(queryinfo.getJson()) + ") ";
 		}
 		if(CommonUtil.isNotEmpty(queryinfo.getWheresql())){
-			selectsql += " and (" + queryinfo.getWheresql() + ") ";
+			selectsql += "and (" + queryinfo.getWheresql() + ") ";
 		}
 		if(CommonUtil.isNotEmpty(queryinfo.getQuery())){
-			selectsql += " and (" + queryinfo.getQuery() + ") ";
+			selectsql += "and (" + queryinfo.getQuery() + ") ";
 		}
-		String totSQL = selectsql.replace("g.*,gc.goodsclassname", "count(*)");
+		String totSQL = selectsql.replace("distinct g.*,gc.goodsclassname", "count(distinct g.goodsid)");
 		if(CommonUtil.isNotEmpty(queryinfo.getOrder())){
 			selectsql += " order by " + queryinfo.getOrder();
 		}

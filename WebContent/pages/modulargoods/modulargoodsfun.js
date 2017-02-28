@@ -31,6 +31,9 @@ function goodsWindow(){
 		selModel: {
 	        type: 'checkboxmodel'
 	    },
+	    viewConfig : {
+	    	enableTextSelection : true	//文本可以被选中
+	    },
 		columns : [{
 			header : '序号',
 			xtype: 'rownumberer',		//行号
@@ -40,6 +43,7 @@ function goodsWindow(){
 			header : '商品编号',
 			dataIndex : 'goodscode',
 			sortable : true,  
+			width : 122,
 			editor: {
                 xtype: 'textfield'
             }
@@ -56,14 +60,6 @@ function goodsWindow(){
 		, {
 			header : '规格',
 			dataIndex : 'goodsunits',
-			sortable : true,  
-			editor: {
-                xtype: 'textfield'
-            }
-		}
-		, {
-			header : '图片路径',
-			dataIndex : 'goodsimage',
 			sortable : true,  
 			editor: {
                 xtype: 'textfield'
@@ -199,6 +195,8 @@ function bkgoodsQueryWindow(title,_form,store) {
 					}
 				}]
 	});
+	dataWindow.removeAll(false);	//这一行和下面一行如果没有则第二次选择修改时窗口中的选择框可能没有选项。
+	dataWindow.items.add(_form);
 	dataWindow.show();
 }
 //新增秒杀商品的窗口
