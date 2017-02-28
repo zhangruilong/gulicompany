@@ -1,5 +1,5 @@
 
-
+//筛选商品
 function screenWindow(title,_form,store) {
 	var dataWindow = new Ext.Window({
 		title : title, // 窗口标题
@@ -33,6 +33,8 @@ function screenWindow(title,_form,store) {
 					}
 				}]
 	});
+	dataWindow.removeAll(false);	//这一行和下面一行如果没有则第二次选择修改时窗口中的选择框没有选项。
+	dataWindow.items.add(_form);
 	dataWindow.show();
 }
 /////----------商品价格(开始)----------/////

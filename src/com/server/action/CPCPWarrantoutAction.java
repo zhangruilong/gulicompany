@@ -21,6 +21,7 @@ public class CPCPWarrantoutAction extends WarrantoutAction {
 	public void updWarrantout(HttpServletRequest request, HttpServletResponse response){
 		LoginInfo lgi = (LoginInfo) request.getSession().getAttribute("loginInfo");
 		String json = request.getParameter("json");
+		String type = request.getParameter("type");
 		System.out.println("json : " + json);
 		if(CommonUtil.isNotEmpty(json)) cuss = CommonConst.GSON.fromJson(json, TYPE);
 		if(cuss.size()>0){
@@ -45,14 +46,16 @@ public class CPCPWarrantoutAction extends WarrantoutAction {
 									"' and goodscompany='"+lgi.getCompanyid()+"' and goodsnumstore='"+temp.getWarrantoutstore()+"'";
 						}
 						List<Goodsnum> gnLi = selAll(Goodsnum.class,selGN);
+						String updTemp = getUpdSingleSql(temp, WarrantoutPoco.KEYCOLUMN);
 						if(gnLi.size()>0){
 							Integer num =  Integer.parseInt(gnLi.get(0).getGoodsnumnum()) - Integer.parseInt(temp.getWarrantoutnum());
 							String updNumSql = "update goodsnum g set g.goodsnumnum='"+num+"' where g.idgoodsnum='"+gnLi.get(0).getIdgoodsnum()+"'";
-							String updTemp = getUpdSingleSql(temp, WarrantoutPoco.KEYCOLUMN);
 							String[] sqls = {updTemp,updNumSql};
 							result = doAll(sqls);
+						} else if(null!=type && type.equals("直接出库")){
+							result = doSingle(updTemp, null);
 						} else {
-							result = "{success:true,code:400,msg:'未找到相应的“库存总账”记录,操作失败'}";
+							result = "{success:true,code:401,msg:'未找到相应的“库存总账”记录,操作失败'}";
 						}
 					} else {
 						result = updSingle(temp, WarrantoutPoco.KEYCOLUMN);

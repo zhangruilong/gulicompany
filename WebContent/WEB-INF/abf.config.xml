@@ -30,4 +30,6 @@
 	<bean id="AddressAction" class="com.server.action.AddressAction" />
 	<bean id="CPStorehouseAction" class="com.server.action.CPStorehouseAction" />
 	<bean id="CPSupplierAction" class="com.server.action.CPSupplierAction" />
+	<bean id="CPCityAction" class="com.server.action.CPCityAction" />
+	<bean id="CPCompanyviewAction" class="com.server.action.CPCompanyviewAction" />
 </beans>

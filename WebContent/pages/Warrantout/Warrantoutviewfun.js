@@ -280,10 +280,35 @@ function editWarrantoutWindow(url,title,_form,store) {
 									json : json
 								},
 								success : function(form, action) {
-									Ext.Msg.alert('提示', action.result.msg,function(){
-										dataWindow.hide();
-										store.reload();
-									});
+									if(action.result.code==202){
+										Ext.Msg.alert('提示', action.result.msg,function(){
+											dataWindow.hide();
+											store.reload();
+										});
+									} else if(action.result.code==401){
+										//没有查询到对应的库存总账信息时
+										Ext.Msg.confirm('提示','未找到相关的“库存总账”信息,请问要出库么?',function(buttonId,value,opt){
+											if(buttonId=='yes'){
+												_form.form.submit({
+													url : url,
+													waitTitle : '提示',
+													params : {//改
+														json : json,
+														type : '直接出库'
+													},
+													success : function(form, action) {
+														Ext.Msg.alert('提示', action.result.msg,function(){
+															dataWindow.hide();
+															store.reload();
+														});
+													},failure : function(form, action) {
+														Ext.Msg.alert('提示', '网络出现问题，请稍后再试');
+													},
+													waitMsg : '正在处理数据,请稍候...'
+												});
+											}
+										});
+									}
 								},
 								failure : function(form, action) {
 									Ext.Msg.alert('提示', '网络出现问题，请稍后再试');

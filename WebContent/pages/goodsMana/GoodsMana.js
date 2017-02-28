@@ -338,12 +338,21 @@ Ext.onReady(function() {
 				mode : 'local',					//local是取本地数据的也就是javascirpt(内存)中的数据。
 												//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
 				displayField : 'goodsclassname',		//显示的字段
-				valueField : 'goodsclassid',		//作为值的字段
+				valueField : 'goodsclassid',			//作为值的字段
 				hiddenName : 'menulevel',
 				triggerAction : 'all',
 				editable : false,
 				maxLength : 100,
 				anchor : '95%',
+				listeners:{
+		            load : function(store, records, options ){
+		            	alert('ok');
+		                var data = { "goodsclassid": "", "goodsclassname": "不限制"};
+		                var rs = [new PatientInfoModel(data)]; //PatientInfoModel:继承自 Ext.data.Model的对象
+		                store.insert(0,rs);
+		                //store.insert(0,{"goodsclassid": "", "goodsclassname": "不限制"}); //只添加一行用这个比较方便
+		            }
+		        }
 			} ]
 		}
 		

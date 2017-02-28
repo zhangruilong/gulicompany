@@ -29,6 +29,47 @@ import com.system.tools.util.TypeUtil;
 
 public class CPCcustomerviewAction extends CcustomerviewAction {
 
+	//新增
+	public void insSpecialCustomer(HttpServletRequest request, HttpServletResponse response){
+		LoginInfo lgif = (LoginInfo) request.getSession().getAttribute("loginInfo");
+		String json = request.getParameter("json");
+		System.out.println("json : " + json);
+		json = json.replace("\"\"", "null");
+		if(CommonUtil.isNotEmpty(json)){
+			cuss = CommonConst.GSON.fromJson(json, TYPE);
+		} 
+		if(cuss.size()>0){
+			ArrayList<Customer> cusLi = CommonConst.GSON.fromJson(json, new TypeToken<ArrayList<Customer>>() {}.getType());
+			Customer cus = cusLi.get(0);
+			Ccustomerview temp = cuss.get(0);
+			String newid = CommonUtil.getNewId();
+			String datatime = DateUtils.getDateTime();
+			cus.setCustomerid(newid);
+			cus.setOpenid(newid);
+			cus.setCreatetime(datatime);	//创建时间
+			String insCus = getInsSingleSql(cus);			//新增客户
+			//添加新地址
+			Address address = new Address();
+			address.setAddressture(1);							//自动设为默认地址
+			address.setAddressid(newid);		//设置新id
+			address.setAddressaddress(temp.getCustomercity()+temp.getCustomerxian()+temp.getCustomeraddress());
+			address.setAddresscustomer(newid);				//客户id
+			address.setAddressphone(temp.getCustomerphone());
+			address.setAddressconnect(temp.getCustomername());
+			String insAdd = getInsSingleSql(address);			//新增地址
+			//添加与唯一客户的关系
+			Ccustomer newccustomer = new Ccustomer();
+			newccustomer.setCcustomerid(newid);
+			newccustomer.setCcustomercompany(lgif.getCompanyid());
+			newccustomer.setCcustomercustomer(newid);
+			newccustomer.setCcustomerdetail(temp.getCcustomerdetail().toString());
+			newccustomer.setCreator("1");
+			String insCC = getInsSingleSql(newccustomer);			//新增客户关系
+			String[] sqls = {insCus,insAdd,insCC};
+			result = doAll(sqls);
+		}
+		responsePW(response, result);
+	}
 	//largeCusXiaDan.jsp页 得到客户信息和地址
 	@SuppressWarnings("unchecked")
 	public void queryCusAndAddress(HttpServletRequest request, HttpServletResponse response){
