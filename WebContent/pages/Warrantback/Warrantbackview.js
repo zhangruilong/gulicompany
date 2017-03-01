@@ -56,7 +56,7 @@ Ext.onReady(function() {
 	     			      ];// 全部字段
 	var Warrantbackviewkeycolumn = [ 'idwarrantback' ];// 主键
 	var wheresql = "goodscompany='"+comid+"'";
-	var Storehousestore = dataStore(Storehousefields, basePath + "CPStorehouseAction.do?method=selAll&wheresql=storehousecompany='"+comid+"'");// 定义Storehousestore
+	var Storehousestore = dataStore(Storehousefields, basePath + "CPStorehouseAction.do?method=selAll&wheresql=storehousecompany='"+comid+"' and storehousestatue='启用'");// 定义Storehousestore
 	Storehousestore.load();
 	var Empstore = dataStore(Empfields, basePath + "CPEmpAction.do?method=selAll&wheresql=empcompany='"+comid+"' and empcode!='隐藏'");// 定义Empstore
 	Empstore.load();
@@ -423,7 +423,7 @@ Ext.onReady(function() {
 				addWarrantbackWindow(basePath + "CPWarrantbackAction.do?method=addWarrantback", "新增退货台账", WarrantbackviewdataForm, Warrantbackviewstore);
 			}
 		},'-',{
-			text: '操作',
+			text: '更多操作',
             menu: {
             	xtype: 'menu',
                 items: {

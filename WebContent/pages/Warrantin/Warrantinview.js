@@ -9,7 +9,7 @@ var odEndDate=endDate;
 var odQuery='';
 var odQueryjson='';
 Ext.onReady(function() {
-	var Warrantinviewclassify = "入库台账";
+	var Warrantinviewclassify = "入库管理";
 	var Warrantinviewtitle = "当前位置:库存管理》" + Warrantinviewclassify;
 	var Warrantinviewaction = "CPWarrantinviewAction.do";
 	var Warrantinviewfields = ['idwarrantin'
@@ -70,9 +70,9 @@ Ext.onReady(function() {
      			    ,'updtime' 
      			      ];// 全部字段
 	var wheresql = "goodscompany='"+comid+"'";
-	var Storehousestore = dataStore(Storehousefields, basePath + "CPStorehouseAction.do?method=selAll&wheresql=storehousecompany='"+comid+"'");// 定义Storehousestore
+	var Storehousestore = dataStore(Storehousefields, basePath + "CPStorehouseAction.do?method=selAll&wheresql=storehousecompany='"+comid+"' and storehousestatue='启用'");// 定义Storehousestore
 	Storehousestore.load();
-	var Supplierstore = dataStore(Supplierfields, basePath + "CPSupplierAction.do?method=selAll&wheresql=suppliercompany='"+comid+"'");// 定义Supplierstore
+	var Supplierstore = dataStore(Supplierfields, basePath + "CPSupplierAction.do?method=selAll&wheresql=suppliercompany='"+comid+"' and supplierstatue='启用'");// 定义Supplierstore
 	Supplierstore.load();
 	var Empstore = dataStore(Empfields, basePath + "CPEmpAction.do?method=selAll&wheresql=empcompany='"+comid+"' and empcode!='隐藏'");// 定义Empstore
 	Empstore.load();
@@ -371,12 +371,6 @@ Ext.onReady(function() {
 			width : 73,
 		}
 		, {
-			header : '状态',
-			dataIndex : 'warrantinstatue',
-			sortable : true, 
-			width : 47,
-		}
-		, {
 			header : '备注',
 			dataIndex : 'warrantindetail',
 			sortable : true, 
@@ -466,7 +460,7 @@ Ext.onReady(function() {
 				Warrantinviewstore.load();
 			}
 		},'-',{
-			text : Ext.os.deviceType === 'Phone' ? null : "入库",
+			text : Ext.os.deviceType === 'Phone' ? null : "新增",
 			iconCls : 'add',
 			handler : function() {
 				WarrantinviewdataForm.form.reset();
@@ -478,7 +472,7 @@ Ext.onReady(function() {
 				addWarrantinWindow(basePath + "CPWarrantinAction.do?method=addWarrantin", "新增入库台账", WarrantinviewdataForm, Warrantinviewstore);
 			}
 		},'-',{
-			text: '操作',
+			text: '更多操作',
             menu: {
             	xtype: 'menu',
                 items: {

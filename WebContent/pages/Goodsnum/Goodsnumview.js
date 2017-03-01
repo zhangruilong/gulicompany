@@ -36,7 +36,7 @@ Ext.onReady(function() {
 	        			    ,'storehouseaddress' 
 	        			      ];// 全部字段
 	var wheresql = "goodscompany='"+comid+"'";
-	var Storehousestore = dataStore(Storehousefields, basePath + "CPStorehouseAction.do?method=selAll&wheresql=storehousecompany='"+comid+"'");// 定义Storehousestore
+	var Storehousestore = dataStore(Storehousefields, basePath + "CPStorehouseAction.do?method=selAll&wheresql=storehousecompany='"+comid+"' and storehousestatue='启用'");// 定义Storehousestore
 	Storehousestore.load();
 	var Goodsclassstore = dataStore(Goodsclassfields, "CPGoodsclassAction.do?method=queryCompanyGoodsclass&wheresql=goodsclasscompany='"+comid+"'");//定义小类store
 	Goodsclassstore.load();	//加载供应商小类
@@ -493,7 +493,7 @@ var GoodsdataForm = Ext.create('Ext.form.Panel', {// 定义新增和修改的For
 					addGoodsnumWindow(basePath + "CPGoodsnumAction.do?method=insGoods", "新增", GoodsdataForm, Goodsnumviewstore);
 				}
 			},'-',{
-				text: '操作',
+				text: '更多操作',
 	            menu: {
 	            	xtype: 'menu',
 	                items: {

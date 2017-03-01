@@ -41,7 +41,7 @@ Ext.onReady(function() {
 	        			      ];// 全部字段
 	var Warrantcheckviewkeycolumn = [ 'idwarrantcheck' ];// 主键
 	var wheresql = "goodscompany='"+comid+"'";
-	var Storehousestore = dataStore(Storehousefields, basePath + "CPStorehouseAction.do?method=selAll&wheresql=storehousecompany='"+comid+"'");// 定义Storehousestore
+	var Storehousestore = dataStore(Storehousefields, basePath + "CPStorehouseAction.do?method=selAll&wheresql=storehousecompany='"+comid+"' and storehousestatue='启用'");// 定义Storehousestore
 	Storehousestore.load();
 	var Warrantcheckviewstore = dataStore(Warrantcheckviewfields, basePath + Warrantcheckviewaction + "?method=selQueryCP");// 定义Warrantcheckviewstore
 	Warrantcheckviewstore.on('beforeload',function(store,options){					//数据加载时的事件
@@ -369,7 +369,7 @@ Ext.onReady(function() {
 					addWarrantcheckWindow(basePath + "CPWarrantcheckAction.do?method=insWarrantcheck", "新增盘点记录", WarrantcheckviewdataForm, Warrantcheckviewstore);
 				}
 		},'-',{
-			text: '操作',
+			text: '更多操作',
             menu: {
             	xtype: 'menu',
                 items: {

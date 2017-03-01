@@ -98,7 +98,7 @@ Ext.onReady(function() {
 		store.insert(0,{"goodsclassid": "", "goodsclassname": "不限制"}); //只添加一行用这个比较方便
 	});*/
 	Goodsclassstore.load();	//加载供应商小类
-	var Storehousestore = dataStore(Storehousefields, basePath + "CPStorehouseAction.do?method=selAll&wheresql=storehousecompany='"+comid+"'");// 定义Storehousestore
+	var Storehousestore = dataStore(Storehousefields, basePath + "CPStorehouseAction.do?method=selAll&wheresql=storehousecompany='"+comid+"' and storehousestatue='启用'");// 定义Storehousestore
 	Storehousestore.load();
 	/*之前的查询条件*/
 	var odQuery = '';
