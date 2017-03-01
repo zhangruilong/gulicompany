@@ -15,7 +15,7 @@ Ext.onReady(function() {
 	        			    ,'storehouseaddress' 
 	        			      ];// 全部字段
 	var Storehousekeycolumn = [ 'storehouseid' ];// 主键
-	var Storehousestore = dataStore(Storehousefields, basePath + Storehouseaction + "?method=selAll");// 定义Storehousestore
+	var Storehousestore = dataStore(Storehousefields, basePath + Storehouseaction + "?method=selAll&wheresql=storehousecompany='"+comid+"'");// 定义Storehousestore
 	var StorehousedataForm = Ext.create('Ext.form.Panel', {// 定义新增和修改的FormPanel
 		id:'StorehousedataForm',
 		labelAlign : 'right',

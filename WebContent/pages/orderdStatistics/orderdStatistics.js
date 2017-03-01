@@ -214,7 +214,7 @@ Ext.onReady(function() {
 				fieldLabel : '筛选:业务员',
 				id : 'quEmptextfield',
 				name : 'quEmp',
-				width : 195,
+				width : 170,
 				labelWidth : 80,
 				enableKeyEvents : true,
 				listeners : {
@@ -229,7 +229,7 @@ Ext.onReady(function() {
 				fieldLabel : '品牌',
 				id : 'quBrandtextfield',
 				name : 'quEmp',
-				width : 150,
+				width : 125,
 				labelWidth : 35,
 				enableKeyEvents : true,
 				listeners : {
@@ -244,7 +244,7 @@ Ext.onReady(function() {
 				fieldLabel : '客户',
 				id : 'quCustextfield',
 				name : 'quEmp',
-				width : 150,
+				width : 125,
 				labelWidth : 35,
 				listeners : {
 					render : function(p){

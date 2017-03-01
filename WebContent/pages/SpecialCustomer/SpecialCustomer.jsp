@@ -14,11 +14,10 @@
 	<script type="text/javascript" src="../../zrlextpages/common/jquery/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript">
 		var comid = '<%=comid%>';
-		var customertype = nullStr(getUrlParam('customertype'));
-		var classify = nullStr(getUrlParam('classify'));
-		var creator = nullStr(getUrlParam('creator'));
-		var xian = new Array();
-		var city='';
+		var customertype = nullStr(getUrlParam('customertype'));	//搜索条件中的客户类型
+		var xian = new Array();		//新增客户的地区
+		var city='';	//新增客户的城市
+		//查询经销商的城市和服务地区
 		$.ajax({
 			url : "CPCompanyviewAction.do?method=selAll",
 			type : "post",
@@ -31,11 +30,13 @@
 					var companyview = data.root[0];
 					xian = companyview.createtime.split('/');
 					city = companyview.cityparentname;
+				} else {
+					Ext.Msg.alert('提示',data.msg);
 				}
 			},
 			error : function(resp){
 				var data = eval('('+resp+')');
-				alert(data.msg);
+				Ext.Msg.alert('提示',data.msg);
 			}
 		});
 	</script>

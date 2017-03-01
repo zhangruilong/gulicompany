@@ -8,7 +8,7 @@ var customerlevelStore = new Ext.data.ArrayStore({//状态下拉
 });
 var Ccustomerviewbbar;
 Ext.onReady(function() {
-	var Ccustomerviewclassify = classify;
+	var Ccustomerviewclassify = "录入客户";
 	var Ccustomerviewtitle = "当前位置:客户管理》" + Ccustomerviewclassify;
 	var Ccustomerviewaction = "CPCcustomerviewAction.do";
 	var Ccustomerviewfields = ['ccustomerid'
@@ -43,12 +43,9 @@ Ext.onReady(function() {
       			      ];// 全部字段
 	var Ccustomerviewkeycolumn = [ 'ccustomerid' ];// 主键
 	var CcustomerviewstoreURL = basePath + Ccustomerviewaction + "?method=queryCCustomerwiew";
-	var where = "&wheresql=ccustomercompany='"+comid+"'";
+	var where = "&wheresql=ccustomercompany='"+comid+"' and creator='1'";
 	if(customertype != ''){
 		where += " and customertype='"+customertype+"'";		//客户类型
-	}
-	if(creator != ''){
-		where += " and creator='"+creator+"'";		//特殊客户
 	}
 	var Ccustomerviewstore = dataStore(Ccustomerviewfields, CcustomerviewstoreURL+where);// 定义Ccustomerviewstore
 	var Empstore = dataStore(Empfields, basePath + "CPEmpAction.do?method=selAll&wheresql=empcompany='"+comid+"' and empstatue='启用' and empcode!='隐藏'");// 定义Empstore

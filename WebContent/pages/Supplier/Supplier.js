@@ -17,7 +17,7 @@ Ext.onReady(function() {
 	        			    ,'suppliercreor' 
 	        			      ];// 全部字段
 	var Supplierkeycolumn = [ 'supplierid' ];// 主键
-	var Supplierstore = dataStore(Supplierfields, basePath + Supplieraction + "?method=selAll");// 定义Supplierstore
+	var Supplierstore = dataStore(Supplierfields, basePath + Supplieraction + "?method=selAll&wheresql=suppliercompany='"+comid+"'");// 定义Supplierstore
 	var SupplierdataForm = Ext.create('Ext.form.Panel', {// 定义新增和修改的FormPanel
 		id:'SupplierdataForm',
 		labelAlign : 'right',

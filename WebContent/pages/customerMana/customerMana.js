@@ -291,13 +291,13 @@ Ext.onReady(function() {
 		, {
 			header : '地址',
 			dataIndex : 'customeraddress',
-			sortable : true, 
+			sortable : true,
 			width:150,
 		}
 		, {
 			header : '联系人',
 			dataIndex : 'customername',
-			sortable : true, 
+			sortable : true,
 			width:72,
 		}
 		, {
@@ -314,24 +314,24 @@ Ext.onReady(function() {
 			renderer : function(value, metaData, record, rowIdx, colIdx, store, view){
 				var type = value=='3'?'餐饮客户':(value=='2'?'商超客户':(value=='1'?'组织单位客户':''));
 				return type;
-			}, 
+			},
 		}
 		, {
 			header : '价格层级',
 			dataIndex : 'ccustomerdetail',
-			sortable : true, 
+			sortable : true,
 			width : 73,
 		}
 		, {
 			header : '修改时间',
 			dataIndex : 'ccustomerupdtime',
 			sortable : true,
-			width : 139, 
+			width : 139,
 		}
 		, {
 			header : '修改人',
 			dataIndex : 'ccustomerupdor',
-			sortable : true, 
+			sortable : true,
 			width : 73,
 		}
 		, {

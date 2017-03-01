@@ -94,6 +94,9 @@ Ext.onReady(function() {
 	}
 	var Goodsstore = dataStore(Goodsfields, goodsStoreURL);// 定义Goodsstore
 	Goodsclassstore = dataStore(Goodsclassfields, "CPGoodsclassAction.do?method=queryCompanyGoodsclass&wheresql=goodsclasscompany='"+comid+"'");//定义小类store
+	/*Goodsclassstore.on('load',function(store){
+		store.insert(0,{"goodsclassid": "", "goodsclassname": "不限制"}); //只添加一行用这个比较方便
+	});*/
 	Goodsclassstore.load();	//加载供应商小类
 	var Storehousestore = dataStore(Storehousefields, basePath + "CPStorehouseAction.do?method=selAll&wheresql=storehousecompany='"+comid+"'");// 定义Storehousestore
 	Storehousestore.load();
@@ -344,15 +347,6 @@ Ext.onReady(function() {
 				editable : false,
 				maxLength : 100,
 				anchor : '95%',
-				listeners:{
-		            load : function(store, records, options ){
-		            	alert('ok');
-		                var data = { "goodsclassid": "", "goodsclassname": "不限制"};
-		                var rs = [new PatientInfoModel(data)]; //PatientInfoModel:继承自 Ext.data.Model的对象
-		                store.insert(0,rs);
-		                //store.insert(0,{"goodsclassid": "", "goodsclassname": "不限制"}); //只添加一行用这个比较方便
-		            }
-		        }
 			} ]
 		}
 		

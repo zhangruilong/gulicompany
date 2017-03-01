@@ -64,6 +64,7 @@ public class CPCcustomerviewAction extends CcustomerviewAction {
 			newccustomer.setCcustomercustomer(newid);
 			newccustomer.setCcustomerdetail(temp.getCcustomerdetail().toString());
 			newccustomer.setCreator("1");
+			newccustomer.setCreatetime(temp.getCreatetime());
 			String insCC = getInsSingleSql(newccustomer);			//新增客户关系
 			String[] sqls = {insCus,insAdd,insCC};
 			result = doAll(sqls);
