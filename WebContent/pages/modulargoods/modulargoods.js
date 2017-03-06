@@ -121,7 +121,8 @@ Ext.onReady(function() {
 				maxLength : 100,
 				labelWidth: 70,
 				width : 352,
-				margin : '5 10 5 10'
+				margin : '5 10 5 10',
+				disabled : true
 			},{
 				xtype : 'textfield',
 				fieldLabel : '商品名称',

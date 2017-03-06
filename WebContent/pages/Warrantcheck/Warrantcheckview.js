@@ -380,7 +380,7 @@ Ext.onReady(function() {
             			iconCls : 'select',
             			handler : function() {
             				Ext.getCmp("Warrantcheckviewidwarrantcheck").setEditable (true);
-            				createQueryWindow("筛选", WarrantcheckviewdataForm, Warrantcheckviewstore,Ext.getCmp("queryWarrantcheckviewaction").getValue());
+            				checkQueryWindow("筛选", WarrantcheckviewdataForm, Warrantcheckviewstore,Ext.getCmp("queryWarrantcheckviewaction").getValue());
             			}
             		},{
                     	text : "导出",

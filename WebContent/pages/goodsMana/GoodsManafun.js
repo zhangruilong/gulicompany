@@ -591,6 +591,7 @@ function scantWindow(){
 
 //修改商品的窗口
 function editGoodsWindow(url,title,_form,store) {
+//	Ext.getCmp('Goodsgoodscode').setDisabled(true);
 	Ext.getCmp('Goodsgoodsnumnum').setVisible(false);
 	Ext.getCmp('Goodsgoodsnumstore').setVisible(false);
 	Ext.getCmp('Goodsgoodsnumnum').setDisabled(true);
@@ -651,6 +652,7 @@ function editGoodsWindow(url,title,_form,store) {
 }
 //新增商品的窗口
 function addGoodsWindow(url,title,_form,store) {
+//	Ext.getCmp('Goodsgoodscode').setDisabled(false);
 	Ext.getCmp('Goodsgoodsnumnum').setDisabled(false);
 	Ext.getCmp('Goodsgoodsnumstore').setDisabled(false);
 	Ext.getCmp('Goodsgoodsnumnum').setVisible(true);

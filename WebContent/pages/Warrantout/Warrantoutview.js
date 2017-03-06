@@ -494,7 +494,7 @@ Ext.onReady(function() {
             			iconCls : 'select',
             			handler : function() {
             				Ext.getCmp("Warrantoutviewidwarrantout").setEditable (true);
-            				createQueryWindow("筛选", WarrantoutviewdataForm, Warrantoutviewstore,Ext.getCmp("queryWarrantoutviewaction").getValue());
+            				outQueryWindow("筛选", WarrantoutviewdataForm, Warrantoutviewstore,Ext.getCmp("queryWarrantoutviewaction").getValue());
             			}
             		},{
                     	text : "导出",

@@ -247,7 +247,7 @@ Ext.onReady(function() {
 			layout : 'form',
 			items : [ {
 				xtype : 'combo',
-				fieldLabel : '检验员',
+				fieldLabel : '经手人',
 				id : 'Warrantinviewwarrantinwho',
 				name : 'warrantinwho',			//小类名称
 				//loadingText: 'loading...',			//正在加载时的显示
@@ -365,7 +365,7 @@ Ext.onReady(function() {
             },
 		}
 		, {
-			header : '检验员',
+			header : '经手人',
 			dataIndex : 'warrantinwho',
 			sortable : true, 
 			width : 73,
@@ -487,7 +487,7 @@ Ext.onReady(function() {
             				Ext.getCmp("Warrantinviewgoodsname").setReadOnly (false);
             				Ext.getCmp("Warrantinviewgoodsunits").setReadOnly (false);
             				Ext.getCmp("Warrantinviewwarrantinnum").allowBlank = true;
-            				createQueryWindow("筛选", WarrantinviewdataForm, Warrantinviewstore,Ext.getCmp("queryWarrantinviewaction").getValue());
+            				inQueryWindow("筛选", WarrantinviewdataForm, Warrantinviewstore,Ext.getCmp("queryWarrantinviewaction").getValue());
             			}
             		},{
                     	text : "导出",

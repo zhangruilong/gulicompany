@@ -434,7 +434,7 @@ Ext.onReady(function() {
             			iconCls : 'select',
             			handler : function() {
             				Ext.getCmp("Warrantbackviewidwarrantback").setEditable (true);
-            				createQueryWindow("筛选", WarrantbackviewdataForm, Warrantbackviewstore,Ext.getCmp("queryWarrantbackviewaction").getValue());
+            				backQueryWindow("筛选", WarrantbackviewdataForm, Warrantbackviewstore,Ext.getCmp("queryWarrantbackviewaction").getValue());
             			}
             		},{
                     	text : "导出",

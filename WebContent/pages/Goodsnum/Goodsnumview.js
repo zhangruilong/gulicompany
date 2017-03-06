@@ -508,7 +508,7 @@ var GoodsdataForm = Ext.create('Ext.form.Panel', {// 定义新增和修改的For
 	        					Ext.getCmp("Goodsnumviewgoodsname").setReadOnly (false);
 	        					Ext.getCmp("Goodsnumviewgoodsunits").setReadOnly (false);
 	        					Ext.getCmp("Goodsnumviewgoodsnumnum").allowBlank = true;
-	        					createQueryWindow("筛选", GoodsnumviewdataForm, Goodsnumviewstore,Ext.getCmp("queryGoodsnumviewaction").getValue());
+	        					goodsnumQueryWindow("筛选", GoodsnumviewdataForm, Goodsnumviewstore,Ext.getCmp("queryGoodsnumviewaction").getValue());
 	        				}
 	        			},{
 	                    	text : "导出",

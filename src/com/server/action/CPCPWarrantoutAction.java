@@ -30,8 +30,8 @@ public class CPCPWarrantoutAction extends WarrantoutAction {
 			List<Warrantout> odTempLi = selAll(Warrantout.class, "select * from Warrantout where idwarrantout='"+temp.getIdwarrantout()+"'");
 			if(odTempLi.size()>0){
 				Warrantout odTemp = odTempLi.get(0);
-				//修改前状态是 “发货中” 才可以修改
-				if(null != odTemp.getWarrantoutstatue() && odTemp.getWarrantoutstatue().equals("发货中")){
+				//修改前状态是 “发货请求” 才可以修改
+				if(null != odTemp.getWarrantoutstatue() && odTemp.getWarrantoutstatue().equals("发货请求")){
 					temp.setWarrantoutupdwhen(DateUtils.getDateTime());
 					temp.setWarrantoutupdwho(lgi.getUsername());
 					//如果状态修改为 “已发货” 则修改 “库存总账” 中对应商品的数量
@@ -61,7 +61,7 @@ public class CPCPWarrantoutAction extends WarrantoutAction {
 						result = updSingle(temp, WarrantoutPoco.KEYCOLUMN);
 					}
 				} else {
-					result = "{success:true,code:400,msg:'需要状态为发货中才可以修改。'}";
+					result = "{success:true,code:400,msg:'无法修改已发货的订单。'}";
 				}
 			}
 		}

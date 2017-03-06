@@ -158,6 +158,48 @@ function goodsWindow(){
 	});
 	selectgridWindow.show();
 }
+//筛选
+function inQueryWindow(title,_form,store) {
+	var dataWindow = new Ext.Window({
+		title : title, // 窗口标题
+		layout : 'fit', // 设置窗口布局模式
+		width : Ext.os.deviceType === 'Phone' ? '100%' : 650, // 窗口宽度
+		modal : true,
+		closeAction: 'hide',
+		closable : true, // 是否可关闭
+		collapsible : true, // 是否可收缩
+		maximizable : true, // 设置是否可以最大化
+		border : false, // 边框线设置
+		animateTarget : Ext.getBody(),
+		pageY : 0, // 页面定位Y坐标
+		pageX : Ext.os.deviceType === 'Phone' ? 0 : document.body.clientWidth / 2 - 620 / 2, // 页面定位X坐标
+		items : _form, // 嵌入的表单面板
+		buttons : [
+				{
+					text : '提交',
+					iconCls : 'ok',
+					handler : function() {
+						queryjson = "[" + Ext.encode(_form.form.getValues(false)) + "]";
+//						json = json.replace(/""/g,null);
+						store.load({
+							params : {
+								json : queryjson
+							}
+						});
+						dataWindow.hide();
+					}
+				}, {
+					text : '关闭',
+					iconCls : 'close',
+					handler : function() {
+						dataWindow.hide();
+					}
+				}]
+	});
+	dataWindow.removeAll(false);	//这一行和下面一行如果没有则第二次选择修改时窗口中的选择框没有选项。
+	dataWindow.items.add(_form);
+	dataWindow.show();
+}
 //新增入库台账记录的窗口
 function addWarrantinWindow(url,title,_form,store) {
 	var dataWindow = new Ext.Window({
@@ -195,10 +237,14 @@ function addWarrantinWindow(url,title,_form,store) {
 									json : json
 								},
 								success : function(form, action) {
-									Ext.Msg.alert('提示', action.result.msg,function(){
-										dataWindow.hide();
-										store.reload();
-									});
+									if(action.result.code==202){
+										Ext.Msg.alert('提示', '提交成功，数据已过账！',function(){
+											dataWindow.hide();
+											store.reload();
+										});
+									} else {
+										Ext.Msg.alert('提示', action.result.msg);
+									}
 								},
 								failure : function(form, action) {
 									Ext.Msg.alert('提示', '网络出现问题，请稍后再试');

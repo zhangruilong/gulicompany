@@ -135,14 +135,15 @@ Ext.onReady(function() {
 			layout : 'column',
 			items : [ {
 				xtype : 'textfield',
-				fieldLabel : '商品编号',
+				fieldLabel : '商品编码',
 				id : 'Goodsgoodscode',
 				allowBlank : false,
 				name : 'goodscode',
 				maxLength : 100,
 				labelWidth: 70,
 				width : 302,
-				margin : '5 10 5 10'
+				margin : '5 10 5 10',
+				disabled : true
 			}, {
 				xtype : 'textfield',
 				fieldLabel : '商品名称',
