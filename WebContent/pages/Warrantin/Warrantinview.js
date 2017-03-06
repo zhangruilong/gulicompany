@@ -223,7 +223,7 @@ Ext.onReady(function() {
 			layout : 'form',
 			items : [ {
 				xtype : 'textfield',
-				fieldLabel : '进货价',
+				fieldLabel : '进货单价',
 				id : 'Warrantinviewwarrantinprice',
 				allowBlank : false,
 				name : 'warrantinprice',
@@ -246,8 +246,19 @@ Ext.onReady(function() {
 			columnWidth : 1,
 			layout : 'form',
 			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '进货金额',
+				id : 'Warrantinwarrantinmoney',
+				name : 'warrantinmoney',
+				maxLength : 100
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'form',
+			items : [ {
 				xtype : 'combo',
-				fieldLabel : '经手人',
+				fieldLabel : '核验人',
 				id : 'Warrantinviewwarrantinwho',
 				name : 'warrantinwho',			//小类名称
 				//loadingText: 'loading...',			//正在加载时的显示
@@ -347,10 +358,10 @@ Ext.onReady(function() {
             },
 		}
 		, {
-			header : '进货价',
+			header : '进货单价',
 			dataIndex : 'warrantinprice',
 			sortable : true, 
-			width:60,
+			width:73,
 			summaryRenderer: function(value, summaryData, dataIndex) {
                 return parseInt(sumPrice);
             },
@@ -365,7 +376,13 @@ Ext.onReady(function() {
             },
 		}
 		, {
-			header : '经手人',
+			header : '进货金额',
+			dataIndex : 'warrantinmoney',
+			sortable : true,  
+			width : 73,
+		}
+		, {
+			header : '核验人',
 			dataIndex : 'warrantinwho',
 			sortable : true, 
 			width : 73,
@@ -521,7 +538,7 @@ Ext.onReady(function() {
         						Ext.Msg.alert('提示', '请至少选择一条数据！');
         						return;
         					}
-        					commonDelete(basePath + "CPWarrantinAction.do?method=delAll",selections,Warrantinviewstore,Warrantinviewkeycolumn);
+        					commonDelete(basePath + "CPWarrantinAction.do?method=warrantinDelete",selections,Warrantinviewstore,Warrantinviewkeycolumn);
         				}
                     }]
                 }

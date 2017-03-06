@@ -12,7 +12,7 @@ var odEndDate=endDate;
 var odQuery='';
 var odQueryjson='';
 Ext.onReady(function() {
-	var Warrantoutviewclassify = "出库台账";
+	var Warrantoutviewclassify = "出库管理";
 	var Warrantoutviewtitle = "当前位置:库存管理》" + Warrantoutviewclassify;
 	var Warrantoutviewaction = "CPWarrantoutviewAction.do";
 	var Warrantoutviewfields = ['idwarrantout'
@@ -205,6 +205,28 @@ Ext.onReady(function() {
 			columnWidth : 1,
 			layout : 'form',
 			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '销售单价',
+				id : 'Warrantoutwarrantoutprice',
+				name : 'warrantoutprice',
+				maxLength : 100
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'form',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '销售金额',
+				id : 'Warrantoutwarrantoutmoney',
+				name : 'warrantoutmoney',
+				maxLength : 100
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'form',
+			items : [ {
 				xtype : 'combo',
 				fieldLabel : '状态',
 				id : 'Warrantoutviewwarrantoutstatue',
@@ -353,6 +375,18 @@ Ext.onReady(function() {
             },
 		}
 		, {
+			header : '销售单价',
+			dataIndex : 'warrantoutprice',
+			sortable : true,  
+			width : 73,
+		}
+		, {
+			header : '销售金额',
+			dataIndex : 'warrantoutmoney',
+			sortable : true,  
+			width : 73,
+		}
+		, {
 			header : '状态',
 			dataIndex : 'warrantoutstatue',
 			sortable : true, 
@@ -460,7 +494,7 @@ Ext.onReady(function() {
 					WarrantoutviewdataForm.form.reset();
 					Ext.getCmp("Warrantoutviewidwarrantout").setEditable (true);
 					Ext.getCmp('Warrantoutviewwarrantoutstatue').setVisible(false);	//隐藏
-					addWarrantoutWindow(basePath + "CPCPWarrantoutAction.do?method=insWarrantout", "新增出库台账", WarrantoutviewdataForm, Warrantoutviewstore);
+					addWarrantoutWindow(basePath + "CPWarrantoutAction.do?method=insWarrantout", "新增出库台账", WarrantoutviewdataForm, Warrantoutviewstore);
 				}
 		},'-',{
 			text : Ext.os.deviceType === 'Phone' ? null : "修改",
@@ -479,7 +513,7 @@ Ext.onReady(function() {
 				WarrantoutviewdataForm.form.reset();
 				Ext.getCmp("Warrantoutviewidwarrantout").setEditable (false);
 				Ext.getCmp('Warrantoutviewwarrantoutstatue').setVisible(true);	//显示
-				editWarrantoutWindow(basePath + "CPCPWarrantoutAction.do?method=updWarrantout", "修改", WarrantoutviewdataForm, Warrantoutviewstore);
+				editWarrantoutWindow(basePath + "CPWarrantoutAction.do?method=updWarrantout", "修改", WarrantoutviewdataForm, Warrantoutviewstore);
 				WarrantoutviewdataForm.form.loadRecord(selections[0]);
 			}
 		},'-',{
@@ -517,7 +551,7 @@ Ext.onReady(function() {
         						Ext.Msg.alert('提示', '请至少选择一条数据！');
         						return;
         					}
-        					delWarrantout(basePath + "CPCPWarrantoutAction.do?method=delWarrantout",selections,Warrantoutviewstore,Warrantoutviewkeycolumn);
+        					delWarrantout(basePath + "CPWarrantoutAction.do?method=delWarrantout",selections,Warrantoutviewstore,Warrantoutviewkeycolumn);
         				}
                     },{
                     	text : "删除",
@@ -528,7 +562,7 @@ Ext.onReady(function() {
         						Ext.Msg.alert('提示', '请至少选择一条数据！');
         						return;
         					}
-        					commonDelete(basePath + "CPCPWarrantoutAction.do?method=delAll",selections,Warrantoutviewstore,Warrantoutviewkeycolumn);
+        					commonDelete(basePath + "CPWarrantoutAction.do?method=delAll",selections,Warrantoutviewstore,Warrantoutviewkeycolumn);
         				}
                     }]
                 }

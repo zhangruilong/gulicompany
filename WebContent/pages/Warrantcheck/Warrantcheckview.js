@@ -7,7 +7,7 @@ var odEndDate=endDate;
 var odQuery='';
 var odQueryjson='';
 Ext.onReady(function() {
-	var Warrantcheckviewclassify = "盘点记录";
+	var Warrantcheckviewclassify = "库存盘点";
 	var Warrantcheckviewtitle = "当前位置:库存管理》" + Warrantcheckviewclassify;
 	var Warrantcheckviewaction = "CPWarrantcheckviewAction.do";
 	var Warrantcheckviewfields = ['idwarrantcheck'
@@ -151,6 +151,47 @@ Ext.onReady(function() {
 				editable : false,
 				maxLength : 100,
 				anchor : '95%',
+				listeners: {
+					change: function(obj, newValue, oldValue, eOpts){
+						var goodsid = Ext.getCmp('Warrantcheckviewwarrantcheckgoods').getValue();
+						if(typeof(goodsid)!='undefined' && goodsid){
+							$.ajax({
+								url: 'CPGoodsnumAction.do',
+								type: 'post',
+								data: {
+									method: 'selAll',
+									wheresql: "goodsnumgoods='"+goodsid+"' and goodsnumstore='"+newValue+"'"
+								},
+								success: function(resp){
+									var data = eval('('+resp+')');
+									if(data.root.length >0){
+										Ext.getCmp('Warrantcheckviewwarrantchecknumorg').setValue(data.root[0].goodsnumnum);
+									} else {
+										Ext.Msg.alert('提示','没有查询到商品数量。');
+									}
+								},
+								error: function(resp){
+//								var data = eval('('+resp+')');
+									Ext.Msg.alert('提示','没有查询到商品数量。');
+								}
+							});
+						} else {
+							Ext.Msg.alert('提示','请选择一个商品');
+						}
+					}
+				}
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'form',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '现有数量',
+				id : 'Warrantcheckviewwarrantchecknumnow',
+				allowBlank : false,
+				name : 'warrantchecknumnow',
+				maxLength : 100
 			} ]
 		}
 		, {
@@ -170,10 +211,9 @@ Ext.onReady(function() {
 			layout : 'form',
 			items : [ {
 				xtype : 'textfield',
-				fieldLabel : '现有数量',
-				id : 'Warrantcheckviewwarrantchecknumnow',
-				allowBlank : false,
-				name : 'warrantchecknumnow',
+				fieldLabel : '盘点人',
+				id : 'Warrantcheckwarrantcheckor',
+				name : 'warrantcheckor',
 				maxLength : 100
 			} ]
 		}
@@ -254,22 +294,24 @@ Ext.onReady(function() {
 			width : 137,
 		}
 		, {
-			header : '应有数量',
-			dataIndex : 'warrantchecknumorg',
-			sortable : true, 
-			width : 73,
-		}
-		, {
 			header : '现有数量',
 			dataIndex : 'warrantchecknumnow',
 			sortable : true, 
 			width : 73,
 		}
 		, {
-			header : '状态',
-			dataIndex : 'warrantcheckstatue',
+			header : '应有数量',
+			dataIndex : 'warrantchecknumorg',
 			sortable : true, 
 			width : 73,
+		}
+		, {
+			header : '盘点人',
+			dataIndex : 'warrantcheckor',
+			sortable : true,  
+			editor: {
+                xtype: 'textfield'
+            }
 		}
 		, {
 			header : '描述',

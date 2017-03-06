@@ -184,6 +184,7 @@ function checkQueryWindow(title,_form,store) {
 }
 //新增盘点记录的窗口
 function addWarrantcheckWindow(url,title,_form,store) {
+	
 	var dataWindow = new Ext.Window({
 		title : title, // 窗口标题
 		layout : 'fit', // 设置窗口布局模式
@@ -272,7 +273,7 @@ function checkRollBACK(url, selections, store) {
 		}
 	});
 }
-//修改入库台账记录的窗口
+//修改盘点记录的窗口
 function editWarrantcheckWindow(url,title,_form,store,bkgoodsscope) {
 	
 	var dataWindow = new Ext.Window({

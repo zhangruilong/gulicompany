@@ -58,7 +58,7 @@ public class CPOrderAction extends OrdermviewAction {
 					Warrantout newOut = new Warrantout(CommonUtil.getNewId(), lgi.getCompanyid(), null, od.getOrderdgoods(), 
 							od.getOrderdnum()+"", "发货请求", null, null, time, lgi.getUsername(), null, null, od.getOrderdcode(), 
 							od.getOrderdname(), od.getOrderdunits(), od.getOrderdtype(), od.getOrderdclass(), od.getOrderdunit(), 
-							od.getOrderdweight(), od.getOrderdnote());
+							od.getOrderdweight(), od.getOrderdnote(), od.getOrderdprice().toString(), od.getOrderdmoney().toString());
 					String insSQL = getInsSingleSql(newOut);
 					strLi.add(insSQL);
 				}

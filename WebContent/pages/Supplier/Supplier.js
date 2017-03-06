@@ -1,5 +1,5 @@
 Ext.onReady(function() {
-	var Supplierclassify = "往来单位";
+	var Supplierclassify = "供货单位";
 	var Suppliertitle = "当前位置:库存管理》" + Supplierclassify;
 	var Supplieraction = "CPSupplierAction.do";
 	var Supplierfields = ['supplierid'
@@ -242,7 +242,7 @@ Ext.onReady(function() {
 				handler : function() {
 					SupplierdataForm.form.reset();
 					Ext.getCmp("Suppliersupplierid").setEditable (true);
-					createTextWindow(basePath + Supplieraction + "?method=addSupplier", "新增", SupplierdataForm, Supplierstore);
+					createTextWindow(basePath + Supplieraction + "?method=addSupplier", "新增供货单位", SupplierdataForm, Supplierstore);
 				}
 			},'-',{
 				text : Ext.os.deviceType === 'Phone' ? null : "修改",
@@ -256,7 +256,7 @@ Ext.onReady(function() {
 					}
 					SupplierdataForm.form.reset();
 					Ext.getCmp("Suppliersupplierid").setEditable (false);
-					createTextWindow(basePath + Supplieraction + "?method=updSupplier", "修改", SupplierdataForm, Supplierstore);
+					createTextWindow(basePath + Supplieraction + "?method=updSupplier", "修改供货单位", SupplierdataForm, Supplierstore);
 					SupplierdataForm.form.loadRecord(selections[0]);
 				}
 			},'-',{

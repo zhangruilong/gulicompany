@@ -310,64 +310,64 @@ function editWarrantoutWindow(url,title,_form,store) {
 		items : _form, // 嵌入的表单面板
 		buttons : [
 		{
-					text : '提交',
-					iconCls : 'ok',
-					handler : function() {
-						if (_form.form.isValid()) {
-							var json = "[" + Ext.encode(_form.form.getValues(false)) + "]";
-							_form.form.submit({
-								url : url,
-								waitTitle : '提示',
-								params : {//改
-									json : json
-								},
-								success : function(form, action) {
-									if(action.result.code==202){
-										Ext.Msg.alert('提示', action.result.msg,function(){
-											dataWindow.hide();
-											store.reload();
-										});
-									} else if(action.result.code==401){
-										//没有查询到对应的库存总账信息时
-										Ext.Msg.confirm('提示','未找到相关的“库存总账”信息,请问要出库么?',function(buttonId,value,opt){
-											if(buttonId=='yes'){
-												_form.form.submit({
-													url : url,
-													waitTitle : '提示',
-													params : {//改
-														json : json,
-														type : '直接出库'
-													},
-													success : function(form, action) {
-														Ext.Msg.alert('提示', action.result.msg,function(){
-															dataWindow.hide();
-															store.reload();
-														});
-													},failure : function(form, action) {
-														Ext.Msg.alert('提示', '网络出现问题，请稍后再试');
-													},
-													waitMsg : '正在处理数据,请稍候...'
+			text : '提交',
+			iconCls : 'ok',
+			handler : function() {
+				if (_form.form.isValid()) {
+					var json = "[" + Ext.encode(_form.form.getValues(false)) + "]";
+					_form.form.submit({
+						url : url,
+						waitTitle : '提示',
+						params : {//改
+							json : json
+						},
+						success : function(form, action) {
+							if(action.result.code==202){
+								Ext.Msg.alert('提示', action.result.msg,function(){
+									dataWindow.hide();
+									store.reload();
+								});
+							} else if(action.result.code==401){
+								//没有查询到对应的库存总账信息时
+								Ext.Msg.confirm('提示',action.result.msg,function(buttonId,value,opt){
+									if(buttonId=='yes'){
+										_form.form.submit({
+											url : url,
+											waitTitle : '提示',
+											params : {//改
+												json : json,
+												type : '直接出库'
+											},
+											success : function(form, action) {
+												Ext.Msg.alert('提示', action.result.msg,function(){
+													dataWindow.hide();
+													store.reload();
 												});
-											}
+											},failure : function(form, action) {
+												Ext.Msg.alert('提示', '网络出现问题，请稍后再试');
+											},
+											waitMsg : '正在处理数据,请稍候...'
 										});
 									}
-								},
-								failure : function(form, action) {
-									Ext.Msg.alert('提示', '网络出现问题，请稍后再试');
-								},
-								waitMsg : '正在处理数据,请稍候...'
-							});
-						} else {
-					        Ext.Msg.alert('提示', '请正确填写表单!');
-					    }
-					}
-				}, {
-					text : '关闭',
-					iconCls : 'close',
-					handler : function() {
-						dataWindow.hide();
-					}
-				}]
+								});
+							}
+						},
+						failure : function(form, action) {
+							Ext.Msg.alert('提示', '网络出现问题，请稍后再试');
+						},
+						waitMsg : '正在处理数据,请稍候...'
+					});
+				} else {
+			        Ext.Msg.alert('提示', '请正确填写表单!');
+			    }
+			}
+		}, {
+			text : '关闭',
+			iconCls : 'close',
+			handler : function() {
+				dataWindow.hide();
+			}
+		}]
 	});
 	dataWindow.removeAll(false);	//这一行和下面一行如果没有则第二次选择修改时窗口中的选择框没有选项。
 	dataWindow.items.add(_form);

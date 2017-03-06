@@ -19,7 +19,7 @@
 	<bean id="CPWarrantbackAction" class="com.server.action.CPWarrantbackAction" />
 	<bean id="CPWarrantcheckAction" class="com.server.action.CPWarrantcheckAction" />
 	<bean id="CPWarrantinAction" class="com.server.action.CPWarrantinAction" />
-	<bean id="CPCPWarrantoutAction" class="com.server.action.CPCPWarrantoutAction" />
+	<bean id="CPWarrantoutAction" class="com.server.action.CPWarrantoutAction" />
 	<bean id="CPWarrantbackviewAction" class="com.server.action.CPWarrantbackviewAction" />
 	<bean id="CPWarrantcheckviewAction" class="com.server.action.CPWarrantcheckviewAction" />
 	<bean id="CPWarrantinviewAction" class="com.server.action.CPWarrantinviewAction" />

@@ -9,7 +9,7 @@ var odQuery='';
 var odQueryjson='';
 
 Ext.onReady(function() {
-	var Goodsnumviewclassify = "库存总账";
+	var Goodsnumviewclassify = "库存总览";
 	var Goodsnumviewtitle = "当前位置:业务管理》" + Goodsnumviewclassify;
 	var Goodsnumviewaction = "CPGoodsnumviewAction.do";
 	var Goodsnumviewfields = ['idgoodsnum'
@@ -485,14 +485,14 @@ var GoodsdataForm = Ext.create('Ext.form.Panel', {// 定义新增和修改的For
 					endDate = Ext.util.Format.date(Ext.getCmp("endDate").getValue(),'Y-m-d');			//结束时间
 					Goodsnumviewstore.load();
 				}
-			},'-',{
+			}/*,'-',{
 				text : Ext.os.deviceType === 'Phone' ? null : "新增",
 				iconCls : 'add',
 				handler : function() {
 					GoodsdataForm.form.reset();
 					addGoodsnumWindow(basePath + "CPGoodsnumAction.do?method=insGoods", "新增", GoodsdataForm, Goodsnumviewstore);
 				}
-			},'-',{
+			}*/,'-',{
 				text: '更多操作',
 	            menu: {
 	            	xtype: 'menu',
@@ -524,7 +524,7 @@ var GoodsdataForm = Ext.create('Ext.form.Panel', {// 定义新增和修改的For
 	        						}
 	        					});
 	        				}
-	                    },{
+	                    }/*,{
 	                    	text : "删除",
 	        				iconCls : 'delete',
 	        				handler : function() {
@@ -535,7 +535,7 @@ var GoodsdataForm = Ext.create('Ext.form.Panel', {// 定义新增和修改的For
 	        					}
 	        					commonDelete(basePath + "CPGoodsnumAction.do?method=delAll",selections,Goodsnumviewstore,Goodsnumviewkeycolumn);
 	        				}
-	                    }]
+	                    }*/]
 	                }
 	            }
 			}

@@ -12,7 +12,7 @@ var odEndDate=endDate;
 var odQuery='';
 var odQueryjson='';
 Ext.onReady(function() {
-	var Warrantbackviewclassify = "退货台账";
+	var Warrantbackviewclassify = "退货管理";
 	var Warrantbackviewtitle = "当前位置:库存管理》" + Warrantbackviewclassify;
 	var Warrantbackviewaction = "CPWarrantbackviewAction.do";
 	var Warrantbackviewfields = ['idwarrantback'

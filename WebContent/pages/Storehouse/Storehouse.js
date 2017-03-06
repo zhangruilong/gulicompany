@@ -214,7 +214,7 @@ Ext.onReady(function() {
 				handler : function() {
 					StorehousedataForm.form.reset();
 					Ext.getCmp("Storehousestorehouseid").setEditable (true);
-					createTextWindow(basePath + Storehouseaction + "?method=addStorehouse", "新增", StorehousedataForm, Storehousestore);
+					createTextWindow(basePath + Storehouseaction + "?method=addStorehouse", "新增仓库信息", StorehousedataForm, Storehousestore);
 				}
 			},'-',{
 				text : Ext.os.deviceType === 'Phone' ? null : "修改",
@@ -228,7 +228,7 @@ Ext.onReady(function() {
 					}
 					StorehousedataForm.form.reset();
 					Ext.getCmp("Storehousestorehouseid").setEditable (false);
-					createTextWindow(basePath + Storehouseaction + "?method=updStorehouse", "修改", StorehousedataForm, Storehousestore);
+					createTextWindow(basePath + Storehouseaction + "?method=updStorehouse", "修改仓库信息", StorehousedataForm, Storehousestore);
 					StorehousedataForm.form.loadRecord(selections[0]);
 				}
 			},'-',{

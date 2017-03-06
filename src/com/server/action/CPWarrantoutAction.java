@@ -14,7 +14,7 @@ import com.system.tools.CommonConst;
 import com.system.tools.util.CommonUtil;
 import com.system.tools.util.DateUtils;
 
-public class CPCPWarrantoutAction extends WarrantoutAction {
+public class CPWarrantoutAction extends WarrantoutAction {
 
 	//修改出库台账
 	@SuppressWarnings("unchecked")
@@ -53,9 +53,12 @@ public class CPCPWarrantoutAction extends WarrantoutAction {
 							String[] sqls = {updTemp,updNumSql};
 							result = doAll(sqls);
 						} else if(null!=type && type.equals("直接出库")){
-							result = doSingle(updTemp, null);
+							String insNumSql = "INSERT INTO `abf`.`goodsnum` (`idgoodsnum`, `goodsnumgoods`, `goodsnumnum`, `goodsnumstore`) VALUES ('"+
+									CommonUtil.getNewId()+"', '"+temp.getWarrantoutgoods()+"', '-"+temp.getWarrantoutnum()+"', '"+temp.getWarrantoutstore()+"')";
+							String[] sqls = {updTemp,insNumSql};
+							result = doAll(sqls);
 						} else {
-							result = "{success:true,code:401,msg:'未找到相应的“库存总账”记录,操作失败'}";
+							result = "{success:true,code:401,msg:'未找到相关的“库存总账”信息,请问要出库么?'}";
 						}
 					} else {
 						result = updSingle(temp, WarrantoutPoco.KEYCOLUMN);
@@ -67,37 +70,6 @@ public class CPCPWarrantoutAction extends WarrantoutAction {
 		}
 		responsePW(response, result);
 	}
-/*	//修改出库台账
-	@SuppressWarnings("unchecked")
-	public void updWarrantout(HttpServletRequest request, HttpServletResponse response){
-		LoginInfo lgi = (LoginInfo) request.getSession().getAttribute("loginInfo");
-		String json = request.getParameter("json");
-		System.out.println("json : " + json);
-		if(CommonUtil.isNotEmpty(json)) cuss = CommonConst.GSON.fromJson(json, TYPE);
-		if(cuss.size()>0){
-			Warrantout temp = cuss.get(0);
-			//查询修改前的出库台账记录
-			List<Warrantout> waLi = selAll(Warrantout.class, "select * from Warrantout w where w.idwarrantout='"+temp.getIdwarrantout()+"'", "mysql");
-			if(waLi.size()>0){
-				//计算修改后的差值
-				Integer diffNum = Integer.parseInt(waLi.get(0).getWarrantoutnum()) - Integer.parseInt(temp.getWarrantoutnum());
-				//查询商品的库存总账
-				List<Goodsnum> gnLi = selAll(Goodsnum.class,"select * from goodsnum gn where gn.goodsnumgoods='"+temp.getWarrantoutgoods()+"'");
-				if(gnLi.size()>0){
-					Goodsnum gn = gnLi.get(0);
-					Integer currNum = Integer.parseInt(gn.getGoodsnumnum()) + diffNum;
-					gn.setGoodsnumnum(currNum.toString());
-					String updGNSql = getUpdSingleSql(gn, GoodsnumPoco.KEYCOLUMN);
-					temp.setWarrantoutupdwhen(DateUtils.getDateTime());
-					temp.setWarrantoutupdwho(lgi.getUsername());
-					String tempSql = getUpdSingleSql(temp, WarrantoutPoco.KEYCOLUMN);
-					String[] sqls = {tempSql,updGNSql};
-					result = doAll(sqls);
-				}
-			}
-		}
-		responsePW(response, result);
-	}*/
 	//回滚出库台账
 	@SuppressWarnings("unchecked")
 	public void delWarrantout(HttpServletRequest request, HttpServletResponse response){
