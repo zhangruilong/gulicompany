@@ -503,6 +503,17 @@ public class CPOrderdAction extends OrderdAction{
 		cell.setCellType(HSSFCell.CELL_TYPE_STRING);
 		cell.setCellValue(DateUtils.getDate());
 		
+		//注释
+		row = sheet.createRow(iLine+2);
+		cell = row.createCell(0);
+		cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+		cell.setCellValue("注：本期存=上期存+本期入-本期出+销售退货-进货退货");
+		//注释第二行
+		row = sheet.createRow(iLine+3);
+		cell = row.createCell(0);
+		cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+		cell.setCellValue("上期存：即起始时间前的存货数量 ；本期存：即截止终止时间时的存货数量");
+		
 		response.reset();
 		response.addHeader("Content-Disposition", "attachment;filename=\""
 				+ new String((expName + ".xls").getBytes("GBK"), "ISO8859_1")
@@ -616,6 +627,17 @@ public class CPOrderdAction extends OrderdAction{
 		cell = row.createCell(1);
 		cell.setCellType(HSSFCell.CELL_TYPE_STRING);
 		cell.setCellValue(DateUtils.getDate());
+		
+		//注释
+		row = sheet.createRow(iLine+2);
+		cell = row.createCell(0);
+		cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+		cell.setCellValue("注：本期存=上期存+本期入-本期出+销售退货-进货退货");
+		//注释第二行
+		row = sheet.createRow(iLine+3);
+		cell = row.createCell(0);
+		cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+		cell.setCellValue("上期存：即起始时间前的存货数量 ；本期存：即截止终止时间时的存货数量");
 		
 		response.reset();
 		response.addHeader("Content-Disposition", "attachment;filename=\""
@@ -857,16 +879,6 @@ public class CPOrderdAction extends OrderdAction{
 		out.close();
 	}
 }
-
-
-
-
-
-
-
-
-
-
 
 
 

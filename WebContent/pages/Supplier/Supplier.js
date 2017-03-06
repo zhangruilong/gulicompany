@@ -1,5 +1,5 @@
 Ext.onReady(function() {
-	var Supplierclassify = "供货商管理";
+	var Supplierclassify = "往来单位";
 	var Suppliertitle = "当前位置:库存管理》" + Supplierclassify;
 	var Supplieraction = "CPSupplierAction.do";
 	var Supplierfields = ['supplierid'
