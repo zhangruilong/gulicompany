@@ -179,7 +179,7 @@ Ext.onReady(function() {
 	        			    ,'goodsclassname' 
 	        			      ];// 小类字段
 /*///////////////////-------------------新增商品和库存总账的form(开始)--------------------/////////////////////*/
-var GoodsdataForm = Ext.create('Ext.form.Panel', {// 定义新增和修改的FormPanel
+var GoodsdataForm = Ext.create('Ext.form.Panel', {
 		id:'GoodsdataForm',
 		labelAlign : 'right',
 		frame : true,
@@ -455,90 +455,38 @@ var GoodsdataForm = Ext.create('Ext.form.Panel', {// 定义新增和修改的For
 					}
 				}
 			},'-',{
-				xtype: 'datefield',
-				fieldLabel : '',
-				labelWidth:8,				//标签宽度
-				id:"startDate",
-				name:"startDate",
-				editable:false, //不允许对日期进行编辑
-				width:100,
-				format:"Y-m-d",
-				emptyText:"请选择日期",		//默认显示的日期
-				value: startDate
-			},{
-				xtype: 'datefield',
-				fieldLabel : '-',
-				labelSeparator : '',
-				labelWidth:8,
-				id:"endDate",
-				name:"endDate",
-				editable:false, //不允许对日期进行编辑
-				width:113,
-				format:"Y-m-d",
-				emptyText:"请选择日期",		//默认显示的日期
-				value: endDate
-			},{
-				text : "查询",
-				xtype: 'button',
+				text : Ext.os.deviceType === 'Phone' ? null : "筛选",
+				iconCls : 'select',
 				handler : function() {
-					startDate = Ext.util.Format.date(Ext.getCmp("startDate").getValue(),'Y-m-d');		//得到时间选择框中的开始时间
-					endDate = Ext.util.Format.date(Ext.getCmp("endDate").getValue(),'Y-m-d');			//结束时间
-					Goodsnumviewstore.load();
+					Ext.getCmp("Goodsnumviewidgoodsnum").setEditable (true);
+					Ext.getCmp("Goodsnumviewgoodscode").setReadOnly (false);
+					Ext.getCmp("Goodsnumviewgoodsname").setReadOnly (false);
+					Ext.getCmp("Goodsnumviewgoodsunits").setReadOnly (false);
+					Ext.getCmp("Goodsnumviewgoodsnumnum").allowBlank = true;
+					goodsnumQueryWindow("筛选", GoodsnumviewdataForm, Goodsnumviewstore,Ext.getCmp("queryGoodsnumviewaction").getValue());
 				}
-			}/*,'-',{
+			},'-',{
+            	text : Ext.os.deviceType === 'Phone' ? null : "导出",
+				iconCls : 'exp',
+				handler : function() {
+					Ext.Msg.confirm('请确认', '<b>提示:</b>请确认要导出当前数据？', function(btn, text) {
+						if (btn == 'yes') {
+							var start = startDate==''?'':startDate+' 00:00:00';
+							var end = endDate==''?'':endDate+' 23:59:59';
+							window.location.href = basePath + Goodsnumviewaction + "?method=expAllCP&json="+queryjson+
+									"&query="+Ext.getCmp("queryGoodsnumviewaction").getValue()+"&wheresql="+wheresql+
+									"&startDate="+start+"&endDate="+end; 
+						}
+					});
+				}
+            }/*,'-',{
 				text : Ext.os.deviceType === 'Phone' ? null : "新增",
 				iconCls : 'add',
 				handler : function() {
 					GoodsdataForm.form.reset();
 					addGoodsnumWindow(basePath + "CPGoodsnumAction.do?method=insGoods", "新增", GoodsdataForm, Goodsnumviewstore);
 				}
-			}*/,'-',{
-				text: '更多操作',
-	            menu: {
-	            	xtype: 'menu',
-	                items: {
-	                	xtype: 'buttongroup',
-	                    columns: 3,
-	                    items: [{
-	        				text : "筛选",
-	        				iconCls : 'select',
-	        				handler : function() {
-	        					Ext.getCmp("Goodsnumviewidgoodsnum").setEditable (true);
-	        					Ext.getCmp("Goodsnumviewgoodscode").setReadOnly (false);
-	        					Ext.getCmp("Goodsnumviewgoodsname").setReadOnly (false);
-	        					Ext.getCmp("Goodsnumviewgoodsunits").setReadOnly (false);
-	        					Ext.getCmp("Goodsnumviewgoodsnumnum").allowBlank = true;
-	        					goodsnumQueryWindow("筛选", GoodsnumviewdataForm, Goodsnumviewstore,Ext.getCmp("queryGoodsnumviewaction").getValue());
-	        				}
-	        			},{
-	                    	text : "导出",
-	        				iconCls : 'exp',
-	        				handler : function() {
-	        					Ext.Msg.confirm('请确认', '<b>提示:</b>请确认要导出当前数据？', function(btn, text) {
-	        						if (btn == 'yes') {
-	        							var start = startDate==''?'':startDate+' 00:00:00';
-	        							var end = endDate==''?'':endDate+' 23:59:59';
-	        							window.location.href = basePath + Goodsnumviewaction + "?method=expAllCP&json="+queryjson+
-	        									"&query="+Ext.getCmp("queryGoodsnumviewaction").getValue()+"&wheresql="+wheresql+
-	        									"&startDate="+start+"&endDate="+end; 
-	        						}
-	        					});
-	        				}
-	                    }/*,{
-	                    	text : "删除",
-	        				iconCls : 'delete',
-	        				handler : function() {
-	        					var selections = Goodsnumviewgrid.getSelection();
-	        					if (Ext.isEmpty(selections)) {
-	        						Ext.Msg.alert('提示', '请至少选择一条数据！');
-	        						return;
-	        					}
-	        					commonDelete(basePath + "CPGoodsnumAction.do?method=delAll",selections,Goodsnumviewstore,Goodsnumviewkeycolumn);
-	        				}
-	                    }*/]
-	                }
-	            }
-			}
+			}*/
 		]
 	});
 	Goodsnumviewgrid.region = 'center';

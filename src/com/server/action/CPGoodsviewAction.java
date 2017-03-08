@@ -125,13 +125,11 @@ public class CPGoodsviewAction extends GoodsviewAction {
 	public void insGoods(HttpServletRequest request, HttpServletResponse response){
 		LoginInfo lInfo = (LoginInfo) request.getSession().getAttribute("loginInfo");
 		String json = request.getParameter("json");
-		String goodsnum = request.getParameter("goodsnum");
-		String goodsnumstore = request.getParameter("goodsnumstore");
 		System.out.println("json : " + json);
 		json = json.replace("\"\"", "null");
 		List<Goods> gooLi = new ArrayList<Goods>();
 		if(CommonUtil.isNotEmpty(json)) gooLi = CommonConst.GSON.fromJson(json,  new TypeToken<ArrayList<Goods>>() {}.getType());
-		if(gooLi.size()>0 && CommonUtil.isNotEmpty(goodsnum) && CommonUtil.isNotEmpty(goodsnumstore)){
+		if(gooLi.size()>0){
 			Goods addGoods = gooLi.get(0);
 			//查询是否有重复的商品
 			@SuppressWarnings("unchecked")
@@ -151,16 +149,7 @@ public class CPGoodsviewAction extends GoodsviewAction {
 				addGoods.setGoodscompany(lInfo.getCompanyid());		//经销商ID
 				String newid = CommonUtil.getNewId();
 				addGoods.setGoodsid(newid);				//商品ID
-				String addGooSql = getInsSingleSql(addGoods);	//新增商品的sql
-				//新增库存总账记录
-				Goodsnum gn = new Goodsnum();
-				gn.setIdgoodsnum(newid);
-				gn.setGoodsnumnum(goodsnum);
-				gn.setGoodsnumstore(goodsnumstore);
-				gn.setGoodsnumgoods(newid);				//商品ID
-				String addGNSql = getInsSingleSql(gn);			//新增库存总账的sql
-				String[] sqls = {addGooSql,addGNSql};
-				result = doAll(sqls);
+				result = insSingle(addGoods);
 				if(result.equals(CommonConst.SUCCESS)){
 					result = "{success:true,code:202,msg:'操作成功',goodsid:'"+newid+"'}";
 				}

@@ -291,7 +291,7 @@ Ext.onReady(function() {
 			sortable : true, 
 			width : 137,
 			renderer : function(value){
-				if(value=='回滚'){
+				if(value=='已回滚'){
 					return value;
 				} else {
 					var md = Storehousestore.find('storehouseid',value);
@@ -420,6 +420,9 @@ Ext.onReady(function() {
 			handler : function() {
 				WarrantbackviewdataForm.form.reset();
 				Ext.getCmp("Warrantbackviewidwarrantback").setEditable (true);
+				Ext.getCmp("Warrantbackviewgoodscode").setReadOnly (true);
+				Ext.getCmp("Warrantbackviewgoodsname").setReadOnly (true);
+				Ext.getCmp("Warrantbackviewgoodsunits").setReadOnly (true);
 				addWarrantbackWindow(basePath + "CPWarrantbackAction.do?method=addWarrantback", "新增退货台账", WarrantbackviewdataForm, Warrantbackviewstore);
 			}
 		},'-',{
@@ -434,6 +437,9 @@ Ext.onReady(function() {
             			iconCls : 'select',
             			handler : function() {
             				Ext.getCmp("Warrantbackviewidwarrantback").setEditable (true);
+            				Ext.getCmp("Warrantbackviewgoodscode").setReadOnly (false);
+            				Ext.getCmp("Warrantbackviewgoodsname").setReadOnly (false);
+            				Ext.getCmp("Warrantbackviewgoodsunits").setReadOnly (false);
             				backQueryWindow("筛选", WarrantbackviewdataForm, Warrantbackviewstore,Ext.getCmp("queryWarrantbackviewaction").getValue());
             			}
             		},{

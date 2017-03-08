@@ -72,18 +72,6 @@ Ext.onReady(function() {
 	var Goodsclassfields = ['goodsclassid'
 	        			    ,'goodsclassname' 
 	        			      ];// 小类字段
-	var Storehousefields = ['storehouseid'
-	        			    ,'storehousecode' 
-	        			    ,'storehousename' 
-	        			    ,'storehousedetail' 
-	        			    ,'storehousestatue' 
-	        			    ,'storehousecompany' 
-	        			    ,'storehouseupdtime' 
-	        			    ,'storehouseupdor' 
-	        			    ,'storehousecretime' 
-	        			    ,'storehousecreor' 
-	        			    ,'storehouseaddress' 
-	        			      ];// 全部字段
 	var Goodskeycolumn = [ 'goodsid' ];// 主键
 	var goodsStoreURL = basePath + Goodsaction + "?method=queryCompanyGoods&wheresql=goodscompany='"+comid+"'";
 	if(goodsstatue != ''){
@@ -94,12 +82,7 @@ Ext.onReady(function() {
 	}
 	var Goodsstore = dataStore(Goodsfields, goodsStoreURL);// 定义Goodsstore
 	Goodsclassstore = dataStore(Goodsclassfields, "CPGoodsclassAction.do?method=queryCompanyGoodsclass&wheresql=goodsclasscompany='"+comid+"'");//定义小类store
-	/*Goodsclassstore.on('load',function(store){
-		store.insert(0,{"goodsclassid": "", "goodsclassname": "不限制"}); //只添加一行用这个比较方便
-	});*/
 	Goodsclassstore.load();	//加载供应商小类
-	var Storehousestore = dataStore(Storehousefields, basePath + "CPStorehouseAction.do?method=selAll&wheresql=storehousecompany='"+comid+"' and storehousestatue='启用'");// 定义Storehousestore
-	Storehousestore.load();
 	/*之前的查询条件*/
 	var odQuery = '';
 	Goodsstore.on('beforeload',function(store,options){					//数据加载时的事件
@@ -142,8 +125,7 @@ Ext.onReady(function() {
 				maxLength : 100,
 				labelWidth: 70,
 				width : 302,
-				margin : '5 10 5 10',
-				disabled : true
+				margin : '5 10 5 10'
 			}, {
 				xtype : 'textfield',
 				fieldLabel : '商品名称',
@@ -249,41 +231,6 @@ Ext.onReady(function() {
 				id : 'Goodsgoodsimage',
 				name : 'goodsimage',
 				maxLength : 100
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'column',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '商品数量',
-				id : 'Goodsgoodsnumnum',
-				name : 'Goodsnumnum',
-				maxLength : 100,
-				allowBlank : false,
-				labelWidth: 70,
-				width : 302,
-				margin : '5 10 5 10'
-			}, {
-				xtype : 'combo',
-				fieldLabel : '商品仓库',
-				id : 'Goodsgoodsnumstore',
-				name : 'Goodsnumstore',			//小类名称
-				emptyText : '请选择',
-				store : Storehousestore,
-				mode : 'local',					//local是取本地数据的也就是javascirpt(内存)中的数据。
-												//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
-				displayField : 'storehousename',		//显示的字段
-				valueField : 'storehouseid',		//作为值的字段
-				hiddenName : 'Goodsnumstore',
-				triggerAction : 'all',
-				editable : false,
-				allowBlank : false,
-				maxLength : 100,
-				anchor : '95%',
-				labelWidth: 70,
-				width : 302,
-				margin : '5 10 5 10'
 			} ]
 		}
 		]
@@ -606,6 +553,7 @@ Ext.onReady(function() {
 				handler : function() {
 					GoodsdataForm.form.reset();
 					Ext.getCmp("Goodsgoodsid").setEditable (true);
+					Ext.getCmp("Goodsgoodscode").setDisabled (false);
 					addGoodsWindow(basePath + Goodsaction + "?method=insGoods", "新增商品", GoodsdataForm, Goodsstore);
 				}
 			},'-',{
@@ -620,6 +568,7 @@ Ext.onReady(function() {
 					}
 					GoodsdataForm.form.reset();
 					Ext.getCmp("Goodsgoodsid").setEditable (false);
+					Ext.getCmp("Goodsgoodscode").setDisabled (true);
 					editGoodsWindow(basePath + "CPGoodsAction.do?method=updAll", "修改商品信息", GoodsdataForm, Goodsstore);
 					GoodsdataForm.form.loadRecord(selections[0]);
 				}

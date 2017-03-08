@@ -1,6 +1,6 @@
 var statueStore = new Ext.data.ArrayStore({//状态下拉
 	fields:["name"],
-	data:[["发货中"],["已发货"]]
+	data:[["发货请求"],["已发货"]]
 });
 var Warrantoutviewbbar;
 var sumNum = 0;
@@ -35,6 +35,8 @@ Ext.onReady(function() {
 		        			    ,'warrantoutgunit' 
 		        			    ,'warrantoutgweight' 
 		        			    ,'warrantoutordnote' 
+		        			    ,'warrantoutprice'
+		        			    ,'warrantoutmoney'
 		        			    ,'goodsid' 
 		        			    ,'goodscompany' 
 		        			    ,'goodscode' 
@@ -494,6 +496,9 @@ Ext.onReady(function() {
 					WarrantoutviewdataForm.form.reset();
 					Ext.getCmp("Warrantoutviewidwarrantout").setEditable (true);
 					Ext.getCmp('Warrantoutviewwarrantoutstatue').setVisible(false);	//隐藏
+					Ext.getCmp('Warrantoutviewwarrantoutgcode').setReadOnly(true);
+					Ext.getCmp('Warrantoutviewwarrantoutgname').setReadOnly(true);
+					Ext.getCmp('Warrantoutviewwarrantoutgunits').setReadOnly(true);
 					addWarrantoutWindow(basePath + "CPWarrantoutAction.do?method=insWarrantout", "新增出库台账", WarrantoutviewdataForm, Warrantoutviewstore);
 				}
 		},'-',{
@@ -513,6 +518,9 @@ Ext.onReady(function() {
 				WarrantoutviewdataForm.form.reset();
 				Ext.getCmp("Warrantoutviewidwarrantout").setEditable (false);
 				Ext.getCmp('Warrantoutviewwarrantoutstatue').setVisible(true);	//显示
+				Ext.getCmp('Warrantoutviewwarrantoutgcode').setReadOnly(true);
+				Ext.getCmp('Warrantoutviewwarrantoutgname').setReadOnly(true);
+				Ext.getCmp('Warrantoutviewwarrantoutgunits').setReadOnly(true);
 				editWarrantoutWindow(basePath + "CPWarrantoutAction.do?method=updWarrantout", "修改", WarrantoutviewdataForm, Warrantoutviewstore);
 				WarrantoutviewdataForm.form.loadRecord(selections[0]);
 			}
@@ -527,7 +535,11 @@ Ext.onReady(function() {
             			text : "筛选",
             			iconCls : 'select',
             			handler : function() {
+            				WarrantoutviewdataForm.form.reset();
             				Ext.getCmp("Warrantoutviewidwarrantout").setEditable (true);
+            				Ext.getCmp('Warrantoutviewwarrantoutgcode').setReadOnly(false);
+            				Ext.getCmp('Warrantoutviewwarrantoutgname').setReadOnly(false);
+            				Ext.getCmp('Warrantoutviewwarrantoutgunits').setReadOnly(false);
             				outQueryWindow("筛选", WarrantoutviewdataForm, Warrantoutviewstore,Ext.getCmp("queryWarrantoutviewaction").getValue());
             			}
             		},{

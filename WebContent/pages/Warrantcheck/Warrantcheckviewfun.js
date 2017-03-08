@@ -1,6 +1,5 @@
 //商品的窗口
-function goodsWindow(){
-	var Goodstitle = "商品";
+function goodsWindow(_form,storehousestore,checkviewstore){
 	var Goodsaction = "CPGoodsAction.do";
 	var Goodsfields = ['goodsid'
        			    ,'goodscompany' 
@@ -57,11 +56,6 @@ function goodsWindow(){
 			sortable : true,  
 		}
 		, {
-			header : '图片',
-			dataIndex : 'goodsimage',
-			sortable : true,  
-		}
-		, {
 			header : '品牌',
 			dataIndex : 'goodsbrand',
 			sortable : true,  
@@ -98,9 +92,9 @@ function goodsWindow(){
 	});
 	Goodsstore.load();//加载数据
 	var selectgridWindow = new Ext.Window({
-		title : Goodstitle,
+		title : '请选择要盘点的商品',
 		layout : 'fit', // 设置窗口布局模式
-		width : 620, // 窗口宽度
+		width : 682, // 窗口宽度
 		height : document.body.clientHeight -4, // 窗口高度
 		modal : true,
 		//closeAction: 'hide',
@@ -111,7 +105,7 @@ function goodsWindow(){
 		constrain : true, // 设置窗口是否可以溢出父容器
 		animateTarget : Ext.getBody(),
 		pageY : 50, // 页面定位Y坐标
-		pageX : document.body.clientWidth / 2 - 620 / 2, // 页面定位X坐标
+		pageX : document.body.clientWidth / 2 - 682 / 2, // 页面定位X坐标
 		items : Goodsgrid, // 嵌入的表单面板
 		buttons : [
 					{
@@ -124,11 +118,18 @@ function goodsWindow(){
 								});
 								return;
 							}
+							_form.form.reset();
 							Ext.getCmp('Warrantcheckviewgoodscode').setValue(selectRows[0].get("goodscode"));
 							Ext.getCmp('Warrantcheckviewgoodsname').setValue(selectRows[0].get("goodsname"));
 							Ext.getCmp('Warrantcheckviewgoodsunits').setValue(selectRows[0].get("goodsunits"));
 							Ext.getCmp('Warrantcheckviewwarrantcheckgoods').setValue(selectRows[0].get("goodsid"));
 							selectgridWindow.close();
+							Ext.getCmp("Warrantcheckviewwarrantcheckstore").setValue(storehousestore.getAt(0)? storehousestore.getAt(0).get('storehouseid') : '');
+							Ext.getCmp("Warrantcheckviewidwarrantcheck").setEditable (true);
+							Ext.getCmp("Warrantcheckviewgoodscode").setReadOnly (true);
+							Ext.getCmp("Warrantcheckviewgoodsname").setReadOnly (true);
+							Ext.getCmp("Warrantcheckviewgoodsunits").setReadOnly (true);
+							addWarrantcheckWindow(basePath + "CPWarrantcheckAction.do?method=insWarrantcheck", "新增盘点记录", _form, checkviewstore);
 						}
 					}, '-', {
 						text : '关闭',

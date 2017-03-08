@@ -591,11 +591,6 @@ function scantWindow(){
 
 //修改商品的窗口
 function editGoodsWindow(url,title,_form,store) {
-//	Ext.getCmp('Goodsgoodscode').setDisabled(true);
-	Ext.getCmp('Goodsgoodsnumnum').setVisible(false);
-	Ext.getCmp('Goodsgoodsnumstore').setVisible(false);
-	Ext.getCmp('Goodsgoodsnumnum').setDisabled(true);
-	Ext.getCmp('Goodsgoodsnumstore').setDisabled(true);
 	var dataWindow = new Ext.Window({
 		title : title, // 窗口标题
 		layout : 'fit', // 设置窗口布局模式
@@ -652,11 +647,6 @@ function editGoodsWindow(url,title,_form,store) {
 }
 //新增商品的窗口
 function addGoodsWindow(url,title,_form,store) {
-//	Ext.getCmp('Goodsgoodscode').setDisabled(false);
-	Ext.getCmp('Goodsgoodsnumnum').setDisabled(false);
-	Ext.getCmp('Goodsgoodsnumstore').setDisabled(false);
-	Ext.getCmp('Goodsgoodsnumnum').setVisible(true);
-	Ext.getCmp('Goodsgoodsnumstore').setVisible(true);
 	var dataWindow = new Ext.Window({
 		title : title, // 窗口标题
 		layout : 'fit', // 设置窗口布局模式
@@ -689,9 +679,7 @@ function addGoodsWindow(url,title,_form,store) {
 								url : url,
 								waitTitle : '提示',
 								params : {//改
-									json : json,
-									goodsnum : Ext.getCmp("Goodsgoodsnumnum").getValue(),
-									goodsnumstore : Ext.getCmp("Goodsgoodsnumstore").getValue()
+									json : json
 								},
 								success : function(form, action) {
 									Ext.Msg.alert('提示', action.result.msg,function(){

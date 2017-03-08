@@ -60,17 +60,10 @@ Ext.onReady(function() {
 	        			    ,'suppliercreor' 
 	        			      ];// 全部字段
 	var Empfields = ['empid'
-     			    ,'empcompany' 
      			    ,'empcode' 
-     			    ,'loginname' 
-     			    ,'password' 
-     			    ,'empdetail' 
-     			    ,'empstatue' 
-     			    ,'createtime' 
-     			    ,'updtime' 
      			      ];// 全部字段
 	var wheresql = "goodscompany='"+comid+"'";
-	var Storehousestore = dataStore(Storehousefields, basePath + "CPStorehouseAction.do?method=selAll&wheresql=storehousecompany='"+comid+"' and storehousestatue='启用'");// 定义Storehousestore
+	var Storehousestore = dataStore(Storehousefields, basePath + "CPStorehouseAction.do?method=selAll&wheresql=storehousecompany='"+comid+"' and storehousestatue='启用' and storehousename!=''");// 定义Storehousestore
 	Storehousestore.load();
 	var Supplierstore = dataStore(Supplierfields, basePath + "CPSupplierAction.do?method=selAll&wheresql=suppliercompany='"+comid+"' and supplierstatue='启用'");// 定义Supplierstore
 	Supplierstore.load();
@@ -141,7 +134,7 @@ Ext.onReady(function() {
 			layout : 'form',
 			items : [ {
 				xtype : 'textfield',
-				fieldLabel : '商品编号',
+				fieldLabel : '商品编码',
 				id : 'Warrantinviewgoodscode',
 				readOnly : true,
 				name : 'goodscode',
@@ -499,6 +492,7 @@ Ext.onReady(function() {
             			text : "筛选",
             			iconCls : 'select',
             			handler : function() {
+            				WarrantinviewdataForm.form.reset();
             				Ext.getCmp("Warrantinviewidwarrantin").setEditable (true);
             				Ext.getCmp("Warrantinviewgoodscode").setReadOnly (false);
             				Ext.getCmp("Warrantinviewgoodsname").setReadOnly (false);

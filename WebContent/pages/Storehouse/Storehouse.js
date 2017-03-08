@@ -55,6 +55,7 @@ Ext.onReady(function() {
 				id : 'Storehousestorehousecode',
 				name : 'storehousecode',
 				allowBlank : false,
+				readOnly : true,
 				maxLength : 100
 			} ]
 		}
@@ -67,6 +68,7 @@ Ext.onReady(function() {
 				id : 'Storehousestorehousename',
 				name : 'storehousename',
 				allowBlank : false,
+				readOnly : true,
 				maxLength : 100
 			} ]
 		}

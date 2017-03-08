@@ -60,7 +60,7 @@ $(function(){
 							$('#print-content').append(
 								'<table id="goods-tab" class="print_tab" width="100%" border="1" cellspacing="0" cellpadding="2" style="border-collapse: collapse;margin-top: 5px;"></table>');
 						} else if(item.sheetname == '签收信息'){
-							qianshouTDStrle = typeNullFoString(item.detail);
+							qianshouTDStrle = nullStr(item.detail);
 							$('#print-content').append(
 						'<table class="print_tab" id="signFo-tab" width="100%" border="1" cellspacing="0" cellpadding="3" style="background-color: #80ffff;border-collapse: collapse;padding-top: 20px;font-family: 黑体;"></table>');
 						} else if(item.sheetname == '制表信息'){
@@ -84,7 +84,7 @@ $(function(){
 					
 					columnNum = item.startcol;									//当前列
 					if(typeof(item.fieldname)!='undefined' && item.fieldname){
-						text = typeNullFoString(printinfo[item.fieldname]);						//一般的
+						text = nullStr(printinfo[item.fieldname]);						//一般的
 					} else if(item.headnameas=='订单日期'){
 						text = today;											//订单日期
 					} else if(item.headnameas=='优惠金额'){
@@ -105,7 +105,7 @@ $(function(){
 					} else if(item.sheetno == '3'){											//商品信息
 						$('#print-content table:last tr:last').append(
 								'<td style="font-family: 黑体;font-size: 12px;border-bottom:solid 1px black;border-right:solid 1px black;white-space: nowrap;" name="'
-								+item.fieldname+'">'+item.headnameas+'<span hidden=true>'+typeNullFoString(item.detail)+'</span></td>');
+								+item.fieldname+'">'+item.headnameas+'<span hidden=true>'+nullStr(item.detail)+'</span></td>');
 					} else if(item.sheetno == '4'){											//合计信息
 						$('#print-content').append(
 								'<span style="'+item.detail+'">'+item.headnameas+':</span>'+
@@ -139,7 +139,7 @@ $(function(){
 						var goodsInfo = '';
 						var curSty = $(item2).children().text();
 						if($(item2).attr('name') && $(item2).attr('name')!='undefined'&& $(item2).attr('name')!='null'){
-							goodsInfo = typeNullFoString(item1[$(item2).attr('name')]);
+							goodsInfo = nullStr(item1[$(item2).attr('name')]);
 						} else {
 							goodsInfo = $('#goods-tab tr').length-1;
 						}

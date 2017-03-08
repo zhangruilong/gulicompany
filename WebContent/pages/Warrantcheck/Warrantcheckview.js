@@ -39,10 +39,15 @@ Ext.onReady(function() {
 	        			    ,'storehousecreor' 
 	        			    ,'storehouseaddress' 
 	        			      ];// 全部字段
+	var Empfields = ['empid'
+     			    ,'empcode' 
+     			      ];// 全部字段
 	var Warrantcheckviewkeycolumn = [ 'idwarrantcheck' ];// 主键
 	var wheresql = "goodscompany='"+comid+"'";
 	var Storehousestore = dataStore(Storehousefields, basePath + "CPStorehouseAction.do?method=selAll&wheresql=storehousecompany='"+comid+"' and storehousestatue='启用'");// 定义Storehousestore
 	Storehousestore.load();
+	var Empstore = dataStore(Empfields, basePath + "CPEmpAction.do?method=selAll&wheresql=empcompany='"+comid+"' and empcode!='隐藏'");// 定义Empstore
+	Empstore.load();
 	var Warrantcheckviewstore = dataStore(Warrantcheckviewfields, basePath + Warrantcheckviewaction + "?method=selQueryCP");// 定义Warrantcheckviewstore
 	Warrantcheckviewstore.on('beforeload',function(store,options){					//数据加载时的事件
 		var query = Ext.getCmp("queryWarrantcheckviewaction").getValue();
@@ -167,16 +172,13 @@ Ext.onReady(function() {
 									if(data.root.length >0){
 										Ext.getCmp('Warrantcheckviewwarrantchecknumorg').setValue(data.root[0].goodsnumnum);
 									} else {
-										Ext.Msg.alert('提示','没有查询到商品数量。');
+//										Ext.Msg.alert('提示','没有查询到商品数量。');
 									}
 								},
 								error: function(resp){
-//								var data = eval('('+resp+')');
-									Ext.Msg.alert('提示','没有查询到商品数量。');
+									
 								}
 							});
-						} else {
-							Ext.Msg.alert('提示','请选择一个商品');
 						}
 					}
 				}
@@ -210,11 +212,23 @@ Ext.onReady(function() {
 			columnWidth : 1,
 			layout : 'form',
 			items : [ {
-				xtype : 'textfield',
+				xtype : 'combo',
 				fieldLabel : '盘点人',
 				id : 'Warrantcheckwarrantcheckor',
-				name : 'warrantcheckor',
-				maxLength : 100
+				name : 'warrantcheckor',			//小类名称
+				//loadingText: 'loading...',			//正在加载时的显示
+				//editable : false,						//是否可编辑
+				emptyText : '请选择',
+				store : Empstore,
+				mode : 'local',					//local是取本地数据的也就是javascirpt(内存)中的数据。
+												//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
+				displayField : 'empcode',		//显示的字段
+				valueField : 'empcode',		//作为值的字段
+				hiddenName : 'warrantcheckor',
+				triggerAction : 'all',
+				editable : false,
+				maxLength : 100,
+				anchor : '95%',
 			} ]
 		}
 		, {
@@ -406,9 +420,11 @@ Ext.onReady(function() {
 				text : "盘点",
 				iconCls : 'add',
 				handler : function() {
-					WarrantcheckviewdataForm.form.reset();
-					Ext.getCmp("Warrantcheckviewidwarrantcheck").setEditable (true);
-					addWarrantcheckWindow(basePath + "CPWarrantcheckAction.do?method=insWarrantcheck", "新增盘点记录", WarrantcheckviewdataForm, Warrantcheckviewstore);
+					Ext.getCmp("Warrantcheckviewgoodscode").setReadOnly (true);
+					Ext.getCmp("Warrantcheckviewgoodsname").setReadOnly (true);
+					Ext.getCmp("Warrantcheckviewgoodsunits").setReadOnly (true);
+					goodsWindow(WarrantcheckviewdataForm,Storehousestore,Warrantcheckviewstore);
+					
 				}
 		},'-',{
 			text: '更多操作',
@@ -421,7 +437,11 @@ Ext.onReady(function() {
             			text : "筛选",
             			iconCls : 'select',
             			handler : function() {
+            				WarrantcheckviewdataForm.form.reset();
             				Ext.getCmp("Warrantcheckviewidwarrantcheck").setEditable (true);
+            				Ext.getCmp("Warrantcheckviewgoodscode").setReadOnly (false);
+        					Ext.getCmp("Warrantcheckviewgoodsname").setReadOnly (false);
+        					Ext.getCmp("Warrantcheckviewgoodsunits").setReadOnly (false);
             				checkQueryWindow("筛选", WarrantcheckviewdataForm, Warrantcheckviewstore,Ext.getCmp("queryWarrantcheckviewaction").getValue());
             			}
             		},{
@@ -437,7 +457,7 @@ Ext.onReady(function() {
             				});
             			}
                     },{
-                    	text : "检查导入",
+                    	text : "导入检查",
             			iconCls : 'imp',
             			handler : function() {
             				commonImp(basePath + "CPWarrantcheckAction.do?method=impCheck","导入",Warrantcheckviewstore);
