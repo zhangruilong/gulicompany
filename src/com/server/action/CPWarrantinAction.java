@@ -22,7 +22,7 @@ public class CPWarrantinAction extends WarrantinAction {
 		String json = request.getParameter("json");
 		System.out.println("json : " + json);
 		if(CommonUtil.isNotEmpty(json)) cuss = CommonConst.GSON.fromJson(json, TYPE);
-		if(cuss.size()>0 && !cuss.get(0).getWarrantinstatue().equals("已回滚")){
+		if(cuss.size()>0 && (cuss.get(0).getWarrantinstatue()==null || !cuss.get(0).getWarrantinstatue().equals("已回滚"))){
 			Warrantin temp = cuss.get(0);
 			//查询商品的库存总账
 			List<Goodsnum> gnLi = selAll(Goodsnum.class,"select * from goodsnum gn where gn.goodsnumgoods='"+temp.getWarrantingoods()+

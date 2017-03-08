@@ -476,8 +476,10 @@ Ext.onReady(function() {
     						if (selections.length != 1) {
     							Ext.Msg.alert('提示', '请选择一条数据！');
     							return;
-    						} else if(selections[0].data['warrantcheckstatue'] =='已回滚'){
+    						}
+    						if(selections[0].data['warrantcheckstatue'] =='已回滚'){
         						Ext.Msg.alert('提示', '不能回滚已回滚的数据。');
+        						return;
         					}
     						checkRollBACK(basePath + "CPWarrantcheckAction.do?method=checkRollBACK",selections,Warrantcheckviewstore);
     					}

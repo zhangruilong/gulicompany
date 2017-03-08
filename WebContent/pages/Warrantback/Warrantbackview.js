@@ -1,7 +1,7 @@
 var Warrantbackviewbbar;
 var statueStore = new Ext.data.ArrayStore({//状态下拉
 	fields:["name"],
-	data:[["完好退货"],["报废退货"],["采购退货"]]
+	data:[["完好退货"],["采购退货"]]
 });
 var sumNum = 0;
 var startDate = Ext.util.Format.date(new Date(),'Y-m-d');			//查询的开始时间
@@ -423,6 +423,25 @@ Ext.onReady(function() {
 				Ext.getCmp("Warrantbackviewgoodscode").setReadOnly (true);
 				Ext.getCmp("Warrantbackviewgoodsname").setReadOnly (true);
 				Ext.getCmp("Warrantbackviewgoodsunits").setReadOnly (true);
+				Ext.getCmp("Warrantbackviewwarrantbackstatue").setReadOnly (false);
+				Ext.getCmp("Warrantbackviewwarrantbackstore").setReadOnly (false);
+				addWarrantbackWindow(basePath + "CPWarrantbackAction.do?method=addWarrantback", "新增退货台账", WarrantbackviewdataForm, Warrantbackviewstore);
+			}
+		},'-',{
+			text : Ext.os.deviceType === 'Phone' ? null : "破损退货",
+			iconCls : 'add',
+			handler : function() {
+				WarrantbackviewdataForm.form.reset();
+				Ext.getCmp("Warrantbackviewidwarrantback").setEditable (true);
+				Ext.getCmp("Warrantbackviewgoodscode").setReadOnly (true);
+				Ext.getCmp("Warrantbackviewgoodsname").setReadOnly (true);
+				Ext.getCmp("Warrantbackviewgoodsunits").setReadOnly (true);
+				Ext.getCmp("Warrantbackviewwarrantbackstatue").setValue('破损退货');
+				var poSunIndex = Storehousestore.find('storehousename','破损仓库');
+				var stoID = Storehousestore.getAt(poSunIndex).get('storehouseid');
+				Ext.getCmp("Warrantbackviewwarrantbackstore").setValue(stoID);
+				Ext.getCmp("Warrantbackviewwarrantbackstatue").setReadOnly (true);
+				Ext.getCmp("Warrantbackviewwarrantbackstore").setReadOnly (true);
 				addWarrantbackWindow(basePath + "CPWarrantbackAction.do?method=addWarrantback", "新增退货台账", WarrantbackviewdataForm, Warrantbackviewstore);
 			}
 		},'-',{
@@ -462,8 +481,10 @@ Ext.onReady(function() {
         					if (selections.length != 1) {
         						Ext.Msg.alert('提示', '请选择一条数据！');
         						return;
-        					} else if(selections[0].data['warrantbackstatue'] =='已回滚'){
+        					}
+        					if(selections[0].data['warrantbackstatue'] =='已回滚'){
         						Ext.Msg.alert('提示', '不能回滚已回滚的数据。');
+        						return;
         					}
         					backRollBACK(basePath + "CPWarrantbackAction.do?method=backRollBack",selections,Warrantbackviewstore);
         				}

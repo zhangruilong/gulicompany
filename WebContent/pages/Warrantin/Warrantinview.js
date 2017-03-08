@@ -63,7 +63,7 @@ Ext.onReady(function() {
      			    ,'empcode' 
      			      ];// 全部字段
 	var wheresql = "goodscompany='"+comid+"'";
-	var Storehousestore = dataStore(Storehousefields, basePath + "CPStorehouseAction.do?method=selAll&wheresql=storehousecompany='"+comid+"' and storehousestatue='启用' and storehousename!=''");// 定义Storehousestore
+	var Storehousestore = dataStore(Storehousefields, basePath + "CPStorehouseAction.do?method=selAll&wheresql=storehousecompany='"+comid+"' and storehousestatue='启用' and storehousename!='破损仓库'");// 定义Storehousestore
 	Storehousestore.load();
 	var Supplierstore = dataStore(Supplierfields, basePath + "CPSupplierAction.do?method=selAll&wheresql=suppliercompany='"+comid+"' and supplierstatue='启用'");// 定义Supplierstore
 	Supplierstore.load();
@@ -381,6 +381,12 @@ Ext.onReady(function() {
 			width : 73,
 		}
 		, {
+			header : '状态',
+			dataIndex : 'warrantinstatue',
+			sortable : true,  
+			width : 60,
+		}
+		, {
 			header : '备注',
 			dataIndex : 'warrantindetail',
 			sortable : true, 
@@ -520,8 +526,10 @@ Ext.onReady(function() {
 							if (selections.length != 1) {
 								Ext.Msg.alert('提示', '请选择一条数据！');
 								return;
-							} else if(selections[0].data['warrantinstatue'] =='已回滚'){
+							}
+							if(selections[0].data['warrantinstatue'] =='已回滚'){
         						Ext.Msg.alert('提示', '不能回滚已回滚的数据。');
+        						return;
         					}
 							warrantinRollBACK(basePath + "CPWarrantinAction.do?method=warrantinRollBACK",selections,Warrantinviewstore);
 						}

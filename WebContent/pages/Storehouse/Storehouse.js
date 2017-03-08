@@ -55,7 +55,6 @@ Ext.onReady(function() {
 				id : 'Storehousestorehousecode',
 				name : 'storehousecode',
 				allowBlank : false,
-				readOnly : true,
 				maxLength : 100
 			} ]
 		}
@@ -68,7 +67,6 @@ Ext.onReady(function() {
 				id : 'Storehousestorehousename',
 				name : 'storehousename',
 				allowBlank : false,
-				readOnly : true,
 				maxLength : 100
 			} ]
 		}
@@ -216,6 +214,8 @@ Ext.onReady(function() {
 				handler : function() {
 					StorehousedataForm.form.reset();
 					Ext.getCmp("Storehousestorehouseid").setEditable (true);
+					Ext.getCmp("Storehousestorehousecode").setReadOnly (false);
+					Ext.getCmp("Storehousestorehousename").setReadOnly (false);
 					createTextWindow(basePath + Storehouseaction + "?method=addStorehouse", "新增仓库信息", StorehousedataForm, Storehousestore);
 				}
 			},'-',{
@@ -230,6 +230,8 @@ Ext.onReady(function() {
 					}
 					StorehousedataForm.form.reset();
 					Ext.getCmp("Storehousestorehouseid").setEditable (false);
+					Ext.getCmp("Storehousestorehousecode").setReadOnly (true);
+					Ext.getCmp("Storehousestorehousename").setReadOnly (true);
 					createTextWindow(basePath + Storehouseaction + "?method=updStorehouse", "修改仓库信息", StorehousedataForm, Storehousestore);
 					StorehousedataForm.form.loadRecord(selections[0]);
 				}

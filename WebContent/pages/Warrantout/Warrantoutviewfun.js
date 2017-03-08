@@ -368,7 +368,7 @@ function editWarrantoutWindow(url,title,_form,store) {
 function delWarrantout(url, selections, store) {
 	Ext.Msg.confirm('请确认', '<b>提示:</b>请确认要删除当前选择的条目？', function(btn, text) {
 		if (btn == 'yes') {
-			var json = "["+Ext.encode(selections[i].getData()) + "]";
+			var json = "["+Ext.encode(selections[0].getData()) + "]";
 			Ext.Ajax.request({
 				url : url,
 				method : 'POST',

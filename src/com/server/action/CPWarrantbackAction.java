@@ -20,7 +20,7 @@ public class CPWarrantbackAction extends WarrantbackAction {
 		String json = request.getParameter("json");
 		System.out.println("json : " + json);
 		if(CommonUtil.isNotEmpty(json)) cuss = CommonConst.GSON.fromJson(json, TYPE);
-		if(cuss.size()>0 && !cuss.get(0).getWarrantbackstatue().equals("已回滚")){
+		if(cuss.size()>0 && (cuss.get(0).getWarrantbackstatue()==null || !cuss.get(0).getWarrantbackstatue().equals("已回滚"))){
 			Warrantback temp = cuss.get(0);
 			String updSql = "update Warrantback set warrantbackstatue='已回滚' where idwarrantback='"+temp.getIdwarrantback()+"'";
 			//如果是完好退货就修改库存总账的数量
@@ -70,8 +70,8 @@ public class CPWarrantbackAction extends WarrantbackAction {
 			temp.setWarrantbackinswhen(DateUtils.getDateTime());
 			temp.setWarrantbackinswho(lgi.getUsername());
 			String insBackSql = getInsSingleSql(temp);
-			if(temp.getWarrantbackstatue().equals("完好退货")){
-				//完好退货
+			if(temp.getWarrantbackstatue().equals("完好退货") || temp.getWarrantbackstatue().equals("破损退货") ){
+				//完好退货 或 破损退货
 				@SuppressWarnings("unchecked")
 				List<Goodsnum> gnLi = selAll(Goodsnum.class, "select * from goodsnum where goodsnumgoods='"+
 						temp.getWarrantbackgoods()+"' and goodsnumstore='"+temp.getWarrantbackstore()+"'");
@@ -87,7 +87,7 @@ public class CPWarrantbackAction extends WarrantbackAction {
 					String[] sqls = {insBackSql,insNumSql};
 					result = doAll(sqls);
 				}
-			} else if(temp.getWarrantbackstatue().equals("采购退货")){
+			} else {
 				//采购退货
 				@SuppressWarnings("unchecked")
 				List<Goodsnum> gnLi = selAll(Goodsnum.class, "select * from goodsnum where goodsnumgoods='"+
@@ -104,9 +104,9 @@ public class CPWarrantbackAction extends WarrantbackAction {
 					String[] sqls = {insBackSql,insNumSql};
 					result = doAll(sqls);
 				}
-			} else {
+			}/* else {
 				result = doSingle(insBackSql, null);
-			}
+			}*/
 		}
 		responsePW(response, result);
 	}
