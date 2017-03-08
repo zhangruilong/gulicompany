@@ -23,7 +23,7 @@ public class CPWarrantcheckAction extends WarrantcheckAction {
 		String json = request.getParameter("json");
 		System.out.println("json : " + json);
 		if(CommonUtil.isNotEmpty(json)) cuss = CommonConst.GSON.fromJson(json, TYPE);
-		if(cuss.size()>0){
+		if(cuss.size()>0 && !cuss.get(0).getWarrantcheckstatue().equals("已回滚")){
 			Warrantcheck temp = cuss.get(0);
 			//查询商品的库存总账
 			@SuppressWarnings("unchecked")
@@ -32,7 +32,7 @@ public class CPWarrantcheckAction extends WarrantcheckAction {
 			if(gnLi.size()>0){
 				String updNumSql = "update goodsnum g set g.goodsnumnum='"+temp.getWarrantchecknumorg()+
 						"' where g.idgoodsnum='"+gnLi.get(0).getIdgoodsnum()+"'";
-				String delTempSql = "update Warrantcheck set warrantcheckstatue='回滚' where idwarrantcheck='"+temp.getIdwarrantcheck()+"'";
+				String delTempSql = "update Warrantcheck set warrantcheckstatue='已回滚' where idwarrantcheck='"+temp.getIdwarrantcheck()+"'";
 				String[] sqls = {updNumSql,delTempSql};
 				result = doAll(sqls);
 			} else {

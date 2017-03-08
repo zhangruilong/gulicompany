@@ -459,9 +459,11 @@ Ext.onReady(function() {
         				iconCls : 'delete',
         				handler : function() {
         					var selections = Warrantbackviewgrid.getSelection();
-        					if (Ext.isEmpty(selections)) {
-        						Ext.Msg.alert('提示', '请至少选择一条数据！');
+        					if (selections.length != 1) {
+        						Ext.Msg.alert('提示', '请选择一条数据！');
         						return;
+        					} else if(selections[0].data['warrantbackstatue'] =='已回滚'){
+        						Ext.Msg.alert('提示', '不能回滚已回滚的数据。');
         					}
         					backRollBACK(basePath + "CPWarrantbackAction.do?method=backRollBack",selections,Warrantbackviewstore);
         				}
@@ -470,8 +472,8 @@ Ext.onReady(function() {
         				iconCls : 'delete',
         				handler : function() {
         					var selections = Warrantbackviewgrid.getSelection();
-        					if (Ext.isEmpty(selections)) {
-        						Ext.Msg.alert('提示', '请至少选择一条数据！');
+        					if (selections.length != 1) {
+        						Ext.Msg.alert('提示', '请选择一条数据！');
         						return;
         					}
         					commonDelete(basePath + "CPWarrantbackAction.do?method=delAll",selections,Warrantbackviewstore,Warrantbackviewkeycolumn);

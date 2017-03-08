@@ -473,10 +473,12 @@ Ext.onReady(function() {
     					iconCls : 'delete',
     					handler : function() {
     						var selections = Warrantcheckviewgrid.getSelection();
-    						if (Ext.isEmpty(selections)) {
-    							Ext.Msg.alert('提示', '请至少选择一条数据！');
+    						if (selections.length != 1) {
+    							Ext.Msg.alert('提示', '请选择一条数据！');
     							return;
-    						}
+    						} else if(selections[0].data['warrantcheckstatue'] =='已回滚'){
+        						Ext.Msg.alert('提示', '不能回滚已回滚的数据。');
+        					}
     						checkRollBACK(basePath + "CPWarrantcheckAction.do?method=checkRollBACK",selections,Warrantcheckviewstore);
     					}
             		},{
@@ -484,8 +486,8 @@ Ext.onReady(function() {
             			iconCls : 'delete',
             			handler : function() {
             				var selections = Warrantcheckviewgrid.getSelection();
-            				if (Ext.isEmpty(selections)) {
-            					Ext.Msg.alert('提示', '请至少选择一条数据！');
+            				if (selections.length != 1) {
+            					Ext.Msg.alert('提示', '请选择一条数据！');
             					return;
             				}
             				commonDelete(basePath + "CPWarrantcheckAction.do?method=delAll",selections,Warrantcheckviewstore,Warrantcheckviewkeycolumn);

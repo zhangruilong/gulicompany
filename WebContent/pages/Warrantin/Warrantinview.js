@@ -517,10 +517,12 @@ Ext.onReady(function() {
 						iconCls : 'delete',
 						handler : function() {
 							var selections = Warrantinviewgrid.getSelection();
-							if (Ext.isEmpty(selections)) {
-								Ext.Msg.alert('提示', '请至少选择一条数据！');
+							if (selections.length != 1) {
+								Ext.Msg.alert('提示', '请选择一条数据！');
 								return;
-							}
+							} else if(selections[0].data['warrantinstatue'] =='已回滚'){
+        						Ext.Msg.alert('提示', '不能回滚已回滚的数据。');
+        					}
 							warrantinRollBACK(basePath + "CPWarrantinAction.do?method=warrantinRollBACK",selections,Warrantinviewstore);
 						}
         		    },{
@@ -528,8 +530,8 @@ Ext.onReady(function() {
         				iconCls : 'delete',
         				handler : function() {
         					var selections = Warrantinviewgrid.getSelection();
-        					if (Ext.isEmpty(selections)) {
-        						Ext.Msg.alert('提示', '请至少选择一条数据！');
+        					if (selections.length != 1) {
+        						Ext.Msg.alert('提示', '请选择一条数据！');
         						return;
         					}
         					commonDelete(basePath + "CPWarrantinAction.do?method=warrantinDelete",selections,Warrantinviewstore,Warrantinviewkeycolumn);

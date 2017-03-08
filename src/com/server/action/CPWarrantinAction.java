@@ -22,14 +22,15 @@ public class CPWarrantinAction extends WarrantinAction {
 		String json = request.getParameter("json");
 		System.out.println("json : " + json);
 		if(CommonUtil.isNotEmpty(json)) cuss = CommonConst.GSON.fromJson(json, TYPE);
-		for(Warrantin temp:cuss){
+		if(cuss.size()>0 && !cuss.get(0).getWarrantinstatue().equals("已回滚")){
+			Warrantin temp = cuss.get(0);
 			//查询商品的库存总账
 			List<Goodsnum> gnLi = selAll(Goodsnum.class,"select * from goodsnum gn where gn.goodsnumgoods='"+temp.getWarrantingoods()+
 					"' and goodsnumstore='"+temp.getWarrantinstore()+"'");
 			if(gnLi.size()>0){
 				Integer num = Integer.parseInt(gnLi.get(0).getGoodsnumnum()) - Integer.parseInt(temp.getWarrantinnum());
 				String updNumSql = "update goodsnum g set g.goodsnumnum='"+num+"' where g.idgoodsnum='"+gnLi.get(0).getIdgoodsnum()+"'";
-				String delTempSql = "update Warrantin set warrantinstatue='回滚' where idwarrantin='"+temp.getIdwarrantin()+"'";
+				String delTempSql = "update Warrantin set warrantinstatue='已回滚' where idwarrantin='"+temp.getIdwarrantin()+"'";
 				String[] sqls = {updNumSql,delTempSql};
 				result = doAll(sqls);
 			}

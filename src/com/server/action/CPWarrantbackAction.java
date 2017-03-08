@@ -20,9 +20,9 @@ public class CPWarrantbackAction extends WarrantbackAction {
 		String json = request.getParameter("json");
 		System.out.println("json : " + json);
 		if(CommonUtil.isNotEmpty(json)) cuss = CommonConst.GSON.fromJson(json, TYPE);
-		if(cuss.size()>0){
+		if(cuss.size()>0 && !cuss.get(0).getWarrantbackstatue().equals("已回滚")){
 			Warrantback temp = cuss.get(0);
-			String updSql = "update Warrantback set warrantbackstatue='回滚' where idwarrantback='"+temp.getIdwarrantback()+"'";
+			String updSql = "update Warrantback set warrantbackstatue='已回滚' where idwarrantback='"+temp.getIdwarrantback()+"'";
 			//如果是完好退货就修改库存总账的数量
 			if(temp.getWarrantbackstatue().equals("完好退货")){
 				//根据 商品ID 和 仓库 查询商品的库存总账

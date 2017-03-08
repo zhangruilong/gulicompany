@@ -559,9 +559,11 @@ Ext.onReady(function() {
         				iconCls : 'delete',
         				handler : function() {
         					var selections = Warrantoutviewgrid.getSelection();
-        					if (Ext.isEmpty(selections)) {
+        					if (selections.length != 1) {
         						Ext.Msg.alert('提示', '请至少选择一条数据！');
         						return;
+        					} else if(selections[0].data['warrantoutstatue'] =='已回滚'){
+        						Ext.Msg.alert('提示', '不能回滚已回滚的数据。');
         					}
         					delWarrantout(basePath + "CPWarrantoutAction.do?method=delWarrantout",selections,Warrantoutviewstore,Warrantoutviewkeycolumn);
         				}
@@ -570,7 +572,7 @@ Ext.onReady(function() {
         				iconCls : 'delete',
         				handler : function() {
         					var selections = Warrantoutviewgrid.getSelection();
-        					if (Ext.isEmpty(selections)) {
+        					if (selections.length != 1) {
         						Ext.Msg.alert('提示', '请至少选择一条数据！');
         						return;
         					}

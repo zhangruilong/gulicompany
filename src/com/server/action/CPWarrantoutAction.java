@@ -76,14 +76,15 @@ public class CPWarrantoutAction extends WarrantoutAction {
 		String json = request.getParameter("json");
 		System.out.println("json : " + json);
 		if(CommonUtil.isNotEmpty(json)) cuss = CommonConst.GSON.fromJson(json, TYPE);
-		for(Warrantout temp:cuss){
+		if(cuss.size()>0 && !cuss.get(0).getWarrantoutstatue().equals("已回滚")){
+			Warrantout temp = cuss.get(0);
 			//查询商品的库存总账
 			List<Goodsnum> gnLi = selAll(Goodsnum.class,"select * from goodsnum gn where gn.goodsnumgoods='"+temp.getWarrantoutgoods()+
 					"' and goodsnumstore='"+temp.getWarrantoutstore()+"'");
 			if(gnLi.size()>0){
 				Integer num = Integer.parseInt(gnLi.get(0).getGoodsnumnum()) + Integer.parseInt(temp.getWarrantoutnum());
 				String updNumSql = "update goodsnum g set g.goodsnumnum='"+num+"' where g.idgoodsnum='"+gnLi.get(0).getIdgoodsnum()+"'";
-				String updTempSql = "update Warrantout set warrantoutstatue='回滚' where idwarrantout='"+temp.getIdwarrantout()+"'";
+				String updTempSql = "update Warrantout set warrantoutstatue='已回滚' where idwarrantout='"+temp.getIdwarrantout()+"'";
 				String[] sqls = {updNumSql,updTempSql};
 				result = doAll(sqls);
 			}
