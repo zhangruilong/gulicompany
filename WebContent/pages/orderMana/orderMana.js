@@ -26,7 +26,22 @@ var odQuery='';
 var Orderdgrid = new Object();
 var Ordermviewbbar = new Object();
 
+var storehouseid;
+
 Ext.onReady(function() {
+	$.ajax({
+		url : "CPStorehouseAction.do?method=selAll",
+		type : 'post',
+		data : {
+			wheresql : "storehousename='主仓库'"
+		},
+		success: function(resp){
+			var data = eval('('+resp+')');
+			if(data.root.length>0){
+				storehouseid = data.root[0].storehouseid;
+			}
+		}
+	});
 	var Ordermviewclassify = "订单管理";
 	var Ordermviewtitle = "当前位置:业务管理》" + Ordermviewclassify;
 	var Ordermviewaction = "CPOrderAction.do";
@@ -630,7 +645,8 @@ Ext.onReady(function() {
     							data:{
     								method:"updateOrdermStatue",
     								statue:"已发货",
-    								ordermid:ordermid
+    								ordermid:ordermid,
+    								storehouseid: storehouseid
     							},
     							success : function(resp){
     								var data = eval('('+resp+')');

@@ -7,6 +7,7 @@
 	LoginInfo info = (LoginInfo)session.getAttribute("loginInfo"); 
 	String comid = info.getCompanyid();
 	%>
+	<script type="text/javascript" src="../../zrlextpages/common/jquery/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript">
 	var comid = '<%=comid%>';
 	</script>

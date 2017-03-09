@@ -488,7 +488,7 @@ Ext.onReady(function() {
             			iconCls : 'delete',
             			handler : function() {
             				var selections = Warrantcheckviewgrid.getSelection();
-            				if (selections.length != 1) {
+            				if (Ext.isEmpty(selections)) {
             					Ext.Msg.alert('提示', '请选择一条数据！');
             					return;
             				}

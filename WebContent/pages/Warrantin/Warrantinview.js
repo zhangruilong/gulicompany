@@ -62,7 +62,12 @@ Ext.onReady(function() {
 	var Empfields = ['empid'
      			    ,'empcode' 
      			      ];// 全部字段
+	var Goodsclassfields = ['goodsclassid'
+	        			    ,'goodsclassname' 
+	        			      ];// 小类字段
 	var wheresql = "goodscompany='"+comid+"'";
+	var Goodsclassstore = dataStore(Goodsclassfields, "CPGoodsclassAction.do?method=queryCompanyGoodsclass&wheresql=goodsclasscompany='"+comid+"'");//定义小类store
+	Goodsclassstore.load();	//加载供应商小类
 	var Storehousestore = dataStore(Storehousefields, basePath + "CPStorehouseAction.do?method=selAll&wheresql=storehousecompany='"+comid+"' and storehousestatue='启用' and storehousename!='破损仓库'");// 定义Storehousestore
 	Storehousestore.load();
 	var Supplierstore = dataStore(Supplierfields, basePath + "CPSupplierAction.do?method=selAll&wheresql=suppliercompany='"+comid+"' and supplierstatue='启用'");// 定义Supplierstore
@@ -98,6 +103,265 @@ Ext.onReady(function() {
 		}
 		Warrantinviewstore.remove(total);
 	});
+	/*///////////////////-------------------新增商品和库存总账的form(开始)--------------------/////////////////////*/
+	var GoodsdataForm = Ext.create('Ext.form.Panel', {
+			id:'GoodsdataForm',
+			labelAlign : 'right',
+			frame : true,
+			layout : 'column',
+			items : [ {
+				columnWidth : 1,
+				layout : 'column',
+				hidden : true,
+				items : [ {
+					xtype : 'textfield',
+					fieldLabel : '商品ID',
+					id : 'Goodsgoodsid',
+					name : 'goodsid',
+				} ]
+			}
+			, {
+				columnWidth : 1,
+				layout : 'column',
+				items : [ {
+					xtype : 'textfield',
+					fieldLabel : '商品编号',
+					id : 'Goodsgoodscode',
+					allowBlank : false,
+					name : 'goodscode',
+					maxLength : 100,
+					labelWidth: 70,
+					width : 302,
+					margin : '5 10 5 10'
+				}, {
+					xtype : 'textfield',
+					fieldLabel : '商品名称',
+					id : 'Goodsgoodsname',
+					allowBlank : false,
+					name : 'goodsname',
+					maxLength : 100,
+					labelWidth: 70,
+					width : 302,
+					margin : '5 10 5 10'
+				} ]
+			}
+			, {
+				columnWidth : 1,
+				layout : 'column',
+				items : [ {
+					xtype : 'textfield',
+					fieldLabel : '规格',
+					id : 'Goodsgoodsunits',
+					allowBlank : false,
+					name : 'goodsunits',
+					maxLength : 100,
+					labelWidth: 40,
+					width : 302,
+					margin : '5 10 5 10'
+				}, {
+					xtype : 'combo',
+					fieldLabel : '小类',
+					id : 'Goodsgoodsclass',
+					name : 'goodsclass',			//小类名称
+					//loadingText: 'loading...',			//正在加载时的显示
+					//editable : false,						//是否可编辑
+					emptyText : '请选择',
+					store : Goodsclassstore,
+					mode : 'local',					//local是取本地数据的也就是javascirpt(内存)中的数据。
+													//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
+					displayField : 'goodsclassname',		//显示的字段
+					valueField : 'goodsclassid',		//作为值的字段
+					hiddenName : 'menulevel',
+					triggerAction : 'all',
+					editable : false,
+					maxLength : 100,
+					allowBlank : false,			//不允许空白值
+					anchor : '95%',
+					labelWidth: 40,
+					width : 302,
+					margin : '5 10 5 10'
+				} ]
+			}
+			, {
+				columnWidth : 1,
+				layout : 'column',
+				items : [ {
+					xtype : 'textfield',
+					fieldLabel : '其他类别',
+					id : 'Goodsgoodstype',
+					name : 'goodstype',
+					maxLength : 100,
+					allowBlank : false,
+					labelWidth: 70,
+					width : 302,
+					margin : '5 10 5 10'
+				}, {
+					xtype : 'textfield',
+					fieldLabel : '品牌',
+					id : 'Goodsgoodsbrand',
+					name : 'goodsbrand',
+					maxLength : 100,
+					labelWidth: 40,
+					width : 302,
+					margin : '5 10 5 10'
+				} ]
+			}
+			, {
+				columnWidth : 1,
+				layout : 'column',
+				items : [ {
+					xtype : 'textfield',
+					fieldLabel : '重量(kg)',
+					id : 'Goodsgoodsweight',
+					name : 'goodsweight',
+					maxLength : 100,
+					labelWidth: 70,
+					width : 302,
+					margin : '5 10 5 10'
+				}, {
+					xtype : 'textfield',
+					fieldLabel : '顺序',
+					id : 'Goodsgoodsorder',
+					name : 'goodsorder',
+					maxLength : 100,
+					labelWidth: 40,
+					width : 302,
+					margin : '5 10 5 10'
+				} ]
+			}
+			, {
+				columnWidth : 1,
+				layout : 'form',
+				items : [ {
+					xtype : 'textfield',
+					fieldLabel : '图片路径',
+					id : 'Goodsgoodsimage',
+					name : 'goodsimage',
+					maxLength : 100
+				} ]
+			}
+			, {
+				columnWidth : 1,
+				layout : 'column',
+				items : [ {
+					xtype : 'combo',
+					fieldLabel : '仓库',
+					id : 'newWarrantinviewwarrantinstore',
+					name : 'warrantinstore',			//小类名称
+					//loadingText: 'loading...',			//正在加载时的显示
+					//editable : false,						//是否可编辑
+					emptyText : '请选择',
+					store : Storehousestore,
+					mode : 'local',					//local是取本地数据的也就是javascirpt(内存)中的数据。
+													//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
+					displayField : 'storehousename',		//显示的字段
+					valueField : 'storehouseid',		//作为值的字段
+					hiddenName : 'warrantinstore',
+					triggerAction : 'all',
+					editable : false,
+					maxLength : 100,
+					anchor : '95%',
+					labelWidth: 40,
+					width : 302,
+					margin : '5 10 5 10'
+				},{
+					xtype : 'textfield',
+					fieldLabel : '数量',
+					id : 'newWarrantinviewwarrantinnum',
+					allowBlank : false,
+					name : 'warrantinnum',
+					maxLength : 100,
+					labelWidth: 40,
+					width : 302,
+					margin : '5 10 5 10'
+				} ]
+			}
+			, {
+				columnWidth : 1,
+				layout : 'column',
+				items : [ {
+					xtype : 'combo',
+					fieldLabel : '供货单位',
+					id : 'newWarrantinviewwarrantinfrom',
+					name : 'warrantinfrom',			//小类名称
+					//loadingText: 'loading...',			//正在加载时的显示
+					//editable : false,						//是否可编辑
+					emptyText : '请选择',
+					store : Supplierstore,
+					mode : 'local',					//local是取本地数据的也就是javascirpt(内存)中的数据。
+													//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
+					displayField : 'suppliername',		//显示的字段
+					valueField : 'supplierid',		//作为值的字段
+					hiddenName : 'warrantinfrom',
+					triggerAction : 'all',
+					editable : false,
+					maxLength : 100,
+					anchor : '95%',
+					labelWidth: 70,
+					width : 302,
+					margin : '5 10 5 10'
+				},{
+					xtype : 'textfield',
+					fieldLabel : '进货单价',
+					id : 'newWarrantinviewwarrantinprice',
+					allowBlank : false,
+					name : 'warrantinprice',
+					maxLength : 100,
+					labelWidth: 70,
+					width : 302,
+					margin : '5 10 5 10'
+				} ]
+			}
+			, {
+				columnWidth : 1,
+				layout : 'column',
+				items : [ ,{
+					xtype : 'textfield',
+					fieldLabel : '进货金额',
+					id : 'newWarrantinwarrantinmoney',
+					name : 'warrantinmoney',
+					maxLength : 100,
+					labelWidth: 70,
+					width : 302,
+					margin : '5 10 5 10'
+				},{
+					xtype : 'combo',
+					fieldLabel : '核验人',
+					id : 'newWarrantinviewwarrantinwho',
+					name : 'warrantinwho',			//小类名称
+					//loadingText: 'loading...',			//正在加载时的显示
+					//editable : false,						//是否可编辑
+					emptyText : '请选择',
+					store : Empstore,
+					mode : 'local',					//local是取本地数据的也就是javascirpt(内存)中的数据。
+													//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
+					displayField : 'empcode',		//显示的字段
+					valueField : 'empcode',		//作为值的字段
+					hiddenName : 'warrantinwho',
+					triggerAction : 'all',
+					editable : false,
+					maxLength : 100,
+					anchor : '95%',
+					labelWidth: 70,
+					width : 302,
+					margin : '5 10 5 10'
+				} ]
+			}
+			, {
+				columnWidth : 1,
+				layout : 'form',
+				items : [ {
+					xtype : 'textfield',
+					fieldLabel : '备注',
+					id : 'newWarrantinviewwarrantindetail',
+					name : 'warrantindetail',
+					maxLength : 100
+				} ]
+			}
+			]
+		});
+	/*///////////////////-------------------新增商品和库存总账的form(结束)--------------------/////////////////////*/
+	
 	var WarrantinviewdataForm = Ext.create('Ext.form.Panel', {// 定义新增和修改的FormPanel
 		id:'WarrantinviewdataForm',
 		labelAlign : 'right',
@@ -488,6 +752,13 @@ Ext.onReady(function() {
 				addWarrantinWindow(basePath + "CPWarrantinAction.do?method=addWarrantin", "新增入库台账", WarrantinviewdataForm, Warrantinviewstore);
 			}
 		},'-',{
+			text : Ext.os.deviceType === 'Phone' ? null : "新商品入库",
+			iconCls : 'add',
+			handler : function() {
+				GoodsdataForm.form.reset();
+				addGoodsnumWindow(basePath + "CPGoodsnumAction.do?method=insGoods", "新增", GoodsdataForm, Warrantinviewstore);
+			}
+		},'-',{
 			text: '更多操作',
             menu: {
             	xtype: 'menu',
@@ -538,7 +809,7 @@ Ext.onReady(function() {
         				iconCls : 'delete',
         				handler : function() {
         					var selections = Warrantinviewgrid.getSelection();
-        					if (selections.length != 1) {
+        					if (Ext.isEmpty(selections)) {
         						Ext.Msg.alert('提示', '请选择一条数据！');
         						return;
         					}

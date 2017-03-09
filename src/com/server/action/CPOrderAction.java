@@ -44,6 +44,7 @@ public class CPOrderAction extends OrdermviewAction {
 		LoginInfo lgi = (LoginInfo) request.getSession().getAttribute("loginInfo");
 		String statue = request.getParameter("statue");
 		String ordermid = request.getParameter("ordermid");
+		String storehouseid = request.getParameter("storehouseid");
 		//System.out.println("method:updateOrdermStatue, ordermid:"+ordermid);
 		List<Orderm> omLi = (List<Orderm>) selAll(Orderm.class, 
 				"select * from orderm om where om.ordermid='"+ordermid+"' and om.ordermstatue!='已删除'");
@@ -55,7 +56,7 @@ public class CPOrderAction extends OrdermviewAction {
 				strLi.add(updStaSQL);
 				String time = DateUtils.getDateTime();
 				for (Orderd od : odLi) {
-					Warrantout newOut = new Warrantout(CommonUtil.getNewId(), lgi.getCompanyid(), null, od.getOrderdgoods(), 
+					Warrantout newOut = new Warrantout(CommonUtil.getNewId(), lgi.getCompanyid(), storehouseid, od.getOrderdgoods(), 
 							od.getOrderdnum()+"", "发货请求", null, null, time, lgi.getUsername(), null, null, od.getOrderdcode(), 
 							od.getOrderdname(), od.getOrderdunits(), od.getOrderdtype(), od.getOrderdclass(), od.getOrderdunit(), 
 							od.getOrderdweight(), od.getOrderdnote(), od.getOrderdprice().toString(), od.getOrderdmoney().toString());

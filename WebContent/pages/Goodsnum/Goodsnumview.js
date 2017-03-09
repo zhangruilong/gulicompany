@@ -38,8 +38,6 @@ Ext.onReady(function() {
 	var wheresql = "goodscompany='"+comid+"'";
 	var Storehousestore = dataStore(Storehousefields, basePath + "CPStorehouseAction.do?method=selAll&wheresql=storehousecompany='"+comid+"' and storehousestatue='启用'");// 定义Storehousestore
 	Storehousestore.load();
-	var Goodsclassstore = dataStore(Goodsclassfields, "CPGoodsclassAction.do?method=queryCompanyGoodsclass&wheresql=goodsclasscompany='"+comid+"'");//定义小类store
-	Goodsclassstore.load();	//加载供应商小类
 	var Goodsnumviewstore = dataStore(Goodsnumviewfields, basePath + Goodsnumviewaction + "?method=selQueryCP");// 定义Goodsnumviewstore
 	Goodsnumviewstore.on('beforeload',function(store,options){					//数据加载时的事件
 		var query = Ext.getCmp("queryGoodsnumviewaction").getValue();
@@ -162,7 +160,7 @@ Ext.onReady(function() {
 				emptyText : '请选择',
 				store : Storehousestore,
 				mode : 'local',					//local是取本地数据的也就是javascirpt(内存)中的数据。
-												//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
+												//'remote'指的是要动态去服务器端拿数据，这样就不能加load()。
 				displayField : 'storehousename',		//显示的字段
 				valueField : 'storehouseid',		//作为值的字段
 				hiddenName : 'goodsnumstore',
@@ -175,184 +173,7 @@ Ext.onReady(function() {
 		]
 	});
 	
-	var Goodsclassfields = ['goodsclassid'
-	        			    ,'goodsclassname' 
-	        			      ];// 小类字段
-/*///////////////////-------------------新增商品和库存总账的form(开始)--------------------/////////////////////*/
-var GoodsdataForm = Ext.create('Ext.form.Panel', {
-		id:'GoodsdataForm',
-		labelAlign : 'right',
-		frame : true,
-		layout : 'column',
-		items : [ {
-			columnWidth : 1,
-			layout : 'column',
-			hidden : true,
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '商品ID',
-				id : 'Goodsgoodsid',
-				name : 'goodsid',
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'column',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '商品编号',
-				id : 'Goodsgoodscode',
-				allowBlank : false,
-				name : 'goodscode',
-				maxLength : 100,
-				labelWidth: 70,
-				width : 302,
-				margin : '5 10 5 10'
-			}, {
-				xtype : 'textfield',
-				fieldLabel : '商品名称',
-				id : 'Goodsgoodsname',
-				allowBlank : false,
-				name : 'goodsname',
-				maxLength : 100,
-				labelWidth: 70,
-				width : 302,
-				margin : '5 10 5 10'
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'column',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '规格',
-				id : 'Goodsgoodsunits',
-				allowBlank : false,
-				name : 'goodsunits',
-				maxLength : 100,
-				labelWidth: 40,
-				width : 302,
-				margin : '5 10 5 10'
-			}, {
-				xtype : 'combo',
-				fieldLabel : '小类',
-				id : 'Goodsgoodsclass',
-				name : 'goodsclass',			//小类名称
-				//loadingText: 'loading...',			//正在加载时的显示
-				//editable : false,						//是否可编辑
-				emptyText : '请选择',
-				store : Goodsclassstore,
-				mode : 'local',					//local是取本地数据的也就是javascirpt(内存)中的数据。
-												//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
-				displayField : 'goodsclassname',		//显示的字段
-				valueField : 'goodsclassid',		//作为值的字段
-				hiddenName : 'menulevel',
-				triggerAction : 'all',
-				editable : false,
-				maxLength : 100,
-				allowBlank : false,			//不允许空白值
-				anchor : '95%',
-				labelWidth: 40,
-				width : 302,
-				margin : '5 10 5 10'
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'column',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '其他类别',
-				id : 'Goodsgoodstype',
-				name : 'goodstype',
-				maxLength : 100,
-				allowBlank : false,
-				labelWidth: 70,
-				width : 302,
-				margin : '5 10 5 10'
-			}, {
-				xtype : 'textfield',
-				fieldLabel : '品牌',
-				id : 'Goodsgoodsbrand',
-				name : 'goodsbrand',
-				maxLength : 100,
-				labelWidth: 40,
-				width : 302,
-				margin : '5 10 5 10'
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'column',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '重量(kg)',
-				id : 'Goodsgoodsweight',
-				name : 'goodsweight',
-				maxLength : 100,
-				labelWidth: 70,
-				width : 302,
-				margin : '5 10 5 10'
-			}, {
-				xtype : 'textfield',
-				fieldLabel : '顺序',
-				id : 'Goodsgoodsorder',
-				name : 'goodsorder',
-				maxLength : 100,
-				labelWidth: 40,
-				width : 302,
-				margin : '5 10 5 10'
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'column',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '商品数量',
-				id : 'Goodsgoodsnumnum',
-				name : 'goodsnumnum',
-				maxLength : 100,
-				allowBlank : false,
-				labelWidth: 70,
-				width : 302,
-				margin : '5 10 5 10'
-			}, {
-				xtype : 'combo',
-				fieldLabel : '商品仓库',
-				id : 'Goodsgoodsnumstore',
-				name : 'goodsnumstore',			//小类名称
-				emptyText : '请选择',
-				store : Storehousestore,
-				mode : 'local',					//local是取本地数据的也就是javascirpt(内存)中的数据。
-												//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
-				displayField : 'storehousename',		//显示的字段
-				valueField : 'storehouseid',		//作为值的字段
-				hiddenName : 'Goodsnumstore',
-				triggerAction : 'all',
-				editable : false,
-				allowBlank : false,
-				maxLength : 100,
-				anchor : '95%',
-				labelWidth: 70,
-				width : 302,
-				margin : '5 10 5 10'
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'form',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '图片路径',
-				id : 'Goodsgoodsimage',
-				name : 'goodsimage',
-				maxLength : 100
-			} ]
-		}
-		]
-	});
-/*///////////////////-------------------新增商品和库存总账的form(结束)--------------------/////////////////////*/
+
 	
 	Goodsnumviewbbar = pagesizebar(Goodsnumviewstore);//定义分页
 	var Goodsnumviewgrid =  Ext.create('Ext.grid.Panel', {

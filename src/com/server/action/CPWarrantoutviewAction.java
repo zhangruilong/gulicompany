@@ -1,12 +1,18 @@
 package com.server.action;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.server.poco.WarrantoutPoco;
 import com.server.poco.WarrantoutviewPoco;
+import com.server.pojo.Goods;
+import com.server.pojo.Goodsnum;
+import com.server.pojo.LoginInfo;
 import com.server.pojo.Warrantinview;
+import com.server.pojo.Warrantout;
 import com.server.pojo.Warrantoutview;
 import com.system.tools.CommonConst;
 import com.system.tools.pojo.Pageinfo;
@@ -17,6 +23,51 @@ import com.system.tools.util.TypeUtil;
 
 public class CPWarrantoutviewAction extends WarrantoutviewAction {
 
+	//一键出库
+	@SuppressWarnings("unchecked")
+	public void onekeyPlacing(HttpServletRequest request, HttpServletResponse response){
+		LoginInfo lgi = (LoginInfo) request.getSession().getAttribute("loginInfo");
+		String json = request.getParameter("json");
+		String warrantoutwho = request.getParameter("warrantoutwho");
+		System.out.println("json : " + json);
+		json = json.replace("\"\"", "null");
+		if(CommonUtil.isNotEmpty(json)) cuss = CommonConst.GSON.fromJson(json, TYPE);
+		List<String> sqlLi = new ArrayList<String>();
+		for(Warrantoutview temp:cuss){
+			Warrantout updWar = new Warrantout();
+			updWar.setIdwarrantout(temp.getIdwarrantout());	//ID
+			updWar.setWarrantoutstatue("已发货");			//状态
+			updWar.setWarrantoutwho(warrantoutwho);			//领货人
+			String updTemp = getUpdSingleSql(updWar, WarrantoutPoco.KEYCOLUMN);
+			if(null != temp.getGoodsnumnum() && !temp.getGoodsnumnum().equals("undefined")){
+				Integer num =  Integer.parseInt(temp.getGoodsnumnum()) - Integer.parseInt(temp.getWarrantoutnum());
+				String updNumSql = "update goodsnum g set g.goodsnumnum='"+num+"' where g.idgoodsnum='"+temp.getIdgoodsnum()+"'";
+				sqlLi.add(updTemp);
+				sqlLi.add(updNumSql);
+			} else {
+				String goodsid = temp.getWarrantoutgoods();
+				if(!temp.getWarrantoutgtype().equals("商品")){
+					List<Goods> gLi = selAll(Goods.class, "select * from goods where goodscode='"+temp.getWarrantoutgcode()+
+									"' and goodsname='"+temp.getWarrantoutgname()+"' and goodsunits='"+temp.getWarrantoutgunits()+
+									"' and goodscompany='"+lgi.getCompanyid()+"' ");
+					if(gLi.size()>0){
+						goodsid = gLi.get(0).getGoodsid();
+					}
+				}
+				if(CommonUtil.isNotEmpty(goodsid)){
+					String insNumSql = "INSERT INTO `abf`.`goodsnum` (`idgoodsnum`, `goodsnumgoods`, `goodsnumnum`, `goodsnumstore`) VALUES ('"+
+							CommonUtil.getNewId()+"', '"+goodsid+"', '-"+temp.getWarrantoutnum()+"', '"+temp.getWarrantoutstore()+"')";
+					sqlLi.add(insNumSql);
+					sqlLi.add(updTemp);
+				}
+			}
+		}
+		if(sqlLi.size()>0){
+			String[] sqls = sqlLi.toArray(new String[0]);
+			result = doAll(sqls);
+		}
+		responsePW(response, result);
+	}
 	//导出
 	@SuppressWarnings("unchecked")
 	public void expAllCP(HttpServletRequest request, HttpServletResponse response) throws Exception{

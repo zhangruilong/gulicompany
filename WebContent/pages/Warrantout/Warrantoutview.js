@@ -11,7 +11,24 @@ var odStartDate=startDate;
 var odEndDate=endDate;
 var odQuery='';
 var odQueryjson='';
+var warrantoutwho = '';
 Ext.onReady(function() {
+	$.ajax({
+		url: "CPEmpAction.do?method=selAll",
+		type: "post",
+		data: {
+			wheresql: "createtime='出库' and empcompany='"+comid+"'"
+		},
+		success: function(resp){
+			var data = eval('('+resp+')');
+			if(data.root.length>0){
+				warrantoutwho = data.root[0].empcode;
+			}
+		},
+		error: function(resp){
+			
+		}
+	});
 	var Warrantoutviewclassify = "出库管理";
 	var Warrantoutviewtitle = "当前位置:库存管理》" + Warrantoutviewclassify;
 	var Warrantoutviewaction = "CPWarrantoutviewAction.do";
@@ -35,14 +52,16 @@ Ext.onReady(function() {
 		        			    ,'warrantoutgunit' 
 		        			    ,'warrantoutgweight' 
 		        			    ,'warrantoutordnote' 
-		        			    ,'warrantoutprice'
-		        			    ,'warrantoutmoney'
+		        			    ,'warrantoutprice' 
+		        			    ,'warrantoutmoney' 
 		        			    ,'goodsid' 
 		        			    ,'goodscompany' 
 		        			    ,'goodscode' 
 		        			    ,'goodsname' 
 		        			    ,'goodsunits' 
 		        			    ,'storehousename' 
+		        			    ,'idgoodsnum' 
+		        			    ,'goodsnumnum' 
 		        			      ];// 全部字段
 	var Warrantoutviewkeycolumn = [ 'idwarrantout' ];// 主键
 	var Storehousefields = ['storehouseid'
@@ -430,6 +449,12 @@ Ext.onReady(function() {
 			sortable : true, 
 			width : 73,
 		}
+		, {
+			header : '数量',
+			dataIndex : 'goodsnumnum',
+			sortable : true,  
+			hidden : true,
+		}
 		],
 		tbar : [{
 			xtype : 'textfield',
@@ -500,6 +525,25 @@ Ext.onReady(function() {
 					Ext.getCmp('Warrantoutviewwarrantoutgname').setReadOnly(true);
 					Ext.getCmp('Warrantoutviewwarrantoutgunits').setReadOnly(true);
 					addWarrantoutWindow(basePath + "CPWarrantoutAction.do?method=insWarrantout", "新增出库台账", WarrantoutviewdataForm, Warrantoutviewstore);
+				}
+		},'-',{
+			text : Ext.os.deviceType === 'Phone' ? null : "一键出库",
+				iconCls : 'add',
+				handler : function() {
+					var selections = Warrantoutviewgrid.getSelection();
+					if (Ext.isEmpty(selections)) {
+						Ext.Msg.alert('提示', '请至少选择一条数据！');
+						return;
+					}
+					var fields = ['idwarrantout'
+			        			    ,'warrantoutgoods' 
+			        			    ,'warrantoutnum' 
+			        			    ,'warrantoutgtype' 
+			        			    ,'warrantoutstore' 
+			        			    ,'idgoodsnum' 
+			        			    ,'goodsnumnum' 
+			        			      ];// 全部字段
+					warrantoutPlacing(basePath + Warrantoutviewaction + "?method=onekeyPlacing",selections,Warrantoutviewstore,fields);
 				}
 		},'-',{
 			text : Ext.os.deviceType === 'Phone' ? null : "修改",
@@ -574,7 +618,7 @@ Ext.onReady(function() {
         				iconCls : 'delete',
         				handler : function() {
         					var selections = Warrantoutviewgrid.getSelection();
-        					if (selections.length != 1) {
+        					if (Ext.isEmpty(selections)) {
         						Ext.Msg.alert('提示', '请选择一条数据！');
         						return;
         					}

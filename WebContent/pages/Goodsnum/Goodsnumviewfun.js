@@ -204,7 +204,7 @@ function goodsnumQueryWindow(title,_form,store) {
 	dataWindow.show();
 }
 //新增库存总账记录的窗口
-function addGoodsnumWindow(url,title,_form,store) {
+/*function addGoodsnumWindow(url,title,_form,store) {
 	var dataWindow = new Ext.Window({
 		title : title, // 窗口标题
 		layout : 'fit', // 设置窗口布局模式,当设置为fit时 scrollable 属性的设置会失效
@@ -272,7 +272,7 @@ function addGoodsnumWindow(url,title,_form,store) {
 	dataWindow.removeAll(false);	//这一行和下面一行如果没有则第二次选择修改时窗口中的选择框没有选项。
 	dataWindow.items.add(_form);
 	dataWindow.show();
-}
+}*/
 //修改退货台账记录的窗口
 function editGoodsnumWindow(url,title,_form,store,bkgoodsscope) {
 	

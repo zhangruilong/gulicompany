@@ -41,22 +41,26 @@ public class CPWarrantoutAction extends WarrantoutAction {
 							selGN = "select * from goodsnum gn where gn.goodsnumgoods='"+temp.getWarrantoutgoods()+
 									"' and goodsnumstore='"+temp.getWarrantoutstore()+"'";
 						} else {
-							selGN = "select * from goodsnumview where goodscode='"+temp.getWarrantoutgcode()+
+							selGN = "select * from goods left join goodsnum where goodscode='"+temp.getWarrantoutgcode()+
 									"' and goodsname='"+temp.getWarrantoutgname()+"' and goodsunits='"+temp.getWarrantoutgunits()+
 									"' and goodscompany='"+lgi.getCompanyid()+"' and goodsnumstore='"+temp.getWarrantoutstore()+"'";
 						}
 						List<Goodsnum> gnLi = selAll(Goodsnum.class,selGN);
 						String updTemp = getUpdSingleSql(temp, WarrantoutPoco.KEYCOLUMN);
-						if(gnLi.size()>0){
+						if(gnLi.size()>0 && null != gnLi.get(0).getIdgoodsnum()){
 							Integer num =  Integer.parseInt(gnLi.get(0).getGoodsnumnum()) - Integer.parseInt(temp.getWarrantoutnum());
 							String updNumSql = "update goodsnum g set g.goodsnumnum='"+num+"' where g.idgoodsnum='"+gnLi.get(0).getIdgoodsnum()+"'";
 							String[] sqls = {updTemp,updNumSql};
 							result = doAll(sqls);
 						} else if(null!=type && type.equals("直接出库")){
-							String insNumSql = "INSERT INTO `abf`.`goodsnum` (`idgoodsnum`, `goodsnumgoods`, `goodsnumnum`, `goodsnumstore`) VALUES ('"+
-									CommonUtil.getNewId()+"', '"+temp.getWarrantoutgoods()+"', '-"+temp.getWarrantoutnum()+"', '"+temp.getWarrantoutstore()+"')";
-							String[] sqls = {updTemp,insNumSql};
-							result = doAll(sqls);
+							if(gnLi.size()>0 && null != gnLi.get(0).getGoodsnumgoods()){
+								String insNumSql = "INSERT INTO `abf`.`goodsnum` (`idgoodsnum`, `goodsnumgoods`, `goodsnumnum`, `goodsnumstore`) VALUES ('"+
+										CommonUtil.getNewId()+"', '"+gnLi.get(0).getGoodsnumgoods()+"', '-"+temp.getWarrantoutnum()+"', '"+temp.getWarrantoutstore()+"')";
+								String[] sqls = {updTemp,insNumSql};
+								result = doAll(sqls);
+							} else {
+								result = doSingle(updTemp,null);
+							}
 						} else {
 							result = "{success:true,code:401,msg:'未找到相关的“库存总账”信息,请问要出库么?'}";
 						}

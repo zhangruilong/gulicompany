@@ -1,3 +1,77 @@
+
+//一键出库
+function warrantoutPlacing(url, selections, store, fields) {
+	Ext.Msg.confirm('请确认', '<b>提示:</b>请确认要一键出库？', function(btn, text) {
+		if (btn == 'yes') {
+			var ids = '[';
+			var msg = '';	//数量小于出库数量的提示信息
+			var staMsg = '';	//状态不对的商品的提示信息
+			for (var i = 0; i < selections.length; i++) {
+				if(selections[i].data['warrantoutstatue'] == '发货请求'){
+					var goodsnum = selections[i].data['goodsnumnum'];
+					//如果商品在主仓库中的数量信息 未知 或 数量小于出库数量
+					if(Ext.isEmpty(goodsnum) || selections[i].data['warrantoutnum'] > goodsnum){
+						msg += selections[i].data['warrantoutgname']+',';
+					}
+					ids += "{";
+					for (var j = 0; j < fields.length; j++){
+						ids += "'"+fields[j]+"':'" + selections[i].data[fields[j]] + "',";
+					}
+					ids = ids.substr(0, ids.length - 1) + "},";
+				} else {
+					staMsg += selections[i].data['warrantoutgname']+',';
+				}
+			};
+			if(msg.length >0 && staMsg.length >0){
+				msg = '商品:'+msg+'在主仓库中的数量不足<br/> 商品:'+staMsg+'状态不对,无法出库。';
+			} else if(staMsg.length >0 && msg.length ==0){
+				msg = '商品:'+staMsg+'状态不对,无法出库。';
+			} else if(msg.length >0 && staMsg.length ==0){
+				msg = '商品:'+msg+'在主仓库中的数量不足。';
+			}
+			if(msg.length >0){
+				Ext.Msg.confirm('请确认', msg+'<br/>是否出库？',function(btn, text){
+					if (btn == 'yes') {
+						Ext.Ajax.request({
+							url : url,
+							method : 'POST',
+							params : {
+								json : ids.substr(0, ids.length - 1) + "]",
+								warrantoutwho: warrantoutwho
+							},
+							success : function(response) {
+								var resp = Ext.decode(response.responseText); 
+								Ext.Msg.alert('提示', resp.msg, function(){
+									store.reload();
+								});
+							},
+							failure : function(response) {
+								Ext.Msg.alert('提示', '网络出现问题，请稍后再试');
+							}
+						});
+					}
+				});
+			} else {
+				Ext.Ajax.request({
+					url : url,
+					method : 'POST',
+					params : {
+						json : ids.substr(0, ids.length - 1) + "]"
+					},
+					success : function(response) {
+						var resp = Ext.decode(response.responseText); 
+						Ext.Msg.alert('提示', resp.msg, function(){
+							store.reload();
+						});
+					},
+					failure : function(response) {
+						Ext.Msg.alert('提示', '网络出现问题，请稍后再试');
+					}
+				});
+			}
+		}
+	});
+}
 //商品的窗口
 function goodsWindow(){
 	var Goodsaction = "CPGoodsAction.do";
