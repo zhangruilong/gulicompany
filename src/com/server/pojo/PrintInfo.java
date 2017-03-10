@@ -81,6 +81,10 @@ public class PrintInfo {
 	    * 客户类型
 	    */
 	   private String ordermcustype;   
+	   /**
+	    * 打印次数
+	    */
+	   private String ordermprinttimes;   
 	    //属性方法	    
 	     /**
 		 *设置主键"订单ID"属性
@@ -420,6 +424,22 @@ public class PrintInfo {
 		public String getOrdermcustype()
 		{
 			return this.ordermcustype;
+		}	   
+		/**
+		 *设置"打印次数"属性
+		 *@param ordermprinttimes 实体的Ordermprinttimes属性
+		 */
+		public void setOrdermprinttimes(String ordermprinttimes)
+		{
+			this.ordermprinttimes = ordermprinttimes;
+		}
+		
+		/**
+		 *获取"打印次数"属性
+		 */
+		public String getOrdermprinttimes()
+		{
+			return this.ordermprinttimes;
 		}	   
 	/**
 	    * 客户ID,主键

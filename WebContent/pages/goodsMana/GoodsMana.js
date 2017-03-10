@@ -20,7 +20,7 @@ getOneDisplay = function(value, meta, record) {
 
     var record = goodsStatueStore.getAt(rowIndex); 
 
-    return record ? record.get('name') : '';
+    return record ? '<span style="color:blue">'+record.get('name')+'<span/>' : '';
 
 }
 
@@ -349,21 +349,25 @@ Ext.onReady(function() {
 	    editable : false,  // 不可编辑 
 
 	    listeners : {
-	    	change : function(bzss , newValue , oldValue , eOpts){
+	    	select : function(combo , record , eOpts){
 		    	var selections = Goodsgrid.getSelection();
 	        	$.ajax({
-	        		url : 'CPGoodsAction.do?method=updAll',
+	        		url : 'CPGoodsAction.do?method=updGooSta',
 	        		type : 'post',
 	        		//dataType : 'json',
 	        		data : {
-	        			json : '[{"goodsid":"'+selections[0].data['goodsid']+'","goodsstatue":"'+newValue+'"}]'
+	        			json : '[{"goodsid":"'+selections[0].data['goodsid']+'","goodsstatue":"'+record.data['name']+'"}]'
 	        		},
 	        		success : function(resp){
 	        			var data = eval('('+resp+')');
 	        			if(data.code==202){
-	        				alert('商品状态已修改');
+	        				Ext.Msg.alert('提示','商品状态已修改');
+	        			} else if(data.code==401){
+	        				Ext.Msg.alert('提示','商品上架前需设置价格');
+	        				Goodsstore.reload();
 	        			} else {
-	        				alert('操作失败，商品可能已被删除。');
+	        				Ext.Msg.alert('提示','操作失败，商品可能已被删除。');
+	        				Goodsstore.reload();
 	        			}
 	        		},
 	        		error : function(resp){
@@ -438,7 +442,7 @@ Ext.onReady(function() {
 			sortable : true,
 			editor : goodsStaCombo,
 			renderer : getOneDisplay,
-			width : 70,
+			width : 70
 		}
 		, {
 			header : '品牌',

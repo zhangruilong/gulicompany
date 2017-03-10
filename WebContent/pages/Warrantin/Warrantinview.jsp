@@ -15,6 +15,7 @@
 	var comid = '<%=comid%>';
 	var comcode = '<%=comcode%>';
 	</script>
+	<script type="text/javascript" src="../../zrlextpages/common/jquery/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript" src="../../js/common2.js"></script>
 	<script type="text/javascript" src="Warrantinviewfun.js"></script>
 	<script type="text/javascript" src="Warrantinview.js"></script>

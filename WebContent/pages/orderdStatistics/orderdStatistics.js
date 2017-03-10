@@ -68,6 +68,53 @@ Ext.onReady(function() {
 	});
 	Orderdstatbbar = pagesizebar(Orderdstatstore);		//定义分页
 	
+	/*var tbar2 = Ext.create('Ext.toolbar.Toolbar', {
+		items: [{
+			xtype : 'textfield',
+			fieldLabel : '筛选:业务员',
+			id : 'quEmptextfield',
+			name : 'quEmp',
+			width : 170,
+			labelWidth : 80,
+			enableKeyEvents : true,
+			listeners : {
+				render : function(p){
+					p.getEl().on('click', function(p){  
+						showEmp();
+					});
+				}
+			}
+		},{
+			xtype : 'textfield',
+			fieldLabel : '品牌',
+			id : 'quBrandtextfield',
+			name : 'quEmp',
+			width : 125,
+			labelWidth : 35,
+			enableKeyEvents : true,
+			listeners : {
+				render : function(p){
+					p.getEl().on('click', function(p){  
+						showBrand();
+					});
+				}
+			}
+		},{
+			xtype : 'textfield',
+			fieldLabel : '客户',
+			id : 'quCustextfield',
+			name : 'quEmp',
+			width : 125,
+			labelWidth : 35,
+			listeners : {
+				render : function(p){
+					p.getEl().on('click', function(p){  
+						showCusNames();
+					});
+				}
+			}
+		}]
+	});*/
 	/*   定义 orderm(订单总表) 的 表格  开始    */
 	var Orderdstatgrid =  Ext.create('Ext.grid.Panel', {
 		height : document.documentElement.clientHeight - 4,
@@ -144,7 +191,7 @@ Ext.onReady(function() {
             },
 		}
 		, {
-			header : '商品总价',
+			header : '下单金额',
 			dataIndex : 'sumorderdmoney',
 			sortable : true, 
 //			summaryType: 'sum',
@@ -210,6 +257,20 @@ Ext.onReady(function() {
 					Orderdstatstore.load();
 				}
 			},'-',{
+				text : "导出",
+				iconCls : 'exp',
+				handler : function() {
+					Ext.Msg.confirm('请确认', '<b>提示:</b>请确认要导出当前数据？', function(btn, text) {
+						if (btn == 'yes') {
+							//
+							window.location.href = basePath + Orderdstataction + "?method=exprderdSta&query="+
+							Ext.getCmp("queryOrderdstataction").getValue()+"&startDate="+startDate+"&endDate="+endDate+
+							"&cusNames="+Ext.getCmp("quCustextfield").getValue()+"&empNames="+Ext.getCmp("quEmptextfield").getValue()+
+							"&brandNames="+Ext.getCmp("quBrandtextfield").getValue(); 
+						}
+					});
+				}
+			},'-',{
 				xtype : 'textfield',
 				fieldLabel : '筛选:业务员',
 				id : 'quEmptextfield',
@@ -253,22 +314,14 @@ Ext.onReady(function() {
 						});
 					}
 				}
-			},'-',{
-				text : "导出",
-				iconCls : 'exp',
-				handler : function() {
-					Ext.Msg.confirm('请确认', '<b>提示:</b>请确认要导出当前数据？', function(btn, text) {
-						if (btn == 'yes') {
-							//
-							window.location.href = basePath + Orderdstataction + "?method=exprderdSta&query="+
-							Ext.getCmp("queryOrderdstataction").getValue()+"&startDate="+startDate+"&endDate="+endDate+
-							"&cusNames="+Ext.getCmp("quCustextfield").getValue()+"&empNames="+Ext.getCmp("quEmptextfield").getValue()+
-							"&brandNames="+Ext.getCmp("quBrandtextfield").getValue(); 
-						}
-					});
-				}
 			}
-		]
+		],
+	    /*工具栏结束*/
+	    /*listeners: {
+	    	render: function(obj ,eOpts ){
+	    		tbar2.render(this.tbar);
+	    	}
+	    }*/
 	});
 	
 	/*   定义 orderm(订单总表) 的 表格  结束    */

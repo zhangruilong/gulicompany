@@ -70,6 +70,99 @@ Ext.onReady(function() {
 			columnWidth : 1,
 			layout : 'form',
 			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '客户名称',
+				id : 'Ccustomerviewcustomershop',
+				name : 'customershop',
+				maxLength : 100,
+				allowBlank : false,
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'form',
+			items : [{
+				xtype : 'combo',
+				fieldLabel : '所在城市',
+				id : 'Ccustomerviewcustomercity',
+				name : 'customercity',			//小类名称
+				emptyText : '请选择',
+				store : [city],
+				mode : 'local',					//local是取本地数据的也就是javascirpt(内存)中的数据。
+												//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
+				value : city,
+				hiddenName : 'customercity',
+				triggerAction : 'all',
+				editable : false,
+				maxLength : 100,
+				allowBlank : false,
+				anchor : '95%'
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'form',
+			items : [ {
+				xtype : 'combo',
+				fieldLabel : '所在地区',
+				id : 'Ccustomerviewcustomerxian',
+				name : 'customerxian',			//小类名称
+				//loadingText: 'loading...',			//正在加载时的显示
+				//editable : false,						//是否可编辑
+				emptyText : '请选择',
+				store : xian,
+				mode : 'local',					//local是取本地数据的也就是javascirpt(内存)中的数据。
+												//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
+//				displayField : 'empcode',		//显示的字段
+//				valueField : 'empcode',		//作为值的字段
+				hiddenName : 'customerxian',
+				triggerAction : 'all',
+				editable : false,
+				maxLength : 100,
+				allowBlank : false,
+				anchor : '95%'
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'form',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '联系地址',
+				id : 'Ccustomerviewcustomeraddress',
+				name : 'customeraddress',
+				maxLength : 100,
+				allowBlank : false,
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'form',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '联系人',
+				id : 'Ccustomerviewcustomername',
+				name : 'customername',
+				maxLength : 100,
+				allowBlank : false,
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'form',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '联系电话',
+				id : 'Ccustomerviewcustomerphone',
+				name : 'customerphone',
+				maxLength : 100,
+				allowBlank : false,
+			} ]
+		}
+ 		, {
+			columnWidth : 1,
+			layout : 'form',
+			items : [ {
 				xtype : 'combo',
 				fieldLabel : '客户类型',
 				id : 'Ccustomerviewcustomertype',
@@ -95,7 +188,7 @@ Ext.onReady(function() {
 			layout : 'form',
 			items : [ {
 				xtype : 'combo',
-				fieldLabel : '客户等级',
+				fieldLabel : '价格层级',
 				id : 'Ccustomerviewccustomerdetail',
 				name : 'ccustomerdetail',			//小类名称
 				//loadingText: 'loading...',			//正在加载时的显示
@@ -152,18 +245,6 @@ Ext.onReady(function() {
 		, {
 			columnWidth : 1,
 			layout : 'form',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '客户名称',
-				id : 'Ccustomerviewcustomershop',
-				name : 'customershop',
-				maxLength : 100,
-				allowBlank : false,
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'form',
 			hidden : true,
 			items : [ {
 				xtype : 'textfield',
@@ -171,42 +252,6 @@ Ext.onReady(function() {
 				id : 'Ccustomerviewcustomerid',
 				name : 'customerid',
 				maxLength : 100
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'form',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '联系人',
-				id : 'Ccustomerviewcustomername',
-				name : 'customername',
-				maxLength : 100,
-				allowBlank : false,
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'form',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '联系电话',
-				id : 'Ccustomerviewcustomerphone',
-				name : 'customerphone',
-				maxLength : 100,
-				allowBlank : false,
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'form',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '联系地址',
-				id : 'Ccustomerviewcustomeraddress',
-				name : 'customeraddress',
-				maxLength : 100,
-				allowBlank : false,
 			} ]
 		}
 		, {
@@ -226,63 +271,6 @@ Ext.onReady(function() {
 				displayField : 'name',		//显示的字段
 				valueField : 'name',		//作为值的字段
 				hiddenName : 'customerstatue',
-				triggerAction : 'all',
-				editable : false,
-				maxLength : 100,
-				allowBlank : false,
-				anchor : '95%'
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'form',
-			items : [ /*{
-				xtype : 'textfield',
-				fieldLabel : '所在城市',
-				id : 'Ccustomerviewcustomercity',
-				name : 'customercity',
-				maxLength : 100,
-			}*/{
-				xtype : 'combo',
-				fieldLabel : '所在城市',
-				id : 'Ccustomerviewcustomercity',
-				name : 'customercity',			//小类名称
-				emptyText : '请选择',
-				store : [city],
-				mode : 'local',					//local是取本地数据的也就是javascirpt(内存)中的数据。
-												//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
-				value : city,
-				hiddenName : 'customercity',
-				triggerAction : 'all',
-				editable : false,
-				maxLength : 100,
-				allowBlank : false,
-				anchor : '95%'
-			} ]
-		}
-		, {
-			columnWidth : 1,
-			layout : 'form',
-			items : [ /*{
-				xtype : 'textfield',
-				fieldLabel : '所在地区',
-				id : 'Ccustomerviewcustomerxian',
-				name : 'customerxian',
-				maxLength : 100,
-			}*/{
-				xtype : 'combo',
-				fieldLabel : '所在地区',
-				id : 'Ccustomerviewcustomerxian',
-				name : 'customerxian',			//小类名称
-				//loadingText: 'loading...',			//正在加载时的显示
-				//editable : false,						//是否可编辑
-				emptyText : '请选择',
-				store : xian,
-				mode : 'local',					//local是取本地数据的也就是javascirpt(内存)中的数据。
-												//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
-//				displayField : 'empcode',		//显示的字段
-//				valueField : 'empcode',		//作为值的字段
-				hiddenName : 'customerxian',
 				triggerAction : 'all',
 				editable : false,
 				maxLength : 100,
@@ -409,63 +397,63 @@ Ext.onReady(function() {
 				}
 			}
 		},'-',{
-				text : Ext.os.deviceType === 'Phone' ? null : "修改",
-				iconCls : 'edit',
-				handler : function() {
-					var selections = Ccustomerviewgrid.getSelection();
-					if (selections.length != 1) {
-						Ext.Msg.alert('提示', '请选择一条数据！', function() {
-						});
-						return;
-					}
-					CcustomerviewdataForm.form.reset();
-					Ext.getCmp("Ccustomerviewccustomerid").setEditable (false);
-					createTextWindow(basePath + Ccustomerviewaction + "?method=updateCustomerInfo", "修改", CcustomerviewdataForm, Ccustomerviewstore);
-					CcustomerviewdataForm.form.loadRecord(selections[0]);
-				}
-			},'-',{
-				text : Ext.os.deviceType === 'Phone' ? null : "新增",
-				iconCls : 'add',
-				handler : function() {
-					CcustomerviewdataForm.form.reset();
-					Ext.getCmp("Ccustomerviewccustomerid").setEditable (true);
-					Ext.getCmp("Ccustomerviewcustomerstatue").setValue('启用');
-					createTextWindow(basePath + Ccustomerviewaction + "?method=insSpecialCustomer", "新增", CcustomerviewdataForm, Ccustomerviewstore);
-				}
-			},'-',{
-				text : Ext.os.deviceType === 'Phone' ? null : "录单",
-				iconCls : 'query',
-				handler : function() {
-					var selections = Ccustomerviewgrid.getSelection();
-					if (selections.length != 1) {
-						Ext.Msg.alert('提示', '请选择一条数据！', function() {
-						});
-						return;
-					}
-					window.location.href="../../largeCusXiaDan.jsp?customerid="+selections[0].data["customerid"];
-				}
-			},'-',{
-				text : Ext.os.deviceType === 'Phone' ? null : "特殊商品",
-				iconCls : 'select',
-				handler : function() {
-					var selections = Ccustomerviewgrid.getSelection();
-					if (selections.length != 1) {
-						Ext.Msg.alert('提示', '请选择一条数据！', function() {
-						});
-						return;
-					}
-					window.location.href = "../../pages/LargecuspriceGoods/LargecuspriceGoods.jsp?cusid="+
-							selections[0].data["customerid"];
-				}
-			},'-',{
-				text : Ext.os.deviceType === 'Phone' ? null : "导出",
-				iconCls : 'exp',
-				handler : function() {
-					window.location.href = basePath + Ccustomerviewaction + "?method=expCCustomerwiew&json="+queryjson+"&query="
-					+Ext.getCmp("queryCcustomerviewaction").getValue()+where; 
-				}
+			text : Ext.os.deviceType === 'Phone' ? null : "新增",
+			iconCls : 'add',
+			handler : function() {
+				CcustomerviewdataForm.form.reset();
+				Ext.getCmp("Ccustomerviewccustomerid").setEditable (true);
+				Ext.getCmp("Ccustomerviewcustomerstatue").setValue('启用');
+				createTextWindow(basePath + Ccustomerviewaction + "?method=insSpecialCustomer", "新增", CcustomerviewdataForm, Ccustomerviewstore);
 			}
-		]
+		},'-',{
+			text : Ext.os.deviceType === 'Phone' ? null : "修改",
+			iconCls : 'edit',
+			handler : function() {
+				var selections = Ccustomerviewgrid.getSelection();
+				if (selections.length != 1) {
+					Ext.Msg.alert('提示', '请选择一条数据！', function() {
+					});
+					return;
+				}
+				CcustomerviewdataForm.form.reset();
+				Ext.getCmp("Ccustomerviewccustomerid").setEditable (false);
+				createTextWindow(basePath + Ccustomerviewaction + "?method=updateCustomerInfo", "修改", CcustomerviewdataForm, Ccustomerviewstore);
+				CcustomerviewdataForm.form.loadRecord(selections[0]);
+			}
+		},'-',{
+			text : Ext.os.deviceType === 'Phone' ? null : "录单",
+			iconCls : 'query',
+			handler : function() {
+				var selections = Ccustomerviewgrid.getSelection();
+				if (selections.length != 1) {
+					Ext.Msg.alert('提示', '请选择一条数据！', function() {
+					});
+					return;
+				}
+				window.location.href="../../largeCusXiaDan.jsp?customerid="+selections[0].data["customerid"];
+			}
+		},'-',{
+			text : Ext.os.deviceType === 'Phone' ? null : "特殊商品",
+			iconCls : 'select',
+			handler : function() {
+				var selections = Ccustomerviewgrid.getSelection();
+				if (selections.length != 1) {
+					Ext.Msg.alert('提示', '请选择一条数据！', function() {
+					});
+					return;
+				}
+				window.location.href = "../../pages/LargecuspriceGoods/LargecuspriceGoods.jsp?cusid="+
+						selections[0].data["customerid"];
+			}
+		},'-',{
+			text : Ext.os.deviceType === 'Phone' ? null : "导出",
+			iconCls : 'exp',
+			handler : function() {
+				window.location.href = basePath + Ccustomerviewaction + "?method=expCCustomerwiew&json="+queryjson+"&query="
+				+Ext.getCmp("queryCcustomerviewaction").getValue()+where; 
+			}
+		}
+	]
 	});
 	Ccustomerviewgrid.region = 'center';
 	Ccustomerviewstore.load();//加载数据

@@ -259,6 +259,7 @@ Ext.onReady(function() {
 					hiddenName : 'warrantinstore',
 					triggerAction : 'all',
 					editable : false,
+					allowBlank : false,
 					maxLength : 100,
 					anchor : '95%',
 					labelWidth: 40,
@@ -321,6 +322,7 @@ Ext.onReady(function() {
 					id : 'newWarrantinwarrantinmoney',
 					name : 'warrantinmoney',
 					maxLength : 100,
+					allowBlank : false,
 					labelWidth: 70,
 					width : 302,
 					margin : '5 10 5 10'
@@ -340,6 +342,7 @@ Ext.onReady(function() {
 					hiddenName : 'warrantinwho',
 					triggerAction : 'all',
 					editable : false,
+					allowBlank : false,
 					maxLength : 100,
 					anchor : '95%',
 					labelWidth: 70,
@@ -355,6 +358,19 @@ Ext.onReady(function() {
 					fieldLabel : '备注',
 					id : 'newWarrantinviewwarrantindetail',
 					name : 'warrantindetail',
+					maxLength : 100
+				} ]
+			}
+			, {
+				columnWidth : 1,
+				layout : 'form',
+				hidden : true,
+				items : [ {
+					xtype : 'textfield',
+					fieldLabel : '商品ID',
+					id : 'newWarrantinviewwarrantingoods',
+					readOnly : true,
+					name : 'warrantingoods',
 					maxLength : 100
 				} ]
 			}
@@ -448,6 +464,7 @@ Ext.onReady(function() {
 				hiddenName : 'warrantinstore',
 				triggerAction : 'all',
 				editable : false,
+				allowBlank : false,
 				maxLength : 100,
 				anchor : '95%',
 			} ]
@@ -507,6 +524,7 @@ Ext.onReady(function() {
 				fieldLabel : '进货金额',
 				id : 'Warrantinwarrantinmoney',
 				name : 'warrantinmoney',
+				allowBlank : false,
 				maxLength : 100
 			} ]
 		}
@@ -529,6 +547,7 @@ Ext.onReady(function() {
 				hiddenName : 'warrantinwho',
 				triggerAction : 'all',
 				editable : false,
+				allowBlank : false,
 				maxLength : 100,
 				anchor : '95%',
 			} ]
@@ -756,7 +775,8 @@ Ext.onReady(function() {
 			iconCls : 'add',
 			handler : function() {
 				GoodsdataForm.form.reset();
-				addGoodsnumWindow(basePath + "CPGoodsnumAction.do?method=insGoods", "新增", GoodsdataForm, Warrantinviewstore);
+				addGoodsnumWindow(basePath + "CPWarrantinAction.do?method=warrantinNewGoo", "新增", GoodsdataForm, Warrantinviewstore);
+				
 			}
 		},'-',{
 			text: '更多操作',

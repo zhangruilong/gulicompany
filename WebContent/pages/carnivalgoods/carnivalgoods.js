@@ -121,8 +121,7 @@ Ext.onReady(function() {
 				allowBlank : false,
 				labelWidth: 70,
 				width : 352,
-				margin : '5 10 5 10',
-				disabled : true
+				margin : '5 10 5 10'
 			},{
 				xtype : 'textfield',
 				fieldLabel : '商品名称',
@@ -262,7 +261,7 @@ Ext.onReady(function() {
 			layout : 'column',
 			items : [ {
 				xtype : 'textfield',
-				fieldLabel : '买赠信息',
+				fieldLabel : '促销描述',
 				id : 'Bkgoodsbkgoodsdetail',
 				name : 'bkgoodsdetail',
 				maxLength : 100,
@@ -709,6 +708,7 @@ Ext.onReady(function() {
 				handler : function() {
 					BkgoodsdataForm.form.reset();
 					Ext.getCmp("Bkgoodsbkgoodsid").setEditable (true);
+					Ext.getCmp("Bkgoodsbkgoodscode").setDisabled(false);
 					addBKgoodsWindow(basePath + Bkgoodsaction + "?method=insAll", "新增商品", BkgoodsdataForm, Bkgoodsstore);
 				}
 			},'-',{
@@ -723,6 +723,7 @@ Ext.onReady(function() {
 					}
 					BkgoodsdataForm.form.reset();
 					Ext.getCmp("Bkgoodsbkgoodsid").setEditable (false);
+					Ext.getCmp("Bkgoodsbkgoodscode").setDisabled(true);
 					editBKgoodsWindow(basePath + Bkgoodsaction + "?method=updAll", "修改", BkgoodsdataForm, Bkgoodsstore,selections[0].data['bkgoodsscope']);
 					BkgoodsdataForm.form.loadRecord(selections[0]);
 				}

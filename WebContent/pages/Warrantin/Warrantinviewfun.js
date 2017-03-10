@@ -186,28 +186,75 @@ function addGoodsnumWindow(url,title,_form,store) {
 					iconCls : 'ok',
 					handler : function() {
 						if (_form.form.isValid()) {
-							var json = "[" + Ext.encode(_form.form.getValues(false)) + "]";
-							_form.form.submit({
-								url : url,
-								waitTitle : '提示',
-								params : {//改
-									json : json,
+							$.ajax({
+								url: 'CPGoodsAction.do?method=selAll',
+								type: 'post',
+								data: {
+									wheresql: "goodscode='"+Ext.getCmp('Goodsgoodscode').getValue()+
+											"' and goodsunits='"+Ext.getCmp('Goodsgoodsunits').getValue()+
+											"' and goodsname='"+Ext.getCmp('Goodsgoodsname').getValue()+
+											"' and goodscompany='"+comid+"'"
 								},
-								success : function(form, action) {
-									Ext.Msg.alert('提示', action.result.msg,function(){
-										if(action.result.code==400){
-											
-										} else {
-											dataWindow.hide();
-											store.reload();
-										}
-									});
+								success: function(resp){
+									var data = eval('('+resp+')');
+									if(data.root.length==0){
+										var json = "[" + Ext.encode(_form.form.getValues(false)) + "]";
+										_form.form.submit({
+											url : url,
+											waitTitle : '提示',
+											params : {//改
+												json : json,
+											},
+											success : function(form, action) {
+												Ext.Msg.alert('提示', action.result.msg,function(){
+													if(action.result.code==400){
+														
+													} else {
+														dataWindow.hide();
+														store.reload();
+													}
+												});
+											},
+											failure : function(form, action) {
+												Ext.Msg.alert('提示', '网络出现问题，请稍后再试');
+											},
+											waitMsg : '正在处理数据,请稍候...'
+										});
+									} else {
+										Ext.Msg.confirm('请确认','商品已存在,是否要新增入库台账?',function(btn, text){
+											if (btn == 'yes') {
+												Ext.getCmp('newWarrantinviewwarrantingoods').setValue(data.root[0].goodsid);
+												var json = "[" + Ext.encode(_form.form.getValues(false)) + "]";
+												_form.form.submit({
+													url : basePath + 'CPWarrantinAction.do?method=addWarrantin',
+													waitTitle : '提示',
+													params : {//改
+														json : json
+													},
+													success : function(form, action) {
+														if(action.result.code==202){
+															Ext.Msg.alert('提示', '提交成功，数据已过账！',function(){
+																dataWindow.hide();
+																store.reload();
+															});
+														} else {
+															Ext.Msg.alert('提示', action.result.msg);
+														}
+													},
+													failure : function(form, action) {
+														Ext.Msg.alert('提示', '网络出现问题，请稍后再试');
+													},
+													waitMsg : '正在处理数据,请稍候...'
+												});
+											}
+										});
+									}
 								},
-								failure : function(form, action) {
-									Ext.Msg.alert('提示', '网络出现问题，请稍后再试');
-								},
-								waitMsg : '正在处理数据,请稍候...'
+								error: function(resp){
+									
+								}
 							});
+							
 						} else {
 					        Ext.Msg.alert('提示', '请正确填写表单!');
 					    }

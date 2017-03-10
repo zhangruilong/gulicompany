@@ -29,7 +29,26 @@ name="WindowPrint" width="0"></OBJECT>
 <script language="javascript" type="text/javascript">
 function printpreview()
 {
-window.print()
+	$('[name="Btn_printPreviw"]').hide();
+	$('#p-PrintTimes').hide();
+	window.print();
+	$.ajax({
+		url:"CPOrdermAction.do?method=updatePrintCount",
+		type:"post",
+		data:{
+			"ordermids":ordermids,
+			"ordermprinttimess":ordermprinttimess
+		},
+		success:function(resp){
+			var data = eval('('+resp+')');
+			if(data.code!=202){
+				alert('记录打印次数失败。');
+			}
+		},
+		error:function(resp){
+			alert('记录打印次数失败。');
+		}
+	});
 }
 </script>
 
@@ -37,13 +56,19 @@ window.print()
 	<div style="text-align: center;font-size: 33px;font-family: 黑体;" id="con-title"></div>
 </div>
 <div id='p-debug-text'></div>
+<div style="float: left;">
 <input type="button" name="Btn_printPreviw" value="打印" 
 onclick="javascript:this.style.display='none';printpreview();" />
+<span id="p-PrintTimes"></span>
+</div>
+
 <script type="text/javascript" src="zrlextpages/common/jquery/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="js/numTF.js"></script>
 <script type="text/javascript" src="js/common2.js"></script>
 <script type="text/javascript">
 var ordermids = '${param.ordermids}';
+var ordermprinttimess = "";
+$('[name="Btn_printPreviw"]').hide();
 </script>
 <script type="text/javascript" src="js/print.js"></script>
 </body>

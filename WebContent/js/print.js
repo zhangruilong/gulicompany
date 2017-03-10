@@ -4,6 +4,7 @@ var columnNum = 0;								//当前列
 var totalWeight = 0;							//总重量
 var dObj = new Date();
 var today = dObj.getFullYear()+"-"+(dObj.getMonth()+1)+"-"+dObj.getDate();	//当前日期
+var blankNum = 0;
 $(function(){
 	$.ajax({
 		url:"CPSystem_tempruleAction.do?method=printOrder",
@@ -22,14 +23,22 @@ $(function(){
 				var totalMon=0;									//总下单金额
 				var totalRMon = 0;								//总实际金额
 				var orderMsg = '';								//订单留言
+				var ordermPrintTimes='';							//订单的打印次数
 				
 				$.each(data.printinfo,function(i,item){
+					if(typeof(item.ordermprinttimes)=='undefined' || !item.ordermprinttimes){
+						item.ordermprinttimes = '0';
+					}
+					ordermprinttimess += (parseInt(item.ordermprinttimes)+1)+",";
+					printCount = parseInt(item.ordermprinttimes);
+					ordermPrintTimes += '编号:'+item.ordermcode+'&nbsp;打印次数:'+item.ordermprinttimes+'。&nbsp;';
 					totalMon += parseFloat(item.ordermmoney);
 					totalRMon += parseFloat(item.ordermrightmoney);
 					if(typeof(item.ordermdetail)!='undefined' && item.ordermdetail){
 						orderMsg += item.ordermdetail+'; ';
 					}
 				});
+				$('#p-PrintTimes').html(ordermPrintTimes);
 				if(data.printinfo.length>1){							//得到合并后的订单总金额
 					printinfo.ordermmoney = totalMon;
 					printinfo.ordermrightmoney = totalRMon;
@@ -51,26 +60,26 @@ $(function(){
 					if(currST != item.sheetno){					//如果是新的叶签
 						currST = item.sheetno;					//叶签号
 						rowNum = 0;								//行号变为0
-						if(item.sheetname =='供应商信息'){
+						if(item.sheetno =='1'){//供应商信息
 							$('#print-content').append(
-								'<table width="100%" cellspacing="0" cellpadding="0" style="border-collapse: collapse;border-bottom:solid 1px black"></table>');
-						} else if(item.sheetname =='客户信息'){
+								'<table width="100%" cellspacing="0" cellpadding="0" style="border-collapse: collapse;border-bottom:dotted 1px black"></table>');
+						} else if(item.sheetno =='2'){//客户信息
 							$('#print-content').append('<table width="100%" border="0" cellspacing="0" cellpadding="3"></table>');
-						} else if(item.sheetname == '商品信息'){
+						} else if(item.sheetno == '3'){//商品信息
 							$('#print-content').append(
 								'<table id="goods-tab" class="print_tab" width="100%" border="1" cellspacing="0" cellpadding="2" style="border-collapse: collapse;margin-top: 5px;"></table>');
-						} else if(item.sheetname == '签收信息'){
+						} else if(item.sheetno == '5'){//签收信息
 							qianshouTDStrle = nullStr(item.detail);
 							$('#print-content').append(
 						'<table class="print_tab" id="signFo-tab" width="100%" border="1" cellspacing="0" cellpadding="3" style="background-color: #80ffff;border-collapse: collapse;padding-top: 20px;font-family: 黑体;"></table>');
-						} else if(item.sheetname == '制表信息'){
+						} else if(item.sheetno == '7'){//制表信息
 							$('#print-content').append('<table cellpadding="7" style="width:100%; margin-left: 10px;padding-top: 5px;font-family: 黑体;">');
 						}
 					}
 					
 					//行信息
-					if(rowNum != item.startrow && item.sheetname != '合计信息' 
-						&& item.sheetname != '谷粒网标识' && item.sheetname != '留言信息'){						//如果是新的一行就添加一行
+					if(rowNum != item.startrow && item.sheetno != '4' 
+						&& item.sheetno != '99' && item.sheetno != '8' && item.sheetno != '9' && item.sheetno != '10'){	//如果是新的一行就添加一行
 						rowNum = item.startrow;										//行号
 						if(item.sheetname =='供应商信息'){
 							rowStyle = 'height: 40px;';
@@ -85,13 +94,13 @@ $(function(){
 					columnNum = item.startcol;									//当前列
 					if(typeof(item.fieldname)!='undefined' && item.fieldname){
 						text = nullStr(printinfo[item.fieldname]);						//一般的
-					} else if(item.headnameas=='订单日期'){
-						text = today;											//订单日期
-					} else if(item.headnameas=='优惠金额'){
+					} else if(item.headcode=='printdate'){
+						text = today;											//打印日期
+					} else if(item.headcode=='discount'){
 						text = totalMon-totalRMon;											//优惠金额
-					} else if(item.headnameas=='大写合计'){
+					} else if(item.headcode=='totalda'){
 						text = chineseNumber(totalRMon);											//优惠金额
-					} else if(item.headnameas=='重量合计'){
+					} else if(item.headcode=='totalweight'){
 						text = totalWeight;
 					}
 					if(item.sheetno == '1'){												//供应商信息
@@ -104,7 +113,7 @@ $(function(){
 								item.headnameas+'：</td><td style="'+item.detail+'">'+text+'</td>');
 					} else if(item.sheetno == '3'){											//商品信息
 						$('#print-content table:last tr:last').append(
-								'<td style="font-family: 黑体;font-size: 12px;border-bottom:solid 1px black;border-right:solid 1px black;white-space: nowrap;" name="'
+								'<td style="font-family: 黑体;font-size: 12px;white-space: nowrap;" name="'
 								+item.fieldname+'">'+item.headnameas+'<span hidden=true>'+nullStr(item.detail)+'</span></td>');
 					} else if(item.sheetno == '4'){											//合计信息
 						$('#print-content').append(
@@ -127,17 +136,20 @@ $(function(){
 						$('#print-content').append('<div style="'+item.detail+'">'+item.headnameas+'</div>');
 					} else if(item.sheetno == '99'){										//谷粒网标识
 						$('#print-content').append('<div style="'+item.detail+'">'+item.headnameas+'</div>');
+					} else if(item.sheetno == '10'){										//是否需要空白行
+						blankNum = parseInt(item.headnameas);
 					}
 					if(item.endcol-item.startcol>1){										//如果跳过了1列或多列
 						$('#print-content table:last tr:last td:last').attr('colspan',item.endcol-item.startcol);
 					}
+					
 				});
 				//订单商品
 				$.each(orderdList,function(i,item1){
 					$('#goods-tab').append('<tr></tr>');
 					$('#goods-tab tr:first td').each(function(j,item2){
 						var goodsInfo = '';
-						var curSty = $(item2).children().text();
+						var curSty = $(item2).children('span').text();
 						if($(item2).attr('name') && $(item2).attr('name')!='undefined'&& $(item2).attr('name')!='null'){
 							goodsInfo = nullStr(item1[$(item2).attr('name')]);
 						} else {
@@ -146,6 +158,17 @@ $(function(){
 						$('#goods-tab tr:last').append('<td style="'+curSty+'">'+goodsInfo+'</td>');
 					});
 				});
+				//如果需要空白行,且行数小于blankNum就添加空白行
+				if(blankNum != 0 && orderdList.length<blankNum){
+					var tdList = $('#goods-tab tr:first td');		//td的集合
+					for (var i = 0; i < blankNum-orderdList.length; i++) {
+						$('#goods-tab').append('<tr></tr>');
+						for (var j = 0; j < tdList.length; j++) {
+							var curSty = $(tdList[j]).children('span').text();
+							$('#goods-tab tr:last').append('<td style="'+curSty+'">&nbsp;</td>');
+						}
+					}
+				}
 				//签收信息
 				$('#signFo-tab').append('<tr></tr>');
 				$('#signFo-tab tr:first td').each(function(i,item){
@@ -155,6 +178,7 @@ $(function(){
 						$('#signFo-tab tr:last').append('<td style="'+qianshouTDStrle+'"></td>');
 					}
 				});
+				$('[name="Btn_printPreviw"]').show();
 			} else {
 				alert('没有查询到该订单。');
 				window.close();

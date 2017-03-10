@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.server.poco.GoodsPoco;
 import com.server.pojo.Address;
 import com.server.pojo.Bkgoods;
 import com.server.pojo.Ccustomer;
@@ -29,9 +30,31 @@ import com.system.pojo.System_roleuser;
 import com.system.pojo.System_temprule;
 import com.system.pojo.System_user;
 import com.system.tools.CommonConst;
+import com.system.tools.util.CommonUtil;
 
 public class CPGoodsAction extends GoodsAction {
 
+	//修改商品状态
+	public void updGooSta(HttpServletRequest request, HttpServletResponse response){
+		String json = request.getParameter("json");
+		System.out.println("json : " + json);
+		if(CommonUtil.isNotEmpty(json)) cuss = CommonConst.GSON.fromJson(json, TYPE);
+		if(cuss.size()>0){
+			Goods temp = cuss.get(0);
+			if(temp.getGoodsstatue().equals("上架")){
+				Integer pNum = getTotal("select count(1) from prices where pricesgoods='"+temp.getGoodsid()+"'");
+				if(pNum>0){
+					result = updSingle(temp,GoodsPoco.KEYCOLUMN);
+				} else {
+					result = "{success:true,code:401,msg:'操作失败'}";
+				}
+			} else {
+				result = updSingle(temp,GoodsPoco.KEYCOLUMN);
+			}
+		}
+		responsePW(response, result);
+	}
+	
 	@SuppressWarnings("unchecked")
 	public void dataMigration(HttpServletRequest request, HttpServletResponse response){
 		
