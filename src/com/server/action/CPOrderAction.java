@@ -11,6 +11,7 @@ import com.server.poco.OrdermPoco;
 import com.server.poco.OrdermviewPoco;
 import com.server.pojo.Company;
 import com.server.pojo.Customer;
+import com.server.pojo.Goods;
 import com.server.pojo.LoginInfo;
 import com.server.pojo.Orderd;
 import com.server.pojo.Orderm;
@@ -56,7 +57,18 @@ public class CPOrderAction extends OrdermviewAction {
 				strLi.add(updStaSQL);
 				String time = DateUtils.getDateTime();
 				for (Orderd od : odLi) {
-					Warrantout newOut = new Warrantout(CommonUtil.getNewId(), lgi.getCompanyid(), storehouseid, od.getOrderdgoods(), 
+					String goodsid = null;
+					if(od.getOrderdtype().equals("商品")){
+						goodsid = od.getOrderdgoods();
+					} else {
+						List<Goods> gLi = selAll(Goods.class, "select * from goods where goodscode='"+od.getOrderdcode()+
+								"' and goodsname='"+od.getOrderdname()+"' and goodsunits='"+od.getOrderdunits()+
+								"' and goodscompany='"+lgi.getCompanyid()+"' ");
+						if(gLi.size()>0){
+							goodsid = gLi.get(0).getGoodsid();
+						}
+					}
+					Warrantout newOut = new Warrantout(CommonUtil.getNewId(), lgi.getCompanyid(), storehouseid, goodsid, 
 							od.getOrderdnum()+"", "发货请求", null, null, time, lgi.getUsername(), null, null, od.getOrderdcode(), 
 							od.getOrderdname(), od.getOrderdunits(), od.getOrderdtype(), od.getOrderdclass(), od.getOrderdunit(), 
 							od.getOrderdweight(), od.getOrderdnote(), od.getOrderdprice().toString(), od.getOrderdmoney().toString());

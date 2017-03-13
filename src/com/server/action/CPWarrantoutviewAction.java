@@ -34,31 +34,37 @@ public class CPWarrantoutviewAction extends WarrantoutviewAction {
 		if(CommonUtil.isNotEmpty(json)) cuss = CommonConst.GSON.fromJson(json, TYPE);
 		List<String> sqlLi = new ArrayList<String>();
 		for(Warrantoutview temp:cuss){
-			Warrantout updWar = new Warrantout();
-			updWar.setIdwarrantout(temp.getIdwarrantout());	//ID
-			updWar.setWarrantoutstatue("已发货");			//状态
-			updWar.setWarrantoutwho(warrantoutwho);			//领货人
-			String updTemp = getUpdSingleSql(updWar, WarrantoutPoco.KEYCOLUMN);
-			if(null != temp.getGoodsnumnum() && !temp.getGoodsnumnum().equals("undefined")){
-				Integer num =  Integer.parseInt(temp.getGoodsnumnum()) - Integer.parseInt(temp.getWarrantoutnum());
-				String updNumSql = "update goodsnum g set g.goodsnumnum='"+num+"' where g.idgoodsnum='"+temp.getIdgoodsnum()+"'";
-				sqlLi.add(updTemp);
-				sqlLi.add(updNumSql);
-			} else {
-				String goodsid = temp.getWarrantoutgoods();
-				if(!temp.getWarrantoutgtype().equals("商品")){
-					List<Goods> gLi = selAll(Goods.class, "select * from goods where goodscode='"+temp.getWarrantoutgcode()+
-									"' and goodsname='"+temp.getWarrantoutgname()+"' and goodsunits='"+temp.getWarrantoutgunits()+
-									"' and goodscompany='"+lgi.getCompanyid()+"' ");
-					if(gLi.size()>0){
-						goodsid = gLi.get(0).getGoodsid();
-					}
-				}
-				if(CommonUtil.isNotEmpty(goodsid)){
-					String insNumSql = "INSERT INTO `abf`.`goodsnum` (`idgoodsnum`, `goodsnumgoods`, `goodsnumnum`, `goodsnumstore`) VALUES ('"+
-							CommonUtil.getNewId()+"', '"+goodsid+"', '-"+temp.getWarrantoutnum()+"', '"+temp.getWarrantoutstore()+"')";
-					sqlLi.add(insNumSql);
+			if(temp.getWarrantoutstatue().equals("发货请求")){
+				Warrantout updWar = new Warrantout();
+				updWar.setIdwarrantout(temp.getIdwarrantout());	//ID
+				updWar.setWarrantoutstatue("已发货");			//状态
+				updWar.setWarrantoutwho(warrantoutwho);			//领货人
+				String updTemp = "";
+				if(null != temp.getGoodsnumnum() && !temp.getGoodsnumnum().equals("undefined")){
+					Integer num =  Integer.parseInt(temp.getGoodsnumnum()) - Integer.parseInt(temp.getWarrantoutnum());
+					String updNumSql = "update goodsnum g set g.goodsnumnum='"+num+"' where g.idgoodsnum='"+temp.getIdgoodsnum()+"'";
+					updTemp = getUpdSingleSql(updWar, WarrantoutPoco.KEYCOLUMN);
 					sqlLi.add(updTemp);
+					sqlLi.add(updNumSql);
+				} else {
+					String goodsid = temp.getWarrantoutgoods();
+/*					if(!temp.getWarrantoutgtype().equals("商品")){
+						goodsid = null;
+						List<Goods> gLi = selAll(Goods.class, "select * from goods where goodscode='"+temp.getWarrantoutgcode()+
+										"' and goodsname='"+temp.getWarrantoutgname()+"' and goodsunits='"+temp.getWarrantoutgunits()+
+										"' and goodscompany='"+lgi.getCompanyid()+"' ");
+						if(gLi.size()>0){
+							goodsid = gLi.get(0).getGoodsid();
+							updWar.setWarrantoutgoods(goodsid);
+						}
+					}
+*/					if(CommonUtil.isNotEmpty(goodsid)){
+						String insNumSql = "INSERT INTO `abf`.`goodsnum` (`idgoodsnum`, `goodsnumgoods`, `goodsnumnum`, `goodsnumstore`) VALUES ('"+
+								CommonUtil.getNewId()+"', '"+goodsid+"', '-"+temp.getWarrantoutnum()+"', '"+temp.getWarrantoutstore()+"')";
+						updTemp = getUpdSingleSql(updWar, WarrantoutPoco.KEYCOLUMN);
+						sqlLi.add(insNumSql);
+						sqlLi.add(updTemp);
+					}
 				}
 			}
 		}
@@ -95,9 +101,9 @@ public class CPWarrantoutviewAction extends WarrantoutviewAction {
 		}
 		sql += " order by idwarrantout desc";
 		cuss = (ArrayList<Warrantoutview>) selAll(Warrantoutview.class, sql);
-		String[] heads = {"商品编号","商品名称","商品规格","仓库","数量","状态","备注","领货人","创建时间","创建人","修改时间","修改人"};
+		String[] heads = {"商品编码","商品名称","商品规格","仓库","数量","销售单价","销售金额","状态","备注","领货人","创建时间","创建人","修改时间","修改人"};
 		String[] discard = {"idwarrantout","warrantoutstore","warrantoutgoods","goodsid","goodscompany","warrantoutcompany","warrantoutgtype",
-				"warrantoutggclass","warrantoutgunit","warrantoutgweight","warrantoutordnote","goodscode","goodsname","goodsunits" };
+				"warrantoutggclass","warrantoutgunit","warrantoutgweight","warrantoutordnote","goodscode","goodsname","goodsunits","idgoodsnum","goodsnumnum" };
 		FileUtil.expExcel(response,cuss,heads,discard,"出库台账");
 	}
 	//分页查询

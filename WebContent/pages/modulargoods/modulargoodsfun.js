@@ -134,7 +134,7 @@ function goodsWindow(){
 								});
 								return;
 							}
-							Ext.getCmp('Bkgoodsbkgoodscode').setValue(comcode+selectRows[0].get("goodscode"));
+							Ext.getCmp('Bkgoodsbkgoodscode').setValue(selectRows[0].get("goodscode"));
 							Ext.getCmp('Bkgoodsbkgoodsname').setValue(selectRows[0].get("goodsname"));
 							Ext.getCmp('Bkgoodsbkgoodsunits').setValue(selectRows[0].get("goodsunits"));
 							Ext.getCmp('Bkgoodsbkgoodsimage').setValue(selectRows[0].get("goodsimage"));

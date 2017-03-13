@@ -39,7 +39,7 @@ public class CPWarrantinviewAction extends WarrantinviewAction {
 		}
 		sql += " order by idwarrantin desc";
 		cuss = (ArrayList<Warrantinview>) selAll(Warrantinview.class, sql);
-		String[] heads = {"商品编号","商品名称","商品规格","仓库","供货单位","进货价","数量","检验员","状态","备注","创建时间","创建人","修改时间","修改人"};
+		String[] heads = {"商品编号","商品名称","商品规格","仓库","供货单位","进货单价","数量","进货金额","核验人","状态","备注","创建时间","创建人","修改时间","修改人"};
 		String[] discard = {"idwarrantin","warrantinstore","warrantinfrom","warrantingoods","goodsid","goodscompany" };
 		FileUtil.expExcel(response,cuss,heads,discard,"入库台账");
 	}

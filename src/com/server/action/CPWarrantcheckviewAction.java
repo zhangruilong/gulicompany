@@ -136,7 +136,7 @@ public class CPWarrantcheckviewAction extends WarrantcheckviewAction {
 		}
 		sql += " order by idwarrantcheck desc";
 		cuss = (ArrayList<Warrantcheckview>) selAll(Warrantcheckview.class,sql);
-		String[] heads = {"商品编号","商品名称","商品规格","仓库","应有数量","现有数量","状态","描述","创建时间","创建人","修改时间","修改人"};
+		String[] heads = {"商品编号","商品名称","商品规格","仓库","应有数量","现有数量","盘点人","状态","描述","创建人","创建时间","修改人","修改时间"};
 		String[] discard = {"idwarrantcheck","warrantcheckstore","warrantcheckgoods","goodsid","goodscompany" };
 		FileUtil.expExcel(response,cuss,heads,discard,"盘点记录");
 	}

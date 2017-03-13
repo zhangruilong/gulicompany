@@ -323,9 +323,11 @@ Ext.onReady(function() {
 			header : '盘点人',
 			dataIndex : 'warrantcheckor',
 			sortable : true,  
-			editor: {
-                xtype: 'textfield'
-            }
+		}
+		, {
+			header : '状态',
+			dataIndex : 'warrantcheckstatue',
+			sortable : true,  
 		}
 		, {
 			header : '描述',

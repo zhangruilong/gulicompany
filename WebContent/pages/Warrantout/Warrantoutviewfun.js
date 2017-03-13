@@ -31,7 +31,7 @@ function warrantoutPlacing(url, selections, store, fields) {
 			}
 			if(msg.length >0){
 				Ext.Msg.confirm('请确认', msg+'<br/>是否出库？',function(btn, text){
-					if (btn == 'yes') {
+					if (btn == 'yes' && ids.length>1) {
 						Ext.Ajax.request({
 							url : url,
 							method : 'POST',

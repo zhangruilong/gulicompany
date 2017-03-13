@@ -540,6 +540,10 @@ Ext.onReady(function() {
 			        			    ,'warrantoutnum' 
 			        			    ,'warrantoutgtype' 
 			        			    ,'warrantoutstore' 
+			        			    ,'warrantoutgcode' 
+			        			    ,'warrantoutgname' 
+			        			    ,'warrantoutgunits' 
+			        			    ,'warrantoutstatue' 
 			        			    ,'idgoodsnum' 
 			        			    ,'goodsnumnum' 
 			        			      ];// 全部字段

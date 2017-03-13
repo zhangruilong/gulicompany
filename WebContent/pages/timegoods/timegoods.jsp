@@ -8,12 +8,10 @@
 	<%
 	LoginInfo info = (LoginInfo)session.getAttribute("loginInfo"); 
 	String comid = info.getCompanyid();
-	String comcode = info.getCompanycode(); 
 	%>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<script type="text/javascript">
 	var comid = '<%=comid%>';
-	var comcode = '<%=comcode%>';
 	</script>
 	<script type="text/javascript" src="timegoodsfun.js"></script>
 	<script type="text/javascript" src="timegoods.js"></script>
