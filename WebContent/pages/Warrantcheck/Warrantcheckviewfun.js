@@ -123,8 +123,10 @@ function goodsWindow(_form,storehousestore,checkviewstore){
 							Ext.getCmp('Warrantcheckviewgoodsname').setValue(selectRows[0].get("goodsname"));
 							Ext.getCmp('Warrantcheckviewgoodsunits').setValue(selectRows[0].get("goodsunits"));
 							Ext.getCmp('Warrantcheckviewwarrantcheckgoods').setValue(selectRows[0].get("goodsid"));
+							var defIndex = storehousestore.find('storehousename','主仓库');
+							Ext.getCmp('Warrantcheckviewwarrantcheckstore').setValue(storehousestore.getAt(defIndex).get('storehouseid'));
 							selectgridWindow.close();
-							Ext.getCmp("Warrantcheckviewwarrantcheckstore").setValue(storehousestore.getAt(0)? storehousestore.getAt(0).get('storehouseid') : '');
+//							Ext.getCmp("Warrantcheckviewwarrantcheckstore").setValue(storehousestore.getAt(0)? storehousestore.getAt(0).get('storehouseid') : '');
 							Ext.getCmp("Warrantcheckviewidwarrantcheck").setEditable (true);
 							Ext.getCmp("Warrantcheckviewgoodscode").setReadOnly (true);
 							Ext.getCmp("Warrantcheckviewgoodsname").setReadOnly (true);

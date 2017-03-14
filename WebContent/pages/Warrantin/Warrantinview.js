@@ -759,7 +759,7 @@ Ext.onReady(function() {
 				Warrantinviewstore.load();
 			}
 		},'-',{
-			text : Ext.os.deviceType === 'Phone' ? null : "新增",
+			text : Ext.os.deviceType === 'Phone' ? null : "入库",
 			iconCls : 'add',
 			handler : function() {
 				WarrantinviewdataForm.form.reset();
@@ -768,6 +768,8 @@ Ext.onReady(function() {
 				Ext.getCmp("Warrantinviewgoodsname").setReadOnly (true);
 				Ext.getCmp("Warrantinviewgoodsunits").setReadOnly (true);
 				Ext.getCmp("Warrantinviewwarrantinnum").allowBlank = false;
+				var defIndex = Storehousestore.find('storehousename','主仓库');
+				Ext.getCmp('Warrantinviewwarrantinstore').setValue(Storehousestore.getAt(defIndex).get('storehouseid'));
 				addWarrantinWindow(basePath + "CPWarrantinAction.do?method=addWarrantin", "新增入库台账", WarrantinviewdataForm, Warrantinviewstore);
 			}
 		},'-',{

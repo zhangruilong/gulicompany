@@ -257,7 +257,7 @@ Ext.onReady(function() {
 					Orderdstatstore.load();
 				}
 			},'-',{
-				text : "导出",
+				text : Ext.os.deviceType === 'Phone' ? null : "导出",
 				iconCls : 'exp',
 				handler : function() {
 					Ext.Msg.confirm('请确认', '<b>提示:</b>请确认要导出当前数据？', function(btn, text) {

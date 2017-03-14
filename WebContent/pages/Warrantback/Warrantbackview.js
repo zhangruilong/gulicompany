@@ -415,7 +415,7 @@ Ext.onReady(function() {
 				Warrantbackviewstore.load();
 			}
 		},'-',{
-			text : Ext.os.deviceType === 'Phone' ? null : "退货",
+			text : Ext.os.deviceType === 'Phone' ? null : "无损退货",
 			iconCls : 'add',
 			handler : function() {
 				WarrantbackviewdataForm.form.reset();
@@ -425,6 +425,8 @@ Ext.onReady(function() {
 				Ext.getCmp("Warrantbackviewgoodsunits").setReadOnly (true);
 				Ext.getCmp("Warrantbackviewwarrantbackstatue").setReadOnly (false);
 				Ext.getCmp("Warrantbackviewwarrantbackstore").setReadOnly (false);
+				var defIndex = Storehousestore.find('storehousename','主仓库');
+				Ext.getCmp('Warrantbackviewwarrantbackstore').setValue(Storehousestore.getAt(defIndex).get('storehouseid'));
 				addWarrantbackWindow(basePath + "CPWarrantbackAction.do?method=addWarrantback", "新增退货台账", WarrantbackviewdataForm, Warrantbackviewstore);
 			}
 		},'-',{

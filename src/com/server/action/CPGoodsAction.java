@@ -54,19 +54,37 @@ public class CPGoodsAction extends GoodsAction {
 		}
 		responsePW(response, result);
 	}
-	
+	//海盐的orderm数据迁移
 	@SuppressWarnings("unchecked")
-	public void dataMigration(HttpServletRequest request, HttpServletResponse response){
-		
-		List<Address> addressLi = selAll(Address.class, "select * from address", "oracle");
-		for (Address g : addressLi) {
+	public void dataMigration2(HttpServletRequest request, HttpServletResponse response){
+		List<Orderd> orderdLi = selAll(Orderd.class, "select * from orderd t left join orderm om on t.orderdorderm=om.ordermid where om.ordermcompany='1'", "oracle");
+		for (Orderd g : orderdLi) {
 			insSingle(g, "mysql");
 		}
-		List<Bkgoods> bkgoodsLi = selAll(Bkgoods.class, "select * from bkgoods", "oracle");
+		List<Orderm> ordermLi = selAll(Orderm.class, "select * from orderm t where t.ordermcompany='1'", "oracle");
+		for (Orderm g : ordermLi) {
+			insSingle(g, "mysql");
+		}
+		List<Bkgoods> bkgoodsLi = selAll(Bkgoods.class, "select * from bkgoods where bkgoodscompany='1'", "oracle");
 		for (Bkgoods g : bkgoodsLi) {
 			insSingle(g, "mysql");
 		}
-		List<Ccustomer> ccustomerLi = selAll(Ccustomer.class, "select * from ccustomer", "oracle");
+		result = CommonConst.SUCCESS;
+		responsePW(response, result);
+	}
+	//数据迁移
+	@SuppressWarnings("unchecked")
+	public void dataMigration(HttpServletRequest request, HttpServletResponse response){
+		
+		List<Address> addressLi = selAll(Address.class, "select t.* from address t left join customer c on t.addresscustomer= c.customerid left join ccustomer cc on c.customerid = cc.ccustomercustomer where cc.ccustomercompany='1'", "oracle");
+		for (Address g : addressLi) {
+			insSingle(g, "mysql");
+		}
+		List<Bkgoods> bkgoodsLi = selAll(Bkgoods.class, "select * from bkgoods where bkgoodscompany='1'", "oracle");
+		for (Bkgoods g : bkgoodsLi) {
+			insSingle(g, "mysql");
+		}
+		List<Ccustomer> ccustomerLi = selAll(Ccustomer.class, "select * from ccustomer where ccustomercompany='1'", "oracle");
 		for (Ccustomer g : ccustomerLi) {
 			insSingle(g, "mysql");
 		}
@@ -74,47 +92,47 @@ public class CPGoodsAction extends GoodsAction {
 		for (City g : cityLi) {
 			insSingle(g, "mysql");
 		}
-		List<Collect> collectLi = selAll(Collect.class, "select * from collect", "oracle");
+		List<Collect> collectLi = selAll(Collect.class, "select co.* from collect co left join ccustomer cc on cc.ccustomercustomer = co.collectcustomer where cc.ccustomercompany='1'", "oracle");
 		for (Collect g : collectLi) {
 			insSingle(g, "mysql");
 		}
-		List<Company> companyLi = selAll(Company.class, "select * from company", "oracle");
+		List<Company> companyLi = selAll(Company.class, "select * from company where companyid='1'", "oracle");
 		for (Company g : companyLi) {
 			insSingle(g, "mysql");
 		}
-		List<Customer> customerLi = selAll(Customer.class, "select * from customer", "oracle");
+		List<Customer> customerLi = selAll(Customer.class, "select c.* from customer c left join ccustomer cc on c.customerid = cc.ccustomercustomer where cc.ccustomercompany='1'", "oracle");
 		for (Customer g : customerLi) {
 			insSingle(g, "mysql");
 		}
-		List<Emp> empLi = selAll(Emp.class, "select * from emp", "oracle");
+		List<Emp> empLi = selAll(Emp.class, "select * from emp t where t.empcompany='1'", "oracle");
 		for (Emp g : empLi) {
 			insSingle(g, "mysql");
 		}
-		List<Goods> goodsLi = selAll(Goods.class, "select * from goods", "oracle");
+		List<Goods> goodsLi = selAll(Goods.class, "select * from goods t where t.goodscompany='1'", "oracle");
 		for (Goods g : goodsLi) {
 			insSingle(g, "mysql");
 		}
-		List<Goodsclass> goodsclassLi = selAll(Goodsclass.class, "select * from goodsclass", "oracle");
+		List<Goodsclass> goodsclassLi = selAll(Goodsclass.class, "select * from goodsclass where goodsclasscompany='1'", "oracle");
 		for (Goodsclass g : goodsclassLi) {
 			insSingle(g, "mysql");
 		}
-		List<Indexarea> indexareaLi = selAll(Indexarea.class, "select * from indexarea", "oracle");
+		List<Indexarea> indexareaLi = selAll(Indexarea.class, "select * from indexarea where indexareacompany='1'", "oracle");
 		for (Indexarea g : indexareaLi) {
 			insSingle(g, "mysql");
 		}
-		List<Largecusprice> largecuspriceLi = selAll(Largecusprice.class, "select * from largecusprice", "oracle");
+		List<Largecusprice> largecuspriceLi = selAll(Largecusprice.class, "select * from largecusprice where largecuspricecompany='1'", "oracle");
 		for (Largecusprice g : largecuspriceLi) {
 			insSingle(g, "mysql");
 		}
-		List<Orderd> orderdLi = selAll(Orderd.class, "select * from orderd", "oracle");
+		List<Orderd> orderdLi = selAll(Orderd.class, "select * from orderd t left join orderm om on t.orderdorderm=om.ordermid where om.ordermcompany='1'", "oracle");
 		for (Orderd g : orderdLi) {
 			insSingle(g, "mysql");
 		}
-		List<Orderm> ordermLi = selAll(Orderm.class, "select * from orderm", "oracle");
+		List<Orderm> ordermLi = selAll(Orderm.class, "select * from orderm t where t.ordermcompany='1'", "oracle");
 		for (Orderm g : ordermLi) {
 			insSingle(g, "mysql");
 		}
-		List<Prices> pricesLi = selAll(Prices.class, "select * from prices", "oracle");
+		List<Prices> pricesLi = selAll(Prices.class, "select * from prices p left join goods g on p.pricesgoods=g.goodsid where g.goodscompany='1'", "oracle");
 		for (Prices g : pricesLi) {
 			insSingle(g, "mysql");
 		}

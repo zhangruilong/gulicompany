@@ -61,11 +61,25 @@ public class CPOrderAction extends OrdermviewAction {
 					if(od.getOrderdtype().equals("商品")){
 						goodsid = od.getOrderdgoods();
 					} else {
-						List<Goods> gLi = selAll(Goods.class, "select * from goods where goodscode='"+od.getOrderdcode()+
+						String goodscode = null;
+						//如果是以‘a’、‘b’、‘c’开头则去掉前缀
+						if(od.getOrderdcode().indexOf("a") != -1){
+							goodscode = od.getOrderdcode().replace("a", "");
+						} else if(od.getOrderdcode().indexOf("b") != -1){
+							goodscode = od.getOrderdcode().replace("b", "");
+						} else if(od.getOrderdcode().indexOf("c") != -1){
+							goodscode = od.getOrderdcode().replace("c", "");
+						} else if(od.getOrderdcode().indexOf("d") != -1){
+							goodscode = od.getOrderdcode().replace("d", "");
+						} else {
+							goodscode = od.getOrderdcode();
+						}
+						//查询对应商品
+						List<Goods> gLi = selAll(Goods.class, "select * from goods where goodscode='"+goodscode+
 								"' and goodsname='"+od.getOrderdname()+"' and goodsunits='"+od.getOrderdunits()+
 								"' and goodscompany='"+lgi.getCompanyid()+"' ");
 						if(gLi.size()>0){
-							goodsid = gLi.get(0).getGoodsid();
+							goodsid = gLi.get(0).getGoodsid();	//得到对应商品ID
 						}
 					}
 					Warrantout newOut = new Warrantout(CommonUtil.getNewId(), lgi.getCompanyid(), storehouseid, goodsid, 

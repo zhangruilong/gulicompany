@@ -48,17 +48,7 @@ public class CPWarrantoutviewAction extends WarrantoutviewAction {
 					sqlLi.add(updNumSql);
 				} else {
 					String goodsid = temp.getWarrantoutgoods();
-/*					if(!temp.getWarrantoutgtype().equals("商品")){
-						goodsid = null;
-						List<Goods> gLi = selAll(Goods.class, "select * from goods where goodscode='"+temp.getWarrantoutgcode()+
-										"' and goodsname='"+temp.getWarrantoutgname()+"' and goodsunits='"+temp.getWarrantoutgunits()+
-										"' and goodscompany='"+lgi.getCompanyid()+"' ");
-						if(gLi.size()>0){
-							goodsid = gLi.get(0).getGoodsid();
-							updWar.setWarrantoutgoods(goodsid);
-						}
-					}
-*/					if(CommonUtil.isNotEmpty(goodsid)){
+					if(CommonUtil.isNotEmpty(goodsid)){
 						String insNumSql = "INSERT INTO `abf`.`goodsnum` (`idgoodsnum`, `goodsnumgoods`, `goodsnumnum`, `goodsnumstore`) VALUES ('"+
 								CommonUtil.getNewId()+"', '"+goodsid+"', '-"+temp.getWarrantoutnum()+"', '"+temp.getWarrantoutstore()+"')";
 						updTemp = getUpdSingleSql(updWar, WarrantoutPoco.KEYCOLUMN);

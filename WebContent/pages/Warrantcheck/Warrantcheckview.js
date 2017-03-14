@@ -189,10 +189,10 @@ Ext.onReady(function() {
 			layout : 'form',
 			items : [ {
 				xtype : 'textfield',
-				fieldLabel : '现有数量',
-				id : 'Warrantcheckviewwarrantchecknumnow',
+				fieldLabel : '盘点前数量',
+				id : 'Warrantcheckviewwarrantchecknumorg',
 				allowBlank : false,
-				name : 'warrantchecknumnow',
+				name : 'warrantchecknumorg',
 				maxLength : 100
 			} ]
 		}
@@ -201,10 +201,10 @@ Ext.onReady(function() {
 			layout : 'form',
 			items : [ {
 				xtype : 'textfield',
-				fieldLabel : '应有数量',
-				id : 'Warrantcheckviewwarrantchecknumorg',
+				fieldLabel : '盘点后数量',
+				id : 'Warrantcheckviewwarrantchecknumnow',
 				allowBlank : false,
-				name : 'warrantchecknumorg',
+				name : 'warrantchecknumnow',
 				maxLength : 100
 			} ]
 		}
@@ -308,14 +308,14 @@ Ext.onReady(function() {
 			width : 137,
 		}
 		, {
-			header : '现有数量',
-			dataIndex : 'warrantchecknumnow',
+			header : '盘点前数量',
+			dataIndex : 'warrantchecknumorg',
 			sortable : true, 
 			width : 73,
 		}
 		, {
-			header : '应有数量',
-			dataIndex : 'warrantchecknumorg',
+			header : '盘点后数量',
+			dataIndex : 'warrantchecknumnow',
 			sortable : true, 
 			width : 73,
 		}

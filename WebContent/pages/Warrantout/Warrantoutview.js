@@ -524,6 +524,8 @@ Ext.onReady(function() {
 					Ext.getCmp('Warrantoutviewwarrantoutgcode').setReadOnly(true);
 					Ext.getCmp('Warrantoutviewwarrantoutgname').setReadOnly(true);
 					Ext.getCmp('Warrantoutviewwarrantoutgunits').setReadOnly(true);
+					var defIndex = Storehousestore.find('storehousename','主仓库');
+					Ext.getCmp('Warrantoutviewwarrantoutstore').setValue(Storehousestore.getAt(defIndex).get('storehouseid'));
 					addWarrantoutWindow(basePath + "CPWarrantoutAction.do?method=insWarrantout", "新增出库台账", WarrantoutviewdataForm, Warrantoutviewstore);
 				}
 		},'-',{

@@ -6,6 +6,16 @@ function warrantoutPlacing(url, selections, store, fields) {
 			var ids = '[';
 			var msg = '';	//数量小于出库数量的提示信息
 			var staMsg = '';	//状态不对的商品的提示信息
+			var selArray = new Array();
+			for (var i = 0; i < selections.length; i++) {
+				if(selections[i].data['warrantoutstatue'] == '发货请求'){
+					for(var j=0; j< selArray.length; j++){
+						if(selArray[i]){
+							
+						}
+					}
+				}
+			}
 			for (var i = 0; i < selections.length; i++) {
 				if(selections[i].data['warrantoutstatue'] == '发货请求'){
 					var goodsnum = selections[i].data['goodsnumnum'];
