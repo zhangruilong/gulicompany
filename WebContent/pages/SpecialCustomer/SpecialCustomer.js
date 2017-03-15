@@ -115,6 +115,7 @@ Ext.onReady(function() {
 												//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
 //				displayField : 'empcode',		//显示的字段
 //				valueField : 'empcode',		//作为值的字段
+				value : xian[0],
 				hiddenName : 'customerxian',
 				triggerAction : 'all',
 				editable : false,

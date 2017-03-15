@@ -525,7 +525,16 @@ Ext.onReady(function() {
 				id : 'Warrantinwarrantinmoney',
 				name : 'warrantinmoney',
 				allowBlank : false,
-				maxLength : 100
+				maxLength : 100,
+				listeners: {
+					//获得焦点时自动计算金额
+					focus: function(obj, event, eOpts){
+						var inPrice = Ext.getCmp('Warrantinviewwarrantinprice').getValue();
+						var inNum = Ext.getCmp('Warrantinviewwarrantinnum').getValue();
+						var val = parseFloat(inPrice)*parseInt(inNum);
+						obj.setValue(val);
+					}
+				}
 			} ]
 		}
 		, {

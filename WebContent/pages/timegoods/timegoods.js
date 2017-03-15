@@ -285,6 +285,21 @@ Ext.onReady(function() {
 		}
 		, {
 			columnWidth : 1,
+			layout : 'column',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '促销描述',
+				id : 'Bkgoodsbkgoodsdetail',
+				name : 'bkgoodsdetail',
+				maxLength : 100,
+				allowBlank : false,
+				labelWidth: 70,
+				width : 724,
+				margin : '5 10 5 10'
+			} ]
+		}
+		, {
+			columnWidth : 1,
 			layout : 'form',
 			hidden : true,
 			items : [ {
@@ -630,6 +645,12 @@ Ext.onReady(function() {
 			dataIndex : 'bkgoodsweight',
 			sortable : true, 
 			width : 47,
+		}
+		, {
+			header : '促销描述',
+			dataIndex : 'bkgoodsdetail',
+			sortable : true, 
+			width : 300,
 		}
 		, {
 			header : '每日限量',

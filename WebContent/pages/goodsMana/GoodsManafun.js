@@ -507,12 +507,6 @@ function scantWindow(){
 			sortable : true,  
 		}
 		, {
-			header : '图片路径',
-			dataIndex : 'scantimage',
-			sortable : true,
-			hidden : true, 
-		}
-		, {
 			header : '品牌',
 			dataIndex : 'scantbrand',
 			sortable : true, 
@@ -576,6 +570,7 @@ function scantWindow(){
 							Ext.getCmp('Goodsgoodsimage').setValue(nullStr(selectRows[0].get("scantimage")));
 							Ext.getCmp('Goodsgoodsbrand').setValue(nullStr(selectRows[0].get("scantbrand")));
 							Ext.getCmp('Goodsgoodsclass').setValue(nullStr(selectRows[0].get("scantclass")));
+							Ext.getCmp('Goodsgoodstype').setValue(nullStr(selectRows[0].get("goodsclassname")));
 							selectgridWindow.close();
 						}
 					}, '-', {

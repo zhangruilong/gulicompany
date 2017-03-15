@@ -655,6 +655,12 @@ Ext.onReady(function() {
 			width : 47,
 		}
 		, {
+			header : '促销描述',
+			dataIndex : 'bkgoodsdetail',
+			sortable : true, 
+			width : 300,
+		}
+		, {
 			header : '每日限量',
 			dataIndex : 'bkgoodsnum',
 			sortable : true, 

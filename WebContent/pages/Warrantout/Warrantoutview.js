@@ -297,7 +297,7 @@ Ext.onReady(function() {
 			layout : 'form',
 			items : [ {
 				xtype : 'textfield',
-				fieldLabel : '备注',
+				fieldLabel : '购买单位',
 				id : 'Warrantoutviewwarrantoutdetail',
 				name : 'warrantoutdetail',
 				maxLength : 100

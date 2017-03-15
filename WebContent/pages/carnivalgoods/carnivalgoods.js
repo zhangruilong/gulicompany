@@ -619,6 +619,12 @@ Ext.onReady(function() {
 			width : 47,
 		}
 		, {
+			header : '促销描述',
+			dataIndex : 'bkgoodsdetail',
+			sortable : true, 
+			width : 300,
+		}
+		, {
 			header : '图片路径',
 			dataIndex : 'bkgoodsimage',
 			sortable : true,

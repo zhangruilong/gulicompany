@@ -6,6 +6,8 @@ var odStartDate=startDate;
 var odEndDate=endDate;
 var odQuery='';
 var odQueryjson='';
+/* 主仓库ID */
+var mainSHID = '';
 Ext.onReady(function() {
 	var Warrantcheckviewclassify = "库存盘点";
 	var Warrantcheckviewtitle = "当前位置:库存管理》" + Warrantcheckviewclassify;
@@ -45,7 +47,13 @@ Ext.onReady(function() {
 	var Warrantcheckviewkeycolumn = [ 'idwarrantcheck' ];// 主键
 	var wheresql = "goodscompany='"+comid+"'";
 	var Storehousestore = dataStore(Storehousefields, basePath + "CPStorehouseAction.do?method=selAll&wheresql=storehousecompany='"+comid+"' and storehousestatue='启用'");// 定义Storehousestore
+	
+	Storehousestore.on('load',function(store,options){
+		var defIndex = store.find('storehousename','主仓库');
+		mainSHID = store.getAt(defIndex).get('storehouseid');		//得到主仓库的ID
+	});
 	Storehousestore.load();
+	
 	var Empstore = dataStore(Empfields, basePath + "CPEmpAction.do?method=selAll&wheresql=empcompany='"+comid+"' and empcode!='隐藏'");// 定义Empstore
 	Empstore.load();
 	var Warrantcheckviewstore = dataStore(Warrantcheckviewfields, basePath + Warrantcheckviewaction + "?method=selQueryCP");// 定义Warrantcheckviewstore
@@ -172,7 +180,7 @@ Ext.onReady(function() {
 									if(data.root.length >0){
 										Ext.getCmp('Warrantcheckviewwarrantchecknumorg').setValue(data.root[0].goodsnumnum);
 									} else {
-//										Ext.Msg.alert('提示','没有查询到商品数量。');
+										Ext.getCmp('Warrantcheckviewwarrantchecknumorg').setValue('');
 									}
 								},
 								error: function(resp){
@@ -190,6 +198,7 @@ Ext.onReady(function() {
 			items : [ {
 				xtype : 'textfield',
 				fieldLabel : '盘点前数量',
+				emptyText : '未查询到盘点前数量',
 				id : 'Warrantcheckviewwarrantchecknumorg',
 				allowBlank : false,
 				name : 'warrantchecknumorg',
@@ -311,13 +320,13 @@ Ext.onReady(function() {
 			header : '盘点前数量',
 			dataIndex : 'warrantchecknumorg',
 			sortable : true, 
-			width : 73,
+			width : 89,
 		}
 		, {
 			header : '盘点后数量',
 			dataIndex : 'warrantchecknumnow',
 			sortable : true, 
-			width : 73,
+			width : 89,
 		}
 		, {
 			header : '盘点人',
@@ -425,7 +434,7 @@ Ext.onReady(function() {
 					Ext.getCmp("Warrantcheckviewgoodscode").setReadOnly (true);
 					Ext.getCmp("Warrantcheckviewgoodsname").setReadOnly (true);
 					Ext.getCmp("Warrantcheckviewgoodsunits").setReadOnly (true);
-					goodsWindow(WarrantcheckviewdataForm,Storehousestore,Warrantcheckviewstore);
+					goodsWindow(WarrantcheckviewdataForm,Warrantcheckviewstore);
 					
 				}
 		},'-',{
