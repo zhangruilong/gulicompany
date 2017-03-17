@@ -206,14 +206,27 @@ Ext.onReady(function() {
 			} ]
 		}
 		, {
-			columnWidth : 1,
+			columnWidth : .9,
 			layout : 'form',
 			items : [ {
 				xtype : 'textfield',
 				fieldLabel : '退货单位',
 				id : 'Warrantbackviewwarrantbackdetail',
 				name : 'warrantbackdetail',
-				maxLength : 100
+				maxLength : 100,
+				allowBlank : false,
+				readOnly : true
+			} ]
+		}
+		, {
+			columnWidth : .1,
+			layout : 'form',
+			items : [ {
+				xtype : 'button',
+				iconCls : 'select',
+				handler : function() {
+					showCustomer();
+				}
 			} ]
 		}
 		, {
@@ -328,7 +341,7 @@ Ext.onReady(function() {
 			width : 73,
 		}
 		, {
-			header : '描述',
+			header : '退货单位',
 			dataIndex : 'warrantbackdetail',
 			sortable : true, 
 			width:150,

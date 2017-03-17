@@ -235,16 +235,8 @@ Ext.onReady(function() {
 		}
 		, {
 			header : '仓库',
-			dataIndex : 'goodsnumstore',
+			dataIndex : 'storehousename',
 			sortable : true, 
-			renderer : function(value){
-				var md = Storehousestore.find('storehouseid',value);
-				if(md!=-1){
-					return Storehousestore.getAt(md).get('storehousename');
-				} else {
-					return '';
-				}
-			},
 			width : 137,
 		}
 		],
@@ -258,20 +250,7 @@ Ext.onReady(function() {
 				listeners : {
 					specialkey : function(field, e) {
 						if (e.getKey() == Ext.EventObject.ENTER) {
-							if ("" == Ext.getCmp("queryGoodsnumviewaction").getValue()) {
-								Goodsnumviewstore.load({
-									params : {
-										json : queryjson
-									}
-								});
-							} else {
-								Goodsnumviewstore.load({
-									params : {
-										json : queryjson,
-										query : Ext.getCmp("queryGoodsnumviewaction").getValue()
-									}
-								});
-							}
+							Goodsnumviewstore.load();
 						}
 					}
 				}

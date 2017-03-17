@@ -165,7 +165,7 @@ public class CPCcustomerviewAction extends CcustomerviewAction {
 		String[] discard = {"ccustomerid","ccustomercompany","customerid","customerpsw","customerlevel","openid","customerdetail","customerstatue","updtime","creator"};			//要忽略的字段名
 		String name = "客户统计报表";							//文件名称
 		for (Ccustomerview cc : list) {
-			cc.setCustomertype(cc.getCustomertype().equals("3")?"餐饮客户":(cc.getCustomertype().equals("2")?"商超客户":(cc.getCustomertype().equals("1")?"组织单位客户":"")));
+			cc.setCustomertype(null== cc.getCustomertype()?"":(cc.getCustomertype().equals("3")?"餐饮客户":(cc.getCustomertype().equals("2")?"商超客户":"组织单位客户")));
 		}
 		FileUtil.expExcel(response, list, heads, discard, name);
 	}

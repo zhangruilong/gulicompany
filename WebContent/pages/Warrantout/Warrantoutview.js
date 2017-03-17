@@ -7,7 +7,7 @@ var sumNum = 0;
 var startDate = Ext.util.Format.date(new Date(),'Y-m-d');			//查询的开始时间
 var endDate = Ext.util.Format.date(new Date(),'Y-m-d');				//查询结束时间
 /*之前的查询条件*/
-var odStartDate=startDate;								
+var odStartDate=startDate;
 var odEndDate=endDate;
 var odQuery='';
 var odQueryjson='';
@@ -54,6 +54,8 @@ Ext.onReady(function() {
 		        			    ,'warrantoutordnote' 
 		        			    ,'warrantoutprice' 
 		        			    ,'warrantoutmoney' 
+		        			    ,'warrantoutcusid' 
+		        			    ,'warrantoutcusname' 
 		        			    ,'goodsid' 
 		        			    ,'goodscompany' 
 		        			    ,'goodscode' 
@@ -293,14 +295,27 @@ Ext.onReady(function() {
 			} ]
 		}
 		, {
-			columnWidth : 1,
+			columnWidth : .9,
 			layout : 'form',
 			items : [ {
 				xtype : 'textfield',
-				fieldLabel : '购买单位',
-				id : 'Warrantoutviewwarrantoutdetail',
-				name : 'warrantoutdetail',
-				maxLength : 100
+				fieldLabel : '出货单位',
+				id : 'Warrantoutviewwarrantoutcusname',
+				name : 'warrantoutcusname',
+				maxLength : 100,
+				allowBlank : false,
+				readOnly : true
+			} ]
+		}
+		, {
+			columnWidth : .1,
+			layout : 'form',
+			items : [ {
+				xtype : 'button',
+				iconCls : 'select',
+				handler : function() {
+					showCustomer();
+				}
 			} ]
 		}
 		, {
@@ -312,6 +327,30 @@ Ext.onReady(function() {
 				fieldLabel : '其他类别',
 				id : 'Warrantoutviewwarrantoutgtype',
 				name : 'warrantoutgtype',
+				maxLength : 100
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'form',
+			hidden : true,
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '客户ID',
+				id : 'Warrantoutviewwarrantoutcusid',
+				name : 'warrantoutcusid',
+				maxLength : 100
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'form',
+			hidden : true,
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '描述',
+				id : 'Warrantoutviewwarrantoutdetail',
+				name : 'warrantoutdetail',
 				maxLength : 100
 			} ]
 		}
@@ -424,6 +463,18 @@ Ext.onReady(function() {
 			dataIndex : 'warrantoutwho',
 			sortable : true, 
 			width : 73,
+		}
+		, {
+			header : '客户ID',
+			dataIndex : 'warrantoutcusid',
+			sortable : true,
+			hidden : true,
+		}
+		, {
+			header : '出货单位',
+			dataIndex : 'warrantoutcusname',
+			sortable : true,
+			width:150,
 		}
 		, {
 			header : '创建时间',

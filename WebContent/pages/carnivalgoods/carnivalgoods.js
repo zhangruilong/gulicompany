@@ -1,5 +1,9 @@
 var Bkgoodsbbar;
 var Goodsclassstore;
+var goodsCusTypeStore = new Ext.data.ArrayStore({//客户类型下拉
+	fields:["name","value"],
+	data:[["全部商品",""],["餐饮商品","3"],["商超商品","2"],["组织单位商品","1"]]
+});
 Ext.onReady(function() {
 	var Bkgoodsclassify = '年货专区';
 	var Bkgoodstitle = "当前位置:业务管理》" + Bkgoodsclassify;
@@ -38,9 +42,11 @@ Ext.onReady(function() {
 	
 	Goodsclassstore.load();	//加载供应商小类
 	Bkgoodsstore.on('beforeload',function(store,options){					//数据加载时的事件
+		var type = Ext.getCmp('queryGoodsCusType').getValue();
 		var new_params = {		//每次数据加载的时候传递的参数
 				json : queryjson,
 				wheresql : where,
+				type : type,
 				query : Ext.getCmp("queryBkgoodsaction").getValue(),
 				limit : Bkgoodsbbar.pageSize
 		};
@@ -674,6 +680,24 @@ Ext.onReady(function() {
 		}
 		],
 		tbar : [{
+			xtype : 'combo',
+			fieldLabel : '商品类型',
+			labelWidth : 63,
+			id : 'queryGoodsCusType',
+			name : 'cusType',
+			width : 173,
+			store : goodsCusTypeStore,
+			mode : 'local',					//local是取本地数据的也就是javascirpt(内存)中的数据。
+											//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
+			displayField : 'name',		//显示的字段
+			valueField : 'value',		//作为值的字段
+			hiddenName : 'cusType',
+			triggerAction : 'all',
+			value : "",
+			editable : false,
+			maxLength : 100,
+			anchor : '95%',
+		},'-',{
 			xtype : 'textfield',
 			id : 'queryBkgoodsaction',
 			name : 'query',

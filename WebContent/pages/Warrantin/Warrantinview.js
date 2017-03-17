@@ -66,7 +66,7 @@ Ext.onReady(function() {
 	        			    ,'goodsclassname' 
 	        			      ];// 小类字段
 	var wheresql = "goodscompany='"+comid+"'";
-	var Goodsclassstore = dataStore(Goodsclassfields, "CPGoodsclassAction.do?method=queryCompanyGoodsclass&wheresql=goodsclasscompany='"+comid+"'");//定义小类store
+	var Goodsclassstore = dataStore(Goodsclassfields, "CPGoodsclassAction.do?method=queryCompanyGoodsclass&wheresql=goodsclasscompany='"+comid+"' and goodsclassname!='裸价商品'");//定义小类store
 	Goodsclassstore.load();	//加载供应商小类
 	var Storehousestore = dataStore(Storehousefields, basePath + "CPStorehouseAction.do?method=selAll&wheresql=storehousecompany='"+comid+"' and storehousestatue='启用' and storehousename!='破损仓库'");// 定义Storehousestore
 	Storehousestore.load();
@@ -513,7 +513,19 @@ Ext.onReady(function() {
 				id : 'Warrantinviewwarrantinnum',
 				allowBlank : false,
 				name : 'warrantinnum',
-				maxLength : 100
+				maxLength : 100,
+				listeners: {
+					//获得焦点时自动计算金额
+					change: function(obj, newValue, oldValue, eOpts){
+						var inPrice = Ext.getCmp('Warrantinviewwarrantinprice').getValue();
+						var val = parseFloat(inPrice)*parseInt(newValue);
+						if(!isNaN(val)){
+							Ext.getCmp('Warrantinwarrantinmoney').setValue(val);
+						} else {
+							Ext.getCmp('Warrantinwarrantinmoney').setValue('');
+						}
+					}
+				}
 			} ]
 		}
 		, {
@@ -525,16 +537,7 @@ Ext.onReady(function() {
 				id : 'Warrantinwarrantinmoney',
 				name : 'warrantinmoney',
 				allowBlank : false,
-				maxLength : 100,
-				listeners: {
-					//获得焦点时自动计算金额
-					focus: function(obj, event, eOpts){
-						var inPrice = Ext.getCmp('Warrantinviewwarrantinprice').getValue();
-						var inNum = Ext.getCmp('Warrantinviewwarrantinnum').getValue();
-						var val = parseFloat(inPrice)*parseInt(inNum);
-						obj.setValue(val);
-					}
-				}
+				maxLength : 100
 			} ]
 		}
 		, {

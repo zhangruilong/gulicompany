@@ -85,7 +85,8 @@ public class CPOrderAction extends OrdermviewAction {
 					Warrantout newOut = new Warrantout(CommonUtil.getNewId(), lgi.getCompanyid(), storehouseid, goodsid, 
 							od.getOrderdnum()+"", "发货请求", null, null, time, lgi.getUsername(), null, null, od.getOrderdcode(), 
 							od.getOrderdname(), od.getOrderdunits(), od.getOrderdtype(), od.getOrderdclass(), od.getOrderdunit(), 
-							od.getOrderdweight(), od.getOrderdnote(), od.getOrderdprice().toString(), od.getOrderdmoney().toString());
+							od.getOrderdweight(), od.getOrderdnote(), od.getOrderdprice().toString(), od.getOrderdmoney().toString(),
+							omLi.get(0).getOrdermcustomer(),omLi.get(0).getOrdermcusshop());
 					String insSQL = getInsSingleSql(newOut);
 					strLi.add(insSQL);
 				}
@@ -112,7 +113,7 @@ public class CPOrderAction extends OrdermviewAction {
 					"select * from customer where customerid='"+omli.get(0).getOrdermcustomer()+"'");
 			List<Orderd> odli = selAll(Orderd.class, 
 					"select * from orderd where orderdorderm='"+ordermid+"'");
-			List<Object> objli = new ArrayList<>();
+			List<Object> objli = new ArrayList<Object>();
 			objli.add(omli.get(0));
 			objli.add(comLi.get(0));
 			objli.add(cusli.get(0));

@@ -16,6 +16,25 @@ import com.system.tools.util.TypeUtil;
 
 public class CPGoodsnumviewAction extends GoodsnumviewAction {
 
+	//出库中的选择商品弹窗中的数据
+	@SuppressWarnings("unchecked")
+	public void selGoodsAndNum(HttpServletRequest request, HttpServletResponse response){
+		Queryinfo queryinfo = getQueryinfo(request, Goodsnumview.class, GoodsnumviewPoco.QUERYFIELDNAME, GoodsnumviewPoco.ORDER, TYPE);
+		String querySQL = "select `gn`.`idgoodsnum`,`gn`.`goodsnumgoods`,`gn`.`goodsnumnum`,`gn`.`goodsnumstore`,`g`.`goodsid`,`g`.`goodscompany`,`g`.`createtime`,`g`.`goodscode`,`g`.`goodsname`,`g`.`goodsunits`,`sh`.`storehousename` from goods g left join goodsnum gn on g.goodsid=gn.goodsnumgoods LEFT JOIN `storehouse` `sh` ON `gn`.`goodsnumstore` = `sh`.`storehouseid` where 1=1 ";
+		if(CommonUtil.isNotEmpty(queryinfo.getWheresql())){
+			querySQL += " and (" + queryinfo.getWheresql() + ") ";
+		}
+		if(CommonUtil.isNotEmpty(queryinfo.getQuery())){
+			querySQL += " and (" + queryinfo.getQuery() + ") ";
+		}
+		String totalSQL = querySQL.replace("`gn`.`idgoodsnum`,`gn`.`goodsnumgoods`,`gn`.`goodsnumnum`,`gn`.`goodsnumstore`,`g`.`goodsid`,`g`.`goodscompany`,`g`.`createtime`,`g`.`goodscode`,`g`.`goodsname`,`g`.`goodsunits`,`sh`.`storehousename`", "count(*)");
+		querySQL += " order by goodsid desc";
+		cuss = (ArrayList<Goodsnumview>) selQuery(querySQL,queryinfo);
+		Pageinfo pageinfo = new Pageinfo(getTotal(totalSQL), cuss);
+		result = CommonConst.GSON.toJson(pageinfo);
+		responsePW(response, result);
+	}
+	
 	//分页查询
 	@SuppressWarnings("unchecked")
 	public void selQueryCP(HttpServletRequest request, HttpServletResponse response){

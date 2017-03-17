@@ -81,7 +81,7 @@ Ext.onReady(function() {
 		goodsStoreURL += " and goodstype='"+goodstype+"'";		//裸价商品
 	}
 	var Goodsstore = dataStore(Goodsfields, goodsStoreURL);// 定义Goodsstore
-	Goodsclassstore = dataStore(Goodsclassfields, "CPGoodsclassAction.do?method=queryCompanyGoodsclass&wheresql=goodsclasscompany='"+comid+"'");//定义小类store
+	Goodsclassstore = dataStore(Goodsclassfields, "CPGoodsclassAction.do?method=queryCompanyGoodsclass&wheresql=goodsclasscompany='"+comid+"' and goodsclassname!='裸价商品'");//定义小类store
 	Goodsclassstore.load();	//加载供应商小类
 	/*之前的查询条件*/
 	var odQuery = '';

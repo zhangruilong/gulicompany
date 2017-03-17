@@ -1,4 +1,152 @@
 
+var Ccustomerviewfields = ['ccustomerid'
+	        			    ,'ccustomercompany' 
+	        			    ,'ccustomerdetail' 
+	        			    ,'createtime' 
+	        			    ,'creator' 
+	        			    ,'customerid' 
+	        			    ,'customercode' 
+	        			    ,'customername' 
+	        			    ,'customerphone' 
+	        			    ,'customerpsw' 
+	        			    ,'customershop' 
+	        			    ,'customercity' 
+	        			    ,'customerxian' 
+	        			    ,'customeraddress' 
+	        			    ,'customertype' 
+	        			    ,'customerlevel' 
+	        			    ,'openid' 
+	        			    ,'customerdetail' 
+	        			    ,'customerstatue' 
+	        			    ,'cuscreatetime' 
+	        			    ,'updtime' 
+	        			      ];// 全部字段
+var Ccustomerviewkeycolumn = [ 'ccustomerid' ];// 主键
+var Ccustomerviewstore = dataStore(Ccustomerviewfields, basePath + "CPCcustomerviewAction.do?method=queryCCustomerwiew&wheresql=ccustomercompany='"+comid+"'");// 定义Ccustomerviewstore
+Ccustomerviewbbar = pagesizebar(Ccustomerviewstore);//定义分页
+var Ccustomerviewgrid =  Ext.create('Ext.grid.Panel', {
+	height : document.documentElement.clientHeight - 4,
+	width : '100%',
+	store : Ccustomerviewstore,
+	bbar : Ccustomerviewbbar,
+    selModel: {
+        type: 'checkboxmodel'
+    },
+    viewConfig : {
+    	enableTextSelection : true	//文本可以被选中
+    },
+	columns : [{
+		header : '序号',
+		xtype: 'rownumberer',		//行号
+		width:60
+	},
+	{// 改
+		header : '客户关系ID',
+		dataIndex : 'ccustomerid',
+		sortable : true,
+		hidden : true
+	}
+	, {
+		header : '客户编码',
+		dataIndex : 'customercode',
+		sortable : true,
+		width:75,
+	}
+	, {
+		header : '客户名称',
+		dataIndex : 'customershop',
+		sortable : true,
+		width:150,
+	}
+	, {
+		header : '地址',
+		dataIndex : 'customeraddress',
+		sortable : true,
+		width:150,
+	}
+	, {
+		header : '联系人',
+		dataIndex : 'customername',
+		sortable : true,
+		width:72,
+	}
+	, {
+		header : '联系电话',
+		dataIndex : 'customerphone',
+		sortable : true,
+		width:109,
+	}
+	],
+	tbar : [{
+		xtype : 'textfield',
+		id : 'queryCcustomerviewaction',
+		name : 'query',
+		emptyText : '模糊匹配',
+		width : 100,
+		enableKeyEvents : true,
+		listeners : {
+			specialkey : function(field, e) {
+				if (e.getKey() == Ext.EventObject.ENTER) {
+					if ("" == Ext.getCmp("queryCcustomerviewaction").getValue()) {
+						Ccustomerviewstore.load();
+					} else {
+						Ccustomerviewstore.load({
+							params : {
+								query : Ext.getCmp("queryCcustomerviewaction").getValue()
+							}
+						});
+					}
+				}
+			}
+		}
+	}
+	]
+});
+//客户列表
+function showCustomer(){
+	Ccustomerviewstore.load();//加载数据
+	var selectgridWindow = new Ext.Window({
+		title : '请选择客户',
+		layout : 'fit', // 设置窗口布局模式
+		width : 682, // 窗口宽度
+		height : document.body.clientHeight -4, // 窗口高度
+		modal : true,
+		closeAction: 'hide',
+		closable : true, // 是否可关闭
+		collapsible : false, // 是否可收缩
+		maximizable : false, // 设置是否可以最大化
+		border : false, // 边框线设置
+		constrain : true, // 设置窗口是否可以溢出父容器
+		animateTarget : Ext.getBody(),
+		pageY : 50, // 页面定位Y坐标
+		pageX : document.body.clientWidth / 2 - 682 / 2, // 页面定位X坐标
+		items : Ccustomerviewgrid, // 嵌入的面板
+		buttons : [
+					{
+						text : '确定',
+						iconCls : 'ok',
+						handler : function() {
+							var selectRows = Ccustomerviewgrid.getSelection();
+							if (selectRows.length != 1) {
+								Ext.Msg.alert('提示', '请选择一条！', function() {
+								});
+								return;
+							}
+							Ext.getCmp('Warrantoutviewwarrantoutcusname').setValue(selectRows[0].get("customershop"));
+							Ext.getCmp('Warrantoutviewwarrantoutcusid').setValue(selectRows[0].get("customerid"));
+							selectgridWindow.hide();
+						}
+					}, '-', {
+						text : '关闭',
+						iconCls : 'close',
+						handler : function() {
+							selectgridWindow.hide();
+						}
+					}]
+	});
+	selectgridWindow.show();
+}
+
 //一键出库
 function warrantoutPlacing(url, selections, store, fields) {
 	Ext.Msg.confirm('请确认', '<b>提示:</b>请确认要一键出库？', function(btn, text) {
@@ -7,7 +155,7 @@ function warrantoutPlacing(url, selections, store, fields) {
 			var msg = '';	//数量小于出库数量的提示信息
 			var staMsg = '';	//状态不对的商品的提示信息
 			var selArray = new Array();
-			for (var i = 0; i < selections.length; i++) {
+			/*for (var i = 0; i < selections.length; i++) {
 				if(selections[i].data['warrantoutstatue'] == '发货请求'){
 					for(var j=0; j< selArray.length; j++){
 						if(selArray[i]){
@@ -15,7 +163,7 @@ function warrantoutPlacing(url, selections, store, fields) {
 						}
 					}
 				}
-			}
+			}*/
 			for (var i = 0; i < selections.length; i++) {
 				if(selections[i].data['warrantoutstatue'] == '发货请求'){
 					var goodsnum = selections[i].data['goodsnumnum'];
@@ -82,121 +230,127 @@ function warrantoutPlacing(url, selections, store, fields) {
 		}
 	});
 }
-//商品的窗口
-function goodsWindow(){
-	var Goodsaction = "CPGoodsAction.do";
-	var Goodsfields = ['goodsid'
-       			    ,'goodscompany' 
-       			    ,'goodscode' 
-       			    ,'goodsname' 
-       			    ,'goodsdetail' 
-       			    ,'goodsunits' 
-       			    ,'goodsclass' 
-       			    ,'goodsimage' 
-       			    ,'goodsstatue' 
-       			    ,'createtime' 
-       			    ,'updtime' 
-       			    ,'creator' 
-       			    ,'updor' 
-       			    ,'goodsbrand' 
-       			    ,'goodstype' 
-       			    ,'goodsorder' 
-       			    ,'goodsweight' 
-       			      ];// 全部字段
-	var Goodskeycolumn = [ 'goodsid' ];// 主键
-	var Goodsstore = dataStore(Goodsfields, basePath + Goodsaction + "?method=selQuery&wheresql=goodscompany='"+comid+"'");// 定义Goodsstore
-	var Goodsbbar = pagesizebar(Goodsstore);
-	var Goodsgrid = new Ext.grid.GridPanel({
-		height : document.documentElement.clientHeight - 4,
-		width : '100%',
-		store : Goodsstore,
-		bbar : Goodsbbar,
-		selModel: {
-	        type: 'checkboxmodel'
-	    },
-	    viewConfig : {
-	    	enableTextSelection : true	//文本可以被选中
-	    },
-		columns : [{
-			header : '序号',
-			xtype: 'rownumberer',		//行号
-			width:60,
-		},
-		 {
-			header : '商品编号',
-			dataIndex : 'goodscode',
-			sortable : true,  
-			width : 158,
-			editor: {
-                xtype: 'textfield'
-            }
-		}
-		, {
-			header : '商品名称',
-			dataIndex : 'goodsname',
-			sortable : true,  
-			width : 137,
-			editor: {
-                xtype: 'textfield'
-            }
-		}
-		, {
-			header : '规格',
-			dataIndex : 'goodsunits',
-			sortable : true,  
-			editor: {
-                xtype: 'textfield'
-            }
-		}
-		, {
-			header : '品牌',
-			dataIndex : 'goodsbrand',
-			sortable : true,  
-			editor: {
-                xtype: 'textfield'
-            }
-		}
-		, {
-			header : '重量',
-			dataIndex : 'goodsweight',
-			sortable : true,  
-			editor: {
-                xtype: 'textfield'
-            }
-		}
-		],
-		tbar : [{
+var Goodsnumviewfields = ['idgoodsnum'
+	        			    ,'goodsnumgoods' 
+	        			    ,'goodsnumnum' 
+	        			    ,'goodsnumstore' 
+	        			    ,'goodsid' 
+	        			    ,'goodscode' 
+	        			    ,'goodsname' 
+	        			    ,'goodsunits' 
+	        			    ,'storehousename' 
+	        			      ];// 全部字段
+var Goodsnumviewkeycolumn = [ 'idgoodsnum' ];// 主键
+var Goodsnumviewstore = dataStore(Goodsnumviewfields, basePath + "CPGoodsnumviewAction.do?method=selGoodsAndNum");// 定义Goodsnumviewstore
+var gnwheresql = "goodscompany='"+comid+"'";
+var gnodQuery='';
+Goodsnumviewstore.on('beforeload',function(store,options){					//数据加载时的事件
+	var query = Ext.getCmp("queryGoodsnumviewaction").getValue();
+	var new_params = {		//每次数据加载的时候传递的参数
+			wheresql : gnwheresql,
+			comid : comid,
+			query : query,
+			limit : Goodsnumviewbbar.pageSize
+	};
+	if(query!=gnodQuery){		//如果查询条件变化了就变成第一页
+		gnodQuery = query;
+		store.loadPage(1);
+	}
+	Ext.apply(Goodsnumviewstore.proxy.extraParams, new_params);    //ext 4.0
+});
+Goodsnumviewbbar = pagesizebar(Goodsnumviewstore);//定义分页
+var Goodsnumviewgrid =  Ext.create('Ext.grid.Panel', {
+	height : document.documentElement.clientHeight - 4,
+	width : '100%',
+	store : Goodsnumviewstore,
+	bbar : Goodsnumviewbbar,
+    selModel: {
+        type: 'checkboxmodel'
+    },
+    viewConfig : {
+    	enableTextSelection : true	//文本可以被选中
+    },
+	columns : [{
+		header : '序号',
+		xtype: 'rownumberer',		//行号
+		width:60,
+	},
+	{// 改
+		header : 'ID',
+		dataIndex : 'idgoodsnum',
+		sortable : true, 
+		hidden : true,
+	}
+	, {
+		header : '商品ID',
+		dataIndex : 'goodsid',
+		sortable : true,  
+		hidden : true,
+	}
+	, {
+		header : '仓库ID',
+		dataIndex : 'goodsnumstore',
+		sortable : true,  
+		hidden : true,
+	}
+	, {
+		header : '商品编号',
+		dataIndex : 'goodscode',
+		sortable : true, 
+		width : 122,
+	}
+	, {
+		header : '商品名称',
+		dataIndex : 'goodsname',
+		sortable : true, 
+		width : 137,
+	}
+	, {
+		header : '商品规格',
+		dataIndex : 'goodsunits',
+		sortable : true, 
+		width : 105,
+	}
+	, {
+		header : '数量',
+		dataIndex : 'goodsnumnum',
+		sortable : true, 
+		width : 48,
+	}
+	, {
+		header : '仓库',
+		dataIndex : 'storehousename',
+		sortable : true, 
+		width : 137,
+	}
+	],
+	tbar : [{
 			xtype : 'textfield',
-			id : 'query',
+			id : 'queryGoodsnumviewaction',
 			name : 'query',
 			emptyText : '模糊匹配',
-			enableKeyEvents : true,
 			width : 100,
+			enableKeyEvents : true,
 			listeners : {
 				specialkey : function(field, e) {
 					if (e.getKey() == Ext.EventObject.ENTER) {
-						if ("" == Ext.getCmp("query").getValue()) {
-							Goodsstore.load();
-						} else {
-							Goodsstore.load({
-								params : {
-									query : Ext.getCmp("query").getValue()
-								}
-							});
-						}
+						Goodsnumviewstore.load();
 					}
 				}
 			}
-		}]
-	});
-	Goodsstore.load();//加载数据
+		}
+	]
+});
+//商品库存的窗口
+function goodsWindow(){
+	Goodsnumviewstore.load();//加载数据
 	var selectgridWindow = new Ext.Window({
-		title : '请选择要出库的商品',
+		title : '请选择出库的商品和仓库',
 		layout : 'fit', // 设置窗口布局模式
 		width : 682, // 窗口宽度
 		height : document.body.clientHeight -4, // 窗口高度
 		modal : true,
-		//closeAction: 'hide',
+		closeAction: 'hide',
 		closable : true, // 是否可关闭
 		collapsible : false, // 是否可收缩
 		maximizable : false, // 设置是否可以最大化
@@ -205,13 +359,13 @@ function goodsWindow(){
 		animateTarget : Ext.getBody(),
 		pageY : 50, // 页面定位Y坐标
 		pageX : document.body.clientWidth / 2 - 682 / 2, // 页面定位X坐标
-		items : Goodsgrid, // 嵌入的表单面板
+		items : Goodsnumviewgrid, // 嵌入的面板
 		buttons : [
 					{
 						text : '确定',
 						iconCls : 'ok',
 						handler : function() {
-							var selectRows = Goodsgrid.getSelection();
+							var selectRows = Goodsnumviewgrid.getSelection();
 							if (selectRows.length != 1) {
 								Ext.Msg.alert('提示', '请选择一条！', function() {
 								});
@@ -221,14 +375,15 @@ function goodsWindow(){
 							Ext.getCmp('Warrantoutviewwarrantoutgcode').setValue(selectRows[0].get("goodscode"));
 							Ext.getCmp('Warrantoutviewwarrantoutgname').setValue(selectRows[0].get("goodsname"));
 							Ext.getCmp('Warrantoutviewwarrantoutgunits').setValue(selectRows[0].get("goodsunits"));
+							Ext.getCmp('Warrantoutviewwarrantoutstore').setValue(selectRows[0].get("goodsnumstore"));
 							Ext.getCmp('Warrantoutviewwarrantoutgtype').setValue("商品");
-							selectgridWindow.close();
+							selectgridWindow.hide();
 						}
 					}, '-', {
 						text : '关闭',
 						iconCls : 'close',
 						handler : function() {
-							selectgridWindow.close();
+							selectgridWindow.hide();
 						}
 					}]
 	});

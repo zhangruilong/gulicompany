@@ -57,7 +57,7 @@ public class CPGoodsAction extends GoodsAction {
 	//海盐的orderm数据迁移
 	@SuppressWarnings("unchecked")
 	public void dataMigration2(HttpServletRequest request, HttpServletResponse response){
-		List<Orderd> orderdLi = selAll(Orderd.class, "select * from orderd t left join orderm om on t.orderdorderm=om.ordermid where om.ordermcompany='1'", "oracle");
+		List<Orderd> orderdLi = selAll(Orderd.class, "select t.* from orderd t left join orderm om on t.orderdorderm=om.ordermid where om.ordermcompany='1'", "oracle");
 		for (Orderd g : orderdLi) {
 			insSingle(g, "mysql");
 		}

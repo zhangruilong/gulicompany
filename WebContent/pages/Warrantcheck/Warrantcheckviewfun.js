@@ -163,6 +163,7 @@ function checkQueryWindow(title,_form,store) {
 					text : '提交',
 					iconCls : 'ok',
 					handler : function() {
+						
 						queryjson = "[" + Ext.encode(_form.form.getValues(false)) + "]";
 //						json = json.replace(/""/g,null);
 						store.load({
@@ -215,24 +216,66 @@ function addWarrantcheckWindow(url,title,_form,store) {
 					iconCls : 'ok',
 					handler : function() {
 						if (_form.form.isValid()) {
-							var json = "[" + Ext.encode(_form.form.getValues(false)) + "]";
-							_form.form.submit({
-								url : url,
-								waitTitle : '提示',
-								params : {//改
-									json : json
+							var goodsId = Ext.getCmp('Warrantcheckviewwarrantcheckgoods').getValue();
+							var shId = Ext.getCmp('Warrantcheckviewwarrantcheckstore').getValue();
+							$.ajax({
+								url: 'CPGoodsnumAction.do',
+								type: 'post',
+								data: {
+									method: 'selAll',
+									wheresql: "goodsnumgoods='"+goodsId+"' and goodsnumstore='"+shId+"'"
 								},
-								success : function(form, action) {
-									Ext.Msg.alert('提示', action.result.msg,function(){
-										dataWindow.hide();
-										store.reload();
-									});
+								success: function(resp){
+									var data = eval('('+resp+')');
+									if(data.root.length ==0){
+										Ext.Msg.confirm('请确认', '<b>提示:</b>未查询到盘点前数量,确认盘点？',function(btn, text){
+											if (btn == 'yes') {
+												var json = "[" + Ext.encode(_form.form.getValues(false)) + "]";
+												_form.form.submit({
+													url : url,
+													waitTitle : '提示',
+													params : {//改
+														json : json
+													},
+													success : function(form, action) {
+														Ext.Msg.alert('提示', action.result.msg,function(){
+															dataWindow.hide();
+															store.reload();
+														});
+													},
+													failure : function(form, action) {
+														Ext.Msg.alert('提示', '网络出现问题，请稍后再试');
+													},
+													waitMsg : '正在处理数据,请稍候...'
+												});
+											}
+										});
+									} else {
+										var json = "[" + Ext.encode(_form.form.getValues(false)) + "]";
+										_form.form.submit({
+											url : url,
+											waitTitle : '提示',
+											params : {//改
+												json : json
+											},
+											success : function(form, action) {
+												Ext.Msg.alert('提示', action.result.msg,function(){
+													dataWindow.hide();
+													store.reload();
+												});
+											},
+											failure : function(form, action) {
+												Ext.Msg.alert('提示', '网络出现问题，请稍后再试');
+											},
+											waitMsg : '正在处理数据,请稍候...'
+										});
+									}
 								},
-								failure : function(form, action) {
-									Ext.Msg.alert('提示', '网络出现问题，请稍后再试');
-								},
-								waitMsg : '正在处理数据,请稍候...'
+								error: function(resp){
+									
+								}
 							});
+							
 						} else {
 					        Ext.Msg.alert('提示', '请正确填写表单!');
 					    }
