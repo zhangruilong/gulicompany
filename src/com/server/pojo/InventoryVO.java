@@ -1,5 +1,9 @@
 package com.server.pojo;
-
+/**
+ * 进销存变动表
+ * @author tao
+ *
+ */
 public class InventoryVO {
 
    /**

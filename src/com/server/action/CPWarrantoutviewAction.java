@@ -18,27 +18,34 @@ import com.system.tools.CommonConst;
 import com.system.tools.pojo.Pageinfo;
 import com.system.tools.pojo.Queryinfo;
 import com.system.tools.util.CommonUtil;
+import com.system.tools.util.DateUtils;
 import com.system.tools.util.FileUtil;
 import com.system.tools.util.TypeUtil;
 
 public class CPWarrantoutviewAction extends WarrantoutviewAction {
 
 	//一键出库
-	@SuppressWarnings("unchecked")
 	public void onekeyPlacing(HttpServletRequest request, HttpServletResponse response){
-		LoginInfo lgi = (LoginInfo) request.getSession().getAttribute("loginInfo");
+		LoginInfo lgif = (LoginInfo) request.getSession().getAttribute("loginInfo");
 		String json = request.getParameter("json");
 		String warrantoutwho = request.getParameter("warrantoutwho");
 		System.out.println("json : " + json);
 		json = json.replace("\"\"", "null");
 		if(CommonUtil.isNotEmpty(json)) cuss = CommonConst.GSON.fromJson(json, TYPE);
 		List<String> sqlLi = new ArrayList<String>();
+		List<String> odmLi = new ArrayList<String>();
+		String time = DateUtils.getDateTime();
 		for(Warrantoutview temp:cuss){
 			if(temp.getWarrantoutstatue().equals("发货请求")){
+				if(odmLi.size()==0 || !odmLi.get(odmLi.size()-1).equals(temp.getWarrantoutodm())){
+					odmLi.add(temp.getWarrantoutodm());
+				}
 				Warrantout updWar = new Warrantout();
 				updWar.setIdwarrantout(temp.getIdwarrantout());	//ID
 				updWar.setWarrantoutstatue("已发货");			//状态
 				updWar.setWarrantoutwho(warrantoutwho);			//领货人
+				updWar.setWarrantoutupdwhen(time);			//修改时间
+				updWar.setWarrantoutupdwho(lgif.getUsername());	//修改人
 				String updTemp = "";
 				if(null != temp.getGoodsnumnum() && !temp.getGoodsnumnum().equals("undefined")){
 					Integer num =  Integer.parseInt(temp.getGoodsnumnum()) - Integer.parseInt(temp.getWarrantoutnum());
@@ -61,6 +68,16 @@ public class CPWarrantoutviewAction extends WarrantoutviewAction {
 		if(sqlLi.size()>0){
 			String[] sqls = sqlLi.toArray(new String[0]);
 			result = doAll(sqls);
+			if(result.equals(CommonConst.SUCCESS)){
+				List<String> odmSQLLi = new ArrayList<String>();
+				for (String odmId : odmLi) {
+					Integer woNum = getTotal("select count(*) from warrantout wo where wo.warrantoutstatue='发货请求' and wo.warrantoutodm='"+odmId+"' and wo.warrantoutcompany='"+lgif.getCompanyid()+"'");
+					if(CommonUtil.isNotNull(odmId) && woNum == 0){
+						odmSQLLi.add("update orderm set ordermstatue='已发货' where ordermid='"+odmId+"'");
+					}
+				}
+				doAll(odmSQLLi.toArray(new String[0]));
+			}
 		}
 		responsePW(response, result);
 	}

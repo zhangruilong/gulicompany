@@ -1,5 +1,9 @@
 package com.server.pojo;
-
+/**
+ * 订单打印
+ * @author tao
+ *
+ */
 public class PrintInfo {
 	/**
 	    * 订单ID,主键

@@ -5,17 +5,37 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.server.poco.GoodsnumPoco;
 import com.server.poco.WarrantoutPoco;
 import com.server.pojo.Goodsnum;
 import com.server.pojo.LoginInfo;
 import com.server.pojo.Warrantout;
+import com.server.pojo.Warrantoutview;
 import com.system.tools.CommonConst;
+import com.system.tools.pojo.Pageinfo;
 import com.system.tools.util.CommonUtil;
 import com.system.tools.util.DateUtils;
 
 public class CPWarrantoutAction extends WarrantoutAction {
 
+	//出库单打印
+	@SuppressWarnings("unchecked")
+	public void outPrint(HttpServletRequest request, HttpServletResponse response){
+		String ordermid = request.getParameter("ordermid");
+		String idwarrantouts = request.getParameter("idwarrantouts");
+		if(CommonUtil.isNotNull(ordermid)){
+			List<Warrantoutview> outLi = selAll(Warrantoutview.class, "select * from Warrantoutview where warrantoutodm='"+ordermid+"'");
+			if(CommonUtil.isNotNull(idwarrantouts)){
+				String[] outIds = idwarrantouts.split(",");
+				for (String outId : outIds) {
+					outLi.addAll(selAll(Warrantoutview.class, "select * from Warrantoutview where idwarrantout='"+outId+"'"));
+				}
+			}
+			Pageinfo pageinfo = new Pageinfo(0, outLi);
+			result = CommonConst.GSON.toJson(pageinfo);
+		}
+		responsePW(response, result);
+	}
+	
 	//修改出库台账
 	@SuppressWarnings("unchecked")
 	public void updWarrantout(HttpServletRequest request, HttpServletResponse response){
@@ -46,20 +66,41 @@ public class CPWarrantoutAction extends WarrantoutAction {
 									"' and goodscompany='"+lgi.getCompanyid()+"' and goodsnumstore='"+temp.getWarrantoutstore()+"'";
 						}
 						List<Goodsnum> gnLi = selAll(Goodsnum.class,selGN);
-						String updTemp = getUpdSingleSql(temp, WarrantoutPoco.KEYCOLUMN);
+						String updTemp = getUpdSingleSql(temp, WarrantoutPoco.KEYCOLUMN);	//修改出库台账的SQL
+						Integer woNum = getTotal("select count(*) from warrantout wo where wo.warrantoutstatue='发货请求' and wo.warrantoutodm='"+temp.getWarrantoutodm()+"'");
+						String updOrdermSQL = null;		//修改订单总表状态的SQL
+						if(CommonUtil.isNotNull(temp.getWarrantoutodm()) && woNum==1){
+							updOrdermSQL = "update orderm set ordermstatue='已发货' where ordermid='"+temp.getWarrantoutodm()+"'";
+						}
 						if(gnLi.size()>0 && null != gnLi.get(0).getIdgoodsnum()){
 							Integer num =  Integer.parseInt(gnLi.get(0).getGoodsnumnum()) - Integer.parseInt(temp.getWarrantoutnum());
 							String updNumSql = "update goodsnum g set g.goodsnumnum='"+num+"' where g.idgoodsnum='"+gnLi.get(0).getIdgoodsnum()+"'";
-							String[] sqls = {updTemp,updNumSql};
+							String[] sqls = null;
+							if(null != updOrdermSQL){
+								sqls = new String[]{updTemp,updNumSql,updOrdermSQL};
+							} else {
+								sqls = new String[]{updTemp,updNumSql};
+							}
 							result = doAll(sqls);
 						} else if(null!=type && type.equals("直接出库")){
 							if(gnLi.size()>0 && null != gnLi.get(0).getGoodsnumgoods()){
 								String insNumSql = "INSERT INTO `abf`.`goodsnum` (`idgoodsnum`, `goodsnumgoods`, `goodsnumnum`, `goodsnumstore`) VALUES ('"+
 										CommonUtil.getNewId()+"', '"+gnLi.get(0).getGoodsnumgoods()+"', '-"+temp.getWarrantoutnum()+"', '"+temp.getWarrantoutstore()+"')";
-								String[] sqls = {updTemp,insNumSql};
+								String[] sqls = null;
+								if(null != updOrdermSQL){
+									sqls = new String[]{updTemp,insNumSql,updOrdermSQL};
+								} else {
+									sqls = new String[]{updTemp,insNumSql};
+								}
 								result = doAll(sqls);
 							} else {
-								result = doSingle(updTemp,null);
+								String[] sqls = null;
+								if(null != updOrdermSQL){
+									sqls = new String[]{updTemp,updOrdermSQL};
+								} else {
+									sqls = new String[]{updTemp};
+								}
+								result = doAll(sqls);
 							}
 						} else {
 							result = "{success:true,code:401,msg:'未找到相关的“库存总账”信息,请问要出库么?'}";
@@ -106,9 +147,12 @@ public class CPWarrantoutAction extends WarrantoutAction {
 		if(CommonUtil.isNotEmpty(json)) cuss = CommonConst.GSON.fromJson(json, TYPE);
 		if(cuss.size()>0){
 			Warrantout temp = cuss.get(0);
+			String cTime = DateUtils.getDateTime();
 			temp.setIdwarrantout(CommonUtil.getNewId());
-			temp.setWarrantoutinswhen(DateUtils.getDateTime());
+			temp.setWarrantoutinswhen(cTime);			//创建时间
 			temp.setWarrantoutinswho(lgi.getUsername());
+			temp.setWarrantoutupdwhen(cTime);			//修改时间
+			temp.setWarrantoutupdwho(lgi.getUsername());
 			temp.setWarrantoutstatue("已发货");
 			temp.setWarrantoutcompany(lgi.getCompanyid());
 			if(CommonUtil.isEmpty(temp.getWarrantoutgtype())){

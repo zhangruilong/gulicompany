@@ -7,17 +7,55 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.reflect.TypeToken;
 import com.server.poco.BkgoodsPoco;
 import com.server.poco.OrdermPoco;
 import com.server.pojo.Bkgoods;
 import com.server.pojo.Orderd;
 import com.server.pojo.Orderm;
+import com.server.pojo.OutOrder;
 import com.server.pojo.LoginInfo;
 import com.system.tools.CommonConst;
+import com.system.tools.pojo.Pageinfo;
+import com.system.tools.pojo.Queryinfo;
 import com.system.tools.util.CommonUtil;
 import com.system.tools.util.DateUtils;
 
 public class CPOrdermAction extends OrdermAction {
+	
+	//查询出库单
+	public void chukudan(HttpServletRequest request, HttpServletResponse response){
+		String[] queryfieldname = {
+				"ordermcode",
+				"customershop",
+				"customername",
+				"customerphone",
+				"warrantoutupdwhen"
+		};
+		String companyid = request.getParameter("companyid");
+		String startDate = request.getParameter("startDate");
+		String endDate = request.getParameter("endDate");
+		String query = request.getParameter("query");
+		if(!CommonUtil.isNull(query)){
+			query = " and ("+getQuerysql(query, queryfieldname)+")";
+		} else {
+			query = "";
+		}
+		Queryinfo queryinfo = getQueryinfo(request, OutOrder.class, queryfieldname, null, new TypeToken<ArrayList<OutOrder>>() {}.getType());
+		String selSQL = "(select '' idwarrantout,wo.warrantoutodm,om.ordermcode,om.ordermnum,c.customershop,c.customername,c.customerphone,max(wo.warrantoutupdwhen) AS warrantoutupdwhen from warrantout wo "+
+			"left join customer c on wo.warrantoutcusid = customerid "+
+			"left join orderm om on om.ordermid = wo.warrantoutodm "+
+			"where wo.warrantoutodm is not null and wo.warrantoutcompany='"+companyid+"' and om.ordermstatue='已发货' and wo.warrantoutupdwhen >='"+startDate+"' and wo.warrantoutupdwhen <='"+endDate+"'"+query+
+			"group by wo.warrantoutodm,om.ordermcode,c.customername,c.customershop,c.customerphone) "+
+			"union all "+
+			"(select wo.idwarrantout,wo.warrantoutodm,'','1',c.customershop,c.customername,c.customerphone,wo.warrantoutupdwhen from warrantout wo "+
+			"left join customer c on wo.warrantoutcusid = customerid "+
+			"where wo.warrantoutodm is null and wo.warrantoutcompany='"+companyid+"' and wo.warrantoutupdwhen >='"+startDate+"' and wo.warrantoutupdwhen <='"+endDate+"'"+query.replace("ordermcode like '%桃子妹妹%' or ", "")+" ) "+
+			"order by warrantoutupdwhen";
+		Pageinfo pageinfo = new Pageinfo(getTotal("select count(*) from ("+selSQL+") A"), selQuery(selSQL, queryinfo));
+		result = CommonConst.GSON.toJson(pageinfo);
+		responsePW(response, result);
+	}
 	
 	//修改打印次数
 	public void updatePrintCount(HttpServletRequest request, HttpServletResponse response){

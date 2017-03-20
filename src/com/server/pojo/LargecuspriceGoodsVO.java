@@ -1,5 +1,9 @@
 package com.server.pojo;
-
+/**
+ * 特殊价格商品
+ * @author tao
+ *
+ */
 public class LargecuspriceGoodsVO {
 	/**
 	    * 商品ID,主键

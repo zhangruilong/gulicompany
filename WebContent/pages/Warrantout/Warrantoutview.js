@@ -56,6 +56,7 @@ Ext.onReady(function() {
 		        			    ,'warrantoutmoney' 
 		        			    ,'warrantoutcusid' 
 		        			    ,'warrantoutcusname' 
+		        			    ,'warrantoutodm' 
 		        			    ,'goodsid' 
 		        			    ,'goodscompany' 
 		        			    ,'goodscode' 
@@ -308,6 +309,19 @@ Ext.onReady(function() {
 			} ]
 		}
 		, {
+			columnWidth : 1,
+			layout : 'form',
+			hidden: true,
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '订单总表ID',
+				id : 'Warrantoutwarrantoutodm',
+				name : 'warrantoutodm',
+				maxLength : 100,
+				readOnly : true
+			} ]
+		}
+		, {
 			columnWidth : .1,
 			layout : 'form',
 			items : [ {
@@ -391,6 +405,12 @@ Ext.onReady(function() {
 			hidden : true,
 		}
 		, {
+			header : '出货单位',
+			dataIndex : 'warrantoutcusname',
+			sortable : true,
+			width:150,
+		}
+		, {
 			header : '商品编码',
 			dataIndex : 'warrantoutgcode',
 			sortable : true,  
@@ -471,10 +491,10 @@ Ext.onReady(function() {
 			hidden : true,
 		}
 		, {
-			header : '出货单位',
-			dataIndex : 'warrantoutcusname',
-			sortable : true,
-			width:150,
+			header : '订单总表ID',
+			dataIndex : 'warrantoutodm',
+			sortable : true,  
+			hidden: true
 		}
 		, {
 			header : '创建时间',
@@ -589,6 +609,7 @@ Ext.onReady(function() {
 						return;
 					}
 					var fields = ['idwarrantout'
+			        			    ,'warrantoutcompany' 
 			        			    ,'warrantoutgoods' 
 			        			    ,'warrantoutnum' 
 			        			    ,'warrantoutgtype' 
@@ -597,6 +618,7 @@ Ext.onReady(function() {
 			        			    ,'warrantoutgname' 
 			        			    ,'warrantoutgunits' 
 			        			    ,'warrantoutstatue' 
+			        			    ,'warrantoutodm' 
 			        			    ,'idgoodsnum' 
 			        			    ,'goodsnumnum' 
 			        			      ];// 全部字段

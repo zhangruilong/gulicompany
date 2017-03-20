@@ -558,13 +558,15 @@ Ext.onReady(function() {
 					    					}
 					    					if(selections[0].data['ordermstatue']=='已发货'){
 					    						Ext.Msg.alert('提示', '订单已发货。');
+					    					} else if(selections[0].data['ordermstatue']=='发货中'){
+					    						Ext.Msg.alert('提示', '订单发货中。');
 					    					} else {
 					    						$.ajax({
 					    							url:"CPOrderAction.do",
 					    							type:"post",
 					    							data:{
 					    								method:"updateOrdermStatue",
-					    								statue:"已发货",
+					    								statue:"发货中",
 					    								ordermid:ordermid,
 					    								storehouseid: storehouseid
 					    							},
@@ -572,7 +574,7 @@ Ext.onReady(function() {
 					    								var data = eval('('+resp+')');
 					    								if(data.msg=='操作成功'){
 					    									Ext.Msg.alert('提示', '操作成功，发货请求已转至仓库。');
-					    									Ext.getCmp("Ordermviewordermstatue").setValue("已发货");
+					    									Ext.getCmp("Ordermviewordermstatue").setValue("发货中");
 					    									Ordermviewstore.load();
 					    								} else {
 					    									Ext.Msg.alert('提示', data.msg);
@@ -585,7 +587,7 @@ Ext.onReady(function() {
 					    						});
 					    					}
 					    				}
-									},'-',{
+									}/*,'-',{
 										text : '<span style="color:#FFFFFF;">完成</span>',
 										xtype: 'button',
 										style: {											//自定义单个元素的样式
@@ -628,7 +630,7 @@ Ext.onReady(function() {
 					    						}
 					    					});
 					    				}
-									}]
+									}*/]
 								});
 								/*   定义 orderd(订单商品) 的 表格  结束    */
 								Orderdstore.load();
@@ -771,13 +773,15 @@ Ext.onReady(function() {
     					}
     					if(selections[0].data['ordermstatue']=='已发货'){
     						Ext.Msg.alert('提示', '订单已发货。');
+    					} else if(selections[0].data['ordermstatue']=='发货中'){
+    						Ext.Msg.alert('提示', '订单发货中。');
     					} else {
     						$.ajax({
     							url:"CPOrderAction.do",
     							type:"post",
     							data:{
     								method:"updateOrdermStatue",
-    								statue:"已发货",
+    								statue:"发货中",
     								ordermid:ordermid,
     								storehouseid: storehouseid
     							},
@@ -797,7 +801,7 @@ Ext.onReady(function() {
     						});
     					}
     				}
-				},'-',{
+				}/*,'-',{
 					text : '<span style="color:#FFFFFF;">完成</span>',
 					xtype: 'button',
 					style: {											//自定义单个元素的样式
@@ -839,7 +843,7 @@ Ext.onReady(function() {
     						}
     					});
     				}
-				}
+				}*/
 		]
 	});
 	/*   定义 orderm(订单总表) 的 表格  结束    */

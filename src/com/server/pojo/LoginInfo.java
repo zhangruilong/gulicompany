@@ -1,5 +1,9 @@
 package com.server.pojo;
-
+/**
+ * 登录信息
+ * @author tao
+ *
+ */
 public class LoginInfo {
 
 	private String companyid;		//经销商id

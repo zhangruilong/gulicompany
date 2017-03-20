@@ -51,7 +51,7 @@ public class CPOrderAction extends OrdermviewAction {
 				"select * from orderm om where om.ordermid='"+ordermid+"' and om.ordermstatue!='已删除'");
 		if(omLi.size()>0){
 			String updStaSQL = "update orderm om set om.ordermstatue='"+statue+"',om.updtime='"+DateUtils.getDateTime()+"' where om.ordermid='"+ordermid+"'";
-			if(statue.equals("已发货")){
+			if(statue.equals("发货中")){
 				List<Orderd> odLi = selAll(Orderd.class, "select * from Orderd where orderdorderm='"+ordermid+"'");
 				ArrayList<String> strLi = new ArrayList<String>();
 				strLi.add(updStaSQL);
@@ -86,7 +86,7 @@ public class CPOrderAction extends OrdermviewAction {
 							od.getOrderdnum()+"", "发货请求", null, null, time, lgi.getUsername(), null, null, od.getOrderdcode(), 
 							od.getOrderdname(), od.getOrderdunits(), od.getOrderdtype(), od.getOrderdclass(), od.getOrderdunit(), 
 							od.getOrderdweight(), od.getOrderdnote(), od.getOrderdprice().toString(), od.getOrderdmoney().toString(),
-							omLi.get(0).getOrdermcustomer(),omLi.get(0).getOrdermcusshop());
+							omLi.get(0).getOrdermcustomer(),omLi.get(0).getOrdermcusshop(),od.getOrderdorderm());
 					String insSQL = getInsSingleSql(newOut);
 					strLi.add(insSQL);
 				}
