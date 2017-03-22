@@ -23,6 +23,13 @@ function goodsWindow(){
 	var Goodskeycolumn = [ 'goodsid' ];// 主键
 	var Goodsstore = dataStore(Goodsfields, basePath + Goodsaction + "?method=selQuery&wheresql=goodscompany='"+comid+"'");// 定义Goodsstore
 	var Goodsbbar = pagesizebar(Goodsstore);
+	Goodsstore.on('beforeload',function(store,options){					//数据加载时的事件
+		var new_params = {		//每次数据加载的时候传递的参数
+				query : Ext.getCmp("query").getValue(),
+				limit : Goodsbbar.pageSize
+		};
+		Ext.apply(store.proxy.extraParams, new_params);    //ext 4.0
+	});
 	var Goodsgrid = new Ext.grid.GridPanel({
 		height : document.documentElement.clientHeight - 4,
 		width : '100%',
@@ -95,6 +102,7 @@ function goodsWindow(){
 						if ("" == Ext.getCmp("query").getValue()) {
 							Goodsstore.load();
 						} else {
+							Goodsstore.loadPage(1);
 							Goodsstore.load({
 								params : {
 									query : Ext.getCmp("query").getValue()

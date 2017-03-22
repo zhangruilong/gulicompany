@@ -33,7 +33,11 @@ public class OutOrder {/**
     */
    private String customerphone;   
    /**
-    * 修改时间
+    * 客户ID
+    */
+   private String customerid;   
+   /**
+    * 出库时间
     */
    private String warrantoutupdwhen;   
 
@@ -172,4 +176,22 @@ public class OutOrder {/**
 	{
 		return this.warrantoutupdwhen;
 	}	   
+	
+    /**
+	 *设置主键"客户ID"属性
+	 *@param customerid 实体的Customerid属性
+	 */
+	public void setCustomerid(String customerid)
+	{
+		this.customerid = customerid;
+	}
+	
+	/**
+	 *获取主键"客户ID"属性
+	 */
+	public String getCustomerid()
+	{
+		return this.customerid;
+	}
+
 }

@@ -107,7 +107,7 @@ Storehousestore.load();
 			sortable : true,  
 			renderer: function(value, metaData, record, rowIdx, colIdx, store, view){
 				var v = Storehousestore.query('storehouseid',value);
-				return v.get('storehousename');
+				return v.getAt(0).get('storehousename');
 			}
 		}
 		]

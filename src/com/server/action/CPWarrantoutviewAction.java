@@ -28,12 +28,13 @@ public class CPWarrantoutviewAction extends WarrantoutviewAction {
 	public void onekeyPlacing(HttpServletRequest request, HttpServletResponse response){
 		LoginInfo lgif = (LoginInfo) request.getSession().getAttribute("loginInfo");
 		String json = request.getParameter("json");
-		String warrantoutwho = request.getParameter("warrantoutwho");
+		String warrantoutwho = request.getParameter("warrantoutwho");	//默认领货人
 		System.out.println("json : " + json);
 		json = json.replace("\"\"", "null");
 		if(CommonUtil.isNotEmpty(json)) cuss = CommonConst.GSON.fromJson(json, TYPE);
 		List<String> sqlLi = new ArrayList<String>();
 		List<String> odmLi = new ArrayList<String>();
+		List<Goodsnum> newGNLi = new ArrayList<Goodsnum>();		//要新增的 商品库存 集合
 		String time = DateUtils.getDateTime();
 		for(Warrantoutview temp:cuss){
 			if(temp.getWarrantoutstatue().equals("发货请求")){
@@ -56,13 +57,42 @@ public class CPWarrantoutviewAction extends WarrantoutviewAction {
 				} else {
 					String goodsid = temp.getWarrantoutgoods();
 					if(CommonUtil.isNotEmpty(goodsid)){
-						String insNumSql = "INSERT INTO `abf`.`goodsnum` (`idgoodsnum`, `goodsnumgoods`, `goodsnumnum`, `goodsnumstore`) VALUES ('"+
-								CommonUtil.getNewId()+"', '"+goodsid+"', '-"+temp.getWarrantoutnum()+"', '"+temp.getWarrantoutstore()+"')";
+						if(newGNLi.size()==0){
+							//新增商品库存
+							Goodsnum ngn = new Goodsnum(CommonUtil.getNewId(), goodsid, "-"+temp.getWarrantoutnum(), temp.getWarrantoutstore());
+							newGNLi.add(ngn);
+						} else {
+							for (int i = 0; i < newGNLi.size(); i++) {
+								Goodsnum gn = newGNLi.get(i);
+								if(gn.getGoodsnumgoods().equals(goodsid)){
+									//如果要新增的 商品库存 已存在
+									Integer goodsnumnum = Integer.parseInt(gn.getGoodsnumnum()) - Integer.parseInt(temp.getWarrantoutnum());
+									gn.setGoodsnumnum(goodsnumnum.toString());
+									if(goodsid.equals("79")){
+										System.out.println(goodsnumnum.toString());
+									}
+									break;
+								} else if(i==newGNLi.size()-1){
+									//如果最后一次循环时要新增的 商品库存 不存在则插入一个要新增的商品库存
+									Goodsnum newgn = new Goodsnum(CommonUtil.getNewId(), goodsid, "-"+temp.getWarrantoutnum(), temp.getWarrantoutstore());
+									if(goodsid.equals("79")){
+										System.out.println(temp.getWarrantoutnum());
+									}
+									newGNLi.add(newgn);
+									break;
+								}
+							}
+						}
 						updTemp = getUpdSingleSql(updWar, WarrantoutPoco.KEYCOLUMN);
-						sqlLi.add(insNumSql);
 						sqlLi.add(updTemp);
 					}
 				}
+			}
+		}
+		if(newGNLi.size()>0){
+			//如果有要新增的 库存总账记录 
+			for (Goodsnum goodsnum : newGNLi) {
+				sqlLi.add(getInsSingleSql(goodsnum));	//转化为SQL放入SQL语句的集合中
 			}
 		}
 		if(sqlLi.size()>0){

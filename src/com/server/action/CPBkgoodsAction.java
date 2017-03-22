@@ -21,7 +21,11 @@ public class CPBkgoodsAction extends BkgoodsAction {
 		System.out.println("json : " + json);
 		json = json.replace("\"\"", "null");
 		if(CommonUtil.isNotEmpty(json)) cuss = CommonConst.GSON.fromJson(json, TYPE);
-		for(Bkgoods temp:cuss){
+		if(cuss.size()>0){
+			Bkgoods temp = cuss.get(0);
+			System.out.println("select count(*) from bkgoods where (bkgoodscode='"+temp.getBkgoodscode()+"' or bkgoodscode like 'a%"+temp.getBkgoodscode()
+					+"') and bkgoodsunits='"+temp.getBkgoodsunits()+"' and bkgoodsclass='"+temp.getBkgoodsclass()+"' and bkgoodscompany='"+
+					temp.getBkgoodscompany()+"'");
 			int count = getTotal("select count(*) from bkgoods where (bkgoodscode='"+temp.getBkgoodscode()+"' or bkgoodscode like 'a%"+temp.getBkgoodscode()
 					+"') and bkgoodsunits='"+temp.getBkgoodsunits()+"' and bkgoodsclass='"+temp.getBkgoodsclass()+"' and bkgoodscompany='"+
 					temp.getBkgoodscompany()+"'", "mysql");
@@ -30,7 +34,7 @@ public class CPBkgoodsAction extends BkgoodsAction {
 				for (int i = 0; i < count; i++) {
 					aCode += "a";
 				}
-				temp.setBkgoodscode(temp.getBkgoodscode()+aCode);
+				temp.setBkgoodscode(aCode+temp.getBkgoodscode());
 			}
 			if(CommonUtil.isNull(temp.getBkgoodsid())) temp.setBkgoodsid(CommonUtil.getNewId());//ID
 			if(null == temp.getBkgoodsseq()) temp.setBkgoodsseq(0);			//顺序

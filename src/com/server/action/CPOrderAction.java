@@ -12,6 +12,8 @@ import com.server.poco.OrdermviewPoco;
 import com.server.pojo.Company;
 import com.server.pojo.Customer;
 import com.server.pojo.Goods;
+import com.server.pojo.Goodsnum;
+import com.server.pojo.Goodsnumview;
 import com.server.pojo.LoginInfo;
 import com.server.pojo.Orderd;
 import com.server.pojo.Orderm;
@@ -45,7 +47,7 @@ public class CPOrderAction extends OrdermviewAction {
 		LoginInfo lgi = (LoginInfo) request.getSession().getAttribute("loginInfo");
 		String statue = request.getParameter("statue");
 		String ordermid = request.getParameter("ordermid");
-		String storehouseid = request.getParameter("storehouseid");
+		String storehouseid = request.getParameter("storehouseid");	//主仓库ID
 		//System.out.println("method:updateOrdermStatue, ordermid:"+ordermid);
 		List<Orderm> omLi = (List<Orderm>) selAll(Orderm.class, 
 				"select * from orderm om where om.ordermid='"+ordermid+"' and om.ordermstatue!='已删除'");
@@ -59,34 +61,33 @@ public class CPOrderAction extends OrdermviewAction {
 				for (Orderd od : odLi) {
 					String goodsid = null;
 					if(od.getOrderdtype().equals("商品")){
-						goodsid = od.getOrderdgoods();
+						goodsid = od.getOrderdgoods();	//得到商品ID
 					} else {
 						String goodscode = null;
-						//如果是以‘a’、‘b’、‘c’开头则去掉前缀
+						//如果是以‘a’开头则去掉前缀
 						if(od.getOrderdcode().indexOf("a") != -1){
 							goodscode = od.getOrderdcode().replace("a", "");
-						} else if(od.getOrderdcode().indexOf("b") != -1){
-							goodscode = od.getOrderdcode().replace("b", "");
-						} else if(od.getOrderdcode().indexOf("c") != -1){
-							goodscode = od.getOrderdcode().replace("c", "");
-						} else if(od.getOrderdcode().indexOf("d") != -1){
-							goodscode = od.getOrderdcode().replace("d", "");
 						} else {
 							goodscode = od.getOrderdcode();
 						}
 						//查询对应商品
-						List<Goods> gLi = selAll(Goods.class, "select * from goods where goodscode='"+goodscode+
-								"' and goodsname='"+od.getOrderdname()+"' and goodsunits='"+od.getOrderdunits()+
-								"' and goodscompany='"+lgi.getCompanyid()+"' ");
+						List<Goodsnumview> gLi = selAll(Goodsnumview.class, 
+								"select * from goods g left join goodsnum gn on gn.goodsnumgoods=g.goodsid where goodscode='"+
+								goodscode+"' and goodsname='"+od.getOrderdname()+"' and goodsunits='"+od.getOrderdunits()+
+								"' and goodscompany='"+lgi.getCompanyid()+"' order by gn.goodsnumnum desc");
 						if(gLi.size()>0){
-							goodsid = gLi.get(0).getGoodsid();	//得到对应商品ID
+							Goodsnumview gnv = gLi.get(0);
+							goodsid = gnv.getGoodsid();	//得到对应商品ID
+							if(CommonUtil.isNotNull(gnv.getGoodsnumnum())){
+								storehouseid = gnv.getGoodsnumstore();
+							}
 						}
 					}
 					Warrantout newOut = new Warrantout(CommonUtil.getNewId(), lgi.getCompanyid(), storehouseid, goodsid, 
 							od.getOrderdnum()+"", "发货请求", null, null, time, lgi.getUsername(), null, null, od.getOrderdcode(), 
 							od.getOrderdname(), od.getOrderdunits(), od.getOrderdtype(), od.getOrderdclass(), od.getOrderdunit(), 
 							od.getOrderdweight(), od.getOrderdnote(), od.getOrderdprice().toString(), od.getOrderdmoney().toString(),
-							omLi.get(0).getOrdermcustomer(),omLi.get(0).getOrdermcusshop(),od.getOrderdorderm());
+							omLi.get(0).getOrdermcustomer(),omLi.get(0).getOrdermcusshop(),od.getOrderdorderm(),"0");
 					String insSQL = getInsSingleSql(newOut);
 					strLi.add(insSQL);
 				}

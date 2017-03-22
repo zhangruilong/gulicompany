@@ -18,6 +18,7 @@ Ext.onReady(function() {
 	        			    ,'ordermcode' 
 	        			    ,'ordermnum' 
 	        			    ,'customershop' 
+	        			    ,'customerid' 
 	        			    ,'customername' 
 	        			    ,'customerphone' 
 	        			    ,'warrantoutupdwhen' ];// 全部字段
@@ -70,7 +71,7 @@ Ext.onReady(function() {
 			hidden : true
 		}
 		, {
-			header : '订单编号',
+			header : '单据编号',
 			dataIndex : 'ordermcode',
 			sortable : true,  
 			width : 158,
@@ -85,6 +86,13 @@ Ext.onReady(function() {
 			header : '客户名称',
 			dataIndex : 'customershop',
 			sortable : true,  
+			width:150,
+		}
+		, {
+			header : '客户id',
+			dataIndex : 'customerid',
+			sortable : true,  
+			hidden : true,
 			width:150,
 		}
 		, {
@@ -163,48 +171,6 @@ Ext.onReady(function() {
 					detailWindow(ordermSelections[0].data['idwarrantout'],ordermSelections[0].data['warrantoutodm']);
 				}
 			},'-',{
-				text : '<span style="color:#FFFFFF;">完成</span>',
-				xtype: 'button',
-				style: {											//自定义单个元素的样式
-					//color:'#FFFFFF',
-					background:'#1D6BE9'
-				},
-				handler : function() {
-					var selections = Ordermgrid.getSelection();				//得到被选定的行
-					var ordermid = '';
-					if(typeof(selections)=='undefined' || !selections){
-						Ext.Msg.alert('提示', '请选择要修改状态的订单。');
-						return;
-					} else if(selections.length>1){
-						Ext.Msg.alert('提示', '只能选择一个订单。');
-						return;
-					} else {
-						ordermid = selections[0].data['warrantoutodm'];
-					}
-					$.ajax({
-						url:"CPOrderAction.do",
-						type:"post",
-						data:{
-							method:"updateOrdermStatue",
-							statue:"已完成",
-							ordermid:ordermid
-						},
-						success : function(resp){
-							var data = eval('('+resp+')');
-							if(data.msg=='操作成功'){
-								Ext.Msg.alert('提示', '操作成功，订单已完成。');
-								Ordermviewstore.load();
-							} else {
-								Ext.Msg.alert('提示', data.msg);
-							}
-						},
-						error : function(resp){
-							var data = eval('('+resp+')');
-							Ext.Msg.alert('提示', data.msg);
-						}
-					});
-				}
-			},'-',{
 				text : "打印",
 				xtype: 'button',
 				handler : function() {
@@ -212,6 +178,7 @@ Ext.onReady(function() {
 					var ordermid = '';
 					var ordermcode = '';
 					var customershop = '';
+					var customerid = '';
 					var idwarrantouts = '';
 					var subUrl = '';
 					if (Ext.isEmpty(selections)) {
@@ -222,13 +189,17 @@ Ext.onReady(function() {
 							if(selections[i].data['ordermcode']){
 								ordermcode =selections[i].data['ordermcode'];
 							}
-							if(selections[i].data['customershop']){
+							if(selections[i].data['customerid'] && customerid==''){
 								customershop =selections[i].data['customershop'];
+								customerid = selections[i].data['customerid'];
+							} else if(selections[i].data['customerid'] && customerid != '' && customerid != selections[i].data['customerid']){
+								Ext.Msg.alert('提示', '一次只能打印一个客户的订单。');
+								return;
 							}
-							if(ordermid == ''){
+							if(typeof(selections[i].data['warrantoutodm'])!='undefined' && selections[i].data['warrantoutodm']!='undefined' && selections[i].data['warrantoutodm'] && ordermid == ''){
 								ordermid = selections[i].data['warrantoutodm'];
-							} else if(selections[i].data['warrantoutodm'] && ordermid != selections[i].data['warrantoutodm']){
-								Ext.Msg.alert('提示', '操作失败。');		//这里提示信息需要修改
+							} else if(typeof(selections[i].data['warrantoutodm'])!='undefined' && selections[i].data['warrantoutodm']!='undefined' && selections[i].data['warrantoutodm'] && ordermid != selections[i].data['warrantoutodm']){
+								Ext.Msg.alert('提示', '每次只能打印一个订单。');		//这里提示信息需要修改
 								return;
 							} else if(!selections[i].data['warrantoutodm']){
 								idwarrantouts += selections[i].data['idwarrantout']+',';
@@ -248,7 +219,10 @@ Ext.onReady(function() {
 				handler : function() {
 					Ext.Msg.confirm('请确认', '<b>提示:</b>请确认要导出当前数据？', function(btn, text) {
 						if (btn == 'yes') {
-							window.location.href = basePath + Ordermaction + "?method=expAll&json="+queryjson+"&query="+Ext.getCmp("queryOrdermaction").getValue(); 
+							window.location.href = basePath + Ordermaction + "?method=expChukudan&companyid="+comid+
+														"&startDate="+startDate+" 00:00:00"+
+														"&endDate="+endDate+" 23:59:59"+
+														"&query="+Ext.getCmp("queryOrdermaction").getValue(); 
 						}
 					});
 				}

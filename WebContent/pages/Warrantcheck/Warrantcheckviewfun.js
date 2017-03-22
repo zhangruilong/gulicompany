@@ -228,7 +228,7 @@ function addWarrantcheckWindow(url,title,_form,store) {
 								success: function(resp){
 									var data = eval('('+resp+')');
 									if(data.root.length ==0){
-										Ext.Msg.confirm('请确认', '<b>提示:</b>未查询到盘点前数量,确认盘点？',function(btn, text){
+										Ext.Msg.confirm('请确认', '<b>提示:</b>未查询到盘点前数量，继续操作并提交将新增本品入库',function(btn, text){
 											if (btn == 'yes') {
 												var json = "[" + Ext.encode(_form.form.getValues(false)) + "]";
 												_form.form.submit({

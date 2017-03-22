@@ -1,6 +1,6 @@
 var statueStore = new Ext.data.ArrayStore({//状态下拉
 	fields:["name"],
-	data:[["发货请求"],["已发货"]]
+	data:[["发货请求"],["已发货"],["另行处理"]]
 });
 var Warrantoutviewbbar;
 var sumNum = 0;
@@ -154,6 +154,30 @@ Ext.onReady(function() {
 			} ]
 		}
 		, {
+			columnWidth : .9,
+			layout : 'form',
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '购买单位',
+				id : 'Warrantoutviewwarrantoutcusname',
+				name : 'warrantoutcusname',
+				maxLength : 100,
+				allowBlank : false,
+				readOnly : true
+			} ]
+		}
+		, {
+			columnWidth : .1,
+			layout : 'form',
+			items : [ {
+				xtype : 'button',
+				iconCls : 'select',
+				handler : function() {
+					showCustomer();
+				}
+			} ]
+		}
+		, {
 			columnWidth : 1,
 			layout : 'form',
 			items : [ {
@@ -193,6 +217,18 @@ Ext.onReady(function() {
 			columnWidth : 1,
 			layout : 'form',
 			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '单位',
+				id : 'Warrantoutviewwarrantoutgunit',
+				name : 'warrantoutgunit',
+				allowBlank : false,
+				maxLength : 100
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'form',
+			items : [ {
 				xtype : 'combo',
 				fieldLabel : '仓库',
 				id : 'Warrantoutviewwarrantoutstore',
@@ -222,7 +258,19 @@ Ext.onReady(function() {
 				id : 'Warrantoutviewwarrantoutnum',
 				allowBlank : false,
 				name : 'warrantoutnum',
-				maxLength : 100
+				maxLength : 100,
+				listeners: {
+					//获得焦点时自动计算金额
+					change: function(obj, newValue, oldValue, eOpts){
+						var inPrice = Ext.getCmp('Warrantoutwarrantoutprice').getValue();
+						var val = parseFloat(inPrice)*parseInt(newValue);
+						if(!isNaN(val)){
+							Ext.getCmp('Warrantoutwarrantoutmoney').setValue(val);
+						} else {
+							Ext.getCmp('Warrantoutwarrantoutmoney').setValue('');
+						}
+					}
+				}
 			} ]
 		}
 		, {
@@ -233,7 +281,20 @@ Ext.onReady(function() {
 				fieldLabel : '销售单价',
 				id : 'Warrantoutwarrantoutprice',
 				name : 'warrantoutprice',
-				maxLength : 100
+				maxLength : 100,
+				allowBlank : false,
+				listeners: {
+					//获得焦点时自动计算金额
+					change: function(obj, newValue, oldValue, eOpts){
+						var inNum = Ext.getCmp('Warrantoutviewwarrantoutnum').getValue();
+						var val = parseFloat(newValue)*parseInt(inNum);
+						if(!isNaN(val)){
+							Ext.getCmp('Warrantoutwarrantoutmoney').setValue(val);
+						} else {
+							Ext.getCmp('Warrantoutwarrantoutmoney').setValue('');
+						}
+					}
+				}
 			} ]
 		}
 		, {
@@ -244,7 +305,8 @@ Ext.onReady(function() {
 				fieldLabel : '销售金额',
 				id : 'Warrantoutwarrantoutmoney',
 				name : 'warrantoutmoney',
-				maxLength : 100
+				maxLength : 100,
+				allowBlank : false,
 			} ]
 		}
 		, {
@@ -296,19 +358,6 @@ Ext.onReady(function() {
 			} ]
 		}
 		, {
-			columnWidth : .9,
-			layout : 'form',
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '出货单位',
-				id : 'Warrantoutviewwarrantoutcusname',
-				name : 'warrantoutcusname',
-				maxLength : 100,
-				allowBlank : false,
-				readOnly : true
-			} ]
-		}
-		, {
 			columnWidth : 1,
 			layout : 'form',
 			hidden: true,
@@ -319,17 +368,6 @@ Ext.onReady(function() {
 				name : 'warrantoutodm',
 				maxLength : 100,
 				readOnly : true
-			} ]
-		}
-		, {
-			columnWidth : .1,
-			layout : 'form',
-			items : [ {
-				xtype : 'button',
-				iconCls : 'select',
-				handler : function() {
-					showCustomer();
-				}
 			} ]
 		}
 		, {
@@ -405,7 +443,7 @@ Ext.onReady(function() {
 			hidden : true,
 		}
 		, {
-			header : '出货单位',
+			header : '购买单位',
 			dataIndex : 'warrantoutcusname',
 			sortable : true,
 			width:150,
@@ -497,25 +535,25 @@ Ext.onReady(function() {
 			hidden: true
 		}
 		, {
-			header : '创建时间',
+			header : '请求时间',
 			dataIndex : 'warrantoutinswhen',
 			sortable : true, 
 			width:138,
 		}
 		, {
-			header : '创建人',
+			header : '请求人',
 			dataIndex : 'warrantoutinswho',
 			sortable : true, 
 			width : 73,
 		}
 		, {
-			header : '修改时间',
+			header : '处理时间',
 			dataIndex : 'warrantoutupdwhen',
 			sortable : true, 
 			width:138,
 		}
 		, {
-			header : '修改人',
+			header : '处理人',
 			dataIndex : 'warrantoutupdwho',
 			sortable : true, 
 			width : 73,

@@ -1,5 +1,6 @@
 package com.server.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,31 @@ import com.system.tools.util.DateUtils;
 
 public class CPWarrantoutAction extends WarrantoutAction {
 
+	//出库单打印次数
+	@SuppressWarnings("unchecked")
+	public void updPrintTimes(HttpServletRequest request, HttpServletResponse response){
+		String ordermid = request.getParameter("ordermid");
+		List<String> sqlLi = new ArrayList<String>();
+		if(CommonUtil.isNotNull(ordermid)){
+			List<Warrantout> woLi = selAll(Warrantout.class, "select * from Warrantout where warrantoutodm='"+ordermid+"'");
+			if(woLi.size()>0){
+				for (Warrantout wo : woLi) {
+					//修改打印次数
+					if(CommonUtil.isNotNull(wo.getWarrantoutprint())){
+						Integer outNum = Integer.parseInt(wo.getWarrantoutprint())+1;
+						wo.setWarrantoutprint(outNum.toString());
+					} else {
+						wo.setWarrantoutprint("1");
+					}
+					sqlLi.add(getUpdSingleSql(wo, WarrantoutPoco.KEYCOLUMN));
+				}
+				String[] sqls = sqlLi.toArray(new String[0]);
+				result = doAll(sqls);
+			}
+		}
+		responsePW(response, result);
+	}
+	
 	//出库单打印
 	@SuppressWarnings("unchecked")
 	public void outPrint(HttpServletRequest request, HttpServletResponse response){
@@ -155,6 +181,7 @@ public class CPWarrantoutAction extends WarrantoutAction {
 			temp.setWarrantoutupdwho(lgi.getUsername());
 			temp.setWarrantoutstatue("已发货");
 			temp.setWarrantoutcompany(lgi.getCompanyid());
+			temp.setWarrantoutprint("0");
 			if(CommonUtil.isEmpty(temp.getWarrantoutgtype())){
 				temp.setWarrantoutgtype("商品");
 			}

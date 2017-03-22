@@ -220,13 +220,13 @@
 <!-- application script for Charisma demo -->
 <script src="js/charismafun.js"></script>
 <script type="text/javascript">
+var tishiyin = $("#tishiyin")[0];
 $(function(){
 	charisma();
 	var timer1;
 	window.onbeforeunload = function(){			//关闭浏览器时执行的方法
 		clearInterval(timer1);
 	};
-	var tishiyin = $("#tishiyin")[0];
 	
 	$.ajax({
 		url:"CPOrderAction.do?method=selNewOrder",
@@ -256,7 +256,7 @@ $(function(){
 		}
 	});
 	//显示最新订单信息
-	//timer1 = setInterval(showNewestOrderm,10000);
+	timer1 = setInterval(showNewestOrderm,10000);
 })
 function showNewestOrderm(){
 		$.ajax({

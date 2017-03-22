@@ -198,7 +198,7 @@ Ext.onReady(function() {
 			items : [ {
 				xtype : 'textfield',
 				fieldLabel : '盘点前数量',
-				emptyText : '未查询到盘点前数量',
+				emptyText : '未查询到盘点前数量，继续操作并提交将新增本品入库',
 				id : 'Warrantcheckviewwarrantchecknumorg',
 				allowBlank : false,
 				name : 'warrantchecknumorg',

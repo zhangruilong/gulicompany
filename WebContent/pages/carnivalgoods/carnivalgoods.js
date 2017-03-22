@@ -733,13 +733,13 @@ Ext.onReady(function() {
 				bkgoodsQueryWindow("筛选", screenDataForm, Bkgoodsstore,Ext.getCmp("queryBkgoodsaction").getValue());
 			}
 		},'-',{
-				text : Ext.os.deviceType === 'Phone' ? null : "新增商品",
+				text : Ext.os.deviceType === 'Phone' ? null : "新增",
 				iconCls : 'add',
 				handler : function() {
 					BkgoodsdataForm.form.reset();
 					Ext.getCmp("Bkgoodsbkgoodsid").setEditable (true);
 					Ext.getCmp("Bkgoodsbkgoodscode").setDisabled(false);
-					addBKgoodsWindow(basePath + Bkgoodsaction + "?method=insAll", "新增商品", BkgoodsdataForm, Bkgoodsstore);
+					addBKgoodsWindow(basePath + Bkgoodsaction + "?method=insAll", "新增", BkgoodsdataForm, Bkgoodsstore);
 				}
 			},'-',{
 				text : Ext.os.deviceType === 'Phone' ? null : "修改",

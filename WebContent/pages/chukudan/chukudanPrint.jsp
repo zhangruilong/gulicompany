@@ -37,30 +37,42 @@ var ordermid = '${param.ordermid}';
 var idwarrantouts = '${param.idwarrantouts}';
 var ordermcode = '${param.ordermcode}';
 var customershop = '${param.customershop}'
-function printpreview()
-{
-window.print()
+function printpreview(){
+	window.print();
+	$.ajax({
+		url: 'CPWarrantoutAction.do?method=updPrintTimes',
+		type: 'post',
+		data: {
+			ordermid: ordermid
+		},
+		success: function(resp){
+			var data = eval('('+resp+')');
+		},
+		error: function(resp){
+			
+		}
+	});
 }
 </script>
 
 <div>
 	<table width="100%" cellspacing="0" cellpadding="0" style="border-collapse: collapse;border-bottom:solid 1px black;">
 		<tr>
-			<td colspan="6" style="text-align: center;font-size: 33px;font-family: 黑体;border-left: hidden;border-top: hidden;border-bottom: hidden;">海盐天然粮油有限公司出库单</td>
+			<td colspan="6" style="text-align: center;font-size: 33px;font-family: 黑体;border-left: hidden;border-top: hidden;border-bottom: hidden;line-height: 40px;">海盐天然粮油有限公司出库单</td>
 		</tr>
 	</table>
 	<table width="100%" border="0" cellspacing="0" cellpadding="3">
 		<tr>
 			<td width="75" align="right" style="font-size: 12px;">单据编号：</td>
-			<td width="295" id="pOdmCode">111</td>
+			<td width="295" id="pOdmCode"></td>
 			<td width="75" align="right" style="font-size: 12px;">打印日期：</td>
-			<td width="295" id="pDate">11111</td>
+			<td width="295" id="pDate"></td>
 		</tr>
 		<tr>
 			<td width="75" align="right" style="font-size: 12px;">购买单位：</td>
-			<td width="295" id="pCustomer">111</td>
+			<td width="295" id="pCustomer"></td>
 			<td width="75" align="right" style="font-size: 12px;">领货人：</td>
-			<td width="295" id="pWho">小陶</td>
+			<td width="295" id="pWho"></td>
 		</tr>
 	</table>
 	
@@ -75,7 +87,7 @@ window.print()
 		<td width="80" align="center" style="font-family: 黑体;font-size: 12px;">仓库</td>
 		<!-- <td width="143" align="center" style="font-family: 黑体;font-size: 12px;">备注</td> -->
 	</tr>
-	<tr>
+	<!-- <tr>
 		<td align="right">啊</td>
 		<td align="right">啊</td>
 		<td align="left">啊</td>
@@ -83,13 +95,16 @@ window.print()
 		<td align="left">啊</td>
 		<td align="right">啊</td>
 		<td align="right">啊</td>
-	</tr>
+	</tr> -->
 	</table>
 	<div style="font-size: 12px;">创建人: 徐成</div>
 </div>
 
+<div style="float: left;">
 <input type="button" name="Btn_printPreviw" value="打印" 
 onclick="javascript:this.style.display='none';printpreview();" />
+<span id="p-PrintTimes"></span>
+</div>
 <script type="text/javascript" src="chukudanPrint.js"></script>
 </body>
 

@@ -127,7 +127,8 @@ Ext.onReady(function() {
 				maxLength : 100,
 				labelWidth: 70,
 				width : 352,
-				margin : '5 10 5 10'
+				margin : '5 10 5 10',
+				allowBlank : false,
 			},{
 				xtype : 'textfield',
 				fieldLabel : '商品名称',
@@ -136,7 +137,8 @@ Ext.onReady(function() {
 				maxLength : 100,
 				labelWidth: 70,
 				width : 352,
-				margin : '5 10 5 10'
+				margin : '5 10 5 10',
+				allowBlank : false,
 			} ]
 		}
 		, {
@@ -150,7 +152,8 @@ Ext.onReady(function() {
 				maxLength : 100,
 				labelWidth: 40,
 				width : 352,
-				margin : '5 10 5 10'
+				margin : '5 10 5 10',
+				allowBlank : false,
 			},{
 				xtype : 'textfield',
 				fieldLabel : '单位',
@@ -159,7 +162,8 @@ Ext.onReady(function() {
 				maxLength : 100,
 				labelWidth: 40,
 				width : 352,
-				margin : '5 10 5 10'
+				margin : '5 10 5 10',
+				allowBlank : false,
 			} ]
 		}
 		, {
@@ -182,7 +186,8 @@ Ext.onReady(function() {
 				maxLength : 100,
 				labelWidth: 40,
 				width : 352,
-				margin : '5 10 5 10'
+				margin : '5 10 5 10',
+				allowBlank : false,
 			} ]
 		}
 		, {
@@ -196,7 +201,8 @@ Ext.onReady(function() {
 				maxLength : 100,
 				labelWidth: 40,
 				width : 352,
-				margin : '5 10 5 10'
+				margin : '5 10 5 10',
+				allowBlank : false,
 			},{
 				xtype : 'numberfield',
 				fieldLabel : '重量(kg)',
@@ -231,7 +237,8 @@ Ext.onReady(function() {
 				anchor : '95%',
 				labelWidth: 40,
 				width : 352,
-				margin : '5 10 5 10'
+				margin : '5 10 5 10',
+				allowBlank : false,
 			},{
 				xtype : 'numberfield',
 				fieldLabel : '顺序',
@@ -254,7 +261,8 @@ Ext.onReady(function() {
 				maxLength : 100,
 				labelWidth: 70,
 				width : 352,
-				margin : '5 10 5 10'
+				margin : '5 10 5 10',
+				allowBlank : false,
 			},{
 				xtype : 'numberfield',
 				fieldLabel : '全部限量',
@@ -263,7 +271,8 @@ Ext.onReady(function() {
 				maxLength : 100,
 				labelWidth: 70,
 				width : 352,
-				margin : '5 10 5 10'
+				margin : '5 10 5 10',
+				allowBlank : false,
 			} ]
 		}
 		, {
@@ -277,7 +286,8 @@ Ext.onReady(function() {
 				maxLength : 100,
 				labelWidth: 70,
 				width : 724,
-				margin : '5 10 5 10'
+				margin : '5 10 5 10',
+				allowBlank : false,
 			} ]
 		}
 		, {
@@ -769,13 +779,13 @@ Ext.onReady(function() {
 				bkgoodsQueryWindow("筛选", screenDataForm, Bkgoodsstore,Ext.getCmp("queryBkgoodsaction").getValue());
 			}
 		},'-',{
-				text : Ext.os.deviceType === 'Phone' ? null : "新增商品",
+				text : Ext.os.deviceType === 'Phone' ? null : "新增",
 				iconCls : 'add',
 				handler : function() {
 					BkgoodsdataForm.form.reset();
 					Ext.getCmp("Bkgoodsbkgoodsid").setEditable (true);
 					Ext.getCmp("Bkgoodsbkgoodscode").setDisabled(false);
-					addBKgoodsWindow(basePath + Bkgoodsaction + "?method=insAll", "新增商品", BkgoodsdataForm, Bkgoodsstore);
+					addBKgoodsWindow(basePath + Bkgoodsaction + "?method=insAll", "新增", BkgoodsdataForm, Bkgoodsstore);
 				}
 			},'-',{
 				text : Ext.os.deviceType === 'Phone' ? null : "修改",

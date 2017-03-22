@@ -20,8 +20,45 @@ import com.system.tools.pojo.Pageinfo;
 import com.system.tools.pojo.Queryinfo;
 import com.system.tools.util.CommonUtil;
 import com.system.tools.util.DateUtils;
+import com.system.tools.util.FileUtil;
 
 public class CPOrdermAction extends OrdermAction {
+	
+	//导出 出库单
+	@SuppressWarnings("unchecked")
+	public void expChukudan(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		String[] queryfieldname = {
+				"ordermcode",
+				"customershop",
+				"customername",
+				"customerphone",
+				"warrantoutupdwhen"
+		};
+		String companyid = request.getParameter("companyid");
+		String startDate = request.getParameter("startDate");
+		String endDate = request.getParameter("endDate");
+		String query = request.getParameter("query");
+		if(!CommonUtil.isNull(query)){
+			query = " and ("+getQuerysql(query, queryfieldname)+")";
+		} else {
+			query = "";
+		}
+		String selSQL = "(select '' idwarrantout,wo.warrantoutodm,om.ordermcode,om.ordermnum,c.customershop,c.customername,c.customerphone,c.customerid,max(wo.warrantoutupdwhen) AS warrantoutupdwhen from warrantout wo "+
+			"left join customer c on wo.warrantoutcusid = customerid "+
+			"left join orderm om on om.ordermid = wo.warrantoutodm "+
+			"where wo.warrantoutodm is not null and wo.warrantoutcompany='"+companyid+"' and om.ordermstatue='已发货' and wo.warrantoutupdwhen >='"+startDate+"' and wo.warrantoutupdwhen <='"+endDate+"'"+query+
+			"group by wo.warrantoutodm,om.ordermcode,c.customername,c.customershop,c.customerphone,c.customerid) "+
+			"union all "+
+			"(select wo.idwarrantout,wo.warrantoutodm,'','1',c.customershop,c.customername,c.customerphone,c.customerid,wo.warrantoutupdwhen from warrantout wo "+
+			"left join customer c on wo.warrantoutcusid = customerid "+
+			"where wo.warrantoutodm is null and wo.warrantoutcompany='"+companyid+"' and wo.warrantoutupdwhen >='"+startDate+"' and wo.warrantoutupdwhen <='"+endDate+"'"+query.replace("ordermcode like '%桃子妹妹%' or ", "")+" ) "+
+			"order by warrantoutupdwhen desc";
+		ArrayList<OutOrder> ooLi = (ArrayList<OutOrder>) selAll(OutOrder.class,selSQL);
+		String[] heads = {"单据编号","种类数","客户名称","联系人","手机","出库时间"};				//表头
+		String[] discard = {"idwarrantout","warrantoutodm","customerid"};			//要忽略的字段名
+
+		FileUtil.expExcel(response, ooLi, heads, discard, "出库单");
+	}
 	
 	//查询出库单
 	public void chukudan(HttpServletRequest request, HttpServletResponse response){
@@ -42,16 +79,16 @@ public class CPOrdermAction extends OrdermAction {
 			query = "";
 		}
 		Queryinfo queryinfo = getQueryinfo(request, OutOrder.class, queryfieldname, null, new TypeToken<ArrayList<OutOrder>>() {}.getType());
-		String selSQL = "(select '' idwarrantout,wo.warrantoutodm,om.ordermcode,om.ordermnum,c.customershop,c.customername,c.customerphone,max(wo.warrantoutupdwhen) AS warrantoutupdwhen from warrantout wo "+
+		String selSQL = "(select '' idwarrantout,wo.warrantoutodm,om.ordermcode,om.ordermnum,c.customershop,c.customername,c.customerphone,c.customerid,max(wo.warrantoutupdwhen) AS warrantoutupdwhen from warrantout wo "+
 			"left join customer c on wo.warrantoutcusid = customerid "+
 			"left join orderm om on om.ordermid = wo.warrantoutodm "+
 			"where wo.warrantoutodm is not null and wo.warrantoutcompany='"+companyid+"' and om.ordermstatue='已发货' and wo.warrantoutupdwhen >='"+startDate+"' and wo.warrantoutupdwhen <='"+endDate+"'"+query+
-			"group by wo.warrantoutodm,om.ordermcode,c.customername,c.customershop,c.customerphone) "+
+			"group by wo.warrantoutodm,om.ordermcode,c.customername,c.customershop,c.customerphone,c.customerid) "+
 			"union all "+
-			"(select wo.idwarrantout,wo.warrantoutodm,'','1',c.customershop,c.customername,c.customerphone,wo.warrantoutupdwhen from warrantout wo "+
+			"(select wo.idwarrantout,wo.warrantoutodm,'','1',c.customershop,c.customername,c.customerphone,c.customerid,wo.warrantoutupdwhen from warrantout wo "+
 			"left join customer c on wo.warrantoutcusid = customerid "+
 			"where wo.warrantoutodm is null and wo.warrantoutcompany='"+companyid+"' and wo.warrantoutupdwhen >='"+startDate+"' and wo.warrantoutupdwhen <='"+endDate+"'"+query.replace("ordermcode like '%桃子妹妹%' or ", "")+" ) "+
-			"order by warrantoutupdwhen";
+			"order by warrantoutupdwhen desc";
 		Pageinfo pageinfo = new Pageinfo(getTotal("select count(*) from ("+selSQL+") A"), selQuery(selSQL, queryinfo));
 		result = CommonConst.GSON.toJson(pageinfo);
 		responsePW(response, result);

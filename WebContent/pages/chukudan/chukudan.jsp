@@ -10,6 +10,7 @@
 	String comid = info.getCompanyid();
 	%>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<script type="text/javascript" src="../../zrlextpages/common/jquery/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript">
 		var comid = '<%=comid%>';
 	</script>

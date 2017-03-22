@@ -274,7 +274,19 @@ Ext.onReady(function() {
 					maxLength : 100,
 					labelWidth: 40,
 					width : 302,
-					margin : '5 10 5 10'
+					margin : '5 10 5 10',
+					listeners: {
+						//获得焦点时自动计算金额
+						change: function(obj, newValue, oldValue, eOpts){
+							var inPrice = Ext.getCmp('newWarrantinviewwarrantinprice').getValue();
+							var val = parseFloat(inPrice)*parseInt(newValue);
+							if(!isNaN(val)){
+								Ext.getCmp('newWarrantinwarrantinmoney').setValue(val);
+							} else {
+								Ext.getCmp('newWarrantinwarrantinmoney').setValue('');
+							}
+						}
+					}
 				} ]
 			}
 			, {
@@ -310,7 +322,19 @@ Ext.onReady(function() {
 					maxLength : 100,
 					labelWidth: 70,
 					width : 302,
-					margin : '5 10 5 10'
+					margin : '5 10 5 10',
+					listeners: {
+						//获得焦点时自动计算金额
+						change: function(obj, newValue, oldValue, eOpts){
+							var inNum = Ext.getCmp('newWarrantinviewwarrantinnum').getValue();
+							var val = parseFloat(newValue)*parseInt(inNum);
+							if(!isNaN(val)){
+								Ext.getCmp('newWarrantinwarrantinmoney').setValue(val);
+							} else {
+								Ext.getCmp('newWarrantinwarrantinmoney').setValue('');
+							}
+						}
+					}
 				} ]
 			}
 			, {
@@ -501,7 +525,19 @@ Ext.onReady(function() {
 				id : 'Warrantinviewwarrantinprice',
 				allowBlank : false,
 				name : 'warrantinprice',
-				maxLength : 100
+				maxLength : 100,
+				listeners: {
+					//获得焦点时自动计算金额
+					change: function(obj, newValue, oldValue, eOpts){
+						var inNum = Ext.getCmp('Warrantinviewwarrantinnum').getValue();
+						var val = parseFloat(newValue)*parseInt(inNum);
+						if(!isNaN(val)){
+							Ext.getCmp('Warrantinwarrantinmoney').setValue(val);
+						} else {
+							Ext.getCmp('Warrantinwarrantinmoney').setValue('');
+						}
+					}
+				}
 			} ]
 		}
 		, {

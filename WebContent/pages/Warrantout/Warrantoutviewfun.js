@@ -184,11 +184,12 @@ function warrantoutPlacing(url, selections, store, fields) {
 				msg = '商品:'+msg+'在主仓库中的数量不足<br/> 商品:'+staMsg+'状态不对,无法出库。';
 			} else if(staMsg.length >0 && msg.length ==0){
 				msg = '商品:'+staMsg+'状态不对,无法出库。';
+				return;
 			} else if(msg.length >0 && staMsg.length ==0){
 				msg = '商品:'+msg+'在主仓库中的数量不足。';
 			}
 			if(msg.length >0){
-				Ext.Msg.confirm('请确认', msg+'<br/>是否出库？',function(btn, text){
+				Ext.Msg.confirm('请确认', msg+'<br/>确认出库吗？',function(btn, text){
 					if (btn == 'yes' && ids.length>1) {
 						Ext.Ajax.request({
 							url : url,
@@ -376,6 +377,8 @@ function goodsWindow(){
 							Ext.getCmp('Warrantoutviewwarrantoutgname').setValue(selectRows[0].get("goodsname"));
 							Ext.getCmp('Warrantoutviewwarrantoutgunits').setValue(selectRows[0].get("goodsunits"));
 							Ext.getCmp('Warrantoutviewwarrantoutstore').setValue(selectRows[0].get("goodsnumstore"));
+							Ext.getCmp('Warrantoutviewwarrantoutgunit').setValue(selectRows[0].get("goodsunit"));
+							
 							Ext.getCmp('Warrantoutviewwarrantoutgtype').setValue("商品");
 							selectgridWindow.hide();
 						}
