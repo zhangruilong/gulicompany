@@ -80,6 +80,7 @@ public class CPWarrantoutAction extends WarrantoutAction {
 				if(null != odTemp.getWarrantoutstatue() && odTemp.getWarrantoutstatue().equals("发货请求")){
 					temp.setWarrantoutupdwhen(DateUtils.getDateTime());
 					temp.setWarrantoutupdwho(lgi.getUsername());
+					String updTemp = getUpdSingleSql(temp, WarrantoutPoco.KEYCOLUMN);	//修改出库台账的SQL
 					//如果状态修改为 “已发货” 则修改 “库存总账” 中对应商品的数量
 					if(null != temp.getWarrantoutstatue() && temp.getWarrantoutstatue().equals("已发货")){
 						String selGN = "";
@@ -92,7 +93,7 @@ public class CPWarrantoutAction extends WarrantoutAction {
 									"' and goodscompany='"+lgi.getCompanyid()+"' and goodsnumstore='"+temp.getWarrantoutstore()+"'";
 						}
 						List<Goodsnum> gnLi = selAll(Goodsnum.class,selGN);
-						String updTemp = getUpdSingleSql(temp, WarrantoutPoco.KEYCOLUMN);	//修改出库台账的SQL
+						
 						Integer woNum = getTotal("select count(*) from warrantout wo where wo.warrantoutstatue='发货请求' and wo.warrantoutodm='"+temp.getWarrantoutodm()+"'");
 						String updOrdermSQL = null;		//修改订单总表状态的SQL
 						if(CommonUtil.isNotNull(temp.getWarrantoutodm()) && woNum==1){
@@ -131,6 +132,16 @@ public class CPWarrantoutAction extends WarrantoutAction {
 						} else {
 							result = "{success:true,code:401,msg:'未找到相关的“库存总账”信息,请问要出库么?'}";
 						}
+					} else if(null != temp.getWarrantoutstatue() && temp.getWarrantoutstatue().equals("另行处理")){
+						Integer woNum = getTotal("select count(*) from warrantout wo where wo.warrantoutstatue='发货请求' and wo.warrantoutodm='"+temp.getWarrantoutodm()+"'");
+						if(CommonUtil.isNotNull(temp.getWarrantoutodm()) && woNum==1){
+							String updOrdermSQL = "update orderm set ordermstatue='已发货' where ordermid='"+temp.getWarrantoutodm()+"'";
+							String[] sqls = {updTemp,updOrdermSQL};
+							result = doAll(sqls);
+						} else {
+							result = doSingle(updTemp, null);
+						}
+						
 					} else {
 						result = updSingle(temp, WarrantoutPoco.KEYCOLUMN);
 					}

@@ -14,7 +14,7 @@ var sumInback = 0;
 var sumGoodsnumnum = 0;
 Ext.onReady(function() {
 	var Inventoryviewclassify = "进销存变动表";
-	var Inventoryviewtitle = "当前位置:业务管理》" + Inventoryviewclassify;
+	var Inventoryviewtitle = "当前位置:库存管理》" + Inventoryviewclassify;
 	var Inventoryviewaction = "CPGoodsnumAction.do";
 	var Inventoryviewfields = ['goodsname'
 	        			    ,'goodsunits' 
