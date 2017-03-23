@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.server.poco.WarrantoutPoco;
 import com.server.pojo.Goodsnum;
+import com.server.pojo.Goodsnumview;
 import com.server.pojo.LoginInfo;
 import com.server.pojo.Warrantout;
 import com.server.pojo.Warrantoutview;
@@ -85,14 +86,14 @@ public class CPWarrantoutAction extends WarrantoutAction {
 					if(null != temp.getWarrantoutstatue() && temp.getWarrantoutstatue().equals("已发货")){
 						String selGN = "";
 						if(temp.getWarrantoutgtype().equals("商品")){
-							selGN = "select * from goodsnum gn where gn.goodsnumgoods='"+temp.getWarrantoutgoods()+
-									"' and goodsnumstore='"+temp.getWarrantoutstore()+"'";
+							selGN = "select * from goods g left join goodsnum gn on gn.goodsnumgoods=g.goodsid where g.goodsid='"+temp.getWarrantoutgoods()+
+									"' and (gn.goodsnumstore='"+temp.getWarrantoutstore()+"' or gn.goodsnumstore is null)";
 						} else {
 							selGN = "select * from goods g left join goodsnum gn on gn.goodsnumgoods=g.goodsid where g.goodscode='"+temp.getWarrantoutgcode()+
 									"' and g.goodsunits='"+temp.getWarrantoutgunits()+
-									"' and g.goodscompany='"+lgi.getCompanyid()+"' and g.goodsnumstore='"+temp.getWarrantoutstore()+"'";
+									"' and g.goodscompany='"+lgi.getCompanyid()+"' and (gn.goodsnumstore='"+temp.getWarrantoutstore()+"' or gn.goodsnumstore is null )";
 						}
-						List<Goodsnum> gnLi = selAll(Goodsnum.class,selGN);
+						List<Goodsnumview> gnLi = selAll(Goodsnumview.class,selGN);
 						
 						Integer woNum = getTotal("select count(*) from warrantout wo where wo.warrantoutstatue='发货请求' and wo.warrantoutodm='"+temp.getWarrantoutodm()+"'");
 						String updOrdermSQL = null;		//修改订单总表状态的SQL
@@ -110,9 +111,9 @@ public class CPWarrantoutAction extends WarrantoutAction {
 							}
 							result = doAll(sqls);
 						} else if(null!=type && type.equals("直接出库")){
-							if(gnLi.size()>0 && null != gnLi.get(0).getGoodsnumgoods()){
+							if(gnLi.size()>0 && null != gnLi.get(0).getGoodsid()){
 								String insNumSql = "INSERT INTO `abf`.`goodsnum` (`idgoodsnum`, `goodsnumgoods`, `goodsnumnum`, `goodsnumstore`) VALUES ('"+
-										CommonUtil.getNewId()+"', '"+gnLi.get(0).getGoodsnumgoods()+"', '-"+temp.getWarrantoutnum()+"', '"+temp.getWarrantoutstore()+"')";
+										CommonUtil.getNewId()+"', '"+gnLi.get(0).getGoodsid()+"', '-"+temp.getWarrantoutnum()+"', '"+temp.getWarrantoutstore()+"')";
 								String[] sqls = null;
 								if(null != updOrdermSQL){
 									sqls = new String[]{updTemp,insNumSql,updOrdermSQL};
@@ -133,7 +134,8 @@ public class CPWarrantoutAction extends WarrantoutAction {
 							result = "{success:true,code:401,msg:'未找到相关的“库存总账”信息,请问要出库么?'}";
 						}
 					} else if(null != temp.getWarrantoutstatue() && temp.getWarrantoutstatue().equals("另行处理")){
-						Integer woNum = getTotal("select count(*) from warrantout wo where wo.warrantoutstatue='发货请求' and wo.warrantoutodm='"+temp.getWarrantoutodm()+"'");
+						Integer woNum = getTotal("select count(*) from warrantout wo where wo.warrantoutstatue='发货请求' and wo.warrantoutodm='"
+										+temp.getWarrantoutodm()+"'");
 						if(CommonUtil.isNotNull(temp.getWarrantoutodm()) && woNum==1){
 							String updOrdermSQL = "update orderm set ordermstatue='已发货' where ordermid='"+temp.getWarrantoutodm()+"'";
 							String[] sqls = {updTemp,updOrdermSQL};

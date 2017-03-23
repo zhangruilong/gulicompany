@@ -59,10 +59,12 @@ public class CPOrderAction extends OrdermviewAction {
 				String time = DateUtils.getDateTime();
 				for (Orderd od : odLi) {
 					String goodsid = null;
+					String goodscode = null;
+					String insSHId = storehouseid;
 					if(od.getOrderdtype().equals("商品")){
 						goodsid = od.getOrderdgoods();	//得到商品ID
+						goodscode = od.getOrderdcode();
 					} else {
-						String goodscode = null;
 						//如果是以‘a’开头则去掉前缀
 						if(od.getOrderdcode().indexOf("a") != -1){
 							goodscode = od.getOrderdcode().replace("a", "");
@@ -71,18 +73,19 @@ public class CPOrderAction extends OrdermviewAction {
 						}
 						//查询对应商品
 						List<Goodsnumview> gLi = selAll(Goodsnumview.class, 
-								"select * from goods g left join goodsnum gn on gn.goodsnumgoods=g.goodsid LEFT JOIN `storehouse` `sh` ON `gn`.`goodsnumstore` = `sh`.`storehouseid` where g.goodscode='"+
-								goodscode+"' and g.goodsunits='"+od.getOrderdunits()+"' and g.goodscompany='"+lgi.getCompanyid()+"' and `sh`.`storehousename`!='破损仓库' order by gn.goodsnumnum desc");
+								"select * from goods g left join goodsnum gn on gn.goodsnumgoods=g.goodsid LEFT JOIN storehouse sh ON gn.goodsnumstore = sh.storehouseid where g.goodscode='"+
+								goodscode+"' and g.goodsunits='"+od.getOrderdunits()+"' and g.goodscompany='"+lgi.getCompanyid()+
+								"' and (sh.storehousename!='破损仓库' or sh.storehousename is null ) order by gn.goodsnumnum desc");
 						if(gLi.size()>0){
 							Goodsnumview gnv = gLi.get(0);
 							goodsid = gnv.getGoodsid();	//得到对应商品ID
 							if(CommonUtil.isNotNull(gnv.getGoodsnumnum())){
-								storehouseid = gnv.getGoodsnumstore();
+								insSHId = gnv.getGoodsnumstore();
 							}
 						}
 					}
-					Warrantout newOut = new Warrantout(CommonUtil.getNewId(), lgi.getCompanyid(), storehouseid, goodsid, 
-							od.getOrderdnum()+"", "发货请求", null, null, time, lgi.getUsername(), null, null, od.getOrderdcode(), 
+					Warrantout newOut = new Warrantout(CommonUtil.getNewId(), lgi.getCompanyid(), insSHId, goodsid, 
+							od.getOrderdnum()+"", "发货请求", null, null, time, lgi.getUsername(), null, null, goodscode, 
 							od.getOrderdname(), od.getOrderdunits(), od.getOrderdtype(), od.getOrderdclass(), od.getOrderdunit(), 
 							od.getOrderdweight(), od.getOrderdnote(), od.getOrderdprice().toString(), od.getOrderdmoney().toString(),
 							omLi.get(0).getOrdermcustomer(),omLi.get(0).getOrdermcusshop(),od.getOrderdorderm(),"0");
