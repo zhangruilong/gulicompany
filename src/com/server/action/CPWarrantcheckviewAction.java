@@ -45,7 +45,7 @@ public class CPWarrantcheckviewAction extends WarrantcheckviewAction {
 			//通过“经销商ID”、“商品信息”、“仓库名称”查找一条库存总账记录
 			@SuppressWarnings("unchecked")
 			List<Goodsnumview> gnLi = selAll(Goodsnumview.class, "select * from Goodsnumview where goodscompany='"+lgi.getCompanyid()+
-					"' and goodscode='"+temp.getGoodscode()+"' and goodsname='"+temp.getGoodsname()+"' and goodsunits='"+temp.getGoodsunits()+
+					"' and goodscode='"+temp.getGoodscode()+"' and goodsunits='"+temp.getGoodsunits()+
 					"' and storehousename='"+temp.getStorehousename()+"'");
 			if(gnLi.size()==0){
 				msg += i+",";
@@ -83,7 +83,7 @@ public class CPWarrantcheckviewAction extends WarrantcheckviewAction {
 			//通过“经销商ID”、“商品信息”、“仓库名称”查找一条库存总账记录
 			@SuppressWarnings("unchecked")
 			List<Goodsnumview> gnLi = selAll(Goodsnumview.class, "select * from Goodsnumview where goodscompany='"+lgi.getCompanyid()+
-					"' and goodscode='"+temp.getGoodscode()+"' and goodsname='"+temp.getGoodsname()+"' and goodsunits='"+temp.getGoodsunits()+
+					"' and goodscode='"+temp.getGoodscode()+"' and goodsunits='"+temp.getGoodsunits()+
 					"' and storehousename='"+temp.getStorehousename()+"'");
 			if(gnLi.size()>0){
 				Goodsnumview gn = gnLi.get(0);

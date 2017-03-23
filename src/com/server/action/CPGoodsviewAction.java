@@ -134,8 +134,7 @@ public class CPGoodsviewAction extends GoodsviewAction {
 			//查询是否有重复的商品
 			@SuppressWarnings("unchecked")
 			List<Goods> isRe = selAll(Goods.class, "select * from goods where goodscode='"+addGoods.getGoodscode()+
-					"' and goodsunits='"+addGoods.getGoodsunits()+"' and goodsname='"+addGoods.getGoodsname()+
-					"' and goodscompany='"+lInfo.getCompanyid()+"'");
+					"' and goodsunits='"+addGoods.getGoodsunits()+"' and goodscompany='"+lInfo.getCompanyid()+"'");
 			if(isRe.size()==0){
 				if(null==addGoods.getGoodsweight()||addGoods.getGoodsweight().equals("")||addGoods.getGoodsweight().equals("undefined")){
 					addGoods.setGoodsweight("0");

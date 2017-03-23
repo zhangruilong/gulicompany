@@ -88,9 +88,9 @@ public class CPWarrantoutAction extends WarrantoutAction {
 							selGN = "select * from goodsnum gn where gn.goodsnumgoods='"+temp.getWarrantoutgoods()+
 									"' and goodsnumstore='"+temp.getWarrantoutstore()+"'";
 						} else {
-							selGN = "select * from goods left join goodsnum where goodscode='"+temp.getWarrantoutgcode()+
-									"' and goodsname='"+temp.getWarrantoutgname()+"' and goodsunits='"+temp.getWarrantoutgunits()+
-									"' and goodscompany='"+lgi.getCompanyid()+"' and goodsnumstore='"+temp.getWarrantoutstore()+"'";
+							selGN = "select * from goods g left join goodsnum gn on gn.goodsnumgoods=g.goodsid where g.goodscode='"+temp.getWarrantoutgcode()+
+									"' and g.goodsunits='"+temp.getWarrantoutgunits()+
+									"' and g.goodscompany='"+lgi.getCompanyid()+"' and g.goodsnumstore='"+temp.getWarrantoutstore()+"'";
 						}
 						List<Goodsnum> gnLi = selAll(Goodsnum.class,selGN);
 						
@@ -199,9 +199,8 @@ public class CPWarrantoutAction extends WarrantoutAction {
 			
 			String insSql = getInsSingleSql(temp);		//新增出库台账的sql
 			String selGNSql = null;
-			selGNSql = "select * from goodsnumview where goodscode='"+temp.getWarrantoutgcode()+"' and goodsname='"+temp.getWarrantoutgname()+
-					"' and goodsunits='"+temp.getWarrantoutgunits()+"' and goodscompany='"+lgi.getCompanyid()+
-					"' and goodsnumstore='"+temp.getWarrantoutstore()+"'";
+			selGNSql = "select * from goodsnumview where goodscode='"+temp.getWarrantoutgcode()+"' and goodsunits='"+temp.getWarrantoutgunits()+
+					"' and goodscompany='"+lgi.getCompanyid()+"' and goodsnumstore='"+temp.getWarrantoutstore()+"'";
 			List<Goodsnum> gnLi = selAll(Goodsnum.class, selGNSql);
 			if(gnLi.size()>0){
 				Integer num =  Integer.parseInt(gnLi.get(0).getGoodsnumnum()) - Integer.parseInt(temp.getWarrantoutnum());

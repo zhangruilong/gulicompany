@@ -48,7 +48,6 @@ public class CPOrderAction extends OrdermviewAction {
 		String statue = request.getParameter("statue");
 		String ordermid = request.getParameter("ordermid");
 		String storehouseid = request.getParameter("storehouseid");	//主仓库ID
-		//System.out.println("method:updateOrdermStatue, ordermid:"+ordermid);
 		List<Orderm> omLi = (List<Orderm>) selAll(Orderm.class, 
 				"select * from orderm om where om.ordermid='"+ordermid+"' and om.ordermstatue!='已删除'");
 		if(omLi.size()>0){
@@ -72,9 +71,8 @@ public class CPOrderAction extends OrdermviewAction {
 						}
 						//查询对应商品
 						List<Goodsnumview> gLi = selAll(Goodsnumview.class, 
-								"select * from goods g left join goodsnum gn on gn.goodsnumgoods=g.goodsid where goodscode='"+
-								goodscode+"' and goodsname='"+od.getOrderdname()+"' and goodsunits='"+od.getOrderdunits()+
-								"' and goodscompany='"+lgi.getCompanyid()+"' order by gn.goodsnumnum desc");
+								"select * from goods g left join goodsnum gn on gn.goodsnumgoods=g.goodsid LEFT JOIN `storehouse` `sh` ON `gn`.`goodsnumstore` = `sh`.`storehouseid` where g.goodscode='"+
+								goodscode+"' and g.goodsunits='"+od.getOrderdunits()+"' and g.goodscompany='"+lgi.getCompanyid()+"' and `sh`.`storehousename`!='破损仓库' order by gn.goodsnumnum desc");
 						if(gLi.size()>0){
 							Goodsnumview gnv = gLi.get(0);
 							goodsid = gnv.getGoodsid();	//得到对应商品ID
