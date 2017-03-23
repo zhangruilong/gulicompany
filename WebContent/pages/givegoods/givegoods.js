@@ -4,6 +4,9 @@ var goodsCusTypeStore = new Ext.data.ArrayStore({//客户类型下拉
 	fields:["name","value"],
 	data:[["全部商品",""],["餐饮商品","3"],["商超商品","2"],["组织单位商品","1"]]
 });
+var odType = '';
+var odQuery = '';
+var odQueryjson = '';
 Ext.onReady(function() {
 	var Bkgoodsclassify = '买赠专区';
 	var Bkgoodstitle = "当前位置:业务管理》" + Bkgoodsclassify;
@@ -43,13 +46,20 @@ Ext.onReady(function() {
 	Goodsclassstore.load();	//加载供应商小类
 	Bkgoodsstore.on('beforeload',function(store,options){					//数据加载时的事件
 		var type = Ext.getCmp('queryGoodsCusType').getValue();
+		var query = Ext.getCmp("queryBkgoodsaction").getValue();
 		var new_params = {		//每次数据加载的时候传递的参数
 				json : queryjson,
 				wheresql : where,
 				type : type,
-				query : Ext.getCmp("queryBkgoodsaction").getValue(),
+				query : query,
 				limit : Bkgoodsbbar.pageSize
 		};
+		if(type!=odType || query!=odQuery || queryjson!=odQueryjson){		//如果查询条件变化了就变成第一页
+			odType = type;
+			odQuery = query;
+			odQueryjson = queryjson;
+			store.loadPage(1);
+		}
 		Ext.apply(Bkgoodsstore.proxy.extraParams, new_params);    //ext 4.0
 	});
 	var BkgoodsdataForm = Ext.create('Ext.form.Panel', {// 定义新增和修改的FormPanel

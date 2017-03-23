@@ -24,7 +24,9 @@ getOneDisplay = function(value, meta, record) {
 
 }
 
-
+var odQueryjson = '';
+var odQuery = '';
+var odCusType = '';
 
 Ext.onReady(function() {
 	var Goodsclassify = classify;
@@ -86,14 +88,22 @@ Ext.onReady(function() {
 	/*之前的查询条件*/
 	var odQuery = '';
 	Goodsstore.on('beforeload',function(store,options){					//数据加载时的事件
+		var query = Ext.getCmp("queryGoodsaction").getValue();
+		var cusType = Ext.getCmp('queryGoodsCusType').getValue();
+		
 		var new_params = {		//每次数据加载的时候传递的参数
 				comid : comid,
 				json : queryjson,
 				goodsstatue : goodsstatue,
-				cusType : Ext.getCmp('queryGoodsCusType').getValue(),
-				query : Ext.getCmp("queryGoodsaction").getValue(),
+				cusType : cusType,
+				query : query,
 				limit : Goodsbbar.pageSize
 		};
+		if(odQuery != query || odCusType != cusType || odQueryjson != queryjson){
+			odCusType = cusType;
+			odQuery = query;
+			odQueryjson = queryjson;
+		}
 		Ext.apply(Goodsstore.proxy.extraParams, new_params);    //ext 4.0
 	});
 	

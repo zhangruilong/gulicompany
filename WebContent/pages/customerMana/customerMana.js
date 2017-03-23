@@ -6,6 +6,7 @@ var customerlevelStore = new Ext.data.ArrayStore({//状态下拉
 	fields:["value"],
 	data:[["3"],["2"],["1"]]
 });
+var odQuery='';
 var Ccustomerviewbbar;
 Ext.onReady(function() {
 	var Ccustomerviewclassify = classify;
@@ -47,12 +48,17 @@ Ext.onReady(function() {
 	Empstore.load();
 	
 	Ccustomerviewstore.on('beforeload',function(store,options){					//数据加载时的事件
+		var query = Ext.getCmp("queryCcustomerviewaction").getValue();
 		var new_params = {		//每次数据加载的时候传递的参数
 				json : queryjson,
 				wheresql : where,
-				query : Ext.getCmp("queryCcustomerviewaction").getValue(),
+				query : query,
 				limit : Ccustomerviewbbar.pageSize
 		};
+		if(query!=odQuery){		//如果查询条件变化了就变成第一页
+			odQuery = query;
+			store.loadPage(1);
+		}
 		Ext.apply(Ccustomerviewstore.proxy.extraParams, new_params);    //ext 4.0
 	});
 	var CcustomerviewdataForm = Ext.create('Ext.form.Panel', {// 定义新增和修改的FormPanel
