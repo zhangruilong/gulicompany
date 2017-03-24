@@ -8,6 +8,7 @@ var odStartDate=startDate;
 var odEndDate=endDate;
 var odQuery='';
 var odQueryjson='';
+
 Ext.onReady(function() {
 	var Warrantinviewclassify = "入库管理";
 	var Warrantinviewtitle = "当前位置:库存管理》" + Warrantinviewclassify;
@@ -33,47 +34,16 @@ Ext.onReady(function() {
 		        			    ,'suppliername' 
 		        			      ];// 全部字段
 	var Warrantinviewkeycolumn = [ 'idwarrantin' ];// 主键
-	var Storehousefields = ['storehouseid'
-	        			    ,'storehousecode' 
-	        			    ,'storehousename' 
-	        			    ,'storehousedetail' 
-	        			    ,'storehousestatue' 
-	        			    ,'storehousecompany' 
-	        			    ,'storehouseupdtime' 
-	        			    ,'storehouseupdor' 
-	        			    ,'storehousecretime' 
-	        			    ,'storehousecreor' 
-	        			    ,'storehouseaddress' 
-	        			      ];// 全部字段
-	var Supplierfields = ['supplierid'
-	        			    ,'suppliercode' 
-	        			    ,'suppliername' 
-	        			    ,'suppliercontact' 
-	        			    ,'supplierphone' 
-	        			    ,'supplieraddress' 
-	        			    ,'supplierdetail' 
-	        			    ,'supplierstatue' 
-	        			    ,'suppliercompany' 
-	        			    ,'supplierupdtime' 
-	        			    ,'supplierupdor' 
-	        			    ,'suppliercretime' 
-	        			    ,'suppliercreor' 
-	        			      ];// 全部字段
-	var Empfields = ['empid'
-     			    ,'empcode' 
-     			      ];// 全部字段
+
+
 	var Goodsclassfields = ['goodsclassid'
 	        			    ,'goodsclassname' 
 	        			      ];// 小类字段
 	var wheresql = "goodscompany='"+comid+"'";
 	var Goodsclassstore = dataStore(Goodsclassfields, "CPGoodsclassAction.do?method=queryCompanyGoodsclass&wheresql=goodsclasscompany='"+comid+"' and goodsclassname!='裸价商品'");//定义小类store
 	Goodsclassstore.load();	//加载供应商小类
-	var Storehousestore = dataStore(Storehousefields, basePath + "CPStorehouseAction.do?method=selAll&wheresql=storehousecompany='"+comid+"' and storehousestatue='启用' and storehousename!='破损仓库'");// 定义Storehousestore
-	Storehousestore.load();
-	var Supplierstore = dataStore(Supplierfields, basePath + "CPSupplierAction.do?method=selAll&wheresql=suppliercompany='"+comid+"' and supplierstatue='启用'");// 定义Supplierstore
-	Supplierstore.load();
-	var Empstore = dataStore(Empfields, basePath + "CPEmpAction.do?method=selAll&wheresql=empcompany='"+comid+"' and empcode!='隐藏'");// 定义Empstore
-	Empstore.load();
+
+
 	var Warrantinviewstore = dataStore(Warrantinviewfields, basePath + Warrantinviewaction + "?method=selQueryCP");// 定义Warrantinviewstore
 	Warrantinviewstore.on('beforeload',function(store,options){					//数据加载时的事件
 		var query = Ext.getCmp("queryWarrantinviewaction").getValue();
@@ -103,7 +73,7 @@ Ext.onReady(function() {
 		}
 		Warrantinviewstore.remove(total);
 	});
-	/*///////////////////-------------------新增商品和库存总账的form(开始)--------------------/////////////////////*/
+	/*///////////////////-------------------新商品入库的form(开始)--------------------/////////////////////*/
 	var GoodsdataForm = Ext.create('Ext.form.Panel', {
 			id:'GoodsdataForm',
 			labelAlign : 'right',
@@ -400,7 +370,7 @@ Ext.onReady(function() {
 			}
 			]
 		});
-	/*///////////////////-------------------新增商品和库存总账的form(结束)--------------------/////////////////////*/
+	/*///////////////////-------------------新商品入库的form(结束)--------------------/////////////////////*/
 	
 	var WarrantinviewdataForm = Ext.create('Ext.form.Panel', {// 定义新增和修改的FormPanel
 		id:'WarrantinviewdataForm',
@@ -812,10 +782,10 @@ Ext.onReady(function() {
 			handler : function() {
 				WarrantinviewdataForm.form.reset();
 				Ext.getCmp("Warrantinviewidwarrantin").setEditable (true);
-				Ext.getCmp("Warrantinviewgoodscode").setReadOnly (true);
-				Ext.getCmp("Warrantinviewgoodsname").setReadOnly (true);
-				Ext.getCmp("Warrantinviewgoodsunits").setReadOnly (true);
-				Ext.getCmp("Warrantinviewwarrantinnum").allowBlank = false;
+//				Ext.getCmp("Warrantinviewgoodscode").setReadOnly (true);
+//				Ext.getCmp("Warrantinviewgoodsname").setReadOnly (true);
+//				Ext.getCmp("Warrantinviewgoodsunits").setReadOnly (true);
+//				Ext.getCmp("Warrantinviewwarrantinnum").allowBlank = false;
 				var defIndex = Storehousestore.find('storehousename','主仓库');
 				Ext.getCmp('Warrantinviewwarrantinstore').setValue(Storehousestore.getAt(defIndex).get('storehouseid'));
 				addWarrantinWindow(basePath + "CPWarrantinAction.do?method=addWarrantin", "新增入库台账", WarrantinviewdataForm, Warrantinviewstore);
@@ -839,13 +809,8 @@ Ext.onReady(function() {
             			text : "筛选",
             			iconCls : 'select',
             			handler : function() {
-            				WarrantinviewdataForm.form.reset();
-            				Ext.getCmp("Warrantinviewidwarrantin").setEditable (true);
-            				Ext.getCmp("Warrantinviewgoodscode").setReadOnly (false);
-            				Ext.getCmp("Warrantinviewgoodsname").setReadOnly (false);
-            				Ext.getCmp("Warrantinviewgoodsunits").setReadOnly (false);
-            				Ext.getCmp("Warrantinviewwarrantinnum").allowBlank = true;
-            				inQueryWindow("筛选", WarrantinviewdataForm, Warrantinviewstore,Ext.getCmp("queryWarrantinviewaction").getValue());
+//            				Ext.getCmp("filWarrantinviewidwarrantin").setEditable (true);
+            				inQueryWindow("筛选", filWarrantinviewdataForm, Warrantinviewstore,Ext.getCmp("queryWarrantinviewaction").getValue());
             			}
             		},{
                     	text : "导出",

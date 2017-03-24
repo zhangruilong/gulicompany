@@ -279,14 +279,7 @@ Ext.onReady(function() {
 						}
 					});
 				}
-            }/*,'-',{
-				text : Ext.os.deviceType === 'Phone' ? null : "新增",
-				iconCls : 'add',
-				handler : function() {
-					GoodsdataForm.form.reset();
-					addGoodsnumWindow(basePath + "CPGoodsnumAction.do?method=insGoods", "新增", GoodsdataForm, Goodsnumviewstore);
-				}
-			}*/
+            }
 		]
 	});
 	Goodsnumviewgrid.region = 'center';

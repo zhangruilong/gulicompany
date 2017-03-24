@@ -39,20 +39,24 @@ public class CPWarrantcheckviewAction extends WarrantcheckviewAction {
 		};
 		String json = FileUtil.impExcel(fileinfo.getPath(),fieldnames); 
 		if(CommonUtil.isNotEmpty(json)) cuss = CommonConst.GSON.fromJson(json, TYPE);
-		String msg = "";
-		for(int i=0; i < cuss.size(); i++){
-			Warrantcheckview temp = cuss.get(i);
-			//通过“经销商ID”、“商品信息”、“仓库名称”查找一条库存总账记录
-			@SuppressWarnings("unchecked")
-			List<Goodsnumview> gnLi = selAll(Goodsnumview.class, "select * from Goodsnumview where goodscompany='"+lgi.getCompanyid()+
-					"' and goodscode='"+temp.getGoodscode()+"' and goodsunits='"+temp.getGoodsunits()+
-					"' and storehousename='"+temp.getStorehousename()+"'");
-			if(gnLi.size()==0){
-				msg += i+",";
+		String msg = "操作成功";
+		if(null != cuss && cuss.size()>0){
+			for(int i=0; i < cuss.size(); i++){
+				Warrantcheckview temp = cuss.get(i);
+				//通过“经销商ID”、“商品信息”、“仓库名称”查找一条库存总账记录
+				@SuppressWarnings("unchecked")
+				List<Goodsnumview> gnLi = selAll(Goodsnumview.class, "select * from Goodsnumview where goodscompany='"+lgi.getCompanyid()+
+						"' and goodscode='"+temp.getGoodscode()+"' and goodsunits='"+temp.getGoodsunits()+
+						"' and storehousename='"+temp.getStorehousename()+"'");
+				if(gnLi.size()==0){
+					msg += i+",";
+				}
 			}
-		}
-		if(msg.length()>0){
-			msg = "第:"+msg+" 行信息没有查询到对应的“库存总账”信息。";
+			if(msg.length()>0){
+				msg = "第:"+msg+" 行信息没有查询到对应的“库存总账”信息。";
+			}
+		} else {
+			msg = "无法导入此文件。";
 		}
 		if(msg.length()>0){
 			result = "{success:true,code:202,msg:'"+msg+"'}";

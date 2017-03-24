@@ -354,8 +354,10 @@ Ext.onReady(function() {
 		}
 		]
 	});
-
-	var screenDataForm = Ext.create('Ext.form.Panel', {// 筛选的FormPanel
+	
+/*=========////////////////======筛选的FormPanel(开始)======//////////////////========*/
+	
+	var screenDataForm = Ext.create('Ext.form.Panel', {
 		id:'scrBkgoodsdataForm',
 		labelAlign : 'right',
 		frame : true,
@@ -583,6 +585,8 @@ Ext.onReady(function() {
 		}
 		]
 	});
+	
+/*=========////////////////======筛选的FormPanel(结束)======//////////////////========*/
 	
 	Bkgoodsbbar = pagesizebar(Bkgoodsstore);//定义分页
 	var Bkgoodsgrid =  Ext.create('Ext.grid.Panel', {

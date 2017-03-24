@@ -32,34 +32,8 @@ Ext.onReady(function() {
 	 	        			    ,'goodsunits' 
 	 	        			    ,'storehousename' 
 	 	        			      ];// 全部字段
-	var Storehousefields = ['storehouseid'
-	        			    ,'storehousecode' 
-	        			    ,'storehousename' 
-	        			    ,'storehousedetail' 
-	        			    ,'storehousestatue' 
-	        			    ,'storehousecompany' 
-	        			    ,'storehouseupdtime' 
-	        			    ,'storehouseupdor' 
-	        			    ,'storehousecretime' 
-	        			    ,'storehousecreor' 
-	        			    ,'storehouseaddress' 
-	        			      ];// 全部字段
-	var Empfields = ['empid'
-	     			    ,'empcompany' 
-	     			    ,'empcode' 
-	     			    ,'loginname' 
-	     			    ,'password' 
-	     			    ,'empdetail' 
-	     			    ,'empstatue' 
-	     			    ,'createtime' 
-	     			    ,'updtime' 
-	     			      ];// 全部字段
 	var Warrantbackviewkeycolumn = [ 'idwarrantback' ];// 主键
 	var wheresql = "goodscompany='"+comid+"'";
-	var Storehousestore = dataStore(Storehousefields, basePath + "CPStorehouseAction.do?method=selAll&wheresql=storehousecompany='"+comid+"' and storehousestatue='启用'");// 定义Storehousestore
-	Storehousestore.load();
-	var Empstore = dataStore(Empfields, basePath + "CPEmpAction.do?method=selAll&wheresql=empcompany='"+comid+"' and empcode!='隐藏'");// 定义Empstore
-	Empstore.load();
 	var Warrantbackviewstore = dataStore(Warrantbackviewfields, basePath + Warrantbackviewaction + "?method=selQueryCP");// 定义Warrantbackviewstore
 	Warrantbackviewstore.on('beforeload',function(store,options){					//数据加载时的事件
 		var query = Ext.getCmp("queryWarrantbackviewaction").getValue();

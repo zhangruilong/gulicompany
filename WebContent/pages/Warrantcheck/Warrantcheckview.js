@@ -29,33 +29,9 @@ Ext.onReady(function() {
 	  	        			    ,'goodsunits' 
 	  	        			    ,'storehousename' 
 	  	        			      ];// 全部字段
-	var Storehousefields = ['storehouseid'
-	        			    ,'storehousecode' 
-	        			    ,'storehousename' 
-	        			    ,'storehousedetail' 
-	        			    ,'storehousestatue' 
-	        			    ,'storehousecompany' 
-	        			    ,'storehouseupdtime' 
-	        			    ,'storehouseupdor' 
-	        			    ,'storehousecretime' 
-	        			    ,'storehousecreor' 
-	        			    ,'storehouseaddress' 
-	        			      ];// 全部字段
-	var Empfields = ['empid'
-     			    ,'empcode' 
-     			      ];// 全部字段
 	var Warrantcheckviewkeycolumn = [ 'idwarrantcheck' ];// 主键
 	var wheresql = "goodscompany='"+comid+"'";
-	var Storehousestore = dataStore(Storehousefields, basePath + "CPStorehouseAction.do?method=selAll&wheresql=storehousecompany='"+comid+"' and storehousestatue='启用'");// 定义Storehousestore
-	
-	Storehousestore.on('load',function(store,options){
-		var defIndex = store.find('storehousename','主仓库');
-		mainSHID = store.getAt(defIndex).get('storehouseid');		//得到主仓库的ID
-	});
-	Storehousestore.load();
-	
-	var Empstore = dataStore(Empfields, basePath + "CPEmpAction.do?method=selAll&wheresql=empcompany='"+comid+"' and empcode!='隐藏'");// 定义Empstore
-	Empstore.load();
+
 	var Warrantcheckviewstore = dataStore(Warrantcheckviewfields, basePath + Warrantcheckviewaction + "?method=selQueryCP");// 定义Warrantcheckviewstore
 	Warrantcheckviewstore.on('beforeload',function(store,options){					//数据加载时的事件
 		var query = Ext.getCmp("queryWarrantcheckviewaction").getValue();
@@ -115,6 +91,7 @@ Ext.onReady(function() {
 				fieldLabel : '商品编号',
 				id : 'Warrantcheckviewgoodscode',
 				allowBlank : false,
+				readOnly : true,
 				name : 'goodscode',
 				maxLength : 100
 			} ]
@@ -127,6 +104,7 @@ Ext.onReady(function() {
 				fieldLabel : '商品名称',
 				id : 'Warrantcheckviewgoodsname',
 				allowBlank : false,
+				readOnly : true,
 				name : 'goodsname',
 				maxLength : 100
 			} ]
@@ -139,6 +117,7 @@ Ext.onReady(function() {
 				fieldLabel : '规格',
 				id : 'Warrantcheckviewgoodsunits',
 				allowBlank : false,
+				readOnly : true,
 				name : 'goodsunits',
 				maxLength : 100
 			} ]
@@ -431,9 +410,6 @@ Ext.onReady(function() {
 				text : "盘点",
 				iconCls : 'add',
 				handler : function() {
-					Ext.getCmp("Warrantcheckviewgoodscode").setReadOnly (true);
-					Ext.getCmp("Warrantcheckviewgoodsname").setReadOnly (true);
-					Ext.getCmp("Warrantcheckviewgoodsunits").setReadOnly (true);
 					goodsWindow(WarrantcheckviewdataForm,Warrantcheckviewstore);
 					
 				}
@@ -448,12 +424,7 @@ Ext.onReady(function() {
             			text : "筛选",
             			iconCls : 'select',
             			handler : function() {
-            				WarrantcheckviewdataForm.form.reset();
-            				Ext.getCmp("Warrantcheckviewidwarrantcheck").setEditable (true);
-            				Ext.getCmp("Warrantcheckviewgoodscode").setReadOnly (false);
-        					Ext.getCmp("Warrantcheckviewgoodsname").setReadOnly (false);
-        					Ext.getCmp("Warrantcheckviewgoodsunits").setReadOnly (false);
-            				checkQueryWindow("筛选", WarrantcheckviewdataForm, Warrantcheckviewstore,Ext.getCmp("queryWarrantcheckviewaction").getValue());
+            				checkQueryWindow("筛选", filWarrantcheckviewdataForm, Warrantcheckviewstore,Ext.getCmp("queryWarrantcheckviewaction").getValue());
             			}
             		},{
                     	text : "导出",
@@ -471,13 +442,13 @@ Ext.onReady(function() {
                     	text : "导入检查",
             			iconCls : 'imp',
             			handler : function() {
-            				commonImp(basePath + "CPWarrantcheckAction.do?method=impCheck","导入",Warrantcheckviewstore);
+            				impWarrantcheck(basePath + "CPWarrantcheckviewAction.do?method=impCheck","导入检查",Warrantcheckviewstore);
             			}
                     },{
                     	text : "导入",
             			iconCls : 'imp',
             			handler : function() {
-            				commonImp(basePath + "CPWarrantcheckAction.do?method=impWarrantcheck","导入",Warrantcheckviewstore);
+            				impWarrantcheck(basePath + "CPWarrantcheckviewAction.do?method=impWarrantcheck","导入",Warrantcheckviewstore);
             			}
                     },{
             			text : "回滚",

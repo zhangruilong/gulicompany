@@ -1,3 +1,241 @@
+
+var Storehousefields = ['storehouseid'
+        			    ,'storehousecode' 
+        			    ,'storehousename' 
+        			    ,'storehouseaddress' 
+        			      ];// 全部字段
+var Empfields = ['empid'
+ 			    ,'empcode' 
+ 			      ];// 全部字段
+var Storehousestore = dataStore(Storehousefields, basePath + "CPStorehouseAction.do?method=selAll&wheresql=storehousecompany='"+comid+"' and storehousestatue='启用'");// 定义Storehousestore
+
+Storehousestore.on('load',function(store,options){
+	var defIndex = store.find('storehousename','主仓库');
+	mainSHID = store.getAt(defIndex).get('storehouseid');		//得到主仓库的ID
+});
+Storehousestore.load();
+
+var Empstore = dataStore(Empfields, basePath + "CPEmpAction.do?method=selAll&wheresql=empcompany='"+comid+"' and empcode!='隐藏'");// 定义Empstore
+Empstore.load();
+
+/*=========////////////============ 筛选的FormPanel(开始) ============////////////=========*/
+
+var filWarrantcheckviewdataForm = Ext.create('Ext.form.Panel', {
+	id:'filWarrantcheckviewdataForm',
+	labelAlign : 'right',
+	frame : true,
+	layout : 'column',
+	items : [ {
+		columnWidth : 1,
+		layout : 'form',
+		hidden : true,
+		items : [ {
+			xtype : 'textfield',
+			fieldLabel : '盘点记录ID',
+			id : 'filWarrantcheckviewidwarrantcheck',
+			name : 'idwarrantcheck',
+			maxLength : 100
+		} ]
+	}
+	, {
+		columnWidth : 1,
+		layout : 'form',
+		hidden : true,
+		items : [ {
+			xtype : 'textfield',
+			fieldLabel : '商品ID',
+			id : 'filWarrantcheckviewwarrantcheckgoods',
+			name : 'warrantcheckgoods',
+			maxLength : 100
+		} ]
+	}
+	, {
+		columnWidth : 1,
+		layout : 'form',
+		items : [ {
+			xtype : 'textfield',
+			fieldLabel : '商品编号',
+			id : 'filWarrantcheckviewgoodscode',
+			name : 'goodscode',
+			maxLength : 100
+		} ]
+	}
+	, {
+		columnWidth : 1,
+		layout : 'form',
+		items : [ {
+			xtype : 'textfield',
+			fieldLabel : '商品名称',
+			id : 'filWarrantcheckviewgoodsname',
+			name : 'goodsname',
+			maxLength : 100
+		} ]
+	}
+	, {
+		columnWidth : 1,
+		layout : 'form',
+		items : [ {
+			xtype : 'textfield',
+			fieldLabel : '规格',
+			id : 'filWarrantcheckviewgoodsunits',
+			name : 'goodsunits',
+			maxLength : 100
+		} ]
+	}
+	, {
+		columnWidth : 1,
+		layout : 'form',
+		items : [ {
+			xtype : 'combo',
+			fieldLabel : '仓库',
+			id : 'filWarrantcheckviewwarrantcheckstore',
+			name : 'warrantcheckstore',			//小类名称
+			//loadingText: 'loading...',			//正在加载时的显示
+			//editable : false,						//是否可编辑
+			emptyText : '请选择',
+			store : Storehousestore,
+			mode : 'local',					//local是取本地数据的也就是javascirpt(内存)中的数据。
+											//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
+			displayField : 'storehousename',		//显示的字段
+			valueField : 'storehouseid',		//作为值的字段
+			hiddenName : 'warrantcheckstore',
+			triggerAction : 'all',
+			editable : false,
+			maxLength : 100,
+			anchor : '95%',
+		} ]
+	}
+	, {
+		columnWidth : 1,
+		layout : 'form',
+		items : [ {
+			xtype : 'textfield',
+			fieldLabel : '盘点前数量',
+			emptyText : '',
+			id : 'filWarrantcheckviewwarrantchecknumorg',
+			name : 'warrantchecknumorg',
+			maxLength : 100
+		} ]
+	}
+	, {
+		columnWidth : 1,
+		layout : 'form',
+		items : [ {
+			xtype : 'textfield',
+			fieldLabel : '盘点后数量',
+			id : 'filWarrantcheckviewwarrantchecknumnow',
+			name : 'warrantchecknumnow',
+			maxLength : 100
+		} ]
+	}
+	, {
+		columnWidth : 1,
+		layout : 'form',
+		items : [ {
+			xtype : 'combo',
+			fieldLabel : '盘点人',
+			id : 'filWarrantcheckwarrantcheckor',
+			name : 'warrantcheckor',			//小类名称
+			//loadingText: 'loading...',			//正在加载时的显示
+			//editable : false,						//是否可编辑
+			emptyText : '请选择',
+			store : Empstore,
+			mode : 'local',					//local是取本地数据的也就是javascirpt(内存)中的数据。
+											//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
+			displayField : 'empcode',		//显示的字段
+			valueField : 'empcode',		//作为值的字段
+			hiddenName : 'warrantcheckor',
+			triggerAction : 'all',
+			editable : false,
+			maxLength : 100,
+			anchor : '95%',
+		} ]
+	}
+	, {
+		columnWidth : 1,
+		layout : 'form',
+		items : [ {
+			xtype : 'textfield',
+			fieldLabel : '描述',
+			id : 'filWarrantcheckviewwarrantcheckdetail',
+			name : 'warrantcheckdetail',
+			maxLength : 100
+		} ]
+	}
+	]
+});
+
+/*=========////////////============ 筛选的FormPanel(结束) ============////////////=========*/
+
+//导入或检查导入 “盘点记录”
+function impWarrantcheck(url,title,store) {
+	var commonImpForm = new Ext.form.FormPanel({
+		labelWidth : 100, // 标签宽度
+		labelAlign : 'right', // 标签对齐方式
+		bodyStyle : 'padding:5px', // 表单元素和表单面板的边距
+		layout : 'form',
+		frame : true,
+		items : [ {
+			xtype : 'filefield',
+			fieldLabel : '上传文件名',
+			name : 'inputfile',
+			id : 'inputfile',
+			allowBlank : false,
+			anchor : '95%'
+		} ]
+	});
+	var commonImpWindow = new Ext.Window({
+		title : title, // 窗口标题
+		layout : 'fit', // 设置窗口布局模式
+		width : Ext.os.deviceType === 'Phone' ? '100%' : 650, // 窗口宽度
+		height : 120, // 窗口高度
+		modal : true,
+		closable : true, // 是否可关闭
+		collapsible : true, // 是否可收缩
+		maximizable : true, // 设置是否可以最大化
+		border : false, // 边框线设置
+		constrain : true, // 设置窗口是否可以溢出父容器
+		pageY : 50, // 页面定位Y坐标
+		pageX : Ext.os.deviceType === 'Phone' ? 0 : document.body.clientWidth / 2 - 420 / 2, // 页面定位X坐标
+		items : commonImpForm, // 嵌入的表单面板
+		buttons : [
+				{
+					text : '提交',
+					iconCls : 'ok',
+					handler : function() {
+						if (!commonImpForm.form.isValid()) {
+							Ext.Msg.alert('提示', '请正确填写表单!');
+							return;
+						}
+						commonImpForm.form.submit({
+							url : url,
+							waitTitle : '提示',
+							method : 'GET',
+							waitMsg : '正在处理数据,请稍候...',
+							params : {
+								inputfile : Ext.getCmp("inputfile").getValue()
+							},
+							success : function(form, action) {
+								store.reload();
+								Ext.Msg.alert('提示', action.result.msg);
+								commonImpWindow.close();
+							},
+							failure : function(form, action) {
+								Ext.Msg.alert('提示', '网络出现问题，请稍后再试');
+							}
+						});
+					}
+				}, {
+					text : '关闭',
+					iconCls : 'close',
+					handler : function() {
+						commonImpWindow.close();
+					}
+				}]
+	});
+	commonImpWindow.show(); // 显示窗口
+}
+
 //商品的窗口
 function goodsWindow(_form,checkviewstore){
 	var Goodsaction = "CPGoodsAction.do";

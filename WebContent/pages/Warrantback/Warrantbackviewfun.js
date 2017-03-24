@@ -1,3 +1,186 @@
+
+var Storehousefields = ['storehouseid'
+        			    ,'storehousecode' 
+        			    ,'storehousename' 
+        			    ,'storehouseaddress' 
+        			      ];// 全部字段
+var Empfields = ['empid'
+     			    ,'empcode' 
+     			    ,'empdetail' 
+     			      ];// 全部字段
+var Storehousestore = dataStore(Storehousefields, basePath + "CPStorehouseAction.do?method=selAll&wheresql=storehousecompany='"+comid+"' and storehousestatue='启用'");// 定义Storehousestore
+Storehousestore.load();
+var Empstore = dataStore(Empfields, basePath + "CPEmpAction.do?method=selAll&wheresql=empcompany='"+comid+"' and empcode!='隐藏'");// 定义Empstore
+Empstore.load();
+
+var filWarrantbackviewdataForm = Ext.create('Ext.form.Panel', {// 定义新增和修改的FormPanel
+	id:'filWarrantbackviewdataForm',
+	labelAlign : 'right',
+	frame : true,
+	layout : 'column',
+	items : [ {
+		columnWidth : 1,
+		layout : 'form',
+		hidden : true,
+		items : [ {
+			xtype : 'textfield',
+			fieldLabel : '退货台账ID',
+			id : 'filWarrantbackviewidwarrantback',
+			name : 'idwarrantback',
+			maxLength : 100
+		} ]
+	}
+	, {
+		columnWidth : 1,
+		layout : 'form',
+		hidden : true,
+		items : [ {
+			xtype : 'textfield',
+			fieldLabel : '商品',
+			id : 'filWarrantbackviewwarrantbackgoods',
+			name : 'warrantbackgoods',
+			maxLength : 100
+		} ]
+	}
+	, {
+		columnWidth : 1,
+		layout : 'form',
+		items : [ {
+			xtype : 'textfield',
+			fieldLabel : '商品编号',
+			id : 'filWarrantbackviewgoodscode',
+			name : 'goodscode',
+			maxLength : 100
+		} ]
+	}
+	, {
+		columnWidth : 1,
+		layout : 'form',
+		items : [ {
+			xtype : 'textfield',
+			fieldLabel : '商品名称',
+			id : 'filWarrantbackviewgoodsname',
+			name : 'goodsname',
+			maxLength : 100
+		} ]
+	}
+	, {
+		columnWidth : 1,
+		layout : 'form',
+		items : [ {
+			xtype : 'textfield',
+			fieldLabel : '规格',
+			id : 'filWarrantbackviewgoodsunits',
+			name : 'goodsunits',
+			maxLength : 100
+		} ]
+	}
+	, {
+		columnWidth : 1,
+		layout : 'form',
+		items : [ {
+			xtype : 'combo',
+			fieldLabel : '仓库',
+			id : 'filWarrantbackviewwarrantbackstore',
+			name : 'warrantbackstore',			//小类名称
+			//loadingText: 'loading...',			//正在加载时的显示
+			//editable : false,						//是否可编辑
+			emptyText : '请选择',
+			store : Storehousestore,
+			mode : 'local',					//local是取本地数据的也就是javascirpt(内存)中的数据。
+											//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
+			displayField : 'storehousename',		//显示的字段
+			valueField : 'storehouseid',		//作为值的字段
+			hiddenName : 'warrantbackstore',
+			triggerAction : 'all',
+			editable : false,
+			maxLength : 100,
+			anchor : '95%',
+		} ]
+	}
+	, {
+		columnWidth : 1,
+		layout : 'form',
+		items : [ {
+			xtype : 'textfield',
+			fieldLabel : '数量',
+			id : 'filWarrantbackviewwarrantbacknum',
+			name : 'warrantbacknum',
+			maxLength : 100
+		} ]
+	}
+	, {
+		columnWidth : 1,
+		layout : 'form',
+		items : [ {
+			xtype : 'combo',
+			fieldLabel : '退货人',
+			id : 'filWarrantbackviewwarrantbackwho',
+			name : 'warrantbackwho',			//小类名称
+			//loadingText: 'loading...',			//正在加载时的显示
+			//editable : false,						//是否可编辑
+			emptyText : '请选择',
+			store : Empstore,
+			mode : 'local',					//local是取本地数据的也就是javascirpt(内存)中的数据。
+											//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
+			displayField : 'empcode',		//显示的字段
+			valueField : 'empcode',		//作为值的字段
+			hiddenName : 'warrantbackwho',
+			triggerAction : 'all',
+			editable : false,
+			maxLength : 100,
+			anchor : '95%',
+		} ]
+	}
+	, {
+		columnWidth : .9,
+		layout : 'form',
+		items : [ {
+			xtype : 'textfield',
+			fieldLabel : '退货单位',
+			id : 'filWarrantbackviewwarrantbackdetail',
+			name : 'warrantbackdetail',
+			maxLength : 100,
+			readOnly : true
+		} ]
+	}
+	, {
+		columnWidth : .1,
+		layout : 'form',
+		items : [ {
+			xtype : 'button',
+			iconCls : 'select',
+			handler : function() {
+				showCustomer();
+			}
+		} ]
+	}
+	, {
+		columnWidth : 1,
+		layout : 'form',
+		items : [ {
+			xtype : 'combo',
+			fieldLabel : '状态',
+			id : 'filWarrantbackviewwarrantbackstatue',
+			name : 'warrantbackstatue',			//小类名称
+			//loadingText: 'loading...',			//正在加载时的显示
+			//editable : false,						//是否可编辑
+			emptyText : '请选择',
+			store : statueStore,
+			mode : 'local',					//local是取本地数据的也就是javascirpt(内存)中的数据。
+											//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
+			displayField : 'name',		//显示的字段
+			valueField : 'name',		//作为值的字段
+			hiddenName : 'warrantbackstatue',
+			triggerAction : 'all',
+			editable : false,
+			maxLength : 100,
+			anchor : '95%',
+		} ]
+	}
+	]
+});
+
 var Ccustomerviewfields = ['ccustomerid'
 	        			    ,'ccustomercompany' 
 	        			    ,'ccustomerdetail' 

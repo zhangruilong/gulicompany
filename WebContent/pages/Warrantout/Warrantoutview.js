@@ -67,33 +67,7 @@ Ext.onReady(function() {
 		        			    ,'goodsnumnum' 
 		        			      ];// 全部字段
 	var Warrantoutviewkeycolumn = [ 'idwarrantout' ];// 主键
-	var Storehousefields = ['storehouseid'
-	        			    ,'storehousecode' 
-	        			    ,'storehousename' 
-	        			    ,'storehousedetail' 
-	        			    ,'storehousestatue' 
-	        			    ,'storehousecompany' 
-	        			    ,'storehouseupdtime' 
-	        			    ,'storehouseupdor' 
-	        			    ,'storehousecretime' 
-	        			    ,'storehousecreor' 
-	        			    ,'storehouseaddress' 
-	        			      ];// 全部字段
-	var Empfields = ['empid'
-	     			    ,'empcompany' 
-	     			    ,'empcode' 
-	     			    ,'loginname' 
-	     			    ,'password' 
-	     			    ,'empdetail' 
-	     			    ,'empstatue' 
-	     			    ,'createtime' 
-	     			    ,'updtime' 
-	     			      ];// 全部字段
 	var wheresql = "warrantoutcompany='"+comid+"'";
-	var Storehousestore = dataStore(Storehousefields, basePath + "CPStorehouseAction.do?method=selAll&wheresql=storehousecompany='"+comid+"' and storehousestatue='启用'");// 定义Storehousestore
-	Storehousestore.load();
-	var Empstore = dataStore(Empfields, basePath + "CPEmpAction.do?method=selAll&wheresql=empcompany='"+comid+"' and empcode!='隐藏'");// 定义Empstore
-	Empstore.load();
 	var Warrantoutviewstore = dataStore(Warrantoutviewfields, basePath + Warrantoutviewaction + "?method=selQueryCP");// 定义Warrantoutviewstore
 	Warrantoutviewstore.on('beforeload',function(store,options){					//数据加载时的事件
 		var query = Ext.getCmp("queryWarrantoutviewaction").getValue();
@@ -630,9 +604,6 @@ Ext.onReady(function() {
 					WarrantoutviewdataForm.form.reset();
 					Ext.getCmp("Warrantoutviewidwarrantout").setEditable (true);
 					Ext.getCmp('Warrantoutviewwarrantoutstatue').setVisible(false);	//隐藏
-					Ext.getCmp('Warrantoutviewwarrantoutgcode').setReadOnly(true);
-					Ext.getCmp('Warrantoutviewwarrantoutgname').setReadOnly(true);
-					Ext.getCmp('Warrantoutviewwarrantoutgunits').setReadOnly(true);
 					var defIndex = Storehousestore.find('storehousename','主仓库');
 					Ext.getCmp('Warrantoutviewwarrantoutstore').setValue(Storehousestore.getAt(defIndex).get('storehouseid'));
 					addWarrantoutWindow(basePath + "CPWarrantoutAction.do?method=insWarrantout", "新增出库台账", WarrantoutviewdataForm, Warrantoutviewstore);
@@ -679,9 +650,6 @@ Ext.onReady(function() {
 				WarrantoutviewdataForm.form.reset();
 				Ext.getCmp("Warrantoutviewidwarrantout").setEditable (false);
 				Ext.getCmp('Warrantoutviewwarrantoutstatue').setVisible(true);	//显示
-				Ext.getCmp('Warrantoutviewwarrantoutgcode').setReadOnly(true);
-				Ext.getCmp('Warrantoutviewwarrantoutgname').setReadOnly(true);
-				Ext.getCmp('Warrantoutviewwarrantoutgunits').setReadOnly(true);
 				editWarrantoutWindow(basePath + "CPWarrantoutAction.do?method=updWarrantout", "修改", WarrantoutviewdataForm, Warrantoutviewstore);
 				WarrantoutviewdataForm.form.loadRecord(selections[0]);
 			}
@@ -696,12 +664,8 @@ Ext.onReady(function() {
             			text : "筛选",
             			iconCls : 'select',
             			handler : function() {
-            				WarrantoutviewdataForm.form.reset();
             				Ext.getCmp("Warrantoutviewidwarrantout").setEditable (true);
-            				Ext.getCmp('Warrantoutviewwarrantoutgcode').setReadOnly(false);
-            				Ext.getCmp('Warrantoutviewwarrantoutgname').setReadOnly(false);
-            				Ext.getCmp('Warrantoutviewwarrantoutgunits').setReadOnly(false);
-            				outQueryWindow("筛选", WarrantoutviewdataForm, Warrantoutviewstore,Ext.getCmp("queryWarrantoutviewaction").getValue());
+            				outQueryWindow("筛选", filWarrantoutviewdataForm, Warrantoutviewstore,Ext.getCmp("queryWarrantoutviewaction").getValue());
             			}
             		},{
                     	text : "导出",

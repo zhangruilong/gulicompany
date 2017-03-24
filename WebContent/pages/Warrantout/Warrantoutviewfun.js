@@ -1,4 +1,269 @@
 
+var Storehousefields = ['storehouseid'
+        			    ,'storehousecode' 
+        			    ,'storehousename' 
+        			    ,'storehouseaddress' 
+        			      ];// 全部字段
+var Empfields = ['empid'
+     			    ,'empcode' 
+     			    ,'empdetail' 
+     			      ];// 全部字段
+var Storehousestore = dataStore(Storehousefields, basePath + "CPStorehouseAction.do?method=selAll&wheresql=storehousecompany='"+comid+"' and storehousestatue='启用'");// 定义Storehousestore
+Storehousestore.load();
+var Empstore = dataStore(Empfields, basePath + "CPEmpAction.do?method=selAll&wheresql=empcompany='"+comid+"' and empcode!='隐藏'");// 定义Empstore
+Empstore.load();
+/*========/////////================ 筛选的FormPanel(开始) ================////////========*/
+var filWarrantoutviewdataForm = Ext.create('Ext.form.Panel', {// 定义新增的FormPanel
+	id:'filWarrantoutviewdataForm',
+	labelAlign : 'right',
+	frame : true,
+	layout : 'column',
+	items : [ {
+		columnWidth : 1,
+		layout : 'form',
+		hidden : true,
+		items : [ {
+			xtype : 'textfield',
+			fieldLabel : '出库台账ID',
+			id : 'filWarrantoutviewidwarrantout',
+			name : 'idwarrantout',
+			maxLength : 100,
+		} ]
+	}
+	, {
+		columnWidth : 1,
+		layout : 'form',
+		hidden : true,
+		items : [ {
+			xtype : 'textfield',
+			fieldLabel : '商品',
+			id : 'filWarrantoutviewwarrantoutgoods',
+			name : 'warrantoutgoods',
+			maxLength : 100,
+		} ]
+	}
+	, {
+		columnWidth : .9,
+		layout : 'form',
+		items : [ {
+			xtype : 'textfield',
+			fieldLabel : '购买单位',
+			id : 'filWarrantoutviewwarrantoutcusname',
+			name : 'warrantoutcusname',
+			maxLength : 100,
+			readOnly : true
+		} ]
+	}
+	, {
+		columnWidth : .1,
+		layout : 'form',
+		items : [ {
+			xtype : 'button',
+			iconCls : 'select',
+			handler : function() {
+				showCustomer();
+			}
+		} ]
+	}
+	, {
+		columnWidth : 1,
+		layout : 'form',
+		items : [ {
+			xtype : 'textfield',
+			fieldLabel : '商品编码',
+			id : 'filWarrantoutviewwarrantoutgcode',
+			name : 'warrantoutgcode',
+			maxLength : 100
+		} ]
+	}
+	, {
+		columnWidth : 1,
+		layout : 'form',
+		items : [ {
+			xtype : 'textfield',
+			fieldLabel : '商品名称',
+			id : 'filWarrantoutviewwarrantoutgname',
+			name : 'warrantoutgname',
+			maxLength : 100
+		} ]
+	}
+	, {
+		columnWidth : 1,
+		layout : 'form',
+		items : [ {
+			xtype : 'textfield',
+			fieldLabel : '规格',
+			id : 'filWarrantoutviewwarrantoutgunits',
+			name : 'warrantoutgunits',
+			maxLength : 100
+		} ]
+	}
+	, {
+		columnWidth : 1,
+		layout : 'form',
+		items : [ {
+			xtype : 'textfield',
+			fieldLabel : '单位',
+			id : 'filWarrantoutviewwarrantoutgunit',
+			name : 'warrantoutgunit',
+			maxLength : 100
+		} ]
+	}
+	, {
+		columnWidth : 1,
+		layout : 'form',
+		items : [ {
+			xtype : 'combo',
+			fieldLabel : '仓库',
+			id : 'filWarrantoutviewwarrantoutstore',
+			name : 'warrantoutstore',			//小类名称
+			//loadingText: 'loading...',			//正在加载时的显示
+			//editable : false,						//是否可编辑
+			emptyText : '请选择',
+			store : Storehousestore,
+			mode : 'local',					//local是取本地数据的也就是javascirpt(内存)中的数据。
+											//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
+			displayField : 'storehousename',		//显示的字段
+			valueField : 'storehouseid',		//作为值的字段
+			hiddenName : 'warrantoutstore',
+			triggerAction : 'all',
+			editable : false,
+			maxLength : 100,
+			anchor : '95%',
+		} ]
+	}
+	, {
+		columnWidth : 1,
+		layout : 'form',
+		items : [ {
+			xtype : 'textfield',
+			fieldLabel : '数量',
+			id : 'filWarrantoutviewwarrantoutnum',
+			name : 'warrantoutnum',
+			maxLength : 100,
+		} ]
+	}
+	, {
+		columnWidth : 1,
+		layout : 'form',
+		items : [ {
+			xtype : 'textfield',
+			fieldLabel : '销售单价',
+			id : 'filWarrantoutwarrantoutprice',
+			name : 'warrantoutprice',
+			maxLength : 100,
+		} ]
+	}
+	, {
+		columnWidth : 1,
+		layout : 'form',
+		items : [ {
+			xtype : 'textfield',
+			fieldLabel : '销售金额',
+			id : 'filWarrantoutwarrantoutmoney',
+			name : 'warrantoutmoney',
+			maxLength : 100,
+		} ]
+	}
+	, {
+		columnWidth : 1,
+		layout : 'form',
+		items : [ {
+			xtype : 'combo',
+			fieldLabel : '状态',
+			id : 'filWarrantoutviewwarrantoutstatue',
+			name : 'warrantoutstatue',			//小类名称
+			//loadingText: 'loading...',			//正在加载时的显示
+			//editable : false,						//是否可编辑
+			emptyText : '请选择',
+			store : statueStore,
+			mode : 'local',					//local是取本地数据的也就是javascirpt(内存)中的数据。
+											//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
+			displayField : 'name',		//显示的字段
+			valueField : 'name',		//作为值的字段
+			hiddenName : 'warrantoutstatue',
+			triggerAction : 'all',
+			editable : false,
+			maxLength : 100,
+			anchor : '95%'
+		} ]
+	}
+	, {
+		columnWidth : 1,
+		layout : 'form',
+		items : [ {
+			xtype : 'combo',
+			fieldLabel : '领货人',
+			id : 'filWarrantoutviewwarrantoutwho',
+			name : 'warrantoutwho',			//小类名称
+			//loadingText: 'loading...',			//正在加载时的显示
+			//editable : false,						//是否可编辑
+			emptyText : '请选择',
+			store : Empstore,
+			mode : 'local',					//local是取本地数据的也就是javascirpt(内存)中的数据。
+											//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
+			displayField : 'empcode',		//显示的字段
+			valueField : 'empcode',		//作为值的字段
+			hiddenName : 'warrantoutwho',
+			triggerAction : 'all',
+			editable : false,
+			maxLength : 100,
+			anchor : '95%'
+		} ]
+	}
+	, {
+		columnWidth : 1,
+		layout : 'form',
+		hidden: true,
+		items : [ {
+			xtype : 'textfield',
+			fieldLabel : '订单总表ID',
+			id : 'filWarrantoutwarrantoutodm',
+			name : 'warrantoutodm',
+			maxLength : 100,
+			readOnly : true
+		} ]
+	}
+	, {
+		columnWidth : 1,
+		layout : 'form',
+		hidden : true,
+		items : [ {
+			xtype : 'textfield',
+			fieldLabel : '其他类别',
+			id : 'filWarrantoutviewwarrantoutgtype',
+			name : 'warrantoutgtype',
+			maxLength : 100
+		} ]
+	}
+	, {
+		columnWidth : 1,
+		layout : 'form',
+		hidden : true,
+		items : [ {
+			xtype : 'textfield',
+			fieldLabel : '客户ID',
+			id : 'filWarrantoutviewwarrantoutcusid',
+			name : 'warrantoutcusid',
+			maxLength : 100
+		} ]
+	}
+	, {
+		columnWidth : 1,
+		layout : 'form',
+		hidden : true,
+		items : [ {
+			xtype : 'textfield',
+			fieldLabel : '描述',
+			id : 'filWarrantoutviewwarrantoutdetail',
+			name : 'warrantoutdetail',
+			maxLength : 100
+		} ]
+	}
+	]
+});
+/*========/////////================ 筛选的FormPanel(结束) ================////////========*/
+
 var Ccustomerviewfields = ['ccustomerid'
 	        			    ,'ccustomercompany' 
 	        			    ,'ccustomerdetail' 

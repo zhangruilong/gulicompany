@@ -209,6 +209,10 @@ Ext.onReady(function() {
 					if(idwarrantouts != ''){
 						subUrl = '&idwarrantouts='+idwarrantouts;
 					}
+					if(typeof(ordermid)=='undefined' || !ordermid){
+						Ext.Msg.alert('提示', '请选择一个订单。');
+						return;
+					}
 					window.open("chukudanPrint.jsp?ordermid="+ordermid+subUrl+
 							"&ordermcode="+ordermcode+
 							"&customershop="+customershop);
