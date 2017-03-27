@@ -72,7 +72,7 @@
                 <ul class="dropdown-menu">
                     <li><a class="ajax-link" href="editPas.jsp">修改密码</a></li>
                     <li class="divider"></li>
-                    <li><a href="CPCompanyAction.do?method=zhuxiao">注销</a></li>
+                    <li><a class="" href="#" onclick="teitSys()">注销</a></li>
                 </ul>
             </div>
             <!-- user dropdown ends -->
@@ -175,7 +175,7 @@
 		                <ul class="nav nav-pills nav-stacked">
 		                	<li><a class="ajax-link" href="cusInfo.jsp">用户信息</a></li>
 		                	<li><a class="ajax-link" href="editPas.jsp">密码修改</a></li>
-		                	<li><a class="ajax-link" href="CPCompanyAction.do?method=zhuxiao">退出系统</a></li>
+		                	<li><a class="" href="#" onclick="teitSys()">退出系统</a></li>
 		                </ul>
 		                </li>
 		                <li class="accordion">
@@ -273,6 +273,14 @@ $(function(){
 	//显示最新订单信息
 //	timer1 = setInterval(showNewestOrderm,10000);
 })
+
+//退出系统
+function teitSys(){
+	if(confirm('确定要退出系统么？')){
+		window.location.href = 'CPCompanyAction.do?method=zhuxiao';
+	}
+}
+
 function showNewestOrderm(){
 		$.ajax({
 			url:"CPOrderAction.do?method=selNewOrder",

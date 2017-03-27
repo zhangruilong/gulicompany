@@ -141,18 +141,18 @@ public class CPGoodsnumAction extends GoodsnumAction {
 		//仓库名称
 		String storehousename = request.getParameter("storehousename");
 		String sql = "select g.goodsname,g.goodsunits,sh.storehousename, "+
-					"ifnull((select sum(warrantinnum) from warrantin where warrantingoods=g.goodsid and warrantinstore=sh.storehouseid and warrantininswhen>='"+startDate+"' and warrantininswhen<='"+endDate+"' group by warrantingoods),0) as innum, "+
-					"ifnull((select sum(warrantoutnum) from warrantout where warrantoutgoods=g.goodsid and warrantoutstore=sh.storehouseid and warrantoutinswhen>='"+startDate+"' and warrantoutinswhen<='"+endDate+"' group by warrantoutgoods),0) as outnum, "+
-					"ifnull((select sum(warrantbacknum) from warrantback where warrantbackgoods=g.goodsid and warrantbackstore=sh.storehouseid and warrantbackstatue='完好退货' and warrantbackinswhen>='"+startDate+"' and warrantbackinswhen<='"+endDate+"' group by warrantbackgoods),0) as outback, "+
-					"ifnull((select sum(warrantbacknum) from warrantback where warrantbackgoods=g.goodsid and warrantbackstore=sh.storehouseid and warrantbackstatue='采购退货' and warrantbackinswhen>='"+startDate+"' and warrantbackinswhen<='"+endDate+"' group by warrantbackgoods),0) as inback, "+
-					"ifnull(sum(gn.goodsnumnum),0) goodsnumnum, "+
-					"(ifnull(sum(gn.goodsnumnum),0)-ifnull((select sum(warrantinnum) from warrantin where warrantingoods=g.goodsid and warrantinstore=sh.storehouseid and warrantininswhen>='"+startDate+"' and warrantininswhen<='"+endDate+"' group by warrantingoods),0)+ifnull((select sum(warrantoutnum) from warrantout where warrantoutgoods=g.goodsid and warrantoutstore=sh.storehouseid and warrantoutinswhen>='"+startDate+"' and warrantoutinswhen<='"+endDate+"' group by warrantoutgoods),0)-ifnull((select sum(warrantbacknum) from warrantback where warrantbackgoods=g.goodsid and warrantbackstore=sh.storehouseid and warrantbackstatue='完好退货' and warrantbackinswhen>='"+startDate+"' and warrantbackinswhen<='"+endDate+"' group by warrantbackgoods),0)+ifnull((select sum(warrantbacknum) from warrantback where warrantbackgoods=g.goodsid and warrantbackstore=sh.storehouseid and warrantbackstatue='采购退货' and warrantbackinswhen>='"+startDate+"' and warrantbackinswhen<='"+endDate+"' group by warrantbackgoods),0)) as quondamnum "+
-					"from goodsnum gn "+
-					"left outer join goods g on gn.goodsnumgoods=g.goodsid "+
-					"left outer join storehouse sh on gn.goodsnumstore=sh.storehouseid "+
-					"where g.goodscompany='"+lInfo.getCompanyid()+"' "+storehouseSQL+
-					"group by g.goodsid,g.goodsname,g.goodsunits,sh.storehouseid,sh.storehousename "+
-					"order by g.goodsid desc";
+				"(select sum(warrantinnum) from warrantin where warrantingoods=g.goodsid and warrantinstore=sh.storehouseid and warrantinstatue!='已回滚' and warrantininswhen>='"+startDate+"' and warrantininswhen<='"+endDate+"' group by warrantingoods) as innum, "+
+				"(select sum(warrantoutnum) from warrantout where warrantoutgoods=g.goodsid and warrantoutstore=sh.storehouseid and warrantoutstatue='已发货' and warrantoutinswhen>='"+startDate+"' and warrantoutinswhen<='"+endDate+"' group by warrantoutgoods) as outnum, "+
+				"(select sum(warrantbacknum) from warrantback where warrantbackgoods=g.goodsid and warrantbackstore=sh.storehouseid and warrantbackstatue='完好退货' and warrantbackinswhen>='"+startDate+"' and warrantbackinswhen<='"+endDate+"' group by warrantbackgoods) as outback, "+
+				"(select sum(warrantbacknum) from warrantback where warrantbackgoods=g.goodsid and warrantbackstore=sh.storehouseid and warrantbackstatue='采购退货' and warrantbackinswhen>='"+startDate+"' and warrantbackinswhen<='"+endDate+"' group by warrantbackgoods) as inback, "+
+				"sum(gn.goodsnumnum) goodsnumnum, "+
+				"(ifnull(sum(gn.goodsnumnum),0)-ifnull((select sum(warrantinnum) from warrantin where warrantingoods=g.goodsid and warrantinstore=sh.storehouseid and warrantinstatue!='已回滚' and warrantininswhen>='"+startDate+"' and warrantininswhen<='"+endDate+"' group by warrantingoods),0)+ifnull((select sum(warrantoutnum) from warrantout where warrantoutgoods=g.goodsid and warrantoutstore=sh.storehouseid and warrantoutstatue='已发货' and warrantoutinswhen>='"+startDate+"' and warrantoutinswhen<='"+endDate+"' group by warrantoutgoods),0)-ifnull((select sum(warrantbacknum) from warrantback where warrantbackgoods=g.goodsid and warrantbackstore=sh.storehouseid and warrantbackstatue='完好退货' and warrantbackinswhen>='"+startDate+"' and warrantbackinswhen<='"+endDate+"' group by warrantbackgoods),0)+ifnull((select sum(warrantbacknum) from warrantback where warrantbackgoods=g.goodsid and warrantbackstore=sh.storehouseid and warrantbackstatue='采购退货' and warrantbackinswhen>='"+startDate+"' and warrantbackinswhen<='"+endDate+"' group by warrantbackgoods),0)) as quondamnum "+
+				"from goodsnum gn "+
+				"left outer join goods g on gn.goodsnumgoods=g.goodsid "+
+				"left outer join storehouse sh on gn.goodsnumstore=sh.storehouseid "+
+				"where g.goodscompany='"+lInfo.getCompanyid()+"' "+storehouseSQL+
+				"group by g.goodsid,g.goodsname,g.goodsunits,sh.storehouseid,sh.storehousename "+
+				"order by outnum desc,outback desc";
 		//查询总计信息
 		String sumSQL = "select sum(quondamnum) quondamnum,sum(innum) innum,sum(outnum) outnum,sum(outback) outback,sum(inback) inback,sum(goodsnumnum) goodsnumnum from ("+sql+") as A";
 		InventoryVO totalVo = (InventoryVO) selAll(InventoryVO.class, sumSQL).get(0);

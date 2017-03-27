@@ -117,10 +117,10 @@ public class CPGoodsAction extends GoodsAction {
 		for (Customer g : customerLi) {
 			insSingle(g, "mysql");
 		}
-		List<Emp> empLi = selAll(Emp.class, "select * from emp where empcompany='1'", "oracle");
+		/*List<Emp> empLi = selAll(Emp.class, "select * from emp where empcompany='1'", "oracle");
 		for (Emp g : empLi) {
 			insSingle(g, "mysql");
-		}
+		}*/
 		List<Goods> goodsLi = selAll(Goods.class, "select * from goods where goodscompany='1'", "oracle");
 		for (Goods g : goodsLi) {
 			insSingle(g, "mysql");
@@ -129,10 +129,10 @@ public class CPGoodsAction extends GoodsAction {
 		for (Goodsclass g : goodsclassLi) {
 			insSingle(g, "mysql");
 		}
-		List<Indexarea> indexareaLi = selAll(Indexarea.class, "select * from indexarea where indexareacompany='1'", "oracle");
+		/*List<Indexarea> indexareaLi = selAll(Indexarea.class, "select * from indexarea where indexareacompany='1'", "oracle");
 		for (Indexarea g : indexareaLi) {
 			insSingle(g, "mysql");
-		}
+		}*/
 		List<Largecusprice> largecuspriceLi = selAll(Largecusprice.class, "select * from largecusprice where largecuspricecompany='1'", "oracle");
 		for (Largecusprice g : largecuspriceLi) {
 			insSingle(g, "mysql");
@@ -149,10 +149,10 @@ public class CPGoodsAction extends GoodsAction {
 		for (Prices g : pricesLi) {
 			insSingle(g, "mysql");
 		}
-		List<Scant> scantLi = selAll(Scant.class, "select * from scant", "oracle");
+		/*List<Scant> scantLi = selAll(Scant.class, "select * from scant", "oracle");
 		for (Scant g : scantLi) {
 			insSingle(g, "mysql");
-		}
+		}*/
 		List<System_attach> system_attachLi = selAll(System_attach.class, "select * from system_attach", "oracle");
 		for (System_attach g : system_attachLi) {
 			insSingle(g, "mysql");

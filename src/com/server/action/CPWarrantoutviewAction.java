@@ -141,7 +141,7 @@ public class CPWarrantoutviewAction extends WarrantoutviewAction {
 		String[] heads = {"商品编码","商品名称","商品规格","仓库","数量","销售单价","销售金额","状态","备注","领货人","创建时间","创建人","修改时间","修改人"};
 		String[] discard = {"idwarrantout","warrantoutstore","warrantoutgoods","goodsid","goodscompany","warrantoutcompany","warrantoutgtype",
 				"warrantoutggclass","warrantoutgunit","warrantoutgweight","warrantoutordnote","goodscode","goodsname","goodsunits","idgoodsnum",
-				"goodsnumnum","warrantoutcusid","warrantoutcusname" };
+				"goodsnumnum","warrantoutcusid","warrantoutcusname","warrantoutprint","warrantoutodm" };
 		FileUtil.expExcel(response,cuss,heads,discard,"出库台账");
 	}
 	//分页查询
