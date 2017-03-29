@@ -17,6 +17,8 @@
 		var classify = nullStr(getUrlParam('classify'));
 		var creator = nullStr(getUrlParam('creator'));
 	</script>
+	
+	<script type="text/javascript" src="../../js/common2.js"></script>
 	<script type="text/javascript" src="customerManafun.js"></script>
 	<script type="text/javascript" src="customerMana.js"></script>
 <style type="text/css">

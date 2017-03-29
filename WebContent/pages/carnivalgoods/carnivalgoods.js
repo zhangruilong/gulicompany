@@ -764,7 +764,7 @@ Ext.onReady(function() {
 					BkgoodsdataForm.form.reset();
 					Ext.getCmp("Bkgoodsbkgoodsid").setEditable (false);
 					Ext.getCmp("Bkgoodsbkgoodscode").setDisabled(true);
-					editBKgoodsWindow(basePath + Bkgoodsaction + "?method=updAll", "修改", BkgoodsdataForm, Bkgoodsstore,selections[0].data['bkgoodsscope']);
+					editBKgoodsWindow(basePath + Bkgoodsaction + "?method=updAll", "修改", BkgoodsdataForm, Bkgoodsstore,selections[0].data['bkgoodsscope'],Bkgoodsfields);
 					BkgoodsdataForm.form.loadRecord(selections[0]);
 				}
 			},'-',{

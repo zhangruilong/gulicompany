@@ -433,7 +433,7 @@ function warrantoutPlacing(url, selections, store, fields) {
 				if(selections[i].data['warrantoutstatue'] == '发货请求'){
 					var goodsnum = selections[i].data['goodsnumnum'];
 					//如果商品在主仓库中的数量信息 未知 或 数量小于出库数量
-					if(Ext.isEmpty(goodsnum) || selections[i].data['warrantoutnum'] > goodsnum){
+					if(Ext.isEmpty(goodsnum) || parseInt(selections[i].data['warrantoutnum']) > parseInt(goodsnum)){
 						msg += selections[i].data['warrantoutgname']+',';
 					}
 					ids += "{";
@@ -790,7 +790,7 @@ function addWarrantoutWindow(url,title,_form,store) {
 }
 
 //修改出库台账记录的窗口
-function editWarrantoutWindow(url,title,_form,store) {
+function editWarrantoutWindow(url,title,_form,store,Warrantoutviewfields) {
 	
 	var dataWindow = new Ext.Window({
 		title : title, // 窗口标题
@@ -839,7 +839,7 @@ function editWarrantoutWindow(url,title,_form,store) {
 											success : function(form, action) {
 												Ext.Msg.alert('提示', action.result.msg,function(){
 													dataWindow.hide();
-													store.reload();
+													updGrid(_form,Warrantoutviewfields);
 												});
 											},failure : function(form, action) {
 												Ext.Msg.alert('提示', '网络出现问题，请稍后再试');

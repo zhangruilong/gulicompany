@@ -211,7 +211,24 @@ Ext.onReady(function() {
 				editable : false,
 				maxLength : 100,
 				allowBlank : false,
-				anchor : '95%'
+				anchor : '95%',
+				listeners : {
+					change : function(field , newValue , oldValue , eOpts ){
+						Ext.getCmp('Ccustomerviewcustomerlevel').setValue(newValue);
+					}
+				}
+			} ]
+		}
+		, {
+			columnWidth : 1,
+			layout : 'form',
+			hidden : true,
+			items : [ {
+				xtype : 'textfield',
+				fieldLabel : '等级',
+				id : 'Ccustomerviewcustomerlevel',
+				name : 'customerlevel',
+				maxLength : 100
 			} ]
 		}
  		, {
@@ -424,7 +441,7 @@ Ext.onReady(function() {
 				}
 				CcustomerviewdataForm.form.reset();
 				Ext.getCmp("Ccustomerviewccustomerid").setEditable (false);
-				createTextWindow(basePath + Ccustomerviewaction + "?method=updateCustomerInfo", "修改", CcustomerviewdataForm, Ccustomerviewstore);
+				editCcustomer(basePath + Ccustomerviewaction + "?method=updateCustomerInfo", "修改", CcustomerviewdataForm, Ccustomerviewstore,Ccustomerviewfields);
 				CcustomerviewdataForm.form.loadRecord(selections[0]);
 			}
 		},'-',{

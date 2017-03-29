@@ -12,6 +12,7 @@
 	String comid = info.getCompanyid();
 	%>
 	<script type="text/javascript" src="../../zrlextpages/common/jquery/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="../../js/common2.js"></script>
 	<script type="text/javascript">
 		var comid = '<%=comid%>';
 		var customertype = nullStr(getUrlParam('customertype'));	//搜索条件中的客户类型

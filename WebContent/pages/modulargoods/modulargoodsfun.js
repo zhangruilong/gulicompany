@@ -285,7 +285,7 @@ function addBKgoodsWindow(url,title,_form,store) {
 	dataWindow.show();
 }
 //修改秒杀商品的窗口
-function editBKgoodsWindow(url,title,_form,store,bkgoodsscope) {
+function editBKgoodsWindow(url,title,_form,store,bkgoodsscope,Bkgoodsfields) {
 	var dataWindow = new Ext.Window({
 		title : title, // 窗口标题
 		layout : 'fit', // 设置窗口布局模式,当设置为fit时 scrollable 属性的设置会失效
@@ -328,7 +328,7 @@ function editBKgoodsWindow(url,title,_form,store,bkgoodsscope) {
 								success : function(form, action) {
 									Ext.Msg.alert('提示', action.result.msg,function(){
 										dataWindow.hide();
-										store.reload();
+										updGrid(_form,Bkgoodsfields);
 									});
 								},
 								failure : function(form, action) {

@@ -385,7 +385,7 @@ Ext.onReady(function() {
 					}
 					CcustomerviewdataForm.form.reset();
 					Ext.getCmp("Ccustomerviewccustomerid").setEditable (false);
-					createTextWindow(basePath + Ccustomerviewaction + "?method=updateCustomerInfo", "修改", CcustomerviewdataForm, Ccustomerviewstore);
+					editCcustomer(basePath + Ccustomerviewaction + "?method=updateCustomerInfo", "修改", CcustomerviewdataForm, Ccustomerviewstore,Ccustomerviewfields);
 					CcustomerviewdataForm.form.loadRecord(selections[0]);
 				}
 			},'-',{

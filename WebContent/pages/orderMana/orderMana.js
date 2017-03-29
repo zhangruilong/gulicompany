@@ -527,7 +527,8 @@ Ext.onReady(function() {
 					    							if(data.msg=='操作成功'){
 					    								Ext.Msg.alert('提示', '操作成功，订单已确认。');
 					    								Ext.getCmp("Ordermviewordermstatue").setValue("已确认");
-					    								Ordermviewstore.load();
+				    									selections[0].set('ordermstatue','已确认');
+				        								selections[0].set('updtime',Ext.util.Format.date(new Date(),'Y-m-d h:i:s'));
 					    							} else {
 					    								Ext.Msg.alert('提示', data.msg);
 					    							}
@@ -575,7 +576,8 @@ Ext.onReady(function() {
 					    								if(data.msg=='操作成功'){
 					    									Ext.Msg.alert('提示', '操作成功，发货请求已转至仓库。');
 					    									Ext.getCmp("Ordermviewordermstatue").setValue("发货中");
-					    									Ordermviewstore.load();
+					    									selections[0].set('ordermstatue','发货中');
+					        								selections[0].set('updtime',Ext.util.Format.date(new Date(),'Y-m-d h:i:s'));
 					    								} else {
 					    									Ext.Msg.alert('提示', data.msg);
 					    								}
@@ -587,50 +589,7 @@ Ext.onReady(function() {
 					    						});
 					    					}
 					    				}
-									}/*,'-',{
-										text : '<span style="color:#FFFFFF;">完成</span>',
-										xtype: 'button',
-										style: {											//自定义单个元素的样式
-											//color:'#FFFFFF',
-											background:'#1D6BE9'
-										},
-					    				handler : function() {
-					    					var selections = Ordermviewgrid.getSelection();				//得到被选定的行
-					    					var ordermid = '';
-					    					if(typeof(selections)=='undefined' || !selections){
-					    						Ext.Msg.alert('提示', '请选择要修改状态的订单。');
-					    						return;
-					    					} else if(selections.length>1){
-					    						Ext.Msg.alert('提示', '只能选择一个订单。');
-					    						return;
-					    					} else {
-					    						ordermid = selections[0].data['ordermid'];
-					    					}
-					    					$.ajax({
-					    						url:"CPOrderAction.do",
-					    						type:"post",
-					    						data:{
-					    							method:"updateOrdermStatue",
-					    							statue:"已完成",
-					    							ordermid:ordermid
-					    						},
-					    						success : function(resp){
-					    							var data = eval('('+resp+')');
-					    							if(data.msg=='操作成功'){
-					    								Ext.Msg.alert('提示', '操作成功，订单已完成。');
-					    								Ext.getCmp("Ordermviewordermstatue").setValue("已完成");
-					    								Ordermviewstore.load();
-					    							} else {
-					    								Ext.Msg.alert('提示', data.msg);
-					    							}
-					    						},
-					    						error : function(resp){
-					    							var data = eval('('+resp+')');
-					    							Ext.Msg.alert('提示', data.msg);
-					    						}
-					    					});
-					    				}
-									}*/]
+									}]
 								});
 								/*   定义 orderd(订单商品) 的 表格  结束    */
 								Orderdstore.load();
@@ -652,23 +611,24 @@ Ext.onReady(function() {
     				}
 				},'-',{
 					xtype: 'datefield',
-					fieldLabel : '订单日期',
-					labelWidth:60,				//标签宽度
+					fieldLabel : '',
+//					labelWidth:60,				//标签宽度
 					id:"startDate",
 					name:"startDate",
 					editable:false, //不允许对日期进行编辑
-					width:165,
+					width:100,
 					format:"Y-m-d",
 					emptyText:"请选择日期",		//默认显示的日期
 					value: startDate
 				},{
 					xtype: 'datefield',
-					fieldLabel : '到',
-					labelWidth:20,
+					fieldLabel : '-',
+					labelSeparator : '',
+					labelWidth:10,
 					id:"endDate",
 					name:"endDate",
 					editable:false, //不允许对日期进行编辑
-					width:125,
+					width:115,
 					format:"Y-m-d",
 					emptyText:"请选择日期",		//默认显示的日期
 					value: endDate
@@ -742,7 +702,8 @@ Ext.onReady(function() {
     							var data = eval('('+resp+')');
     							if(data.msg=='操作成功'){
     								Ext.Msg.alert('提示', '操作成功，订单已确认。');
-    								Ordermviewstore.load();
+    								selections[0].set('ordermstatue','已确认');
+    								selections[0].set('updtime',Ext.util.Format.date(new Date(),'Y-m-d h:i:s'));
     							} else {
     								Ext.Msg.alert('提示', data.msg);
     							}
@@ -789,7 +750,8 @@ Ext.onReady(function() {
     								var data = eval('('+resp+')');
     								if(data.msg=='操作成功'){
     									Ext.Msg.alert('提示', '操作成功，发货请求已转至仓库。');
-    									Ordermviewstore.load();
+    									selections[0].set('ordermstatue','发货中');
+        								selections[0].set('updtime',Ext.util.Format.date(new Date(),'Y-m-d h:i:s'));
     								} else {
     									Ext.Msg.alert('提示', data.msg);
     								}
@@ -801,49 +763,7 @@ Ext.onReady(function() {
     						});
     					}
     				}
-				}/*,'-',{
-					text : '<span style="color:#FFFFFF;">完成</span>',
-					xtype: 'button',
-					style: {											//自定义单个元素的样式
-						//color:'#FFFFFF',
-						background:'#1D6BE9'
-					},
-    				handler : function() {
-    					var selections = Ordermviewgrid.getSelection();				//得到被选定的行
-    					var ordermid = '';
-    					if(typeof(selections)=='undefined' || !selections){
-    						Ext.Msg.alert('提示', '请选择要修改状态的订单。');
-    						return;
-    					} else if(selections.length>1){
-    						Ext.Msg.alert('提示', '只能选择一个订单。');
-    						return;
-    					} else {
-    						ordermid = selections[0].data['ordermid'];
-    					}
-    					$.ajax({
-    						url:"CPOrderAction.do",
-    						type:"post",
-    						data:{
-    							method:"updateOrdermStatue",
-    							statue:"已完成",
-    							ordermid:ordermid
-    						},
-    						success : function(resp){
-    							var data = eval('('+resp+')');
-    							if(data.msg=='操作成功'){
-    								Ext.Msg.alert('提示', '操作成功，订单已完成。');
-    								Ordermviewstore.load();
-    							} else {
-    								Ext.Msg.alert('提示', data.msg);
-    							}
-    						},
-    						error : function(resp){
-    							var data = eval('('+resp+')');
-    							Ext.Msg.alert('提示', data.msg);
-    						}
-    					});
-    				}
-				}*/
+				}
 		]
 	});
 	/*   定义 orderm(订单总表) 的 表格  结束    */

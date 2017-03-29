@@ -56,7 +56,7 @@ public class LoginFilter implements Filter {
         	if(comid == null || "".equals(comid)) {
         		chain.doFilter(servletRequest, servletResponse);
         	}else{
-                servletResponse.sendRedirect(basepath+"/main.jsp");
+                servletResponse.sendRedirect(basepath+"/index.html");
         	}
             return;
         }

@@ -650,7 +650,7 @@ Ext.onReady(function() {
 				WarrantoutviewdataForm.form.reset();
 				Ext.getCmp("Warrantoutviewidwarrantout").setEditable (false);
 				Ext.getCmp('Warrantoutviewwarrantoutstatue').setVisible(true);	//显示
-				editWarrantoutWindow(basePath + "CPWarrantoutAction.do?method=updWarrantout", "修改", WarrantoutviewdataForm, Warrantoutviewstore);
+				editWarrantoutWindow(basePath + "CPWarrantoutAction.do?method=updWarrantout", "修改", WarrantoutviewdataForm, Warrantoutviewstore,Warrantoutviewfields);
 				WarrantoutviewdataForm.form.loadRecord(selections[0]);
 			}
 		},'-',{

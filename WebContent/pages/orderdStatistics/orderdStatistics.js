@@ -1,5 +1,5 @@
 var startDate = Ext.util.Format.date(new Date(),'Y-m-d')+' 00:00:00';			//查询的开始时间
-var endDate = Ext.util.Format.date(new Date(),'Y-m-d H:i:s');				//查询结束时间
+var endDate = Ext.util.Format.date(new Date(),'Y-m-d'+' 23:59:59');				//查询结束时间
 /*之前的查询条件*/
 var odStartDate=startDate;								
 var odEndDate=endDate;
@@ -228,23 +228,24 @@ Ext.onReady(function() {
 				}
 			},'-',{
 				xtype: 'datetimefield',
-				fieldLabel : '订单日期',
+				fieldLabel : '',
 				labelWidth:60,				//标签宽度
 				id:"startDate",
 				name:"startDate",
 				editable:false, //不允许对日期进行编辑
-				width:220,
+				width:155,
 				format:"Y-m-d H:i:s",
 				emptyText:"请选择日期",		//默认显示的日期
 				value: startDate
 			},{
 				xtype: 'datetimefield',
-				fieldLabel : '到',
-				labelWidth:20,
+				fieldLabel : '-',
+				labelSeparator : '',
+				labelWidth:10,
 				id:"endDate",
 				name:"endDate",
 				editable:false, //不允许对日期进行编辑
-				width:180,
+				width:170,
 				format:"Y-m-d H:i:s",
 				emptyText:"请选择日期",		//默认显示的日期
 				value: endDate

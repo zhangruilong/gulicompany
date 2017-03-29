@@ -585,7 +585,7 @@ function scantWindow(){
 }
 
 //修改商品的窗口
-function editGoodsWindow(url,title,_form,store) {
+function editGoodsWindow(url,title,_form,store,Goodsfields) {
 	var dataWindow = new Ext.Window({
 		title : title, // 窗口标题
 		layout : 'fit', // 设置窗口布局模式
@@ -616,7 +616,7 @@ function editGoodsWindow(url,title,_form,store) {
 								success : function(form, action) {
 									Ext.Msg.alert('提示', action.result.msg,function(){
 										dataWindow.hide();
-										store.reload();
+										updGrid(_form,Goodsfields);
 									});
 								},
 								failure : function(form, action) {

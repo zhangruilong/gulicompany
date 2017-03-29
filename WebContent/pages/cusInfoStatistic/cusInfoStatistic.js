@@ -1,5 +1,5 @@
-var startDate = Ext.util.Format.date(new Date(),'Y-m-d')+' 00:00:00';			//查询的开始时间
-var endDate = Ext.util.Format.date(new Date(),'Y-m-d H:i:s');				//查询结束时间
+var startDate = Ext.util.Format.date(new Date(),'Y-m-d');			//查询的开始时间
+var endDate = Ext.util.Format.date(new Date(),'Y-m-d');				//查询结束时间
 /*之前的查询条件*/
 var odStartDate=startDate;								
 var odEndDate=endDate;
@@ -43,8 +43,8 @@ Ext.onReady(function() {
 		var new_params = {		//每次数据加载的时候传递的参数
 				json : queryjson,
 				comid : comid,
-				startDate : startDate,
-				endDate : endDate,
+				startDate : startDate+" 00:00:00",
+				endDate : endDate+" 23:59:59",
 				query : query,
 				limit : customerStatbbar.pageSize
 		};
@@ -159,33 +159,34 @@ Ext.onReady(function() {
 				}
 			}
 		},'-',{
-				xtype: 'datetimefield',
-				fieldLabel : '订单日期',
-				labelWidth:60,				//标签宽度
-				id:"startDate",
-				name:"startDate",
-				editable:false, //不允许对日期进行编辑
-				width:220,
-				format:"Y-m-d H:i:s",
-				emptyText:"请选择日期",		//默认显示的日期
-				value: startDate
-			},{
-				xtype: 'datetimefield',
-				fieldLabel : '到',
-				labelWidth:20,
-				id:"endDate",
-				name:"endDate",
-				editable:false, //不允许对日期进行编辑
-				width:180,
-				format:"Y-m-d H:i:s",
-				emptyText:"请选择日期",		//默认显示的日期
-				value: endDate
-			},{
+			xtype: 'datefield',
+			fieldLabel : '',
+//			labelWidth:60,				//标签宽度
+			id:"startDate",
+			name:"startDate",
+			editable:false, //不允许对日期进行编辑
+			width:100,
+			format:"Y-m-d",
+			emptyText:"请选择日期",		//默认显示的日期
+			value: startDate
+		},{
+			xtype: 'datefield',
+			fieldLabel : '-',
+			labelSeparator : '',
+			labelWidth:10,
+			id:"endDate",
+			name:"endDate",
+			editable:false, //不允许对日期进行编辑
+			width:115,
+			format:"Y-m-d",
+			emptyText:"请选择日期",		//默认显示的日期
+			value: endDate
+		},{
 				text : "查询",
 				xtype: 'button',
 				handler : function() {
-					startDate = Ext.util.Format.date(Ext.getCmp("startDate").getValue(),'Y-m-d H:i:s');		//得到时间选择框中的开始时间
-					endDate = Ext.util.Format.date(Ext.getCmp("endDate").getValue(),'Y-m-d H:i:s');			//结束时间
+					startDate = Ext.util.Format.date(Ext.getCmp("startDate").getValue(),'Y-m-d');		//得到时间选择框中的开始时间
+					endDate = Ext.util.Format.date(Ext.getCmp("endDate").getValue(),'Y-m-d');			//结束时间
 					customerStatstore.load();
 				}
 			},'-',{

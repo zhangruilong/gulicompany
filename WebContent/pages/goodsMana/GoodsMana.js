@@ -182,7 +182,18 @@ Ext.onReady(function() {
 				anchor : '95%',
 				labelWidth: 40,
 				width : 302,
-				margin : '5 10 5 10'
+				margin : '5 10 5 10',
+				listeners : {
+					change : function( combo , newValue , oldValue , eOpts ){
+						Ext.getCmp('Goodsgoodsclassname').setValue(combo.getRawValue());
+					}
+				}
+			},{
+				xtype : 'hidden',
+				fieldLabel : '小类名称',
+				id : 'Goodsgoodsclassname',
+				name : 'goodsclassname',
+				maxLength : 100,
 			} ]
 		}
 		, {
@@ -304,7 +315,7 @@ Ext.onReady(function() {
 				triggerAction : 'all',
 				editable : false,
 				maxLength : 100,
-				anchor : '95%',
+				anchor : '95%'
 			} ]
 		}
 		
@@ -583,7 +594,7 @@ Ext.onReady(function() {
 					GoodsdataForm.form.reset();
 					Ext.getCmp("Goodsgoodsid").setEditable (false);
 					Ext.getCmp("Goodsgoodscode").setDisabled (true);
-					editGoodsWindow(basePath + "CPGoodsAction.do?method=updAll", "修改商品信息", GoodsdataForm, Goodsstore);
+					editGoodsWindow(basePath + "CPGoodsAction.do?method=updAll", "修改商品信息", GoodsdataForm, Goodsstore,Goodsfields);
 					GoodsdataForm.form.loadRecord(selections[0]);
 				}
 			},'-',{
