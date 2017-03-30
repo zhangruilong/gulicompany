@@ -103,8 +103,9 @@ Ext.onReady(function() {
 			odCusType = cusType;
 			odQuery = query;
 			odQueryjson = queryjson;
+			store.loadPage(1);
 		}
-		Ext.apply(Goodsstore.proxy.extraParams, new_params);    //ext 4.0
+		Ext.apply(store.proxy.extraParams, new_params);    //ext 4.0
 	});
 	
 	GoodsdataForm = Ext.create('Ext.form.Panel', {// 定义新增和修改的FormPanel

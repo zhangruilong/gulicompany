@@ -40,6 +40,7 @@
 	margin:0px auto;
 	margin-top:1%;
 	width: 700px;
+	height: 381px;
 	background-color: #FFFFFF;
 }
 .elegant-aero p input[type="checkbox"]{
@@ -392,6 +393,7 @@ function closeCdPopup(){
 }
 //加载商品数据
 function loadGoodsData(pagenowGoods){
+	$("#goods_LCXD tr:gt(0)").remove();
 	var jsonDATA = eval('('+$(".tt_cusInfo span:eq(3)").text()+')');
 	$.post("CPGoodsviewAction.do?method=customerGoods",{
 			"companyid" : comid,
@@ -402,14 +404,16 @@ function loadGoodsData(pagenowGoods){
 			customerid : jsonDATA.customerInfo.customerid
 	},function(resp){
 		var data = eval('('+resp+')');
-		$("#goods_LCXD tr:gt(0)").remove();
 		$.each(data.goodsList,function(i,item){
 			var strJSON = JSON.stringify(item);
 			var price = 0;													//商品价格
 			var unit = '';													//商品单位
-			
-			price = item.largecuspriceprice;
-			unit = item.largecuspriceunit;
+			if(typeof(item.largecuspriceprice)!='undefined' && item.largecuspriceprice){
+				price = item.largecuspriceprice;
+			}
+			if(typeof(item.largecuspriceunit)!='undefined' && item.largecuspriceunit){
+				unit = item.largecuspriceunit;
+			}
 			
 			$("#goods_LCXD").append('<tr>'+
 					'<td>'+(i+1)+'</td>'+

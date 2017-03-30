@@ -66,6 +66,33 @@ Ext.onReady(function() {
 		}
 		Ext.apply(store.proxy.extraParams, new_params);    //ext 4.0
 	});
+	var xian = new Array();		//新增客户的地区
+	var city='';	//新增客户的城市
+	//查询经销商的城市和服务地区
+	$.ajax({
+		url : "CPCompanyviewAction.do?method=selAll",
+		type : "post",
+		data : {
+			wheresql : "companyid='"+comid+"'"
+		},
+		success : function(resp){
+			var data = eval('('+resp+')');
+			if(data.code=202){
+				var companyview = data.root[0];
+				xian = companyview.createtime.split('/');
+				city = companyview.cityparentname;
+				var ct = [city];
+				Ext.getCmp('Ccustomerviewcustomercity').setStore(ct);
+				Ext.getCmp('Ccustomerviewcustomerxian').setStore(xian);
+			} else {
+				Ext.Msg.alert('提示',data.msg);
+			}
+		},
+		error : function(resp){
+			var data = eval('('+resp+')');
+			Ext.Msg.alert('提示',data.msg);
+		}
+	});
 	var CcustomerviewdataForm = Ext.create('Ext.form.Panel', {// 定义新增和修改的FormPanel
 		id:'CcustomerviewdataForm',
 		labelAlign : 'right',
@@ -427,6 +454,8 @@ Ext.onReady(function() {
 				CcustomerviewdataForm.form.reset();
 				Ext.getCmp("Ccustomerviewccustomerid").setEditable (true);
 				Ext.getCmp("Ccustomerviewcustomerstatue").setValue('启用');
+				Ext.getCmp('Ccustomerviewcustomercity').setValue(city);
+				Ext.getCmp('Ccustomerviewcustomerxian').setValue(xian[0]);
 				createTextWindow(basePath + Ccustomerviewaction + "?method=insSpecialCustomer", "新增", CcustomerviewdataForm, Ccustomerviewstore);
 			}
 		},'-',{

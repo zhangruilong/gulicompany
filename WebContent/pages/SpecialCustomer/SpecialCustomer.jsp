@@ -16,30 +16,7 @@
 	<script type="text/javascript">
 		var comid = '<%=comid%>';
 		var customertype = nullStr(getUrlParam('customertype'));	//搜索条件中的客户类型
-		var xian = new Array();		//新增客户的地区
-		var city='';	//新增客户的城市
-		//查询经销商的城市和服务地区
-		$.ajax({
-			url : "CPCompanyviewAction.do?method=selAll",
-			type : "post",
-			data : {
-				wheresql : "companyid='"+comid+"'"
-			},
-			success : function(resp){
-				var data = eval('('+resp+')');
-				if(data.code=202){
-					var companyview = data.root[0];
-					xian = companyview.createtime.split('/');
-					city = companyview.cityparentname;
-				} else {
-					Ext.Msg.alert('提示',data.msg);
-				}
-			},
-			error : function(resp){
-				var data = eval('('+resp+')');
-				Ext.Msg.alert('提示',data.msg);
-			}
-		});
+		
 	</script>
 	<script type="text/javascript" src="SpecialCustomerfun.js"></script>
 	<script type="text/javascript" src="SpecialCustomer.js"></script>

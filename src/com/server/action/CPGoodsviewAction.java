@@ -40,15 +40,22 @@ public class CPGoodsviewAction extends GoodsviewAction {
 		if(pagenowGoods == null){
 			pagenowGoods = "1";
 		}
-		String sql = "select * from (SELECT g.*,gc.goodsclassname, lcp.largecuspriceid, lcp.largecuspriceprice, lcp.largecuspriceunit, "+
-			    "lcp.largecuspriceunit2, lcp.largecuspriceprice2 FROM goods g left outer JOIN prices p ON p.pricesgoods = g.goodsid LEFT  "+
-			    "outer JOIN goodsclass gc ON g.goodsclass = gc.goodsclassid LEFT outer JOIN largecusprice lcp ON lcp.largecuspricegoods = g.goodsid "+
-			    "WHERE lcp.largecuspricecustomer = '"+customerid+"' AND g.goodscompany = '"+companyid+"' AND ((p.pricesclass = '"+pricesclass+"' AND p.priceslevel = '"+priceslevel+"')  "+
-			    "or p.pricesid is null) UNION all SELECT g.*,gc.goodsclassname, p.pricesid, p.pricesprice, p.pricesunit, p.pricesprice2, "+
-			    "p.pricesunit2 FROM goods g left outer JOIN prices p ON p.pricesgoods = g.goodsid  "+
-			    "LEFT outer JOIN goodsclass gc ON g.goodsclass = gc.goodsclassid "+
-			    "LEFT outer JOIN largecusprice lcp ON lcp.largecuspricegoods = g.goodsid WHERE lcp.largecuspricecustomer IS NULL "+
-			    "AND g.goodscompany = '"+companyid+"' AND p.pricesclass = '"+pricesclass+"' AND p.priceslevel = '"+priceslevel+"') A ";
+		String sql = "select * from (SELECT g.*,gc.goodsclassname, lcp.largecuspriceid, lcp.largecuspriceprice, lcp.largecuspriceunit, lcp.largecuspriceunit2, lcp.largecuspriceprice2 "+
+					"FROM goods g "+
+					"LEFT outer JOIN goodsclass gc ON g.goodsclass = gc.goodsclassid "+
+					"LEFT outer JOIN largecusprice lcp ON lcp.largecuspricegoods = g.goodsid "+
+					"WHERE lcp.largecuspricecustomer = '"+customerid+"' AND g.goodscompany = '"+companyid+"' "+
+					"UNION all "+
+					"SELECT g.*,gc.goodsclassname,p.pricesid, p.pricesprice, p.pricesunit, p.pricesprice2, p.pricesunit2 "+
+					"FROM goods g right outer JOIN prices p ON p.pricesgoods = g.goodsid "+
+					"LEFT outer JOIN goodsclass gc ON g.goodsclass = gc.goodsclassid LEFT outer JOIN largecusprice lcp ON lcp.largecuspricegoods = g.goodsid "+
+					"WHERE g.goodscompany = '"+companyid+"' and p.pricesclass = '"+pricesclass+"' AND p.priceslevel = '"+priceslevel+"' and (lcp.largecuspricecustomer != '"+customerid+"' or lcp.largecuspriceid is null) "+
+					"UNION all "+
+					"SELECT g.*,gc.goodsclassname,null, null, null, null, null "+
+					"FROM goods g LEFT outer JOIN goodsclass gc ON g.goodsclass = gc.goodsclassid "+
+					" left outer JOIN prices p ON p.pricesgoods = g.goodsid "+
+					"LEFT outer JOIN largecusprice lcp ON lcp.largecuspricegoods = g.goodsid "+
+					"where p.pricesid is null and (lcp.largecuspricecustomer != '"+customerid+"' or lcp.largecuspriceid is null)) A ";
 		if(CommonUtil.isNotEmpty(goodscode)){
 			sql += "where (goodscode like '%"+goodscode+"%' or GOODSNAME like '%"+goodscode+"%' or goodsunits like '%"+goodscode+"%' or goodsclassname like '%"+goodscode+"%')";
 		}

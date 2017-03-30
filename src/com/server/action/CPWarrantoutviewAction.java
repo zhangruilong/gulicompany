@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.server.poco.GoodsnumPoco;
 import com.server.poco.WarrantoutPoco;
 import com.server.poco.WarrantoutviewPoco;
 import com.server.pojo.Goods;
@@ -35,6 +36,7 @@ public class CPWarrantoutviewAction extends WarrantoutviewAction {
 		List<String> sqlLi = new ArrayList<String>();
 		List<String> odmLi = new ArrayList<String>();
 		List<Goodsnum> newGNLi = new ArrayList<Goodsnum>();		//要新增的 商品库存 集合
+		List<Goodsnum> updGNLi = new ArrayList<Goodsnum>();		//修改的 "商品库存"
 		String time = DateUtils.getDateTime();
 		for(Warrantoutview temp:cuss){
 			if(temp.getWarrantoutstatue().equals("发货请求")){
@@ -49,11 +51,29 @@ public class CPWarrantoutviewAction extends WarrantoutviewAction {
 				updWar.setWarrantoutupdwho(lgif.getUsername());	//修改人
 				String updTemp = "";
 				if(null != temp.getGoodsnumnum() && !temp.getGoodsnumnum().equals("undefined")){
-					Integer num =  Integer.parseInt(temp.getGoodsnumnum()) - Integer.parseInt(temp.getWarrantoutnum());
-					String updNumSql = "update goodsnum g set g.goodsnumnum='"+num+"' where g.idgoodsnum='"+temp.getIdgoodsnum()+"'";
+					if(updGNLi.size()==0){
+						Integer num =  Integer.parseInt(temp.getGoodsnumnum()) - Integer.parseInt(temp.getWarrantoutnum());
+						Goodsnum updGN= new Goodsnum(temp.getIdgoodsnum(), null, num+"", null);
+						updGNLi.add(updGN);
+					} else {
+						for (int i = 0; i < updGNLi.size(); i++) {
+							Goodsnum gn = updGNLi.get(i);
+							if(gn.getIdgoodsnum().equals(temp.getIdgoodsnum())){
+								//如果要修改的 商品库存 已存在
+								Integer goodsnumnum = Integer.parseInt(gn.getGoodsnumnum()) - Integer.parseInt(temp.getWarrantoutnum());
+								gn.setGoodsnumnum(goodsnumnum.toString());
+								break;
+							} else if(i==updGNLi.size()-1){
+								//如果最后一次循环时要修改的 商品库存 不存在则插入一个要修改的商品库存
+								Integer num =  Integer.parseInt(temp.getGoodsnumnum()) - Integer.parseInt(temp.getWarrantoutnum());
+								Goodsnum updGN= new Goodsnum(temp.getIdgoodsnum(), null, num+"", null);
+								updGNLi.add(updGN);
+								break;
+							}
+						}
+					}
 					updTemp = getUpdSingleSql(updWar, WarrantoutPoco.KEYCOLUMN);
 					sqlLi.add(updTemp);
-					sqlLi.add(updNumSql);
 				} else {
 					String goodsid = temp.getWarrantoutgoods();
 					if(CommonUtil.isNotEmpty(goodsid)){
@@ -68,16 +88,10 @@ public class CPWarrantoutviewAction extends WarrantoutviewAction {
 									//如果要新增的 商品库存 已存在
 									Integer goodsnumnum = Integer.parseInt(gn.getGoodsnumnum()) - Integer.parseInt(temp.getWarrantoutnum());
 									gn.setGoodsnumnum(goodsnumnum.toString());
-									if(goodsid.equals("79")){
-										System.out.println(goodsnumnum.toString());
-									}
 									break;
 								} else if(i==newGNLi.size()-1){
 									//如果最后一次循环时要新增的 商品库存 不存在则插入一个要新增的商品库存
 									Goodsnum newgn = new Goodsnum(CommonUtil.getNewId(), goodsid, "-"+temp.getWarrantoutnum(), temp.getWarrantoutstore());
-									if(goodsid.equals("79")){
-										System.out.println(temp.getWarrantoutnum());
-									}
 									newGNLi.add(newgn);
 									break;
 								}
@@ -93,6 +107,12 @@ public class CPWarrantoutviewAction extends WarrantoutviewAction {
 			//如果有要新增的 库存总账记录 
 			for (Goodsnum goodsnum : newGNLi) {
 				sqlLi.add(getInsSingleSql(goodsnum));	//转化为SQL放入SQL语句的集合中
+			}
+		}
+		if(updGNLi.size()>0){
+			//如果有要修改的库存总账记录
+			for (Goodsnum goodsnum : updGNLi) {
+				sqlLi.add(getUpdSingleSql(goodsnum,GoodsnumPoco.KEYCOLUMN));	//转化为SQL放入SQL语句的集合中
 			}
 		}
 		if(sqlLi.size()>0){
