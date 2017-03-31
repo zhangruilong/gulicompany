@@ -92,11 +92,6 @@ Storehousestore.load();
 			sortable : true,  
 		}
 		, {
-			header : '单位',
-			dataIndex : 'warrantoutgunit',
-			sortable : true,  
-		}
-		, {
 			header : '数量',
 			dataIndex : 'warrantoutnum',
 			sortable : true,  

@@ -255,6 +255,12 @@ Ext.onReady(function() {
 					}
 				}
 			},'-',{
+				text : "查询",
+				xtype: 'button',
+				handler : function() {
+					Goodsnumviewstore.load();
+				}
+			},'-',{
 				text : Ext.os.deviceType === 'Phone' ? null : "筛选",
 				iconCls : 'select',
 				handler : function() {

@@ -404,7 +404,7 @@ Ext.onReady(function() {
 						});
 						return;
 					}
-					window.location.href="../../largeCusXiaDan.jsp?customerid="+selections[0].data["customerid"];
+					window.location.href="../../manual.jsp?customerid="+selections[0].data["customerid"];
 				}
 			},'-',{
 				text : Ext.os.deviceType === 'Phone' ? null : "特殊商品",

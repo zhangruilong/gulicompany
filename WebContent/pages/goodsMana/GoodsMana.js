@@ -371,7 +371,7 @@ Ext.onReady(function() {
 	    editable : false,  // 不可编辑 
 
 	    listeners : {
-	    	select : function(combo , record , eOpts){
+	    	beforeselect : function(combo , record , eOpts){
 		    	var selections = Goodsgrid.getSelection();
 	        	$.ajax({
 	        		url : 'CPGoodsAction.do?method=updGooSta',
@@ -553,6 +553,12 @@ Ext.onReady(function() {
 						}
 					}
 				}
+			}
+		},'-',{
+			text : "查询",
+			xtype: 'button',
+			handler : function() {
+				Goodsstore.load();
 			}
 		},'-',{
 			text : "筛选",

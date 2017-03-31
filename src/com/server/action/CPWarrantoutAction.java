@@ -6,6 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.reflect.TypeToken;
+import com.server.poco.GoodsnumPoco;
 import com.server.poco.WarrantoutPoco;
 import com.server.pojo.Goodsnum;
 import com.server.pojo.Goodsnumview;
@@ -19,6 +21,40 @@ import com.system.tools.util.DateUtils;
 
 public class CPWarrantoutAction extends WarrantoutAction {
 
+	//手工单
+	public void manualInsAll(HttpServletRequest request, HttpServletResponse response){
+		LoginInfo lgi = (LoginInfo) request.getSession().getAttribute("loginInfo");
+		String json = request.getParameter("json");
+		String goodsnumjson = request.getParameter("goodsnumjson");
+		System.out.println("json : " + json);
+		System.out.println("goodsnumjson : "+goodsnumjson); 
+		json = json.replace("\"\"", "null");
+		if(CommonUtil.isNotEmpty(json)) cuss = CommonConst.GSON.fromJson(json, TYPE);
+		List<Goodsnum> gnLi = new ArrayList<Goodsnum>();
+		if(CommonUtil.isNotEmpty(goodsnumjson)){
+			gnLi = CommonConst.GSON.fromJson(goodsnumjson, new TypeToken<ArrayList<Goodsnum>>() {}.getType());
+		}
+		List<String> sqlLi = new ArrayList<String>();
+		String time = DateUtils.getDateTime();
+		for (int i = 0; i < cuss.size(); i++) {
+			Warrantout temp = cuss.get(i);
+			Goodsnum gn = gnLi.get(i);
+			temp.setIdwarrantout(CommonUtil.getNewId());
+			temp.setWarrantoutinswhen(time);
+			temp.setWarrantoutinswho(lgi.getUsername());
+			temp.setWarrantoutupdwhen(time);
+			temp.setWarrantoutupdwho(lgi.getUsername());
+			temp.setWarrantoutgunit("");
+			temp.setWarrantoutwho("");
+			Integer num = Integer.parseInt(gn.getGoodsnumnum()) - Integer.parseInt(temp.getWarrantoutnum());
+			gn.setGoodsnumnum(num.toString());
+			sqlLi.add(getUpdSingleSql(gn, GoodsnumPoco.KEYCOLUMN));
+			sqlLi.add(getInsSingleSql(temp));
+		}
+		result = doAll(sqlLi.toArray(new String[0]));
+		responsePW(response, result);
+	}
+	
 	//出库单打印次数
 	@SuppressWarnings("unchecked")
 	public void updPrintTimes(HttpServletRequest request, HttpServletResponse response){

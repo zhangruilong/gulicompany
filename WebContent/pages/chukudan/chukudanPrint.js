@@ -20,7 +20,7 @@ $(function(){
 						'<td align="right">'+item.warrantoutgcode+'</td>'+
 						'<td align="left">'+item.warrantoutgname+'</td>'+
 						'<td align="left">'+item.warrantoutgunits+'</td>'+
-						'<td align="left">'+item.warrantoutgunit+'</td>'+
+//						'<td align="left">'+item.warrantoutgunit+'</td>'+
 						'<td align="right">'+item.warrantoutnum+'</td>'+
 						'<td align="right">'+item.storehousename+'</td>'+
 					'</tr>');

@@ -68,53 +68,6 @@ Ext.onReady(function() {
 	});
 	Orderdstatbbar = pagesizebar(Orderdstatstore);		//定义分页
 	
-	/*var tbar2 = Ext.create('Ext.toolbar.Toolbar', {
-		items: [{
-			xtype : 'textfield',
-			fieldLabel : '筛选:业务员',
-			id : 'quEmptextfield',
-			name : 'quEmp',
-			width : 170,
-			labelWidth : 80,
-			enableKeyEvents : true,
-			listeners : {
-				render : function(p){
-					p.getEl().on('click', function(p){  
-						showEmp();
-					});
-				}
-			}
-		},{
-			xtype : 'textfield',
-			fieldLabel : '品牌',
-			id : 'quBrandtextfield',
-			name : 'quEmp',
-			width : 125,
-			labelWidth : 35,
-			enableKeyEvents : true,
-			listeners : {
-				render : function(p){
-					p.getEl().on('click', function(p){  
-						showBrand();
-					});
-				}
-			}
-		},{
-			xtype : 'textfield',
-			fieldLabel : '客户',
-			id : 'quCustextfield',
-			name : 'quEmp',
-			width : 125,
-			labelWidth : 35,
-			listeners : {
-				render : function(p){
-					p.getEl().on('click', function(p){  
-						showCusNames();
-					});
-				}
-			}
-		}]
-	});*/
 	/*   定义 orderm(订单总表) 的 表格  开始    */
 	var Orderdstatgrid =  Ext.create('Ext.grid.Panel', {
 		height : document.documentElement.clientHeight - 4,
@@ -229,7 +182,6 @@ Ext.onReady(function() {
 			},'-',{
 				xtype: 'datetimefield',
 				fieldLabel : '',
-				labelWidth:60,				//标签宽度
 				id:"startDate",
 				name:"startDate",
 				editable:false, //不允许对日期进行编辑

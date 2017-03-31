@@ -427,14 +427,6 @@ function goodsWindow(){
                 xtype: 'textfield'
             }
 		}
-		, {
-			header : '重量',
-			dataIndex : 'goodsweight',
-			sortable : true,  
-			editor: {
-                xtype: 'textfield'
-            }
-		}
 		],
 		tbar : [{
 			xtype : 'textfield',

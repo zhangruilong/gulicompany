@@ -285,6 +285,12 @@ Ext.onReady(function() {
 			width:138,
 		}
 		, {
+			header : '订单源',
+			dataIndex : 'ordermemp',
+			sortable : true,
+			width:60,
+		}
+		, {
 			header : '客户名称',
 			dataIndex : 'ordermcusshop',
 			sortable : true,  
@@ -307,12 +313,6 @@ Ext.onReady(function() {
 			dataIndex : 'ordermaddress',
 			sortable : true,
 			width:150,
-		}
-		, {
-			header : '订单源',
-			dataIndex : 'ordermemp',
-			sortable : true,
-			width:60,
 		}
 		, {
 			header : '修改人',
@@ -514,30 +514,35 @@ Ext.onReady(function() {
 					    					} else {
 					    						ordermid = selections[0].data['ordermid'];
 					    					}
-					    					$.ajax({
-					    						url:"CPOrderAction.do",
-					    						type:"post",
-					    						data:{
-					    							method:"updateOrdermStatue",
-					    							statue:"已确认",
-					    							ordermid:ordermid
-					    						},
-					    						success : function(resp){
-					    							var data = eval('('+resp+')');
-					    							if(data.msg=='操作成功'){
-					    								Ext.Msg.alert('提示', '操作成功，订单已确认。');
-					    								Ext.getCmp("Ordermviewordermstatue").setValue("已确认");
-				    									selections[0].set('ordermstatue','已确认');
-				        								selections[0].set('updtime',Ext.util.Format.date(new Date(),'Y-m-d h:i:s'));
-					    							} else {
+					    					if(selections[0].data['ordermstatue']!='已下单'){
+					    						Ext.Msg.alert('提示', '须要订单状态为“已下单”。');
+					    					} else {
+					    						$.ajax({
+					    							url:"CPOrderAction.do",
+					    							type:"post",
+					    							data:{
+					    								method:"updateOrdermStatue",
+					    								statue:"已确认",
+					    								ordermid:ordermid
+					    							},
+					    							success : function(resp){
+					    								var data = eval('('+resp+')');
+					    								if(data.msg=='操作成功'){
+					    									Ext.Msg.alert('提示', '操作成功，订单已确认。');
+					    									Ext.getCmp("Ordermviewordermstatue").setValue("已确认");
+					    									selections[0].set('ordermstatue','已确认');
+					    									selections[0].set('updor',username);
+					    									selections[0].set('updtime',Ext.util.Format.date(new Date(),'Y-m-d H:i:s'));
+					    								} else {
+					    									Ext.Msg.alert('提示', data.msg);
+					    								}
+					    							},
+					    							error : function(resp){
+					    								var data = eval('('+resp+')');
 					    								Ext.Msg.alert('提示', data.msg);
 					    							}
-					    						},
-					    						error : function(resp){
-					    							var data = eval('('+resp+')');
-					    							Ext.Msg.alert('提示', data.msg);
-					    						}
-					    					});
+					    						});
+					    					}
 					    				}
 									},'-',{
 										text : '<span style="color:#FFFFFF;">发货</span>',
@@ -557,10 +562,8 @@ Ext.onReady(function() {
 					    					} else {
 					    						ordermid = selections[0].data['ordermid'];
 					    					}
-					    					if(selections[0].data['ordermstatue']=='已发货'){
-					    						Ext.Msg.alert('提示', '订单已发货。');
-					    					} else if(selections[0].data['ordermstatue']=='发货中'){
-					    						Ext.Msg.alert('提示', '订单发货中。');
+					    					if(selections[0].data['ordermstatue']!='已确认' && selections[0].data['ordermstatue']!='已下单'){
+					    						Ext.Msg.alert('提示', '订单'+selections[0].data['ordermstatue']+'。');
 					    					} else {
 					    						$.ajax({
 					    							url:"CPOrderAction.do",
@@ -577,6 +580,7 @@ Ext.onReady(function() {
 					    									Ext.Msg.alert('提示', '操作成功，发货请求已转至仓库。');
 					    									Ext.getCmp("Ordermviewordermstatue").setValue("发货中");
 					    									selections[0].set('ordermstatue','发货中');
+					    									selections[0].set('updor',username);
 					        								selections[0].set('updtime',Ext.util.Format.date(new Date(),'Y-m-d h:i:s'));
 					    								} else {
 					    									Ext.Msg.alert('提示', data.msg);
@@ -690,29 +694,35 @@ Ext.onReady(function() {
     					} else {
     						ordermid = selections[0].data['ordermid'];
     					}
-    					$.ajax({
-    						url:"CPOrderAction.do",
-    						type:"post",
-    						data:{
-    							method:"updateOrdermStatue",
-    							statue:"已确认",
-    							ordermid:ordermid
-    						},
-    						success : function(resp){
-    							var data = eval('('+resp+')');
-    							if(data.msg=='操作成功'){
-    								Ext.Msg.alert('提示', '操作成功，订单已确认。');
-    								selections[0].set('ordermstatue','已确认');
-    								selections[0].set('updtime',Ext.util.Format.date(new Date(),'Y-m-d h:i:s'));
-    							} else {
-    								Ext.Msg.alert('提示', data.msg);
-    							}
-    						},
-    						error : function(resp){
-    							var data = eval('('+resp+')');
-    							Ext.Msg.alert('提示', data.msg);
-    						}
-    					});
+    					if(selections[0].data['ordermstatue']!='已下单'){
+    						Ext.Msg.alert('提示', '只能修改订单状态为“已下单”的订单。');
+    					} else {
+    						$.ajax({
+    							url:"CPOrderAction.do",
+    							type:"post",
+    							data:{
+    								method:"updateOrdermStatue",
+    								statue:"已确认",
+    								ordermid:ordermid
+    							},
+    							success : function(resp){
+    								var data = eval('('+resp+')');
+    								if(data.msg=='操作成功'){
+    									Ext.Msg.alert('提示', '操作成功，订单已确认。');
+    									Ext.getCmp("Ordermviewordermstatue").setValue("已确认");
+    									selections[0].set('ordermstatue','已确认');
+    									selections[0].set('updor',username);
+    									selections[0].set('updtime',Ext.util.Format.date(new Date(),'Y-m-d H:i:s'));
+    								} else {
+    									Ext.Msg.alert('提示', data.msg);
+    								}
+    							},
+	    						error : function(resp){
+	    							var data = eval('('+resp+')');
+	    							Ext.Msg.alert('提示', data.msg);
+	    						}
+	    					});
+    					}
     				}
 				},'-',{
 					text : '<span style="color:#FFFFFF;">发货</span>',
@@ -732,10 +742,8 @@ Ext.onReady(function() {
     					} else {
     						ordermid = selections[0].data['ordermid'];
     					}
-    					if(selections[0].data['ordermstatue']=='已发货'){
-    						Ext.Msg.alert('提示', '订单已发货。');
-    					} else if(selections[0].data['ordermstatue']=='发货中'){
-    						Ext.Msg.alert('提示', '订单发货中。');
+    					if(selections[0].data['ordermstatue']!='已确认' && selections[0].data['ordermstatue']!='已下单'){
+    						Ext.Msg.alert('提示', '订单'+selections[0].data['ordermstatue']+'。');
     					} else {
     						$.ajax({
     							url:"CPOrderAction.do",
@@ -750,7 +758,9 @@ Ext.onReady(function() {
     								var data = eval('('+resp+')');
     								if(data.msg=='操作成功'){
     									Ext.Msg.alert('提示', '操作成功，发货请求已转至仓库。');
+    									Ext.getCmp("Ordermviewordermstatue").setValue("发货中");
     									selections[0].set('ordermstatue','发货中');
+    									selections[0].set('updor',username);
         								selections[0].set('updtime',Ext.util.Format.date(new Date(),'Y-m-d h:i:s'));
     								} else {
     									Ext.Msg.alert('提示', data.msg);

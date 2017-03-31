@@ -82,7 +82,7 @@ function printpreview(){
 		<td width="168" align="center" style="font-family: 黑体;font-size: 12px;">商品编号</td>
 		<td width="" style="font-family: 黑体;font-size: 12px;">商品名称</td>
 		<td width="110" align="center" style="font-family: 黑体;font-size: 12px;">规格</td>
-		<td width="45" align="center" style="font-family: 黑体;font-size: 12px;">单位</td>
+		<!-- <td width="45" align="center" style="font-family: 黑体;font-size: 12px;">单位</td> -->
 		<td width="45" style="font-family: 黑体;font-size: 12px;">数量</td>
 		<td width="80" align="center" style="font-family: 黑体;font-size: 12px;">仓库</td>
 		<!-- <td width="143" align="center" style="font-family: 黑体;font-size: 12px;">备注</td> -->

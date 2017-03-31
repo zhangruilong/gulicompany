@@ -780,6 +780,12 @@ Ext.onReady(function() {
 				}
 			}
 		},'-',{
+			text : "查询",
+			xtype: 'button',
+			handler : function() {
+				Bkgoodsstore.load();
+			}
+		},'-',{
 			text : "筛选",
 			iconCls : 'select',
 			handler : function() {

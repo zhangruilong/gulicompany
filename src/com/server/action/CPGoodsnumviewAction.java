@@ -1,12 +1,14 @@
 package com.server.action;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.server.poco.GoodsnumviewPoco;
 import com.server.pojo.Goodsnumview;
+import com.server.pojo.LargecuspriceGoodsVO;
 import com.system.tools.CommonConst;
 import com.system.tools.pojo.Pageinfo;
 import com.system.tools.pojo.Queryinfo;
@@ -16,6 +18,32 @@ import com.system.tools.util.TypeUtil;
 
 public class CPGoodsnumviewAction extends GoodsnumviewAction {
 
+	//录手工单页的选择商品
+	@SuppressWarnings("unchecked")
+	public void manualGoods(HttpServletRequest request, HttpServletResponse response){
+		String pagenowGoods = request.getParameter("pagenowGoods");
+		Queryinfo queryinfo = getQueryinfo(request, Goodsnumview.class, GoodsnumviewPoco.QUERYFIELDNAME, GoodsnumviewPoco.ORDER, TYPE);
+		String sql = "select * from " + queryinfo.getType().getSimpleName() + " where 1=1 ";
+		if(CommonUtil.isNotEmpty(queryinfo.getWheresql())){
+			sql += " and (" + queryinfo.getWheresql() + ") ";
+		}
+		if(CommonUtil.isNotEmpty(queryinfo.getQuery())){
+			sql += " and (" + queryinfo.getQuery() + ") ";
+		}
+		sql += " order by goodsid desc";
+		String totalSQL = sql.replace("select *", "select count(*)");
+		cuss = (ArrayList<Goodsnumview>) selQuery(sql,queryinfo);
+		Integer countGoods = getTotal(totalSQL);
+		Integer pageCountGoods;		//总页数
+		if(countGoods % 10 ==0){
+			pageCountGoods = countGoods / 10;
+		} else {
+			pageCountGoods = (countGoods / 10) +1;
+		}
+		result = "{success:true,code:202,msg:'操作成功',pagenowGoods:"+pagenowGoods+",goodsList:"+CommonConst.GSON.toJson(cuss)+
+				",pageCountGoods:"+pageCountGoods+",countGoods:"+countGoods+"}";
+		responsePW(response, result);
+	}
 	//出库中的选择商品弹窗中的数据
 	@SuppressWarnings("unchecked")
 	public void selGoodsAndNum(HttpServletRequest request, HttpServletResponse response){

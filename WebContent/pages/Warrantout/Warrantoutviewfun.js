@@ -176,7 +176,7 @@ var filWarrantoutviewdataForm = Ext.create('Ext.form.Panel', {// 定义新增的
 			//loadingText: 'loading...',			//正在加载时的显示
 			//editable : false,						//是否可编辑
 			emptyText : '请选择',
-			store : statueStore,
+			store : outStaStore,
 			mode : 'local',					//local是取本地数据的也就是javascirpt(内存)中的数据。
 											//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
 			displayField : 'name',		//显示的字段
@@ -420,15 +420,6 @@ function warrantoutPlacing(url, selections, store, fields) {
 			var msg = '';	//数量小于出库数量的提示信息
 			var staMsg = '';	//状态不对的商品的提示信息
 			var selArray = new Array();
-			/*for (var i = 0; i < selections.length; i++) {
-				if(selections[i].data['warrantoutstatue'] == '发货请求'){
-					for(var j=0; j< selArray.length; j++){
-						if(selArray[i]){
-							
-						}
-					}
-				}
-			}*/
 			for (var i = 0; i < selections.length; i++) {
 				if(selections[i].data['warrantoutstatue'] == '发货请求'){
 					var goodsnum = selections[i].data['goodsnumnum'];

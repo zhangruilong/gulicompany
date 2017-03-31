@@ -1,4 +1,4 @@
-var statueStore = new Ext.data.ArrayStore({//状态下拉
+var outStaStore = new Ext.data.ArrayStore({//状态下拉
 	fields:["name"],
 	data:[["发货请求"],["已发货"],["另行处理"]]
 });
@@ -294,7 +294,7 @@ Ext.onReady(function() {
 				//loadingText: 'loading...',			//正在加载时的显示
 				//editable : false,						//是否可编辑
 				emptyText : '请选择',
-				store : statueStore,
+				store : outStaStore,
 				value : '已发货',
 				mode : 'local',					//local是取本地数据的也就是javascirpt(内存)中的数据。
 												//'remote'指的是要动态去服务器端拿数据，这样就不能加Goodsclassstore.load()。
@@ -465,18 +465,6 @@ Ext.onReady(function() {
 			summaryRenderer: function(value, summaryData, dataIndex) {
                 return parseInt(sumNum);
             },
-		}
-		, {
-			header : '销售单价',
-			dataIndex : 'warrantoutprice',
-			sortable : true,  
-			width : 73,
-		}
-		, {
-			header : '销售金额',
-			dataIndex : 'warrantoutmoney',
-			sortable : true,  
-			width : 73,
 		}
 		, {
 			header : '状态',

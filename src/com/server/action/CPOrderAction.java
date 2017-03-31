@@ -51,7 +51,7 @@ public class CPOrderAction extends OrdermviewAction {
 		List<Orderm> omLi = (List<Orderm>) selAll(Orderm.class, 
 				"select * from orderm om where om.ordermid='"+ordermid+"' and om.ordermstatue!='已删除'");
 		if(omLi.size()>0){
-			String updStaSQL = "update orderm om set om.ordermstatue='"+statue+"',om.updtime='"+DateUtils.getDateTime()+"' where om.ordermid='"+ordermid+"'";
+			String updStaSQL = "update orderm om set om.ordermstatue='"+statue+"',om.updtime='"+DateUtils.getDateTime()+"',om.updor='"+lgi.getUsername()+"' where om.ordermid='"+ordermid+"'";
 			if(statue.equals("发货中")){
 				List<Orderd> odLi = selAll(Orderd.class, "select * from Orderd where orderdorderm='"+ordermid+"'");
 				ArrayList<String> strLi = new ArrayList<String>();

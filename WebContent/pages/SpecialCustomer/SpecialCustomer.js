@@ -448,6 +448,12 @@ Ext.onReady(function() {
 				}
 			}
 		},'-',{
+			text : "查询",
+			xtype: 'button',
+			handler : function() {
+				Ccustomerviewstore.load();
+			}
+		},'-',{
 			text : Ext.os.deviceType === 'Phone' ? null : "新增",
 			iconCls : 'add',
 			handler : function() {

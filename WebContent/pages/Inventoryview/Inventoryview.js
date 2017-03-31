@@ -51,7 +51,7 @@ Ext.onReady(function() {
 				storehouseid : storehouseid,
 				limit : size
 		};
-		if(startDate!=odStartDate || endDate!=odEndDate || storehouseid!=odStorehouseid ){		//如果查询条件变化了就变成第一页
+		if(startDate!=odStartDate || endDate!=odEndDate || (storehouseid && storehouseid!=odStorehouseid) ){		//如果查询条件变化了就变成第一页
 			odStartDate = startDate;
 			odEndDate = endDate;
 			odStorehouseid = storehouseid;
@@ -159,23 +159,23 @@ Ext.onReady(function() {
 		],
 		tbar : [{
 			xtype: 'datetimefield',
-			fieldLabel : '起始时间',
-			labelWidth:60,				//标签宽度
+			fieldLabel : '',
 			id:"startDate",
 			name:"startDate",
 			editable:false, //不允许对日期进行编辑
-			width:220,
+			width:155,
 			format:"Y-m-d H:i:s",
 			emptyText:"请选择日期",		//默认显示的日期
 			value: startDate
 		},{
 			xtype: 'datetimefield',
-			fieldLabel : '终止时间',
-			labelWidth:60,
+			fieldLabel : '-',
+			labelSeparator: '',
+			labelWidth:10,
 			id:"endDate",
 			name:"endDate",
 			editable:false, //不允许对日期进行编辑
-			width:220,
+			width:170,
 			format:"Y-m-d H:i:s",
 			emptyText:"请选择日期",		//默认显示的日期
 			value: endDate

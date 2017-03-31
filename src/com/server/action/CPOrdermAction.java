@@ -153,6 +153,9 @@ public class CPOrdermAction extends OrdermAction {
 				mOrderd.setOrderdid(CommonUtil.getNewId());
 				mOrderd.setOrderdorderm(mOrdermid);
 				mOrderd.setOrderdrightmoney(mOrderd.getOrderdmoney());
+				if(null == mOrderd.getOrderdunit()){
+					mOrderd.setOrderdunit("");
+				}
 				String sqlOrderd = getInsSingleSql(mOrderd);
 				sqls.add(sqlOrderd);
 			}

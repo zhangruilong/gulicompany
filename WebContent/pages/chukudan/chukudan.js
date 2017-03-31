@@ -130,23 +130,23 @@ Ext.onReady(function() {
 				}
 			},'-',{
 				xtype: 'datefield',
-				fieldLabel : '订单日期',
-				labelWidth:60,				//标签宽度
+				fieldLabel : '',
 				id:"startDate",
 				name:"startDate",
 				editable:false, //不允许对日期进行编辑
-				width:165,
+				width:100,
 				format:"Y-m-d",
 				emptyText:"请选择日期",		//默认显示的日期
 				value: startDate
 			},{
 				xtype: 'datefield',
-				fieldLabel : '到',
-				labelWidth:20,
+				fieldLabel : '-',
+				labelSeparator: '',
+				labelWidth:10,
 				id:"endDate",
 				name:"endDate",
 				editable:false, //不允许对日期进行编辑
-				width:125,
+				width:115,
 				format:"Y-m-d",
 				emptyText:"请选择日期",		//默认显示的日期
 				value: endDate
