@@ -270,9 +270,8 @@ Ext.onReady(function() {
 				name : 'bkgoodsnum',
 				maxLength : 100,
 				labelWidth: 70,
-				width : 352,
-				margin : '5 10 5 10',
-				allowBlank : false,
+				width : 228,
+				margin : '5 10 5 10'
 			},{
 				xtype : 'numberfield',
 				fieldLabel : '全部限量',
@@ -280,9 +279,17 @@ Ext.onReady(function() {
 				name : 'bkgoodsallnum',
 				maxLength : 100,
 				labelWidth: 70,
-				width : 352,
-				margin : '5 10 5 10',
-				allowBlank : false,
+				width : 228,
+				margin : '5 10 5 10'
+			},{
+				xtype : 'numberfield',
+				fieldLabel : '剩余数量',
+				id : 'Bkgoodsbkgoodssurplus',
+				name : 'bkgoodssurplus',
+				maxLength : 100,
+				labelWidth: 70,
+				width : 228,
+				margin : '5 10 5 10'
 			} ]
 		}
 		, {

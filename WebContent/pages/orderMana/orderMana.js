@@ -695,7 +695,7 @@ Ext.onReady(function() {
     						ordermid = selections[0].data['ordermid'];
     					}
     					if(selections[0].data['ordermstatue']!='已下单'){
-    						Ext.Msg.alert('提示', '只能修改订单状态为“已下单”的订单。');
+    						Ext.Msg.alert('提示', '须要订单状态为“已下单”。');
     					} else {
     						$.ajax({
     							url:"CPOrderAction.do",

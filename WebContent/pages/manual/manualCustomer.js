@@ -407,19 +407,6 @@ Ext.onReady(function() {
 					window.location.href="../../manual.jsp?customerid="+selections[0].data["customerid"];
 				}
 			},'-',{
-				text : Ext.os.deviceType === 'Phone' ? null : "特殊商品",
-				iconCls : 'select',
-				handler : function() {
-					var selections = Ccustomerviewgrid.getSelection();
-					if (selections.length != 1) {
-						Ext.Msg.alert('提示', '请选择一条数据！', function() {
-						});
-						return;
-					}
-					window.location.href = "../../pages/LargecuspriceGoods/LargecuspriceGoods.jsp?cusid="+
-							selections[0].data["customerid"];
-				}
-			},'-',{
 				text : Ext.os.deviceType === 'Phone' ? null : "导出",
 				iconCls : 'exp',
 				handler : function() {
