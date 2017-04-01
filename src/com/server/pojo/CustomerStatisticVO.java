@@ -12,6 +12,10 @@ public class CustomerStatisticVO {
 	    */
 	   private String customercode;   
 	   /**
+	    * 店铺
+	    */
+	   private String customershop;   
+	   /**
 	    * 姓名
 	    */
 	   private String customername;   
@@ -23,10 +27,6 @@ public class CustomerStatisticVO {
 	    * 密码
 	    */
 	   private String customerpsw;   
-	   /**
-	    * 店铺
-	    */
-	   private String customershop;   
 	   /**
 	    * 城市
 	    */

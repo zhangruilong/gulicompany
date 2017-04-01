@@ -152,8 +152,8 @@ Ext.onReady(function() {
 			listeners : {
 				specialkey : function(field, e) {
 					if (e.getKey() == Ext.EventObject.ENTER) {				//这句话等于:e.getKey() == 13
-						startDate = Ext.util.Format.date(Ext.getCmp("startDate").getValue(),'Y-m-d H:i:s');		//得到时间选择框中的开始时间
-						endDate = Ext.util.Format.date(Ext.getCmp("endDate").getValue(),'Y-m-d H:i:s');			//结束时间
+						startDate = Ext.util.Format.date(Ext.getCmp("startDate").getValue(),'Y-m-d');		//得到时间选择框中的开始时间
+						endDate = Ext.util.Format.date(Ext.getCmp("endDate").getValue(),'Y-m-d');			//结束时间
 						customerStatstore.load();
 					}
 				}
@@ -197,7 +197,7 @@ Ext.onReady(function() {
 						if (btn == 'yes') {
 							//
 							window.location.href = basePath + customerStataction + "?method=expCusOrder&query="+
-							Ext.getCmp("querycustomerStataction").getValue()+"&startDate="+startDate+"&endDate="+endDate+""; 
+							Ext.getCmp("querycustomerStataction").getValue()+"&startDate="+startDate+" 00:00:00&endDate="+endDate+" 23:59:59"; 
 						}
 					});
 				}

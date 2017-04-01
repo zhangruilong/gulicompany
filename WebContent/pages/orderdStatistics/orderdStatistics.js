@@ -126,7 +126,6 @@ Ext.onReady(function() {
 			dataIndex : 'sumorderdnum',
 			xtype: 'numbercolumn',
 			sortable : true, 
-//			summaryType: 'sum',
 			renderer : function(value, metaData, record, rowIdx, colIdx, store, view){	//数据显示时的函数
 				return parseInt(value);
 			},
@@ -138,7 +137,6 @@ Ext.onReady(function() {
 			header : '重量',
 			dataIndex : 'orderdweight',
 			sortable : true, 
-//			summaryType: 'sum',
 			summaryRenderer: function(value, summaryData, dataIndex) {
                 return parseInt(weighttotal);
             },
@@ -147,7 +145,6 @@ Ext.onReady(function() {
 			header : '下单金额',
 			dataIndex : 'sumorderdmoney',
 			sortable : true, 
-//			summaryType: 'sum',
 			summaryRenderer: function(value, summaryData, dataIndex) {
                 return parseInt(moneytotal);
             },
@@ -156,7 +153,6 @@ Ext.onReady(function() {
 			header : '实际金额',
 			dataIndex : 'sumorderdrightmoney',
 			sortable : true, 
-//			summaryType: 'sum',
 			summaryRenderer: function(value, summaryData, dataIndex) {
                 return parseInt(rightmoneytotal);
             },
@@ -270,11 +266,6 @@ Ext.onReady(function() {
 			}
 		],
 	    /*工具栏结束*/
-	    /*listeners: {
-	    	render: function(obj ,eOpts ){
-	    		tbar2.render(this.tbar);
-	    	}
-	    }*/
 	});
 	
 	/*   定义 orderm(订单总表) 的 表格  结束    */

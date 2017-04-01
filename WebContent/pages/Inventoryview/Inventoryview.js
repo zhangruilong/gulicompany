@@ -1,5 +1,5 @@
 var startDate = Ext.util.Format.date(new Date(),'Y-m-d')+' 00:00:00';			//查询的开始时间
-var endDate = Ext.util.Format.date(new Date(),'Y-m-d H:i:s');				//查询结束时间
+var endDate = Ext.util.Format.date(new Date(),'Y-m-d'+' 23:59:59');				//查询结束时间
 /*之前的查询条件*/
 var odStartDate=startDate;								
 var odEndDate=endDate;
