@@ -355,6 +355,7 @@ function scantWindow(){
 }
 //新增库存总账记录的窗口
 function addGoodsnumWindow(url,title,_form,store) {
+	_form.form.isValid();
 	var dataWindow = new Ext.Window({
 		title : title, // 窗口标题
 		layout : 'fit', // 设置窗口布局模式,当设置为fit时 scrollable 属性的设置会失效
@@ -660,6 +661,7 @@ function inQueryWindow(title,_form,store) {
 }
 //新增入库台账记录的窗口
 function addWarrantinWindow(url,title,_form,store) {
+	_form.form.isValid();
 	var dataWindow = new Ext.Window({
 		title : title, // 窗口标题
 		layout : 'fit', // 设置窗口布局模式
@@ -727,7 +729,8 @@ function addWarrantinWindow(url,title,_form,store) {
 }
 //修改入库台账记录的窗口
 function editWarrantinWindow(url,title,_form,store,bkgoodsscope) {
-	
+
+	_form.form.isValid();
 	var dataWindow = new Ext.Window({
 		title : title, // 窗口标题
 		layout : 'fit', // 设置窗口布局模式

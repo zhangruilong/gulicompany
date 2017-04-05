@@ -366,7 +366,7 @@ Ext.onReady(function() {
 
 	    valueField : 'name', 
 
-	    emptyText : '状态', 
+	    emptyText : '', 
 
 	    editable : false,  // 不可编辑 
 
@@ -464,7 +464,7 @@ Ext.onReady(function() {
 			sortable : true,
 			editor : goodsStaCombo,
 			renderer : getOneDisplay,
-			width : 70
+			width : 70,
 		}
 		, {
 			header : '品牌',

@@ -586,6 +586,7 @@ function scantWindow(){
 
 //修改商品的窗口
 function editGoodsWindow(url,title,_form,store,Goodsfields) {
+	_form.form.isValid();
 	var dataWindow = new Ext.Window({
 		title : title, // 窗口标题
 		layout : 'fit', // 设置窗口布局模式
@@ -642,6 +643,7 @@ function editGoodsWindow(url,title,_form,store,Goodsfields) {
 }
 //新增商品的窗口
 function addGoodsWindow(url,title,_form,store) {
+	_form.form.isValid();
 	var dataWindow = new Ext.Window({
 		title : title, // 窗口标题
 		layout : 'fit', // 设置窗口布局模式
@@ -687,7 +689,6 @@ function addGoodsWindow(url,title,_form,store) {
 											dataWindow.hide();
 										} else {
 											dataWindow.hide();
-											store.reload();
 										}
 									});
 								},

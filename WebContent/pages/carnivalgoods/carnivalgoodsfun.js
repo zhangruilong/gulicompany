@@ -209,6 +209,7 @@ function bkgoodsQueryWindow(title,_form,store) {
 }
 //新增年货商品的窗口
 function addBKgoodsWindow(url,title,_form,store) {
+	_form.form.isValid()
 	var dataWindow = new Ext.Window({
 		title : title, // 窗口标题
 		layout : 'fit', // 设置窗口布局模式,当设置为fit时 scrollable 属性的设置会失效
@@ -286,6 +287,7 @@ function addBKgoodsWindow(url,title,_form,store) {
 }
 //修改年货商品的窗口
 function editBKgoodsWindow(url,title,_form,store,bkgoodsscope,Bkgoodsfields) {
+	_form.form.isValid();
 	var dataWindow = new Ext.Window({
 		title : title, // 窗口标题
 		layout : 'fit', // 设置窗口布局模式,当设置为fit时 scrollable 属性的设置会失效

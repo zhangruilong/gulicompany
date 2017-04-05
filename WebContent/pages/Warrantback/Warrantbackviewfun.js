@@ -540,6 +540,7 @@ function backQueryWindow(title,_form,store) {
 }
 //新增退货台账记录的窗口
 function addWarrantbackWindow(url,title,_form,store) {
+	_form.form.isValid();
 	var dataWindow = new Ext.Window({
 		title : title, // 窗口标题
 		layout : 'fit', // 设置窗口布局模式

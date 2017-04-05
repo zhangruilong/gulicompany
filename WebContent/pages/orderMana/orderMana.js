@@ -482,19 +482,19 @@ Ext.onReady(function() {
 									tbar : [{	
 										//修改订单详情的按钮
 										text : Ext.os.deviceType === 'Phone' ? null : "修改",
-											iconCls : 'edit',
-											handler : function() {
-												var orderdSelections = Orderdgrid.getSelection();
-												if (orderdSelections.length != 1) {
-													Ext.Msg.alert('提示', '请选择一条数据！', function() {
-													});
-													return;
-												}
-												OrderddataForm.form.reset();
-												createEditOrderdWindow(basePath + "CPOrderdAction.do?method=orderdEdit", 
-														"修改", OrderddataForm, Orderdstore, Ordermviewstore);
-												OrderddataForm.form.loadRecord(orderdSelections[0]);
+										iconCls : 'edit',
+										handler : function() {
+											var orderdSelections = Orderdgrid.getSelection();
+											if (orderdSelections.length != 1) {
+												Ext.Msg.alert('提示', '请选择一条数据！', function() {
+												});
+												return;
 											}
+											OrderddataForm.form.reset();
+											createEditOrderdWindow(basePath + "CPOrderdAction.do?method=orderdEdit", 
+													"修改", OrderddataForm, Orderdstore, Ordermviewstore);
+											OrderddataForm.form.loadRecord(orderdSelections[0]);
+										}
 									},'-',{
 										text : '<span style="color:#FFFFFF;">确认</span>',
 										xtype: 'button',

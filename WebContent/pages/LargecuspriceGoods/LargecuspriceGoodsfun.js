@@ -136,6 +136,7 @@ function goodsWindow(){
 	selectgridWindow.show();
 }
 function addLCPWindow(url,title,_form,store) {
+	_form.form.isValid();
 	var dataWindow = new Ext.Window({
 		title : title, // 窗口标题
 		layout : 'fit', // 设置窗口布局模式

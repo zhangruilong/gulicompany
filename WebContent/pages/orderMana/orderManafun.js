@@ -23,6 +23,7 @@ function createOrderdWindow(url,title,_form,Orderdgrid,store) {
 
 //生成修改订单详情(订单商品)窗口
 function createEditOrderdWindow(url,title,_form,orderdStore,ordermviewStore) {
+	_form.form.isValid();
 	var dataWindow = new Ext.Window({
 		title : title, // 窗口标题
 		layout : 'fit', // 设置窗口布局模式

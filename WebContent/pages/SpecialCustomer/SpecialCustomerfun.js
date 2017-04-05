@@ -1,5 +1,6 @@
 //修改客户信息
 function editCcustomer(url,title,_form,store,Ccustomerviewfields) {
+	_form.form.isValid();
 	var dataWindow = new Ext.Window({
 		title : title, // 窗口标题
 		layout : 'fit', // 设置窗口布局模式

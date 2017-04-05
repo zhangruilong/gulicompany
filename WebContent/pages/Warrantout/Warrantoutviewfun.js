@@ -692,6 +692,7 @@ function outQueryWindow(title,_form,store) {
 }
 //新增出库台账记录的窗口
 function addWarrantoutWindow(url,title,_form,store) {
+	_form.form.isValid();
 	
 	var dataWindow = new Ext.Window({
 		title : title, // 窗口标题
@@ -782,6 +783,7 @@ function addWarrantoutWindow(url,title,_form,store) {
 
 //修改出库台账记录的窗口
 function editWarrantoutWindow(url,title,_form,store,Warrantoutviewfields) {
+	_form.form.isValid();
 	
 	var dataWindow = new Ext.Window({
 		title : title, // 窗口标题
