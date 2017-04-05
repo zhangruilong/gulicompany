@@ -9,8 +9,8 @@ var customerlevelStore = new Ext.data.ArrayStore({//状态下拉
 var odQuery='';
 var Ccustomerviewbbar;
 Ext.onReady(function() {
-	var Ccustomerviewclassify = classify;
-	var Ccustomerviewtitle = "当前位置:客户管理》" + Ccustomerviewclassify;
+	var Ccustomerviewclassify = '手工单';
+	var Ccustomerviewtitle = "当前位置:库存管理》" + Ccustomerviewclassify;
 	var Ccustomerviewaction = "CPCcustomerviewAction.do";
 	var Ccustomerviewfields = ['ccustomerid'
 	        			    ,'ccustomercompany' 
@@ -380,40 +380,18 @@ Ext.onReady(function() {
 				Ccustomerviewstore.load();
 			}
 		},'-',{
-				text : Ext.os.deviceType === 'Phone' ? null : "修改",
-				iconCls : 'edit',
-				handler : function() {
-					var selections = Ccustomerviewgrid.getSelection();
-					if (selections.length != 1) {
-						Ext.Msg.alert('提示', '请选择一条数据！', function() {
-						});
-						return;
-					}
-					CcustomerviewdataForm.form.reset();
-					Ext.getCmp("Ccustomerviewccustomerid").setEditable (false);
-					editCcustomer(basePath + Ccustomerviewaction + "?method=updateCustomerInfo", "修改", CcustomerviewdataForm, Ccustomerviewstore,Ccustomerviewfields);
-					CcustomerviewdataForm.form.loadRecord(selections[0]);
+			text : Ext.os.deviceType === 'Phone' ? null : "录单",
+			iconCls : 'query',
+			handler : function() {
+				var selections = Ccustomerviewgrid.getSelection();
+				if (selections.length != 1) {
+					Ext.Msg.alert('提示', '请选择一条数据！', function() {
+					});
+					return;
 				}
-			},'-',{
-				text : Ext.os.deviceType === 'Phone' ? null : "录单",
-				iconCls : 'query',
-				handler : function() {
-					var selections = Ccustomerviewgrid.getSelection();
-					if (selections.length != 1) {
-						Ext.Msg.alert('提示', '请选择一条数据！', function() {
-						});
-						return;
-					}
-					window.location.href="../../manual.jsp?customerid="+selections[0].data["customerid"];
-				}
-			},'-',{
-				text : Ext.os.deviceType === 'Phone' ? null : "导出",
-				iconCls : 'exp',
-				handler : function() {
-					window.location.href = basePath + Ccustomerviewaction + "?method=expCCustomerwiew&json="+queryjson+"&query="
-					+Ext.getCmp("queryCcustomerviewaction").getValue()+where; 
-				}
+				window.location.href="../../manual.jsp?customerid="+selections[0].data["customerid"];
 			}
+		}
 		]
 	});
 	Ccustomerviewgrid.region = 'center';
