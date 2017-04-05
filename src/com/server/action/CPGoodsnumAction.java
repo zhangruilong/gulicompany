@@ -152,7 +152,7 @@ public class CPGoodsnumAction extends GoodsnumAction {
 				"left outer join storehouse sh on gn.goodsnumstore=sh.storehouseid "+
 				"where g.goodscompany='"+lInfo.getCompanyid()+"' "+storehouseSQL+
 				"group by g.goodsid,g.goodsname,g.goodsunits,sh.storehouseid,sh.storehousename "+
-				"order by outnum desc,outback desc";
+				"order by g.goodsclass,g.goodsbrand";
 		//查询总计信息
 		String sumSQL = "select sum(quondamnum) quondamnum,sum(innum) innum,sum(outnum) outnum,sum(outback) outback,sum(inback) inback,sum(goodsnumnum) goodsnumnum from ("+sql+") as A";
 		InventoryVO totalVo = (InventoryVO) selAll(InventoryVO.class, sumSQL).get(0);
@@ -222,7 +222,7 @@ public class CPGoodsnumAction extends GoodsnumAction {
 		tableStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
 		tableStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
 		tableStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
-		int iLine = 6;// 写入各条记录，每条记录对应Excel中的一行
+		int iLine = 7;// 写入各条记录，每条记录对应Excel中的一行
 		int  innumIndex = 0;
 		int  outnumIndex = 0;
 		int  outbackIndex = 0;
@@ -234,54 +234,61 @@ public class CPGoodsnumAction extends GoodsnumAction {
 			Field[] fields = obj.getClass().getDeclaredFields();
 			row = sheet.createRow(iLine);
 			int iRow = 0;// 写入每条记录对应Excel中的一列
-			for (int j = 0; j < fields.length; j++) {
-				Field field = fields[j];
-				field.setAccessible(true);// 忽略访问权限，私有的也可以访问
-				boolean discardflag = true;
-				if(CommonUtil.isNotEmpty(discard) && discard.length>0){
-					for (int p = 0; p < discard.length; p++) {
-						if (field.getName().equals(discard[p])) {
-							discardflag = false;
-							break;
-						}
-					}
-				}
-				if (discardflag) {
-					if(k==0){
-						if(field.getName().equals("innum")){		//订单数量
-							innumIndex = iRow;
-						}
-						if(field.getName().equals("outnum")){	//总金额
-							outnumIndex = iRow;
-						}
-						if(field.getName().equals("outback")){		//订单数量
-							outbackIndex = iRow;
-						}
-						if(field.getName().equals("inback")){	//总金额
-							inbackIndex = iRow;
-						}
-						if(field.getName().equals("goodsnumnum")){		//订单数量
-							goodsnumnumIndex = iRow;
-						}
-						if(field.getName().equals("quondamnum")){	//总金额
-							quondamnumIndex = iRow;
-						}
-					}
+			for (int j = -1; j < fields.length; j++) {
+				if(j==-1){
 					cell = row.createCell(iRow);
 					cell.setCellStyle(tableStyle);
 					cell.setCellType(HSSFCell.CELL_TYPE_STRING);
-					cell.setCellValue(String.valueOf(field.get(obj)));
-					iRow++;
+					cell.setCellValue((k+1)+"");
+				} else {
+					Field field = fields[j];
+					field.setAccessible(true);// 忽略访问权限，私有的也可以访问
+					boolean discardflag = true;
+					if(CommonUtil.isNotEmpty(discard) && discard.length>0){
+						for (int p = 0; p < discard.length; p++) {
+							if (field.getName().equals(discard[p])) {
+								discardflag = false;
+								break;
+							}
+						}
+					}
+					if (discardflag) {
+						if(k==0){
+							if(field.getName().equals("innum")){		//订单数量
+								innumIndex = iRow;
+							}
+							if(field.getName().equals("outnum")){	//总金额
+								outnumIndex = iRow;
+							}
+							if(field.getName().equals("outback")){		//订单数量
+								outbackIndex = iRow;
+							}
+							if(field.getName().equals("inback")){	//总金额
+								inbackIndex = iRow;
+							}
+							if(field.getName().equals("goodsnumnum")){		//订单数量
+								goodsnumnumIndex = iRow;
+							}
+							if(field.getName().equals("quondamnum")){	//总金额
+								quondamnumIndex = iRow;
+							}
+						}
+						cell = row.createCell(iRow);
+						cell.setCellStyle(tableStyle);
+						cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+						cell.setCellValue(String.valueOf(field.get(obj)));
+					}
 				}
+				iRow++;
 			}
 			iLine++;
 			if(k==temps.size()-1){
 				//最后一行的总计
-				row = sheet.createRow(iLine);
-				for (int j = 0; j < fields.length-discard.length; j++) {
+				row = sheet.createRow(6);
+				for (int j = 0; j < fields.length-discard.length+1; j++) {
 					String cellText = "";
 					if(j==0){
-						cellText = "合计";
+						cellText = "";
 					} else if(j == innumIndex){
 						cellText = total.getInnum().toString();
 					} else if(j == outnumIndex){
@@ -304,7 +311,7 @@ public class CPGoodsnumAction extends GoodsnumAction {
 		}
 		
 		//打印日期
-		row = sheet.createRow(iLine+1);
+		row = sheet.createRow(iLine);
 		cell = row.createCell(0);
 		cell.setCellType(HSSFCell.CELL_TYPE_STRING);
 		cell.setCellValue("打印日期：");
@@ -312,12 +319,12 @@ public class CPGoodsnumAction extends GoodsnumAction {
 		cell.setCellType(HSSFCell.CELL_TYPE_STRING);
 		cell.setCellValue(DateUtils.getDate());
 		//注释
-		row = sheet.createRow(iLine+2);
+		row = sheet.createRow(iLine+1);
 		cell = row.createCell(0);
 		cell.setCellType(HSSFCell.CELL_TYPE_STRING);
 		cell.setCellValue("注：本期存=上期存+本期入-本期出+销售退货-进货退货");
 		//注释第二行
-		row = sheet.createRow(iLine+3);
+		row = sheet.createRow(iLine+2);
 		cell = row.createCell(0);
 		cell.setCellType(HSSFCell.CELL_TYPE_STRING);
 		cell.setCellValue("上期存：即起始时间前的存货数量 ；本期存：即截止终止时间时的存货数量");
@@ -357,7 +364,7 @@ public class CPGoodsnumAction extends GoodsnumAction {
 		tableStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
 		tableStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
 		tableStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
-		int iLine = 6;// 写入各条记录，每条记录对应Excel中的一行
+		int iLine = 7;// 写入各条记录，每条记录对应Excel中的一行
 		int  innumIndex = 0;
 		int  outnumIndex = 0;
 		int  outbackIndex = 0;
@@ -369,54 +376,61 @@ public class CPGoodsnumAction extends GoodsnumAction {
 			Field[] fields = obj.getClass().getDeclaredFields();
 			row = sheet.createRow(iLine);
 			int iRow = 0;// 写入每条记录对应Excel中的一列
-			for (int j = 0; j < fields.length; j++) {
-				Field field = fields[j];
-				field.setAccessible(true);// 忽略访问权限，私有的也可以访问
-				boolean discardflag = true;
-				if(CommonUtil.isNotEmpty(discard) && discard.length>0){
-					for (int p = 0; p < discard.length; p++) {
-						if (field.getName().equals(discard[p])) {
-							discardflag = false;
-							break;
-						}
-					}
-				}
-				if (discardflag) {
-					if(k==0){
-						if(field.getName().equals("innum")){		//订单数量
-							innumIndex = iRow;
-						}
-						if(field.getName().equals("outnum")){	//总金额
-							outnumIndex = iRow;
-						}
-						if(field.getName().equals("outback")){		//订单数量
-							outbackIndex = iRow;
-						}
-						if(field.getName().equals("inback")){	//总金额
-							inbackIndex = iRow;
-						}
-						if(field.getName().equals("goodsnumnum")){		//订单数量
-							goodsnumnumIndex = iRow;
-						}
-						if(field.getName().equals("quondamnum")){	//总金额
-							quondamnumIndex = iRow;
-						}
-					}
+			for (int j = -1; j < fields.length; j++) {
+				if(j==-1){
 					cell = row.createCell(iRow);
 					cell.setCellStyle(tableStyle);
 					cell.setCellType(HSSFCell.CELL_TYPE_STRING);
-					cell.setCellValue(String.valueOf(field.get(obj)));			//
-					iRow++;
+					cell.setCellValue((k+1)+"");
+				} else {
+					Field field = fields[j];
+					field.setAccessible(true);// 忽略访问权限，私有的也可以访问
+					boolean discardflag = true;
+					if(CommonUtil.isNotEmpty(discard) && discard.length>0){
+						for (int p = 0; p < discard.length; p++) {
+							if (field.getName().equals(discard[p])) {
+								discardflag = false;
+								break;
+							}
+						}
+					}
+					if (discardflag) {
+						if(k==0){
+							if(field.getName().equals("innum")){		//订单数量
+								innumIndex = iRow;
+							}
+							if(field.getName().equals("outnum")){	//总金额
+								outnumIndex = iRow;
+							}
+							if(field.getName().equals("outback")){		//订单数量
+								outbackIndex = iRow;
+							}
+							if(field.getName().equals("inback")){	//总金额
+								inbackIndex = iRow;
+							}
+							if(field.getName().equals("goodsnumnum")){		//订单数量
+								goodsnumnumIndex = iRow;
+							}
+							if(field.getName().equals("quondamnum")){	//总金额
+								quondamnumIndex = iRow;
+							}
+						}
+						cell = row.createCell(iRow);
+						cell.setCellStyle(tableStyle);
+						cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+						cell.setCellValue(String.valueOf(field.get(obj)));
+					}
 				}
+				iRow++;
 			}
 			iLine++;
 			if(k==temps.size()-1){
 				//最后一行的总计
-				row = sheet.createRow(iLine);
-				for (int j = 0; j < fields.length-discard.length; j++) {
+				row = sheet.createRow(6);
+				for (int j = 0; j < fields.length-discard.length+1; j++) {
 					String cellText = "";
 					if(j==0){
-						cellText = "合计";
+						cellText = "";
 					} else if(j == innumIndex){
 						cellText = total.getInnum().toString();
 					} else if(j == outnumIndex){
@@ -439,7 +453,7 @@ public class CPGoodsnumAction extends GoodsnumAction {
 		}
 		
 		//打印日期
-		row = sheet.createRow(iLine+1);
+		row = sheet.createRow(iLine);
 		cell = row.createCell(0);
 		cell.setCellType(HSSFCell.CELL_TYPE_STRING);
 		cell.setCellValue("打印日期：");
@@ -447,12 +461,12 @@ public class CPGoodsnumAction extends GoodsnumAction {
 		cell.setCellType(HSSFCell.CELL_TYPE_STRING);
 		cell.setCellValue(DateUtils.getDate());
 		//注释
-		row = sheet.createRow(iLine+2);
+		row = sheet.createRow(iLine+1);
 		cell = row.createCell(0);
 		cell.setCellType(HSSFCell.CELL_TYPE_STRING);
 		cell.setCellValue("注：本期存=上期存+本期入-本期出+销售退货-进货退货");
 		//注释第二行
-		row = sheet.createRow(iLine+3);
+		row = sheet.createRow(iLine+2);
 		cell = row.createCell(0);
 		cell.setCellType(HSSFCell.CELL_TYPE_STRING);
 		cell.setCellValue("上期存：即起始时间前的存货数量 ；本期存：即截止终止时间时的存货数量");

@@ -6,6 +6,7 @@
 <%
 	LoginInfo info = (LoginInfo)session.getAttribute("loginInfo"); 
 	String comid = info.getCompanyid();
+	String username = info.getUsername();
 	%>
 <%@ include file="../../zrlextpages/common/common.jsp" %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -155,6 +156,7 @@
 <script type="text/javascript">
 var customerid = getUrlParam('customerid');
 var comid = '<%=comid%>';
+var username = '<%=username%>';
 $(function(){
 	$.ajax({
 		url: "CPCcustomerviewAction.do?method=queryCusAndAddress",
@@ -352,7 +354,7 @@ function saveOrder(){
 			+ '","ordermrightmoney":"' + $(".LCXD_OrdermInfo span:eq(2)").text()
 			+ '","ordermway":"' + $(".LCXD_OrdermInfo span:eq(3)").text()
 			+ '","ordermstatue":"' + '已下单'
-			+ '","ordermemp":"' + '录单' 
+			+ '","ordermemp":"' + '录单('+username+')' 
 			+ '","ordermcustype":"' + orderCCus.customerInfo.customertype
 			+ '","ordermcuslevel":"' + orderCCus.customerInfo.ccustomerdetail
 			+ '","ordermcusshop":"' + orderCCus.customerInfo.customershop
