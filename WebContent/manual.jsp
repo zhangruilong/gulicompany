@@ -210,7 +210,7 @@ function saveOrder(){
 	var orderCCus = JSON.parse($(".tt_cusInfo span[hidden='true']").text());
 	var warrantoutjson = "[";	//出库单
 	var goodsnumjson = "[";		//库存总账
-	var msg = '';		//提示信息
+//	var msg = '';		//提示信息
 	$(".largeCus_form tr[name!='ordLi_tr1'][name!='ord_info_tr']").each(function(i,item){
 		var goodsJson = JSON.parse($(item).find("td span[hidden='true']").text());
 		var warrantoutnum = $(item).find("td:eq(5)").text();
@@ -218,7 +218,7 @@ function saveOrder(){
 			+ '","warrantoutstore":"' + goodsJson.goodsnumstore
 			+ '","warrantoutgoods":"' + goodsJson.goodsnumgoods
 			+ '","warrantoutnum":"' + warrantoutnum
-			+ '","warrantoutstatue":"' +'已发货'
+			+ '","warrantoutstatue":"' +'发货请求'
 			+ '","warrantoutdetail":"' + '手工单'
 			+ '","warrantoutgcode":"' + goodsJson.goodscode
 			+ '","warrantoutgname":"' + goodsJson.goodsname
@@ -229,49 +229,27 @@ function saveOrder(){
 			+ '","warrantoutprint":"' + '0'
 			+'"},';
 		goodsnumjson += '{"idgoodsnum":"'+goodsJson.idgoodsnum+'","goodsnumnum":"'+goodsJson.goodsnumnum+'"},';
-		if(parseInt(goodsJson.goodsnumnum) < parseInt(warrantoutnum)){
+		/* if(parseInt(goodsJson.goodsnumnum) < parseInt(warrantoutnum)){
 			msg += goodsJson.goodsname+','
-		}
+		} */
 	});
 	warrantoutjson = warrantoutjson.substr(0, warrantoutjson.length - 1) + ']';
 	goodsnumjson = goodsnumjson.substr(0, goodsnumjson.length - 1) + ']';
-	if(msg.length >0){
-		Ext.Msg.confirm('请确认', '商品:'+msg+'在主仓库中的数量不足。<br/>确认出库吗？',function(btn, text){
-			if (btn == 'yes') {
-				$.ajax({
-			        url: "CPWarrantoutAction.do?method=manualInsAll",
-			        type: "post",
-			        data: {
-						json : warrantoutjson,
-						goodsnumjson: goodsnumjson
-			        },
-			        success: function(data){
-			            alert("录单成功!");
-			            history.go(-1);
-			        },
-			        error: function(res){
-			            alert("操作失败");
-			        }
-			    });
-			}
-		});
-	} else {
-		$.ajax({
-	        url: "CPWarrantoutAction.do?method=manualInsAll",
-	        type: "post",
-	        data: {
-				json : warrantoutjson,
-				goodsnumjson: goodsnumjson
-	        },
-	        success: function(data){
-	            alert("录单成功!");
-	            history.go(-1);
-	        },
-	        error: function(res){
-	            alert("操作失败");
-	        }
-	    });
-	}
+	$.ajax({
+        url: "CPWarrantoutAction.do?method=manualInsAll",
+        type: "post",
+        data: {
+			json : warrantoutjson,
+			goodsnumjson: goodsnumjson
+        },
+        success: function(data){
+            alert("录单成功!");
+            history.go(-1);
+        },
+        error: function(res){
+            alert("操作失败");
+        }
+    });
 }
 //选择商品
 function selectGoods(){

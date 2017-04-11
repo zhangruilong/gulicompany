@@ -24,7 +24,7 @@
     <link href='zrlextpages/charisma/css/animate.min.css' rel='stylesheet'>
 
 	<!-- page CSS -->
-	<link href='css/index.css' rel='stylesheet' type="text/css">
+	<!-- <link href='css/index.css' rel='stylesheet' type="text/css"> -->
     <!-- jQuery -->
     <script src="zrlextpages/charisma/bower_components/jquery/jquery.min.js"></script>
 
@@ -38,7 +38,9 @@
     <style type="text/css">
     .haveNewOrderm{
     	margin: 0 auto;
-    	width: 55%;
+    	width: 440px;
+    	display: inline-block;
+		color: white;
     }
     .navbar-inner{
     	text-align: center;
@@ -60,7 +62,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="top-gulilogo" href="index.html"> <img alt="Charisma Logo" src="images/logo-cp2.png" height="50"/>
+            <a class="top-gulilogo" style="display: none;" href="index.html"> <img alt="Charisma Logo" src="images/logo-cp2.png" height="50"/>
                 </a>
 
             <!-- user dropdown starts -->
@@ -76,7 +78,7 @@
                 </ul>
             </div>
             <!-- user dropdown ends -->
-<div class="haveNewOrderm"><audio id="tishiyin" src="MP3/tishi.mp3"></audio></div>
+<div class="haveNewOrderm" style="display: none;"><audio id="tishiyin" src="MP3/tishi.mp3"></audio></div>
             <!-- theme selector starts -->
             <div class="btn-group pull-right theme-container animated tada">
                 <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -244,35 +246,41 @@ $(function(){
 		clearInterval(timer1);
 	};
 	
-	$.ajax({
-		url:"CPOrderAction.do?method=selNewOrder",
-		type:"post",
-		data:{
-			limit:'1',
-			order:'ordermtime desc'
-		},
-		success:function(resp){
-			var data = eval('('+resp+')');
-			if(data.root[0].ordermstatue == '已下单'){
-				$(".haveNewOrderm").html(
-					data.root[0].ordermcode+'&nbsp;'
-					+data.root[0].ordermmoney+'&nbsp;'
-					+data.root[0].ordermconnect+'&nbsp;'
-					+data.root[0].customershop+'&nbsp;'
-					+'<span>'+data.root[0].ordermtime+'</span>'
-					+'<span name="ordermtime" hidden="true">'+data.root[0].ordermtime+'</span>'
-				);
-			} else {
-				$(".haveNewOrderm").html('<span name="ordermtime" hidden="true">'+data.root[0].ordermtime+'</span>');
-			}
-		},
-		error:function(resp){
-			var data = eval('('+resp+')');
-			alert(data.msg);
-		}
-	});
 	//显示最新订单信息
-//	timer1 = setInterval(showNewestOrderm,10000);
+	if ((navigator.userAgent.match(/(iPhone|iPod|Android|ios|iPad)/i))){
+		
+	} else {
+		$(".top-gulilogo").show();
+		$(".haveNewOrderm").show();
+		$.ajax({
+			url:"CPOrderAction.do?method=selNewOrder",
+			type:"post",
+			data:{
+				limit:'1',
+				order:'ordermtime desc'
+			},
+			success:function(resp){
+				var data = eval('('+resp+')');
+				if(data.root[0].ordermstatue == '已下单'){
+					$(".haveNewOrderm").html(
+						data.root[0].ordermcode+'&nbsp;'
+						+data.root[0].ordermmoney+'&nbsp;'
+						+data.root[0].ordermconnect+'&nbsp;'
+						+data.root[0].customershop+'&nbsp;'
+						+'<span>'+data.root[0].ordermtime+'</span>'
+						+'<span name="ordermtime" hidden="true">'+data.root[0].ordermtime+'</span>'
+					);
+				} else {
+					$(".haveNewOrderm").html('<span name="ordermtime" hidden="true">'+data.root[0].ordermtime+'</span>');
+				}
+			},
+			error:function(resp){
+				var data = eval('('+resp+')');
+				alert(data.msg);
+			}
+		});
+		//timer1 = setInterval(showNewestOrderm,10000);
+	}
 })
 
 //退出系统

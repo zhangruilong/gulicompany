@@ -1,7 +1,4 @@
-var outStaStore = new Ext.data.ArrayStore({//状态下拉
-	fields:["name"],
-	data:[["发货请求"],["已发货"],["另行处理"]]
-});
+
 var Warrantoutviewbbar;
 var sumNum = 0;
 var startDate = Ext.util.Format.date(new Date(),'Y-m-d');			//查询的开始时间

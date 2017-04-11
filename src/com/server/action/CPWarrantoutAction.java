@@ -30,15 +30,15 @@ public class CPWarrantoutAction extends WarrantoutAction {
 		System.out.println("goodsnumjson : "+goodsnumjson); 
 		json = json.replace("\"\"", "null");
 		if(CommonUtil.isNotEmpty(json)) cuss = CommonConst.GSON.fromJson(json, TYPE);
-		List<Goodsnum> gnLi = new ArrayList<Goodsnum>();
-		if(CommonUtil.isNotEmpty(goodsnumjson)){
-			gnLi = CommonConst.GSON.fromJson(goodsnumjson, new TypeToken<ArrayList<Goodsnum>>() {}.getType());
-		}
+//		List<Goodsnum> gnLi = new ArrayList<Goodsnum>();
+//		if(CommonUtil.isNotEmpty(goodsnumjson)){
+//			gnLi = CommonConst.GSON.fromJson(goodsnumjson, new TypeToken<ArrayList<Goodsnum>>() {}.getType());
+//		}
 		List<String> sqlLi = new ArrayList<String>();
 		String time = DateUtils.getDateTime();
 		for (int i = 0; i < cuss.size(); i++) {
 			Warrantout temp = cuss.get(i);
-			Goodsnum gn = gnLi.get(i);
+//			Goodsnum gn = gnLi.get(i);
 			temp.setIdwarrantout(CommonUtil.getNewId());
 			temp.setWarrantoutinswhen(time);
 			temp.setWarrantoutinswho(lgi.getUsername());
@@ -46,9 +46,9 @@ public class CPWarrantoutAction extends WarrantoutAction {
 			temp.setWarrantoutupdwho(lgi.getUsername());
 			temp.setWarrantoutgunit("");
 			temp.setWarrantoutwho("");
-			Integer num = Integer.parseInt(gn.getGoodsnumnum()) - Integer.parseInt(temp.getWarrantoutnum());
-			gn.setGoodsnumnum(num.toString());
-			sqlLi.add(getUpdSingleSql(gn, GoodsnumPoco.KEYCOLUMN));
+//			Integer num = Integer.parseInt(gn.getGoodsnumnum()) - Integer.parseInt(temp.getWarrantoutnum());
+//			gn.setGoodsnumnum(num.toString());
+//			sqlLi.add(getUpdSingleSql(gn, GoodsnumPoco.KEYCOLUMN));
 			sqlLi.add(getInsSingleSql(temp));
 		}
 		result = doAll(sqlLi.toArray(new String[0]));

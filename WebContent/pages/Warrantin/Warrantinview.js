@@ -397,7 +397,6 @@ Ext.onReady(function() {
 				xtype : 'textfield',
 				fieldLabel : '商品ID',
 				id : 'Warrantinviewwarrantingoods',
-				allowBlank : false,
 				readOnly : true,
 				name : 'warrantingoods',
 				maxLength : 100
@@ -410,6 +409,7 @@ Ext.onReady(function() {
 				xtype : 'textfield',
 				fieldLabel : '商品编码',
 				id : 'Warrantinviewgoodscode',
+				allowBlank : false,
 				readOnly : true,
 				name : 'goodscode',
 				maxLength : 100
@@ -422,6 +422,7 @@ Ext.onReady(function() {
 				xtype : 'textfield',
 				fieldLabel : '商品名称',
 				id : 'Warrantinviewgoodsname',
+				allowBlank : false,
 				readOnly : true,
 				name : 'goodsname',
 				maxLength : 100
@@ -434,6 +435,7 @@ Ext.onReady(function() {
 				xtype : 'textfield',
 				fieldLabel : '规格',
 				id : 'Warrantinviewgoodsunits',
+				allowBlank : false,
 				readOnly : true,
 				name : 'goodsunits',
 				maxLength : 100
@@ -481,6 +483,7 @@ Ext.onReady(function() {
 				valueField : 'supplierid',		//作为值的字段
 				hiddenName : 'warrantinfrom',
 				triggerAction : 'all',
+				allowBlank : false,
 				editable : false,
 				maxLength : 100,
 				anchor : '95%',
@@ -782,10 +785,6 @@ Ext.onReady(function() {
 			handler : function() {
 				WarrantinviewdataForm.form.reset();
 				Ext.getCmp("Warrantinviewidwarrantin").setEditable (true);
-//				Ext.getCmp("Warrantinviewgoodscode").setReadOnly (true);
-//				Ext.getCmp("Warrantinviewgoodsname").setReadOnly (true);
-//				Ext.getCmp("Warrantinviewgoodsunits").setReadOnly (true);
-//				Ext.getCmp("Warrantinviewwarrantinnum").allowBlank = false;
 				var defIndex = Storehousestore.find('storehousename','主仓库');
 				Ext.getCmp('Warrantinviewwarrantinstore').setValue(Storehousestore.getAt(defIndex).get('storehouseid'));
 				addWarrantinWindow(basePath + "CPWarrantinAction.do?method=addWarrantin", "新增入库台账", WarrantinviewdataForm, Warrantinviewstore);
@@ -809,7 +808,6 @@ Ext.onReady(function() {
             			text : "筛选",
             			iconCls : 'select',
             			handler : function() {
-//            				Ext.getCmp("filWarrantinviewidwarrantin").setEditable (true);
             				inQueryWindow("筛选", filWarrantinviewdataForm, Warrantinviewstore,Ext.getCmp("queryWarrantinviewaction").getValue());
             			}
             		},{

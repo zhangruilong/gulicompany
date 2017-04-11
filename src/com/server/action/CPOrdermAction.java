@@ -27,8 +27,14 @@ public class CPOrdermAction extends OrdermAction {
 	//导出 出库单
 	@SuppressWarnings("unchecked")
 	public void expChukudan(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		String[] queryfieldname = {
+		String[] queryfieldname1 = {
 				"ordermcode",
+				"customershop",
+				"customername",
+				"customerphone",
+				"warrantoutupdwhen"
+		};
+		String[] queryfieldname2 = {
 				"customershop",
 				"customername",
 				"customerphone",
@@ -38,20 +44,21 @@ public class CPOrdermAction extends OrdermAction {
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
 		String query = request.getParameter("query");
+		String query1 = "";
+		String query2 = "";
 		if(!CommonUtil.isNull(query)){
-			query = " and ("+getQuerysql(query, queryfieldname)+")";
-		} else {
-			query = "";
+			query1 = " and ("+getQuerysql(query, queryfieldname1)+")";
+			query2 = " and ("+getQuerysql(query, queryfieldname2)+")";
 		}
 		String selSQL = "(select '' idwarrantout,wo.warrantoutodm,om.ordermcode,om.ordermnum,c.customershop,c.customername,c.customerphone,c.customerid,max(wo.warrantoutupdwhen) AS warrantoutupdwhen from warrantout wo "+
 			"left join customer c on wo.warrantoutcusid = customerid "+
 			"left join orderm om on om.ordermid = wo.warrantoutodm "+
-			"where wo.warrantoutodm is not null and wo.warrantoutcompany='"+companyid+"' and om.ordermstatue='已发货' and wo.warrantoutupdwhen >='"+startDate+"' and wo.warrantoutupdwhen <='"+endDate+"'"+query+
+			"where wo.warrantoutodm is not null and wo.warrantoutcompany='"+companyid+"' and om.ordermstatue='已发货' and wo.warrantoutupdwhen >='"+startDate+"' and wo.warrantoutupdwhen <='"+endDate+"'"+query1+
 			"group by wo.warrantoutodm,om.ordermcode,c.customername,c.customershop,c.customerphone,c.customerid) "+
 			"union all "+
 			"(select wo.idwarrantout,wo.warrantoutodm,'','1',c.customershop,c.customername,c.customerphone,c.customerid,wo.warrantoutupdwhen from warrantout wo "+
 			"left join customer c on wo.warrantoutcusid = customerid "+
-			"where wo.warrantoutodm is null and wo.warrantoutcompany='"+companyid+"' and wo.warrantoutupdwhen >='"+startDate+"' and wo.warrantoutupdwhen <='"+endDate+"'"+query.replace("ordermcode like '%桃子妹妹%' or ", "")+" ) "+
+			"where wo.warrantoutodm is null and wo.warrantoutcompany='"+companyid+"' and wo.warrantoutupdwhen >='"+startDate+"' and wo.warrantoutupdwhen <='"+endDate+"'"+query2+" ) "+
 			"order by warrantoutupdwhen desc";
 		ArrayList<OutOrder> ooLi = (ArrayList<OutOrder>) selAll(OutOrder.class,selSQL);
 		String[] heads = {"单据编号","种类数","客户名称","联系人","手机","出库时间"};				//表头
@@ -62,8 +69,14 @@ public class CPOrdermAction extends OrdermAction {
 	
 	//查询出库单
 	public void chukudan(HttpServletRequest request, HttpServletResponse response){
-		String[] queryfieldname = {
+		String[] queryfieldname1 = {
 				"ordermcode",
+				"customershop",
+				"customername",
+				"customerphone",
+				"warrantoutupdwhen"
+		};
+		String[] queryfieldname2 = {
 				"customershop",
 				"customername",
 				"customerphone",
@@ -73,22 +86,23 @@ public class CPOrdermAction extends OrdermAction {
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
 		String query = request.getParameter("query");
+		String query1 = "";
+		String query2 = "";
 		if(!CommonUtil.isNull(query)){
-			query = " and ("+getQuerysql(query, queryfieldname)+")";
-		} else {
-			query = "";
+			query1 = " and ("+getQuerysql(query, queryfieldname1)+")";
+			query2 = " and ("+getQuerysql(query, queryfieldname2)+")";
 		}
-		Queryinfo queryinfo = getQueryinfo(request, OutOrder.class, queryfieldname, null, new TypeToken<ArrayList<OutOrder>>() {}.getType());
+		Queryinfo queryinfo = getQueryinfo(request, OutOrder.class, queryfieldname1, null, new TypeToken<ArrayList<OutOrder>>() {}.getType());
 		String selSQL = "(select '' idwarrantout,wo.warrantoutodm,om.ordermcode,om.ordermnum,c.customershop,c.customername,c.customerphone,c.customerid,max(wo.warrantoutupdwhen) AS warrantoutupdwhen from warrantout wo "+
-			"left join customer c on wo.warrantoutcusid = customerid "+
-			"left join orderm om on om.ordermid = wo.warrantoutodm "+
-			"where wo.warrantoutodm is not null and wo.warrantoutcompany='"+companyid+"' and om.ordermstatue='已发货' and wo.warrantoutupdwhen >='"+startDate+"' and wo.warrantoutupdwhen <='"+endDate+"'"+query+
-			"group by wo.warrantoutodm,om.ordermcode,c.customername,c.customershop,c.customerphone,c.customerid) "+
-			"union all "+
-			"(select wo.idwarrantout,wo.warrantoutodm,'','1',c.customershop,c.customername,c.customerphone,c.customerid,wo.warrantoutupdwhen from warrantout wo "+
-			"left join customer c on wo.warrantoutcusid = customerid "+
-			"where wo.warrantoutodm is null and wo.warrantoutcompany='"+companyid+"' and wo.warrantoutupdwhen >='"+startDate+"' and wo.warrantoutupdwhen <='"+endDate+"'"+query.replace("ordermcode like '%桃子妹妹%' or ", "")+" ) "+
-			"order by warrantoutupdwhen desc";
+				"left join customer c on wo.warrantoutcusid = customerid "+
+				"left join orderm om on om.ordermid = wo.warrantoutodm "+
+				"where wo.warrantoutodm is not null and wo.warrantoutcompany='"+companyid+"' and om.ordermstatue='已发货' and wo.warrantoutupdwhen >='"+startDate+"' and wo.warrantoutupdwhen <='"+endDate+"'"+query1+
+				"group by wo.warrantoutodm,om.ordermcode,c.customername,c.customershop,c.customerphone,c.customerid) "+
+				"union all "+
+				"(select wo.idwarrantout,wo.warrantoutodm,'','1',c.customershop,c.customername,c.customerphone,c.customerid,wo.warrantoutupdwhen from warrantout wo "+
+				"left join customer c on wo.warrantoutcusid = customerid "+
+				"where wo.warrantoutodm is null and wo.warrantoutcompany='"+companyid+"' and wo.warrantoutupdwhen >='"+startDate+"' and wo.warrantoutupdwhen <='"+endDate+"'"+query2+" ) "+
+				"order by warrantoutupdwhen desc";
 		Pageinfo pageinfo = new Pageinfo(getTotal("select count(*) from ("+selSQL+") A"), selQuery(selSQL, queryinfo));
 		result = CommonConst.GSON.toJson(pageinfo);
 		responsePW(response, result);

@@ -19,6 +19,43 @@ import com.system.tools.util.DateUtils;
 
 public class CPWarrantinAction extends WarrantinAction {
 	
+	//现有商品批量入库
+	@SuppressWarnings("unchecked")
+	public void goodsWarrantin(HttpServletRequest request, HttpServletResponse response){
+		LoginInfo lgi = (LoginInfo) request.getSession().getAttribute("loginInfo");
+		String json = request.getParameter("json");
+		System.out.println("json : " + json);
+		json = json.replace("\"\"", "null");
+		if(CommonUtil.isNotEmpty(json)) cuss = CommonConst.GSON.fromJson(json, TYPE);
+		List<String> sqlLi = new ArrayList<String>();
+		for(Warrantin temp : cuss){
+			String newid = CommonUtil.getNewId();
+			if(CommonUtil.isNull(temp.getIdwarrantin())){
+				temp.setIdwarrantin(newid);
+				temp.setWarrantininswhen(DateUtils.getDateTime());
+				temp.setWarrantininswho(lgi.getUsername());
+			}
+			String insSql = getInsSingleSql(temp);		//新增入库台账的sql
+			sqlLi.add(insSql);
+			List<Goodsnum> gnLi = selAll(Goodsnum.class,"select * from goodsnum gn where gn.goodsnumgoods='"+temp.getWarrantingoods()+
+					"' and goodsnumstore='"+temp.getWarrantinstore()+"'");
+			//判断是否有对应的库存总账记录
+			if(gnLi.size()>0){
+				Integer num = Integer.parseInt(temp.getWarrantinnum()) + Integer.parseInt(gnLi.get(0).getGoodsnumnum());
+				String updNumSql = "update goodsnum g set g.goodsnumnum='"+num+"' where g.idgoodsnum='"+gnLi.get(0).getIdgoodsnum()+"'";
+				sqlLi.add(updNumSql);
+			} else {
+				String insNumSql = "INSERT INTO `abf`.`goodsnum` (`idgoodsnum`, `goodsnumgoods`, `goodsnumnum`, `goodsnumstore`) VALUES ('"+
+						newid+"', '"+temp.getWarrantingoods()+"', '"+temp.getWarrantinnum()+"', '"+temp.getWarrantinstore()+"')";
+				sqlLi.add(insNumSql);
+			}
+		}
+		if(sqlLi.size()>0){
+			result = doAll(sqlLi.toArray(new String[0]));
+		}
+		responsePW(response, result);
+	}
+	
 	//新商品入库
 	public void warrantinNewGoo(HttpServletRequest request, HttpServletResponse response){
 		LoginInfo lInfo = (LoginInfo) request.getSession().getAttribute("loginInfo");

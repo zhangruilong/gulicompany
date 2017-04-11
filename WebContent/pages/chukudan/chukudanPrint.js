@@ -1,5 +1,6 @@
 
 $(function(){
+	$('#creat-or').text('创建人：'+username);
 	$.ajax({
 		url: 'CPWarrantoutAction.do?method=outPrint',
 		type: 'post',

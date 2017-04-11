@@ -1,4 +1,7 @@
-
+var outStaStore = new Ext.data.ArrayStore({//状态下拉
+	fields:["name"],
+	data:[["发货请求"],["已发货"],["另行处理"]]
+});
 var Storehousefields = ['storehouseid'
         			    ,'storehousecode' 
         			    ,'storehousename' 
