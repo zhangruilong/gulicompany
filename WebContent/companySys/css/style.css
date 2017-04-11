@@ -47,7 +47,7 @@ input {
 a:active {
 	color: #333333;
 }
-/*Í·²¿*/
+/*å¤´éƒ¨*/
 .top_body{
 background: url(../images/orderImg/top_background.png) repeat;
 background-size:100% 100%;
@@ -148,7 +148,7 @@ height: 100px;
 	float: left;
 	margin-left: 170px;
 }
-/*²à±ßÀ¸*/
+/*ä¾§è¾¹æ */
 .menu{
 	
 }
@@ -169,9 +169,9 @@ height: 100px;
 	color:black;
 }
 
-/*µÇÂ¼Ò³Ãæ*/
+/*ç™»å½•é¡µé¢*/
 .body {
-	font-family: "Î¢ÈíÑÅºÚ", Arial, Tahoma,; 
+	font-family: "å¾®è½¯é›…é»‘", Arial, Tahoma,; 
  	font-size: 12px; 
  	color: #333333; 
  	margin: 0px auto; 
@@ -200,7 +200,7 @@ height: 100px;
 	margin: 5% 0% 0% 0%;
 }
 .c_d h2{
-	font-family: ºÚÌå,STHeiti;
+	font-family: é»‘ä½“,STHeiti;
 	font-size: 50px;
 	font-weight:normal;
 	color:white;
@@ -259,7 +259,7 @@ height: 100px;
 }
 .c_d .btn{
 	background: url(../images/log_btn.png) no-repeat left;
-	font-family: ºÚÌå,STHeiti;
+	font-family: é»‘ä½“,STHeiti;
 	font-size: 30px;
 	color: white;
 	line-height: 42px;
@@ -268,7 +268,7 @@ height: 100px;
 	cursor:pointer;
 }
 
-/*´ó¿Í»§ÏÂ¶©µ¥*/
+/*å¤§å®¢æˆ·ä¸‹è®¢å•*/
 .largeCus_form {background: #FBF1E5;padding: 20px 20px 20px 20px;font: 12px Arial, Helvetica, sans-serif;color: #666;}
 .largeCus_form h1 {font: 24px "Trebuchet MS", Arial, Helvetica, sans-serif;padding: 10px 10px 10px 20px;display: block;background: #F6B543;border-bottom: 1px solid white;
 margin: -20px -20px 15px;font-weight: bold;}

@@ -67,6 +67,9 @@ $(function(){
 						} else if(item.sheetno == '3'){//商品信息
 							$('#print-content').append(
 								'<table id="goods-tab" class="print_tab" width="100%" border="1" cellspacing="0" cellpadding="2" style="border-collapse: collapse;margin-top: 5px;"></table>');
+						} else if(item.sheetno == '4'){//合计信息
+							$('#print-content').append(
+							'<div id="heji-info" style="height: 20px;"></div>');
 						} else if(item.sheetno == '5'){//签收信息
 							qianshouTDStrle = typeNullFoString(item.detail);
 							$('#print-content').append(
@@ -92,13 +95,13 @@ $(function(){
 					
 					columnNum = item.startcol;									//当前列
 					if(typeof(item.fieldname)!='undefined' && item.fieldname){
-						text = typeNullFoString(printinfo[item.fieldname]);						//一般的
+						text = typeNullFoString(printinfo[item.fieldname]);		//一般的
 					} else if(item.headcode=='printdate'){
 						text = today;											//打印日期
 					} else if(item.headcode=='discount'){
-						text = totalMon-totalRMon;											//优惠金额
+						text = totalMon-totalRMon;								//优惠金额
 					} else if(item.headcode=='totalda'){
-						text = chineseNumber(totalRMon);											//优惠金额
+						text = chineseNumber(totalRMon);						//优惠金额
 					} else if(item.headcode=='totalweight'){
 						text = totalWeight;
 					}
@@ -115,7 +118,7 @@ $(function(){
 								'<td style="font-family: 黑体;font-size: 12px;white-space: nowrap;" name="'
 								+item.fieldname+'">'+item.headnameas+'<span hidden=true>'+typeNullFoString(item.detail)+'</span></td>');
 					} else if(item.sheetno == '4'){											//合计信息
-						$('#print-content').append(
+						$('#print-content #heji-info').append(
 								'<span style="'+item.detail+'">'+item.headnameas+':</span>'+
 								'<span style="'+item.detail+'">'+text+'</span>');
 					} else if(item.sheetno == '5'){											//签收信息
