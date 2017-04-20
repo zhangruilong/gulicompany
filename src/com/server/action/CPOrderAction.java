@@ -18,6 +18,7 @@ import com.server.pojo.LoginInfo;
 import com.server.pojo.Orderd;
 import com.server.pojo.Orderm;
 import com.server.pojo.Ordermview;
+import com.server.pojo.Warrantorderm;
 import com.server.pojo.Warrantout;
 import com.system.tools.CommonConst;
 import com.system.tools.pojo.Pageinfo;
@@ -92,6 +93,13 @@ public class CPOrderAction extends OrdermviewAction {
 					String insSQL = getInsSingleSql(newOut);
 					strLi.add(insSQL);
 				}
+				List<Warrantorderm> womLi = (List<Warrantorderm>) selAll(Warrantorderm.class, 
+						"select * from orderm om where om.ordermid='"+ordermid+"' and om.ordermstatue!='已删除'");
+				womLi.get(0).setOrdermstatue("待处理");
+				womLi.get(0).setOrdermemp("系统单");
+				womLi.get(0).setOrdermtime(time);
+				String ordermsql = getInsSingleSql(womLi.get(0));
+				strLi.add(ordermsql);
 				String[] sqls = strLi.toArray(new String[0]);
 				result = doAll(sqls);
 			} else {

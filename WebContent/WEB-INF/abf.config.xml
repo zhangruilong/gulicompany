@@ -32,4 +32,9 @@
 	<bean id="CPSupplierAction" class="com.server.action.CPSupplierAction" />
 	<bean id="CPCityAction" class="com.server.action.CPCityAction" />
 	<bean id="CPCompanyviewAction" class="com.server.action.CPCompanyviewAction" />
+	
+	<bean id="MWarrantordermAction" class="com.server.action.MWarrantordermAction" />
+	<bean id="MWarrantoutAction" class="com.server.action.MWarrantoutAction" />
+	<bean id="GoodsnumviewAction" class="com.server.action.GoodsnumviewAction" />
+	<bean id="WarrantoutAction" class="com.server.action.WarrantoutAction" />
 </beans>

@@ -168,6 +168,7 @@ public class CPWarrantoutviewAction extends WarrantoutviewAction {
 	@SuppressWarnings("unchecked")
 	public void selQueryCP(HttpServletRequest request, HttpServletResponse response){
 		Queryinfo queryinfo = getQueryinfo(request, Warrantoutview.class, WarrantoutviewPoco.QUERYFIELDNAME, WarrantoutviewPoco.ORDER, TYPE);
+		String warrantoutodm = request.getParameter("warrantoutodm");
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
 		String sql = "select sum(warrantoutnum) as warrantoutnum from " + queryinfo.getType().getSimpleName() + " where 1=1 ";
@@ -175,6 +176,9 @@ public class CPWarrantoutviewAction extends WarrantoutviewAction {
 			String jsonsql = TypeUtil.beanToSql(queryinfo.getJson());
 			if(CommonUtil.isNotNull(jsonsql))
 			sql += " and (" + TypeUtil.beanToSql(queryinfo.getJson()) + ") ";
+		}
+		if(CommonUtil.isNotEmpty(warrantoutodm)){
+			sql += " and warrantoutodm = '" + warrantoutodm+ "' ";
 		}
 		if(CommonUtil.isNotEmpty(queryinfo.getWheresql())){
 			sql += " and (" + queryinfo.getWheresql() + ") ";
