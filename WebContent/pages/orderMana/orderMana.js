@@ -570,7 +570,7 @@ Ext.onReady(function() {
 					    							type:"post",
 					    							data:{
 					    								method:"updateOrdermStatue",
-					    								statue:"发货中",
+					    								statue:"已发货",
 					    								ordermid:ordermid,
 					    								storehouseid: storehouseid
 					    							},
@@ -578,8 +578,8 @@ Ext.onReady(function() {
 					    								var data = eval('('+resp+')');
 					    								if(data.msg=='操作成功'){
 					    									Ext.Msg.alert('提示', '操作成功，发货请求已转至仓库。');
-					    									Ext.getCmp("Ordermviewordermstatue").setValue("发货中");
-					    									selections[0].set('ordermstatue','发货中');
+					    									Ext.getCmp("Ordermviewordermstatue").setValue("已发货");
+					    									selections[0].set('ordermstatue','已发货');
 					    									selections[0].set('updor',username);
 					        								selections[0].set('updtime',Ext.util.Format.date(new Date(),'Y-m-d h:i:s'));
 					    								} else {
@@ -750,7 +750,7 @@ Ext.onReady(function() {
     							type:"post",
     							data:{
     								method:"updateOrdermStatue",
-    								statue:"发货中",
+    								statue:"已发货",
     								ordermid:ordermid,
     								storehouseid: storehouseid
     							},
@@ -758,8 +758,8 @@ Ext.onReady(function() {
     								var data = eval('('+resp+')');
     								if(data.msg=='操作成功'){
     									Ext.Msg.alert('提示', '操作成功，发货请求已转至仓库。');
-    									Ext.getCmp("Ordermviewordermstatue").setValue("发货中");
-    									selections[0].set('ordermstatue','发货中');
+    									Ext.getCmp("Ordermviewordermstatue").setValue("已发货");
+    									selections[0].set('ordermstatue','已发货');
     									selections[0].set('updor',username);
         								selections[0].set('updtime',Ext.util.Format.date(new Date(),'Y-m-d h:i:s'));
     								} else {

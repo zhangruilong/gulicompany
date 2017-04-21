@@ -23,18 +23,18 @@ public class CPWarrantinviewAction extends WarrantinviewAction {
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
 		String sql = "select * from " + queryinfo.getType().getSimpleName() + " where 1=1 ";
-		if(CommonUtil.isNotEmpty(queryinfo.getJson())){
+		if(!CommonUtil.isNull(queryinfo.getJson())){
 			String jsonsql = TypeUtil.beanToSql(queryinfo.getJson());
-			if(CommonUtil.isNotNull(jsonsql))
+			if(!CommonUtil.isNull(jsonsql))
 			sql += " and (" + TypeUtil.beanToSql(queryinfo.getJson()) + ") ";
 		}
-		if(CommonUtil.isNotEmpty(queryinfo.getWheresql())){
+		if(!CommonUtil.isNull(queryinfo.getWheresql())){
 			sql += " and (" + queryinfo.getWheresql() + ") ";
 		}
-		if(CommonUtil.isNotEmpty(queryinfo.getQuery())){
+		if(!CommonUtil.isNull(queryinfo.getQuery())){
 			sql += " and (" + queryinfo.getQuery() + ") ";
 		}
-		if(CommonUtil.isNotEmpty(startDate) && CommonUtil.isNotEmpty(endDate)){
+		if(!CommonUtil.isNull(startDate) && !CommonUtil.isNull(endDate)){
 			sql += " and warrantininswhen >='"+startDate+"' and warrantininswhen <='"+endDate+"'";
 		}
 		sql += " order by idwarrantin desc";
@@ -50,18 +50,18 @@ public class CPWarrantinviewAction extends WarrantinviewAction {
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
 		String sql = "select sum(warrantinprice) as warrantinprice,sum(warrantinnum) as warrantinnum from " + queryinfo.getType().getSimpleName() + " where 1=1 ";
-		if(CommonUtil.isNotEmpty(queryinfo.getJson())){
+		if(!CommonUtil.isNull(queryinfo.getJson())){
 			String jsonsql = TypeUtil.beanToSql(queryinfo.getJson());
-			if(CommonUtil.isNotNull(jsonsql))
+			if(!CommonUtil.isNull(jsonsql))
 			sql += " and (" + TypeUtil.beanToSql(queryinfo.getJson()) + ") ";
 		}
-		if(CommonUtil.isNotEmpty(queryinfo.getWheresql())){
+		if(!CommonUtil.isNull(queryinfo.getWheresql())){
 			sql += " and (" + queryinfo.getWheresql() + ") ";
 		}
-		if(CommonUtil.isNotEmpty(queryinfo.getQuery())){
+		if(!CommonUtil.isNull(queryinfo.getQuery())){
 			sql += " and (" + queryinfo.getQuery() + ") ";
 		}
-		if(CommonUtil.isNotEmpty(startDate) && CommonUtil.isNotEmpty(endDate)){
+		if(!CommonUtil.isNull(startDate) && !CommonUtil.isNull(endDate)){
 			sql += " and warrantininswhen >='"+startDate+"' and warrantininswhen <='"+endDate+"'";
 		}
 		Warrantinview sum = (Warrantinview) selAll(Warrantinview.class,sql).get(0);

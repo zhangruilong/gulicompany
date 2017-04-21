@@ -149,7 +149,7 @@ public class CPWarrantinAction extends WarrantinAction {
 				String[] sqls = {insSql,updNumSql};
 				result = doAll(sqls);
 			} else {
-				String insNumSql = "INSERT INTO `abf`.`goodsnum` (`idgoodsnum`, `goodsnumgoods`, `goodsnumnum`, `goodsnumstore`) VALUES ('"+
+				String insNumSql = "INSERT INTO goodsnum (idgoodsnum, goodsnumgoods, goodsnumnum, goodsnumstore) VALUES ('"+
 						newid+"', '"+temp.getWarrantingoods()+"', '"+temp.getWarrantinnum()+"', '"+temp.getWarrantinstore()+"')";
 				String[] sqls = {insSql,insNumSql};
 				result = doAll(sqls);

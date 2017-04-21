@@ -38,7 +38,7 @@ public class CPWarrantcheckviewAction extends WarrantcheckviewAction {
   			    ,"warrantcheckdetail" 	//描述
 		};
 		String json = FileUtil.impExcel(fileinfo.getPath(),fieldnames); 
-		if(CommonUtil.isNotEmpty(json)) cuss = CommonConst.GSON.fromJson(json, TYPE);
+		if(!CommonUtil.isNull(json)) cuss = CommonConst.GSON.fromJson(json, TYPE);
 		String msg = "操作成功";
 		if(null != cuss && cuss.size()>0){
 			for(int i=0; i < cuss.size(); i++){
@@ -78,7 +78,7 @@ public class CPWarrantcheckviewAction extends WarrantcheckviewAction {
   			    ,"warrantcheckdetail" 	//描述
 		};
 		String json = FileUtil.impExcel(fileinfo.getPath(),fieldnames); 
-		if(CommonUtil.isNotEmpty(json)) cuss = CommonConst.GSON.fromJson(json, TYPE);
+		if(!CommonUtil.isNull(json)) cuss = CommonConst.GSON.fromJson(json, TYPE);
 		String time = DateUtils.getDateTime();
 		String msg = "";
 		String errMsg = "";
@@ -124,18 +124,18 @@ public class CPWarrantcheckviewAction extends WarrantcheckviewAction {
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
 		String sql = "select * from " + queryinfo.getType().getSimpleName() + " where 1=1 ";
-		if(CommonUtil.isNotEmpty(queryinfo.getJson())){
+		if(!CommonUtil.isNull(queryinfo.getJson())){
 			String jsonsql = TypeUtil.beanToSql(queryinfo.getJson());
-			if(CommonUtil.isNotNull(jsonsql))
+			if(!CommonUtil.isNull(jsonsql))
 			sql += " and (" + TypeUtil.beanToSql(queryinfo.getJson()) + ") ";
 		}
-		if(CommonUtil.isNotEmpty(queryinfo.getWheresql())){
+		if(!CommonUtil.isNull(queryinfo.getWheresql())){
 			sql += " and (" + queryinfo.getWheresql() + ") ";
 		}
-		if(CommonUtil.isNotEmpty(queryinfo.getQuery())){
+		if(!CommonUtil.isNull(queryinfo.getQuery())){
 			sql += " and (" + queryinfo.getQuery() + ") ";
 		}
-		if(CommonUtil.isNotEmpty(startDate) && CommonUtil.isNotEmpty(endDate)){
+		if(!CommonUtil.isNull(startDate) && !CommonUtil.isNull(endDate)){
 			sql += " and warrantcheckinswhen >='"+startDate+"' and warrantcheckinswhen <='"+endDate+"'";
 		}
 		sql += " order by idwarrantcheck desc";
@@ -151,18 +151,18 @@ public class CPWarrantcheckviewAction extends WarrantcheckviewAction {
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
 		String sql = "select * from " + queryinfo.getType().getSimpleName() + " where 1=1 ";
-		if(CommonUtil.isNotEmpty(queryinfo.getJson())){
+		if(!CommonUtil.isNull(queryinfo.getJson())){
 			String jsonsql = TypeUtil.beanToSql(queryinfo.getJson());
-			if(CommonUtil.isNotNull(jsonsql))
+			if(!CommonUtil.isNull(jsonsql))
 			sql += " and (" + TypeUtil.beanToSql(queryinfo.getJson()) + ") ";
 		}
-		if(CommonUtil.isNotEmpty(queryinfo.getWheresql())){
+		if(!CommonUtil.isNull(queryinfo.getWheresql())){
 			sql += " and (" + queryinfo.getWheresql() + ") ";
 		}
-		if(CommonUtil.isNotEmpty(queryinfo.getQuery())){
+		if(!CommonUtil.isNull(queryinfo.getQuery())){
 			sql += " and (" + queryinfo.getQuery() + ") ";
 		}
-		if(CommonUtil.isNotEmpty(startDate) && CommonUtil.isNotEmpty(endDate)){
+		if(!CommonUtil.isNull(startDate) && !CommonUtil.isNull(endDate)){
 			sql += " and warrantcheckinswhen >='"+startDate+"' and warrantcheckinswhen <='"+endDate+"'";
 		}
 		sql += " order by idwarrantcheck desc";

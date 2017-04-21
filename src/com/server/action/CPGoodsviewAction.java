@@ -95,9 +95,9 @@ public class CPGoodsviewAction extends GoodsviewAction {
 		if(CommonUtil.isNotEmpty(cusType)){
 			selectsql += "and p.pricesclass = '"+cusType+"' and p.creator = '启用' ";
 		}
-		if(CommonUtil.isNotEmpty(queryinfo.getJson())){
+		if(!CommonUtil.isNull(queryinfo.getJson())){
 			String jsonsql = TypeUtil.beanToSql(queryinfo.getJson());
-			if(CommonUtil.isNotNull(jsonsql))
+			if(!CommonUtil.isNull(jsonsql))
 				selectsql += "and (" + TypeUtil.beanToSql(queryinfo.getJson()) + ") ";
 		}
 		if(CommonUtil.isNotEmpty(queryinfo.getWheresql())){

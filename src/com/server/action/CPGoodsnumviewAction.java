@@ -24,10 +24,10 @@ public class CPGoodsnumviewAction extends GoodsnumviewAction {
 		String pagenowGoods = request.getParameter("pagenowGoods");
 		Queryinfo queryinfo = getQueryinfo(request, Goodsnumview.class, GoodsnumviewPoco.QUERYFIELDNAME, GoodsnumviewPoco.ORDER, TYPE);
 		String sql = "select * from " + queryinfo.getType().getSimpleName() + " where 1=1 ";
-		if(CommonUtil.isNotEmpty(queryinfo.getWheresql())){
+		if(!CommonUtil.isNull(queryinfo.getWheresql())){
 			sql += " and (" + queryinfo.getWheresql() + ") ";
 		}
-		if(CommonUtil.isNotEmpty(queryinfo.getQuery())){
+		if(!CommonUtil.isNull(queryinfo.getQuery())){
 			sql += " and (" + queryinfo.getQuery() + ") ";
 		}
 		sql += " order by goodsid desc";
@@ -49,10 +49,10 @@ public class CPGoodsnumviewAction extends GoodsnumviewAction {
 	public void selGoodsAndNum(HttpServletRequest request, HttpServletResponse response){
 		Queryinfo queryinfo = getQueryinfo(request, Goodsnumview.class, GoodsnumviewPoco.QUERYFIELDNAME, GoodsnumviewPoco.ORDER, TYPE);
 		String querySQL = "select `gn`.`idgoodsnum`,`gn`.`goodsnumgoods`,`gn`.`goodsnumnum`,`gn`.`goodsnumstore`,`g`.`goodsid`,`g`.`goodscompany`,`g`.`createtime`,`g`.`goodscode`,`g`.`goodsname`,`g`.`goodsunits`,`sh`.`storehousename` from goods g left join goodsnum gn on g.goodsid=gn.goodsnumgoods LEFT JOIN `storehouse` `sh` ON `gn`.`goodsnumstore` = `sh`.`storehouseid` where 1=1 ";
-		if(CommonUtil.isNotEmpty(queryinfo.getWheresql())){
+		if(!CommonUtil.isNull(queryinfo.getWheresql())){
 			querySQL += " and (" + queryinfo.getWheresql() + ") ";
 		}
-		if(CommonUtil.isNotEmpty(queryinfo.getQuery())){
+		if(!CommonUtil.isNull(queryinfo.getQuery())){
 			querySQL += " and (" + queryinfo.getQuery() + ") ";
 		}
 		String totalSQL = querySQL.replace("`gn`.`idgoodsnum`,`gn`.`goodsnumgoods`,`gn`.`goodsnumnum`,`gn`.`goodsnumstore`,`g`.`goodsid`,`g`.`goodscompany`,`g`.`createtime`,`g`.`goodscode`,`g`.`goodsname`,`g`.`goodsunits`,`sh`.`storehousename`", "count(*)");
@@ -70,18 +70,18 @@ public class CPGoodsnumviewAction extends GoodsnumviewAction {
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
 		String sql = "select sum(goodsnumnum) as goodsnumnum from " + queryinfo.getType().getSimpleName() + " where 1=1 ";
-		if(CommonUtil.isNotEmpty(queryinfo.getJson())){
+		if(!CommonUtil.isNull(queryinfo.getJson())){
 			String jsonsql = TypeUtil.beanToSql(queryinfo.getJson());
-			if(CommonUtil.isNotNull(jsonsql))
+			if(!CommonUtil.isNull(jsonsql))
 			sql += " and (" + TypeUtil.beanToSql(queryinfo.getJson()) + ") ";
 		}
-		if(CommonUtil.isNotEmpty(queryinfo.getWheresql())){
+		if(!CommonUtil.isNull(queryinfo.getWheresql())){
 			sql += " and (" + queryinfo.getWheresql() + ") ";
 		}
-		if(CommonUtil.isNotEmpty(queryinfo.getQuery())){
+		if(!CommonUtil.isNull(queryinfo.getQuery())){
 			sql += " and (" + queryinfo.getQuery() + ") ";
 		}
-		if(CommonUtil.isNotEmpty(startDate) && CommonUtil.isNotEmpty(endDate)){
+		if(!CommonUtil.isNull(startDate) && !CommonUtil.isNull(endDate)){
 			sql += " and createtime >='"+startDate+"' and createtime <='"+endDate+"'";
 		}
 		Goodsnumview sum = (Goodsnumview) selAll(Goodsnumview.class,sql).get(0);	//统计数据放在一个 对象 里面
@@ -104,18 +104,18 @@ public class CPGoodsnumviewAction extends GoodsnumviewAction {
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
 		String sql = "select * from " + queryinfo.getType().getSimpleName() + " where 1=1 ";
-		if(CommonUtil.isNotEmpty(queryinfo.getJson())){
+		if(!CommonUtil.isNull(queryinfo.getJson())){
 			String jsonsql = TypeUtil.beanToSql(queryinfo.getJson());
-			if(CommonUtil.isNotNull(jsonsql))
+			if(!CommonUtil.isNull(jsonsql))
 			sql += " and (" + TypeUtil.beanToSql(queryinfo.getJson()) + ") ";
 		}
-		if(CommonUtil.isNotEmpty(queryinfo.getWheresql())){
+		if(!CommonUtil.isNull(queryinfo.getWheresql())){
 			sql += " and (" + queryinfo.getWheresql() + ") ";
 		}
-		if(CommonUtil.isNotEmpty(queryinfo.getQuery())){
+		if(!CommonUtil.isNull(queryinfo.getQuery())){
 			sql += " and (" + queryinfo.getQuery() + ") ";
 		}
-		if(CommonUtil.isNotEmpty(startDate) && CommonUtil.isNotEmpty(endDate)){
+		if(!CommonUtil.isNull(startDate) && !CommonUtil.isNull(endDate)){
 			sql += " and createtime >='"+startDate+"' and createtime <='"+endDate+"'";
 		}
 		sql += " order by goodsid desc";

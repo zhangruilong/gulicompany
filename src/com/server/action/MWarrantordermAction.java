@@ -67,6 +67,8 @@ public class MWarrantordermAction extends WarrantordermAction {
 		ArrayList<Warrantout> Warrantoutcuss = CommonConst.GSON.fromJson(goodsnumjson, WarrantoutTYPE);
 		for(Warrantout mGoodsnum:Warrantoutcuss){
 			String woutsql = "";
+			mGoodsnum.setWarrantoutstatue("已发货");
+			mGoodsnum.setWarrantoutinswhen(nowdate);
 			if(CommonUtil.isNull(mGoodsnum.getIdwarrantout())){
 				mGoodsnum.setIdwarrantout(CommonUtil.getNewId());
 				mGoodsnum.setWarrantoutodm(cuss.get(0).getOrdermid());

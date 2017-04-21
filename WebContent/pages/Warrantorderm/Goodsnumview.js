@@ -15,7 +15,7 @@ function goodsnumview(Warrantoutstore,ordermselections) {
 	        			    ,'storehousename' 
 	        			      ];// 全部字段
 	var Goodsnumviewkeycolumn = [ 'idgoodsnum' ];// 主键
-	var Goodsnumviewstore = dataStore(Goodsnumviewfields, basePath + Goodsnumviewaction + "?method=selAll&orderby");// 定义Goodsnumviewstore
+	var Goodsnumviewstore = dataStore(Goodsnumviewfields, basePath + Goodsnumviewaction + "?method=selAll");// 定义Goodsnumviewstore
 	
 	var Goodsnumviewgrid =  Ext.create('Ext.grid.Panel', {
 		height : document.documentElement.clientHeight - 4,
@@ -126,26 +126,29 @@ function goodsnumview(Warrantoutstore,ordermselections) {
 				listeners : {
 					specialkey : function(field, e) {
 						if (e.getKey() == Ext.EventObject.ENTER) {
-							if ("" == Ext.getCmp("queryGoodsnumviewaction").getValue()) {
-								Goodsnumviewstore.load({
-									params : {
-										start : 0,
-										limit : PAGESIZE,
-										json : queryjson
-									}
-								});
-							} else {
-								Goodsnumviewstore.load({
-									params : {
-										start : 0,
-										limit : PAGESIZE,
-										json : queryjson,
-										query : Ext.getCmp("queryGoodsnumviewaction").getValue()
-									}
-								});
-							}
+							Goodsnumviewstore.load({
+								params : {
+									start : 0,
+									limit : PAGESIZE,
+									json : queryjson,
+									query : Ext.getCmp("queryGoodsnumviewaction").getValue()
+								}
+							});
 						}
 					}
+				}
+			},{
+				text : "查询",
+				xtype: 'button',
+				handler : function() {
+					Goodsnumviewstore.load({
+						params : {
+							start : 0,
+							limit : PAGESIZE,
+							json : queryjson,
+							query : Ext.getCmp("queryGoodsnumviewaction").getValue()
+						}
+					});
 				}
 			}
 		]
@@ -182,6 +185,7 @@ function goodsnumview(Warrantoutstore,ordermselections) {
 								'warrantoutstore' : selectRows[0].get("goodsnumstore")
 		        			    ,'warrantoutgoods' : selectRows[0].get("goodsnumgoods")
 		        			    ,'warrantoutnum' : '1'
+		        			    ,'idgoodsnum' : selectRows[0].get("idgoodsnum")
 		        			    ,'goodsnumnum' : selectRows[0].get("goodsnumnum")
 		        			    ,'warrantoutgcode' : selectRows[0].get("goodscode")
 		        			    ,'warrantoutgname' : selectRows[0].get("goodsname")

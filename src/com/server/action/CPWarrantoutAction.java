@@ -60,12 +60,12 @@ public class CPWarrantoutAction extends WarrantoutAction {
 	public void updPrintTimes(HttpServletRequest request, HttpServletResponse response){
 		String ordermid = request.getParameter("ordermid");
 		List<String> sqlLi = new ArrayList<String>();
-		if(CommonUtil.isNotNull(ordermid)){
+		if(!CommonUtil.isNull(ordermid)){
 			List<Warrantout> woLi = selAll(Warrantout.class, "select * from Warrantout where warrantoutodm='"+ordermid+"'");
 			if(woLi.size()>0){
 				for (Warrantout wo : woLi) {
 					//修改打印次数
-					if(CommonUtil.isNotNull(wo.getWarrantoutprint())){
+					if(!CommonUtil.isNull(wo.getWarrantoutprint())){
 						Integer outNum = Integer.parseInt(wo.getWarrantoutprint())+1;
 						wo.setWarrantoutprint(outNum.toString());
 					} else {
@@ -85,9 +85,9 @@ public class CPWarrantoutAction extends WarrantoutAction {
 	public void outPrint(HttpServletRequest request, HttpServletResponse response){
 		String ordermid = request.getParameter("ordermid");
 		String idwarrantouts = request.getParameter("idwarrantouts");
-		if(CommonUtil.isNotNull(ordermid)){
+		if(!CommonUtil.isNull(ordermid)){
 			List<Warrantoutview> outLi = selAll(Warrantoutview.class, "select * from Warrantoutview where warrantoutodm='"+ordermid+"'");
-			if(CommonUtil.isNotNull(idwarrantouts)){
+			if(!CommonUtil.isNull(idwarrantouts)){
 				String[] outIds = idwarrantouts.split(",");
 				for (String outId : outIds) {
 					outLi.addAll(selAll(Warrantoutview.class, "select * from Warrantoutview where idwarrantout='"+outId+"'"));
@@ -133,7 +133,7 @@ public class CPWarrantoutAction extends WarrantoutAction {
 						
 						Integer woNum = getTotal("select count(*) from warrantout wo where wo.warrantoutstatue='发货请求' and wo.warrantoutodm='"+temp.getWarrantoutodm()+"'");
 						String updOrdermSQL = null;		//修改订单总表状态的SQL
-						if(CommonUtil.isNotNull(temp.getWarrantoutodm()) && woNum==1){
+						if(!CommonUtil.isNull(temp.getWarrantoutodm()) && woNum==1){
 							updOrdermSQL = "update orderm set ordermstatue='已发货' where ordermid='"+temp.getWarrantoutodm()+"'";
 						}
 						if(gnLi.size()>0 && null != gnLi.get(0).getIdgoodsnum()){
@@ -172,7 +172,7 @@ public class CPWarrantoutAction extends WarrantoutAction {
 					} else if(null != temp.getWarrantoutstatue() && temp.getWarrantoutstatue().equals("另行处理")){
 						Integer woNum = getTotal("select count(*) from warrantout wo where wo.warrantoutstatue='发货请求' and wo.warrantoutodm='"
 										+temp.getWarrantoutodm()+"'");
-						if(CommonUtil.isNotNull(temp.getWarrantoutodm()) && woNum==1){
+						if(!CommonUtil.isNull(temp.getWarrantoutodm()) && woNum==1){
 							String updOrdermSQL = "update orderm set ordermstatue='已发货' where ordermid='"+temp.getWarrantoutodm()+"'";
 							String[] sqls = {updTemp,updOrdermSQL};
 							result = doAll(sqls);

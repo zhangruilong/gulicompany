@@ -32,7 +32,7 @@ public class CPWarrantoutviewAction extends WarrantoutviewAction {
 		String warrantoutwho = request.getParameter("warrantoutwho");	//默认领货人
 		System.out.println("json : " + json);
 		json = json.replace("\"\"", "null");
-		if(CommonUtil.isNotEmpty(json)) cuss = CommonConst.GSON.fromJson(json, TYPE);
+		if(!CommonUtil.isNull(json)) cuss = CommonConst.GSON.fromJson(json, TYPE);
 		List<String> sqlLi = new ArrayList<String>();
 		List<String> odmLi = new ArrayList<String>();
 		List<Goodsnum> newGNLi = new ArrayList<Goodsnum>();		//要新增的 商品库存 集合
@@ -76,7 +76,7 @@ public class CPWarrantoutviewAction extends WarrantoutviewAction {
 					sqlLi.add(updTemp);
 				} else {
 					String goodsid = temp.getWarrantoutgoods();
-					if(CommonUtil.isNotEmpty(goodsid)){
+					if(!CommonUtil.isNull(goodsid)){
 						if(newGNLi.size()==0){
 							//新增商品库存
 							Goodsnum ngn = new Goodsnum(CommonUtil.getNewId(), goodsid, "-"+temp.getWarrantoutnum(), temp.getWarrantoutstore());
@@ -122,7 +122,7 @@ public class CPWarrantoutviewAction extends WarrantoutviewAction {
 				List<String> odmSQLLi = new ArrayList<String>();
 				for (String odmId : odmLi) {
 					Integer woNum = getTotal("select count(*) from warrantout wo where wo.warrantoutstatue='发货请求' and wo.warrantoutodm='"+odmId+"' and wo.warrantoutcompany='"+lgif.getCompanyid()+"'");
-					if(CommonUtil.isNotNull(odmId) && woNum == 0){
+					if(!CommonUtil.isNull(odmId) && woNum == 0){
 						odmSQLLi.add("update orderm set ordermstatue='已发货' where ordermid='"+odmId+"'");
 					}
 				}
@@ -138,18 +138,18 @@ public class CPWarrantoutviewAction extends WarrantoutviewAction {
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
 		String sql = "select * from " + queryinfo.getType().getSimpleName() + " where 1=1 ";
-		if(CommonUtil.isNotEmpty(queryinfo.getJson())){
+		if(!CommonUtil.isNull(queryinfo.getJson())){
 			String jsonsql = TypeUtil.beanToSql(queryinfo.getJson());
-			if(CommonUtil.isNotNull(jsonsql))
+			if(!CommonUtil.isNull(jsonsql))
 			sql += " and (" + TypeUtil.beanToSql(queryinfo.getJson()) + ") ";
 		}
-		if(CommonUtil.isNotEmpty(queryinfo.getWheresql())){
+		if(!CommonUtil.isNull(queryinfo.getWheresql())){
 			sql += " and (" + queryinfo.getWheresql() + ") ";
 		}
-		if(CommonUtil.isNotEmpty(queryinfo.getQuery())){
+		if(!CommonUtil.isNull(queryinfo.getQuery())){
 			sql += " and (" + queryinfo.getQuery() + ") ";
 		}
-		if(CommonUtil.isNotEmpty(startDate) && CommonUtil.isNotEmpty(endDate)){
+		if(!CommonUtil.isNull(startDate) && !CommonUtil.isNull(endDate)){
 			sql += " and warrantoutinswhen >='"+startDate+"' and warrantoutinswhen <='"+endDate+"'";
 		}
 		Warrantoutview sum = (Warrantoutview) selAll(Warrantoutview.class,sql).get(0);
@@ -172,21 +172,21 @@ public class CPWarrantoutviewAction extends WarrantoutviewAction {
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
 		String sql = "select sum(warrantoutnum) as warrantoutnum from " + queryinfo.getType().getSimpleName() + " where 1=1 ";
-		if(CommonUtil.isNotEmpty(queryinfo.getJson())){
+		if(!CommonUtil.isNull(queryinfo.getJson())){
 			String jsonsql = TypeUtil.beanToSql(queryinfo.getJson());
-			if(CommonUtil.isNotNull(jsonsql))
+			if(!CommonUtil.isNull(jsonsql))
 			sql += " and (" + TypeUtil.beanToSql(queryinfo.getJson()) + ") ";
 		}
-		if(CommonUtil.isNotEmpty(warrantoutodm)){
+		if(!CommonUtil.isNull(warrantoutodm)){
 			sql += " and warrantoutodm = '" + warrantoutodm+ "' ";
 		}
-		if(CommonUtil.isNotEmpty(queryinfo.getWheresql())){
+		if(!CommonUtil.isNull(queryinfo.getWheresql())){
 			sql += " and (" + queryinfo.getWheresql() + ") ";
 		}
-		if(CommonUtil.isNotEmpty(queryinfo.getQuery())){
+		if(!CommonUtil.isNull(queryinfo.getQuery())){
 			sql += " and (" + queryinfo.getQuery() + ") ";
 		}
-		if(CommonUtil.isNotEmpty(startDate) && CommonUtil.isNotEmpty(endDate)){
+		if(!CommonUtil.isNull(startDate) && !CommonUtil.isNull(endDate)){
 			sql += " and warrantoutinswhen >='"+startDate+"' and warrantoutinswhen <='"+endDate+"'";
 		}
 		Warrantoutview sum = (Warrantoutview) selAll(Warrantoutview.class,sql).get(0);

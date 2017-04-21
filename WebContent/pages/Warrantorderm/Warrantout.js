@@ -138,6 +138,9 @@ function warrantout(ordermselections) {
 	         ptype: 'cellediting',
 	         clicksToEdit: 1
 	    },
+	    viewConfig : {
+	    	enableTextSelection : true	//文本可以被选中
+	    },
 		columns : [{xtype: 'rownumberer',width:50}, 
 		{// 改
 			header : 'ID',
@@ -169,35 +172,9 @@ function warrantout(ordermselections) {
             }
 		}
 		, {
-			header : '仓库',
-			dataIndex : 'warrantoutstore',
-			hidden : true,  
-			editor: {
-                xtype: 'textfield'
-            }
-		}
-		, {
-			header : '仓库',
-			dataIndex : 'warrantoutordnote',
-			hidden : true
-		}
-		, {
-			header : '仓库',
-			dataIndex : 'storehousename',
-			sortable : true
-		}
-		, {
 			header : '商品',
 			dataIndex : 'warrantoutgoods',
 			hidden : true,  
-			editor: {
-                xtype: 'textfield'
-            }
-		}
-		, {
-			header : '数量',
-			dataIndex : 'warrantoutnum',
-			sortable : true,  
 			editor: {
                 xtype: 'textfield'
             }
@@ -262,11 +239,13 @@ function warrantout(ordermselections) {
 			header : '商品编码',
 			dataIndex : 'warrantoutgcode',
 			sortable : true,
+			width : 120
 		}
 		, {
 			header : '商品名称',
 			dataIndex : 'warrantoutgname',
-			sortable : true
+			sortable : true,
+			width : 120
 		}
 		, {
 			header : '规格',
@@ -353,6 +332,33 @@ function warrantout(ordermselections) {
                 xtype: 'textfield'
             }
 		}
+		, {
+			header : '数量',
+			dataIndex : 'warrantoutnum',
+			sortable : true,  
+			width : 50,
+			editor: {
+                xtype: 'textfield'
+            }
+		}
+		, {
+			header : '仓库',
+			dataIndex : 'warrantoutstore',
+			hidden : true,  
+			editor: {
+                xtype: 'textfield'
+            }
+		}
+		, {
+			header : '仓库',
+			dataIndex : 'warrantoutordnote',
+			hidden : true
+		}
+		, {
+			header : '仓库',
+			dataIndex : 'storehousename',
+			sortable : true
+		}
 		],
 		tbar : [{
 				text : Ext.os.deviceType === 'Phone' ? null : "新增",
@@ -416,77 +422,75 @@ function warrantout(ordermselections) {
 				iconCls : 'exp',
 				handler : function() {
 					if (isfahuo) return;
-//					Ext.Msg.confirm('请确认', '<b>提示:</b>请确认要一键出库？', function(btn, text) {
-//						if (btn == 'yes') {
 					if (!OrdermviewdataForm.form.isValid()||Warrantoutstore.getCount()==0) {
 				        Ext.Msg.alert('提示', '请正确填写表单!');
 				        return;
 				    }
-							var linghuoren = Ext.getCmp("Warrantoutviewwarrantoutwho").getValue();
-							if(strUtil.isNull(linghuoren)) {
-								Ext.Msg.alert('提示', "领货人不能为空", function(){
-									return;
-								});
-							}
-							var msg = '';
-							var goodsnumjson = "[";
-							for(var i =0;i<Warrantoutstore.getCount();i++){
-								if(strUtil.isNull(Warrantoutstore.getAt(i).get('goodsnumnum')))  strUtil.isNull(Warrantoutstore.getAt(i).set('goodsnumnum',0))
-								var goodsnumnum = Warrantoutstore.getAt(i).get('goodsnumnum') - Warrantoutstore.getAt(i).get('warrantoutnum');
-								if(goodsnumnum<0) {
-									msg += Warrantoutstore.getAt(i).get('warrantoutgname')+",";
-								}
-								goodsnumjson += "{'idgoodsnum':'"+Warrantoutstore.getAt(i).get('idgoodsnum')
-								+"','goodsnumnum':'"+goodsnumnum
-								+"','goodsnumgoods':'"+Warrantoutstore.getAt(i).get('warrantoutgoods')
-								+"','idwarrantout':'"+Warrantoutstore.getAt(i).get('idwarrantout')
-								+"','warrantoutgoods':'"+Warrantoutstore.getAt(i).get('warrantoutgoods')
-								+"','warrantoutnum':'"+Warrantoutstore.getAt(i).get('warrantoutnum')
-								+"','warrantoutstore':'"+Warrantoutstore.getAt(i).get('warrantoutstore')
-								+"','warrantoutgcode':'"+Warrantoutstore.getAt(i).get('warrantoutgcode')
-								+"','warrantoutgname':'"+Warrantoutstore.getAt(i).get('warrantoutgname')
-								+"','warrantoutgunits':'"+Warrantoutstore.getAt(i).get('warrantoutgunits')
-								+"','warrantoutcompany':'"+1
-								+"'},";
-							}
-							if(!strUtil.isNull(msg))
-								Ext.Msg.confirm('请确认', '<b>提示:'+msg+'</b>数量不足，是否继续？', function(btn2, text2) {
-									if (btn2 == 'yes') {
-										var json = "[{'ordermid':'"+ordermid
-										+"','ordermdetail':'"+linghuoren
-										+"','ordermcustomer':'"+Ext.getCmp("Warrantordermordermcustomer").getValue()
-										+"','ordermcusshop':'"+Ext.getCmp("Warrantordermordermcusshop").getValue()
-										+"','ordermnum':'"+Warrantoutstore.getCount()
-										+"','ordermcompany':'"+1
-										+"','ordermstatue':'"+"已发货"
-										+"'}]";
-										//出库更新库存表(商品，数量)、出库单主表（主表id，领货人）
-										Ext.Ajax.request({
-											url : basePath + "MWarrantordermAction.do?method=guozhan",
-											method : 'POST',
-											params : {
-												json : json,
-												goodsnumjson: goodsnumjson.substr(0, goodsnumjson.length - 1) + "]",
-											},
-											success : function(response) {
-												var resp = Ext.decode(response.responseText); 
-												isfahuo = true;
-												alert( resp.msg)
-												if (!Ext.isEmpty(ordermselections)) {
-													ordermselections[0].set("ordermnum",Warrantoutstore.getCount());
-													ordermselections[0].set("ordermstatue","已发货");
-													ordermselections[0].set("ordermdetail",linghuoren);
-												}
-											},
-											failure : function(response) {
-												alert( '网络出现问题，请稍后再试');
-											}
-										});	
+					var linghuoren = Ext.getCmp("Warrantoutviewwarrantoutwho").getValue();
+					if(strUtil.isNull(linghuoren)) {
+						Ext.Msg.alert('提示', "领货人不能为空", function(){
+							return;
+						});
+					}
+					var msg = '';
+					var goodsnumjson = "[";
+					for(var i =0;i<Warrantoutstore.getCount();i++){
+						if(strUtil.isNull(Warrantoutstore.getAt(i).get('goodsnumnum'))) Warrantoutstore.getAt(i).set('goodsnumnum',0);
+						
+						var goodsnumnum = Warrantoutstore.getAt(i).get('goodsnumnum') - Warrantoutstore.getAt(i).get('warrantoutnum');
+						if(goodsnumnum<0) {
+							msg += Warrantoutstore.getAt(i).get('warrantoutgname')+",";
+						}
+						goodsnumjson += "{'idgoodsnum':'"+Warrantoutstore.getAt(i).get('idgoodsnum')
+						+"','goodsnumnum':'"+goodsnumnum
+						+"','goodsnumgoods':'"+Warrantoutstore.getAt(i).get('warrantoutgoods')
+						+"','idwarrantout':'"+Warrantoutstore.getAt(i).get('idwarrantout')
+						+"','warrantoutgoods':'"+Warrantoutstore.getAt(i).get('warrantoutgoods')
+						+"','warrantoutnum':'"+Warrantoutstore.getAt(i).get('warrantoutnum')
+						+"','warrantoutstore':'"+Warrantoutstore.getAt(i).get('warrantoutstore')
+						+"','warrantoutgcode':'"+Warrantoutstore.getAt(i).get('warrantoutgcode')
+						+"','warrantoutgname':'"+Warrantoutstore.getAt(i).get('warrantoutgname')
+						+"','warrantoutgunits':'"+Warrantoutstore.getAt(i).get('warrantoutgunits')
+						+"','warrantoutcompany':'"+1
+						+"'},";
+					}
+					if(!strUtil.isNull(msg)) msg += '</b>数量不足，是否继续？';
+					else msg = '确定出库过账吗？'
+					Ext.Msg.confirm('请确认', '<b>提示:'+msg, function(btn2, text2) {
+						if (btn2 == 'yes') {
+							var json = "[{'ordermid':'"+ordermid
+							+"','ordermdetail':'"+linghuoren
+							+"','ordermcustomer':'"+Ext.getCmp("Warrantordermordermcustomer").getValue()
+							+"','ordermcusshop':'"+Ext.getCmp("Warrantordermordermcusshop").getValue()
+							+"','ordermnum':'"+Warrantoutstore.getCount()
+							+"','ordermcompany':'"+1
+							+"','ordermstatue':'"+"已发货"
+							+"'}]";
+							//出库更新库存表(商品，数量)、出库单主表（主表id，领货人）
+							Ext.Ajax.request({
+								url : basePath + "MWarrantordermAction.do?method=guozhan",
+								method : 'POST',
+								params : {
+									json : json,
+									goodsnumjson: goodsnumjson.substr(0, goodsnumjson.length - 1) + "]",
+								},
+								success : function(response) {
+									var resp = Ext.decode(response.responseText); 
+									isfahuo = true;
+									alert( resp.msg)
+									if (!Ext.isEmpty(ordermselections)) {
+										ordermselections[0].set("ordermnum",Warrantoutstore.getCount());
+										ordermselections[0].set("ordermstatue","已发货");
+										ordermselections[0].set("ordermdetail",linghuoren);
+										ordermselections[0].set("updtime",new Date().dateFormat("yyyy-MM-dd hh:mm:ss"));
 									}
-								})
-//						}
-//					})
-					
+								},
+								failure : function(response) {
+									alert( '网络出现问题，请稍后再试');
+								}
+							});	
+						}
+					})
 				}
 			}
 		]
@@ -500,7 +504,7 @@ function warrantout(ordermselections) {
 //		Ext.getCmp("Warrantordermordermcode").setValue(ordermselections[0].get("ordermcode"));
 	}
 	selectgridWindow = new Ext.Window({
-		title : "出库单详情",
+		title : "出库详情",
 		layout : 'border', // 设置窗口布局模式
 		width : 620, // 窗口宽度
 		height : document.body.clientHeight -4, // 窗口高度

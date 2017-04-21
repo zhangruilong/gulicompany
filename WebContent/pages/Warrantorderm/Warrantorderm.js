@@ -27,7 +27,7 @@ Ext.onReady(function() {
 	        			    ,'ordermprinttimes' 
 	        			      ];// 全部字段
 	var Warrantordermkeycolumn = [ 'ordermid' ];// 主键
-	var Warrantordermstore = dataStore(Warrantordermfields, basePath + Warrantordermaction + "?method=selLimit");// 定义Warrantordermstore
+	var Warrantordermstore = dataStore(Warrantordermfields, basePath + Warrantordermaction + "?method=selLimit&order='ordermtime desc'");// 定义Warrantordermstore
 	
 //	var Warrantordermbbar = pagesizebar(Warrantordermstore);//定义分页
 	var Warrantordermgrid =  Ext.create('Ext.grid.Panel', {

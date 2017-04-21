@@ -24,18 +24,18 @@ public class CPWarrantbackviewAction extends WarrantbackviewAction {
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
 		String sql = "select * from " + queryinfo.getType().getSimpleName() + " where 1=1 ";
-		if(CommonUtil.isNotEmpty(queryinfo.getJson())){
+		if(!CommonUtil.isNull(queryinfo.getJson())){
 			String jsonsql = TypeUtil.beanToSql(queryinfo.getJson());
-			if(CommonUtil.isNotNull(jsonsql))
+			if(!CommonUtil.isNull(jsonsql))
 			sql += " and (" + TypeUtil.beanToSql(queryinfo.getJson()) + ") ";
 		}
-		if(CommonUtil.isNotEmpty(queryinfo.getWheresql())){
+		if(!CommonUtil.isNull(queryinfo.getWheresql())){
 			sql += " and (" + queryinfo.getWheresql() + ") ";
 		}
-		if(CommonUtil.isNotEmpty(queryinfo.getQuery())){
+		if(!CommonUtil.isNull(queryinfo.getQuery())){
 			sql += " and (" + queryinfo.getQuery() + ") ";
 		}
-		if(CommonUtil.isNotEmpty(startDate) && CommonUtil.isNotEmpty(endDate)){
+		if(!CommonUtil.isNull(startDate) && !CommonUtil.isNull(endDate)){
 			sql += " and warrantbackinswhen >='"+startDate+"' and warrantbackinswhen <='"+endDate+"'";
 		}
 		sql += " order by idwarrantback desc";
@@ -51,18 +51,18 @@ public class CPWarrantbackviewAction extends WarrantbackviewAction {
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
 		String sql = "select sum(warrantbacknum) as warrantbacknum from " + queryinfo.getType().getSimpleName() + " where 1=1 ";
-		if(CommonUtil.isNotEmpty(queryinfo.getJson())){
+		if(!CommonUtil.isNull(queryinfo.getJson())){
 			String jsonsql = TypeUtil.beanToSql(queryinfo.getJson());
-			if(CommonUtil.isNotNull(jsonsql))
+			if(!CommonUtil.isNull(jsonsql))
 			sql += " and (" + TypeUtil.beanToSql(queryinfo.getJson()) + ") ";
 		}
-		if(CommonUtil.isNotEmpty(queryinfo.getWheresql())){
+		if(!CommonUtil.isNull(queryinfo.getWheresql())){
 			sql += " and (" + queryinfo.getWheresql() + ") ";
 		}
-		if(CommonUtil.isNotEmpty(queryinfo.getQuery())){
+		if(!CommonUtil.isNull(queryinfo.getQuery())){
 			sql += " and (" + queryinfo.getQuery() + ") ";
 		}
-		if(CommonUtil.isNotEmpty(startDate) && CommonUtil.isNotEmpty(endDate)){
+		if(!CommonUtil.isNull(startDate) && !CommonUtil.isNull(endDate)){
 			sql += " and warrantbackinswhen >='"+startDate+"' and warrantbackinswhen <='"+endDate+"'";
 		}
 		/*Warrantbackview sum = (Warrantbackview) selAll(Warrantbackview.class,sql).get(0);		//这里是查询统计数据

@@ -70,7 +70,7 @@ public class CPOrderdAction extends OrderdAction{
 			selectsql += "and (om.ordermtime like '"+DateUtils.getDate()+"%' or om.ordermid like '%0' or om.ordermid like '%1' or om.ordermid like "
 					+ "'%2' or om.ordermid like '%3' or om.ordermid like '%4') ";
 		}
-		if(CommonUtil.isNotEmpty(queryinfo.getQuery())){
+		if(!CommonUtil.isNull(queryinfo.getQuery())){
 			selectsql += "and ( "+
 				"cc.createtime like '%"+queryinfo.getQuery()+"%' or "+
 				"c.customershop like '%"+queryinfo.getQuery()+"%' ) ";
@@ -110,7 +110,7 @@ public class CPOrderdAction extends OrderdAction{
 				"sum(od.ORDERDRIGHTMONEY) sumorderdrightmoney, "+
 				"sum(od.orderdnum) sumorderdnum "+
 			"from orderd od left join orderm om on od.orderdorderm = om.ordermid ";
-		if(CommonUtil.isNotEmpty(empNames))
+		if(!CommonUtil.isNull(empNames))
 			selectsql += "left join ccustomer cc on cc.ccustomercustomer = om.ordermcustomer ";
 		selectsql += "where om.ordermcompany = '"+lgInfo.getCompanyid()+"' ";
 		selectsql += "and om.ordermstatue != '已删除' and ordermtime >= '"+startDate+"' and ordermtime <= '"+endDate+"' ";
@@ -118,7 +118,7 @@ public class CPOrderdAction extends OrderdAction{
 			selectsql += "and (om.ordermtime like '"+DateUtils.getDate()+"%' or om.ordermid like '%0' or om.ordermid like '%1' or om.ordermid like '%2' or om.ordermid like '%3' or om.ordermid like '%4')";
 		}
 		//查询条件:cusNames
-		if(CommonUtil.isNotEmpty(cusNames)){
+		if(!CommonUtil.isNull(cusNames)){
 			selectsql += "and (";
 			for (String cusName : cusNames.split(",")) {
 				selectsql += "om.ordermcusshop='"+cusName+"' or ";
@@ -126,7 +126,7 @@ public class CPOrderdAction extends OrderdAction{
 			selectsql = selectsql.substring(0, selectsql.length()-3) + ")";
 		}
 		//查询条件:empNames
-		if(CommonUtil.isNotEmpty(empNames)){
+		if(!CommonUtil.isNull(empNames)){
 			selectsql += "and (";
 			for (String empName : empNames.split(",")) {
 				if(!empName.equals("无填充")){
@@ -138,7 +138,7 @@ public class CPOrderdAction extends OrderdAction{
 			selectsql = selectsql.substring(0, selectsql.length()-3) + ")";
 		}
 		//查询条件:brandNames
-		if(CommonUtil.isNotEmpty(brandNames)){
+		if(!CommonUtil.isNull(brandNames)){
 			selectsql += "and (";
 			for (String brandName : brandNames.split(",")) {
 				if(!brandName.equals("无填充")){
@@ -149,7 +149,7 @@ public class CPOrderdAction extends OrderdAction{
 			}
 			selectsql = selectsql.substring(0, selectsql.length()-3) + ")";
 		}
-		if(CommonUtil.isNotEmpty(queryinfo.getQuery())){
+		if(!CommonUtil.isNull(queryinfo.getQuery())){
 			selectsql += "and (od.orderdcode like '%"+queryinfo.getQuery()+"%' or "+
 							"od.orderdname like '%"+queryinfo.getQuery()+"%' or "+
 							"od.orderdunits like '%"+queryinfo.getQuery()+"%' or "+
@@ -183,7 +183,7 @@ public class CPOrderdAction extends OrderdAction{
 		Integer ordermnum = 0;
 		String udpateOrdermSql = null;
 		/* 修改订单商品 */
-		if(CommonUtil.isNotEmpty(orderdjson)){
+		if(!CommonUtil.isNull(orderdjson)){
 			cuss = CommonConst.GSON.fromJson(orderdjson, TYPE);
 		}
 		Orderd odd = cuss.get(0);
@@ -235,7 +235,7 @@ public class CPOrderdAction extends OrderdAction{
 			selectsql += "and (om.ordermtime like '"+DateUtils.getDate()+"%' or om.ordermid like '%0' or om.ordermid like '%1' or om.ordermid like "
 					+ "'%2' or om.ordermid like '%3' or om.ordermid like '%4') ";
 		}
-		if(CommonUtil.isNotEmpty(queryinfo.getQuery())){
+		if(!CommonUtil.isNull(queryinfo.getQuery())){
 			selectsql += "and ( "+
 				"cc.createtime like '%"+queryinfo.getQuery()+"%' or "+
 				"c.customershop like '%"+queryinfo.getQuery()+"%' ) ";
@@ -296,7 +296,7 @@ public class CPOrderdAction extends OrderdAction{
 			selectsql += "and (om.ordermtime like '"+DateUtils.getDate()+"%' or om.ordermid like '%0' or om.ordermid like '%1' or om.ordermid like '%2' or om.ordermid like '%3' or om.ordermid like '%4')";
 		}
 		//查询条件:cusNames
-		if(CommonUtil.isNotEmpty(cusNames)){
+		if(!CommonUtil.isNull(cusNames)){
 			selectsql += "and (";
 			for (String cusName : cusNames.split(",")) {
 				selectsql += "c.customershop='"+cusName+"' or ";
@@ -304,7 +304,7 @@ public class CPOrderdAction extends OrderdAction{
 			selectsql = selectsql.substring(0, selectsql.length()-3) + ")";
 		}
 		//查询条件:empNames
-		if(CommonUtil.isNotEmpty(empNames)){
+		if(!CommonUtil.isNull(empNames)){
 			selectsql += "and (";
 			for (String empName : empNames.split(",")) {
 				if(!empName.equals("无填充")){
@@ -316,7 +316,7 @@ public class CPOrderdAction extends OrderdAction{
 			selectsql = selectsql.substring(0, selectsql.length()-3) + ")";
 		}
 		//查询条件:brandNames
-		if(CommonUtil.isNotEmpty(brandNames)){
+		if(!CommonUtil.isNull(brandNames)){
 			selectsql += "and (";
 			for (String brandName : brandNames.split(",")) {
 				if(!brandName.equals("无填充")){
@@ -327,7 +327,7 @@ public class CPOrderdAction extends OrderdAction{
 			}
 			selectsql = selectsql.substring(0, selectsql.length()-3) + ")";
 		}
-		if(CommonUtil.isNotEmpty(queryinfo.getQuery())){
+		if(!CommonUtil.isNull(queryinfo.getQuery())){
 			selectsql += "and (od.orderdcode like '%"+queryinfo.getQuery()+"%' or "+
 							"od.orderdname like '%"+queryinfo.getQuery()+"%' or "+
 							"od.orderdunits like '%"+queryinfo.getQuery()+"%' or "+
@@ -439,7 +439,7 @@ public class CPOrderdAction extends OrderdAction{
 				Field field = fields[j];
 				field.setAccessible(true);// 忽略访问权限，私有的也可以访问
 				boolean discardflag = true;
-				if(CommonUtil.isNotEmpty(discard)){
+				if(!CommonUtil.isNull(discard)){
 					for (int p = 0; p < discard.length; p++) {
 						if (field.getName().equals(discard[p])) {
 							discardflag = false;
@@ -564,7 +564,7 @@ public class CPOrderdAction extends OrderdAction{
 				Field field = fields[j];
 				field.setAccessible(true);// 忽略访问权限，私有的也可以访问
 				boolean discardflag = true;
-				if(CommonUtil.isNotEmpty(discard)){
+				if(!CommonUtil.isNull(discard)){
 					for (int p = 0; p < discard.length; p++) {
 						if (field.getName().equals(discard[p])) {
 							discardflag = false;
@@ -712,7 +712,7 @@ public class CPOrderdAction extends OrderdAction{
 				Field field = fields[j];
 				field.setAccessible(true);// 忽略访问权限，私有的也可以访问
 				boolean discardflag = true;
-				if(CommonUtil.isNotEmpty(discard)){
+				if(!CommonUtil.isNull(discard)){
 					for (int p = 0; p < discard.length; p++) {
 						if (field.getName().equals(discard[p])) {
 							discardflag = false;
@@ -814,7 +814,7 @@ public class CPOrderdAction extends OrderdAction{
 				Field field = fields[j];
 				field.setAccessible(true);// 忽略访问权限，私有的也可以访问
 				boolean discardflag = true;
-				if(CommonUtil.isNotEmpty(discard)){
+				if(!CommonUtil.isNull(discard)){
 					for (int p = 0; p < discard.length; p++) {
 						if (field.getName().equals(discard[p])) {
 							discardflag = false;

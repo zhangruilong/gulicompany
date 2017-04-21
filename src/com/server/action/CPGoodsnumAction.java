@@ -46,12 +46,12 @@ public class CPGoodsnumAction extends GoodsnumAction {
 		//仓库
 		String storehouseSQL = CommonUtil.isEmpty(request.getParameter("storehouseid"))?"":" and gn.goodsnumstore='"+request.getParameter("storehouseid")+"'";
 		String sql = "select g.goodsname,g.goodsunits,sh.storehousename, "+
-					"(select sum(warrantinnum) from warrantin where warrantingoods=g.goodsid and warrantinstore=sh.storehouseid and warrantinstatue!='已回滚' and warrantininswhen>='"+startDate+"' and warrantininswhen<='"+endDate+"' group by warrantingoods) as innum, "+
+					"(select sum(warrantinnum) from warrantin where warrantingoods=g.goodsid and warrantinstore=sh.storehouseid and (warrantinstatue is null or warrantinstatue !='已回滚') and warrantininswhen>='"+startDate+"' and warrantininswhen<='"+endDate+"' group by warrantingoods) as innum, "+
 					"(select sum(warrantoutnum) from warrantout where warrantoutgoods=g.goodsid and warrantoutstore=sh.storehouseid and warrantoutstatue='已发货' and warrantoutinswhen>='"+startDate+"' and warrantoutinswhen<='"+endDate+"' group by warrantoutgoods) as outnum, "+
 					"(select sum(warrantbacknum) from warrantback where warrantbackgoods=g.goodsid and warrantbackstore=sh.storehouseid and warrantbackstatue='完好退货' and warrantbackinswhen>='"+startDate+"' and warrantbackinswhen<='"+endDate+"' group by warrantbackgoods) as outback, "+
 					"(select sum(warrantbacknum) from warrantback where warrantbackgoods=g.goodsid and warrantbackstore=sh.storehouseid and warrantbackstatue='采购退货' and warrantbackinswhen>='"+startDate+"' and warrantbackinswhen<='"+endDate+"' group by warrantbackgoods) as inback, "+
 					"sum(gn.goodsnumnum) goodsnumnum, "+
-					"(ifnull(sum(gn.goodsnumnum),0)-ifnull((select sum(warrantinnum) from warrantin where warrantingoods=g.goodsid and warrantinstore=sh.storehouseid and warrantinstatue!='已回滚' and warrantininswhen>='"+startDate+"' and warrantininswhen<='"+endDate+"' group by warrantingoods),0)+ifnull((select sum(warrantoutnum) from warrantout where warrantoutgoods=g.goodsid and warrantoutstore=sh.storehouseid and warrantoutstatue='已发货' and warrantoutinswhen>='"+startDate+"' and warrantoutinswhen<='"+endDate+"' group by warrantoutgoods),0)-ifnull((select sum(warrantbacknum) from warrantback where warrantbackgoods=g.goodsid and warrantbackstore=sh.storehouseid and warrantbackstatue='完好退货' and warrantbackinswhen>='"+startDate+"' and warrantbackinswhen<='"+endDate+"' group by warrantbackgoods),0)+ifnull((select sum(warrantbacknum) from warrantback where warrantbackgoods=g.goodsid and warrantbackstore=sh.storehouseid and warrantbackstatue='采购退货' and warrantbackinswhen>='"+startDate+"' and warrantbackinswhen<='"+endDate+"' group by warrantbackgoods),0)) as quondamnum "+
+					"(ifnull(sum(gn.goodsnumnum),0)-ifnull((select sum(warrantinnum) from warrantin where warrantingoods=g.goodsid and warrantinstore=sh.storehouseid and (warrantinstatue is null or warrantinstatue !='已回滚')  and warrantininswhen>='"+startDate+"' and warrantininswhen<='"+endDate+"' group by warrantingoods),0)+ifnull((select sum(warrantoutnum) from warrantout where warrantoutgoods=g.goodsid and warrantoutstore=sh.storehouseid and warrantoutstatue='已发货' and warrantoutinswhen>='"+startDate+"' and warrantoutinswhen<='"+endDate+"' group by warrantoutgoods),0)-ifnull((select sum(warrantbacknum) from warrantback where warrantbackgoods=g.goodsid and warrantbackstore=sh.storehouseid and warrantbackstatue='完好退货' and warrantbackinswhen>='"+startDate+"' and warrantbackinswhen<='"+endDate+"' group by warrantbackgoods),0)+ifnull((select sum(warrantbacknum) from warrantback where warrantbackgoods=g.goodsid and warrantbackstore=sh.storehouseid and warrantbackstatue='采购退货' and warrantbackinswhen>='"+startDate+"' and warrantbackinswhen<='"+endDate+"' group by warrantbackgoods),0)) as quondamnum "+
 					"from goodsnum gn "+
 					"left outer join goods g on gn.goodsnumgoods=g.goodsid "+
 					"left outer join storehouse sh on gn.goodsnumstore=sh.storehouseid "+
@@ -80,8 +80,8 @@ public class CPGoodsnumAction extends GoodsnumAction {
 		System.out.println("json : " + json);
 		json = json.replace("\"\"", "null");
 		List<Goods> gooLi = new ArrayList<Goods>();
-		if(CommonUtil.isNotEmpty(json)) gooLi = CommonConst.GSON.fromJson(json,  new TypeToken<ArrayList<Goods>>() {}.getType());
-		if(gooLi.size()>0 && CommonUtil.isNotEmpty(goodsnum) && CommonUtil.isNotEmpty(goodsnumstore)){
+		if(!CommonUtil.isNull(json)) gooLi = CommonConst.GSON.fromJson(json,  new TypeToken<ArrayList<Goods>>() {}.getType());
+		if(gooLi.size()>0 && !CommonUtil.isNull(goodsnum) && !CommonUtil.isNull(goodsnumstore)){
 			Goods addGoods = gooLi.get(0);
 			//查询是否有重复的商品
 			List<Goods> isRe = selAll(Goods.class, "select * from goods where goodscode='"+addGoods.getGoodscode()+
@@ -244,7 +244,7 @@ public class CPGoodsnumAction extends GoodsnumAction {
 					Field field = fields[j];
 					field.setAccessible(true);// 忽略访问权限，私有的也可以访问
 					boolean discardflag = true;
-					if(CommonUtil.isNotEmpty(discard) && discard.length>0){
+					if(!CommonUtil.isNull(discard) && discard.length>0){
 						for (int p = 0; p < discard.length; p++) {
 							if (field.getName().equals(discard[p])) {
 								discardflag = false;
@@ -386,7 +386,7 @@ public class CPGoodsnumAction extends GoodsnumAction {
 					Field field = fields[j];
 					field.setAccessible(true);// 忽略访问权限，私有的也可以访问
 					boolean discardflag = true;
-					if(CommonUtil.isNotEmpty(discard) && discard.length>0){
+					if(!CommonUtil.isNull(discard) && discard.length>0){
 						for (int p = 0; p < discard.length; p++) {
 							if (field.getName().equals(discard[p])) {
 								discardflag = false;

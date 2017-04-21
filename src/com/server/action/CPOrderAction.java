@@ -53,7 +53,7 @@ public class CPOrderAction extends OrdermviewAction {
 				"select * from orderm om where om.ordermid='"+ordermid+"' and om.ordermstatue!='已删除'");
 		if(omLi.size()>0){
 			String updStaSQL = "update orderm om set om.ordermstatue='"+statue+"',om.updtime='"+DateUtils.getDateTime()+"',om.updor='"+lgi.getUsername()+"' where om.ordermid='"+ordermid+"'";
-			if(statue.equals("发货中")){
+			if(statue.equals("已发货")){
 				List<Orderd> odLi = selAll(Orderd.class, "select * from Orderd where orderdorderm='"+ordermid+"'");
 				ArrayList<String> strLi = new ArrayList<String>();
 				strLi.add(updStaSQL);
@@ -80,7 +80,7 @@ public class CPOrderAction extends OrdermviewAction {
 						if(gLi.size()>0){
 							Goodsnumview gnv = gLi.get(0);
 							goodsid = gnv.getGoodsid();	//得到对应商品ID
-							if(CommonUtil.isNotNull(gnv.getGoodsnumnum())){
+							if(!CommonUtil.isNull(gnv.getGoodsnumnum())){
 								insSHId = gnv.getGoodsnumstore();
 							}
 						}
@@ -98,6 +98,7 @@ public class CPOrderAction extends OrdermviewAction {
 				womLi.get(0).setOrdermstatue("待处理");
 				womLi.get(0).setOrdermemp("系统单");
 				womLi.get(0).setOrdermtime(time);
+				womLi.get(0).setUpdtime("");;
 				String ordermsql = getInsSingleSql(womLi.get(0));
 				strLi.add(ordermsql);
 				String[] sqls = strLi.toArray(new String[0]);
