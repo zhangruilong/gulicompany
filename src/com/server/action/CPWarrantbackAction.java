@@ -82,7 +82,7 @@ public class CPWarrantbackAction extends WarrantbackAction {
 					String[] sqls = {insBackSql,updGNSql};
 					result = doAll(sqls);
 				} else {
-					String insNumSql = "INSERT INTO `abf`.`goodsnum` (`idgoodsnum`, `goodsnumgoods`, `goodsnumnum`, `goodsnumstore`) VALUES ('"+
+					String insNumSql = "INSERT INTO goodsnum (idgoodsnum, goodsnumgoods, goodsnumnum, goodsnumstore) VALUES ('"+
 							newid+"', '"+temp.getWarrantbackgoods()+"', '"+temp.getWarrantbacknum()+"', '"+temp.getWarrantbackstore()+"')";
 					String[] sqls = {insBackSql,insNumSql};
 					result = doAll(sqls);
@@ -99,7 +99,7 @@ public class CPWarrantbackAction extends WarrantbackAction {
 					String[] sqls = {insBackSql,updGNSql};
 					result = doAll(sqls);
 				} else {
-					String insNumSql = "INSERT INTO `abf`.`goodsnum` (`idgoodsnum`, `goodsnumgoods`, `goodsnumnum`, `goodsnumstore`) VALUES ('"+
+					String insNumSql = "INSERT INTO goodsnum (idgoodsnum, goodsnumgoods, goodsnumnum, goodsnumstore) VALUES ('"+
 							newid+"', '"+temp.getWarrantbackgoods()+"', '-"+temp.getWarrantbacknum()+"', '"+temp.getWarrantbackstore()+"')";
 					String[] sqls = {insBackSql,insNumSql};
 					result = doAll(sqls);

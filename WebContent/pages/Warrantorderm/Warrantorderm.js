@@ -27,7 +27,7 @@ Ext.onReady(function() {
 	        			    ,'ordermprinttimes' 
 	        			      ];// 全部字段
 	var Warrantordermkeycolumn = [ 'ordermid' ];// 主键
-	var Warrantordermstore = dataStore(Warrantordermfields, basePath + Warrantordermaction + "?method=selLimit&order='ordermtime desc'");// 定义Warrantordermstore
+	var Warrantordermstore = dataStore(Warrantordermfields, basePath + Warrantordermaction + "?method=selLimit&order=ordermtime desc");// 定义Warrantordermstore
 	
 //	var Warrantordermbbar = pagesizebar(Warrantordermstore);//定义分页
 	var Warrantordermgrid =  Ext.create('Ext.grid.Panel', {
@@ -280,6 +280,21 @@ Ext.onReady(function() {
 							var selections = Warrantordermgrid.getSelection();
 							warrantout(selections);
 						}
+			},'-',{
+				text : "打印",
+				xtype: 'button',
+				handler : function() {
+					var selections = Warrantordermgrid.getSelection();
+					if (Ext.isEmpty(selections)) {
+						Ext.Msg.alert('提示', '请选择一条数据！');
+						return;
+					}			//返回当前选定的记录的数组
+					window.open("chukudanPrint.jsp?ordermid="+selections[0].get('ordermid')
+							+"&ordermcode="+selections[0].get('ordermcode')
+							+"&customershop="+selections[0].get('ordermcusshop')
+							+"&ordermdetail="+selections[0].get('ordermdetail')
+							);
+				}
 			}
 		]
 	});
