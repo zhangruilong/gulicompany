@@ -39,7 +39,7 @@ public class CPWarrantcheckviewAction extends WarrantcheckviewAction {
 		};
 		String json = FileUtil.impExcel(fileinfo.getPath(),fieldnames); 
 		if(!CommonUtil.isNull(json)) cuss = CommonConst.GSON.fromJson(json, TYPE);
-		String msg = "操作成功";
+		String msg = "";
 		if(null != cuss && cuss.size()>0){
 			for(int i=0; i < cuss.size(); i++){
 				Warrantcheckview temp = cuss.get(i);
@@ -54,7 +54,7 @@ public class CPWarrantcheckviewAction extends WarrantcheckviewAction {
 			}
 			if(msg.length()>0){
 				msg = "第:"+msg+" 行信息没有查询到对应的“库存总账”信息。";
-			}
+			}else msg = "操作成功";
 		} else {
 			msg = "无法导入此文件。";
 		}
@@ -74,6 +74,7 @@ public class CPWarrantcheckviewAction extends WarrantcheckviewAction {
 				,"storehousename" 		//仓库
   			    ,"warrantchecknumorg" 	//应有数量
   			    ,"warrantchecknumnow" 	//现有数量
+  			    ,"warrantcheckor" 	//盘点人
   			    ,"warrantcheckstatue" 	//状态
   			    ,"warrantcheckdetail" 	//描述
 		};
@@ -92,11 +93,17 @@ public class CPWarrantcheckviewAction extends WarrantcheckviewAction {
 			if(gnLi.size()>0){
 				Goodsnumview gn = gnLi.get(0);
 				//更新库存总账数量
-				String udpGN = "udpate Goodsnum set goodsnumnum='"+temp.getWarrantchecknumnow()+"' where idgoodsnum='"+gn.getIdgoodsnum()+"'";
-				temp.setIdwarrantcheck(CommonUtil.getNewId());
-				temp.setWarrantcheckinswhen(time);
-				temp.setWarrantcheckinswho(lgi.getUsername());
-				String insCheck = getInsSingleSql(temp);
+				String udpGN = "update Goodsnum set goodsnumnum='"+temp.getWarrantchecknumnow()+"' where idgoodsnum='"+gn.getIdgoodsnum()+"'";
+				Warrantcheck mWarrantcheck = new Warrantcheck();
+				mWarrantcheck.setIdwarrantcheck(CommonUtil.getNewId());
+				mWarrantcheck.setWarrantcheckinswhen(time);
+				mWarrantcheck.setWarrantcheckinswho(lgi.getUsername());
+				mWarrantcheck.setWarrantcheckgoods(gn.getGoodsnumgoods());
+				mWarrantcheck.setWarrantchecknumnow(temp.getWarrantchecknumnow());
+				mWarrantcheck.setWarrantchecknumorg(temp.getWarrantchecknumorg());
+				mWarrantcheck.setWarrantcheckor(temp.getWarrantcheckor());
+				mWarrantcheck.setWarrantcheckstore(gn.getGoodsnumstore());
+				String insCheck = getInsSingleSql(mWarrantcheck);
 				String[] sqls = {udpGN,insCheck};
 				result = doAll(sqls);
 				if(!result.equals(CommonConst.SUCCESS)){
