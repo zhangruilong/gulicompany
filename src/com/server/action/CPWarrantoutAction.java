@@ -1,6 +1,7 @@
 package com.server.action;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -51,7 +52,7 @@ public class CPWarrantoutAction extends WarrantoutAction {
 //			sqlLi.add(getUpdSingleSql(gn, GoodsnumPoco.KEYCOLUMN));
 			sqlLi.add(getInsSingleSql(temp));
 		}
-		result = doAll(sqlLi.toArray(new String[0]));
+		result = doAll(sqlLi);
 		responsePW(response, result);
 	}
 	
@@ -73,8 +74,7 @@ public class CPWarrantoutAction extends WarrantoutAction {
 					}
 					sqlLi.add(getUpdSingleSql(wo, WarrantoutPoco.KEYCOLUMN));
 				}
-				String[] sqls = sqlLi.toArray(new String[0]);
-				result = doAll(sqls);
+				result = doAll(sqlLi);
 			}
 		}
 		responsePW(response, result);
@@ -139,30 +139,30 @@ public class CPWarrantoutAction extends WarrantoutAction {
 						if(gnLi.size()>0 && null != gnLi.get(0).getIdgoodsnum()){
 							Integer num =  Integer.parseInt(gnLi.get(0).getGoodsnumnum()) - Integer.parseInt(temp.getWarrantoutnum());
 							String updNumSql = "update goodsnum g set g.goodsnumnum='"+num+"' where g.idgoodsnum='"+gnLi.get(0).getIdgoodsnum()+"'";
-							String[] sqls = null;
+							List<String> sqls = null;
 							if(null != updOrdermSQL){
-								sqls = new String[]{updTemp,updNumSql,updOrdermSQL};
+								sqls = Arrays.asList(updTemp,updNumSql,updOrdermSQL);
 							} else {
-								sqls = new String[]{updTemp,updNumSql};
+								sqls = Arrays.asList(updTemp,updNumSql);
 							}
 							result = doAll(sqls);
 						} else if(null!=type && type.equals("直接出库")){
 							if(gnLi.size()>0 && null != gnLi.get(0).getGoodsid()){
 								String insNumSql = "INSERT INTO `abf`.`goodsnum` (`idgoodsnum`, `goodsnumgoods`, `goodsnumnum`, `goodsnumstore`) VALUES ('"+
 										CommonUtil.getNewId()+"', '"+gnLi.get(0).getGoodsid()+"', '-"+temp.getWarrantoutnum()+"', '"+temp.getWarrantoutstore()+"')";
-								String[] sqls = null;
+								List<String> sqls = null;
 								if(null != updOrdermSQL){
-									sqls = new String[]{updTemp,insNumSql,updOrdermSQL};
+									sqls = Arrays.asList(updTemp,insNumSql,updOrdermSQL);
 								} else {
-									sqls = new String[]{updTemp,insNumSql};
+									sqls = Arrays.asList(updTemp,insNumSql);
 								}
 								result = doAll(sqls);
 							} else {
-								String[] sqls = null;
+								List<String> sqls = null;
 								if(null != updOrdermSQL){
-									sqls = new String[]{updTemp,updOrdermSQL};
+									sqls = Arrays.asList(updTemp,updOrdermSQL);
 								} else {
-									sqls = new String[]{updTemp};
+									sqls = Arrays.asList(updTemp);
 								}
 								result = doAll(sqls);
 							}
@@ -174,7 +174,7 @@ public class CPWarrantoutAction extends WarrantoutAction {
 										+temp.getWarrantoutodm()+"'");
 						if(!CommonUtil.isNull(temp.getWarrantoutodm()) && woNum==1){
 							String updOrdermSQL = "update orderm set ordermstatue='已发货' where ordermid='"+temp.getWarrantoutodm()+"'";
-							String[] sqls = {updTemp,updOrdermSQL};
+							List<String> sqls = Arrays.asList(updTemp,updOrdermSQL);
 							result = doAll(sqls);
 						} else {
 							result = doSingle(updTemp, null);
@@ -205,7 +205,7 @@ public class CPWarrantoutAction extends WarrantoutAction {
 				Integer num = Integer.parseInt(gnLi.get(0).getGoodsnumnum()) + Integer.parseInt(temp.getWarrantoutnum());
 				String updNumSql = "update goodsnum g set g.goodsnumnum='"+num+"' where g.idgoodsnum='"+gnLi.get(0).getIdgoodsnum()+"'";
 				String updTempSql = "update Warrantout set warrantoutstatue='已回滚' where idwarrantout='"+temp.getIdwarrantout()+"'";
-				String[] sqls = {updNumSql,updTempSql};
+				List<String> sqls = Arrays.asList(updNumSql,updTempSql);
 				result = doAll(sqls);
 			}
 		}
@@ -243,7 +243,7 @@ public class CPWarrantoutAction extends WarrantoutAction {
 			if(gnLi.size()>0){
 				Integer num =  Integer.parseInt(gnLi.get(0).getGoodsnumnum()) - Integer.parseInt(temp.getWarrantoutnum());
 				String updNumSql = "update goodsnum g set g.goodsnumnum='"+num+"' where g.idgoodsnum='"+gnLi.get(0).getIdgoodsnum()+"'";
-				String[] sqls = {insSql,updNumSql};
+				List<String> sqls = Arrays.asList(insSql,updNumSql);
 				result = doAll(sqls);
 			} else if(null!=type && type.equals("直接出库")){
 				result = doSingle(insSql, null);

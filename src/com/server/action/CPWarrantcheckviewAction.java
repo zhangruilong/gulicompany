@@ -104,7 +104,9 @@ public class CPWarrantcheckviewAction extends WarrantcheckviewAction {
 				mWarrantcheck.setWarrantcheckor(temp.getWarrantcheckor());
 				mWarrantcheck.setWarrantcheckstore(gn.getGoodsnumstore());
 				String insCheck = getInsSingleSql(mWarrantcheck);
-				String[] sqls = {udpGN,insCheck};
+				ArrayList<String> sqls = new ArrayList<String>();
+				sqls.add(udpGN);
+				sqls.add(insCheck);
 				result = doAll(sqls);
 				if(!result.equals(CommonConst.SUCCESS)){
 					errMsg += i+",";

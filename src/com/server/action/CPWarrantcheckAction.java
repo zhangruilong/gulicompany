@@ -1,5 +1,6 @@
 package com.server.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,7 +34,9 @@ public class CPWarrantcheckAction extends WarrantcheckAction {
 				String updNumSql = "update goodsnum g set g.goodsnumnum='"+temp.getWarrantchecknumorg()+
 						"' where g.idgoodsnum='"+gnLi.get(0).getIdgoodsnum()+"'";
 				String delTempSql = "update Warrantcheck set warrantcheckstatue='已回滚' where idwarrantcheck='"+temp.getIdwarrantcheck()+"'";
-				String[] sqls = {updNumSql,delTempSql};
+				ArrayList<String> sqls = new ArrayList<String>();
+				sqls.add(updNumSql);
+				sqls.add(delTempSql);
 				result = doAll(sqls);
 			} else {
 				result = "{success:true,code:400,msg:'没有找到可以回滚的库存总账信息,操作失败。'}";
@@ -62,12 +65,16 @@ public class CPWarrantcheckAction extends WarrantcheckAction {
 			if(gNumLi.size()>0){
 				String updNumSql = "update goodsnum set goodsnumnum='"+temp.getWarrantchecknumnow()+"' where goodsnumgoods='"+
 						temp.getWarrantcheckgoods()+"' and goodsnumstore='"+temp.getWarrantcheckstore()+"'";
-				String[] sqls = {updNumSql,insCheckSql};
+				ArrayList<String> sqls = new ArrayList<String>();
+				sqls.add(updNumSql);
+				sqls.add(insCheckSql);
 				result = doAll(sqls);
 			} else {
 				String insNumSql = "INSERT INTO `abf`.`goodsnum` (`idgoodsnum`, `goodsnumgoods`, `goodsnumnum`, `goodsnumstore`) VALUES ('"+
 						newid+"', '"+temp.getWarrantcheckgoods()+"', '"+temp.getWarrantchecknumnow()+"', '"+temp.getWarrantcheckstore()+"')";
-				String[] sqls = {insNumSql,insCheckSql};
+				ArrayList<String> sqls = new ArrayList<String>();
+				sqls.add(insNumSql);
+				sqls.add(insCheckSql);
 				result = doAll(sqls);
 			}
 		}

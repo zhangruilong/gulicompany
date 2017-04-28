@@ -101,8 +101,7 @@ public class CPOrderAction extends OrdermviewAction {
 				womLi.get(0).setUpdtime("");;
 				String ordermsql = getInsSingleSql(womLi.get(0));
 				strLi.add(ordermsql);
-				String[] sqls = strLi.toArray(new String[0]);
-				result = doAll(sqls);
+				result = doAll(strLi);
 			} else {
 				result = doSingle(updStaSQL, null);
 			}

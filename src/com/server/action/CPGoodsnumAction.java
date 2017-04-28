@@ -107,7 +107,9 @@ public class CPGoodsnumAction extends GoodsnumAction {
 				gn.setGoodsnumstore(goodsnumstore);
 				gn.setGoodsnumgoods(newid);				//商品ID
 				String addGNSql = getInsSingleSql(gn);			//新增库存总账的sql
-				String[] sqls = {addGooSql,addGNSql};
+				ArrayList<String> sqls = new ArrayList<String>();
+				sqls.add(addGooSql);
+				sqls.add(addGNSql);
 				result = doAll(sqls);
 			} else {
 				Goods goods = isRe.get(0);

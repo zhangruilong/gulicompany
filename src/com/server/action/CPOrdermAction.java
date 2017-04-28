@@ -121,7 +121,7 @@ public class CPOrdermAction extends OrdermAction {
 			String sql = "update orderm om set om.ordermprinttimes='"+timess[i]+"',om.updor='"+lgif.getUsername()+"' where om.ordermid='"+ids[i]+"' ";
 			sqlLi.add(sql);
 		}
-		result = doAll(sqlLi.toArray(new String[0]));
+		result = doAll(sqlLi);
 		responsePW(response, result);
 	}
 	
@@ -173,8 +173,7 @@ public class CPOrdermAction extends OrdermAction {
 				String sqlOrderd = getInsSingleSql(mOrderd);
 				sqls.add(sqlOrderd);
 			}
-			String[] ss = sqls.toArray(new String[0]);
-			result = doAll(ss);
+			result = doAll(sqls);
 		}
 		if(result.equals(CommonConst.FAILURE)){
 			result = "{success:false,msg:'操作失败'}";

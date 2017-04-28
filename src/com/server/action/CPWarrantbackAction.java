@@ -1,5 +1,6 @@
 package com.server.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,7 +33,9 @@ public class CPWarrantbackAction extends WarrantbackAction {
 				if(gnLi.size()>0){
 					Integer num = Integer.parseInt(gnLi.get(0).getGoodsnumnum()) - Integer.parseInt(temp.getWarrantbacknum());
 					String updNumSql = "update goodsnum g set g.goodsnumnum='"+num+"' where g.idgoodsnum='"+gnLi.get(0).getIdgoodsnum()+"'";
-					String[] sqls = {updSql,updNumSql};
+					ArrayList<String> sqls = new ArrayList<String>();
+					sqls.add(updSql);
+					sqls.add(updNumSql);
 					result = doAll(sqls);
 				} else {
 					result = "{success:true,code:400,msg:'操作失败,未找到对应的库存总账信息'}";
@@ -44,7 +47,9 @@ public class CPWarrantbackAction extends WarrantbackAction {
 				if(gnLi.size()>0){
 					Integer num = Integer.parseInt(gnLi.get(0).getGoodsnumnum()) + Integer.parseInt(temp.getWarrantbacknum());
 					String updNumSql = "update goodsnum g set g.goodsnumnum='"+num+"' where g.idgoodsnum='"+gnLi.get(0).getIdgoodsnum()+"'";
-					String[] sqls = {updSql,updNumSql};
+					ArrayList<String> sqls = new ArrayList<String>();
+					sqls.add(updSql);
+					sqls.add(updNumSql);
 					result = doAll(sqls);
 				} else {
 					result = "{success:true,code:400,msg:'操作失败,未找到对应的库存总账信息'}";
@@ -79,12 +84,16 @@ public class CPWarrantbackAction extends WarrantbackAction {
 					Goodsnum gn = gnLi.get(0);
 					gn.setGoodsnumnum((Integer.parseInt(gn.getGoodsnumnum())+Integer.parseInt(temp.getWarrantbacknum()))+"");
 					String updGNSql = getUpdSingleSql(gn, GoodsnumPoco.KEYCOLUMN);
-					String[] sqls = {insBackSql,updGNSql};
+					ArrayList<String> sqls = new ArrayList<String>();
+					sqls.add(insBackSql);
+					sqls.add(updGNSql);
 					result = doAll(sqls);
 				} else {
 					String insNumSql = "INSERT INTO goodsnum (idgoodsnum, goodsnumgoods, goodsnumnum, goodsnumstore) VALUES ('"+
 							newid+"', '"+temp.getWarrantbackgoods()+"', '"+temp.getWarrantbacknum()+"', '"+temp.getWarrantbackstore()+"')";
-					String[] sqls = {insBackSql,insNumSql};
+					ArrayList<String> sqls = new ArrayList<String>();
+					sqls.add(insBackSql);
+					sqls.add(insNumSql);
 					result = doAll(sqls);
 				}
 			} else {
@@ -96,12 +105,16 @@ public class CPWarrantbackAction extends WarrantbackAction {
 					Goodsnum gn = gnLi.get(0);
 					gn.setGoodsnumnum((Integer.parseInt(gn.getGoodsnumnum())-Integer.parseInt(temp.getWarrantbacknum()))+"");
 					String updGNSql = getUpdSingleSql(gn, GoodsnumPoco.KEYCOLUMN);
-					String[] sqls = {insBackSql,updGNSql};
+					ArrayList<String> sqls = new ArrayList<String>();
+					sqls.add(insBackSql);
+					sqls.add(updGNSql);
 					result = doAll(sqls);
 				} else {
 					String insNumSql = "INSERT INTO goodsnum (idgoodsnum, goodsnumgoods, goodsnumnum, goodsnumstore) VALUES ('"+
 							newid+"', '"+temp.getWarrantbackgoods()+"', '-"+temp.getWarrantbacknum()+"', '"+temp.getWarrantbackstore()+"')";
-					String[] sqls = {insBackSql,insNumSql};
+					ArrayList<String> sqls = new ArrayList<String>();
+					sqls.add(insBackSql);
+					sqls.add(insNumSql);
 					result = doAll(sqls);
 				}
 			}/* else {

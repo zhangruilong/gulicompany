@@ -4,7 +4,7 @@ $(function(){
 		url: 'CPWarrantoutviewAction.do?method=selAll',
 		type: 'post',
 		data: {
-			wheresql: "warrantoutodm='"+ordermid+"'"
+			wheresql: "warrantoutodm='"+ordermid+"' and warrantoutstatue='已发货'"
 		},
 		success: function(resp){
 			var data = eval('('+resp+')');

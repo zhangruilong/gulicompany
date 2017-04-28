@@ -78,8 +78,7 @@ public class CPPricesAction extends PricesAction {
 			}
 			String updGooSQL = getUpdSingleSql(goods, GoodsPoco.KEYCOLUMN);
 			sqls.add(updGooSQL);
-			String[] sqlArr = sqls.toArray(new String[sqls.size()]);
-			result = doAll(sqlArr, "mysql");
+			result = doAll(sqls);
 		}
 		responsePW(response, result);
 	}

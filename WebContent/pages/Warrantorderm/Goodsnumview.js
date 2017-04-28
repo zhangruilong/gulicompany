@@ -79,6 +79,7 @@ function goodsnumview(Warrantoutstore,ordermselections) {
 			header : '商品编号',
 			dataIndex : 'goodscode',
 			sortable : true,  
+			width : 120,
 			editor: {
                 xtype: 'textfield'
             }
@@ -87,6 +88,7 @@ function goodsnumview(Warrantoutstore,ordermselections) {
 			header : '商品名称',
 			dataIndex : 'goodsname',
 			sortable : true,  
+			width : 180,
 			editor: {
                 xtype: 'textfield'
             }
@@ -103,6 +105,7 @@ function goodsnumview(Warrantoutstore,ordermselections) {
 			header : '仓库',
 			dataIndex : 'storehousename',
 			sortable : true,  
+			width : 70,
 			editor: {
                 xtype: 'textfield'
             }
@@ -110,7 +113,8 @@ function goodsnumview(Warrantoutstore,ordermselections) {
 		, {
 			header : '数量',
 			dataIndex : 'goodsnumnum',
-			sortable : true,  
+			sortable : true, 
+			width : 50,
 			editor: {
                 xtype: 'textfield'
             }

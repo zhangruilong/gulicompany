@@ -209,7 +209,9 @@ public class CPOrderdAction extends OrderdAction{
 					"',om.ordermrightmoney='"+ordermrightmoney+
 					"',om.updtime='"+DateUtils.getDateTime()+
 					"' where om.ordermid='"+odd.getOrderdorderm()+"'";
-			String[] sqls = {updateOrderdSql,udpateOrdermSql};
+			ArrayList<String> sqls = new ArrayList<String>();
+			sqls.add(updateOrderdSql);
+			sqls.add(udpateOrdermSql);
 			result = doAll(sqls);
 		}
 		responsePW(response, result);

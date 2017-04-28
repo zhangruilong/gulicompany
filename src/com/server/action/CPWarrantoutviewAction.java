@@ -116,8 +116,7 @@ public class CPWarrantoutviewAction extends WarrantoutviewAction {
 			}
 		}
 		if(sqlLi.size()>0){
-			String[] sqls = sqlLi.toArray(new String[0]);
-			result = doAll(sqls);
+			result = doAll(sqlLi);
 			if(result.equals(CommonConst.SUCCESS)){
 				List<String> odmSQLLi = new ArrayList<String>();
 				for (String odmId : odmLi) {
@@ -126,7 +125,7 @@ public class CPWarrantoutviewAction extends WarrantoutviewAction {
 						odmSQLLi.add("update orderm set ordermstatue='已发货' where ordermid='"+odmId+"'");
 					}
 				}
-				doAll(odmSQLLi.toArray(new String[0]));
+				doAll(odmSQLLi);
 			}
 		}
 		responsePW(response, result);

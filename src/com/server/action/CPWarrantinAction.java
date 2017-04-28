@@ -1,6 +1,7 @@
 package com.server.action;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -51,7 +52,7 @@ public class CPWarrantinAction extends WarrantinAction {
 			}
 		}
 		if(sqlLi.size()>0){
-			result = doAll(sqlLi.toArray(new String[0]));
+			result = doAll(sqlLi);
 		}
 		responsePW(response, result);
 	}
@@ -98,7 +99,10 @@ public class CPWarrantinAction extends WarrantinAction {
 			temp.setWarrantininswhen(DateUtils.getDateTime());
 			temp.setWarrantininswho(lInfo.getUsername());
 			String addInSql = getInsSingleSql(temp);		//新增入库台账的sql
-			String[] sqls = {addGooSql,addGNSql,addInSql};
+			ArrayList<String> sqls = new ArrayList<String>();
+			sqls.add(addGooSql);
+			sqls.add(addGNSql);
+			sqls.add(addInSql);
 			result = doAll(sqls);
 		}
 		responsePW(response, result);
@@ -118,7 +122,7 @@ public class CPWarrantinAction extends WarrantinAction {
 				Integer num = Integer.parseInt(gnLi.get(0).getGoodsnumnum()) - Integer.parseInt(temp.getWarrantinnum());
 				String updNumSql = "update goodsnum g set g.goodsnumnum='"+num+"' where g.idgoodsnum='"+gnLi.get(0).getIdgoodsnum()+"'";
 				String delTempSql = "update Warrantin set warrantinstatue='已回滚' where idwarrantin='"+temp.getIdwarrantin()+"'";
-				String[] sqls = {updNumSql,delTempSql};
+				List<String> sqls = Arrays.asList(updNumSql, delTempSql);
 				result = doAll(sqls);
 			}
 		}
@@ -146,12 +150,12 @@ public class CPWarrantinAction extends WarrantinAction {
 			if(gnLi.size()>0){
 				Integer num = Integer.parseInt(temp.getWarrantinnum()) + Integer.parseInt(gnLi.get(0).getGoodsnumnum());
 				String updNumSql = "update goodsnum g set g.goodsnumnum='"+num+"' where g.idgoodsnum='"+gnLi.get(0).getIdgoodsnum()+"'";
-				String[] sqls = {insSql,updNumSql};
+				List<String> sqls = Arrays.asList(insSql, updNumSql);
 				result = doAll(sqls);
 			} else {
 				String insNumSql = "INSERT INTO goodsnum (idgoodsnum, goodsnumgoods, goodsnumnum, goodsnumstore) VALUES ('"+
 						newid+"', '"+temp.getWarrantingoods()+"', '"+temp.getWarrantinnum()+"', '"+temp.getWarrantinstore()+"')";
-				String[] sqls = {insSql,insNumSql};
+				List<String> sqls = Arrays.asList(insSql, insNumSql);
 				result = doAll(sqls);
 			}
 		}

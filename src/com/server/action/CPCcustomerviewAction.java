@@ -66,7 +66,10 @@ public class CPCcustomerviewAction extends CcustomerviewAction {
 			newccustomer.setCreator("1");
 			newccustomer.setCreatetime(temp.getCreatetime());
 			String insCC = getInsSingleSql(newccustomer);			//新增客户关系
-			String[] sqls = {insCus,insAdd,insCC};
+			ArrayList<String> sqls = new ArrayList<String>();
+			sqls.add(insCus);
+			sqls.add(insAdd);
+			sqls.add(insCC);
 			result = doAll(sqls);
 		}
 		responsePW(response, result);
@@ -122,7 +125,9 @@ public class CPCcustomerviewAction extends CcustomerviewAction {
 			String[] ccKey = {"ccustomerid"};
 			String cusSql = getUpdSingleSql(cus, cusKey);
 			String ccSql = getUpdSingleSql(cc, ccKey);
-			String[] sqls = {ccSql,cusSql};
+			ArrayList<String> sqls = new ArrayList<String>();
+			sqls.add(ccSql);
+			sqls.add(cusSql);
 			result = doAll(sqls);
 		}
 		responsePW(response, result);

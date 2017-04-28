@@ -37,11 +37,16 @@ function warrantout(ordermselections) {
 	var Warrantoutkeycolumn = [ 'idwarrantout' ];// 主键
 	
 	var ordermid = "";
+	var storeurl = basePath + "CPWarrantoutviewAction.do?method=selAll&wheresql=warrantoutodm='"+ordermid+"'";
 	if (!Ext.isEmpty(ordermselections)) {
 		ordermid = ordermselections[0].get("ordermid");
-		if(ordermselections[0].get("ordermstatue")=="已发货") isfahuo = true;
+		var storeurl = basePath + "CPWarrantoutviewAction.do?method=selAll&wheresql=warrantoutodm='"+ordermid+"'";
+		if(ordermselections[0].get("ordermstatue")=="已发货") {
+			isfahuo = true;
+			storeurl = basePath + "CPWarrantoutviewAction.do?method=selAll&wheresql=warrantoutodm='"+ordermid+"' and warrantoutstatue='已发货'";
+		}
 	}
-	var Warrantoutstore = dataStore(Warrantoutfields, basePath + "CPWarrantoutviewAction.do?method=selAll&wheresql=warrantoutodm='"+ordermid+"'");// 定义Warrantoutstore
+	var Warrantoutstore = dataStore(Warrantoutfields, storeurl);// 定义Warrantoutstore
 	var Empfields = ['empid'
 		    ,'empcode' 
 		    ,'empdetail' 
@@ -245,7 +250,7 @@ function warrantout(ordermselections) {
 			header : '商品名称',
 			dataIndex : 'warrantoutgname',
 			sortable : true,
-			width : 120
+			width : 180
 		}
 		, {
 			header : '规格',
@@ -357,6 +362,7 @@ function warrantout(ordermselections) {
 		, {
 			header : '仓库',
 			dataIndex : 'storehousename',
+			width : 70,
 			sortable : true
 		}
 		],
