@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
 	<bean id="404" class="com.system.tools.base.HandlerFor404" />
-	<bean id="BaseAction" class="com.system.tools.base.BaseAction" />
 	<bean id="CPCompanyAction" class="com.server.action.CPCompanyAction" />
 	<bean id="CPOrderAction" class="com.server.action.CPOrderAction" />
 	<bean id="CPOrderdAction" class="com.server.action.CPOrderdAction" />

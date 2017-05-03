@@ -367,6 +367,16 @@ var Ccustomerviewgrid =  Ext.create('Ext.grid.Panel', {
 				}
 			}
 		}
+	},{
+		text : "查询",
+		xtype: 'button',
+		handler : function() {
+			Ccustomerviewstore.load({
+				params : {
+					query : Ext.getCmp("queryCcustomerviewaction").getValue()
+				}
+			});
+		}
 	}
 	]
 });

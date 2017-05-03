@@ -278,7 +278,7 @@ Ext.onReady(function() {
 						iconCls : 'select',
 						handler : function() {
 							var selections = Warrantordermgrid.getSelection();
-							warrantout(selections);
+							warrantout(selections,Warrantordermstore);
 						}
 			},'-',{
 				text : "打印",

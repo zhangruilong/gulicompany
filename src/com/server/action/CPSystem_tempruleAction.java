@@ -38,7 +38,7 @@ public class CPSystem_tempruleAction extends System_tempruleAction {
 				for (int i = 0; i < odmids.length; i++) {
 					queryOdLiSQL += "od.orderdorderm='"+odmids[i]+"' or ";
 				}
-				queryOdLiSQL = queryOdLiSQL.substring(0,queryOdLiSQL.length()-3)+") order by orderdid desc";
+				queryOdLiSQL = queryOdLiSQL.substring(0,queryOdLiSQL.length()-3)+") order by orderdcode desc";
 				List<Orderd> odLi = selAll(Orderd.class, queryOdLiSQL);						//查询全部订单的订单商品
 				String queryReOdsSQL = "select od.orderdcode,od.orderdtype,od.orderdunits,od.orderdprice from (select * from orderd where ";
 				for (int i = 0; i < odmids.length; i++) {

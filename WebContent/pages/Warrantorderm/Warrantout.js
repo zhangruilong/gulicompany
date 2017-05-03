@@ -1,4 +1,4 @@
-function warrantout(ordermselections) {
+function warrantout(ordermselections,Warrantordermstore) {
 	var isfahuo = false;
 	var selectgridWindow;
 	var Warrantoutclassify = "warrantout";
@@ -489,7 +489,7 @@ function warrantout(ordermselections) {
 										ordermselections[0].set("ordermstatue","已发货");
 										ordermselections[0].set("ordermdetail",linghuoren);
 										ordermselections[0].set("updtime",new Date().dateFormat("yyyy-MM-dd hh:mm:ss"));
-									}
+									}else Warrantordermstore.reload();
 								},
 								failure : function(response) {
 									alert( '网络出现问题，请稍后再试');
