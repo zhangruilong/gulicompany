@@ -137,6 +137,7 @@ Ext.onReady(function() {
 				name : 'bkgoodscode',
 				maxLength : 100,
 				labelWidth: 70,
+				editable : false,
 				width : 352,
 				margin : '5 10 5 10'
 			},{
@@ -159,6 +160,7 @@ Ext.onReady(function() {
 				fieldLabel : '规格',
 				id : 'Bkgoodsbkgoodsunits',
 				allowBlank : false,
+				editable : false,
 				name : 'bkgoodsunits',
 				maxLength : 100,
 				labelWidth: 40,

@@ -135,6 +135,7 @@ Ext.onReady(function() {
 				name : 'bkgoodscode',
 				maxLength : 100,
 				allowBlank : false,
+				editable : false,
 				labelWidth: 70,
 				width : 352,
 				margin : '5 10 5 10'
@@ -159,6 +160,7 @@ Ext.onReady(function() {
 				id : 'Bkgoodsbkgoodsunits',
 				allowBlank : false,
 				name : 'bkgoodsunits',
+				editable : false,
 				maxLength : 100,
 				labelWidth: 40,
 				width : 352,

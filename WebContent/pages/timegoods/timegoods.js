@@ -139,6 +139,7 @@ Ext.onReady(function() {
 				width : 352,
 				margin : '5 10 5 10',
 				allowBlank : false,
+				editable : false
 			},{
 				xtype : 'textfield',
 				fieldLabel : '商品名称',
@@ -164,6 +165,7 @@ Ext.onReady(function() {
 				width : 352,
 				margin : '5 10 5 10',
 				allowBlank : false,
+				editable : false
 			},{
 				xtype : 'textfield',
 				fieldLabel : '单位',

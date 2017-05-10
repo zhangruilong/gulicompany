@@ -136,6 +136,7 @@ Ext.onReady(function() {
 				maxLength : 100,
 				labelWidth: 70,
 				width : 352,
+				editable : false,
 				margin : '5 10 5 10'
 			},{
 				xtype : 'textfield',
@@ -161,6 +162,7 @@ Ext.onReady(function() {
 				maxLength : 100,
 				labelWidth: 40,
 				width : 352,
+				editable : false,
 				margin : '5 10 5 10'
 			},{
 				xtype : 'textfield',
