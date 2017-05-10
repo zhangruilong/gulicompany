@@ -33,6 +33,7 @@ function warrantout(ordermselections,Warrantordermstore) {
 	        			    ,'storehousename' 
 	        			    ,'idgoodsnum' 
 	        			    ,'goodsnumnum'
+	        			    ,'goodsid'
 	        			      ];// 全部字段
 	var Warrantoutkeycolumn = [ 'idwarrantout' ];// 主键
 	
@@ -46,7 +47,7 @@ function warrantout(ordermselections,Warrantordermstore) {
 			storeurl = basePath + "CPWarrantoutviewAction.do?method=selAll&wheresql=warrantoutodm='"+ordermid+"' and warrantoutstatue='已发货'";
 		}
 	}
-	var Warrantoutstore = dataStore(Warrantoutfields, storeurl);// 定义Warrantoutstore
+	Warrantoutstore = dataStore(Warrantoutfields, storeurl);// 定义Warrantoutstore
 	var Empfields = ['empid'
 		    ,'empcode' 
 		    ,'empdetail' 
@@ -179,6 +180,14 @@ function warrantout(ordermselections,Warrantordermstore) {
 		, {
 			header : '商品',
 			dataIndex : 'warrantoutgoods',
+			hidden : true,  
+			editor: {
+                xtype: 'textfield'
+            }
+		}
+		, {
+			header : 'goodsid',
+			dataIndex : 'goodsid',
 			hidden : true,  
 			editor: {
                 xtype: 'textfield'
@@ -484,6 +493,7 @@ function warrantout(ordermselections,Warrantordermstore) {
 									var resp = Ext.decode(response.responseText); 
 									isfahuo = true;
 									alert( resp.msg)
+									window.localStorage.setItem("linghuoren",linghuoren);
 									if (!Ext.isEmpty(ordermselections)) {
 										ordermselections[0].set("ordermnum",Warrantoutstore.getCount());
 										ordermselections[0].set("ordermstatue","已发货");
@@ -508,7 +518,10 @@ function warrantout(ordermselections,Warrantordermstore) {
 		Ext.getCmp("Warrantordermordermcustomer").setValue(ordermselections[0].get("ordermcustomer"));
 		Ext.getCmp("Warrantordermordermcusshop").setValue(ordermselections[0].get("ordermcusshop"));
 //		Ext.getCmp("Warrantordermordermcode").setValue(ordermselections[0].get("ordermcode"));
-	}
+		if(ordermselections[0].get("ordermstatue")!="已发货"&&window.localStorage.getItem("linghuoren")) 
+			Ext.getCmp("Warrantoutviewwarrantoutwho").setValue(window.localStorage.getItem("linghuoren"));
+	}else if(window.localStorage.getItem("linghuoren")) Ext.getCmp("Warrantoutviewwarrantoutwho").setValue(window.localStorage.getItem("linghuoren"));
+	
 	selectgridWindow = new Ext.Window({
 		title : "出库详情",
 		layout : 'border', // 设置窗口布局模式

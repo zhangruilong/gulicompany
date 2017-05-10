@@ -57,7 +57,7 @@ public class CPGoodsnumAction extends GoodsnumAction {
 					"left outer join storehouse sh on gn.goodsnumstore=sh.storehouseid "+
 					"where g.goodscompany='"+lInfo.getCompanyid()+"' "+storehouseSQL+
 					"group by g.goodsid,g.goodsname,g.goodsunits,sh.storehouseid,sh.storehousename "+
-					"order by g.goodsclass,g.goodsbrand";
+					"order by g.goodsbrand,g.goodsclass";
 		Queryinfo queryinfo = getQueryinfo(request, InventoryVO.class, null, null, new TypeToken<ArrayList<InventoryVO>>() {}.getType());
 		String totalSQL = "select count(*) from ("+sql+") as A";
 		//查询总计信息
@@ -154,7 +154,7 @@ public class CPGoodsnumAction extends GoodsnumAction {
 				"left outer join storehouse sh on gn.goodsnumstore=sh.storehouseid "+
 				"where g.goodscompany='"+lInfo.getCompanyid()+"' "+storehouseSQL+
 				"group by g.goodsid,g.goodsname,g.goodsunits,sh.storehouseid,sh.storehousename "+
-				"order by g.goodsclass,g.goodsbrand";
+				"order by g.goodsbrand,g.goodsclass";
 		//查询总计信息
 		String sumSQL = "select sum(quondamnum) quondamnum,sum(innum) innum,sum(outnum) outnum,sum(outback) outback,sum(inback) inback,sum(goodsnumnum) goodsnumnum from ("+sql+") as A";
 		InventoryVO totalVo = (InventoryVO) selAll(InventoryVO.class, sumSQL).get(0);

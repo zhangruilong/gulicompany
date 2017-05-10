@@ -60,7 +60,9 @@ public class MWarrantordermAction extends WarrantordermAction {
 				mGoodsnum.setIdgoodsnum(CommonUtil.getNewId());
 				mGoodsnum.setGoodsnumstore("2");
 				goodsnumsql = getInsSingleSql(mGoodsnum);
-			}else goodsnumsql = getUpdSingleSql(mGoodsnum,GoodsnumPoco.KEYCOLUMN);
+			}else {
+				goodsnumsql = "update goodsnum set goodsnumnum='"+mGoodsnum.getGoodsnumnum()+"' where idgoodsnum='"+mGoodsnum.getIdgoodsnum()+"'";
+			}
 			sqls.add(goodsnumsql);
 		}
 		Type WarrantoutTYPE = new TypeToken<ArrayList<Warrantout>>() {}.getType();
